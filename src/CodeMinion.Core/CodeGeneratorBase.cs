@@ -10,10 +10,7 @@ namespace CodeMinion.Core
 {
     public abstract class CodeGeneratorBase
     {
-        /// <summary>
-        /// A list of static API classes to generate
-        /// </summary>
-        public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
+        //public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
 
         public string NameSpace { get; set; } = "Numpy";
         public HashSet<string> Usings { get; set; } = new HashSet<string>()
@@ -45,7 +42,8 @@ namespace CodeMinion.Core
                 var retval = GenerateReturnType(decl);
                 var arguments = GenerateArguments(decl);
                 GenerateDocString(decl, s);
-                string declaration = $"public {retval} {decl.Name}({arguments})";
+                var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
+                string declaration = $"public {retval} {decl.Name}{generics}({arguments})";
                 Out(s, 2, declaration);
                 Out(s, 2, "{");
                 GenerateBody(decl, s);
@@ -110,6 +108,8 @@ namespace CodeMinion.Core
                         if (a.Type == "(array_like)")
                             a.Type = type;
                     });
+                    if (type == "T[]")
+                        clone_decl.Generics = new string[] {"T"};
                     yield return clone_decl;
                 }
                 yield break;
@@ -249,7 +249,7 @@ namespace CodeMinion.Core
                 Out(s, 3, $"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
             }
             // then call the function
-            Out(s, 3, $"dynamic py = _self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
+            Out(s, 3, $"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
             // return the return value if any
             if (decl.returns.Count == 0)
                 return;
@@ -303,7 +303,8 @@ namespace CodeMinion.Core
                 var arguments = GenerateArguments(decl);
                 var passed_args = GeneratePassedArgs(decl);
                 GenerateDocString(decl, s);
-                Out(s, 2, $"public static {retval} {decl.Name}({arguments})");
+                var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
+                Out(s, 2, $"public static {retval} {decl.Name}{generics}({arguments})");
                 Out(s, 3, $"=> {api.SingletonName}.Instance.{decl.Name}({passed_args});");
                 s.AppendLine("");
             }
@@ -314,13 +315,26 @@ namespace CodeMinion.Core
             GenerateUsings(s);
             s.AppendLine($"namespace {NameSpace}");
             Out(s, 0, "{");
-            Out(s, 1, $"public partial class {api.SingletonName}");
+            Out(s, 1, $"public partial class {api.SingletonName} : IDisposable");
             Out(s, 1, "{");
             s.AppendLine("");
             foreach (var decl in api.Declarations)
             {
-                GenerateApiFunction(decl, s);
+                if (!decl.ManualOverride)
+                    GenerateApiFunction(decl, s);
             }
+
+            s.AppendLine($"private static Lazy<{api.SingletonName}> _instance = new Lazy<{api.SingletonName}>(() => new {api.SingletonName}());");
+            s.AppendLine($"public static {api.SingletonName} Instance => _instance.Value;");
+
+            s.AppendLine($"Lazy<PyObject> _pyobj = new Lazy<PyObject>(() => Py.Import(\"{api.PythonModule}\"));");
+            s.AppendLine($"public dynamic self => _pyobj.Value;");
+
+            s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
+            s.AppendLine($"public dynamic np => _np.Value;");
+            s.AppendLine($"private {api.SingletonName}() {{ PythonEngine.Initialize(); }}");
+            s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
+
             s.AppendLine("");
             Out(s, 1, "}");
             Out(s, 0, "}");
