@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -311,31 +312,19 @@ namespace CodeMinion.Core
                 var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
                 s.Out($"public static {retval} {decl.Name}{generics}({arguments})");
                 s.Indent(()=>s.Out(
-                    $"=> {api.SingletonName}.Instance.{decl.Name}({passed_args});"));
+                    $"=> {api.ImplName}.Instance.{decl.Name}({passed_args});"));
                 s.AppendLine();
             }
         }
 
-        public virtual void GenerateApiImplementation(StaticApi api, CodeWriter s)
+        public virtual void GenerateApiImpl(StaticApi api, CodeWriter s)
         {
             GenerateUsings(s);
             s.AppendLine($"namespace {NameSpace}");
             s.Block(()=>{
-                s.Out($"public partial class {api.SingletonName} : IDisposable");
+                s.Out($"public partial class {api.ImplName}");
                 s.Block(() => {
                     s.Break();
-                    s.AppendLine($"private static Lazy<{api.SingletonName}> _instance = new Lazy<{api.SingletonName}>(() => new {api.SingletonName}());");
-                    s.AppendLine($"public static {api.SingletonName} Instance => _instance.Value;");
-                    s.Break();
-                    s.AppendLine($"Lazy<PyObject> _pyobj = new Lazy<PyObject>(() => Py.Import(\"{api.PythonModule}\"));");
-                    s.AppendLine($"public dynamic self => _pyobj.Value;");
-                    s.Break();
-                    s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
-                    s.AppendLine($"public dynamic np => _np.Value;");
-                    s.AppendLine($"private {api.SingletonName}() {{ PythonEngine.Initialize(); }}");
-                    s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
-                    s.Break();
-                    s.AppendLine();
                     foreach (var decl in api.Declarations)
                     {
                         if (!decl.ManualOverride)
@@ -365,14 +354,121 @@ namespace CodeMinion.Core
 
         public void Generate()
         {
+            // generate all static apis that have been configured
             foreach (var api in StaticApis)
             {
                 var api_file = Path.Combine(api.OutputPath, $"{api.StaticName}.gen.cs");
-                var impl_file = Path.Combine(api.OutputPath, $"{api.SingletonName}.gen.cs");
+                var conv_file = Path.Combine(api.OutputPath, $"{api.ImplName}.conv.gen.cs");
+                var impl_file = Path.Combine(api.OutputPath, $"{api.ImplName}.gen.cs");
 
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
-                WriteFile(impl_file, s => { GenerateApiImplementation(api, s); });
+                WriteFile(conv_file, s => { GenerateApiImplConversions(api, s); });
+                WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
         }
+
+        private void GenerateApiImplConversions(StaticApi api, CodeWriter s)
+        {
+            GenerateUsings(s);
+            s.AppendLine($"namespace {NameSpace}");
+            s.Block(() => {
+                s.Out($"public partial class {api.ImplName} : IDisposable");
+                s.Block(() => {
+                    s.Break();
+                    s.AppendLine($"private static Lazy<{api.ImplName}> _instance = new Lazy<{api.ImplName}>(() => new {api.ImplName}());");
+                    s.AppendLine($"public static {api.ImplName} Instance => _instance.Value;");
+                    s.Break();
+                    s.AppendLine($"Lazy<PyObject> _pyobj = new Lazy<PyObject>(() => Py.Import(\"{api.PythonModule}\"));");
+                    s.AppendLine($"public dynamic self => _pyobj.Value;");
+                    s.Break();
+                    s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
+                    s.AppendLine($"public dynamic np => _np.Value;");
+                    s.AppendLine($"private {api.ImplName}() {{ PythonEngine.Initialize(); }}");
+                    s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
+                    s.Break();
+                    GenToTuple(s);
+                    GenToPython(s);
+                    GenToCsharp(s);
+                    GenSpecialConversions(s);
+                });
+            });
+        }
+
+        private void GenToTuple(CodeWriter s)
+        {
+            s.Break();
+            s.Out("//auto-generated");
+            s.Out("protected PyTuple ToTuple(Array input)", () =>
+            {
+                s.Out("var array = new PyObject[input.Length];");
+                s.Out("for (int i = 0; i < input.Length; i++)", () =>
+                {
+                    s.Out("array[i]=ToPython(input.GetValue(i));");
+                });
+                s.Out("return new PyTuple(array);");
+            });
+        }
+
+        public HashSet<string> ToCsharpConversions { get; set; } = new HashSet<string>();
+
+        private void GenToCsharp(CodeWriter s)
+        {
+            s.Break();
+            s.Out("//auto-generated");
+            s.Out("protected T ToCsharp<T>(dynamic pyobj)", () =>
+            {
+                s.Out("switch (typeof(T).Name)", () =>
+                {
+                    s.Out("// types from 'ToCsharpConversions'");
+                    foreach (var @case in ToCsharpConversions)
+                    {
+                        s.Out(@case);
+                    }
+                    s.Out("default: return (T)pyobj;");
+                });
+            });
+        }
+
+        public HashSet<string> ToPythonConversions { get; set; } = new HashSet<string>();
+
+        private void GenToPython(CodeWriter s)
+        {
+            s.Break();
+            s.Out("//auto-generated");
+            s.Out("protected PyObject ToPython(object obj)", () =>
+            {
+                s.Out("if (obj == null) return null;");
+                s.Out("switch (obj)", () =>
+                {
+                    s.Out("// basic types");
+                    s.Out("case int o: return new PyInt(o);");
+                    s.Out("case float o: return new PyFloat(o);");
+                    s.Out("case double o: return new PyFloat(o);");
+                    s.Out("case string o: return new PyString(o);");
+                    // case dtype o: return o.ToPython();
+                    s.Out("// sequence types");
+                    s.Out("case Array o: return ToTuple(o);");
+                    s.Out("// special types from 'ToPythonConversions'");
+                    foreach (var @case in ToPythonConversions)
+                    {
+                        s.Out(@case);
+                    }
+                    s.Out("default: throw new NotImplementedException($\"Type is not yet supported: { obj.GetType().Name}. Add it to 'ToPythonConversions'\");");
+                });
+            });
+        }
+
+        public List<Action<CodeWriter>> SpecialConversionGenerators { get; set; } = new List<Action<CodeWriter>>();
+
+        private void GenSpecialConversions(CodeWriter s)
+        {
+            foreach (var generator in SpecialConversionGenerators)
+            {
+                s.Break();
+                s.Out("//auto-generated: SpecialConversions");
+                generator(s);
+            }
+        }
+
     }
 }

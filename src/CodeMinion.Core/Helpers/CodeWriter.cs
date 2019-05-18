@@ -21,11 +21,14 @@ namespace CodeMinion.Core.Helpers
         /// <summary>
         /// Write a line (with automatic indentation), line break is appended
         /// </summary>
-        public void Out(string line)
+        public void Out(string line, Action block=null)
         {
             if (_level > 0)
                 StringBuilder.Append(new String(' ', IndentSpaces * _level));
             StringBuilder.AppendLine(line);
+            if (block==null)
+                return;
+            Block(block);
         }
 
         /// <summary>

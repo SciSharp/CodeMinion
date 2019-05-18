@@ -17,7 +17,7 @@ namespace CodeMinion.Core.Models
         /// <summary>
         /// The static class forwards to this Singleton instance which is the API implementation 
         /// </summary>
-        public string SingletonName { get; set; } = "PyTorch";
+        public string ImplName { get; set; } = "PyTorch";
 
         /// <summary>
         /// API declarations
