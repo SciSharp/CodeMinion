@@ -19,7 +19,19 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string SingletonName { get; set; } = "PyTorch";
 
+        /// <summary>
+        /// API declarations
+        /// </summary>
         public List<Declaration> Declarations { get; set; } = new List<Declaration>();
+
+        /// <summary>
+        /// The python module this API represents
+        /// </summary>
         public string PythonModule { get; set; } = "torch";
+
+        /// <summary>
+        /// Target directory for the generated files
+        /// </summary>
+        public string OutputPath { get; set; }
     }
 }

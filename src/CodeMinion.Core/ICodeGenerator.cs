@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Torch.CodeGenerator
+namespace Torch.ApiGenerator
 {
     public interface ICodeGenerator
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -8,9 +9,14 @@ using CodeMinion.Core.Models;
 
 namespace CodeMinion.Core
 {
-    public abstract class CodeGeneratorBase
+    public class CodeGenerator
     {
-        //public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
+        public CodeGenerator()
+        {
+            LoadTemplates();
+        }
+
+        public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
 
         public string NameSpace { get; set; } = "Numpy";
         public HashSet<string> Usings { get; set; } = new HashSet<string>()
@@ -340,5 +346,32 @@ namespace CodeMinion.Core
             Out(s, 0, "}");
         }
 
+        protected void WriteFile(string path, Action<StringBuilder> generate_action)
+        {
+            var s = new StringBuilder();
+            try
+            {
+                generate_action(s);
+            }
+            catch (Exception e)
+            {
+                s.AppendLine("\r\n --------------- generator exception ---------------------");
+                s.AppendLine(e.Message);
+                s.AppendLine(e.StackTrace);
+            }
+            File.WriteAllText(path, s.ToString());
+        }
+
+        public void Generate()
+        {
+            foreach (var api in StaticApis)
+            {
+                var api_file = Path.Combine( api.OutputPath, $"{api.StaticName}.gen.cs");
+                var impl_file = Path.Combine(api.OutputPath, $"{api.SingletonName}.gen.cs");
+
+                WriteFile(api_file, s => { GenerateStaticApi(api, s); });
+                WriteFile(impl_file, s => { GenerateApiImplementation(api, s); });
+            }
+        }
     }
 }
