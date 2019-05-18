@@ -66,6 +66,8 @@ namespace CodeMinion.Core
             int i = 0;
             foreach (var arg in decl.Arguments)
             {
+                if (arg.Type == "string")
+                    arg.IsValueType = false;
                 // TODO modifier (if any)
                 // parameter type
                 s.Append(MapType(arg));
@@ -73,7 +75,7 @@ namespace CodeMinion.Core
                     s.Append("?");
                 s.Append(" ");
                 // parameter name
-                s.Append(EscapeName(arg.Name));
+                s.Append(EscapeName(arg.Name));                
                 if (!string.IsNullOrWhiteSpace(arg.DefaultValue))
                     s.Append($" = {MapDefaultValue(arg.DefaultValue)}");
                 else if (arg.IsNullable)
@@ -176,11 +178,11 @@ namespace CodeMinion.Core
         // generates the return type declaration of a generated API function declaration
         protected virtual string GenerateReturnType(Declaration decl)
         {
-            if (decl.returns == null || decl.returns.Count == 0)
+            if (decl.Returns == null || decl.Returns.Count == 0)
                 return "void";
-            else if (decl.returns.Count == 1)
+            else if (decl.Returns.Count == 1)
             {
-                return MapType(decl.returns[0]);
+                return MapType(decl.Returns[0]);
             }
             else
             {
@@ -260,10 +262,10 @@ namespace CodeMinion.Core
             // then call the function
             s.Out( $"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
             // return the return value if any
-            if (decl.returns.Count == 0)
+            if (decl.Returns.Count == 0)
                 return;
-            if (decl.returns.Count == 1)
-                s.Out( $"return ToCsharp<{decl.returns[0].Type}>(py);");
+            if (decl.Returns.Count == 1)
+                s.Out( $"return ToCsharp<{decl.Returns[0].Type}>(py);");
             else
             {
                 throw new NotImplementedException("return a tuple or array of return values");
@@ -321,12 +323,6 @@ namespace CodeMinion.Core
             s.Block(()=>{
                 s.Out($"public partial class {api.SingletonName} : IDisposable");
                 s.Block(() => {
-                    s.AppendLine();
-                    foreach (var decl in api.Declarations)
-                    {
-                        if (!decl.ManualOverride)
-                            GenerateApiFunction(decl, s);
-                    }
                     s.Break();
                     s.AppendLine($"private static Lazy<{api.SingletonName}> _instance = new Lazy<{api.SingletonName}>(() => new {api.SingletonName}());");
                     s.AppendLine($"public static {api.SingletonName} Instance => _instance.Value;");
@@ -339,6 +335,12 @@ namespace CodeMinion.Core
                     s.AppendLine($"private {api.SingletonName}() {{ PythonEngine.Initialize(); }}");
                     s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
                     s.Break();
+                    s.AppendLine();
+                    foreach (var decl in api.Declarations)
+                    {
+                        if (!decl.ManualOverride)
+                            GenerateApiFunction(decl, s);
+                    }
                 });
             });
         }
@@ -352,9 +354,11 @@ namespace CodeMinion.Core
             }
             catch (Exception e)
             {
+                s.AppendLine("/*");
                 s.AppendLine("\r\n --------------- generator exception ---------------------");
                 s.AppendLine(e.Message);
                 s.AppendLine(e.StackTrace);
+                s.AppendLine("*/");
             }
             File.WriteAllText(path, s.ToString());
         }
