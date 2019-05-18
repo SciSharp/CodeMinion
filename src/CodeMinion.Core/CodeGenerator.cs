@@ -164,7 +164,7 @@ namespace CodeMinion.Core
 
         // maps None to null, etc
         protected virtual string MapDefaultValue(Argument arg)
-        {            
+        {
             switch (arg.DefaultValue)
             {
                 case "None": return "null";
@@ -244,6 +244,9 @@ namespace CodeMinion.Core
                     return "double";
                 case "string":
                     return "string";
+                case "float":
+                    arg.IsValueType = true;
+                    return "float";
                 case "Object":
                     return "object";
                 // sequence types
@@ -318,7 +321,22 @@ namespace CodeMinion.Core
                     s.Break();
                     foreach (var decl in api.Declarations)
                     {
-                        GenerateStaticApiRedirection(api, decl, s);
+                        try
+                        {
+                            GenerateStaticApiRedirection(api, decl, s);
+                        }
+                        catch (Exception e)
+                        {
+                            s.Out("// Error generating delaration: " + decl.Name);
+                            s.Out("// Message: " + e.Message);
+                            s.Out("/*");
+                            s.Out(e.StackTrace);
+                            s.Out("----------------------------");
+                            s.Out("Declaration JSON:");
+                            s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
+                            s.Out("*/");
+
+                        }
                     }
                     s.Break();
                 });
@@ -346,8 +364,23 @@ namespace CodeMinion.Core
                     s.Break();
                     foreach (var decl in api.Declarations)
                     {
-                        if (!decl.ManualOverride)
-                            GenerateApiFunction(decl, s);
+                        try
+                        {
+                            if (!decl.ManualOverride)
+                                GenerateApiFunction(decl, s);
+                        }
+                        catch (Exception e)
+                        {
+                            s.Out("// Error generating delaration: " + decl.Name);
+                            s.Out("// Message: " + e.Message);
+                            s.Out("/*");
+                            s.Out(e.StackTrace);
+                            s.Out("----------------------------");
+                            s.Out("Declaration JSON:");
+                            s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
+                            s.Out("*/");
+
+                        }
                     }
                 });
             });
