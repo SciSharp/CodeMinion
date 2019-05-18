@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using CodeMinion.Core.Attributes;
+using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
 
 namespace CodeMinion.Core
@@ -41,7 +42,7 @@ namespace CodeMinion.Core
         }
 
         // generate an entire API function declaration
-        protected virtual void GenerateApiFunction(Declaration input_decl, StringBuilder s)
+        protected virtual void GenerateApiFunction(Declaration input_decl, CodeWriter s)
         {
             foreach (var decl in ExpandOverloads(input_decl))
             {
@@ -50,10 +51,11 @@ namespace CodeMinion.Core
                 GenerateDocString(decl, s);
                 var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
                 string declaration = $"public {retval} {decl.Name}{generics}({arguments})";
-                Out(s, 2, declaration);
-                Out(s, 2, "{");
-                GenerateBody(decl, s);
-                Out(s, 2, "}\r\n");
+                s.Out(declaration);
+                s.Block(()=>{
+                    GenerateBody(decl, s);
+                });
+                s.Break();
             }
         }
 
@@ -115,7 +117,7 @@ namespace CodeMinion.Core
                             a.Type = type;
                     });
                     if (type == "T[]")
-                        clone_decl.Generics = new string[] {"T"};
+                        clone_decl.Generics = new string[] { "T" };
                     yield return clone_decl;
                 }
                 yield break;
@@ -225,13 +227,13 @@ namespace CodeMinion.Core
             }
         }
 
-        protected virtual void GenerateDocString(Declaration decl, StringBuilder s)
+        protected virtual void GenerateDocString(Declaration decl, CodeWriter s)
         {
             // TODO: generate xml doc strings from _torch_docs.py
         }
 
         // generates only the body of the API function declaration
-        protected virtual void GenerateBody(Declaration decl, StringBuilder s)
+        protected virtual void GenerateBody(Declaration decl, CodeWriter s)
         {
             if (_templates.ContainsKey(decl.Name))
             {
@@ -239,52 +241,55 @@ namespace CodeMinion.Core
                 _templates[decl.Name].GenerateBody(decl, s);
                 return;
             }
-            Out(s, 3, "//auto-generated code, do not change");
+            s.Out( "//auto-generated code, do not change");
             // first generate the positional args
-            Out(s, 3, $"var args=ToTuple(new object[] {{");
-            foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == false))
-            {
-                Out(s, 4, $"{EscapeName(arg.Name)},");
-            }
-            Out(s, 3, "});");
+            s.Out( $"var args=ToTuple(new object[]");
+            s.Block(()=>{
+                foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == false))
+                {
+                    s.Out( $"{EscapeName(arg.Name)},");
+                }
+            }, "{", "});");
             // then generate the named args
-            Out(s, 3, $"var kwargs=new PyDict();");
+            s.Out( $"var kwargs=new PyDict();");
             foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == true))
             {
                 var name = EscapeName(arg.Name);
-                Out(s, 3, $"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                s.Out( $"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
             }
             // then call the function
-            Out(s, 3, $"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
+            s.Out( $"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
             // return the return value if any
             if (decl.returns.Count == 0)
                 return;
             if (decl.returns.Count == 1)
-                Out(s, 3, $"return ToCsharp<{decl.returns[0].Type}>(py);");
+                s.Out( $"return ToCsharp<{decl.returns[0].Type}>(py);");
             else
             {
                 throw new NotImplementedException("return a tuple or array of return values");
             }
         }
 
-        public virtual void GenerateStaticApi(StaticApi api, StringBuilder s)
+        public virtual void GenerateStaticApi(StaticApi api, CodeWriter s)
         {
             GenerateUsings(s);
-            s.AppendLine($"namespace {NameSpace}");
-            Out(s, 0, "{");
-            Out(s, 1, $"public static partial class {api.StaticName}");
-            Out(s, 1, "{");
-            s.AppendLine("");
-            foreach (var decl in api.Declarations)
+            s.Out($"namespace {NameSpace}");
+            s.Block(() =>
             {
-                GenerateStaticApiRedirection(api, decl, s);
-            }
-            s.AppendLine("");
-            Out(s, 1, "}");
-            Out(s, 0, "}");
+                s.Out($"public static partial class {api.StaticName}");
+                s.Block(() =>
+                {
+                    s.Break();
+                    foreach (var decl in api.Declarations)
+                    {
+                        GenerateStaticApiRedirection(api, decl, s);
+                    }
+                    s.Break();
+                });
+            });
         }
 
-        private void GenerateUsings(StringBuilder s)
+        private void GenerateUsings(CodeWriter s)
         {
             foreach (var @using in Usings)
             {
@@ -293,15 +298,7 @@ namespace CodeMinion.Core
             s.AppendLine();
         }
 
-        private const int INDENT_SPACES = 4;
-        protected void Out(StringBuilder s, int indent_level, string line)
-        {
-            if (indent_level > 0)
-                s.Append(new String(' ', INDENT_SPACES * indent_level));
-            s.AppendLine(line);
-        }
-
-        protected virtual void GenerateStaticApiRedirection(StaticApi api, Declaration input_decl, StringBuilder s)
+        protected virtual void GenerateStaticApiRedirection(StaticApi api, Declaration input_decl, CodeWriter s)
         {
             foreach (var decl in ExpandOverloads(input_decl))
             {
@@ -310,45 +307,45 @@ namespace CodeMinion.Core
                 var passed_args = GeneratePassedArgs(decl);
                 GenerateDocString(decl, s);
                 var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
-                Out(s, 2, $"public static {retval} {decl.Name}{generics}({arguments})");
-                Out(s, 3, $"=> {api.SingletonName}.Instance.{decl.Name}({passed_args});");
-                s.AppendLine("");
+                s.Out($"public static {retval} {decl.Name}{generics}({arguments})");
+                s.Indent(()=>s.Out(
+                    $"=> {api.SingletonName}.Instance.{decl.Name}({passed_args});"));
+                s.AppendLine();
             }
         }
 
-        public virtual void GenerateApiImplementation(StaticApi api, StringBuilder s)
+        public virtual void GenerateApiImplementation(StaticApi api, CodeWriter s)
         {
             GenerateUsings(s);
             s.AppendLine($"namespace {NameSpace}");
-            Out(s, 0, "{");
-            Out(s, 1, $"public partial class {api.SingletonName} : IDisposable");
-            Out(s, 1, "{");
-            s.AppendLine("");
-            foreach (var decl in api.Declarations)
-            {
-                if (!decl.ManualOverride)
-                    GenerateApiFunction(decl, s);
-            }
-
-            s.AppendLine($"private static Lazy<{api.SingletonName}> _instance = new Lazy<{api.SingletonName}>(() => new {api.SingletonName}());");
-            s.AppendLine($"public static {api.SingletonName} Instance => _instance.Value;");
-
-            s.AppendLine($"Lazy<PyObject> _pyobj = new Lazy<PyObject>(() => Py.Import(\"{api.PythonModule}\"));");
-            s.AppendLine($"public dynamic self => _pyobj.Value;");
-
-            s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
-            s.AppendLine($"public dynamic np => _np.Value;");
-            s.AppendLine($"private {api.SingletonName}() {{ PythonEngine.Initialize(); }}");
-            s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
-
-            s.AppendLine("");
-            Out(s, 1, "}");
-            Out(s, 0, "}");
+            s.Block(()=>{
+                s.Out($"public partial class {api.SingletonName} : IDisposable");
+                s.Block(() => {
+                    s.AppendLine();
+                    foreach (var decl in api.Declarations)
+                    {
+                        if (!decl.ManualOverride)
+                            GenerateApiFunction(decl, s);
+                    }
+                    s.Break();
+                    s.AppendLine($"private static Lazy<{api.SingletonName}> _instance = new Lazy<{api.SingletonName}>(() => new {api.SingletonName}());");
+                    s.AppendLine($"public static {api.SingletonName} Instance => _instance.Value;");
+                    s.Break();
+                    s.AppendLine($"Lazy<PyObject> _pyobj = new Lazy<PyObject>(() => Py.Import(\"{api.PythonModule}\"));");
+                    s.AppendLine($"public dynamic self => _pyobj.Value;");
+                    s.Break();
+                    s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
+                    s.AppendLine($"public dynamic np => _np.Value;");
+                    s.AppendLine($"private {api.SingletonName}() {{ PythonEngine.Initialize(); }}");
+                    s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
+                    s.Break();
+                });
+            });
         }
 
-        protected void WriteFile(string path, Action<StringBuilder> generate_action)
+        protected void WriteFile(string path, Action<CodeWriter> generate_action)
         {
-            var s = new StringBuilder();
+            var s = new CodeWriter();
             try
             {
                 generate_action(s);
@@ -366,7 +363,7 @@ namespace CodeMinion.Core
         {
             foreach (var api in StaticApis)
             {
-                var api_file = Path.Combine( api.OutputPath, $"{api.StaticName}.gen.cs");
+                var api_file = Path.Combine(api.OutputPath, $"{api.StaticName}.gen.cs");
                 var impl_file = Path.Combine(api.OutputPath, $"{api.SingletonName}.gen.cs");
 
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
