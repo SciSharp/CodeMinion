@@ -21,6 +21,12 @@ namespace CodeMinion.Core.Models
         public bool IsDeprecated { get; set; }
         public bool ManualOverride { get; set; }
         public string[] Generics { get; set; } = null;
+        public bool CommentOut { get; set; }
+
+        /// <summary>
+        /// Break into the Debugger when generating this declaration
+        /// </summary>
+        public bool DebuggerBreak { get; set; }
 
         public Declaration Clone()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -8,6 +9,8 @@ using System.Text;
 using CodeMinion.Core.Attributes;
 using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CodeMinion.Core
 {
@@ -19,7 +22,7 @@ namespace CodeMinion.Core
         }
 
         public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
-
+        public bool PrintModelJson { get; set; } = false;
         public string NameSpace { get; set; } = "Numpy";
         public HashSet<string> Usings { get; set; } = new HashSet<string>()
         {
@@ -43,21 +46,51 @@ namespace CodeMinion.Core
         }
 
         // generate an entire API function declaration
-        protected virtual void GenerateApiFunction(Declaration input_decl, CodeWriter s)
+        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s)
         {
-            foreach (var decl in ExpandOverloads(input_decl))
+            if (decl.DebuggerBreak)
+                Debugger.Break();
+            if (decl.CommentOut)
+                s.Out("/*");
+            var retval = GenerateReturnType(decl);
+            var arguments = GenerateArguments(decl);
+            GenerateDocString(decl, s);
+            var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
+            string declaration = $"public {retval} {decl.Name}{generics}({arguments})";
+            s.Out(declaration);
+            s.Block(() =>
             {
-                var retval = GenerateReturnType(decl);
-                var arguments = GenerateArguments(decl);
-                GenerateDocString(decl, s);
-                var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
-                string declaration = $"public {retval} {decl.Name}{generics}({arguments})";
-                s.Out(declaration);
-                s.Block(()=>{
-                    GenerateBody(decl, s);
-                });
-                s.Break();
+                GenerateBody(decl, s);
+            });
+            if (decl.CommentOut)
+                s.Out("*/");
+            if (PrintModelJson)
+            {
+                s.Out("// the declaration model:");
+                s.Out("/*");
+                s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
+                s.Out("*/");
             }
+            s.Break();
+        }
+
+        protected virtual void GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s)
+        {
+            if (decl.DebuggerBreak)
+                Debugger.Break();
+            if (decl.CommentOut)
+                s.Out("/*");
+            var retval = GenerateReturnType(decl);
+            var arguments = GenerateArguments(decl);
+            var passed_args = GeneratePassedArgs(decl);
+            GenerateDocString(decl, s);
+            var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
+            s.Out($"public static {retval} {decl.Name}{generics}({arguments})");
+            s.Indent(() => s.Out(
+                $"=> {api.ImplName}.Instance.{decl.Name}({passed_args});"));
+            if (decl.CommentOut)
+                s.Out("*/");
+            s.Break();
         }
 
         // generate the argument list between the parentheses of a generated API function
@@ -76,9 +109,9 @@ namespace CodeMinion.Core
                     s.Append("?");
                 s.Append(" ");
                 // parameter name
-                s.Append(EscapeName(arg.Name));                
+                s.Append(EscapeName(arg.Name));
                 if (!string.IsNullOrWhiteSpace(arg.DefaultValue))
-                    s.Append($" = {MapDefaultValue(arg.DefaultValue)}");
+                    s.Append($" = {MapDefaultValue(arg)}");
                 else if (arg.IsNullable)
                     s.Append($" = null");
                 i++;
@@ -106,39 +139,39 @@ namespace CodeMinion.Core
             return s.ToString();
         }
 
-        protected virtual IEnumerable<Declaration> ExpandOverloads(Declaration decl)
-        {
-            // todo: let's hope there are not multiple expansions in one declaration, or else this will get complicated
-            if (decl.Arguments.Any(a => a.Type == "(array_like)"))
-            {
-                foreach (var type in "NumSharp.NDArray T[]".Split())
-                {
-                    var clone_decl = decl.Clone();
-                    clone_decl.Arguments.ForEach(a =>
-                    {
-                        if (a.Type == "(array_like)")
-                            a.Type = type;
-                    });
-                    if (type == "T[]")
-                        clone_decl.Generics = new string[] { "T" };
-                    yield return clone_decl;
-                }
-                yield break;
-            }
-            yield return decl;
-        }
+        //protected virtual IEnumerable<Declaration> ExpandOverloads(Declaration decl)
+        //{
+        //    // todo: let's hope there are not multiple expansions in one declaration, or else this will get complicated
+        //    if (decl.Arguments.Any(a => a.Type == "(array_like)"))
+        //    {
+        //        foreach (var type in "NumSharp.NDArray T[]".Split())
+        //        {
+        //            var clone_decl = decl.Clone();
+        //            clone_decl.Arguments.ForEach(a =>
+        //            {
+        //                if (a.Type == "(array_like)")
+        //                    a.Type = type;
+        //            });
+        //            if (type == "T[]")
+        //                clone_decl.Generics = new string[] { "T" };
+        //            yield return clone_decl;
+        //        }
+        //        yield break;
+        //    }
+        //    yield return decl;
+        //}
 
 
         // maps None to null, etc
-        protected virtual string MapDefaultValue(string DefaultValue)
-        {
-            switch (DefaultValue)
+        protected virtual string MapDefaultValue(Argument arg)
+        {            
+            switch (arg.DefaultValue)
             {
                 case "None": return "null";
                 case "True": return "true";
                 case "False": return "false";
             }
-            return DefaultValue;
+            return arg.DefaultValue;
         }
 
         // list of c# keywords that are not allowed as variable names or parameter names
@@ -224,7 +257,6 @@ namespace CodeMinion.Core
                 case "Tensor":
                     return "Tensor";
                 default:
-                    arg.IsValueType = true;
                     // Console.WriteLine("MapType doesn't handle type: " + arg.type);
                     return arg.Type.Replace("torch.", string.Empty);
             }
@@ -244,29 +276,30 @@ namespace CodeMinion.Core
                 _templates[decl.Name].GenerateBody(decl, s);
                 return;
             }
-            s.Out( "//auto-generated code, do not change");
+            s.Out("//auto-generated code, do not change");
             // first generate the positional args
-            s.Out( $"var args=ToTuple(new object[]");
-            s.Block(()=>{
+            s.Out($"var args=ToTuple(new object[]");
+            s.Block(() =>
+            {
                 foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == false))
                 {
-                    s.Out( $"{EscapeName(arg.Name)},");
+                    s.Out($"{EscapeName(arg.Name)},");
                 }
             }, "{", "});");
             // then generate the named args
-            s.Out( $"var kwargs=new PyDict();");
+            s.Out($"var kwargs=new PyDict();");
             foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == true))
             {
                 var name = EscapeName(arg.Name);
-                s.Out( $"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
             }
             // then call the function
-            s.Out( $"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
+            s.Out($"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
             // return the return value if any
             if (decl.Returns.Count == 0)
                 return;
             if (decl.Returns.Count == 1)
-                s.Out( $"return ToCsharp<{decl.Returns[0].Type}>(py);");
+                s.Out($"return ToCsharp<{decl.Returns[0].Type}>(py);");
             else
             {
                 throw new NotImplementedException("return a tuple or array of return values");
@@ -301,29 +334,15 @@ namespace CodeMinion.Core
             s.AppendLine();
         }
 
-        protected virtual void GenerateStaticApiRedirection(StaticApi api, Declaration input_decl, CodeWriter s)
-        {
-            foreach (var decl in ExpandOverloads(input_decl))
-            {
-                var retval = GenerateReturnType(decl);
-                var arguments = GenerateArguments(decl);
-                var passed_args = GeneratePassedArgs(decl);
-                GenerateDocString(decl, s);
-                var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
-                s.Out($"public static {retval} {decl.Name}{generics}({arguments})");
-                s.Indent(()=>s.Out(
-                    $"=> {api.ImplName}.Instance.{decl.Name}({passed_args});"));
-                s.AppendLine();
-            }
-        }
-
         public virtual void GenerateApiImpl(StaticApi api, CodeWriter s)
         {
             GenerateUsings(s);
             s.AppendLine($"namespace {NameSpace}");
-            s.Block(()=>{
+            s.Block(() =>
+            {
                 s.Out($"public partial class {api.ImplName}");
-                s.Block(() => {
+                s.Block(() =>
+                {
                     s.Break();
                     foreach (var decl in api.Declarations)
                     {
@@ -371,9 +390,11 @@ namespace CodeMinion.Core
         {
             GenerateUsings(s);
             s.AppendLine($"namespace {NameSpace}");
-            s.Block(() => {
+            s.Block(() =>
+            {
                 s.Out($"public partial class {api.ImplName} : IDisposable");
-                s.Block(() => {
+                s.Block(() =>
+                {
                     s.Break();
                     s.AppendLine($"private static Lazy<{api.ImplName}> _instance = new Lazy<{api.ImplName}>(() => new {api.ImplName}());");
                     s.AppendLine($"public static {api.ImplName} Instance => _instance.Value;");
