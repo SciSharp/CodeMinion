@@ -104,7 +104,8 @@ namespace CodeMinion.Core
                     arg.IsValueType = false;
                 // TODO modifier (if any)
                 // parameter type
-                s.Append(MapType(arg));
+                CheckArgument(arg);
+                s.Append(arg.Type);
                 if (arg.IsNullable && arg.IsValueType)
                     s.Append("?");
                 s.Append(" ");
@@ -216,7 +217,8 @@ namespace CodeMinion.Core
                 return "void";
             else if (decl.Returns.Count == 1)
             {
-                return MapType(decl.Returns[0]);
+                CheckArgument(decl.Returns[0]);
+                return decl.Returns[0].Type;
             }
             else
             {
@@ -224,44 +226,24 @@ namespace CodeMinion.Core
             }
         }
 
-        // maps a Python type to C# type
-        protected virtual string MapType(Argument arg)
+        // argument type consistency checks
+        protected virtual void CheckArgument(Argument arg)
         {
             switch (arg.Type)
             {
                 // basic types
                 case "bool":
-                    arg.IsValueType = true;
-                    return "bool";
                 case "int":
-                    arg.IsValueType = true;
-                    return "int";
-                case "int64_t":
-                    arg.IsValueType = true;
-                    return "long";
+                case "long":
                 case "double":
-                    arg.IsValueType = true;
-                    return "double";
-                case "string":
-                    return "string";
                 case "float":
                     arg.IsValueType = true;
-                    return "float";
-                case "Object":
-                    return "object";
+                    break;
+                case "object":
+                case "string":
+                    arg.IsValueType = false;
+                    break;
                 // sequence types
-                case "IntArrayRef":
-                    if (arg.Name == "size")
-                        return "NumSharp.Shape"; // <-- int[] size usually means Shape of the tensor. 
-                    return "int[]";
-                // torch types
-                case "int...":
-                    return "NumSharp.Shape";
-                case "Tensor":
-                    return "Tensor";
-                default:
-                    // Console.WriteLine("MapType doesn't handle type: " + arg.type);
-                    return arg.Type.Replace("torch.", string.Empty);
             }
         }
 
