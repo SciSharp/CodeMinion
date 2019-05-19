@@ -77,7 +77,7 @@ namespace Torch.ApiGenerator
 
                 foreach (var node in nodes)
                 {
-                    var decl = new Declaration();
+                    var decl = new Function();
                     ParseFunctionName(decl, node);
                     if (ManualOverride.Contains(decl.Name)) continue;
                     if (!InMigrationApiList(decl.Name)) continue;
@@ -116,7 +116,7 @@ namespace Torch.ApiGenerator
             }
         }
 
-        private void ParseArguments(Declaration decl, HtmlNode node)
+        private void ParseArguments(Function decl, HtmlNode node)
         {
             decl.Arguments = new List<Argument>();
             var p_nodes = node.Descendants("dd").First().Descendants("dl").FirstOrDefault();
@@ -200,7 +200,7 @@ namespace Torch.ApiGenerator
             }
         }
 
-        private IEnumerable<Declaration> InferOverloads(Declaration decl)
+        private IEnumerable<Function> InferOverloads(Function decl)
         {
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
@@ -213,7 +213,7 @@ namespace Torch.ApiGenerator
             {
                 foreach (var type in "NDarray T[]".Split())
                 {
-                    var clone_decl = decl.Clone();
+                    var clone_decl = decl.Clone<Function>();
                     clone_decl.Arguments.ForEach(a =>
                     {
                         if (a.Type == "array_like")

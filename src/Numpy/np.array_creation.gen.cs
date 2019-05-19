@@ -10,7 +10,7 @@ using NumSharp;
 
 namespace Numpy
 {
-    public partial class NumPy
+    public static partial class np
     {
         
         /// <summary>
@@ -39,19 +39,8 @@ namespace Numpy
         /// Array of uninitialized (arbitrary) data of the given shape, dtype, and
         /// order.  Object arrays will be initialized to None.
         /// </returns>
-        public NDarray empty(NumSharp.Shape shape, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                shape,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("empty", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray empty(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+            => NumPy.Instance.empty(shape, dtype:dtype, order:order);
         
         /// <summary>
         /// Return a new array with the same shape and type as a given array.
@@ -84,20 +73,8 @@ namespace Numpy
         /// Array of uninitialized (arbitrary) data with the same
         /// shape and type as prototype.
         /// </returns>
-        public NDarray empty_like(NDarray prototype, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                prototype,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("empty_like", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray empty_like(NDarray prototype, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.empty_like(prototype, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return a new array with the same shape and type as a given array.
@@ -130,20 +107,8 @@ namespace Numpy
         /// Array of uninitialized (arbitrary) data with the same
         /// shape and type as prototype.
         /// </returns>
-        public NDarray<T> empty_like<T>(T[] prototype, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                prototype,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("empty_like", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> empty_like<T>(T[] prototype, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.empty_like(prototype, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return a 2-D array with ones on the diagonal and zeros elsewhere.
@@ -170,21 +135,8 @@ namespace Numpy
         /// An array where all elements are equal to zero, except for the k-th
         /// diagonal, whose values are equal to one.
         /// </returns>
-        public NDarray eye(int N, int? M = null, int? k = null, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                N,
-            });
-            var kwargs=new PyDict();
-            if (M!=null) kwargs["M"]=ToPython(M);
-            if (k!=null) kwargs["k"]=ToPython(k);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("eye", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray eye(int N, int? M = null, int? k = null, Dtype dtype = null, string order = null)
+            => NumPy.Instance.eye(N, M:M, k:k, dtype:dtype, order:order);
         
         /// <summary>
         /// Return the identity array.
@@ -202,18 +154,8 @@ namespace Numpy
         /// n x n array with its main diagonal set to one,
         /// and all other elements 0.
         /// </returns>
-        public NDarray identity(int n, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                n,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("identity", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray identity(int n, Dtype dtype = null)
+            => NumPy.Instance.identity(n, dtype:dtype);
         
         /// <summary>
         /// Return a new array of given shape and type, filled with ones.
@@ -233,19 +175,8 @@ namespace Numpy
         /// <returns>
         /// Array of ones with the given shape, dtype, and order.
         /// </returns>
-        public NDarray ones(NumSharp.Shape shape, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                shape,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("ones", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray ones(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+            => NumPy.Instance.ones(shape, dtype:dtype, order:order);
         
         /// <summary>
         /// Return an array of ones with the same shape and type as a given array.
@@ -271,20 +202,8 @@ namespace Numpy
         /// <returns>
         /// Array of ones with the same shape and type as a.
         /// </returns>
-        public NDarray ones_like(NDarray a, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("ones_like", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray ones_like(NDarray a, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.ones_like(a, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return an array of ones with the same shape and type as a given array.
@@ -310,20 +229,8 @@ namespace Numpy
         /// <returns>
         /// Array of ones with the same shape and type as a.
         /// </returns>
-        public NDarray<T> ones_like<T>(T[] a, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("ones_like", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> ones_like<T>(T[] a, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.ones_like(a, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return a new array of given shape and type, filled with zeros.
@@ -343,19 +250,8 @@ namespace Numpy
         /// <returns>
         /// Array of zeros with the given shape, dtype, and order.
         /// </returns>
-        public NDarray zeros(NumSharp.Shape shape, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                shape,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("zeros", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray zeros(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+            => NumPy.Instance.zeros(shape, dtype:dtype, order:order);
         
         /// <summary>
         /// Return an array of zeros with the same shape and type as a given array.
@@ -381,20 +277,8 @@ namespace Numpy
         /// <returns>
         /// Array of zeros with the same shape and type as a.
         /// </returns>
-        public NDarray zeros_like(NDarray a, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("zeros_like", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray zeros_like(NDarray a, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.zeros_like(a, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return an array of zeros with the same shape and type as a given array.
@@ -420,20 +304,8 @@ namespace Numpy
         /// <returns>
         /// Array of zeros with the same shape and type as a.
         /// </returns>
-        public NDarray<T> zeros_like<T>(T[] a, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("zeros_like", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> zeros_like<T>(T[] a, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.zeros_like(a, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return a new array of given shape and type, filled with fill_value.
@@ -451,20 +323,8 @@ namespace Numpy
         /// <returns>
         /// Array of fill_value with the given shape, dtype, and order.
         /// </returns>
-        public NDarray full(NumSharp.Shape shape, ValueType fill_value, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                shape,
-                fill_value,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("full", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray full(NumSharp.Shape shape, ValueType fill_value, Dtype dtype = null, string order = null)
+            => NumPy.Instance.full(shape, fill_value, dtype:dtype, order:order);
         
         /// <summary>
         /// Return a full array with the same shape and type as a given array.
@@ -493,21 +353,8 @@ namespace Numpy
         /// <returns>
         /// Array of fill_value with the same shape and type as a.
         /// </returns>
-        public NDarray full_like(NDarray a, ValueType fill_value, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-                fill_value,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("full_like", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray full_like(NDarray a, ValueType fill_value, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.full_like(a, fill_value, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Return a full array with the same shape and type as a given array.
@@ -536,21 +383,8 @@ namespace Numpy
         /// <returns>
         /// Array of fill_value with the same shape and type as a.
         /// </returns>
-        public NDarray<T> full_like<T>(T[] a, ValueType fill_value, Dtype? dtype = null, string order = null, bool? subok = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-                fill_value,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            dynamic py = self.InvokeMethod("full_like", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> full_like<T>(T[] a, ValueType fill_value, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.full_like(a, fill_value, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
         /// Create an array.
@@ -599,22 +433,8 @@ namespace Numpy
         /// <returns>
         /// An array object satisfying the specified requirements.
         /// </returns>
-        public NDarray array(NDarray @object, Dtype? dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                @object,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            if (ndmin!=null) kwargs["ndmin"]=ToPython(ndmin);
-            dynamic py = self.InvokeMethod("array", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray array(NDarray @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
+            => NumPy.Instance.array(@object, dtype:dtype, copy:copy, order:order, subok:subok, ndmin:ndmin);
         
         /// <summary>
         /// Create an array.
@@ -663,22 +483,8 @@ namespace Numpy
         /// <returns>
         /// An array object satisfying the specified requirements.
         /// </returns>
-        public NDarray<T> array<T>(T[] @object, Dtype? dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                @object,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            if (ndmin!=null) kwargs["ndmin"]=ToPython(ndmin);
-            dynamic py = self.InvokeMethod("array", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> array<T>(T[] @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
+            => NumPy.Instance.array(@object, dtype:dtype, copy:copy, order:order, subok:subok, ndmin:ndmin);
         
         /// <summary>
         /// Convert the input to an array.
@@ -701,19 +507,8 @@ namespace Numpy
         /// is already an ndarray with matching dtype and order.  If a is a
         /// subclass of ndarray, a base class ndarray is returned.
         /// </returns>
-        public NDarray asarray(NDarray a, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("asarray", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray asarray(NDarray a, Dtype dtype = null, string order = null)
+            => NumPy.Instance.asarray(a, dtype:dtype, order:order);
         
         /// <summary>
         /// Convert the input to an array.
@@ -736,19 +531,8 @@ namespace Numpy
         /// is already an ndarray with matching dtype and order.  If a is a
         /// subclass of ndarray, a base class ndarray is returned.
         /// </returns>
-        public NDarray<T> asarray<T>(T[] a, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("asarray", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> asarray<T>(T[] a, Dtype dtype = null, string order = null)
+            => NumPy.Instance.asarray(a, dtype:dtype, order:order);
         
         /// <summary>
         /// Convert the input to an ndarray, but pass ndarray subclasses through.
@@ -769,19 +553,8 @@ namespace Numpy
         /// Array interpretation of a.  If a is an ndarray or a subclass
         /// of ndarray, it is returned as-is and no copy is performed.
         /// </returns>
-        public NDarray asanyarray(NDarray a, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("asanyarray", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray asanyarray(NDarray a, Dtype dtype = null, string order = null)
+            => NumPy.Instance.asanyarray(a, dtype:dtype, order:order);
         
         /// <summary>
         /// Convert the input to an ndarray, but pass ndarray subclasses through.
@@ -802,19 +575,8 @@ namespace Numpy
         /// Array interpretation of a.  If a is an ndarray or a subclass
         /// of ndarray, it is returned as-is and no copy is performed.
         /// </returns>
-        public NDarray<T> asanyarray<T>(T[] a, Dtype? dtype = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("asanyarray", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> asanyarray<T>(T[] a, Dtype dtype = null, string order = null)
+            => NumPy.Instance.asanyarray(a, dtype:dtype, order:order);
         
         /// <summary>
         /// Return a contiguous array (ndim &gt;= 1) in memory (C order).
@@ -829,18 +591,8 @@ namespace Numpy
         /// Contiguous array of same shape and content as a, with type dtype
         /// if specified.
         /// </returns>
-        public NDarray ascontiguousarray(NDarray a, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("ascontiguousarray", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray ascontiguousarray(NDarray a, Dtype dtype = null)
+            => NumPy.Instance.ascontiguousarray(a, dtype:dtype);
         
         /// <summary>
         /// Return a contiguous array (ndim &gt;= 1) in memory (C order).
@@ -855,18 +607,8 @@ namespace Numpy
         /// Contiguous array of same shape and content as a, with type dtype
         /// if specified.
         /// </returns>
-        public NDarray<T> ascontiguousarray<T>(T[] a, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("ascontiguousarray", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> ascontiguousarray<T>(T[] a, Dtype dtype = null)
+            => NumPy.Instance.ascontiguousarray(a, dtype:dtype);
         
         /// <summary>
         /// Interpret the input as a matrix.
@@ -883,18 +625,8 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix asmatrix(NDarray data, Dtype dtype)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                data,
-                dtype,
-            });
-            var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("asmatrix", args, kwargs);
-            return ToCsharp<matrix>(py);
-        }
+        public static matrix asmatrix(NDarray data, Dtype dtype)
+            => NumPy.Instance.asmatrix(data, dtype);
         
         /// <summary>
         /// Interpret the input as a matrix.
@@ -911,18 +643,8 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix asmatrix<T>(T[] data, Dtype dtype)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                data,
-                dtype,
-            });
-            var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("asmatrix", args, kwargs);
-            return ToCsharp<matrix>(py);
-        }
+        public static matrix asmatrix<T>(T[] data, Dtype dtype)
+            => NumPy.Instance.asmatrix(data, dtype);
         
         /// <summary>
         /// Return an array copy of the given object.
@@ -945,18 +667,8 @@ namespace Numpy
         /// <returns>
         /// Array interpretation of a.
         /// </returns>
-        public NDarray copy(NDarray a, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("copy", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray copy(NDarray a, string order = null)
+            => NumPy.Instance.copy(a, order:order);
         
         /// <summary>
         /// Return an array copy of the given object.
@@ -979,18 +691,8 @@ namespace Numpy
         /// <returns>
         /// Array interpretation of a.
         /// </returns>
-        public NDarray<T> copy<T>(T[] a, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("copy", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> copy<T>(T[] a, string order = null)
+            => NumPy.Instance.copy(a, order:order);
         
         /*
         /// <summary>
@@ -1016,19 +718,8 @@ namespace Numpy
         /// <param name="offset">
         /// Start reading the buffer from this offset (in bytes); default: 0.
         /// </param>
-        public void frombuffer(buffer_like buffer, Dtype? dtype = null, int? count = null, int? offset = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                buffer,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (count!=null) kwargs["count"]=ToPython(count);
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
-            dynamic py = self.InvokeMethod("frombuffer", args, kwargs);
-        }
+        public static void frombuffer(buffer_like buffer, Dtype dtype = null, int? count = null, int? offset = null)
+            => NumPy.Instance.frombuffer(buffer, dtype:dtype, count:count, offset:offset);
         */
         
         /// <summary>
@@ -1065,19 +756,8 @@ namespace Numpy
         /// A separator consisting only of spaces must match at least one
         /// whitespace.
         /// </param>
-        public void fromfile(string file, Dtype dtype, int count, string sep)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                file,
-                dtype,
-                count,
-                sep,
-            });
-            var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("fromfile", args, kwargs);
-        }
+        public static void fromfile(string file, Dtype dtype, int count, string sep)
+            => NumPy.Instance.fromfile(file, dtype, count, sep);
         
         /// <summary>
         /// Construct an array by executing a function over each coordinate.
@@ -1110,19 +790,8 @@ namespace Numpy
         /// function.  If function returns a scalar value, the shape of
         /// fromfunction would not match the shape parameter.
         /// </returns>
-        public object fromfunction(Delegate function, NumSharp.Shape shape, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                function,
-                shape,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("fromfunction", args, kwargs);
-            return ToCsharp<object>(py);
-        }
+        public static object fromfunction(Delegate function, NumSharp.Shape shape, Dtype dtype = null)
+            => NumPy.Instance.fromfunction(function, shape, dtype:dtype);
         
         /// <summary>
         /// Create a new 1-dimensional array from an iterable object.
@@ -1145,19 +814,8 @@ namespace Numpy
         /// <returns>
         /// The output array.
         /// </returns>
-        public NDarray<T> fromiter<T>(IEnumerable<T> iterable, Dtype dtype, int? count = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                iterable,
-                dtype,
-            });
-            var kwargs=new PyDict();
-            if (count!=null) kwargs["count"]=ToPython(count);
-            dynamic py = self.InvokeMethod("fromiter", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> fromiter<T>(IEnumerable<T> iterable, Dtype dtype, int? count = null)
+            => NumPy.Instance.fromiter(iterable, dtype, count:count);
         
         /// <summary>
         /// A new 1-D array initialized from text data in a string.
@@ -1181,20 +839,8 @@ namespace Numpy
         /// <returns>
         /// The constructed array.
         /// </returns>
-        public NDarray fromstring(string @string, Dtype? dtype = null, int? count = null, string sep = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                @string,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (count!=null) kwargs["count"]=ToPython(count);
-            if (sep!=null) kwargs["sep"]=ToPython(sep);
-            dynamic py = self.InvokeMethod("fromstring", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray fromstring(string @string, Dtype dtype = null, int? count = null, string sep = null)
+            => NumPy.Instance.fromstring(@string, dtype:dtype, count:count, sep:sep);
         
         /// <summary>
         /// Load data from a text file.
@@ -1272,27 +918,8 @@ namespace Numpy
         /// <returns>
         /// Data read from the text file.
         /// </returns>
-        public NDarray loadtxt(string fname, Dtype? dtype = null, string[] comments = null, string delimiter = null, Hashtable converters = null, int? skiprows = null, int[] usecols = null, bool? unpack = null, int? ndmin = null, string encoding = null, int? max_rows = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                fname,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (comments!=null) kwargs["comments"]=ToPython(comments);
-            if (delimiter!=null) kwargs["delimiter"]=ToPython(delimiter);
-            if (converters!=null) kwargs["converters"]=ToPython(converters);
-            if (skiprows!=null) kwargs["skiprows"]=ToPython(skiprows);
-            if (usecols!=null) kwargs["usecols"]=ToPython(usecols);
-            if (unpack!=null) kwargs["unpack"]=ToPython(unpack);
-            if (ndmin!=null) kwargs["ndmin"]=ToPython(ndmin);
-            if (encoding!=null) kwargs["encoding"]=ToPython(encoding);
-            if (max_rows!=null) kwargs["max_rows"]=ToPython(max_rows);
-            dynamic py = self.InvokeMethod("loadtxt", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray loadtxt(string fname, Dtype dtype = null, string[] comments = null, string delimiter = null, Hashtable converters = null, int? skiprows = null, int[] usecols = null, bool? unpack = null, int? ndmin = null, string encoding = null, int? max_rows = null)
+            => NumPy.Instance.loadtxt(fname, dtype:dtype, comments:comments, delimiter:delimiter, converters:converters, skiprows:skiprows, usecols:usecols, unpack:unpack, ndmin:ndmin, encoding:encoding, max_rows:max_rows);
         
         /// <summary>
         /// Create a chararray.
@@ -1331,20 +958,8 @@ namespace Numpy
         /// be in any order (either C-, Fortran-contiguous, or even
         /// discontiguous).
         /// </param>
-        public void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                obj,
-            });
-            var kwargs=new PyDict();
-            if (itemsize!=null) kwargs["itemsize"]=ToPython(itemsize);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            if (unicode!=null) kwargs["unicode"]=ToPython(unicode);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("array", args, kwargs);
-        }
+        public static void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
+            => NumPy.Instance.array(obj, itemsize:itemsize, copy:copy, unicode:unicode, order:order);
         
         /// <summary>
         /// Convert the input to a chararray, copying the data only if
@@ -1376,19 +991,8 @@ namespace Numpy
         /// will be in Fortran-contiguous order (first-index varies the
         /// fastest).
         /// </param>
-        public void asarray(string[] obj, int? itemsize = null, bool? unicode = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                obj,
-            });
-            var kwargs=new PyDict();
-            if (itemsize!=null) kwargs["itemsize"]=ToPython(itemsize);
-            if (unicode!=null) kwargs["unicode"]=ToPython(unicode);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("asarray", args, kwargs);
-        }
+        public static void asarray(string[] obj, int? itemsize = null, bool? unicode = null, string order = null)
+            => NumPy.Instance.asarray(obj, itemsize:itemsize, unicode:unicode, order:order);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1428,20 +1032,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(byte start, byte stop, byte step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(byte start, byte stop, byte step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(start, stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1477,19 +1069,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(byte stop, byte step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(byte stop, byte step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1529,20 +1110,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(short start, short stop, short step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(short start, short stop, short step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(start, stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1578,19 +1147,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(short stop, short step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(short stop, short step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1630,20 +1188,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(int start, int stop, int step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(int start, int stop, int step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(start, stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1679,19 +1225,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(int stop, int step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(int stop, int step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1731,20 +1266,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(long start, long stop, long step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(long start, long stop, long step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(start, stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1780,19 +1303,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(long stop, long step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(long stop, long step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1832,20 +1344,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(float start, float stop, float step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(float start, float stop, float step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(start, stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1881,19 +1381,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(float stop, float step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(float stop, float step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1933,20 +1422,8 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(double start, double stop, double step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(double start, double stop, double step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(start, stop, step:step, dtype:dtype);
         
         /// <summary>
         /// Return evenly spaced values within a given interval.
@@ -1982,31 +1459,66 @@ namespace Numpy
         /// this rule may result in the last element of out being greater
         /// than stop.
         /// </returns>
-        public NDarray arange(double stop, double step = 1, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (step!=null) kwargs["step"]=ToPython(step);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("arange", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray arange(double stop, double step = 1, Dtype dtype = null)
+            => NumPy.Instance.arange(stop, step:step, dtype:dtype);
         
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 228
-   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 56
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass32_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 387
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 251
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 98
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 401
         ----------------------------
         Declaration JSON:
         {
-  "Name": "linspace",
-  "ClassName": "numpy",
   "Arguments": [
     {
       "IsNullable": false,
@@ -2055,7 +1567,7 @@ namespace Numpy
     },
     {
       "IsNullable": true,
-      "IsValueType": true,
+      "IsValueType": false,
       "Name": "dtype",
       "Type": "Dtype",
       "DefaultValue": null,
@@ -2072,6 +1584,9 @@ namespace Numpy
       "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end."
     }
   ],
+  "Generics": null,
+  "Name": "linspace",
+  "ClassName": "numpy",
   "Returns": [
     {
       "IsNullable": false,
@@ -2094,23 +1609,68 @@ namespace Numpy
   ],
   "IsDeprecated": false,
   "ManualOverride": false,
-  "Generics": null,
   "CommentOut": false,
   "DebuggerBreak": false,
   "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
 }
         */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 228
-   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 56
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass32_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 387
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 251
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 98
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 401
         ----------------------------
         Declaration JSON:
         {
-  "Name": "linspace",
-  "ClassName": "numpy",
   "Arguments": [
     {
       "IsNullable": false,
@@ -2159,7 +1719,7 @@ namespace Numpy
     },
     {
       "IsNullable": true,
-      "IsValueType": true,
+      "IsValueType": false,
       "Name": "dtype",
       "Type": "Dtype",
       "DefaultValue": null,
@@ -2176,6 +1736,11 @@ namespace Numpy
       "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end."
     }
   ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
   "Returns": [
     {
       "IsNullable": false,
@@ -2198,9 +1763,6 @@ namespace Numpy
   ],
   "IsDeprecated": false,
   "ManualOverride": false,
-  "Generics": [
-    "T"
-  ],
   "CommentOut": false,
   "DebuggerBreak": false,
   "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
@@ -2250,23 +1812,8 @@ namespace Numpy
         /// <returns>
         /// num samples, equally spaced on a log scale.
         /// </returns>
-        public NDarray logspace(NDarray start, NDarray stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype? dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (@base!=null) kwargs["base"]=ToPython(@base);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("logspace", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray logspace(NDarray start, NDarray stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype dtype = null, int? axis = null)
+            => NumPy.Instance.logspace(start, stop, num:num, endpoint:endpoint, @base:@base, dtype:dtype, axis:axis);
         
         /// <summary>
         /// Return numbers spaced evenly on a log scale.
@@ -2312,23 +1859,8 @@ namespace Numpy
         /// <returns>
         /// num samples, equally spaced on a log scale.
         /// </returns>
-        public NDarray<T> logspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype? dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (@base!=null) kwargs["base"]=ToPython(@base);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("logspace", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> logspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype dtype = null, int? axis = null)
+            => NumPy.Instance.logspace(start, stop, num:num, endpoint:endpoint, @base:@base, dtype:dtype, axis:axis);
         
         /// <summary>
         /// Return numbers spaced evenly on a log scale (a geometric progression).
@@ -2370,22 +1902,8 @@ namespace Numpy
         /// <returns>
         /// num samples, equally spaced on a log scale.
         /// </returns>
-        public NDarray geomspace(NDarray start, NDarray stop, int? num = null, bool? endpoint = null, Dtype? dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("geomspace", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray geomspace(NDarray start, NDarray stop, int? num = null, bool? endpoint = null, Dtype dtype = null, int? axis = null)
+            => NumPy.Instance.geomspace(start, stop, num:num, endpoint:endpoint, dtype:dtype, axis:axis);
         
         /// <summary>
         /// Return numbers spaced evenly on a log scale (a geometric progression).
@@ -2427,22 +1945,8 @@ namespace Numpy
         /// <returns>
         /// num samples, equally spaced on a log scale.
         /// </returns>
-        public NDarray<T> geomspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, Dtype? dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("geomspace", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> geomspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, Dtype dtype = null, int? axis = null)
+            => NumPy.Instance.geomspace(start, stop, num:num, endpoint:endpoint, dtype:dtype, axis:axis);
         
         /*
         /// <summary>
@@ -2491,20 +1995,8 @@ namespace Numpy
         /// with the elements of xi repeated to fill the matrix along
         /// the first dimension for x1, the second for x2 and so on.
         /// </returns>
-        public NDarray meshgrid(NDarray x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                x1, x2,…, xn,
-            });
-            var kwargs=new PyDict();
-            if (indexing!=null) kwargs["indexing"]=ToPython(indexing);
-            if (sparse!=null) kwargs["sparse"]=ToPython(sparse);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            dynamic py = self.InvokeMethod("meshgrid", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray meshgrid(NDarray x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
+            => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
         */
         
         /*
@@ -2554,20 +2046,8 @@ namespace Numpy
         /// with the elements of xi repeated to fill the matrix along
         /// the first dimension for x1, the second for x2 and so on.
         /// </returns>
-        public NDarray<T> meshgrid<T>(T[] x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                x1, x2,…, xn,
-            });
-            var kwargs=new PyDict();
-            if (indexing!=null) kwargs["indexing"]=ToPython(indexing);
-            if (sparse!=null) kwargs["sparse"]=ToPython(sparse);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            dynamic py = self.InvokeMethod("meshgrid", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> meshgrid<T>(T[] x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
+            => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
         */
         
         /// <summary>
@@ -2591,18 +2071,8 @@ namespace Numpy
         /// <returns>
         /// The extracted diagonal or constructed diagonal array.
         /// </returns>
-        public NDarray diag(NDarray v, int? k = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                v,
-            });
-            var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
-            dynamic py = self.InvokeMethod("diag", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray diag(NDarray v, int? k = null)
+            => NumPy.Instance.diag(v, k:k);
         
         /// <summary>
         /// Extract a diagonal or construct a diagonal array.
@@ -2625,18 +2095,8 @@ namespace Numpy
         /// <returns>
         /// The extracted diagonal or constructed diagonal array.
         /// </returns>
-        public NDarray<T> diag<T>(T[] v, int? k = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                v,
-            });
-            var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
-            dynamic py = self.InvokeMethod("diag", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> diag<T>(T[] v, int? k = null)
+            => NumPy.Instance.diag(v, k:k);
         
         /// <summary>
         /// Create a two-dimensional array with the flattened input as a diagonal.
@@ -2653,18 +2113,8 @@ namespace Numpy
         /// <returns>
         /// The 2-D output array.
         /// </returns>
-        public NDarray diagflat(NDarray v, int? k = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                v,
-            });
-            var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
-            dynamic py = self.InvokeMethod("diagflat", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray diagflat(NDarray v, int? k = null)
+            => NumPy.Instance.diagflat(v, k:k);
         
         /// <summary>
         /// Create a two-dimensional array with the flattened input as a diagonal.
@@ -2681,18 +2131,8 @@ namespace Numpy
         /// <returns>
         /// The 2-D output array.
         /// </returns>
-        public NDarray<T> diagflat<T>(T[] v, int? k = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                v,
-            });
-            var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
-            dynamic py = self.InvokeMethod("diagflat", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> diagflat<T>(T[] v, int? k = null)
+            => NumPy.Instance.diagflat(v, k:k);
         
         /// <summary>
         /// An array with ones at and below the given diagonal and zeros elsewhere.
@@ -2716,20 +2156,8 @@ namespace Numpy
         /// Array with its lower triangle filled with ones and zero elsewhere;
         /// in other words T[i,j] == 1 for i &lt;= j + k, 0 otherwise.
         /// </returns>
-        public NDarray tri(int N, int? M = null, int? k = null, Dtype? dtype = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                N,
-            });
-            var kwargs=new PyDict();
-            if (M!=null) kwargs["M"]=ToPython(M);
-            if (k!=null) kwargs["k"]=ToPython(k);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            dynamic py = self.InvokeMethod("tri", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray tri(int N, int? M = null, int? k = null, Dtype dtype = null)
+            => NumPy.Instance.tri(N, M:M, k:k, dtype:dtype);
         
         /// <summary>
         /// Lower triangle of an array.
@@ -2746,18 +2174,8 @@ namespace Numpy
         /// <returns>
         /// Lower triangle of m, of same shape and data-type as m.
         /// </returns>
-        public NDarray tril(NDarray m, int? k = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                m,
-            });
-            var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
-            dynamic py = self.InvokeMethod("tril", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray tril(NDarray m, int? k = null)
+            => NumPy.Instance.tril(m, k:k);
         
         /// <summary>
         /// Lower triangle of an array.
@@ -2774,18 +2192,8 @@ namespace Numpy
         /// <returns>
         /// Lower triangle of m, of same shape and data-type as m.
         /// </returns>
-        public NDarray<T> tril<T>(T[] m, int? k = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                m,
-            });
-            var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
-            dynamic py = self.InvokeMethod("tril", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> tril<T>(T[] m, int? k = null)
+            => NumPy.Instance.tril(m, k:k);
         
         /// <summary>
         /// Generate a Vandermonde matrix.
@@ -2813,19 +2221,8 @@ namespace Numpy
         /// x^(N-1), the second x^(N-2) and so forth. If increasing is
         /// True, the columns are x^0, x^1, ..., x^(N-1).
         /// </returns>
-        public NDarray vander(NDarray x, int? N = null, bool? increasing = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                x,
-            });
-            var kwargs=new PyDict();
-            if (N!=null) kwargs["N"]=ToPython(N);
-            if (increasing!=null) kwargs["increasing"]=ToPython(increasing);
-            dynamic py = self.InvokeMethod("vander", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
+        public static NDarray vander(NDarray x, int? N = null, bool? increasing = null)
+            => NumPy.Instance.vander(x, N:N, increasing:increasing);
         
         /// <summary>
         /// Generate a Vandermonde matrix.
@@ -2853,19 +2250,8 @@ namespace Numpy
         /// x^(N-1), the second x^(N-2) and so forth. If increasing is
         /// True, the columns are x^0, x^1, ..., x^(N-1).
         /// </returns>
-        public NDarray<T> vander<T>(T[] x, int? N = null, bool? increasing = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                x,
-            });
-            var kwargs=new PyDict();
-            if (N!=null) kwargs["N"]=ToPython(N);
-            if (increasing!=null) kwargs["increasing"]=ToPython(increasing);
-            dynamic py = self.InvokeMethod("vander", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
+        public static NDarray<T> vander<T>(T[] x, int? N = null, bool? increasing = null)
+            => NumPy.Instance.vander(x, N:N, increasing:increasing);
         
         /*
         /// <summary>
@@ -2883,18 +2269,8 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix mat(NDarray data, Dtype dtype)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                data,
-                dtype,
-            });
-            var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("mat", args, kwargs);
-            return ToCsharp<matrix>(py);
-        }
+        public static matrix mat(NDarray data, Dtype dtype)
+            => NumPy.Instance.mat(data, dtype);
         */
         
         /*
@@ -2913,18 +2289,8 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix mat<T>(T[] data, Dtype dtype)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                data,
-                dtype,
-            });
-            var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("mat", args, kwargs);
-            return ToCsharp<matrix>(py);
-        }
+        public static matrix mat<T>(T[] data, Dtype dtype)
+            => NumPy.Instance.mat(data, dtype);
         */
         
         /*
@@ -2946,19 +2312,8 @@ namespace Numpy
         /// <returns>
         /// Returns a matrix object, which is a specialized 2-D array.
         /// </returns>
-        public matrix bmat(string obj, Hashtable ldict = null, Hashtable gdict = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                obj,
-            });
-            var kwargs=new PyDict();
-            if (ldict!=null) kwargs["ldict"]=ToPython(ldict);
-            if (gdict!=null) kwargs["gdict"]=ToPython(gdict);
-            dynamic py = self.InvokeMethod("bmat", args, kwargs);
-            return ToCsharp<matrix>(py);
-        }
+        public static matrix bmat(string obj, Hashtable ldict = null, Hashtable gdict = null)
+            => NumPy.Instance.bmat(obj, ldict:ldict, gdict:gdict);
         */
         
         /*
@@ -2980,20 +2335,10 @@ namespace Numpy
         /// <returns>
         /// Returns a matrix object, which is a specialized 2-D array.
         /// </returns>
-        public matrix<T> bmat<T>(T[] obj, Hashtable ldict = null, Hashtable gdict = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                obj,
-            });
-            var kwargs=new PyDict();
-            if (ldict!=null) kwargs["ldict"]=ToPython(ldict);
-            if (gdict!=null) kwargs["gdict"]=ToPython(gdict);
-            dynamic py = self.InvokeMethod("bmat", args, kwargs);
-            return ToCsharp<matrix<T>>(py);
-        }
+        public static matrix<T> bmat<T>(T[] obj, Hashtable ldict = null, Hashtable gdict = null)
+            => NumPy.Instance.bmat(obj, ldict:ldict, gdict:gdict);
         */
+        
         
     }
 }

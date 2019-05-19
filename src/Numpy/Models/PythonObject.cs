@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Python.Runtime;
 
-namespace Torch.Models
+namespace Numpy
 {
     public class PythonObject : IDisposable
     {

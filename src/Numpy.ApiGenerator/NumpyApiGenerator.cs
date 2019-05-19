@@ -21,39 +21,92 @@ namespace Torch.ApiGenerator
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Numpy",
                 Usings = { "using NumSharp;" },
+                ToPythonConversions = {
+                    "case NumSharp.Shape o: return ToTuple(o.Dimensions);",
+                    "case PythonObject o: return o.PyObject;",
+                },
+                ToCsharpConversions =
+                {
+                    "case \"Dtype\": return (T)(object)new Dtype(pyobj);",
+                    "case \"NDarray\": return (T)(object)new NDarray(pyobj);",
+                },
             };
         }
 
-        public string Generate()
+        public void Generate()
         {
-            var docs = LoadDocs();
-            var api = new StaticApi()
+            var dir = Directory.GetCurrentDirectory();
+            var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
+            // ----------------------------------------------------
+            // array creation
+            // ----------------------------------------------------
+            var array_creation_api = new StaticApi()
             {
+                PartialName = "array_creation", // name-part of the partial class file
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
                 PythonModule = "numpy" // name of the Python module that the static api wraps 
             };
-            _generator.StaticApis.Add(api);
+            array_creation_api.OutputPath = Path.Combine(src_dir, "Numpy");
+            _generator.StaticApis.Add(array_creation_api);
+            ParseArrayCreationApi(array_creation_api);
+            // ----------------------------------------------------
+            // dtype
+            // ----------------------------------------------------
+            var dtype_api = new StaticApi()
+            {
+                PartialName = "dtype",
+                StaticName = "np", // name of the static API class
+                ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
+                PythonModule = "numpy" // name of the Python module that the static api wraps 
+            };
+            dtype_api.OutputPath = Path.Combine(src_dir, "Numpy");
+            _generator.StaticApis.Add(dtype_api);
+            ParseDtypeApi(dtype_api);
+            // ----------------------------------------------------
+            // generate all
+            // ----------------------------------------------------
+            _generator.Generate();
+        }
+
+        private void ParseDtypeApi(StaticApi api)
+        {
+            var doc = GetHtml("arrays.scalars.html");
+            foreach (var tr in doc.Doc.DocumentNode.Descendants("tr"))
+            {
+                if (tr.Descendants("td").Count()!=3)
+                    continue;
+                var span = tr.Descendants("span").FirstOrDefault();
+                if (span==null)
+                    continue;
+                var td = tr.Descendants("td").Skip(1).FirstOrDefault();
+                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument(){ Type = "Dtype" }}});
+            }
+        }
+
+        private void ParseArrayCreationApi(StaticApi api)
+        {
+            var docs = LoadDocs("routines.array-creation.html");
             foreach (var html_doc in docs)
             {
                 var doc = html_doc.Doc;
                 // declaration
                 var h1 = doc.DocumentNode.Descendants("h1").FirstOrDefault();
-                if (h1==null)
+                if (h1 == null)
                     continue;
                 var dl = doc.DocumentNode.Descendants("dl").FirstOrDefault();
-                if (dl==null || dl.Attributes["class"]?.Value!="function") continue;
+                if (dl == null || dl.Attributes["class"]?.Value != "function") continue;
                 var class_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descclassname").InnerText;
                 var func_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descname").InnerText;
-                var decl = new Declaration() { Name = func_name, ClassName= class_name.TrimEnd('.') };
+                var decl = new Function() { Name = func_name, ClassName = class_name.TrimEnd('.') };
                 // function description
                 var dd = dl.Descendants("dd").FirstOrDefault();
-                decl.Description=ParseDescription(dd);
+                decl.Description = ParseDescription(dd);
                 var table = doc.DocumentNode.Descendants("table")
                     .FirstOrDefault(x => x.Attributes["class"]?.Value == "docutils field-list");
-                if (table==null)
+                if (table == null)
                     continue;
                 // arguments
                 ParseArguments(html_doc, table, decl);
@@ -66,22 +119,17 @@ namespace Torch.ApiGenerator
                 foreach (var d in InferOverloads(decl))
                     api.Declarations.Add(d);
             }
-            var dir = Directory.GetCurrentDirectory();
-            var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
-            api.OutputPath = Path.Combine(src_dir, "Numpy");
-            _generator.Generate();
-            return "DONE";
         }
 
         private string ParseDescription(HtmlNode dd)
         {
             if (dd == null)
                 return null;
-            var desc = string.Join("\r\n\r\n", dd.ChildNodes.Where(n => n.Name == "p").Select(p => p.InnerText).TakeWhile(s=>!s.StartsWith("Examples")));
+            var desc = string.Join("\r\n\r\n", dd.ChildNodes.Where(n => n.Name == "p").Select(p => p.InnerText).TakeWhile(s => !s.StartsWith("Examples")));
             return desc;
         }
 
-        private void ParseArguments(HtmlDoc html_doc, HtmlNode table, Declaration decl)
+        private void ParseArguments(HtmlDoc html_doc, HtmlNode table, Function decl)
         {
             var tr = table.Descendants("tr").FirstOrDefault();
             if (tr == null)
@@ -90,9 +138,9 @@ namespace Torch.ApiGenerator
             {
                 var arg = new Argument();
                 var strong = dt.Descendants("strong").FirstOrDefault();
-                if (strong==null)
+                if (strong == null)
                     continue;
-                arg.Name =strong.InnerText;
+                arg.Name = strong.InnerText;
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
                 var type = type_description.Split(",").FirstOrDefault();
@@ -123,21 +171,21 @@ namespace Torch.ApiGenerator
                 //    arg.IsValueType = false;
                 //    break;
                 case "Dtype":
-                    arg.IsValueType = true;
+                    arg.IsValueType = false;
                     break;
             }
         }
 
-        private void PostProcess(Declaration decl)
+        private void PostProcess(Function decl)
         {
             if (decl.Arguments.Any(a => a.Type == "buffer_like"))
                 decl.CommentOut = true;
             // iterable object            
             if (decl.Arguments.Any(a => a.Type == "IEnumerable<T>"))
             {
-                        decl.Generics = new string[] { "T" };
-                        if (decl.Returns[0].Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
-                            decl.Returns[0].Type = "NDarray<T>";
+                decl.Generics = new string[] { "T" };
+                if (decl.Returns[0].Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
+                    decl.Returns[0].Type = "NDarray<T>";
             }
 
             switch (decl.Name)
@@ -152,7 +200,8 @@ namespace Torch.ApiGenerator
                     break;
                 case "logspace":
                 case "geomspace":
-                    decl.Arguments.First(a => a.Type == "Dtype").IsNullable = true;
+                    decl.Arguments.First(a => a.Type == "Dtype").IsNullable = false;
+                    decl.Arguments.First(a => a.Type == "Dtype").DefaultValue = "null";
                     decl.Arguments.First(a => a.Type == "Dtype").IsNamedArg = true;
                     break;
                 case "meshgrid":
@@ -162,7 +211,7 @@ namespace Torch.ApiGenerator
                     break;
             }
         }
-        
+
         private void ParseReturnTypes(HtmlDoc html_doc, HtmlNode table, Declaration decl)
         {
             var tr = table.Descendants("tr").FirstOrDefault(x => x.InnerText.StartsWith("Returns:"));
@@ -172,7 +221,7 @@ namespace Torch.ApiGenerator
             {
                 var arg = new Argument();
                 var strong = dt.Descendants("strong").FirstOrDefault();
-                if(strong!=null)
+                if (strong != null)
                     arg.Name = strong.InnerText;
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
@@ -184,7 +233,7 @@ namespace Torch.ApiGenerator
             }
         }
 
-        private IEnumerable<Declaration> InferOverloads(Declaration decl)
+        private IEnumerable<Function> InferOverloads(Function decl)
         {
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
@@ -199,11 +248,11 @@ namespace Torch.ApiGenerator
                 yield break;
             }
             // array_like
-            if (decl.Arguments.Any(a=>a.Type == "array_like"))
+            if (decl.Arguments.Any(a => a.Type == "array_like"))
             {
                 foreach (var type in "NDarray T[]".Split())
                 {
-                    var clone_decl = decl.Clone();
+                    var clone_decl = decl.Clone<Function>();
                     clone_decl.Arguments.ForEach(a =>
                     {
                         if (a.Type == "array_like")
@@ -211,7 +260,7 @@ namespace Torch.ApiGenerator
                     });
                     if (type == "T[]")
                     {
-                        clone_decl.Generics = new string[] {"T"};
+                        clone_decl.Generics = new string[] { "T" };
                         if (clone_decl.Returns[0].Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
                             clone_decl.Returns[0].Type = "NDarray<T>";
                     }
@@ -224,7 +273,7 @@ namespace Torch.ApiGenerator
             {
                 foreach (var type in "byte short int long float double".Split())
                 {
-                    var clone_decl = decl.Clone();
+                    var clone_decl = decl.Clone<Function>();
                     clone_decl.Arguments.ForEach(a =>
                     {
                         if (a.Type == "number")
@@ -238,9 +287,9 @@ namespace Torch.ApiGenerator
             {
                 decl.Arguments[0].Type = "string";
                 yield return decl;
-                var clone_decl = decl.Clone();
+                var clone_decl = decl.Clone<Function>();
                 clone_decl.Arguments[0].Type = "T[]";
-                clone_decl.Generics = new []{"T"};
+                clone_decl.Generics = new[] { "T" };
                 clone_decl.Returns[0].Type = "matrix<T>";
                 yield return clone_decl;
                 yield break;
@@ -250,7 +299,7 @@ namespace Torch.ApiGenerator
         }
 
         // special treatment for np.arange which is a "monster"
-        private IEnumerable<Declaration> ExpandArange(Declaration decl)
+        private IEnumerable<Function> ExpandArange(Function decl)
         {
             // numpy.arange([start, ]stop, [step, ]dtype=None)
             var dtype = decl.Arguments.Last();
@@ -261,7 +310,7 @@ namespace Torch.ApiGenerator
                 foreach (var type in "byte short int long float double".Split())
                 {
                     // start, stop
-                    var clone_decl = decl.Clone();
+                    var clone_decl = decl.Clone<Function>();
                     clone_decl.Arguments.ForEach(a =>
                     {
                         if (a.Type == "number")
@@ -269,10 +318,10 @@ namespace Torch.ApiGenerator
                     });
                     clone_decl.Arguments[0].IsNamedArg = false;
                     clone_decl.Arguments[0].IsNullable = false;
-                    clone_decl.Arguments[0].DefaultValue=null;
+                    clone_decl.Arguments[0].DefaultValue = null;
                     yield return clone_decl;
                     // [start=0] <-- remove start from arg list
-                    clone_decl = clone_decl.Clone(); // <---- clone from the clone, as it has the correct type
+                    clone_decl = clone_decl.Clone<Function>(); // <---- clone from the clone, as it has the correct type
                     clone_decl.Arguments.RemoveAt(0);
                     yield return clone_decl;
                 }
@@ -295,7 +344,7 @@ namespace Torch.ApiGenerator
                 case "shape": return "NumSharp.Shape";
                 case "dtype": return "Dtype";
                 case "order": return "string";
-            }               
+            }
             switch (type)
             {
                 case "data-type": return "Dtype";
@@ -321,10 +370,10 @@ namespace Torch.ApiGenerator
 
         string BaseUrl = "https://docs.scipy.org/doc/numpy-1.16.1/reference/";
 
-        public List<HtmlDoc> LoadDocs()
+        public List<HtmlDoc> LoadDocs(string overview_url)
         {
             var docs = new List<HtmlDoc>();
-            var doc = GetHtml("routines.array-creation.html");
+            var doc = GetHtml(overview_url);
             LoadDocsFromOverviewPage(doc.Doc, docs);
             return docs;
         }

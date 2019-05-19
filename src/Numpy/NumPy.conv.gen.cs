@@ -50,6 +50,8 @@ namespace Numpy
                 // sequence types
                 case Array o: return ToTuple(o);
                 // special types from 'ToPythonConversions'
+                case NumSharp.Shape o: return ToTuple(o.Dimensions);
+                case PythonObject o: return o.PyObject;
                 default: throw new NotImplementedException($"Type is not yet supported: { obj.GetType().Name}. Add it to 'ToPythonConversions'");
             }
         }
@@ -60,6 +62,8 @@ namespace Numpy
             switch (typeof(T).Name)
             {
                 // types from 'ToCsharpConversions'
+                case "Dtype": return (T)(object)new Dtype(pyobj);
+                case "NDarray": return (T)(object)new NDarray(pyobj);
                 default: return (T)pyobj;
             }
         }

@@ -8,9 +8,9 @@ using CodeMinion.Core.Models;
 namespace Torch.ApiGenerator.Templates {
 
     [Template("tensor")]
-    internal class CreateTensor : BodyTemplate
+    internal class CreateTensor : FunctionBodyTemplate
     {
-        public override void GenerateBody(Declaration decl, CodeWriter s)
+        public override void GenerateBody(Function decl, CodeWriter s)
         {
             var arg_type = decl.Arguments[0].Type;
             switch (arg_type) {
