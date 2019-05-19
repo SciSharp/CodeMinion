@@ -15,7 +15,15 @@ namespace Numpy.UnitTests
         {
             var a = np.empty((2, 3), np.int32);
             Console.WriteLine(a);
-            Assert.IsNotNull(a.ToString());            
+            Assert.IsNotNull(a.ToString());
+            //long ptr = a.PyObject.ctypes.data;
+            //Console.WriteLine("ptr: " + ptr);
+            //int size = a.PyObject.size;
+            //var array = new int[size];
+            //Marshal.Copy(new IntPtr(ptr), array, 0, array.Length);
+            foreach(var x in a.GetData<int>())
+                Console.WriteLine(x);
+
         }
 
         [TestMethod]
