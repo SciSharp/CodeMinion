@@ -5,8 +5,8 @@ using CodeMinion.Core.Models;
 namespace CodeMinion.Core
 {
 
-    public abstract class BodyTemplate
+    public abstract class FunctionBodyTemplate
     {
-        public abstract void GenerateBody(Declaration decl, CodeWriter s);
+        public abstract void GenerateBody(Function decl, CodeWriter s);
     }
 }

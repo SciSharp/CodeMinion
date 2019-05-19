@@ -37,12 +37,12 @@ namespace CodeMinion.Core
             @"using Python.Runtime;",
         };
 
-        protected Dictionary<string, BodyTemplate> _templates;
+        protected Dictionary<string, FunctionBodyTemplate> _templates;
         protected virtual void LoadTemplates()
         {
             _templates = Assembly.GetEntryAssembly().GetTypes()
                 .Where(x => x.GetCustomAttribute<TemplateAttribute>() != null)
-                .Select(x => (BodyTemplate)Activator.CreateInstance(x)).ToDictionary(x =>
+                .Select(x => (FunctionBodyTemplate)Activator.CreateInstance(x)).ToDictionary(x =>
                     x.GetType().GetCustomAttribute<TemplateAttribute>().ApiFunction);
         }
 
@@ -54,15 +54,28 @@ namespace CodeMinion.Core
             if (decl.CommentOut)
                 s.Out("/*");
             var retval = GenerateReturnType(decl);
-            var arguments = GenerateArguments(decl);
-            GenerateDocString(decl, s);
-            var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
-            string declaration = $"public {retval} {decl.Name}{generics}({arguments})";
-            s.Out(declaration);
-            s.Block(() =>
+            switch (decl)
             {
-                GenerateBody(decl, s);
-            });
+                case Function func:
+                    var arguments = GenerateArguments(func);
+                    var passed_args = GeneratePassedArgs(func);
+                    var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
+                    s.Out($"public {retval} {EscapeName(decl.Name)}{generics}({arguments})");
+                    s.Block(() =>
+                    {
+                        GenerateFunctionBody(func, s);
+                    });
+                    break;
+                case Property prop:
+                    s.Out($"public {retval} {EscapeName(decl.Name)}");
+                    s.Block(() =>
+                    {
+                        s.Out("get", ()=>{
+                            GeneratePropertyGetter(prop, s);
+                        });
+                    });
+                    break;
+            }
             if (decl.CommentOut)
                 s.Out("*/");
             if (PrintModelJson)
@@ -81,21 +94,31 @@ namespace CodeMinion.Core
                 Debugger.Break();
             if (decl.CommentOut)
                 s.Out("/*");
-            var retval = GenerateReturnType(decl);
-            var arguments = GenerateArguments(decl);
-            var passed_args = GeneratePassedArgs(decl);
             GenerateDocString(decl, s);
-            var generics = decl.Generics == null ? "" : $"<{string.Join(",", decl.Generics)}>";
-            s.Out($"public static {retval} {decl.Name}{generics}({arguments})");
-            s.Indent(() => s.Out(
-                $"=> {api.ImplName}.Instance.{decl.Name}({passed_args});"));
+            var retval = GenerateReturnType(decl);
+            switch (decl)
+            {
+                case Function func:
+                    var arguments = GenerateArguments(func);
+                    var passed_args = GeneratePassedArgs(func);
+                    var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
+                    s.Out($"public static {retval} {EscapeName(decl.Name)}{generics}({arguments})");
+                    s.Indent(() => s.Out(
+                        $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)}({passed_args});"));
+                    break;
+                case Property prop:
+                    s.Out($"public static {retval} {EscapeName(decl.Name)}");
+                    s.Indent(() => s.Out(
+                        $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)};"));
+                    break;
+            }
             if (decl.CommentOut)
                 s.Out("*/");
             s.Break();
         }
 
         // generate the argument list between the parentheses of a generated API function
-        protected virtual string GenerateArguments(Declaration decl)
+        protected virtual string GenerateArguments(Function decl)
         {
             var s = new StringBuilder();
             int i = 0;
@@ -123,7 +146,7 @@ namespace CodeMinion.Core
             return s.ToString();
         }
 
-        private string GeneratePassedArgs(Declaration decl)
+        private string GeneratePassedArgs(Function decl)
         {
             var s = new StringBuilder();
             int i = 0;
@@ -261,13 +284,18 @@ namespace CodeMinion.Core
             foreach (var line in Regex.Split(decl.Description, @"\r?\n")) 
                 s.Out("/// "+line);           
             s.Out("/// </summary>");
-            foreach (var arg in decl.Arguments) {
-                if (string.IsNullOrWhiteSpace(arg.Description))
-                    continue;
-                s.Out($"/// <param name=\"{EscapeName(arg.Name)}\">");
-                foreach (var line in Regex.Split(arg.Description, @"\r?\n"))
-                    s.Out("/// " + line);
-                s.Out("/// </param>");
+            if (decl is Function)
+            {
+                var func = decl as Function;
+                foreach (var arg in func.Arguments)
+                {
+                    if (string.IsNullOrWhiteSpace(arg.Description))
+                        continue;
+                    s.Out($"/// <param name=\"{EscapeName(arg.Name)}\">");
+                    foreach (var line in Regex.Split(arg.Description, @"\r?\n"))
+                        s.Out("/// " + line);
+                    s.Out("/// </param>");
+                }
             }
             if (decl.Returns.All(rv=>string.IsNullOrWhiteSpace(rv.Description)))
                 return;
@@ -288,38 +316,68 @@ namespace CodeMinion.Core
         }
 
         // generates only the body of the API function declaration
-        protected virtual void GenerateBody(Declaration decl, CodeWriter s)
+        protected virtual void GenerateFunctionBody(Function func, CodeWriter s)
         {
-            if (_templates.ContainsKey(decl.Name))
+            if (_templates.ContainsKey(func.Name))
             {
                 // use generator template instead
-                _templates[decl.Name].GenerateBody(decl, s);
+                _templates[func.Name].GenerateBody(func, s);
                 return;
             }
             s.Out("//auto-generated code, do not change");
-            // first generate the positional args
-            s.Out($"var args=ToTuple(new object[]");
-            s.Block(() =>
+            if (func.Arguments.Any())
             {
-                foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == false))
+                // first generate the positional args
+                s.Out($"var args=ToTuple(new object[]");
+                s.Block(() =>
                 {
-                    s.Out($"{EscapeName(arg.Name)},");
+                    foreach (var arg in func.Arguments.Where(a => a.IsNamedArg == false))
+                    {
+                        s.Out($"{EscapeName(arg.Name)},");
+                    }
+                }, "{", "});");
+                // then generate the named args
+                s.Out($"var kwargs=new PyDict();");
+                foreach (var arg in func.Arguments.Where(a => a.IsNamedArg == true))
+                {
+                    var name = EscapeName(arg.Name);
+                    s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                 }
-            }, "{", "});");
-            // then generate the named args
-            s.Out($"var kwargs=new PyDict();");
-            foreach (var arg in decl.Arguments.Where(a => a.IsNamedArg == true))
-            {
-                var name = EscapeName(arg.Name);
-                s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                // then call the function
+                s.Out($"dynamic py = self.InvokeMethod(\"{func.Name}\", args, kwargs);");
             }
-            // then call the function
-            s.Out($"dynamic py = self.InvokeMethod(\"{decl.Name}\", args, kwargs);");
+            else
+            {
+                // call function with no arguments
+                s.Out($"dynamic py = self.InvokeMethod(\"{func.Name}\");");
+            }
             // return the return value if any
-            if (decl.Returns.Count == 0)
+            if (func.Returns.Count == 0)
                 return;
-            if (decl.Returns.Count == 1)
-                s.Out($"return ToCsharp<{decl.Returns[0].Type}>(py);");
+            if (func.Returns.Count == 1)
+                s.Out($"return ToCsharp<{func.Returns[0].Type}>(py);");
+            else
+            {
+                throw new NotImplementedException("return a tuple or array of return values");
+            }
+        }
+
+        private void GeneratePropertyGetter(Property prop, CodeWriter s)
+        {
+            //if (_templates.ContainsKey(prop.Name))
+            //{
+            //    // use generator template instead
+            //    _templates[prop.Name].GenerateBody(prop, s);
+            //    return;
+            //}
+            s.Out("//auto-generated code, do not change");
+            // call proption with no arguments
+            s.Out($"dynamic py = self.InvokeMethod(\"{prop.Name}\");");
+            // return the return value if any
+            if (prop.Returns.Count == 0)
+                return;
+            if (prop.Returns.Count == 1)
+                s.Out($"return ToCsharp<{prop.Returns[0].Type}>(py);");
             else
             {
                 throw new NotImplementedException("return a tuple or array of return values");
@@ -424,14 +482,19 @@ namespace CodeMinion.Core
         public void Generate()
         {
             // generate all static apis that have been configured
+            var generated_implementations=new HashSet<string>();
             foreach (var api in StaticApis)
             {
-                var api_file = Path.Combine(api.OutputPath, $"{api.StaticName}.gen.cs");
-                var conv_file = Path.Combine(api.OutputPath, $"{api.ImplName}.conv.gen.cs");
-                var impl_file = Path.Combine(api.OutputPath, $"{api.ImplName}.gen.cs");
-
+                if (!generated_implementations.Contains(api.ImplName))
+                {
+                    var conv_file = Path.Combine(api.OutputPath, $"{api.ImplName}.conv.gen.cs");
+                    WriteFile(conv_file, s => { GenerateApiImplConversions(api, s); });
+                }
+                generated_implementations.Add(api.ImplName);
+                var partial = (api.PartialName == null ? "" : "." + api.PartialName);
+                var api_file = Path.Combine(api.OutputPath, $"{api.StaticName + partial}.gen.cs");
+                var impl_file = Path.Combine(api.OutputPath, $"{api.ImplName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
-                WriteFile(conv_file, s => { GenerateApiImplConversions(api, s); });
                 WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
         }

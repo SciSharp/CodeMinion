@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMinion.Parser", "src\Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Python.Runtime", "..\pythonnet\src\runtime\Python.Runtime.csproj", "{45CAF477-88B7-4539-919E-0DF5AE2AF08A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch.UnitTest", "test\Torch.UnitTest\Torch.UnitTest.csproj", "{AE171FDA-E664-4C11-9A46-853D654AE896}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.UnitTest", "test\Numpy.UnitTest\Numpy.UnitTest.csproj", "{1B69F24E-8C60-421D-B11B-5306ED7A060E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{45CAF477-88B7-4539-919E-0DF5AE2AF08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45CAF477-88B7-4539-919E-0DF5AE2AF08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45CAF477-88B7-4539-919E-0DF5AE2AF08A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE171FDA-E664-4C11-9A46-853D654AE896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE171FDA-E664-4C11-9A46-853D654AE896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE171FDA-E664-4C11-9A46-853D654AE896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE171FDA-E664-4C11-9A46-853D654AE896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

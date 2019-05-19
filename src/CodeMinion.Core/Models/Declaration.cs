@@ -16,11 +16,9 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string ClassName { get; set; }
 
-        public List<Argument> Arguments { get; set; }= new List<Argument>();
         public List<Argument> Returns { get; set; } = new List<Argument>();
         public bool IsDeprecated { get; set; }
         public bool ManualOverride { get; set; }
-        public string[] Generics { get; set; } = null;
         public bool CommentOut { get; set; }
 
         /// <summary>
@@ -30,9 +28,28 @@ namespace CodeMinion.Core.Models
 
         public string Description { get; set; }
 
-        public Declaration Clone()
+        public virtual Declaration Clone()
         {
-            return JObject.FromObject(this).ToObject<Declaration>();
+            return Clone<Declaration>();
         }
+
+        public virtual T Clone<T>()
+        {
+            return JObject.FromObject(this).ToObject<T>();
+        }
+
+    }
+
+    public class Function : Declaration
+    {
+        public List<Argument> Arguments { get; set; } = new List<Argument>();
+        public string[] Generics { get; set; } = null;
+
+    }
+
+    public class Property : Declaration
+    {        
+        public bool HasSetter { get; set; }
+
     }
 }

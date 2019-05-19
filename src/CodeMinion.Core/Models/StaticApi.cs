@@ -33,5 +33,10 @@ namespace CodeMinion.Core.Models
         /// Target directory for the generated files
         /// </summary>
         public string OutputPath { get; set; }
+
+        /// <summary>
+        /// Additional name of a partial API file (required for splitting the API into multiple partial class files)
+        /// </summary>
+        public string PartialName { get; set; }
     }
 }
