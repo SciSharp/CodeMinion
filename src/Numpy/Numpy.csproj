@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RootNamespace>Torch</RootNamespace>
+    <AssemblyName>Torch.NET</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NumSharp" Version="0.10.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<ProjectReference Include="..\..\..\CodeMinion\src\CodeMinion.Core\CodeMinion.Core.csproj" />-->
+    <ProjectReference Include="..\..\..\pythonnet\src\runtime\Python.Runtime.csproj" />
+  </ItemGroup>
+
+</Project>
