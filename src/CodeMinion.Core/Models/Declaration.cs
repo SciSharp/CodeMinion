@@ -28,6 +28,8 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public bool DebuggerBreak { get; set; }
 
+        public string Description { get; set; }
+
         public Declaration Clone()
         {
             return JObject.FromObject(this).ToObject<Declaration>();

@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using CodeMinion.Core.Attributes;
 using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
@@ -247,9 +248,21 @@ namespace CodeMinion.Core
             }
         }
 
+        /// <summary>
+        /// Generate the xml doc string from the description(s)
+        /// </summary>
+        /// <param name="decl"></param>
+        /// <param name="s"></param>
         protected virtual void GenerateDocString(Declaration decl, CodeWriter s)
         {
-            // TODO: generate xml doc strings from _torch_docs.py
+            if (string.IsNullOrWhiteSpace(decl.Description))
+                return;
+            s.Out("/// <summary>");
+            foreach (var line in Regex.Split(decl.Description, @"\r?\n")) {
+                s.Out("/// "+line);
+            }
+            s.Out("/// </summary>");
+            // TODO: param
         }
 
         // generates only the body of the API function declaration
