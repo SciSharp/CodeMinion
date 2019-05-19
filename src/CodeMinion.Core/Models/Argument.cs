@@ -8,5 +8,6 @@
         public string Type { get; set; }
         public string DefaultValue { get; set; }
         public bool IsNamedArg { get; set; }
+        public string Description { get; set; }
     }
 }

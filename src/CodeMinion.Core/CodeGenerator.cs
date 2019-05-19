@@ -258,11 +258,33 @@ namespace CodeMinion.Core
             if (string.IsNullOrWhiteSpace(decl.Description))
                 return;
             s.Out("/// <summary>");
-            foreach (var line in Regex.Split(decl.Description, @"\r?\n")) {
-                s.Out("/// "+line);
-            }
+            foreach (var line in Regex.Split(decl.Description, @"\r?\n")) 
+                s.Out("/// "+line);           
             s.Out("/// </summary>");
-            // TODO: param
+            foreach (var arg in decl.Arguments) {
+                if (string.IsNullOrWhiteSpace(arg.Description))
+                    continue;
+                s.Out($"/// <param name=\"{EscapeName(arg.Name)}\">");
+                foreach (var line in Regex.Split(arg.Description, @"\r?\n"))
+                    s.Out("/// " + line);
+                s.Out("/// </param>");
+            }
+            if (decl.Returns.All(rv=>string.IsNullOrWhiteSpace(rv.Description)))
+                return;
+            s.Out("/// <returns>");
+            if (decl.Returns.Count==1)
+                foreach (var line in Regex.Split(decl.Returns[0].Description, @"\r?\n"))
+                    s.Out("/// " + line);
+            else {
+                s.Out("/// A tuple of:");
+                foreach (var rv in decl.Returns) {
+                    s.Out("/// " + rv.Name);
+                    foreach (var line in Regex.Split(rv.Description, @"\r?\n"))
+                        s.Out("/// " + line);
+
+                }
+            }
+            s.Out("/// </returns>");
         }
 
         // generates only the body of the API function declaration
