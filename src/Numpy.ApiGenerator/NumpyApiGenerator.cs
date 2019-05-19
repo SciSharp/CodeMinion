@@ -190,6 +190,9 @@ namespace Torch.ApiGenerator
 
             switch (decl.Name)
             {
+                case "array":
+                    decl.ManualOverride = true;
+                    break;
                 case "arange":
                     decl.Arguments[0].IsNullable = false;
                     decl.Arguments[0].DefaultValue = "0";

@@ -958,8 +958,8 @@ namespace Numpy
         /// be in any order (either C-, Fortran-contiguous, or even
         /// discontiguous).
         /// </param>
-        public static void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
-            => NumPy.Instance.array(obj, itemsize:itemsize, copy:copy, unicode:unicode, order:order);
+        //public static void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
+        //    => NumPy.Instance.array(obj, itemsize:itemsize, copy:copy, unicode:unicode, order:order);
         
         /// <summary>
         /// Convert the input to a chararray, copying the data only if

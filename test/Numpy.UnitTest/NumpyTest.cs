@@ -13,33 +13,35 @@ namespace Numpy.UnitTests
         [TestMethod]
         public void empty()
         {
+            // initialize an array with random integers
             var a = np.empty((2, 3), np.int32);
             Console.WriteLine(a);
             Assert.IsNotNull(a.ToString());
-            //long ptr = a.PyObject.ctypes.data;
-            //Console.WriteLine("ptr: " + ptr);
-            //int size = a.PyObject.size;
-            //var array = new int[size];
-            //Marshal.Copy(new IntPtr(ptr), array, 0, array.Length);
+            // this should print out the exact integers of the array
             foreach(var x in a.GetData<int>())
-                Console.WriteLine(x);
-
+                Console.WriteLine(x);             
         }
 
         [TestMethod]
         public void efficient_array_copy()
         {
-            //var tensor = torch.empty((2, 3), dtype:dtype.Int32);
-            //Console.WriteLine(tensor.ToString());
-            //var storage=tensor.PyObject.storage();
-            //Console.WriteLine("storage:"+storage);
-            //long ptr = storage.data_ptr();
-            //Console.WriteLine("ptr:"+ptr);
-            //var array = new int[]{1, 2, 3, 4, 5, 6};
-            //Marshal.Copy(array, 0, new IntPtr(ptr), array.Length);
-            //Console.WriteLine(tensor.ToString());
-            //Console.WriteLine("storage.is_pinned: " + storage.is_pinned());
-            //Console.WriteLine("storage:" + storage);
+            var a = np.empty((2, 3), np.int32);
+            Console.WriteLine(a);
+            Assert.IsNotNull(a.ToString());
+            long ptr = a.PyObject.ctypes.data;
+            Console.WriteLine("ptr: " + ptr);
+            var array = new int[]{1, 2, 3, 4, 5, 6};
+            Marshal.Copy(array, 0, new IntPtr(ptr), array.Length);
+            Console.WriteLine(a.ToString());
+        }
+
+        [TestMethod]
+        public void array()
+        {
+            var array = new int[] { 1, 2, 3, 4, 5, 6 };
+            var a = np.array(array);
+            Console.WriteLine(a);
+            Assert.AreEqual(array, a.GetData());
         }
     }
 }

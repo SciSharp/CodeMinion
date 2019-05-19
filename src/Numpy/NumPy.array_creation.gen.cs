@@ -221,40 +221,6 @@ namespace Numpy
             return ToCsharp<NDarray<T>>(py);
         }
         
-        public NDarray array(NDarray @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                @object,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            if (ndmin!=null) kwargs["ndmin"]=ToPython(ndmin);
-            dynamic py = self.InvokeMethod("array", args, kwargs);
-            return ToCsharp<NDarray>(py);
-        }
-        
-        public NDarray<T> array<T>(T[] @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                @object,
-            });
-            var kwargs=new PyDict();
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            if (ndmin!=null) kwargs["ndmin"]=ToPython(ndmin);
-            dynamic py = self.InvokeMethod("array", args, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
-        
         public NDarray asarray(NDarray a, Dtype dtype = null, string order = null)
         {
             //auto-generated code, do not change
@@ -482,21 +448,6 @@ namespace Numpy
             if (max_rows!=null) kwargs["max_rows"]=ToPython(max_rows);
             dynamic py = self.InvokeMethod("loadtxt", args, kwargs);
             return ToCsharp<NDarray>(py);
-        }
-        
-        public void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var args=ToTuple(new object[]
-            {
-                obj,
-            });
-            var kwargs=new PyDict();
-            if (itemsize!=null) kwargs["itemsize"]=ToPython(itemsize);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
-            if (unicode!=null) kwargs["unicode"]=ToPython(unicode);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("array", args, kwargs);
         }
         
         public void asarray(string[] obj, int? itemsize = null, bool? unicode = null, string order = null)
