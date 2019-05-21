@@ -7,11 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\numpy-1.16.3-cp37-cp37m-win_amd64.whl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\numpy-1.16.3-cp37-cp37m-win_amd64.whl" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NumSharp" Version="0.10.1" />
   </ItemGroup>
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\..\CodeMinion\src\CodeMinion.Core\CodeMinion.Core.csproj" />-->
+    <ProjectReference Include="..\..\..\pythonnet\src\Python.Included\Python.Included.csproj" />
     <ProjectReference Include="..\..\..\pythonnet\src\runtime\Python.Runtime.csproj" />
   </ItemGroup>
 

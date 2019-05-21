@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using NumSharp;
+using Python.Included;
 
 namespace Numpy
 {
@@ -21,7 +22,14 @@ namespace Numpy
         
         Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import("numpy"));
         public dynamic np => _np.Value;
-        private NumPy() { PythonEngine.Initialize(); }
+
+        private NumPy()
+        {
+            var installer = new Installer();
+            installer.SetupPython().Wait();
+            installer.InstallWheel(this.GetType().Assembly, "numpy-1.16.3-cp37-cp37m-win_amd64.whl").Wait();
+            PythonEngine.Initialize();
+        }
         public void Dispose() { PythonEngine.Shutdown(); }
         
         

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\pythonnet\src\Python.Included\Python.Included.csproj" />
     <ProjectReference Include="..\..\src\Numpy\Numpy.csproj" />
   </ItemGroup>
 
