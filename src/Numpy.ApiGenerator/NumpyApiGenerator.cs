@@ -65,11 +65,31 @@ namespace Torch.ApiGenerator
             };
             dtype_api.OutputPath = Path.Combine(src_dir, "Numpy");
             _generator.StaticApis.Add(dtype_api);
-            ParseDtypeApi(dtype_api);
+            // ----------------------------------------------------
+            // ndarray
+            // ----------------------------------------------------
+            //var ndarray_api = new DynamicApi() { ClassName = "NDarray", };
+            //_generator.DynamicApis.Add(ndarray_api);
+            //ParseNdarrayApi(ndarray_api);
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
             _generator.Generate();
+        }
+
+        private void ParseNdarrayApi(DynamicApi api)
+        {
+            var doc = GetHtml("arrays.ndarray.html");
+            //foreach (var tr in doc.Doc.DocumentNode.Descendants("tr"))
+            //{
+            //    if (tr.Descendants("td").Count() != 3)
+            //        continue;
+            //    var span = tr.Descendants("span").FirstOrDefault();
+            //    if (span == null)
+            //        continue;
+            //    var td = tr.Descendants("td").Skip(1).FirstOrDefault();
+            //    api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument() { Type = "Dtype" } } });
+            //}
         }
 
         private void ParseDtypeApi(StaticApi api)

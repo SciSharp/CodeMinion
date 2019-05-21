@@ -23,6 +23,7 @@ namespace CodeMinion.Core
         }
 
         public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
+        public List<DynamicApi> DynamicApis { get; set; } = new List<DynamicApi>();
         public bool PrintModelJson { get; set; } = false;
         public string NameSpace { get; set; } = "Numpy";
         public HashSet<string> Usings { get; set; } = new HashSet<string>()
