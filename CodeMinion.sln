@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.Core", "src\CodeMinion.Core\CodeMinion.Core.csproj", "{574D0EF6-E79F-448E-BFB3-B323DD1E30C7}"
 EndProject
@@ -13,13 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy", "src\Numpy\Numpy.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.ApiGenerator", "src\Numpy.ApiGenerator\Numpy.ApiGenerator.csproj", "{413C9CA7-B970-4DEB-AD48-0095F05F24F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMinion.Parser", "src\CodeMinion.DocsParser\CodeMinion.Parser.csproj", "{63E968F8-628A-49B4-AA99-1DC4C542F264}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.Parser", "src\CodeMinion.DocsParser\CodeMinion.Parser.csproj", "{63E968F8-628A-49B4-AA99-1DC4C542F264}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Python.Runtime", "..\pythonnet\src\runtime\Python.Runtime.csproj", "{45CAF477-88B7-4539-919E-0DF5AE2AF08A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch.UnitTest", "test\Torch.UnitTest\Torch.UnitTest.csproj", "{AE171FDA-E664-4C11-9A46-853D654AE896}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.UnitTest", "test\Numpy.UnitTest\Numpy.UnitTest.csproj", "{1B69F24E-8C60-421D-B11B-5306ED7A060E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PillowSharp", "src\PillowSharp\PillowSharp.csproj", "{1AEEF5FF-A54D-4682-8939-201650C868C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PillowSharp.ApiGenerator", "PillowSharp.ApiGenerator\PillowSharp.ApiGenerator.csproj", "{837FFA62-0F25-4594-966A-0446644E201E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +67,14 @@ Global
 		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{837FFA62-0F25-4594-966A-0446644E201E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{837FFA62-0F25-4594-966A-0446644E201E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{837FFA62-0F25-4594-966A-0446644E201E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{837FFA62-0F25-4594-966A-0446644E201E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
