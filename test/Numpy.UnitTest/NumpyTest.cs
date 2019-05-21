@@ -3,7 +3,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Numpy;
-using Python.Included;
 using Python.Runtime;
 using Assert = NUnit.Framework.Assert;
 
@@ -47,22 +46,12 @@ namespace Numpy.UnitTests
         }    
 
         [TestMethod]
-        public void PythonIncludedTest()
-        {
-            var installer = new Installer();
-            installer.SetupPython().Wait();
-            Assert.IsTrue(Directory.Exists(installer.EmbeddedPythonHome));
-        }
-
-        [TestMethod]
         public void EmbeddedNumpyTest()
         {
             var numpy=NumPy.Instance;
             Console.WriteLine(numpy.self);
             dynamic sys=Py.Import("sys");
             Console.WriteLine(sys.version);
-            //dynamic torch=Py.Import("torch");
-            //Console.WriteLine(torch.version);
         }
 
     }

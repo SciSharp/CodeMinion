@@ -9,6 +9,7 @@ using CodeMinion.Core;
 using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
 using HtmlAgilityPack;
+using Numpy.ApiGenerator;
 
 namespace Torch.ApiGenerator
 {

@@ -71,7 +71,8 @@ namespace CodeMinion.Core
                     s.Out($"public {retval} {EscapeName(decl.Name)}");
                     s.Block(() =>
                     {
-                        s.Out("get", ()=>{
+                        s.Out("get", () =>
+                        {
                             GeneratePropertyGetter(prop, s);
                         });
                     });
@@ -268,7 +269,7 @@ namespace CodeMinion.Core
                 case "string":
                     arg.IsValueType = false;
                     break;
-                // sequence types
+                    // sequence types
             }
         }
 
@@ -282,8 +283,8 @@ namespace CodeMinion.Core
             if (string.IsNullOrWhiteSpace(decl.Description))
                 return;
             s.Out("/// <summary>");
-            foreach (var line in Regex.Split(decl.Description, @"\r?\n")) 
-                s.Out("/// "+line);           
+            foreach (var line in Regex.Split(decl.Description, @"\r?\n"))
+                s.Out("/// " + line);
             s.Out("/// </summary>");
             if (decl is Function)
             {
@@ -298,15 +299,17 @@ namespace CodeMinion.Core
                     s.Out("/// </param>");
                 }
             }
-            if (decl.Returns.All(rv=>string.IsNullOrWhiteSpace(rv.Description)))
+            if (decl.Returns.All(rv => string.IsNullOrWhiteSpace(rv.Description)))
                 return;
             s.Out("/// <returns>");
-            if (decl.Returns.Count==1)
+            if (decl.Returns.Count == 1)
                 foreach (var line in Regex.Split(decl.Returns[0].Description, @"\r?\n"))
                     s.Out("/// " + line);
-            else {
+            else
+            {
                 s.Out("/// A tuple of:");
-                foreach (var rv in decl.Returns) {
+                foreach (var rv in decl.Returns)
+                {
                     s.Out("/// " + rv.Name);
                     foreach (var line in Regex.Split(rv.Description, @"\r?\n"))
                         s.Out("/// " + line);
@@ -483,7 +486,7 @@ namespace CodeMinion.Core
         public void Generate()
         {
             // generate all static apis that have been configured
-            var generated_implementations=new HashSet<string>();
+            var generated_implementations = new HashSet<string>();
             foreach (var api in StaticApis)
             {
                 if (!generated_implementations.Contains(api.ImplName))
@@ -513,18 +516,43 @@ namespace CodeMinion.Core
                     s.AppendLine($"private static Lazy<{api.ImplName}> _instance = new Lazy<{api.ImplName}>(() => new {api.ImplName}());");
                     s.AppendLine($"public static {api.ImplName} Instance => _instance.Value;");
                     s.Break();
-                    s.AppendLine($"Lazy<PyObject> _pyobj = new Lazy<PyObject>(() => Py.Import(\"{api.PythonModule}\"));");
-                    s.AppendLine($"public dynamic self => _pyobj.Value;");
-                    s.Break();
-                    s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
-                    s.AppendLine($"public dynamic np => _np.Value;");
-                    s.Out($"private {api.ImplName}()", () =>
+                    s.Out("private Lazy<PyObject> _pyobj = new Lazy<PyObject>(() =>", () =>
                     {
+                        s.Out("PyObject mod = null;");
+                        s.Out("try", () =>
+                            {
+                                s.Out("mod = InstallAndImport();");
+                            });
+                        s.Out("catch (Exception)", () =>
+                        {
+                            s.Out("// retry to fix the installation by forcing a repair.");
+                            s.Out("mod = InstallAndImport(force: true);");
+                        });
+                        s.Out("return mod;");
+                    });
+                    s.Out(");");
+                    s.Break();
+                    s.Out("private static PyObject InstallAndImport(bool force = false)", () =>
+                    {
+                        s.Out("var installer = new Installer();");
+                        s.Out("installer.SetupPython(force).Wait();");
                         foreach (var generator in api.InitializationGenerators)
                             generator(s);
+                        //s.Out("installer.InstallWheel(typeof(NumPy).Assembly, \"numpy -1.16.3-cp37-cp37m-win_amd64.whl\", force).Wait();");
                         s.Out("PythonEngine.Initialize();");
+                        s.Out($"var mod = Py.Import(\"{api.PythonModule}\");");
+                        s.Out("return mod;");
                     });
-                    s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
+                    s.Break();
+                    s.Out("public dynamic self => _pyobj.Value;");
+                    s.Out("private bool IsInitialized => _pyobj != null;");
+                    s.Break();
+                    s.Out("private NumPy() { }");
+                    s.Break();
+                    s.Out("public void Dispose()", () =>
+                    {
+                        s.Out("self?.Dispose();");
+                    });
                     s.Break();
                     GenToTuple(s);
                     GenToPython(s);

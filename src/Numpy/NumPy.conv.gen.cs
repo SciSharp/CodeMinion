@@ -13,56 +13,58 @@ namespace Numpy
 {
     public partial class NumPy : IDisposable
     {
-
+        
         private static Lazy<NumPy> _instance = new Lazy<NumPy>(() => new NumPy());
         public static NumPy Instance => _instance.Value;
-
+        
         private Lazy<PyObject> _pyobj = new Lazy<PyObject>(() =>
         {
-            PyObject numpy=null;
-            try {
-                numpy= InstallAndImport();
+            PyObject mod = null;
+            try
+            {
+                mod = InstallAndImport();
             }
-            catch (Exception) {
+            catch (Exception)
+            {
                 // retry to fix the installation by forcing a repair.
-                numpy = InstallAndImport(force:true);
+                mod = InstallAndImport(force: true);
             }
-            return numpy;
-        });
-
-        private static PyObject InstallAndImport(bool force=false)
+            return mod;
+        }
+        );
+        
+        private static PyObject InstallAndImport(bool force = false)
         {
             var installer = new Installer();
             installer.SetupPython(force).Wait();
-            installer.InstallWheel(typeof(NumPy).Assembly, "numpy-1.16.3-cp37-cp37m-win_amd64.whl", force).Wait();
+            installer.InstallWheel(typeof(NumPy).Assembly, "numpy-1.16.3-cp37-cp37m-win_amd64.whl").Wait();
             PythonEngine.Initialize();
-            var numpy = Py.Import("numpy");
-            return numpy;
+            var mod = Py.Import("numpy");
+            return mod;
         }
-
+        
         public dynamic self => _pyobj.Value;
-        Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import("numpy"));
-        public dynamic np => _np.Value;
-        private bool IsInitialized => _pyobj!=null;
-
-        private NumPy()
+        private bool IsInitialized => _pyobj != null;
+        
+        private NumPy() { }
+        
+        public void Dispose()
         {
+            self?.Dispose();
         }
-
-        public void Dispose() { PythonEngine.Shutdown(); }
-
-
+        
+        
         //auto-generated
         protected PyTuple ToTuple(Array input)
         {
             var array = new PyObject[input.Length];
             for (int i = 0; i < input.Length; i++)
             {
-                array[i] = ToPython(input.GetValue(i));
+                array[i]=ToPython(input.GetValue(i));
             }
             return new PyTuple(array);
         }
-
+        
         //auto-generated
         protected PyObject ToPython(object obj)
         {
@@ -82,7 +84,7 @@ namespace Numpy
                 default: throw new NotImplementedException($"Type is not yet supported: { obj.GetType().Name}. Add it to 'ToPythonConversions'");
             }
         }
-
+        
         //auto-generated
         protected T ToCsharp<T>(dynamic pyobj)
         {
