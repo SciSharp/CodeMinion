@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <RootNamespace>Torch</RootNamespace>
-    <AssemblyName>Torch.NET</AssemblyName>
+    <RootNamespace>Numpy</RootNamespace>
+    <AssemblyName>Numpy</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
