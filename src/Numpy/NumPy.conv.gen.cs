@@ -6,8 +6,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
-using NumSharp;
 using Python.Included;
+using NumSharp;
 
 namespace Numpy
 {
@@ -22,7 +22,6 @@ namespace Numpy
         
         Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import("numpy"));
         public dynamic np => _np.Value;
-
         private NumPy()
         {
             var installer = new Installer();

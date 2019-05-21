@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using CodeMinion.Core;
+using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
 using HtmlAgilityPack;
 
@@ -45,7 +46,8 @@ namespace Torch.ApiGenerator
                 PartialName = "array_creation", // name-part of the partial class file
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
-                PythonModule = "numpy" // name of the Python module that the static api wraps 
+                PythonModule = "numpy", // name of the Python module that the static api wraps 
+                InitializationGenerators = { SpecialGenerators.InitNumpyGenerator },
             };
             array_creation_api.OutputPath = Path.Combine(src_dir, "Numpy");
             _generator.StaticApis.Add(array_creation_api);

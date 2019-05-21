@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CodeMinion.Core.Helpers;
 
 namespace CodeMinion.Core.Models
 {
@@ -38,5 +39,11 @@ namespace CodeMinion.Core.Models
         /// Additional name of a partial API file (required for splitting the API into multiple partial class files)
         /// </summary>
         public string PartialName { get; set; }
+
+        /// <summary>
+        /// These are generated into the constructor of the API implementation object
+        /// </summary>
+        public List<Action<CodeWriter>> InitializationGenerators { get; set; } = new List<Action<CodeWriter>>();
+
     }
 }

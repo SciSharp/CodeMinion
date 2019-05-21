@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
+using Python.Included;
 using NumSharp;
 
 namespace Numpy
@@ -958,8 +959,8 @@ namespace Numpy
         /// be in any order (either C-, Fortran-contiguous, or even
         /// discontiguous).
         /// </param>
-        //public static void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
-        //    => NumPy.Instance.array(obj, itemsize:itemsize, copy:copy, unicode:unicode, order:order);
+        public static void array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
+            => NumPy.Instance.array(obj, itemsize:itemsize, copy:copy, unicode:unicode, order:order);
         
         /// <summary>
         /// Convert the input to a chararray, copying the data only if
@@ -1513,9 +1514,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 251
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 98
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 401
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 252
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 99
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 402
         ----------------------------
         Declaration JSON:
         {
@@ -1665,9 +1666,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 251
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 98
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 401
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 252
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 99
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 402
         ----------------------------
         Declaration JSON:
         {

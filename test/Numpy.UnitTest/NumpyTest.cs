@@ -59,6 +59,8 @@ namespace Numpy.UnitTests
         {
             var numpy=NumPy.Instance;
             Console.WriteLine(numpy.self);
+            dynamic sys=Py.Import("sys");
+            Console.WriteLine(sys.version);
             //dynamic torch=Py.Import("torch");
             //Console.WriteLine(torch.version);
         }

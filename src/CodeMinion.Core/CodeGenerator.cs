@@ -35,6 +35,7 @@ namespace CodeMinion.Core
             @"using System.Runtime.InteropServices;",
             @"using System.Text;",
             @"using Python.Runtime;",
+            @"using Python.Included;",
         };
 
         protected Dictionary<string, FunctionBodyTemplate> _templates;
@@ -517,7 +518,12 @@ namespace CodeMinion.Core
                     s.Break();
                     s.AppendLine($"Lazy<PyObject> _np = new Lazy<PyObject>(() => Py.Import(\"numpy\"));");
                     s.AppendLine($"public dynamic np => _np.Value;");
-                    s.AppendLine($"private {api.ImplName}() {{ PythonEngine.Initialize(); }}");
+                    s.Out($"private {api.ImplName}()", () =>
+                    {
+                        foreach (var generator in api.InitializationGenerators)
+                            generator(s);
+                        s.Out("PythonEngine.Initialize();");
+                    });
                     s.AppendLine($"public void Dispose() {{ PythonEngine.Shutdown(); }}");
                     s.Break();
                     GenToTuple(s);

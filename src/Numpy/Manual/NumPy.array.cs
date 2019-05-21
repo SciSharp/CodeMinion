@@ -17,7 +17,6 @@ namespace Numpy
 
         public NDarray array(NDarray @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
         {
-            //auto-generated code, do not change
             var args = ToTuple(new object[]
             {
                 @object,
@@ -50,5 +49,21 @@ namespace Numpy
             }
             return new NDarray<T>(ndarray);
         }
+
+        public NDarray array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
+        {
+            var args = ToTuple(new object[]
+            {
+                obj,
+            });
+            var kwargs = new PyDict();
+            if (itemsize != null) kwargs["itemsize"] = ToPython(itemsize);
+            if (copy != null) kwargs["copy"] = ToPython(copy);
+            if (unicode != null) kwargs["unicode"] = ToPython(unicode);
+            if (order != null) kwargs["order"] = ToPython(order);
+            dynamic py = self.InvokeMethod("array", args, kwargs);
+            return ToCsharp<NDarray>(py);
+        }
+
     }
 }
