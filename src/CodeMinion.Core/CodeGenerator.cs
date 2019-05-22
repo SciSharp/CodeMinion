@@ -466,6 +466,39 @@ namespace CodeMinion.Core
             });
         }
 
+        public virtual void GenerateDynamicApi(DynamicApi api, CodeWriter s)
+        {
+            GenerateUsings(s);
+            s.AppendLine($"namespace {NameSpace}");
+            s.Block(() =>
+            {
+                s.Out($"public partial class {api.ClassName}");
+                s.Block(() =>
+                {
+                    s.Break();
+                    foreach (var decl in api.Declarations)
+                    {
+                        try
+                        {
+                            if (!decl.ManualOverride)
+                                GenerateApiFunction(decl, s);
+                        }
+                        catch (Exception e)
+                        {
+                            s.Out("// Error generating delaration: " + decl.Name);
+                            s.Out("// Message: " + e.Message);
+                            s.Out("/*");
+                            s.Out(e.StackTrace);
+                            s.Out("----------------------------");
+                            s.Out("Declaration JSON:");
+                            s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
+                            s.Out("*/");
+                        }
+                    }
+                });
+            });
+        }        
+
         protected void WriteFile(string path, Action<CodeWriter> generate_action)
         {
             var s = new CodeWriter();
@@ -490,17 +523,26 @@ namespace CodeMinion.Core
             var generated_implementations = new HashSet<string>();
             foreach (var api in StaticApis)
             {
+                // generate static apis
                 if (!generated_implementations.Contains(api.ImplName))
                 {
                     var conv_file = Path.Combine(api.OutputPath, $"{api.ImplName}.conv.gen.cs");
                     WriteFile(conv_file, s => { GenerateApiImplConversions(api, s); });
                 }
+
                 generated_implementations.Add(api.ImplName);
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
                 var api_file = Path.Combine(api.OutputPath, $"{api.StaticName + partial}.gen.cs");
                 var impl_file = Path.Combine(api.OutputPath, $"{api.ImplName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
                 WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
+            }
+            foreach (var api in DynamicApis)
+            {
+                // generate dynamic apis
+                var partial = (api.PartialName == null ? "" : "." + api.PartialName);
+                var api_file = Path.Combine(api.OutputPath, $"{api.ClassName + partial}.gen.cs");
+                WriteFile(api_file, s => { GenerateDynamicApi(api, s); });
             }
         }
 
