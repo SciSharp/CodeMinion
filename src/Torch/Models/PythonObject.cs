@@ -5,21 +5,21 @@ using Python.Runtime;
 
 namespace Torch.Models
 {
-    public class PythonObject : IDisposable
+    public partial class PythonObject : IDisposable
     {
-        protected readonly PyObject _pobj;
-        public dynamic PyObject => _pobj;
+        protected readonly PyObject self;
+        public dynamic PyObject => self;
 
-        public IntPtr Handle => _pobj.Handle;
+        public IntPtr Handle => self.Handle;
 
         public PythonObject(PyObject pyobject)
         {
-            this._pobj = pyobject;
+            this.self = pyobject;
         }
 
         public PythonObject(Tensor t)
         {
-            this._pobj = t.PyObject;
+            this.self = t.PyObject;
         }
 
         public override bool Equals(object obj)
@@ -27,26 +27,26 @@ namespace Torch.Models
             switch (obj)
             {
                 case PythonObject other:
-                    return _pobj.Equals(other._pobj);
+                    return self.Equals(other.self);
                 case PyObject other:
-                    return _pobj.Equals(other);
+                    return self.Equals(other);
             }
             return base.Equals(obj);
         }
 
         public override int GetHashCode()
         {
-            return _pobj.GetHashCode();
+            return self.GetHashCode();
         }
 
         public override string ToString()
         {
-            return _pobj.ToString();
+            return self.ToString();
         }
 
         public void Dispose()
         {
-            _pobj?.Dispose();
+            self?.Dispose();
         }
     }
 }

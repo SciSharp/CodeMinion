@@ -5,7 +5,7 @@ using Python.Runtime;
 
 namespace Numpy
 {
-    public class PythonObject : IDisposable
+    public partial class PythonObject : IDisposable
     {
         protected readonly PyObject self;
         public dynamic PyObject => self;

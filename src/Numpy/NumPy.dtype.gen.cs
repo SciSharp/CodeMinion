@@ -14,6 +14,9 @@ namespace Numpy
     public partial class NumPy
     {
         
+        /// <summary>
+        /// compatible: Python bool
+        /// </summary>
         public Dtype bool_
         {
             get
@@ -24,6 +27,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 8 bits
+        /// </summary>
         public Dtype bool8
         {
             get
@@ -34,6 +40,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C char
+        /// </summary>
         public Dtype @byte
         {
             get
@@ -44,6 +53,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C short
+        /// </summary>
         public Dtype @short
         {
             get
@@ -54,6 +66,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C int
+        /// </summary>
         public Dtype intc
         {
             get
@@ -64,6 +79,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: Python int
+        /// </summary>
         public Dtype int_
         {
             get
@@ -74,6 +92,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C long long
+        /// </summary>
         public Dtype longlong
         {
             get
@@ -84,6 +105,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// large enough to fit a pointer
+        /// </summary>
         public Dtype intp
         {
             get
@@ -94,6 +118,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 8 bits
+        /// </summary>
         public Dtype int8
         {
             get
@@ -104,6 +131,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 16 bits
+        /// </summary>
         public Dtype int16
         {
             get
@@ -114,6 +144,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 32 bits
+        /// </summary>
         public Dtype int32
         {
             get
@@ -124,6 +157,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 64 bits
+        /// </summary>
         public Dtype int64
         {
             get
@@ -134,6 +170,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C unsigned char
+        /// </summary>
         public Dtype ubyte
         {
             get
@@ -144,6 +183,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C unsigned short
+        /// </summary>
         public Dtype @ushort
         {
             get
@@ -154,6 +196,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C unsigned int
+        /// </summary>
         public Dtype uintc
         {
             get
@@ -164,6 +209,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: Python int
+        /// </summary>
         public Dtype @uint
         {
             get
@@ -174,6 +222,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C long long
+        /// </summary>
         public Dtype ulonglong
         {
             get
@@ -184,6 +235,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// large enough to fit a pointer
+        /// </summary>
         public Dtype uintp
         {
             get
@@ -194,6 +248,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 8 bits
+        /// </summary>
         public Dtype uint8
         {
             get
@@ -204,6 +261,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 16 bits
+        /// </summary>
         public Dtype uint16
         {
             get
@@ -214,6 +274,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 32 bits
+        /// </summary>
         public Dtype uint32
         {
             get
@@ -224,6 +287,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 64 bits
+        /// </summary>
         public Dtype uint64
         {
             get
@@ -234,6 +300,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// &#160;
+        /// </summary>
         public Dtype half
         {
             get
@@ -244,6 +313,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C float
+        /// </summary>
         public Dtype single
         {
             get
@@ -254,6 +326,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C double
+        /// </summary>
         public Dtype @double
         {
             get
@@ -264,6 +339,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: Python float
+        /// </summary>
         public Dtype float_
         {
             get
@@ -274,6 +352,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: C long float
+        /// </summary>
         public Dtype longfloat
         {
             get
@@ -284,6 +365,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 16 bits
+        /// </summary>
         public Dtype float16
         {
             get
@@ -294,6 +378,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 32 bits
+        /// </summary>
         public Dtype float32
         {
             get
@@ -304,6 +391,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 64 bits
+        /// </summary>
         public Dtype float64
         {
             get
@@ -314,6 +404,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 96 bits, platform?
+        /// </summary>
         public Dtype float96
         {
             get
@@ -324,6 +417,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// 128 bits, platform?
+        /// </summary>
         public Dtype float128
         {
             get
@@ -334,6 +430,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// &#160;
+        /// </summary>
         public Dtype csingle
         {
             get
@@ -344,6 +443,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: Python complex
+        /// </summary>
         public Dtype complex_
         {
             get
@@ -354,6 +456,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// &#160;
+        /// </summary>
         public Dtype clongfloat
         {
             get
@@ -364,6 +469,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// two 32-bit floats
+        /// </summary>
         public Dtype complex64
         {
             get
@@ -374,6 +482,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// two 64-bit floats
+        /// </summary>
         public Dtype complex128
         {
             get
@@ -384,6 +495,10 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// two 96-bit floats,
+        /// platform?
+        /// </summary>
         public Dtype complex192
         {
             get
@@ -394,6 +509,10 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// two 128-bit floats,
+        /// platform?
+        /// </summary>
         public Dtype complex256
         {
             get
@@ -404,6 +523,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// any Python object
+        /// </summary>
         public Dtype object_
         {
             get
@@ -414,6 +536,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: Python bytes
+        /// </summary>
         public Dtype bytes_
         {
             get
@@ -424,6 +549,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// compatible: Python unicode/str
+        /// </summary>
         public Dtype unicode_
         {
             get
@@ -434,6 +562,9 @@ namespace Numpy
             }
         }
         
+        /// <summary>
+        /// &#160;
+        /// </summary>
         public Dtype @void
         {
             get

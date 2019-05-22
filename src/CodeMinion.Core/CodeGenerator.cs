@@ -55,6 +55,7 @@ namespace CodeMinion.Core
                 Debugger.Break();
             if (decl.CommentOut)
                 s.Out("/*");
+            GenerateDocString(decl, s);
             var retval = GenerateReturnType(decl);
             switch (decl)
             {
@@ -333,7 +334,7 @@ namespace CodeMinion.Core
             if (func.Arguments.Any())
             {
                 // first generate the positional args
-                s.Out($"var args=ToTuple(new object[]");
+                s.Out($"var pyargs=ToTuple(new object[]");
                 s.Block(() =>
                 {
                     foreach (var arg in func.Arguments.Where(a => a.IsNamedArg == false))
@@ -349,7 +350,7 @@ namespace CodeMinion.Core
                     s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                 }
                 // then call the function
-                s.Out($"dynamic py = self.InvokeMethod(\"{func.Name}\", args, kwargs);");
+                s.Out($"dynamic py = self.InvokeMethod(\"{func.Name}\", pyargs, kwargs);");
             }
             else
             {
@@ -497,7 +498,7 @@ namespace CodeMinion.Core
                     }
                 });
             });
-        }        
+        }
 
         protected void WriteFile(string path, Action<CodeWriter> generate_action)
         {
@@ -537,8 +538,16 @@ namespace CodeMinion.Core
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
                 WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
+            bool generated_pyobject = false;
             foreach (var api in DynamicApis)
             {
+                if (!generated_pyobject)
+                {
+                    // PythonObject functions:
+                    var pyobj_file = Path.Combine(api.OutputPath, $"PythonObject.gen.cs");
+                    WriteFile(pyobj_file, s => { GeneratePythonObjectConversions(s); });
+                    generated_pyobject = true;
+                }
                 // generate dynamic apis
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
                 var api_file = Path.Combine(api.OutputPath, $"{api.ClassName + partial}.gen.cs");
@@ -605,6 +614,21 @@ namespace CodeMinion.Core
             });
         }
 
+        private void GeneratePythonObjectConversions(CodeWriter s)
+        {
+            GenerateUsings(s);
+            s.Out($"namespace {NameSpace}", () =>
+            {
+                s.Out($"public partial class PythonObject", () =>
+                {
+                    s.Break();
+                    GenToTuple(s);
+                    GenToPython(s);
+                    GenToCsharp(s);
+                    GenSpecialConversions(s);
+                });
+            });
+        }
         private void GenToTuple(CodeWriter s)
         {
             s.Break();

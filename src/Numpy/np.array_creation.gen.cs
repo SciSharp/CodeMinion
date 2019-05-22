@@ -1786,9 +1786,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 254
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 101
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 406
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 102
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 407
         ----------------------------
         Declaration JSON:
         {
@@ -1938,9 +1938,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 254
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 101
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 406
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 102
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 407
         ----------------------------
         Declaration JSON:
         {
@@ -2092,9 +2092,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 254
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 101
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 406
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 102
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 407
         ----------------------------
         Declaration JSON:
         {
@@ -2512,7 +2512,7 @@ namespace Numpy
         /// with the elements of xi repeated to fill the matrix along
         /// the first dimension for x1, the second for x2 and so on.
         /// </returns>
-        public static NDarray meshgrid(NDarray x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
+        public static NDarray meshgrid(NDarray x1, x2,…, xn, string indexing = null, bool? sparse = null, bool? copy = null)
             => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
         */
         
@@ -2563,7 +2563,7 @@ namespace Numpy
         /// with the elements of xi repeated to fill the matrix along
         /// the first dimension for x1, the second for x2 and so on.
         /// </returns>
-        public static NDarray<T> meshgrid<T>(T[] x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
+        public static NDarray<T> meshgrid<T>(T[] x1, x2,…, xn, string indexing = null, bool? sparse = null, bool? copy = null)
             => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
         */
         
@@ -2614,7 +2614,7 @@ namespace Numpy
         /// with the elements of xi repeated to fill the matrix along
         /// the first dimension for x1, the second for x2 and so on.
         /// </returns>
-        public static NDarray<T> meshgrid<T>(T[,] x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
+        public static NDarray<T> meshgrid<T>(T[,] x1, x2,…, xn, string indexing = null, bool? sparse = null, bool? copy = null)
             => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
         */
         

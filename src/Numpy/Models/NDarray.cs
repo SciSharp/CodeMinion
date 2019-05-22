@@ -10,8 +10,10 @@ using Python.Runtime;
 
 namespace Numpy
 {
-    public class NDarray : PythonObject
+    public partial class NDarray : PythonObject
     {
+        // these are manual overrides of functions or properties that can not be automatically generated
+
         public NDarray(PyObject pyobj) : base(pyobj)
         {
         }
@@ -152,6 +154,183 @@ namespace Numpy
         /// Length of the array (same as size)
         /// </summary>
         public int len => self.InvokeMethod("__len__").As<int>();
+
+        /// <summary>
+        /// Insert scalar into an array (scalar is cast to array’s dtype, if possible)
+        /// 
+        /// There must be at least 1 argument, and define the last argument
+        /// as item.  Then, a.itemset(*args) is equivalent to but faster
+        /// than a[args] = item.  The item should be a scalar value and args
+        /// must select a single item in the array a.
+        /// 
+        /// Notes
+        /// 
+        /// Compared to indexing syntax, itemset provides some speed increase
+        /// for placing a scalar into a particular location in an ndarray,
+        /// if you must do this.  However, generally this is discouraged:
+        /// among other problems, it complicates the appearance of the code.
+        /// Also, when using itemset (and item) inside a loop, be sure
+        /// to assign the methods to a local variable to avoid the attribute
+        /// look-up at each loop iteration.
+        /// </summary>
+        /// <param name="args">
+        /// If one argument: a scalar, only used in case a is of size 1.
+        /// If two arguments: the last argument is the value to be set
+        /// and must be a scalar, the first argument specifies a single array
+        /// element location. It is either an int or a tuple.
+        /// </param>
+        public void itemset(params object[] args)
+        {
+            var pyargs = ToTuple(args);
+            var kwargs = new PyDict();
+            dynamic py = self.InvokeMethod("itemset", pyargs, kwargs);
+        }
+
+        /// <summary>
+        /// Construct Python bytes containing the raw data bytes in the array.
+        /// 
+        /// Constructs Python bytes showing a copy of the raw contents of
+        /// data memory. The bytes object can be produced in either ‘C’ or ‘Fortran’,
+        /// or ‘Any’ order (the default is ‘C’-order). ‘Any’ order means C-order
+        /// unless the F_CONTIGUOUS flag in the array is set, in which case it
+        /// means ‘Fortran’ order.
+        /// 
+        /// This function is a compatibility alias for tobytes. Despite its name it returns bytes not strings.
+        /// </summary>
+        /// <param name="order">
+        /// Order of the data for multidimensional arrays:
+        /// C, Fortran, or the same as for the original array.
+        /// </param>
+        /// <returns>
+        /// Python bytes exhibiting a copy of a’s raw data.
+        /// </returns>
+        public byte[] tostring(string order = null)
+        {
+            return tobytes();
+        }
+
+        /// <summary>
+        /// Construct Python bytes containing the raw data bytes in the array.
+        /// 
+        /// Constructs Python bytes showing a copy of the raw contents of
+        /// data memory. The bytes object can be produced in either ‘C’ or ‘Fortran’,
+        /// or ‘Any’ order (the default is ‘C’-order). ‘Any’ order means C-order
+        /// unless the F_CONTIGUOUS flag in the array is set, in which case it
+        /// means ‘Fortran’ order.
+        /// </summary>
+        /// <param name="order">
+        /// Order of the data for multidimensional arrays:
+        /// C, Fortran, or the same as for the original array.
+        /// </param>
+        /// <returns>
+        /// Python bytes exhibiting a copy of a’s raw data.
+        /// </returns>
+        public byte[] tobytes(string order = null)
+        {
+            throw new NotImplementedException("TODO: this needs to be implemented with Marshal.Copy");
+            var pyargs = ToTuple(new object[]
+            {
+            });
+            var kwargs = new PyDict();
+            if (order != null) kwargs["order"] = ToPython(order);
+            dynamic py = self.InvokeMethod("tobytes", pyargs, kwargs);
+            return ToCsharp<byte[]>(py);
+        }
+
+        /// <summary>
+        /// New view of array with the same data.
+        /// 
+        /// Notes
+        /// 
+        /// a.view() is used two different ways:
+        /// 
+        /// a.view(some_dtype) or a.view(dtype=some_dtype) constructs a view
+        /// of the array’s memory with a different data-type.  This can cause a
+        /// reinterpretation of the bytes of memory.
+        /// 
+        /// a.view(ndarray_subclass) or a.view(type=ndarray_subclass) just
+        /// returns an instance of ndarray_subclass that looks at the same array
+        /// (same shape, dtype, etc.)  This does not cause a reinterpretation of the
+        /// memory.
+        /// 
+        /// For a.view(some_dtype), if some_dtype has a different number of
+        /// bytes per entry than the previous dtype (for example, converting a
+        /// regular array to a structured array), then the behavior of the view
+        /// cannot be predicted just from the superficial appearance of a (shown
+        /// by print(a)). It also depends on exactly how a is stored in
+        /// memory. Therefore if a is C-ordered versus fortran-ordered, versus
+        /// defined as a slice or transpose, etc., the view may give different
+        /// results.
+        /// </summary>
+        /// <param name="dtype">
+        /// Data-type descriptor of the returned view, e.g., float32 or int16. The
+        /// default, None, results in the view having the same data-type as a.
+        /// This argument can also be specified as an ndarray sub-class, which
+        /// then specifies the type of the returned object (this is equivalent to
+        /// setting the type parameter).
+        /// </param>
+        /// <param name="type">
+        /// Type of the returned view, e.g., ndarray or matrix.  Again, the
+        /// default None results in type preservation.
+        /// </param>
+        public void view(Dtype dtype = null, Type type = null)
+        {
+            throw new NotImplementedException("Get python type 'ndarray' and 'matrix' and substitute them for the given .NET type");
+            var pyargs = ToTuple(new object[]
+            {
+            });
+            var kwargs = new PyDict();
+            if (dtype != null) kwargs["dtype"] = ToPython(dtype);
+            if (type != null) kwargs["type"] = ToPython(type);
+            dynamic py = self.InvokeMethod("view", pyargs, kwargs);
+        }
+
+        /// <summary>
+        /// Change shape and size of array in-place.
+        /// 
+        /// Notes
+        /// 
+        /// This reallocates space for the data area if necessary.
+        /// 
+        /// Only contiguous arrays (data elements consecutive in memory) can be
+        /// resized.
+        /// 
+        /// The purpose of the reference count check is to make sure you
+        /// do not use this array as a buffer for another Python object and then
+        /// reallocate the memory. However, reference counts can increase in
+        /// other ways so if you are sure that you have not shared the memory
+        /// for this array with another Python object, then you may safely set
+        /// refcheck to False.
+        /// </summary>
+        /// <param name="new_shape">
+        /// Shape of resized array.
+        /// </param>
+        /// <param name="refcheck">
+        /// If False, reference count will not be checked. Default is True.
+        /// </param>
+        public void resize(Shape new_shape, bool? refcheck = null)
+        {
+            var pyargs = ToTuple(new object[]
+            {
+                new_shape,
+            });
+            var kwargs = new PyDict();
+            if (refcheck != null) kwargs["refcheck"] = ToPython(refcheck);
+            dynamic py = self.InvokeMethod("resize", pyargs, kwargs);
+        }
+
+        /// <summary>
+        /// returns the 'array([ .... ])'-representation known from the console
+        /// </summary>
+        public string repr => self.GetAttr("__repr__").As<string>();
+        public string __repr__ => repr;
+
+        /// <summary>
+        /// returns the '[ .... ]'-representation
+        /// </summary>
+        public string str => self.GetAttr("__str__").As<string>();
+        public string __str__ => str;
+
     }
 
     public class NDarray<T> : NDarray

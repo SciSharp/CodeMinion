@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using CodeMinion.Core;
-using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
+using CodeMinion.Parser;
 using HtmlAgilityPack;
-using Numpy.ApiGenerator;
 
-namespace Torch.ApiGenerator
+namespace Numpy.ApiGenerator
 {
     public class NumpyApiGenerator
     {
@@ -48,9 +44,9 @@ namespace Torch.ApiGenerator
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
                 PythonModule = "numpy", // name of the Python module that the static api wraps 
+                OutputPath = Path.Combine(src_dir, "Numpy"),
                 InitializationGenerators = { SpecialGenerators.InitNumpyGenerator },
             };
-            array_creation_api.OutputPath = Path.Combine(src_dir, "Numpy");
             _generator.StaticApis.Add(array_creation_api);
             ParseArrayCreationApi(array_creation_api);
             // ----------------------------------------------------
@@ -61,15 +57,19 @@ namespace Torch.ApiGenerator
                 PartialName = "dtype",
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
-                PythonModule = "numpy" // name of the Python module that the static api wraps 
+                PythonModule = "numpy", // name of the Python module that the static api wraps 
+                OutputPath = Path.Combine(src_dir, "Numpy"),
             };
-            dtype_api.OutputPath = Path.Combine(src_dir, "Numpy");
             _generator.StaticApis.Add(dtype_api);
             ParseDtypeApi(dtype_api);
             // ----------------------------------------------------
             // ndarray
             // ----------------------------------------------------
-            var ndarray_api = new DynamicApi() { ClassName = "NDarray", };
+            var ndarray_api = new DynamicApi()
+            {
+                ClassName = "NDarray",
+                OutputPath = Path.Combine(src_dir, "Numpy/Models"),
+            };
             _generator.DynamicApis.Add(ndarray_api);
             ParseNdarrayApi(ndarray_api);
             // ----------------------------------------------------
@@ -80,17 +80,39 @@ namespace Torch.ApiGenerator
 
         private void ParseNdarrayApi(DynamicApi api)
         {
-            var doc = GetHtml("arrays.ndarray.html");
-            //foreach (var tr in doc.Doc.DocumentNode.Descendants("tr"))
-            //{
-            //    if (tr.Descendants("td").Count() != 3)
-            //        continue;
-            //    var span = tr.Descendants("span").FirstOrDefault();
-            //    if (span == null)
-            //        continue;
-            //    var td = tr.Descendants("td").Skip(1).FirstOrDefault();
-            //    api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument() { Type = "Dtype" } } });
-            //}
+            var docs = LoadDocs("arrays.ndarray.html");
+            foreach (var html_doc in docs)
+            {
+                var doc = html_doc.Doc;
+                // declaration
+                var h1 = doc.DocumentNode.Descendants("h1").FirstOrDefault();
+                if (h1 == null)
+                    continue;
+                var dl = doc.DocumentNode.Descendants("dl").FirstOrDefault();
+                if (dl == null || dl.Attributes["class"]?.Value != "method") continue;
+                var class_name = doc.DocumentNode.Descendants("code")
+                    .First(x => x.Attributes["class"]?.Value == "descclassname").InnerText;
+                var func_name = doc.DocumentNode.Descendants("code")
+                    .First(x => x.Attributes["class"]?.Value == "descname").InnerText;
+                var decl = new Function() { Name = func_name, ClassName = class_name.TrimEnd('.') };
+                // function description
+                var dd = dl.Descendants("dd").FirstOrDefault();
+                decl.Description = ParseDescription(dd);
+                var table = doc.DocumentNode.Descendants("table")
+                    .FirstOrDefault(x => x.Attributes["class"]?.Value == "docutils field-list");
+                if (table == null)
+                    continue;
+                // arguments
+                ParseArguments(html_doc, table, decl);
+
+                // return type(s)
+                ParseReturnTypes(html_doc, table, decl);
+
+                PostProcess(decl);
+                // if necessary create overloads
+                foreach (var d in InferOverloads(decl))
+                    api.Declarations.Add(d);
+            }
         }
 
         private void ParseDtypeApi(StaticApi api)
@@ -165,6 +187,8 @@ namespace Torch.ApiGenerator
                 if (strong == null)
                     continue;
                 arg.Name = strong.InnerText;
+                if (arg.Name.ToLower() == "none")
+                    continue; // there are no arguments fro this method
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
                 var type = type_description.Split(",").FirstOrDefault();
@@ -188,6 +212,14 @@ namespace Torch.ApiGenerator
         {
             if (arg.Name == "order")
                 arg.DefaultValue = null;
+            if (arg.Name == "axes")
+            {
+                arg.Type = "int[]";
+                arg.DefaultValue = "null";
+                return;
+            }
+            if (arg.Name.StartsWith("*"))
+                arg.Name = arg.Name.TrimStart('*');
             switch (arg.Type)
             {
                 //case "int[]":
@@ -205,17 +237,25 @@ namespace Torch.ApiGenerator
             if (decl.Arguments.Any(a => a.Type == "buffer_like"))
                 decl.CommentOut = true;
             // iterable object            
-            if (decl.Arguments.Any(a => a.Type == "IEnumerable<T>"))
+            if (decl.Arguments.Any(a => a.Type.Contains("<T>")))
             {
                 decl.Generics = new string[] { "T" };
                 if (decl.Returns[0].Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
                     decl.Returns[0].Type = "NDarray<T>";
             }
-
+            if (decl.Returns.Any(a => a.Type == "T" || a.Type.Contains("<T>")))
+            {
+                decl.Generics = new string[] { "T" };
+            }
             switch (decl.Name)
             {
                 case "array":
-                    decl.ManualOverride = true;
+                case "itemset":
+                case "tostring":
+                case "tobytes":
+                case "view":
+                case "resize":
+                    decl.ManualOverride = true; // do not generate an implementation
                     break;
                 case "arange":
                     decl.Arguments[0].IsNullable = false;
@@ -250,6 +290,8 @@ namespace Torch.ApiGenerator
                 var strong = dt.Descendants("strong").FirstOrDefault();
                 if (strong != null)
                     arg.Name = strong.InnerText;
+                if (arg.Name.ToLower()=="none")
+                    continue;
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
                 var type = type_description.Split(",").FirstOrDefault();
@@ -379,6 +421,7 @@ namespace Torch.ApiGenerator
                 case "scalar": return "ValueType";
                 case "file": return "string";
                 case "str": return "string";
+                case "string or list": return "string";
                 case "file or str": return "string";
                 case "str or sequence of str": return "string[]";
                 case "array of str or unicode-like": return "string[]";
@@ -387,11 +430,17 @@ namespace Torch.ApiGenerator
                 case "iterable object": return "IEnumerable<T>";
                 case "dict": return "Hashtable";
                 case "int or sequence": return "int[]";
+                case "int or sequence of ints": return "int[]";
                 case "boolean": return "bool";
                 case "integer": return "int";
+                case "Standard Python scalar object": return "T";
+                case "Arguments (variable number and type)": return "params int[]";
+                case "list": return "List<T>";
             }
             if (type.StartsWith("ndarray"))
                 return "NDarray";
+            if (type.StartsWith("{‘"))
+                return "string";
             return type;
         }
 

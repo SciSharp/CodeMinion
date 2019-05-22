@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 
-namespace Torch.ApiGenerator
+namespace CodeMinion.Parser
 {
     public class HtmlDoc
     {
