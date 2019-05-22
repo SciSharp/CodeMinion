@@ -114,7 +114,7 @@ namespace Numpy.UnitTests
         public void ndarray_base()
         {
             var a = np.array(new int[] {1, 2, 3, 4, 5, 6});
-            var b = np.array(a);
+            var b = a.reshape(a, new Shape(2,3));
             Assert.AreEqual(null, a.@base);
             Assert.AreEqual(a, b.@base);
         }
