@@ -136,7 +136,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                prototype,
+                SharpToSharp<NDarray>(prototype),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -182,7 +182,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                prototype,
+                SharpToSharp<NDarray>(prototype),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -362,7 +362,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -401,7 +401,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -511,7 +511,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -550,7 +550,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -666,7 +666,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
                 fill_value,
             });
             var kwargs=new PyDict();
@@ -709,7 +709,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
                 fill_value,
             });
             var kwargs=new PyDict();
@@ -781,7 +781,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -816,7 +816,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -882,7 +882,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -915,7 +915,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -968,7 +968,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -994,7 +994,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -1050,7 +1050,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                data,
+                SharpToSharp<NDarray>(data),
                 dtype,
             });
             var kwargs=new PyDict();
@@ -1078,7 +1078,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                data,
+                SharpToSharp<NDarray>(data),
                 dtype,
             });
             var kwargs=new PyDict();
@@ -1146,7 +1146,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (order!=null) kwargs["order"]=ToPython(order);
@@ -1180,7 +1180,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                a,
+                SharpToSharp<NDarray>(a),
             });
             var kwargs=new PyDict();
             if (order!=null) kwargs["order"]=ToPython(order);
@@ -1488,50 +1488,6 @@ namespace Numpy
             if (max_rows!=null) kwargs["max_rows"]=ToPython(max_rows);
             dynamic py = self.InvokeMethod("loadtxt", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
-        }
-        
-        /// <summary>
-        /// Convert the input to a chararray, copying the data only if
-        /// necessary.
-        /// 
-        /// Versus a regular NumPy array of type str or unicode, this
-        /// class adds the following functionality:
-        /// </summary>
-        /// <param name="itemsize">
-        /// itemsize is the number of characters per scalar in the
-        /// resulting array.  If itemsize is None, and obj is an
-        /// object array or a Python list, the itemsize will be
-        /// automatically determined.  If itemsize is provided and obj
-        /// is of type str or unicode, then the obj string will be
-        /// chunked into itemsize pieces.
-        /// </param>
-        /// <param name="unicode">
-        /// When true, the resulting chararray can contain Unicode
-        /// characters, when false only 8-bit characters.  If unicode is
-        /// None and obj is one of the following:
-        /// 
-        /// then the unicode setting of the output array will be
-        /// automatically determined.
-        /// </param>
-        /// <param name="order">
-        /// Specify the order of the array.  If order is ‘C’ (default), then the
-        /// array will be in C-contiguous order (last-index varies the
-        /// fastest).  If order is ‘F’, then the returned array
-        /// will be in Fortran-contiguous order (first-index varies the
-        /// fastest).
-        /// </param>
-        public void asarray(string[] obj, int? itemsize = null, bool? unicode = null, string order = null)
-        {
-            //auto-generated code, do not change
-            var pyargs=ToTuple(new object[]
-            {
-                obj,
-            });
-            var kwargs=new PyDict();
-            if (itemsize!=null) kwargs["itemsize"]=ToPython(itemsize);
-            if (unicode!=null) kwargs["unicode"]=ToPython(unicode);
-            if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("asarray", pyargs, kwargs);
         }
         
         /// <summary>
@@ -2193,7 +2149,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 451
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
         ----------------------------
         Declaration JSON:
         {
@@ -2205,7 +2161,10 @@ namespace Numpy
       "Type": "NDarray",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "The starting value of the sequence."
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": false
     },
     {
       "IsNullable": false,
@@ -2214,7 +2173,10 @@ namespace Numpy
       "Type": "NDarray",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False."
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": null,
+      "Position": 1,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2223,7 +2185,10 @@ namespace Numpy
       "Type": "int",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "Number of samples to generate. Default is 50. Must be non-negative."
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2232,7 +2197,10 @@ namespace Numpy
       "Type": "bool",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True."
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2241,7 +2209,10 @@ namespace Numpy
       "Type": "bool",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples."
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2250,7 +2221,10 @@ namespace Numpy
       "Type": "Dtype",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments."
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2259,7 +2233,10 @@ namespace Numpy
       "Type": "int",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end."
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
     }
   ],
   "Generics": null,
@@ -2273,7 +2250,10 @@ namespace Numpy
       "Type": "NDarray",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False)."
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
     },
     {
       "IsNullable": false,
@@ -2282,7 +2262,10 @@ namespace Numpy
       "Type": "float",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples."
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
     }
   ],
   "IsDeprecated": false,
@@ -2345,7 +2328,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 451
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
         ----------------------------
         Declaration JSON:
         {
@@ -2357,16 +2340,22 @@ namespace Numpy
       "Type": "T[]",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "The starting value of the sequence."
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 0,
+      "IsReturnValue": false
     },
     {
       "IsNullable": false,
       "IsValueType": false,
       "Name": "stop",
-      "Type": "T[]",
+      "Type": "array_like",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False."
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": null,
+      "Position": 1,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2375,7 +2364,10 @@ namespace Numpy
       "Type": "int",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "Number of samples to generate. Default is 50. Must be non-negative."
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2384,7 +2376,10 @@ namespace Numpy
       "Type": "bool",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True."
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2393,7 +2388,10 @@ namespace Numpy
       "Type": "bool",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples."
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2402,7 +2400,10 @@ namespace Numpy
       "Type": "Dtype",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments."
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2411,7 +2412,10 @@ namespace Numpy
       "Type": "int",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end."
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
     }
   ],
   "Generics": [
@@ -2427,7 +2431,10 @@ namespace Numpy
       "Type": "NDarray<T>",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False)."
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
     },
     {
       "IsNullable": false,
@@ -2436,7 +2443,10 @@ namespace Numpy
       "Type": "float",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples."
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
     }
   ],
   "IsDeprecated": false,
@@ -2499,7 +2509,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 451
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
         ----------------------------
         Declaration JSON:
         {
@@ -2511,16 +2521,22 @@ namespace Numpy
       "Type": "T[,]",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "The starting value of the sequence."
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 0,
+      "IsReturnValue": false
     },
     {
       "IsNullable": false,
       "IsValueType": false,
       "Name": "stop",
-      "Type": "T[,]",
+      "Type": "array_like",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False."
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": null,
+      "Position": 1,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2529,7 +2545,10 @@ namespace Numpy
       "Type": "int",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "Number of samples to generate. Default is 50. Must be non-negative."
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2538,7 +2557,10 @@ namespace Numpy
       "Type": "bool",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True."
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2547,7 +2569,10 @@ namespace Numpy
       "Type": "bool",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples."
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2556,7 +2581,10 @@ namespace Numpy
       "Type": "Dtype",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments."
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
     },
     {
       "IsNullable": true,
@@ -2565,7 +2593,10 @@ namespace Numpy
       "Type": "int",
       "DefaultValue": null,
       "IsNamedArg": true,
-      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end."
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
     }
   ],
   "Generics": [
@@ -2581,7 +2612,10 @@ namespace Numpy
       "Type": "NDarray<T>",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False)."
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
     },
     {
       "IsNullable": false,
@@ -2590,7 +2624,372 @@ namespace Numpy
       "Type": "float",
       "DefaultValue": null,
       "IsNamedArg": false,
-      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples."
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "NDarray",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 1,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "NDarray",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[,]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 1,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
     }
   ],
   "IsDeprecated": false,
@@ -2663,130 +3062,6 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Return numbers spaced evenly on a log scale.
-        /// 
-        /// In linear space, the sequence starts at base ** start
-        /// (base to the power of start) and ends with base ** stop
-        /// (see endpoint below).
-        /// 
-        /// Notes
-        /// 
-        /// Logspace is equivalent to the code
-        /// </summary>
-        /// <param name="start">
-        /// base ** start is the starting value of the sequence.
-        /// </param>
-        /// <param name="stop">
-        /// base ** stop is the final value of the sequence, unless endpoint
-        /// is False.  In that case, num + 1 values are spaced over the
-        /// interval in log-space, of which all but the last (a sequence of
-        /// length num) are returned.
-        /// </param>
-        /// <param name="num">
-        /// Number of samples to generate.  Default is 50.
-        /// </param>
-        /// <param name="endpoint">
-        /// If true, stop is the last sample. Otherwise, it is not included.
-        /// Default is True.
-        /// </param>
-        /// <param name="@base">
-        /// The base of the log space. The step size between the elements in
-        /// ln(samples) / ln(base) (or log_base(samples)) is uniform.
-        /// Default is 10.0.
-        /// </param>
-        /// <param name="dtype">
-        /// The type of the output array.  If dtype is not given, infer the data
-        /// type from the other input arguments.
-        /// </param>
-        /// <param name="axis">
-        /// The axis in the result to store the samples.  Relevant only if start
-        /// or stop are array-like.  By default (0), the samples will be along a
-        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
-        /// </param>
-        /// <returns>
-        /// num samples, equally spaced on a log scale.
-        /// </returns>
-        public NDarray<T> logspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var pyargs=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (@base!=null) kwargs["base"]=ToPython(@base);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("logspace", pyargs, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
-        
-        /// <summary>
-        /// Return numbers spaced evenly on a log scale.
-        /// 
-        /// In linear space, the sequence starts at base ** start
-        /// (base to the power of start) and ends with base ** stop
-        /// (see endpoint below).
-        /// 
-        /// Notes
-        /// 
-        /// Logspace is equivalent to the code
-        /// </summary>
-        /// <param name="start">
-        /// base ** start is the starting value of the sequence.
-        /// </param>
-        /// <param name="stop">
-        /// base ** stop is the final value of the sequence, unless endpoint
-        /// is False.  In that case, num + 1 values are spaced over the
-        /// interval in log-space, of which all but the last (a sequence of
-        /// length num) are returned.
-        /// </param>
-        /// <param name="num">
-        /// Number of samples to generate.  Default is 50.
-        /// </param>
-        /// <param name="endpoint">
-        /// If true, stop is the last sample. Otherwise, it is not included.
-        /// Default is True.
-        /// </param>
-        /// <param name="@base">
-        /// The base of the log space. The step size between the elements in
-        /// ln(samples) / ln(base) (or log_base(samples)) is uniform.
-        /// Default is 10.0.
-        /// </param>
-        /// <param name="dtype">
-        /// The type of the output array.  If dtype is not given, infer the data
-        /// type from the other input arguments.
-        /// </param>
-        /// <param name="axis">
-        /// The axis in the result to store the samples.  Relevant only if start
-        /// or stop are array-like.  By default (0), the samples will be along a
-        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
-        /// </param>
-        /// <returns>
-        /// num samples, equally spaced on a log scale.
-        /// </returns>
-        public NDarray<T> logspace<T>(T[,] start, T[,] stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var pyargs=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (@base!=null) kwargs["base"]=ToPython(@base);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("logspace", pyargs, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
-        
-        /// <summary>
         /// Return numbers spaced evenly on a log scale (a geometric progression).
         /// 
         /// This is similar to logspace, but with endpoints specified directly.
@@ -2841,120 +3116,6 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = self.InvokeMethod("geomspace", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
-        }
-        
-        /// <summary>
-        /// Return numbers spaced evenly on a log scale (a geometric progression).
-        /// 
-        /// This is similar to logspace, but with endpoints specified directly.
-        /// Each output sample is a constant multiple of the previous.
-        /// 
-        /// Notes
-        /// 
-        /// If the inputs or dtype are complex, the output will follow a logarithmic
-        /// spiral in the complex plane.  (There are an infinite number of spirals
-        /// passing through two points; the output will follow the shortest such path.)
-        /// </summary>
-        /// <param name="start">
-        /// The starting value of the sequence.
-        /// </param>
-        /// <param name="stop">
-        /// The final value of the sequence, unless endpoint is False.
-        /// In that case, num + 1 values are spaced over the
-        /// interval in log-space, of which all but the last (a sequence of
-        /// length num) are returned.
-        /// </param>
-        /// <param name="num">
-        /// Number of samples to generate.  Default is 50.
-        /// </param>
-        /// <param name="endpoint">
-        /// If true, stop is the last sample. Otherwise, it is not included.
-        /// Default is True.
-        /// </param>
-        /// <param name="dtype">
-        /// The type of the output array.  If dtype is not given, infer the data
-        /// type from the other input arguments.
-        /// </param>
-        /// <param name="axis">
-        /// The axis in the result to store the samples.  Relevant only if start
-        /// or stop are array-like.  By default (0), the samples will be along a
-        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
-        /// </param>
-        /// <returns>
-        /// num samples, equally spaced on a log scale.
-        /// </returns>
-        public NDarray<T> geomspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, Dtype dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var pyargs=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("geomspace", pyargs, kwargs);
-            return ToCsharp<NDarray<T>>(py);
-        }
-        
-        /// <summary>
-        /// Return numbers spaced evenly on a log scale (a geometric progression).
-        /// 
-        /// This is similar to logspace, but with endpoints specified directly.
-        /// Each output sample is a constant multiple of the previous.
-        /// 
-        /// Notes
-        /// 
-        /// If the inputs or dtype are complex, the output will follow a logarithmic
-        /// spiral in the complex plane.  (There are an infinite number of spirals
-        /// passing through two points; the output will follow the shortest such path.)
-        /// </summary>
-        /// <param name="start">
-        /// The starting value of the sequence.
-        /// </param>
-        /// <param name="stop">
-        /// The final value of the sequence, unless endpoint is False.
-        /// In that case, num + 1 values are spaced over the
-        /// interval in log-space, of which all but the last (a sequence of
-        /// length num) are returned.
-        /// </param>
-        /// <param name="num">
-        /// Number of samples to generate.  Default is 50.
-        /// </param>
-        /// <param name="endpoint">
-        /// If true, stop is the last sample. Otherwise, it is not included.
-        /// Default is True.
-        /// </param>
-        /// <param name="dtype">
-        /// The type of the output array.  If dtype is not given, infer the data
-        /// type from the other input arguments.
-        /// </param>
-        /// <param name="axis">
-        /// The axis in the result to store the samples.  Relevant only if start
-        /// or stop are array-like.  By default (0), the samples will be along a
-        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
-        /// </param>
-        /// <returns>
-        /// num samples, equally spaced on a log scale.
-        /// </returns>
-        public NDarray<T> geomspace<T>(T[,] start, T[,] stop, int? num = null, bool? endpoint = null, Dtype dtype = null, int? axis = null)
-        {
-            //auto-generated code, do not change
-            var pyargs=ToTuple(new object[]
-            {
-                start,
-                stop,
-            });
-            var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            dynamic py = self.InvokeMethod("geomspace", pyargs, kwargs);
-            return ToCsharp<NDarray<T>>(py);
         }
         
         /*
@@ -3072,7 +3233,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                x1, x2,…, xn,
+                SharpToSharp<NDarray>(x1, x2,…, xn),
             });
             var kwargs=new PyDict();
             if (indexing!=null) kwargs["indexing"]=ToPython(indexing);
@@ -3135,7 +3296,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                x1, x2,…, xn,
+                SharpToSharp<NDarray>(x1, x2,…, xn),
             });
             var kwargs=new PyDict();
             if (indexing!=null) kwargs["indexing"]=ToPython(indexing);
@@ -3206,7 +3367,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                v,
+                SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
             if (k!=null) kwargs["k"]=ToPython(k);
@@ -3240,7 +3401,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                v,
+                SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
             if (k!=null) kwargs["k"]=ToPython(k);
@@ -3296,7 +3457,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                v,
+                SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
             if (k!=null) kwargs["k"]=ToPython(k);
@@ -3324,7 +3485,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                v,
+                SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
             if (k!=null) kwargs["k"]=ToPython(k);
@@ -3417,7 +3578,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                m,
+                SharpToSharp<NDarray>(m),
             });
             var kwargs=new PyDict();
             if (k!=null) kwargs["k"]=ToPython(k);
@@ -3445,7 +3606,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                m,
+                SharpToSharp<NDarray>(m),
             });
             var kwargs=new PyDict();
             if (k!=null) kwargs["k"]=ToPython(k);
@@ -3524,7 +3685,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                x,
+                SharpToSharp<NDarray>(x),
             });
             var kwargs=new PyDict();
             if (N!=null) kwargs["N"]=ToPython(N);
@@ -3564,7 +3725,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                x,
+                SharpToSharp<NDarray>(x),
             });
             var kwargs=new PyDict();
             if (N!=null) kwargs["N"]=ToPython(N);
@@ -3624,7 +3785,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                data,
+                SharpToSharp<NDarray>(data),
                 dtype,
             });
             var kwargs=new PyDict();
@@ -3654,7 +3815,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                data,
+                SharpToSharp<NDarray>(data),
                 dtype,
             });
             var kwargs=new PyDict();
@@ -3721,7 +3882,7 @@ namespace Numpy
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
             {
-                obj,
+                SharpToSharp<NDarray>(obj),
             });
             var kwargs=new PyDict();
             if (ldict!=null) kwargs["ldict"]=ToPython(ldict);

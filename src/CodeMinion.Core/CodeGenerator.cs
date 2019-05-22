@@ -315,7 +315,6 @@ namespace CodeMinion.Core
                     s.Out("/// " + rv.Name);
                     foreach (var line in Regex.Split(rv.Description, @"\r?\n"))
                         s.Out("/// " + line);
-
                 }
             }
             s.Out("/// </returns>");
@@ -339,7 +338,11 @@ namespace CodeMinion.Core
                 {
                     foreach (var arg in func.Arguments.Where(a => a.IsNamedArg == false))
                     {
-                        s.Out($"{EscapeName(arg.Name)},");
+                        var name = EscapeName(arg.Name);
+                        if (!string.IsNullOrWhiteSpace(arg.ConvertToSharpType))
+                            s.Out($"SharpToSharp<{arg.ConvertToSharpType}>({name}),");
+                        else 
+                            s.Out($"{name},");
                     }
                 }, "{", "});");
                 // then generate the named args
@@ -609,6 +612,7 @@ namespace CodeMinion.Core
                     GenToTuple(s);
                     GenToPython(s);
                     GenToCsharp(s);
+                    GenSharpToSharp(s);
                     GenSpecialConversions(s);
                 });
             });
@@ -625,10 +629,12 @@ namespace CodeMinion.Core
                     GenToTuple(s);
                     GenToPython(s);
                     GenToCsharp(s);
+                    GenSharpToSharp(s);
                     GenSpecialConversions(s);
                 });
             });
         }
+
         private void GenToTuple(CodeWriter s)
         {
             s.Break();
@@ -692,6 +698,28 @@ namespace CodeMinion.Core
                 });
             });
         }
+
+        public List<Action<CodeWriter>> SharpToSharpConversions { get; set; } = new List<Action<CodeWriter>>();
+
+        private void GenSharpToSharp(CodeWriter s)
+        {
+            s.Break();
+            s.Out("//auto-generated");
+            s.Out("protected T SharpToSharp<T>(object obj)", () =>
+            {
+                s.Out("if (obj == null) return default(T);");
+                s.Out("switch (obj)", () =>
+                {
+                    s.Out("// from 'SharpToSharpConversions':");
+                    foreach (var gen in SharpToSharpConversions)
+                    {
+                        gen(s);
+                    }
+                });
+                s.Out("throw new NotImplementedException($\"Type is not yet supported: { obj.GetType().Name}. Add it to 'SharpToSharpConversions'\");");
+            });
+        }
+
 
         public List<Action<CodeWriter>> SpecialConversionGenerators { get; set; } = new List<Action<CodeWriter>>();
 

@@ -57,5 +57,29 @@ namespace Numpy
                 default: return (T)pyobj;
             }
         }
+        
+        //auto-generated
+        protected T SharpToSharp<T>(object obj)
+        {
+            if (obj == null) return default(T);
+            switch (obj)
+            {
+                // from 'SharpToSharpConversions':
+                case Array a:
+                if (typeof(T)==typeof(NDarray)) return (T)(object)ConvertArrayToNDarray(a);
+                break;
+            }
+            throw new NotImplementedException($"Type is not yet supported: { obj.GetType().Name}. Add it to 'SharpToSharpConversions'");
+        }
+        
+        //auto-generated: SpecialConversions
+        protected NDarray ConvertArrayToNDarray(Array a)
+        {
+            switch(a)
+            {
+                case bool[] arr: return np.array(arr);
+                default: throw new NotImplementedException($"Type {a.GetType()} not supported yet in ConvertArrayToNDarray.");
+            }
+        }
     }
 }

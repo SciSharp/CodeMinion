@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using CodeMinion.Core;
@@ -28,8 +29,16 @@ namespace Numpy.ApiGenerator
                     "case \"Dtype\": return (T)(object)new Dtype(pyobj);",
                     "case \"NDarray\": return (T)(object)new NDarray(pyobj);",
                 },
+                SpecialConversionGenerators = { SpecialGenerators.ConvertArrayToNDarray },
+                SharpToSharpConversions =
+                {
+                    SpecialGenerators.ArrayToNDarrayConversion,
+                }
             };
         }
+
+        // use this to avoid duplicates
+        HashSet<string> parsed_api_functions=new HashSet<string>();
 
         public void Generate()
         {
@@ -48,7 +57,21 @@ namespace Numpy.ApiGenerator
                 InitializationGenerators = { SpecialGenerators.InitNumpyGenerator },
             };
             _generator.StaticApis.Add(array_creation_api);
-            ParseArrayCreationApi(array_creation_api);
+            ParseNumpyApi(array_creation_api, "routines.array-creation.html");
+            // ----------------------------------------------------
+            // array manipulation
+            // ----------------------------------------------------
+            var array_manipulation_api = new StaticApi()
+            {
+                PartialName = "array_manipulation", // name-part of the partial class file
+                StaticName = "np", // name of the static API class
+                ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
+                PythonModule = "numpy", // name of the Python module that the static api wraps 
+                OutputPath = Path.Combine(src_dir, "Numpy"),
+                InitializationGenerators = { },
+            };
+            _generator.StaticApis.Add(array_manipulation_api);
+            ParseNumpyApi(array_manipulation_api, "routines.array-manipulation.html");
             // ----------------------------------------------------
             // dtype
             // ----------------------------------------------------
@@ -120,19 +143,19 @@ namespace Numpy.ApiGenerator
             var doc = GetHtml("arrays.scalars.html");
             foreach (var tr in doc.Doc.DocumentNode.Descendants("tr"))
             {
-                if (tr.Descendants("td").Count()!=3)
+                if (tr.Descendants("td").Count() != 3)
                     continue;
                 var span = tr.Descendants("span").FirstOrDefault();
-                if (span==null)
+                if (span == null)
                     continue;
                 var td = tr.Descendants("td").Skip(1).FirstOrDefault();
-                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument(){ Type = "Dtype" }}});
+                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument() { Type = "Dtype" } } });
             }
         }
 
-        private void ParseArrayCreationApi(StaticApi api)
+        private void ParseNumpyApi(StaticApi api, string link)
         {
-            var docs = LoadDocs("routines.array-creation.html");
+            var docs = LoadDocs(link);
             foreach (var html_doc in docs)
             {
                 var doc = html_doc.Doc;
@@ -146,6 +169,9 @@ namespace Numpy.ApiGenerator
                     .First(x => x.Attributes["class"]?.Value == "descclassname").InnerText;
                 var func_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descname").InnerText;
+                if (parsed_api_functions.Contains(func_name))
+                    continue;
+                parsed_api_functions.Add(func_name);
                 var decl = new Function() { Name = func_name, ClassName = class_name.TrimEnd('.') };
                 // function description
                 var dd = dl.Descendants("dd").FirstOrDefault();
@@ -154,6 +180,8 @@ namespace Numpy.ApiGenerator
                     .FirstOrDefault(x => x.Attributes["class"]?.Value == "docutils field-list");
                 if (table == null)
                     continue;
+                //if (decl.Name == "copyto")
+                //    Debugger.Break();
                 // arguments
                 ParseArguments(html_doc, table, decl);
 
@@ -189,8 +217,18 @@ namespace Numpy.ApiGenerator
                 arg.Name = strong.InnerText;
                 if (arg.Name.ToLower() == "none")
                     continue; // there are no arguments fro this method
-                var type_description = dt.Descendants("span")
-                    .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
+                string type_description = null;
+                if (arg.Name.Contains(":"))
+                {
+                    var tuple = arg.Name.Split(":");
+                    arg.Name = tuple[0].Trim();
+                    type_description = tuple[1].Trim();
+                }
+                else
+                {
+                    type_description = dt.Descendants("span")
+                        .FirstOrDefault(span => span.Attributes["class"]?.Value == "classifier")?.InnerText;
+                }
                 var type = type_description.Split(",").FirstOrDefault();
                 arg.Type = InferType(type, arg);
                 if (type_description.Contains("optional"))
@@ -203,6 +241,7 @@ namespace Numpy.ApiGenerator
                         .First(x => x.Contains("default: ")).Replace("default: ", ""));
                 var dd = dt.NextSibling?.NextSibling;
                 arg.Description = ParseDescription(dd);
+                arg.Position = decl.Arguments.Count;
                 PostProcess(arg);
                 decl.Arguments.Add(arg);
             }
@@ -286,11 +325,11 @@ namespace Numpy.ApiGenerator
                 return;
             foreach (var dt in tr.Descendants("dt"))
             {
-                var arg = new Argument();
+                var arg = new Argument() { IsReturnValue = true };
                 var strong = dt.Descendants("strong").FirstOrDefault();
                 if (strong != null)
                     arg.Name = strong.InnerText;
-                if (arg.Name.ToLower()=="none")
+                if (arg.Name.ToLower() == "none")
                     continue;
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
@@ -316,55 +355,74 @@ namespace Numpy.ApiGenerator
                     yield return d;
                 yield break;
             }
-            // array_like
-            if (decl.Arguments.Any(a => a.Type == "array_like"))
-            {
-                foreach (var type in "NDarray T[] T[,]".Split())
-                {
-                    var clone_decl = decl.Clone<Function>();
-                    clone_decl.Arguments.ForEach(a =>
-                    {
-                        if (a.Type == "array_like")
-                            a.Type = type;
-                    });
-                    if (type.StartsWith("T["))
-                    {
-                        clone_decl.Generics = new string[] { "T" };
-                        if (clone_decl.Returns[0].Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
-                            clone_decl.Returns[0].Type = "NDarray<T>";
-                    }
-                    yield return clone_decl;
-                }
-                yield break;
-            }
-            // number
-            if (decl.Arguments.Any(a => a.Type == "number"))
-            {
-                foreach (var type in "byte short int long float double".Split())
-                {
-                    var clone_decl = decl.Clone<Function>();
-                    clone_decl.Arguments.ForEach(a =>
-                    {
-                        if (a.Type == "number")
-                            a.Type = type;
-                    });
-                    yield return clone_decl;
-                }
-                yield break;
-            }
             if (decl.Name == "bmat")
             {
                 decl.Arguments[0].Type = "string";
                 yield return decl;
                 var clone_decl = decl.Clone<Function>();
                 clone_decl.Arguments[0].Type = "T[]";
+                clone_decl.Arguments[0].ConvertToSharpType = "NDarray";
                 clone_decl.Generics = new[] { "T" };
                 clone_decl.Returns[0].Type = "matrix<T>";
                 yield return clone_decl;
                 yield break;
-
             }
-            yield return decl;
+            HashSet<Function> overloads = new HashSet<Function>() { decl };
+            int i = 0;
+            foreach (var arg in decl.Arguments)
+            {
+                // array_like
+                if (arg.Type == "array_like")
+                {
+                    // special case first expansion doesnT need to iterate over overloads
+                    arg.Type = "NDarray";
+                    switch (decl.Name)
+                    {
+                        case "logspace":
+                        case "geomspace":
+                            continue;
+                    }
+                    foreach (var type in "T[] T[,]".Split())
+                    {
+                        var clone = decl.Clone<Function>();
+                        clone.Arguments[i].Type = type;
+                        clone.Generics = new string[] { "T" };
+                        clone.Arguments[i].ConvertToSharpType = "NDarray";
+                        if (clone.Returns.FirstOrDefault()?.Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
+                            clone.Returns[0].Type = "NDarray<T>";
+                        overloads.Add(clone);
+                    }
+                }
+                // array_like of bool
+                else if (arg.Type == "array_like of bool")
+                {
+                    foreach (var overload in overloads.ToArray())
+                    {
+                        overload.Arguments[i].Type = "NDarray";
+                        var clone = overload.Clone<Function>();
+                        clone.Arguments[i].Type = "bool[]";
+                        clone.Arguments[i].ConvertToSharpType = "NDarray";
+                        overloads.Add(clone);
+                    }
+                }
+                // number
+                else if (arg.Type == "number")
+                {
+                    foreach (var overload in overloads.ToArray())
+                    {
+                        overload.Arguments[i].Type = "float";
+                        foreach (var type in "byte short int long double".Split())
+                        {
+                            var clone = overload.Clone<Function>();
+                            clone.Arguments[i].Type = type;
+                            overloads.Add(clone);
+                        }
+                    }
+                }
+                i++;
+            }
+            foreach (var overload in overloads)
+                yield return overload;
         }
 
         // special treatment for np.arange which is a "monster"
@@ -411,31 +469,61 @@ namespace Numpy.ApiGenerator
             switch (arg.Name)
             {
                 case "shape": return "NumSharp.Shape";
+                case "newshape": return "NumSharp.Shape";
+                case "new_shape": return "NumSharp.Shape";
                 case "dtype": return "Dtype";
                 case "order": return "string";
+                case "arys1, arys2, …":
+                    arg.Name = "arys";
+                    return "params NDarray[]";
+                case "`*args`":
+                    arg.Name = "args";
+                    break;
+                case "a1, a2, …":
+                    arg.Name = "arys";
+                    break;
             }
             switch (type)
             {
                 case "data-type": return "Dtype";
                 case "ndarray": return "NDarray";
+                case "np.ndarray": return "NDarray";
+                case "2-D array": return "NDarray";
                 case "scalar": return "ValueType";
                 case "file": return "string";
                 case "str": return "string";
                 case "string or list": return "string";
                 case "file or str": return "string";
                 case "str or sequence of str": return "string[]";
+                case "str or list of str": return "string[]";
                 case "array of str or unicode-like": return "string[]";
                 case "callable": return "Delegate";
                 case "any": return "object";
                 case "iterable object": return "IEnumerable<T>";
                 case "dict": return "Hashtable";
                 case "int or sequence": return "int[]";
+                case "int or sequence of int": return "int[]";
                 case "int or sequence of ints": return "int[]";
+                case "None or int or tuple of ints": return "int[]";
                 case "boolean": return "bool";
                 case "integer": return "int";
                 case "Standard Python scalar object": return "T";
                 case "Arguments (variable number and type)": return "params int[]";
                 case "list": return "List<T>";
+                case "list of arrays": return "NDarray[]";
+                case "array_likes": return "NDarray[]";
+                case "sequence of arrays": return "NDarray[]";
+                case "sequence of ndarrays": return "NDarray[]";
+                case "sequence of array_like": return "NDarray[]";
+                case "sequence of 1-D or 2-D arrays.": return "NDarray[]";
+            }
+            if (arg.IsReturnValue)
+            {
+                switch (type)
+                {
+                    case "array": return "NDarray";
+                    case "array_like": return "NDarray";
+                }
             }
             if (type.StartsWith("ndarray"))
                 return "NDarray";
