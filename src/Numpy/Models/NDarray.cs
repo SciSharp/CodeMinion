@@ -110,13 +110,19 @@ namespace Numpy
         {
             get
             {
-                dynamic base_obj = _pobj.GetAttr("base");
-                var type = base_obj.__class__.ToString();
-                if (type== "<class 'NoneType'>")
+                PyObject base_obj = _pobj.GetAttr("base");
+                if (base_obj.IsNone())
                     return null;
                 return new NDarray(base_obj);
             }
         }
+
+        /// <summary>
+        /// Data-type of the array’s elements.
+        /// </summary>
+        public Dtype dtype => new Dtype(_pobj.GetAttr("dtype"));
+
+
     }
 
     public class NDarray<T> : NDarray

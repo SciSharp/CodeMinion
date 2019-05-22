@@ -19,7 +19,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("bool_");
+                dynamic py = self.GetAttr("bool_");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -29,7 +29,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("bool8");
+                dynamic py = self.GetAttr("bool8");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -39,7 +39,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("byte");
+                dynamic py = self.GetAttr("byte");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -49,7 +49,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("short");
+                dynamic py = self.GetAttr("short");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -59,7 +59,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("intc");
+                dynamic py = self.GetAttr("intc");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -69,7 +69,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("int_");
+                dynamic py = self.GetAttr("int_");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -79,7 +79,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("longlong");
+                dynamic py = self.GetAttr("longlong");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -89,7 +89,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("intp");
+                dynamic py = self.GetAttr("intp");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -99,7 +99,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("int8");
+                dynamic py = self.GetAttr("int8");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -109,7 +109,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("int16");
+                dynamic py = self.GetAttr("int16");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -119,7 +119,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("int32");
+                dynamic py = self.GetAttr("int32");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -129,7 +129,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("int64");
+                dynamic py = self.GetAttr("int64");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -139,7 +139,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("ubyte");
+                dynamic py = self.GetAttr("ubyte");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -149,7 +149,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("ushort");
+                dynamic py = self.GetAttr("ushort");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -159,7 +159,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uintc");
+                dynamic py = self.GetAttr("uintc");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -169,7 +169,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uint");
+                dynamic py = self.GetAttr("uint");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -179,7 +179,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("ulonglong");
+                dynamic py = self.GetAttr("ulonglong");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -189,7 +189,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uintp");
+                dynamic py = self.GetAttr("uintp");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -199,7 +199,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uint8");
+                dynamic py = self.GetAttr("uint8");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -209,7 +209,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uint16");
+                dynamic py = self.GetAttr("uint16");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -219,7 +219,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uint32");
+                dynamic py = self.GetAttr("uint32");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -229,7 +229,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("uint64");
+                dynamic py = self.GetAttr("uint64");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -239,7 +239,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("half");
+                dynamic py = self.GetAttr("half");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -249,7 +249,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("single");
+                dynamic py = self.GetAttr("single");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -259,7 +259,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("double");
+                dynamic py = self.GetAttr("double");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -269,7 +269,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("float_");
+                dynamic py = self.GetAttr("float_");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -279,7 +279,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("longfloat");
+                dynamic py = self.GetAttr("longfloat");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -289,7 +289,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("float16");
+                dynamic py = self.GetAttr("float16");
                 return ToCsharp<Dtype>(py);
             }
         }
@@ -299,7 +299,7 @@ namespace Numpy
             get
             {
                 //auto-generated code, do not change
-                dynamic py = self.InvokeMethod("float32");
+                dynamic py = self.GetAttr("float32");
                 return ToCsharp<Dtype>(py);
             }
         }

@@ -68,9 +68,9 @@ namespace Torch.ApiGenerator
             // ----------------------------------------------------
             // ndarray
             // ----------------------------------------------------
-            //var ndarray_api = new DynamicApi() { ClassName = "NDarray", };
-            //_generator.DynamicApis.Add(ndarray_api);
-            //ParseNdarrayApi(ndarray_api);
+            var ndarray_api = new DynamicApi() { ClassName = "NDarray", };
+            _generator.DynamicApis.Add(ndarray_api);
+            ParseNdarrayApi(ndarray_api);
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------

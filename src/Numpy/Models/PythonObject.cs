@@ -22,6 +22,23 @@ namespace Numpy
             this._pobj = t.PyObject;
         }
 
+        public override bool Equals(object obj)
+        {
+            switch (obj)
+            {
+                case PythonObject other:
+                    return _pobj.Equals(other._pobj);
+                case PyObject other:
+                    return _pobj.Equals(other);
+            }
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return _pobj.GetHashCode();
+        }
+
         public override string ToString()
         {
             return _pobj.ToString();
