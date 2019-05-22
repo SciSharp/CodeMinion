@@ -3000,6 +3000,730 @@ namespace Numpy
 }
         */
         /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "T[]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 0,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 1,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "T[]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 0,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[,]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 1,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "T[,]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 0,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 1,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
+   at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "T[,]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 0,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[,]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False.",
+      "ConvertToSharpType": "NDarray",
+      "Position": 1,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative.",
+      "ConvertToSharpType": null,
+      "Position": 2,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True.",
+      "ConvertToSharpType": null,
+      "Position": 3,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples.",
+      "ConvertToSharpType": null,
+      "Position": 4,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments.",
+      "ConvertToSharpType": null,
+      "Position": 5,
+      "IsReturnValue": false
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end.",
+      "ConvertToSharpType": null,
+      "Position": 6,
+      "IsReturnValue": false
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False).",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples.",
+      "ConvertToSharpType": null,
+      "Position": 0,
+      "IsReturnValue": true
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
         /// Return numbers spaced evenly on a log scale.
         /// 
         /// In linear space, the sequence starts at base ** start

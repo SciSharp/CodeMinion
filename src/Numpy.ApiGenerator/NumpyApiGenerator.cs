@@ -313,6 +313,7 @@ namespace Numpy.ApiGenerator
                 case "meshgrid":
                 case "mat":
                 case "bmat":
+                case "block":
                     decl.CommentOut = true;
                     break;
             }
@@ -374,23 +375,50 @@ namespace Numpy.ApiGenerator
                 // array_like
                 if (arg.Type == "array_like")
                 {
-                    // special case first expansion doesnT need to iterate over overloads
                     arg.Type = "NDarray";
                     switch (decl.Name)
                     {
+                        case "insert":
+                        case "append":
+                        case "resize":
+                        case "flip":
+                        case "flipud":
+                        case "fliplr":
+                        case "squeeze":
+                        case "expand_dims":
+                        case "broadcast_to":
+                        case "transpose":
+                        case "swapaxes":
+                        case "ravel":
+                        case "reshape":
+                            if (i == 0)
+                            {
+                                i++;
+                                continue;
+                            }
+                            break;
                         case "logspace":
                         case "geomspace":
+                        case "tile":
+                        case "delete":
+                        case "repeat":
+                        case "roll":
+                        case "rot90":
                             continue;
                     }
-                    foreach (var type in "T[] T[,]".Split())
+                    foreach (var overload in overloads.ToArray())
                     {
-                        var clone = decl.Clone<Function>();
-                        clone.Arguments[i].Type = type;
-                        clone.Generics = new string[] { "T" };
-                        clone.Arguments[i].ConvertToSharpType = "NDarray";
-                        if (clone.Returns.FirstOrDefault()?.Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary
-                            clone.Returns[0].Type = "NDarray<T>";
-                        overloads.Add(clone);
+                        foreach (var type in "T[] T[,]".Split())
+                        {
+                            var clone = overload.Clone<Function>();
+                            clone.Arguments[i].Type = type;
+                            clone.Generics = new string[] {"T"};
+                            clone.Arguments[i].ConvertToSharpType = "NDarray";
+                            if (clone.Returns.FirstOrDefault()?.Type == "NDarray"
+                            ) // TODO: this feels like a hack. make it more robust if necessary
+                                clone.Returns[0].Type = "NDarray<T>";
+                            overloads.Add(clone);
+                        }
                     }
                 }
                 // array_like of bool
@@ -489,6 +517,7 @@ namespace Numpy.ApiGenerator
                 case "ndarray": return "NDarray";
                 case "np.ndarray": return "NDarray";
                 case "2-D array": return "NDarray";
+                case "1-D array or sequence": return "NDarray";
                 case "scalar": return "ValueType";
                 case "file": return "string";
                 case "str": return "string";
@@ -504,7 +533,10 @@ namespace Numpy.ApiGenerator
                 case "int or sequence": return "int[]";
                 case "int or sequence of int": return "int[]";
                 case "int or sequence of ints": return "int[]";
+                case "int or array of ints": return "int[]";
+                case "int or tuple of ints":return "int[]";                    
                 case "None or int or tuple of ints": return "int[]";
+                case "int or 1-D array": return "int[]";
                 case "boolean": return "bool";
                 case "integer": return "int";
                 case "Standard Python scalar object": return "T";
@@ -516,6 +548,8 @@ namespace Numpy.ApiGenerator
                 case "sequence of ndarrays": return "NDarray[]";
                 case "sequence of array_like": return "NDarray[]";
                 case "sequence of 1-D or 2-D arrays.": return "NDarray[]";
+                case "list of ndarrays": return "NDarray[]";
+                case "slice": return "Slice";
             }
             if (arg.IsReturnValue)
             {
