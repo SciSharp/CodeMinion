@@ -21,8 +21,8 @@ namespace Numpy.UnitTests
             Console.WriteLine(a);
             Assert.IsNotNull(a.ToString());
             // this should print out the exact integers of the array
-            foreach(var x in a.GetData<int>())
-                Console.WriteLine(x);             
+            foreach (var x in a.GetData<int>())
+                Console.WriteLine(x);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace Numpy.UnitTests
             Assert.IsNotNull(a.ToString());
             long ptr = a.PyObject.ctypes.data;
             Console.WriteLine("ptr: " + ptr);
-            var array = new int[]{1, 2, 3, 4, 5, 6};
+            var array = new int[] { 1, 2, 3, 4, 5, 6 };
             Marshal.Copy(array, 0, new IntPtr(ptr), array.Length);
             Console.WriteLine(a.ToString());
         }
@@ -45,14 +45,14 @@ namespace Numpy.UnitTests
             var a = np.array(array);
             Console.WriteLine(a);
             Assert.AreEqual(array, a.GetData());
-        }    
+        }
 
         [TestMethod]
         public void EmbeddedNumpyTest()
         {
-            var numpy=NumPy.Instance;
+            var numpy = NumPy.Instance;
             Console.WriteLine(numpy.self);
-            dynamic sys=Py.Import("sys");
+            dynamic sys = Py.Import("sys");
             Console.WriteLine(sys.version);
         }
 
@@ -78,7 +78,7 @@ namespace Numpy.UnitTests
         [TestMethod]
         public void ndarray_strides()
         {
-            Assert.AreEqual(new int[]{4}, np.array(new int[] { 1, 2, 3, 4, 5, 6 }).strides);
+            Assert.AreEqual(new int[] { 4 }, np.array(new int[] { 1, 2, 3, 4, 5, 6 }).strides);
             Assert.AreEqual(new int[] { 8 }, np.arange(10, dtype: np.longlong).strides);
         }
 
@@ -97,10 +97,17 @@ namespace Numpy.UnitTests
         }
 
         [TestMethod]
+        public void ndarray_len()
+        {
+            Assert.AreEqual(6, np.array(new int[] { 1, 2, 3, 4, 5, 6 }).len);
+            Assert.AreEqual(10, np.arange(10, dtype: np.longlong).len);
+        }
+
+        [TestMethod]
         public void ndarray_itemsize()
         {
-            Assert.AreEqual( 4 , np.array(new int[] { 1, 2, 3, 4, 5, 6 }).itemsize);
-            Assert.AreEqual( 8 , np.arange(10, dtype: np.longlong).itemsize);
+            Assert.AreEqual(4, np.array(new int[] { 1, 2, 3, 4, 5, 6 }).itemsize);
+            Assert.AreEqual(8, np.arange(10, dtype: np.longlong).itemsize);
         }
 
         [TestMethod]
@@ -113,7 +120,7 @@ namespace Numpy.UnitTests
         [TestMethod]
         public void ndarray_base()
         {
-            var a = np.array(new int[] {1, 2, 3, 4, 5, 6});
+            var a = np.array(new int[] { 1, 2, 3, 4, 5, 6 });
             //var b = a.reshape(a, new Shape(2,3));
             //Assert.AreEqual(null, a.@base);
             //Assert.AreEqual(a, b.@base);
@@ -122,10 +129,40 @@ namespace Numpy.UnitTests
         [TestMethod]
         public void ndarray_dtype()
         {
-            Assert.AreEqual(np.int32, np.array(new int[] { 1, 2, 3, 4, 5, 6 }, dtype:np.int32).dtype);
+            Assert.AreEqual(np.int32, np.array(new int[] { 1, 2, 3, 4, 5, 6 }, dtype: np.int32).dtype);
             Assert.AreEqual(np.longlong, np.arange(10, dtype: np.longlong).dtype);
-            Assert.AreEqual(np.float32, np.arange(10, dtype:np.float32).dtype);
+            Assert.AreEqual(np.float32, np.arange(10, dtype: np.float32).dtype);
             Assert.AreEqual(np.@double, np.arange(10, dtype: np.float64).dtype);
         }
+
+        [TestMethod]
+        public void ndarray_multidim_source_array()
+        {
+            var a = np.array(new float[,] { { 1f, 2f }, { 3f, 4f }, { 3f, 4f } });
+            Console.WriteLine(a);
+            Assert.AreEqual(new Shape(3,2), a.shape);
+            Assert.AreEqual(np.float32, a.dtype);
+        }
+
+        [TestMethod]
+        public void ndarray_T()
+        {
+            var x = np.array(new float[,] {{1f, 2f}, {3f, 4f}});
+            Assert.AreEqual("[[1. 2.]\n [3. 4.]]", x.ToString());
+            var t = x.T;
+            Console.WriteLine(t);
+            Assert.AreEqual("[[1. 3.]\n [2. 4.]]", t.ToString());
+            Assert.AreEqual(new[] { 1f, 2f, 3f, 4f }, t.GetData<float>());
+        }
+
+        //[TestMethod]
+        //public void ndarray_flatten()
+        //{
+        //    var x = np.array(new float[,] { { 1f, 2f }, { 3f, 4f } });
+        //    Assert.AreEqual("[1. 2. 3. 4.]", x.flatten().ToString());
+        //    var t = x.T;
+        //    Assert.AreEqual("[1. 3. 2. 4.]", t.flatten().ToString());
+        //    Assert.AreEqual(new[] { 1f, 2f, 3f, 4f }, t.flat.GetData<float>());
+        //}
     }
 }

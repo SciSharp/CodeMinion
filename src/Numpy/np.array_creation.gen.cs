@@ -112,6 +112,40 @@ namespace Numpy
             => NumPy.Instance.empty_like(prototype, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
+        /// Return a new array with the same shape and type as a given array.
+        /// 
+        /// Notes
+        /// 
+        /// This function does not initialize the returned array; to do that use
+        /// zeros_like or ones_like instead.  It may be marginally faster than
+        /// the functions that do set the array values.
+        /// </summary>
+        /// <param name="prototype">
+        /// The shape and data-type of prototype define these same attributes
+        /// of the returned array.
+        /// </param>
+        /// <param name="dtype">
+        /// Overrides the data type of the result.
+        /// </param>
+        /// <param name="order">
+        /// Overrides the memory layout of the result. ‘C’ means C-order,
+        /// ‘F’ means F-order, ‘A’ means ‘F’ if prototype is Fortran
+        /// contiguous, ‘C’ otherwise. ‘K’ means match the layout of prototype
+        /// as closely as possible.
+        /// </param>
+        /// <param name="subok">
+        /// If True, then the newly created array will use the sub-class
+        /// type of ‘a’, otherwise it will be a base-class array. Defaults
+        /// to True.
+        /// </param>
+        /// <returns>
+        /// Array of uninitialized (arbitrary) data with the same
+        /// shape and type as prototype.
+        /// </returns>
+        public static NDarray<T> empty_like<T>(T[,] prototype, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.empty_like(prototype, dtype:dtype, order:order, subok:subok);
+        
+        /// <summary>
         /// Return a 2-D array with ones on the diagonal and zeros elsewhere.
         /// </summary>
         /// <param name="N">
@@ -234,6 +268,33 @@ namespace Numpy
             => NumPy.Instance.ones_like(a, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
+        /// Return an array of ones with the same shape and type as a given array.
+        /// </summary>
+        /// <param name="a">
+        /// The shape and data-type of a define these same attributes of
+        /// the returned array.
+        /// </param>
+        /// <param name="dtype">
+        /// Overrides the data type of the result.
+        /// </param>
+        /// <param name="order">
+        /// Overrides the memory layout of the result. ‘C’ means C-order,
+        /// ‘F’ means F-order, ‘A’ means ‘F’ if a is Fortran contiguous,
+        /// ‘C’ otherwise. ‘K’ means match the layout of a as closely
+        /// as possible.
+        /// </param>
+        /// <param name="subok">
+        /// If True, then the newly created array will use the sub-class
+        /// type of ‘a’, otherwise it will be a base-class array. Defaults
+        /// to True.
+        /// </param>
+        /// <returns>
+        /// Array of ones with the same shape and type as a.
+        /// </returns>
+        public static NDarray<T> ones_like<T>(T[,] a, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.ones_like(a, dtype:dtype, order:order, subok:subok);
+        
+        /// <summary>
         /// Return a new array of given shape and type, filled with zeros.
         /// </summary>
         /// <param name="shape">
@@ -306,6 +367,33 @@ namespace Numpy
         /// Array of zeros with the same shape and type as a.
         /// </returns>
         public static NDarray<T> zeros_like<T>(T[] a, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.zeros_like(a, dtype:dtype, order:order, subok:subok);
+        
+        /// <summary>
+        /// Return an array of zeros with the same shape and type as a given array.
+        /// </summary>
+        /// <param name="a">
+        /// The shape and data-type of a define these same attributes of
+        /// the returned array.
+        /// </param>
+        /// <param name="dtype">
+        /// Overrides the data type of the result.
+        /// </param>
+        /// <param name="order">
+        /// Overrides the memory layout of the result. ‘C’ means C-order,
+        /// ‘F’ means F-order, ‘A’ means ‘F’ if a is Fortran contiguous,
+        /// ‘C’ otherwise. ‘K’ means match the layout of a as closely
+        /// as possible.
+        /// </param>
+        /// <param name="subok">
+        /// If True, then the newly created array will use the sub-class
+        /// type of ‘a’, otherwise it will be a base-class array. Defaults
+        /// to True.
+        /// </param>
+        /// <returns>
+        /// Array of zeros with the same shape and type as a.
+        /// </returns>
+        public static NDarray<T> zeros_like<T>(T[,] a, Dtype dtype = null, string order = null, bool? subok = null)
             => NumPy.Instance.zeros_like(a, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
@@ -385,6 +473,36 @@ namespace Numpy
         /// Array of fill_value with the same shape and type as a.
         /// </returns>
         public static NDarray<T> full_like<T>(T[] a, ValueType fill_value, Dtype dtype = null, string order = null, bool? subok = null)
+            => NumPy.Instance.full_like(a, fill_value, dtype:dtype, order:order, subok:subok);
+        
+        /// <summary>
+        /// Return a full array with the same shape and type as a given array.
+        /// </summary>
+        /// <param name="a">
+        /// The shape and data-type of a define these same attributes of
+        /// the returned array.
+        /// </param>
+        /// <param name="fill_value">
+        /// Fill value.
+        /// </param>
+        /// <param name="dtype">
+        /// Overrides the data type of the result.
+        /// </param>
+        /// <param name="order">
+        /// Overrides the memory layout of the result. ‘C’ means C-order,
+        /// ‘F’ means F-order, ‘A’ means ‘F’ if a is Fortran contiguous,
+        /// ‘C’ otherwise. ‘K’ means match the layout of a as closely
+        /// as possible.
+        /// </param>
+        /// <param name="subok">
+        /// If True, then the newly created array will use the sub-class
+        /// type of ‘a’, otherwise it will be a base-class array. Defaults
+        /// to True.
+        /// </param>
+        /// <returns>
+        /// Array of fill_value with the same shape and type as a.
+        /// </returns>
+        public static NDarray<T> full_like<T>(T[,] a, ValueType fill_value, Dtype dtype = null, string order = null, bool? subok = null)
             => NumPy.Instance.full_like(a, fill_value, dtype:dtype, order:order, subok:subok);
         
         /// <summary>
@@ -488,6 +606,56 @@ namespace Numpy
             => NumPy.Instance.array(@object, dtype:dtype, copy:copy, order:order, subok:subok, ndmin:ndmin);
         
         /// <summary>
+        /// Create an array.
+        /// 
+        /// Notes
+        /// 
+        /// When order is ‘A’ and object is an array in neither ‘C’ nor ‘F’ order,
+        /// and a copy is forced by a change in dtype, then the order of the result is
+        /// not necessarily ‘C’ as expected. This is likely a bug.
+        /// </summary>
+        /// <param name="@object">
+        /// An array, any object exposing the array interface, an object whose
+        /// __array__ method returns an array, or any (nested) sequence.
+        /// </param>
+        /// <param name="dtype">
+        /// The desired data-type for the array.  If not given, then the type will
+        /// be determined as the minimum type required to hold the objects in the
+        /// sequence.  This argument can only be used to ‘upcast’ the array.  For
+        /// downcasting, use the .astype(t) method.
+        /// </param>
+        /// <param name="copy">
+        /// If true (default), then the object is copied.  Otherwise, a copy will
+        /// only be made if __array__ returns a copy, if obj is a nested sequence,
+        /// or if a copy is needed to satisfy any of the other requirements
+        /// (dtype, order, etc.).
+        /// </param>
+        /// <param name="order">
+        /// Specify the memory layout of the array. If object is not an array, the
+        /// newly created array will be in C order (row major) unless ‘F’ is
+        /// specified, in which case it will be in Fortran order (column major).
+        /// If object is an array the following holds.
+        /// 
+        /// When copy=False and a copy is made for other reasons, the result is
+        /// the same as if copy=True, with some exceptions for A, see the
+        /// Notes section. The default order is ‘K’.
+        /// </param>
+        /// <param name="subok">
+        /// If True, then sub-classes will be passed-through, otherwise
+        /// the returned array will be forced to be a base-class array (default).
+        /// </param>
+        /// <param name="ndmin">
+        /// Specifies the minimum number of dimensions that the resulting
+        /// array should have.  Ones will be pre-pended to the shape as
+        /// needed to meet this requirement.
+        /// </param>
+        /// <returns>
+        /// An array object satisfying the specified requirements.
+        /// </returns>
+        public static NDarray<T> array<T>(T[,] @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
+            => NumPy.Instance.array(@object, dtype:dtype, copy:copy, order:order, subok:subok, ndmin:ndmin);
+        
+        /// <summary>
         /// Convert the input to an array.
         /// </summary>
         /// <param name="a">
@@ -536,6 +704,30 @@ namespace Numpy
             => NumPy.Instance.asarray(a, dtype:dtype, order:order);
         
         /// <summary>
+        /// Convert the input to an array.
+        /// </summary>
+        /// <param name="a">
+        /// Input data, in any form that can be converted to an array.  This
+        /// includes lists, lists of tuples, tuples, tuples of tuples, tuples
+        /// of lists and ndarrays.
+        /// </param>
+        /// <param name="dtype">
+        /// By default, the data-type is inferred from the input data.
+        /// </param>
+        /// <param name="order">
+        /// Whether to use row-major (C-style) or
+        /// column-major (Fortran-style) memory representation.
+        /// Defaults to ‘C’.
+        /// </param>
+        /// <returns>
+        /// Array interpretation of a.  No copy is performed if the input
+        /// is already an ndarray with matching dtype and order.  If a is a
+        /// subclass of ndarray, a base class ndarray is returned.
+        /// </returns>
+        public static NDarray<T> asarray<T>(T[,] a, Dtype dtype = null, string order = null)
+            => NumPy.Instance.asarray(a, dtype:dtype, order:order);
+        
+        /// <summary>
         /// Convert the input to an ndarray, but pass ndarray subclasses through.
         /// </summary>
         /// <param name="a">
@@ -580,6 +772,28 @@ namespace Numpy
             => NumPy.Instance.asanyarray(a, dtype:dtype, order:order);
         
         /// <summary>
+        /// Convert the input to an ndarray, but pass ndarray subclasses through.
+        /// </summary>
+        /// <param name="a">
+        /// Input data, in any form that can be converted to an array.  This
+        /// includes scalars, lists, lists of tuples, tuples, tuples of tuples,
+        /// tuples of lists, and ndarrays.
+        /// </param>
+        /// <param name="dtype">
+        /// By default, the data-type is inferred from the input data.
+        /// </param>
+        /// <param name="order">
+        /// Whether to use row-major (C-style) or column-major
+        /// (Fortran-style) memory representation.  Defaults to ‘C’.
+        /// </param>
+        /// <returns>
+        /// Array interpretation of a.  If a is an ndarray or a subclass
+        /// of ndarray, it is returned as-is and no copy is performed.
+        /// </returns>
+        public static NDarray<T> asanyarray<T>(T[,] a, Dtype dtype = null, string order = null)
+            => NumPy.Instance.asanyarray(a, dtype:dtype, order:order);
+        
+        /// <summary>
         /// Return a contiguous array (ndim &gt;= 1) in memory (C order).
         /// </summary>
         /// <param name="a">
@@ -609,6 +823,22 @@ namespace Numpy
         /// if specified.
         /// </returns>
         public static NDarray<T> ascontiguousarray<T>(T[] a, Dtype dtype = null)
+            => NumPy.Instance.ascontiguousarray(a, dtype:dtype);
+        
+        /// <summary>
+        /// Return a contiguous array (ndim &gt;= 1) in memory (C order).
+        /// </summary>
+        /// <param name="a">
+        /// Input array.
+        /// </param>
+        /// <param name="dtype">
+        /// Data-type of returned array.
+        /// </param>
+        /// <returns>
+        /// Contiguous array of same shape and content as a, with type dtype
+        /// if specified.
+        /// </returns>
+        public static NDarray<T> ascontiguousarray<T>(T[,] a, Dtype dtype = null)
             => NumPy.Instance.ascontiguousarray(a, dtype:dtype);
         
         /// <summary>
@@ -645,6 +875,24 @@ namespace Numpy
         /// data interpreted as a matrix.
         /// </returns>
         public static matrix asmatrix<T>(T[] data, Dtype dtype)
+            => NumPy.Instance.asmatrix(data, dtype);
+        
+        /// <summary>
+        /// Interpret the input as a matrix.
+        /// 
+        /// Unlike matrix, asmatrix does not make a copy if the input is already
+        /// a matrix or an ndarray.  Equivalent to matrix(data, copy=False).
+        /// </summary>
+        /// <param name="data">
+        /// Input data.
+        /// </param>
+        /// <param name="dtype">
+        /// Data-type of the output matrix.
+        /// </param>
+        /// <returns>
+        /// data interpreted as a matrix.
+        /// </returns>
+        public static matrix asmatrix<T>(T[,] data, Dtype dtype)
             => NumPy.Instance.asmatrix(data, dtype);
         
         /// <summary>
@@ -693,6 +941,30 @@ namespace Numpy
         /// Array interpretation of a.
         /// </returns>
         public static NDarray<T> copy<T>(T[] a, string order = null)
+            => NumPy.Instance.copy(a, order:order);
+        
+        /// <summary>
+        /// Return an array copy of the given object.
+        /// 
+        /// Notes
+        /// 
+        /// This is equivalent to:
+        /// </summary>
+        /// <param name="a">
+        /// Input data.
+        /// </param>
+        /// <param name="order">
+        /// Controls the memory layout of the copy. ‘C’ means C-order,
+        /// ‘F’ means F-order, ‘A’ means ‘F’ if a is Fortran contiguous,
+        /// ‘C’ otherwise. ‘K’ means match the layout of a as closely
+        /// as possible. (Note that this function and ndarray.copy are very
+        /// similar, but have different default values for their order=
+        /// arguments.)
+        /// </param>
+        /// <returns>
+        /// Array interpretation of a.
+        /// </returns>
+        public static NDarray<T> copy<T>(T[,] a, string order = null)
             => NumPy.Instance.copy(a, order:order);
         
         /*
@@ -1514,9 +1786,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 253
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 100
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 254
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 101
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 406
         ----------------------------
         Declaration JSON:
         {
@@ -1666,9 +1938,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 253
-   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 100
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass31_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 254
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 101
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 406
         ----------------------------
         Declaration JSON:
         {
@@ -1687,6 +1959,160 @@ namespace Numpy
       "IsValueType": false,
       "Name": "stop",
       "Type": "T[]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False."
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "num",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "Number of samples to generate. Default is 50. Must be non-negative."
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "endpoint",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, stop is the last sample. Otherwise, it is not included.\nDefault is True."
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "retstep",
+      "Type": "bool",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "If True, return (samples, step), where step is the spacing\nbetween samples."
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "dtype",
+      "Type": "Dtype",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The type of the output array.  If dtype is not given, infer the data\ntype from the other input arguments."
+    },
+    {
+      "IsNullable": true,
+      "IsValueType": false,
+      "Name": "axis",
+      "Type": "int",
+      "DefaultValue": null,
+      "IsNamedArg": true,
+      "Description": "The axis in the result to store the samples.  Relevant only if start\nor stop are array-like.  By default (0), the samples will be along a\nnew axis inserted at the beginning. Use -1 to get an axis at the end."
+    }
+  ],
+  "Generics": [
+    "T"
+  ],
+  "Name": "linspace",
+  "ClassName": "numpy",
+  "Returns": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "samples",
+      "Type": "NDarray<T>",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "There are num equally spaced samples in the closed interval\n[start, stop] or the half-open interval [start, stop)\n(depending on whether endpoint is True or False)."
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "step",
+      "Type": "float",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "Only returned if retstep is True\r\n\r\nSize of spacing between samples."
+    }
+  ],
+  "IsDeprecated": false,
+  "ManualOverride": false,
+  "CommentOut": false,
+  "DebuggerBreak": false,
+  "Description": "Return evenly spaced numbers over a specified interval.\r\n\r\nReturns num evenly spaced samples, calculated over the\ninterval [start, stop].\r\n\r\nThe endpoint of the interval can optionally be excluded."
+}
+        */
+        /// <summary>
+        /// Return evenly spaced numbers over a specified interval.
+        /// 
+        /// Returns num evenly spaced samples, calculated over the
+        /// interval [start, stop].
+        /// 
+        /// The endpoint of the interval can optionally be excluded.
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The end value of the sequence, unless endpoint is set to False.
+        /// In that case, the sequence consists of all but the last of num + 1
+        /// evenly spaced samples, so that stop is excluded.  Note that the step
+        /// size changes when endpoint is False.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate. Default is 50. Must be non-negative.
+        /// </param>
+        /// <param name="endpoint">
+        /// If True, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="retstep">
+        /// If True, return (samples, step), where step is the spacing
+        /// between samples.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// samples
+        /// There are num equally spaced samples in the closed interval
+        /// [start, stop] or the half-open interval [start, stop)
+        /// (depending on whether endpoint is True or False).
+        /// step
+        /// Only returned if retstep is True
+        /// 
+        /// Size of spacing between samples.
+        /// </returns>
+        // Error generating delaration: linspace
+        // Message: Return tuple
+        /*
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 254
+   at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 101
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 406
+        ----------------------------
+        Declaration JSON:
+        {
+  "Arguments": [
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "start",
+      "Type": "T[,]",
+      "DefaultValue": null,
+      "IsNamedArg": false,
+      "Description": "The starting value of the sequence."
+    },
+    {
+      "IsNullable": false,
+      "IsValueType": false,
+      "Name": "stop",
+      "Type": "T[,]",
       "DefaultValue": null,
       "IsNamedArg": false,
       "Description": "The end value of the sequence, unless endpoint is set to False.\nIn that case, the sequence consists of all but the last of num + 1\nevenly spaced samples, so that stop is excluded.  Note that the step\nsize changes when endpoint is False."
@@ -1864,6 +2290,53 @@ namespace Numpy
             => NumPy.Instance.logspace(start, stop, num:num, endpoint:endpoint, @base:@base, dtype:dtype, axis:axis);
         
         /// <summary>
+        /// Return numbers spaced evenly on a log scale.
+        /// 
+        /// In linear space, the sequence starts at base ** start
+        /// (base to the power of start) and ends with base ** stop
+        /// (see endpoint below).
+        /// 
+        /// Notes
+        /// 
+        /// Logspace is equivalent to the code
+        /// </summary>
+        /// <param name="start">
+        /// base ** start is the starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// base ** stop is the final value of the sequence, unless endpoint
+        /// is False.  In that case, num + 1 values are spaced over the
+        /// interval in log-space, of which all but the last (a sequence of
+        /// length num) are returned.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate.  Default is 50.
+        /// </param>
+        /// <param name="endpoint">
+        /// If true, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="@base">
+        /// The base of the log space. The step size between the elements in
+        /// ln(samples) / ln(base) (or log_base(samples)) is uniform.
+        /// Default is 10.0.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// num samples, equally spaced on a log scale.
+        /// </returns>
+        public static NDarray<T> logspace<T>(T[,] start, T[,] stop, int? num = null, bool? endpoint = null, float? @base = null, Dtype dtype = null, int? axis = null)
+            => NumPy.Instance.logspace(start, stop, num:num, endpoint:endpoint, @base:@base, dtype:dtype, axis:axis);
+        
+        /// <summary>
         /// Return numbers spaced evenly on a log scale (a geometric progression).
         /// 
         /// This is similar to logspace, but with endpoints specified directly.
@@ -1947,6 +2420,49 @@ namespace Numpy
         /// num samples, equally spaced on a log scale.
         /// </returns>
         public static NDarray<T> geomspace<T>(T[] start, T[] stop, int? num = null, bool? endpoint = null, Dtype dtype = null, int? axis = null)
+            => NumPy.Instance.geomspace(start, stop, num:num, endpoint:endpoint, dtype:dtype, axis:axis);
+        
+        /// <summary>
+        /// Return numbers spaced evenly on a log scale (a geometric progression).
+        /// 
+        /// This is similar to logspace, but with endpoints specified directly.
+        /// Each output sample is a constant multiple of the previous.
+        /// 
+        /// Notes
+        /// 
+        /// If the inputs or dtype are complex, the output will follow a logarithmic
+        /// spiral in the complex plane.  (There are an infinite number of spirals
+        /// passing through two points; the output will follow the shortest such path.)
+        /// </summary>
+        /// <param name="start">
+        /// The starting value of the sequence.
+        /// </param>
+        /// <param name="stop">
+        /// The final value of the sequence, unless endpoint is False.
+        /// In that case, num + 1 values are spaced over the
+        /// interval in log-space, of which all but the last (a sequence of
+        /// length num) are returned.
+        /// </param>
+        /// <param name="num">
+        /// Number of samples to generate.  Default is 50.
+        /// </param>
+        /// <param name="endpoint">
+        /// If true, stop is the last sample. Otherwise, it is not included.
+        /// Default is True.
+        /// </param>
+        /// <param name="dtype">
+        /// The type of the output array.  If dtype is not given, infer the data
+        /// type from the other input arguments.
+        /// </param>
+        /// <param name="axis">
+        /// The axis in the result to store the samples.  Relevant only if start
+        /// or stop are array-like.  By default (0), the samples will be along a
+        /// new axis inserted at the beginning. Use -1 to get an axis at the end.
+        /// </param>
+        /// <returns>
+        /// num samples, equally spaced on a log scale.
+        /// </returns>
+        public static NDarray<T> geomspace<T>(T[,] start, T[,] stop, int? num = null, bool? endpoint = null, Dtype dtype = null, int? axis = null)
             => NumPy.Instance.geomspace(start, stop, num:num, endpoint:endpoint, dtype:dtype, axis:axis);
         
         /*
@@ -2051,6 +2567,57 @@ namespace Numpy
             => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
         */
         
+        /*
+        /// <summary>
+        /// Return coordinate matrices from coordinate vectors.
+        /// 
+        /// Make N-D coordinate arrays for vectorized evaluations of
+        /// N-D scalar/vector fields over N-D grids, given
+        /// one-dimensional coordinate arrays x1, x2,…, xn.
+        /// 
+        /// Notes
+        /// 
+        /// This function supports both indexing conventions through the indexing
+        /// keyword argument.  Giving the string ‘ij’ returns a meshgrid with
+        /// matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.
+        /// In the 2-D case with inputs of length M and N, the outputs are of shape
+        /// (N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.  In the 3-D case
+        /// with inputs of length M, N and P, outputs are of shape (N, M, P) for
+        /// ‘xy’ indexing and (M, N, P) for ‘ij’ indexing.  The difference is
+        /// illustrated by the following code snippet:
+        /// 
+        /// In the 1-D and 0-D case, the indexing and sparse keywords have no effect.
+        /// </summary>
+        /// <param name="x1, x2,…, xn">
+        /// 1-D arrays representing the coordinates of a grid.
+        /// </param>
+        /// <param name="indexing">
+        /// Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.
+        /// See Notes for more details.
+        /// </param>
+        /// <param name="sparse">
+        /// If True a sparse grid is returned in order to conserve memory.
+        /// Default is False.
+        /// </param>
+        /// <param name="copy">
+        /// If False, a view into the original arrays are returned in order to
+        /// conserve memory.  Default is True.  Please note that
+        /// sparse=False, copy=False will likely return non-contiguous
+        /// arrays.  Furthermore, more than one element of a broadcast array
+        /// may refer to a single memory location.  If you need to write to the
+        /// arrays, make copies first.
+        /// </param>
+        /// <returns>
+        /// For vectors x1, x2,…, ‘xn’ with lengths Ni=len(xi) ,
+        /// return (N1, N2, N3,...Nn) shaped arrays if indexing=’ij’
+        /// or (N2, N1, N3,...Nn) shaped arrays if indexing=’xy’
+        /// with the elements of xi repeated to fill the matrix along
+        /// the first dimension for x1, the second for x2 and so on.
+        /// </returns>
+        public static NDarray<T> meshgrid<T>(T[,] x1, x2,…, xn, {‘xy’ indexing = null, bool? sparse = null, bool? copy = null)
+            => NumPy.Instance.meshgrid(x1, x2,…, xn, indexing:indexing, sparse:sparse, copy:copy);
+        */
+        
         /// <summary>
         /// Extract a diagonal or construct a diagonal array.
         /// 
@@ -2100,6 +2667,30 @@ namespace Numpy
             => NumPy.Instance.diag(v, k:k);
         
         /// <summary>
+        /// Extract a diagonal or construct a diagonal array.
+        /// 
+        /// See the more detailed documentation for numpy.diagonal if you use this
+        /// function to extract a diagonal and wish to write to the resulting array;
+        /// whether it returns a copy or a view depends on what version of numpy you
+        /// are using.
+        /// </summary>
+        /// <param name="v">
+        /// If v is a 2-D array, return a copy of its k-th diagonal.
+        /// If v is a 1-D array, return a 2-D array with v on the k-th
+        /// diagonal.
+        /// </param>
+        /// <param name="k">
+        /// Diagonal in question. The default is 0. Use k&gt;0 for diagonals
+        /// above the main diagonal, and k&lt;0 for diagonals below the main
+        /// diagonal.
+        /// </param>
+        /// <returns>
+        /// The extracted diagonal or constructed diagonal array.
+        /// </returns>
+        public static NDarray<T> diag<T>(T[,] v, int? k = null)
+            => NumPy.Instance.diag(v, k:k);
+        
+        /// <summary>
         /// Create a two-dimensional array with the flattened input as a diagonal.
         /// </summary>
         /// <param name="v">
@@ -2133,6 +2724,24 @@ namespace Numpy
         /// The 2-D output array.
         /// </returns>
         public static NDarray<T> diagflat<T>(T[] v, int? k = null)
+            => NumPy.Instance.diagflat(v, k:k);
+        
+        /// <summary>
+        /// Create a two-dimensional array with the flattened input as a diagonal.
+        /// </summary>
+        /// <param name="v">
+        /// Input data, which is flattened and set as the k-th
+        /// diagonal of the output.
+        /// </param>
+        /// <param name="k">
+        /// Diagonal to set; 0, the default, corresponds to the “main” diagonal,
+        /// a positive (negative) k giving the number of the diagonal above
+        /// (below) the main.
+        /// </param>
+        /// <returns>
+        /// The 2-D output array.
+        /// </returns>
+        public static NDarray<T> diagflat<T>(T[,] v, int? k = null)
             => NumPy.Instance.diagflat(v, k:k);
         
         /// <summary>
@@ -2197,6 +2806,24 @@ namespace Numpy
             => NumPy.Instance.tril(m, k:k);
         
         /// <summary>
+        /// Lower triangle of an array.
+        /// 
+        /// Return a copy of an array with elements above the k-th diagonal zeroed.
+        /// </summary>
+        /// <param name="m">
+        /// Input array.
+        /// </param>
+        /// <param name="k">
+        /// Diagonal above which to zero elements.  k = 0 (the default) is the
+        /// main diagonal, k &lt; 0 is below it and k &gt; 0 is above.
+        /// </param>
+        /// <returns>
+        /// Lower triangle of m, of same shape and data-type as m.
+        /// </returns>
+        public static NDarray<T> tril<T>(T[,] m, int? k = null)
+            => NumPy.Instance.tril(m, k:k);
+        
+        /// <summary>
         /// Generate a Vandermonde matrix.
         /// 
         /// The columns of the output matrix are powers of the input vector. The
@@ -2254,6 +2881,35 @@ namespace Numpy
         public static NDarray<T> vander<T>(T[] x, int? N = null, bool? increasing = null)
             => NumPy.Instance.vander(x, N:N, increasing:increasing);
         
+        /// <summary>
+        /// Generate a Vandermonde matrix.
+        /// 
+        /// The columns of the output matrix are powers of the input vector. The
+        /// order of the powers is determined by the increasing boolean argument.
+        /// Specifically, when increasing is False, the i-th output column is
+        /// the input vector raised element-wise to the power of N - i - 1. Such
+        /// a matrix with a geometric progression in each row is named for Alexandre-
+        /// Theophile Vandermonde.
+        /// </summary>
+        /// <param name="x">
+        /// 1-D input array.
+        /// </param>
+        /// <param name="N">
+        /// Number of columns in the output.  If N is not specified, a square
+        /// array is returned (N = len(x)).
+        /// </param>
+        /// <param name="increasing">
+        /// Order of the powers of the columns.  If True, the powers increase
+        /// from left to right, if False (the default) they are reversed.
+        /// </param>
+        /// <returns>
+        /// Vandermonde matrix.  If increasing is False, the first column is
+        /// x^(N-1), the second x^(N-2) and so forth. If increasing is
+        /// True, the columns are x^0, x^1, ..., x^(N-1).
+        /// </returns>
+        public static NDarray<T> vander<T>(T[,] x, int? N = null, bool? increasing = null)
+            => NumPy.Instance.vander(x, N:N, increasing:increasing);
+        
         /*
         /// <summary>
         /// Interpret the input as a matrix.
@@ -2291,6 +2947,26 @@ namespace Numpy
         /// data interpreted as a matrix.
         /// </returns>
         public static matrix mat<T>(T[] data, Dtype dtype)
+            => NumPy.Instance.mat(data, dtype);
+        */
+        
+        /*
+        /// <summary>
+        /// Interpret the input as a matrix.
+        /// 
+        /// Unlike matrix, asmatrix does not make a copy if the input is already
+        /// a matrix or an ndarray.  Equivalent to matrix(data, copy=False).
+        /// </summary>
+        /// <param name="data">
+        /// Input data.
+        /// </param>
+        /// <param name="dtype">
+        /// Data-type of the output matrix.
+        /// </param>
+        /// <returns>
+        /// data interpreted as a matrix.
+        /// </returns>
+        public static matrix mat<T>(T[,] data, Dtype dtype)
             => NumPy.Instance.mat(data, dtype);
         */
         

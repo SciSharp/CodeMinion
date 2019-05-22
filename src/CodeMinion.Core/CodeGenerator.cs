@@ -377,7 +377,7 @@ namespace CodeMinion.Core
             //}
             s.Out("//auto-generated code, do not change");
             // call proption with no arguments
-            s.Out($"dynamic py = self.InvokeMethod(\"{prop.Name}\");");
+            s.Out($"dynamic py = self.GetAttr(\"{prop.Name}\");");
             // return the return value if any
             if (prop.Returns.Count == 0)
                 return;

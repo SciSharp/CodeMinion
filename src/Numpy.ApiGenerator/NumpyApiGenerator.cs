@@ -65,6 +65,7 @@ namespace Torch.ApiGenerator
             };
             dtype_api.OutputPath = Path.Combine(src_dir, "Numpy");
             _generator.StaticApis.Add(dtype_api);
+            ParseDtypeApi(dtype_api);
             // ----------------------------------------------------
             // ndarray
             // ----------------------------------------------------
@@ -276,7 +277,7 @@ namespace Torch.ApiGenerator
             // array_like
             if (decl.Arguments.Any(a => a.Type == "array_like"))
             {
-                foreach (var type in "NDarray T[]".Split())
+                foreach (var type in "NDarray T[] T[,]".Split())
                 {
                     var clone_decl = decl.Clone<Function>();
                     clone_decl.Arguments.ForEach(a =>
@@ -284,7 +285,7 @@ namespace Torch.ApiGenerator
                         if (a.Type == "array_like")
                             a.Type = type;
                     });
-                    if (type == "T[]")
+                    if (type.StartsWith("T["))
                     {
                         clone_decl.Generics = new string[] { "T" };
                         if (clone_decl.Returns[0].Type == "NDarray") // TODO: this feels like a hack. make it more robust if necessary

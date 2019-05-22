@@ -66,7 +66,7 @@ namespace Numpy
         /// <summary>
         /// Information about the memory layout of the array.
         /// </summary>
-        public Flags flags => new Flags(_pobj.GetAttr("flags"));
+        public Flags flags => new Flags(_pobj.GetAttr("flags")); // TODO: implement Flags
 
         /// <summary>
         /// Tuple of array dimensions.
@@ -122,7 +122,36 @@ namespace Numpy
         /// </summary>
         public Dtype dtype => new Dtype(_pobj.GetAttr("dtype"));
 
+        /// <summary>
+        /// Same as self.transpose(), except that self is returned if self.ndim &lt; 2.
+        /// </summary>
+        public NDarray T => new NDarray(_pobj.GetAttr("T"));
 
+        /// <summary>
+        /// The real part of the array.
+        /// </summary>
+        public NDarray real => new NDarray(_pobj.GetAttr("real"));
+
+        /// <summary>
+        /// The imaginary part of the array.
+        /// </summary>
+        public NDarray imag => new NDarray(_pobj.GetAttr("imag"));
+
+        /// <summary>
+        /// A 1-D iterator over the array.
+        /// </summary>
+        public PyObject flat => _pobj.GetAttr("flat"); // todo: wrap and support usecases
+
+        /// <summary>
+        /// An object to simplify the interaction of the array with the ctypes module.
+        /// </summary>
+        public PyObject ctypes => _pobj.GetAttr("ctypes"); // TODO: wrap ctypes
+
+
+        /// <summary>
+        /// Length of the array (same as size)
+        /// </summary>
+        public int len => _pobj.InvokeMethod("__len__").As<int>();
     }
 
     public class NDarray<T> : NDarray
