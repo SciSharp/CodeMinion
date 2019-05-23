@@ -973,7 +973,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public void require(NDarray a, Dtype dtype, string[] requirements)
+        public NDarray require(NDarray a, Dtype dtype, string[] requirements)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -984,6 +984,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("require", pyargs, kwargs);
+            return ToCsharp<NDarray>(py);
         }
         
         /// <summary>
@@ -1008,7 +1009,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public void require<T>(T[] a, Dtype dtype, string[] requirements)
+        public NDarray<T> require<T>(T[] a, Dtype dtype, string[] requirements)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1019,6 +1020,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("require", pyargs, kwargs);
+            return ToCsharp<NDarray<T>>(py);
         }
         
         /// <summary>
@@ -1043,7 +1045,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public void require<T>(T[,] a, Dtype dtype, string[] requirements)
+        public NDarray<T> require<T>(T[,] a, Dtype dtype, string[] requirements)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1054,6 +1056,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("require", pyargs, kwargs);
+            return ToCsharp<NDarray<T>>(py);
         }
         
         /// <summary>
@@ -1808,7 +1811,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -1875,6 +1878,7 @@ namespace Numpy
     }
   ],
   "Generics": null,
+  "ForwardToStaticImpl": null,
   "Name": "unique",
   "ClassName": "numpy",
   "Returns": [
@@ -1994,7 +1998,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2063,6 +2067,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "unique",
   "ClassName": "numpy",
   "Returns": [
@@ -2182,7 +2187,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2251,6 +2256,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "unique",
   "ClassName": "numpy",
   "Returns": [

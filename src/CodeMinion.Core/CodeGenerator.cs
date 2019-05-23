@@ -323,13 +323,18 @@ namespace CodeMinion.Core
         // generates only the body of the API function declaration
         protected virtual void GenerateFunctionBody(Function func, CodeWriter s)
         {
+            s.Out("//auto-generated code, do not change");
+            if (!string.IsNullOrWhiteSpace(func.ForwardToStaticImpl))
+            {
+                GenerateForwardingBody(func, s);
+                return;
+            }
             if (_templates.ContainsKey(func.Name))
             {
                 // use generator template instead
                 _templates[func.Name].GenerateBody(func, s);
                 return;
             }
-            s.Out("//auto-generated code, do not change");
             if (func.Arguments.Any())
             {
                 // first generate the positional args
@@ -341,7 +346,7 @@ namespace CodeMinion.Core
                         var name = EscapeName(arg.Name);
                         if (!string.IsNullOrWhiteSpace(arg.ConvertToSharpType))
                             s.Out($"SharpToSharp<{arg.ConvertToSharpType}>({name}),");
-                        else 
+                        else
                             s.Out($"{name},");
                     }
                 }, "{", "});");
@@ -369,6 +374,16 @@ namespace CodeMinion.Core
             {
                 throw new NotImplementedException("return a tuple or array of return values");
             }
+        }
+
+        private void GenerateForwardingBody(Function member_func, CodeWriter s)
+        {
+            var func = member_func.Clone<Function>();
+            // inserting this at position 0 since this is a forwarding of a member function to a static implementation
+            func.Arguments.Insert(0, new Argument() { Name = "this", Type = "irrelevant"});
+            var passed_args = GeneratePassedArgs(func);
+            s.Out("var @this=this;");
+            s.Out($"return {func.ForwardToStaticImpl}.{EscapeName(func.Name)}({passed_args});");
         }
 
         private void GeneratePropertyGetter(Property prop, CodeWriter s)
@@ -484,8 +499,9 @@ namespace CodeMinion.Core
                     {
                         try
                         {
-                            if (!decl.ManualOverride)
-                                GenerateApiFunction(decl, s);
+                            if (decl.ManualOverride)
+                                continue;
+                            GenerateApiFunction(decl, s);
                         }
                         catch (Exception e)
                         {

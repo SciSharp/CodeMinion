@@ -2149,7 +2149,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2240,6 +2240,7 @@ namespace Numpy
     }
   ],
   "Generics": null,
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -2328,7 +2329,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2421,6 +2422,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -2509,7 +2511,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2602,6 +2604,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -2690,7 +2693,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2783,6 +2786,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -2871,7 +2875,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -2964,6 +2968,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -3052,7 +3057,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -3145,6 +3150,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -3233,7 +3239,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -3326,6 +3332,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -3414,7 +3421,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -3507,6 +3514,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [
@@ -3595,7 +3603,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 59
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass37_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 454
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass38_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 469
         ----------------------------
         Declaration JSON:
         {
@@ -3688,6 +3696,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "linspace",
   "ClassName": "numpy",
   "Returns": [

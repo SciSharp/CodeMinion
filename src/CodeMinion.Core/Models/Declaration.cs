@@ -43,8 +43,16 @@ namespace CodeMinion.Core.Models
     public class Function : Declaration
     {
         public List<Argument> Arguments { get; set; } = new List<Argument>();
+
+        /// <summary>
+        /// Generic type parameters of the function
+        /// </summary>
         public string[] Generics { get; set; } = null;
 
+        /// <summary>
+        /// If this is set the member will be forwarded to the given static api object with self as first parameter
+        /// </summary>
+        public string ForwardToStaticImpl { get; set; }
     }
 
     public class Property : Declaration

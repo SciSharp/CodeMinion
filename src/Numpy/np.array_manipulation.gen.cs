@@ -673,7 +673,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public static void require(NDarray a, Dtype dtype, string[] requirements)
+        public static NDarray require(NDarray a, Dtype dtype, string[] requirements)
             => NumPy.Instance.require(a, dtype, requirements);
         
         /// <summary>
@@ -698,7 +698,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public static void require<T>(T[] a, Dtype dtype, string[] requirements)
+        public static NDarray<T> require<T>(T[] a, Dtype dtype, string[] requirements)
             => NumPy.Instance.require(a, dtype, requirements);
         
         /// <summary>
@@ -723,7 +723,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public static void require<T>(T[,] a, Dtype dtype, string[] requirements)
+        public static NDarray<T> require<T>(T[,] a, Dtype dtype, string[] requirements)
             => NumPy.Instance.require(a, dtype, requirements);
         
         /// <summary>
@@ -1321,7 +1321,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 102
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 410
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass36_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 425
         ----------------------------
         Declaration JSON:
         {
@@ -1388,6 +1388,7 @@ namespace Numpy
     }
   ],
   "Generics": null,
+  "ForwardToStaticImpl": null,
   "Name": "unique",
   "ClassName": "numpy",
   "Returns": [
@@ -1507,7 +1508,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 102
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 410
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass36_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 425
         ----------------------------
         Declaration JSON:
         {
@@ -1576,6 +1577,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "unique",
   "ClassName": "numpy",
   "Returns": [
@@ -1695,7 +1697,7 @@ namespace Numpy
         /*
            at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 255
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 102
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass35_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 410
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass36_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 425
         ----------------------------
         Declaration JSON:
         {
@@ -1764,6 +1766,7 @@ namespace Numpy
   "Generics": [
     "T"
   ],
+  "ForwardToStaticImpl": null,
   "Name": "unique",
   "ClassName": "numpy",
   "Returns": [

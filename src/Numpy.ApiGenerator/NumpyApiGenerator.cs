@@ -39,6 +39,7 @@ namespace Numpy.ApiGenerator
 
         // use this to avoid duplicates
         HashSet<string> parsed_api_functions=new HashSet<string>();
+        private DynamicApi ndarray_api;
 
         public void Generate()
         {
@@ -58,6 +59,16 @@ namespace Numpy.ApiGenerator
             };
             _generator.StaticApis.Add(array_creation_api);
             ParseNumpyApi(array_creation_api, "routines.array-creation.html");
+            // ----------------------------------------------------
+            // ndarray
+            // ----------------------------------------------------
+            ndarray_api = new DynamicApi()
+            {
+                ClassName = "NDarray",
+                OutputPath = Path.Combine(src_dir, "Numpy/Models"),
+            };
+            _generator.DynamicApis.Add(ndarray_api);
+            ParseNdarrayApi(ndarray_api);
             // ----------------------------------------------------
             // array manipulation
             // ----------------------------------------------------
@@ -85,16 +96,6 @@ namespace Numpy.ApiGenerator
             };
             _generator.StaticApis.Add(dtype_api);
             ParseDtypeApi(dtype_api);
-            // ----------------------------------------------------
-            // ndarray
-            // ----------------------------------------------------
-            var ndarray_api = new DynamicApi()
-            {
-                ClassName = "NDarray",
-                OutputPath = Path.Combine(src_dir, "Numpy/Models"),
-            };
-            _generator.DynamicApis.Add(ndarray_api);
-            ParseNdarrayApi(ndarray_api);
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -191,7 +192,24 @@ namespace Numpy.ApiGenerator
                 PostProcess(decl);
                 // if necessary create overloads
                 foreach (var d in InferOverloads(decl))
+                {
                     api.Declarations.Add(d);
+                    // if this is an ndarray member, add it to the dynamic api also
+                    if (ndarray_api != null && d.Arguments.FirstOrDefault()?.Type == "NDarray")
+                    {
+                        switch (decl.Name)
+                        {
+                            // do not add to NDArray instance methods
+                            case "copyto":
+                            case "transpose":
+                                continue;
+                        }
+                        var dc = d.Clone<Function>();
+                        dc.Arguments.RemoveAt(0);
+                        dc.ForwardToStaticImpl = "NumPy.Instance";
+                        ndarray_api.Declarations.Add(dc);
+                    }
+                }
             }
         }
 
@@ -316,6 +334,10 @@ namespace Numpy.ApiGenerator
                 case "block":
                     decl.CommentOut = true;
                     break;
+                case "require":
+                    if (decl.Returns.Count==0)
+                        decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array"});
+                    break;
             }
         }
 
@@ -391,6 +413,7 @@ namespace Numpy.ApiGenerator
                         case "swapaxes":
                         case "ravel":
                         case "reshape":
+                        case "copyto":
                             if (i == 0)
                             {
                                 i++;
