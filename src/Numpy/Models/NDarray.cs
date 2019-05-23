@@ -375,10 +375,16 @@ namespace Numpy
                     if (s.IsIndex)
                         return new PyInt(s.Start.Value);
                     else
-                        return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
+                        return SliceToPython(s);
                 }).ToArray());
                 return new NDarray(this.PyObject[tuple]);
             }
+        }
+
+        protected PyObject SliceToPython(Slice s)
+        {
+            var f = new Func<int?, string>(FormatNullableIntForPython);
+            return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
         }
 
         protected string FormatNullableIntForPython(int? i)
@@ -406,11 +412,21 @@ namespace Numpy
             }
         }
 
-        public new NDarray this[params object[] arrays_or_indices]
+        public new NDarray this[params object[] arrays_slices_or_indices]
         {
             get
             {
-                var tuple = ToTuple(arrays_or_indices);
+                var pyobjs = arrays_slices_or_indices.Select<object ,PyObject>(x =>
+                {
+                    switch (x)
+                    {
+                        case int i: return new PyInt(i);
+                        case NDarray a: return a.PyObject;
+                        case string s: return SliceToPython(new Slice(s));
+                        default: return ToPython(x);
+                    }
+                }).ToArray();
+                var tuple = new PyTuple(pyobjs);
                 return new NDarray(this.PyObject[tuple]);
             }
         }
@@ -468,12 +484,22 @@ namespace Numpy
             }
         }
 
-        public new NDarray this[params object[] arrays_or_indices]
+        public new NDarray this[params object[] arrays_slices_or_indices]
         {
             get
             {
-                var tuple = ToTuple(arrays_or_indices);
-                return new NDarray<T>(this.PyObject[tuple]);
+                var pyobjs = arrays_slices_or_indices.Select<object, PyObject>(x =>
+                {
+                    switch (x)
+                    {
+                        case int i: return new PyInt(i);
+                        case NDarray a: return a.PyObject;
+                        case string s: return SliceToPython(new Slice(s));
+                        default: return ToPython(x);
+                    }
+                }).ToArray();
+                var tuple = new PyTuple(pyobjs);
+                return new NDarray(this.PyObject[tuple]);
             }
         }
     }
