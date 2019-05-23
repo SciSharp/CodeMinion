@@ -362,6 +362,15 @@ namespace Numpy
                 return new NDarray(this.PyObject[tuple]);
             }
         }
+
+        public NDarray this[params NDarray[] indices]
+        {
+            get
+            {
+                var tuple = new PyTuple(indices.Select(a => (PyObject)a.PyObject).ToArray());
+                return new NDarray(this.PyObject[tuple]);
+            }
+        }
     }
 
     public class NDarray<T> : NDarray
@@ -403,6 +412,15 @@ namespace Numpy
             get
             {
                 var tuple = ToTuple(coords);
+                return new NDarray<T>(this.PyObject[tuple]);
+            }
+        }
+
+        public new NDarray this[params NDarray[] indices]
+        {
+            get
+            {
+                var tuple = new PyTuple(indices.Select(a=>(PyObject)a.PyObject).ToArray());
                 return new NDarray<T>(this.PyObject[tuple]);
             }
         }

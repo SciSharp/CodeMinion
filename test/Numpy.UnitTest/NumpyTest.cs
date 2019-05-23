@@ -204,6 +204,16 @@ namespace Numpy.UnitTests
         }
 
         [TestMethod]
+        public void ndarray_indexing2()
+        {
+            var x = np.arange(10, 1, -1);
+            Assert.AreEqual("array([10,  9,  8,  7,  6,  5,  4,  3,  2])", x.repr);
+            Assert.AreEqual("array([7, 7, 9, 2])", x[np.array(new[]{3, 3, 1, 8})].repr);
+            Assert.AreEqual("array([7, 7, 4, 2])", x[np.array(new[] { 3, 3, -3, 8 })].repr);
+            Assert.AreEqual("array([[9, 9],\n       [8, 7]])", x[np.array(new int[,] { { 1, 1 }, { 2, 3 } })].repr);
+        }
+
+        [TestMethod]
         public void ndarray_slice()
         {
             var x = np.arange(10);
