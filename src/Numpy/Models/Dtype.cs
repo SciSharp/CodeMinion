@@ -24,18 +24,21 @@ namespace Numpy
     {
         switch (obj)
         {
+            case bool o: return np.bool8;
             case byte o: return np.@byte;
             case short o: return np.int16;
             case int o: return np.int32;
             case long o: return np.int64;
             case float o: return np.float32;
             case double o: return np.float64;
+            case bool[] o: return np.bool8;
             case byte[] o: return np.@byte;
             case short[] o: return np.int16;
             case int[] o: return np.int32;
             case long[] o: return np.int64;
             case float[] o: return np.float32;
             case double[] o: return np.float64;
+            case bool[,] o: return np.bool8;
             case byte[,] o: return np.uint8;
             case short[,] o: return np.int16;
             case int[,] o: return np.int32;

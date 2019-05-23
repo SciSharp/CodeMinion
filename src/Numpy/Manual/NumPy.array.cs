@@ -47,6 +47,10 @@ namespace Numpy
                 case long[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case float[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case double[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case bool[] a:
+                    var bytes = a.Select(x => (byte)(x ? 1 : 0)).ToArray();
+                    Marshal.Copy(bytes, 0, new IntPtr(ptr), a.Length);
+                    break;
             }
             return new NDarray<T>(ndarray);
         }
@@ -67,16 +71,17 @@ namespace Numpy
                 case long[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case float[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case double[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case bool[] a:
+                    var bytes = a.Select(x => (byte) (x ? 1 : 0)).ToArray();
+                    Marshal.Copy(bytes, 0, new IntPtr(ptr), a.Length);
+                    break;
             }
             return new NDarray<T>(ndarray);
         }
 
         public NDarray array(string[] obj, int? itemsize = null, bool? copy = null, bool? unicode = null, string order = null)
         {
-            var args = ToTuple(new object[]
-            {
-                obj,
-            });
+            var args = ToTuple(obj);
             var kwargs = new PyDict();
             if (itemsize != null) kwargs["itemsize"] = ToPython(itemsize);
             if (copy != null) kwargs["copy"] = ToPython(copy);

@@ -197,8 +197,8 @@ namespace Numpy.UnitTests
             Assert.AreEqual("2", x[2].str);
             Assert.AreEqual("8", x[-2].str);
             var y = x.reshape(new Shape(2, 5));
-            Assert.AreEqual("8", y[1,3].str);
-            Assert.AreEqual("9", y[1,-1].str);
+            Assert.AreEqual("8", y[1, 3].str);
+            Assert.AreEqual("9", y[1, -1].str);
             Assert.AreEqual("array([0, 1, 2, 3, 4])", y[0].repr);
             Assert.AreEqual("2", y[0][2].str);
         }
@@ -208,7 +208,7 @@ namespace Numpy.UnitTests
         {
             var x = np.arange(10, 1, -1);
             Assert.AreEqual("array([10,  9,  8,  7,  6,  5,  4,  3,  2])", x.repr);
-            Assert.AreEqual("array([7, 7, 9, 2])", x[np.array(new[]{3, 3, 1, 8})].repr);
+            Assert.AreEqual("array([7, 7, 9, 2])", x[np.array(new[] { 3, 3, 1, 8 })].repr);
             Assert.AreEqual("array([7, 7, 4, 2])", x[np.array(new[] { 3, 3, -3, 8 })].repr);
             Assert.AreEqual("array([[9, 9],\n       [8, 7]])", x[np.array(new int[,] { { 1, 1 }, { 2, 3 } })].repr);
         }
@@ -220,8 +220,8 @@ namespace Numpy.UnitTests
             Assert.AreEqual("array([ 0, 15, 30])", y[np.array(0, 2, 4), np.array(0, 1, 2)].repr);
             Assert.AreEqual("array([ 1, 15, 29])", y[np.array(0, 2, 4), 1].repr);
             Assert.AreEqual(
-                "array([[ 0,  1,  2,  3,  4,  5,  6],\n       [14, 15, 16, 17, 18, 19, 20],\n       [28, 29, 30, 31, 32, 33, 34]])", 
-                y[np.array(0, 2, 4)].repr);            
+                "array([[ 0,  1,  2,  3,  4,  5,  6],\n       [14, 15, 16, 17, 18, 19, 20],\n       [28, 29, 30, 31, 32, 33, 34]])",
+                y[np.array(0, 2, 4)].repr);
         }
 
         [TestMethod]
@@ -233,6 +233,44 @@ namespace Numpy.UnitTests
             Assert.AreEqual("array([1, 3, 5])", x["1:7:2"].repr);
             var y = np.arange(35).reshape(new Shape(5, 7));
             Assert.AreEqual("array([[ 7, 10, 13],\n       [21, 24, 27]])", y["1:5:2,::3"].repr);
+        }
+
+        [Ignore("TODO: implement")]
+        [TestMethod]
+        public void ndarray_masking()
+        {
+            var y = np.arange(35).reshape(5, 7);
+            //>>> b = y > 20
+            //>>> y[b]
+            //array([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34])
+            //>>> b[:, 5] # use a 1-D boolean whose first dim agrees with the first dim of y
+            //array([False, False, False, True, True])
+            //>>> y[b[:, 5]]
+            //array([[21, 22, 23, 24, 25, 26, 27],
+            //       [28, 29, 30, 31, 32, 33, 34]])
+        }
+
+
+        //[Ignore("TODO: implement")]
+        [TestMethod]
+        public void ndarray_masking1()
+        {
+            var x = np.arange(30).reshape(2, 3, 5);
+            Assert.AreEqual(
+                "array([[[ 0,  1,  2,  3,  4],\n" +
+                "        [ 5,  6,  7,  8,  9],\n" +
+                "        [10, 11, 12, 13, 14]],\n\n" +
+                "       [[15, 16, 17, 18, 19],\n" +
+                "        [20, 21, 22, 23, 24],\n" +
+                "        [25, 26, 27, 28, 29]]])",
+                 x.repr);
+            var b = np.array(new[,] {{true, true, false}, {false, true, true}});
+            Assert.AreEqual(
+                "array([[ 0,  1,  2,  3,  4],\n"+
+                "       [ 5,  6,  7,  8,  9],\n" +
+                "       [20, 21, 22, 23, 24],\n" +
+                "       [25, 26, 27, 28, 29]])",
+            x[b].repr);
         }
     }
 }
