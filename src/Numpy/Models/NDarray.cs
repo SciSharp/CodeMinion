@@ -353,6 +353,15 @@ namespace Numpy
                 return "None";
             return i.Value.ToString();
         }
+
+        public NDarray this[params int[] coords]
+        {
+            get
+            {
+                var tuple = ToTuple(coords);
+                return new NDarray(this.PyObject[tuple]);
+            }
+        }
     }
 
     public class NDarray<T> : NDarray
@@ -373,7 +382,7 @@ namespace Numpy
             return base.GetData<T>();
         }
 
-        public NDarray<T> this[string slicing_notation]
+        public new NDarray<T> this[string slicing_notation]
         {
             get
             {
@@ -385,6 +394,15 @@ namespace Numpy
                     else
                         return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
                 }).ToArray());
+                return new NDarray<T>(this.PyObject[tuple]);
+            }
+        }
+
+        public new NDarray this[params int[] coords]
+        {
+            get
+            {
+                var tuple = ToTuple(coords);
                 return new NDarray<T>(this.PyObject[tuple]);
             }
         }

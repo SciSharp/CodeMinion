@@ -176,7 +176,6 @@ namespace Numpy.UnitTests
             Assert.AreEqual(a, b.@base);
         }
 
-
         [TestMethod]
         public void ndarray_indexing()
         {
@@ -189,6 +188,19 @@ namespace Numpy.UnitTests
             Assert.AreEqual("9", y["1,-1"].str);
             Assert.AreEqual("array([0, 1, 2, 3, 4])", y["0"].repr);
             Assert.AreEqual("2", y["0"]["2"].str);
+        }
+
+        [TestMethod]
+        public void ndarray_indexing1()
+        {
+            var x = np.arange(10);
+            Assert.AreEqual("2", x[2].str);
+            Assert.AreEqual("8", x[-2].str);
+            var y = x.reshape(new Shape(2, 5));
+            Assert.AreEqual("8", y[1,3].str);
+            Assert.AreEqual("9", y[1,-1].str);
+            Assert.AreEqual("array([0, 1, 2, 3, 4])", y[0].repr);
+            Assert.AreEqual("2", y[0][2].str);
         }
 
         [TestMethod]
