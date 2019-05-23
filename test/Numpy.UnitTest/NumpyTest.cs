@@ -214,6 +214,17 @@ namespace Numpy.UnitTests
         }
 
         [TestMethod]
+        public void ndarray_indexing3()
+        {
+            var y = np.arange(35).reshape(5, 7);
+            Assert.AreEqual("array([ 0, 15, 30])", y[np.array(0, 2, 4), np.array(0, 1, 2)].repr);
+            Assert.AreEqual("array([ 1, 15, 29])", y[np.array(0, 2, 4), 1].repr);
+            Assert.AreEqual(
+                "array([[ 0,  1,  2,  3,  4,  5,  6],\n       [14, 15, 16, 17, 18, 19, 20],\n       [28, 29, 30, 31, 32, 33, 34]])", 
+                y[np.array(0, 2, 4)].repr);            
+        }
+
+        [TestMethod]
         public void ndarray_slice()
         {
             var x = np.arange(10);

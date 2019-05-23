@@ -320,16 +320,50 @@ namespace Numpy
         }
 
         /// <summary>
+        /// Gives a new shape to an array without changing its data.
+        /// 
+        /// Notes
+        /// 
+        /// It is not always possible to change the shape of an array without
+        /// copying the data. If you want an error to be raised when the data is copied,
+        /// you should assign the new shape to the shape attribute of the array:
+        /// 
+        /// The order keyword gives the index ordering both for fetching the values
+        /// from a, and then placing the values into the output array.
+        /// For example, let’s say you have an array:
+        /// 
+        /// You can think of reshaping as first raveling the array (using the given
+        /// index order), then inserting the elements from the raveled array into the
+        /// new array using the same kind of index ordering as was used for the
+        /// raveling.
+        /// </summary>
+        /// <param name="newshape">
+        /// The new shape should be compatible with the original shape. If
+        /// an integer, then the result will be a 1-D array of that length.
+        /// One shape dimension can be -1. In this case, the value is
+        /// inferred from the length of the array and remaining dimensions.
+        /// </param>
+        /// <returns>
+        /// This will be a new view object if possible; otherwise, it will
+        /// be a copy.  Note there is no guarantee of the memory layout (C- or
+        /// Fortran- contiguous) of the returned array.
+        /// </returns>
+        public NDarray reshape(params int[] newshape)
+        {
+            //auto-generated code, do not change
+            var @this = this;
+            return NumPy.Instance.reshape(@this, new Shape(newshape));
+        }
+
+        /// <summary>
         /// returns the 'array([ .... ])'-representation known from the console
         /// </summary>
         public string repr => self.InvokeMethod("__repr__").As<string>();
-        public string __repr__ => repr;
 
         /// <summary>
         /// returns the '[ .... ]'-representation
         /// </summary>
         public string str => self.InvokeMethod("__str__").As<string>();
-        public string __str__ => str;
 
         public NDarray this[string slicing_notation]
         {
@@ -354,7 +388,7 @@ namespace Numpy
             return i.Value.ToString();
         }
 
-        public NDarray this[params int[] coords]
+        public new NDarray this[params int[] coords]
         {
             get
             {
@@ -368,6 +402,15 @@ namespace Numpy
             get
             {
                 var tuple = new PyTuple(indices.Select(a => (PyObject)a.PyObject).ToArray());
+                return new NDarray(this.PyObject[tuple]);
+            }
+        }
+
+        public new NDarray this[params object[] arrays_or_indices]
+        {
+            get
+            {
+                var tuple = ToTuple(arrays_or_indices);
                 return new NDarray(this.PyObject[tuple]);
             }
         }
@@ -420,7 +463,16 @@ namespace Numpy
         {
             get
             {
-                var tuple = new PyTuple(indices.Select(a=>(PyObject)a.PyObject).ToArray());
+                var tuple = new PyTuple(indices.Select(a => (PyObject)a.PyObject).ToArray());
+                return new NDarray<T>(this.PyObject[tuple]);
+            }
+        }
+
+        public new NDarray this[params object[] arrays_or_indices]
+        {
+            get
+            {
+                var tuple = ToTuple(arrays_or_indices);
                 return new NDarray<T>(this.PyObject[tuple]);
             }
         }
