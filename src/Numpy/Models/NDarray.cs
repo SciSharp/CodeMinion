@@ -322,13 +322,13 @@ namespace Numpy
         /// <summary>
         /// returns the 'array([ .... ])'-representation known from the console
         /// </summary>
-        public string repr => self.GetAttr("__repr__").As<string>();
+        public string repr => self.InvokeMethod("__repr__").As<string>();
         public string __repr__ => repr;
 
         /// <summary>
         /// returns the '[ .... ]'-representation
         /// </summary>
-        public string str => self.GetAttr("__str__").As<string>();
+        public string str => self.InvokeMethod("__str__").As<string>();
         public string __str__ => str;
 
     }

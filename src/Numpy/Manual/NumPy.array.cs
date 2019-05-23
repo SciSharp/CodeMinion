@@ -35,7 +35,7 @@ namespace Numpy
         public NDarray<T> array<T>(T[] @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
         {
             var type = @object.GetDtype();
-            if (dtype != null && type != dtype)
+            if (dtype != null && !type.Equals( dtype))
                 throw new NotImplementedException("Type of the array is different from specified dtype. Data conversion is not supported (yet)");
             var ndarray = this.empty(new Shape(@object.Length), dtype: type, order:order); // todo: check out the other parameters
             long ptr = ndarray.PyObject.ctypes.data;

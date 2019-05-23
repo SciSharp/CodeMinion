@@ -121,9 +121,9 @@ namespace Numpy.UnitTests
         public void ndarray_base()
         {
             var a = np.array(new int[] { 1, 2, 3, 4, 5, 6 });
-            //var b = a.reshape(a, new Shape(2,3));
-            //Assert.AreEqual(null, a.@base);
-            //Assert.AreEqual(a, b.@base);
+            var b = a.reshape(new Shape(2, 3));
+            Assert.AreEqual(null, a.@base);
+            Assert.AreEqual(a, b.@base);
         }
 
         [TestMethod]
@@ -155,14 +155,25 @@ namespace Numpy.UnitTests
             Assert.AreEqual(new[] { 1f, 2f, 3f, 4f }, t.GetData<float>());
         }
 
-        //[TestMethod]
-        //public void ndarray_flatten()
-        //{
-        //    var x = np.array(new float[,] { { 1f, 2f }, { 3f, 4f } });
-        //    Assert.AreEqual("[1. 2. 3. 4.]", x.flatten().ToString());
-        //    var t = x.T;
-        //    Assert.AreEqual("[1. 3. 2. 4.]", t.flatten().ToString());
-        //    Assert.AreEqual(new[] { 1f, 2f, 3f, 4f }, t.flat.GetData<float>());
-        //}
+        [TestMethod]
+        public void ndarray_flatten()
+        {
+            var x = np.array(new float[,] { { 1f, 2f }, { 3f, 4f } });
+            Assert.AreEqual("[1. 2. 3. 4.]", x.flatten().ToString());
+            var t = x.T;
+            Assert.AreEqual("[1. 3. 2. 4.]", t.flatten().ToString());
+            Assert.AreEqual(new[] { 1f, 3f, 2f, 4f }, t.flatten().GetData<float>());
+        }
+
+        [TestMethod]
+        public void ndarray_reshape()
+        {
+            var a = np.array(new int[] { 1, 2, 3, 4, 5, 6 });
+            var b = a.reshape(new Shape(2,3));
+            Assert.AreEqual("[[1 2 3]\n [4 5 6]]", b.str);
+            Assert.AreEqual(new Shape(2, 3), b.shape);
+            Assert.AreEqual(null, a.@base);
+            Assert.AreEqual(a, b.@base);
+        }
     }
 }
