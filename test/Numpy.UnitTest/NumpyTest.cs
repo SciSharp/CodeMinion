@@ -140,14 +140,14 @@ namespace Numpy.UnitTests
         {
             var a = np.array(new float[,] { { 1f, 2f }, { 3f, 4f }, { 3f, 4f } });
             Console.WriteLine(a);
-            Assert.AreEqual(new Shape(3,2), a.shape);
+            Assert.AreEqual(new Shape(3, 2), a.shape);
             Assert.AreEqual(np.float32, a.dtype);
         }
 
         [TestMethod]
         public void ndarray_T()
         {
-            var x = np.array(new float[,] {{1f, 2f}, {3f, 4f}});
+            var x = np.array(new float[,] { { 1f, 2f }, { 3f, 4f } });
             Assert.AreEqual("[[1. 2.]\n [3. 4.]]", x.ToString());
             var t = x.T;
             Console.WriteLine(t);
@@ -169,11 +169,37 @@ namespace Numpy.UnitTests
         public void ndarray_reshape()
         {
             var a = np.array(new int[] { 1, 2, 3, 4, 5, 6 });
-            var b = a.reshape(new Shape(2,3));
+            var b = a.reshape(new Shape(2, 3));
             Assert.AreEqual("[[1 2 3]\n [4 5 6]]", b.str);
             Assert.AreEqual(new Shape(2, 3), b.shape);
             Assert.AreEqual(null, a.@base);
             Assert.AreEqual(a, b.@base);
+        }
+
+
+        [TestMethod]
+        public void ndarray_indexing()
+        {
+            var x = np.arange(10);
+            Assert.AreEqual("2", x["2"].str);
+            Assert.AreEqual("8", x["-2"].str);
+            Assert.AreEqual("[2 3 4 5 6 7]", x["2:-2"].str);
+            var y = x.reshape(new Shape(2, 5));
+            Assert.AreEqual("8", y["1,3"].str);
+            Assert.AreEqual("9", y["1,-1"].str);
+            Assert.AreEqual("array([0, 1, 2, 3, 4])", y["0"].repr);
+            Assert.AreEqual("2", y["0"]["2"].str);
+        }
+
+        [TestMethod]
+        public void ndarray_slice()
+        {
+            var x = np.arange(10);
+            Assert.AreEqual("array([2, 3, 4])", x["2:5"].repr);
+            Assert.AreEqual("array([0, 1, 2])", x[":-7"].repr);
+            Assert.AreEqual("array([1, 3, 5])", x["1:7:2"].repr);
+            var y = np.arange(35).reshape(new Shape(5, 7));
+            Assert.AreEqual("array([[ 7, 10, 13],\n       [21, 24, 27]])", y["1:5:2,::3"].repr);
         }
     }
 }

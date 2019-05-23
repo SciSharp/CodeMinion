@@ -584,22 +584,22 @@ namespace CodeMinion.Core
                 s.Block(() =>
                 {
                     s.Break();
-                    s.AppendLine($"private static Lazy<{api.ImplName}> _instance = new Lazy<{api.ImplName}>(() => new {api.ImplName}());");
-                    s.AppendLine($"public static {api.ImplName} Instance => _instance.Value;");
+                    s.Out("private PyObject _pyobj = null;");
+                    s.Out($"public static {api.ImplName} Instance => _instance.Value;");
                     s.Break();
-                    s.Out("private Lazy<PyObject> _pyobj = new Lazy<PyObject>(() =>", () =>
+                    s.Out($"private static Lazy<{api.ImplName}> _instance = new Lazy<{api.ImplName}>(() => ", () =>
                     {
-                        s.Out("PyObject mod = null;");
+                        s.Out($"var instance=new {api.ImplName}();");
                         s.Out("try", () =>
                             {
-                                s.Out("mod = InstallAndImport();");
+                                s.Out("instance._pyobj = InstallAndImport();");
                             });
                         s.Out("catch (Exception)", () =>
                         {
                             s.Out("// retry to fix the installation by forcing a repair.");
-                            s.Out("mod = InstallAndImport(force: true);");
+                            s.Out("instance._pyobj = InstallAndImport(force: true);");
                         });
-                        s.Out("return mod;");
+                        s.Out("return instance;");
                     });
                     s.Out(");");
                     s.Break();
@@ -615,7 +615,7 @@ namespace CodeMinion.Core
                         s.Out("return mod;");
                     });
                     s.Break();
-                    s.Out("public dynamic self => _pyobj.Value;");
+                    s.Out("public dynamic self => _pyobj;");
                     s.Out("private bool IsInitialized => _pyobj != null;");
                     s.Break();
                     s.Out("private NumPy() { }");

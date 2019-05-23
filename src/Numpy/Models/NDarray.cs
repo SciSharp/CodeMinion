@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Numpy.Models;
@@ -331,6 +331,28 @@ namespace Numpy
         public string str => self.InvokeMethod("__str__").As<string>();
         public string __str__ => str;
 
+        public NDarray this[string slicing_notation]
+        {
+            get
+            {
+                var f = new Func<int?, string>(FormatNullableIntForPython);
+                var tuple=new PyTuple(Slice.ParseSlices(slicing_notation).Select(s =>
+                {
+                    if (s.IsIndex)
+                        return new PyInt(s.Start.Value);
+                    else
+                        return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
+                }).ToArray());
+                return new NDarray(this.PyObject[tuple]);
+            }
+        }
+
+        protected string FormatNullableIntForPython(int? i)
+        {
+            if (i == null)
+                return "None";
+            return i.Value.ToString();
+        }
     }
 
     public class NDarray<T> : NDarray
@@ -349,6 +371,22 @@ namespace Numpy
         public T[] GetData()
         {
             return base.GetData<T>();
+        }
+
+        public NDarray<T> this[string slicing_notation]
+        {
+            get
+            {
+                var f = new Func<int?, string>(FormatNullableIntForPython);
+                var tuple = new PyTuple(Slice.ParseSlices(slicing_notation).Select(s =>
+                {
+                    if (s.IsIndex)
+                        return new PyInt(s.Start.Value);
+                    else
+                        return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
+                }).ToArray());
+                return new NDarray<T>(this.PyObject[tuple]);
+            }
         }
     }
 }

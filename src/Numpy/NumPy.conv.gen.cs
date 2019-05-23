@@ -14,22 +14,22 @@ namespace Numpy
     public partial class NumPy : IDisposable
     {
         
-        private static Lazy<NumPy> _instance = new Lazy<NumPy>(() => new NumPy());
+        private PyObject _pyobj = null;
         public static NumPy Instance => _instance.Value;
         
-        private Lazy<PyObject> _pyobj = new Lazy<PyObject>(() =>
+        private static Lazy<NumPy> _instance = new Lazy<NumPy>(() => 
         {
-            PyObject mod = null;
+            var instance=new NumPy();
             try
             {
-                mod = InstallAndImport();
+                instance._pyobj = InstallAndImport();
             }
             catch (Exception)
             {
                 // retry to fix the installation by forcing a repair.
-                mod = InstallAndImport(force: true);
+                instance._pyobj = InstallAndImport(force: true);
             }
-            return mod;
+            return instance;
         }
         );
         
@@ -43,7 +43,7 @@ namespace Numpy
             return mod;
         }
         
-        public dynamic self => _pyobj.Value;
+        public dynamic self => _pyobj;
         private bool IsInitialized => _pyobj != null;
         
         private NumPy() { }

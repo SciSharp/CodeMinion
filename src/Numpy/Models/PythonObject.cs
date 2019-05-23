@@ -48,5 +48,10 @@ namespace Numpy
         {
             self?.Dispose();
         }
+
+        public static PythonObject Create<T>(string python_class)
+        {
+           throw new NotImplementedException();
+        }
     }
 }
