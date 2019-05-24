@@ -21,5 +21,10 @@ namespace Numpy
         {
             return NumPy.Instance.array(data);
         }
+
+        public static NDarray<T> array<T>(T[,,] data, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
+        {
+            return NumPy.Instance.array(data, dtype, copy, order, subok, ndmin);
+        }
     }
 }

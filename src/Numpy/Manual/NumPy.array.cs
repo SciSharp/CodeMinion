@@ -58,9 +58,9 @@ namespace Numpy
         {
             var d1_array = @object.Cast<T>().ToArray();
             var type = d1_array.GetDtype();
-            if (dtype != null && type != dtype)
-                throw new NotImplementedException("Type of the array is different from specified dtype. Data conversion is not supported (yet)");
-            var ndarray = this.empty(new Shape(@object.GetLength(0), @object.GetLength(1)), dtype: type, order: order); // todo: check out the other parameters
+            //if (dtype != null && type != dtype)
+            //    throw new NotImplementedException("Type of the array is different from specified dtype. Data conversion is not supported (yet)");
+            var ndarray = this.empty(new Shape(@object.GetLength(0), @object.GetLength(1)), dtype: dtype??type, order: order); // todo: check out the other parameters
             long ptr = ndarray.PyObject.ctypes.data;
             switch ((object)d1_array)
             {
@@ -72,6 +72,30 @@ namespace Numpy
                 case double[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case bool[] a:
                     var bytes = a.Select(x => (byte) (x ? 1 : 0)).ToArray();
+                    Marshal.Copy(bytes, 0, new IntPtr(ptr), a.Length);
+                    break;
+            }
+            return new NDarray<T>(ndarray);
+        }
+
+        public NDarray<T> array<T>(T[,,] @object, Dtype dtype = null, bool? copy = null, string order = null, bool? subok = null, int? ndmin = null)
+        {
+            var d1_array = @object.Cast<T>().ToArray();
+            var type = d1_array.GetDtype();
+            if (dtype != null && type != dtype)
+                throw new NotImplementedException("Type of the array is different from specified dtype. Data conversion is not supported (yet)");
+            var ndarray = this.empty(new Shape(@object.GetLength(0), @object.GetLength(1), @object.GetLength(2)), dtype: type, order: order); // todo: check out the other parameters
+            long ptr = ndarray.PyObject.ctypes.data;
+            switch ((object)d1_array)
+            {
+                case byte[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case short[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case int[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case long[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case float[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case double[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
+                case bool[] a:
+                    var bytes = a.Select(x => (byte)(x ? 1 : 0)).ToArray();
                     Marshal.Copy(bytes, 0, new IntPtr(ptr), a.Length);
                     break;
             }

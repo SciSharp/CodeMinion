@@ -24,6 +24,7 @@ namespace Numpy.ApiGenerator
             {
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Numpy",
+                StaticApiFilesPath =  Path.Combine(src_dir, "Numpy"),
                 TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
                 Usings = { "using Numpy.Models;" },
                 ToPythonConversions = {
@@ -72,7 +73,6 @@ namespace Numpy.ApiGenerator
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
                 PythonModule = "numpy", // name of the Python module that the static api wraps 
-                OutputPath = Path.Combine(src_dir, "Numpy"),
                 InitializationGenerators = { SpecialGenerators.InitNumpyGenerator },
             };
             _generator.StaticApis.Add(array_creation_api);
@@ -96,8 +96,6 @@ namespace Numpy.ApiGenerator
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
                 PythonModule = "numpy", // name of the Python module that the static api wraps 
-                OutputPath = Path.Combine(src_dir, "Numpy"),
-                InitializationGenerators = { },
             };
             _generator.StaticApis.Add(array_manipulation_api);
             ParseNumpyApi(array_manipulation_api, "routines.array-manipulation.html");
@@ -110,10 +108,21 @@ namespace Numpy.ApiGenerator
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
                 PythonModule = "numpy", // name of the Python module that the static api wraps 
-                OutputPath = Path.Combine(src_dir, "Numpy"),
             };
             _generator.StaticApis.Add(dtype_api);
             ParseDtypeApi(dtype_api);
+            // ----------------------------------------------------
+            // array manipulation
+            // ----------------------------------------------------
+            var bitwise_api = new StaticApi()
+            {
+                PartialName = "bitwise", // name-part of the partial class file
+                StaticName = "np", // name of the static API class
+                ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
+                PythonModule = "numpy", // name of the Python module that the static api wraps 
+            };
+            _generator.StaticApis.Add(bitwise_api);
+            ParseNumpyApi(bitwise_api, "routines.bitwise.html");
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -175,7 +184,7 @@ namespace Numpy.ApiGenerator
         private void ParseNumpyApi(StaticApi api, string link)
         {
             var docs = LoadDocs(link);
-            var testfile = new TestFile() { Name = $"{api.ImplName}{api.PartialName}" };
+            var testfile = new TestFile() { Name = $"{api.ImplName}_{api.PartialName}" };
             _generator.TestFiles.Add(testfile);
             foreach (var html_doc in docs)
             {

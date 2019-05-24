@@ -1472,5 +1472,49 @@ namespace Numpy
             return NumPy.Instance.rot90(@this, k, axes);
         }
         
+        /// <summary>
+        /// Packs the elements of a binary-valued array into bits in a uint8 array.
+        /// 
+        /// The result is padded to full bytes by inserting zero bits at the end.
+        /// </summary>
+        /// <param name="axis">
+        /// The dimension over which bit-packing is done.
+        /// None implies packing the flattened array.
+        /// </param>
+        /// <returns>
+        /// Array of type uint8 whose elements represent bits corresponding to the
+        /// logical (0 or nonzero) value of the input elements. The shape of
+        /// packed has the same number of dimensions as the input (unless axis
+        /// is None, in which case the output is 1-D).
+        /// </returns>
+        public NDarray packbits(int? axis = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.packbits(@this, axis:axis);
+        }
+        
+        /// <summary>
+        /// Unpacks elements of a uint8 array into a binary-valued output array.
+        /// 
+        /// Each element of myarray represents a bit-field that should be unpacked
+        /// into a binary-valued output array. The shape of the output array is either
+        /// 1-D (if axis is None) or the same shape as the input array with unpacking
+        /// done along the axis specified.
+        /// </summary>
+        /// <param name="axis">
+        /// The dimension over which bit-unpacking is done.
+        /// None implies unpacking the flattened array.
+        /// </param>
+        /// <returns>
+        /// The elements are binary-valued (0 or 1).
+        /// </returns>
+        public NDarray unpackbits(int? axis = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.unpackbits(@this, axis:axis);
+        }
+        
     }
 }
