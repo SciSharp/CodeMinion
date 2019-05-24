@@ -15,7 +15,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Numpy.UnitTest
 {
     [TestClass]
-    public class NumPyarray_creationTestsTest : BaseTestCase
+    public class NumPyarray_creationTest : BaseTestCase
     {
         [TestMethod]
         public void emptyTest()

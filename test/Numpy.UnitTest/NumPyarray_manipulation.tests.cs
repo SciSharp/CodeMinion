@@ -15,7 +15,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Numpy.UnitTest
 {
     [TestClass]
-    public class NumPyarray_manipulationTestsTest : BaseTestCase
+    public class NumPyarray_manipulationTest : BaseTestCase
     {
         [TestMethod]
         public void reshapeTest()

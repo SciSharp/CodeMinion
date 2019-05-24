@@ -163,7 +163,7 @@ namespace Numpy.ApiGenerator
         private void ParseNumpyApi(StaticApi api, string link)
         {
             var docs = LoadDocs(link);
-            var testfile = new TestFile() { Name = $"{api.ImplName}{api.PartialName}Tests" };
+            var testfile = new TestFile() { Name = $"{api.ImplName}{api.PartialName}" };
             _generator.TestFiles.Add(testfile);
             foreach (var html_doc in docs)
             {
