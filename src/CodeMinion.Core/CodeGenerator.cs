@@ -523,6 +523,10 @@ namespace CodeMinion.Core
             var generated_implementations = new HashSet<string>();
             foreach (var api in StaticApis)
             {
+                if (string.IsNullOrWhiteSpace(api.OutputPath))
+                    api.OutputPath = StaticApiFilesPath;
+                if (string.IsNullOrWhiteSpace(api.OutputPath))
+                    throw new InvalidDataException("either set generators StaticApiFilesPath or static_api's OutputPath");
                 // generate static apis
                 if (!generated_implementations.Contains(api.ImplName))
                 {
