@@ -38,7 +38,10 @@ namespace CodeMinion.Core
             @"using Python.Runtime;",
             @"using Python.Included;",
         };
-
+        public string StaticApiFilesPath { get; set; }
+        public string DynamicApiFilesPath { get; set; }
+        public string TestFilesPath { get; set; }
+        public List<TestFile> TestFiles { get; set; } = new List<TestFile>();
         protected Dictionary<string, FunctionBodyTemplate> _templates;
         protected virtual void LoadTemplates()
         {
@@ -380,7 +383,7 @@ namespace CodeMinion.Core
         {
             var func = member_func.Clone<Function>();
             // inserting this at position 0 since this is a forwarding of a member function to a static implementation
-            func.Arguments.Insert(0, new Argument() { Name = "this", Type = "irrelevant"});
+            func.Arguments.Insert(0, new Argument() { Name = "this", Type = "irrelevant" });
             var passed_args = GeneratePassedArgs(func);
             s.Out("var @this=this;");
             s.Out($"return {func.ForwardToStaticImpl}.{EscapeName(func.Name)}({passed_args});");
@@ -572,6 +575,99 @@ namespace CodeMinion.Core
                 var api_file = Path.Combine(api.OutputPath, $"{api.ClassName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateDynamicApi(api, s); });
             }
+            // generate missing tests
+            GenerateAllTests();
+        }
+
+        /// <summary>
+        /// Generate tests that probably have to be manually corrected, syntax wise. For that reason
+        /// We will not overwrite any existing files!
+        /// </summary>
+        public void GenerateAllTests()
+        {
+            foreach (var file in TestFiles)
+            {
+                var test_file = Path.Combine(TestFilesPath, $"{file.Name}.tests.cs");
+                if (File.Exists(test_file))
+                    continue; // never overwrite already generated files!
+                WriteFile(test_file, s => { GenerateTests(file, s); });
+            }
+        }
+
+        private void GenerateTests(TestFile file, CodeWriter s)
+        {
+            GenerateUsings(s);
+            s.Out("using Microsoft.VisualStudio.TestTools.UnitTesting;");
+            s.Out("using Assert = NUnit.Framework.Assert;");
+            s.Break();
+            s.Out($"namespace {NameSpace}.UnitTest", () =>
+            {
+                s.Out("[TestClass]");
+                s.Out($"public class {file.Name}Test : BaseTestCase", () =>
+                {
+                    foreach (var testcase in file.TestCases)
+                        GenerateTestCase(testcase, s);
+                });
+            });
+        }
+
+        private void GenerateTestCase(TestCase testcase, CodeWriter s)
+        {
+            s.Out("[TestMethod]");
+            s.Out($"public void {testcase.Name}()", () =>
+            {
+                foreach (var part in testcase.TestParts)
+                {
+                    switch (part)
+                    {
+                        case Comment c:
+                            foreach (var ln in Regex.Split(c.Text, @"\r?\n"))
+                                s.Out(@"// " + ln);
+                            s.Break();
+                            break;
+                        case ExampleCode example:
+                            var lines = Regex.Split(example.Text, @"\r?\n");
+                            foreach (var ln in lines)
+                                s.Out(@"// " + ln);
+                            s.Break();
+                            s.Out("#if TODO");
+                            s.Out("object given = null;");
+                            s.Out("object expected = null;");
+                            foreach (var line in example.Lines)
+                            {
+                                if (line.Type == "comment")
+                                {
+                                    s.Out(line.Text[0]);
+                                    continue;
+                                }
+                                if (line.Type == "cmd")
+                                {
+                                    s.Out("given= " + line.Text[0] + ";");
+                                    continue;
+                                }
+
+                                if (line.Type == "output")
+                                {
+                                    s.Out("var expected=");
+                                    s.Indent(() =>
+                                    {
+                                        int i = 0;
+                                        foreach (var output in line.Text)
+                                        {
+                                            var newline = i < line.Text.Count - 1 ? @"\n" : "";
+                                            var delimiter = i < line.Text.Count - 1 ? @",+" : ";";
+                                            s.Out($"\"{output}{newline}\"{delimiter}");
+                                            i++;
+                                        }
+                                    });
+                                }
+                                s.Out("Assert.AreEqual(expected, given.repr);");
+                            }
+                            s.Out("#endif");
+                            break;
+                    }
+                }
+            });
         }
 
         private void GenerateApiImplConversions(StaticApi api, CodeWriter s)
@@ -580,8 +676,7 @@ namespace CodeMinion.Core
             s.AppendLine($"namespace {NameSpace}");
             s.Block(() =>
             {
-                s.Out($"public partial class {api.ImplName} : IDisposable");
-                s.Block(() =>
+                s.Out($"public partial class {api.ImplName} : IDisposable", () =>
                 {
                     s.Break();
                     s.Out("private PyObject _pyobj = null;");

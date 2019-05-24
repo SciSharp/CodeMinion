@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Torch</RootNamespace>
+    <RootNamespace>Numpy.UnitTest</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

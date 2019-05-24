@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using CodeMinion.Core;
 using CodeMinion.Core.Models;
 using CodeMinion.Parser;
@@ -15,10 +16,15 @@ namespace Numpy.ApiGenerator
         private CodeGenerator _generator;
         public NumpyApiGenerator()
         {
+            var dir = Directory.GetCurrentDirectory();
+            var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
+            var test_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\test\\";
+
             _generator = new CodeGenerator
             {
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Numpy",
+                TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
                 Usings = { "using NumSharp;" },
                 ToPythonConversions = {
                     "case NumSharp.Shape o: return ToTuple(o.Dimensions);",
@@ -38,7 +44,7 @@ namespace Numpy.ApiGenerator
         }
 
         // use this to avoid duplicates
-        HashSet<string> parsed_api_functions=new HashSet<string>();
+        HashSet<string> parsed_api_functions = new HashSet<string>();
         private DynamicApi ndarray_api;
 
         public void Generate()
@@ -157,6 +163,8 @@ namespace Numpy.ApiGenerator
         private void ParseNumpyApi(StaticApi api, string link)
         {
             var docs = LoadDocs(link);
+            var testfile = new TestFile() { Name = $"{api.ImplName}{api.PartialName}Tests" };
+            _generator.TestFiles.Add(testfile);
             foreach (var html_doc in docs)
             {
                 var doc = html_doc.Doc;
@@ -210,7 +218,71 @@ namespace Numpy.ApiGenerator
                         ndarray_api.Declarations.Add(dc);
                     }
                 }
+                // see if there are any examples which we can convert to test cases
+                var testcase = ParseTests(doc, decl);
+                if (testcase != null)
+                    testfile.TestCases.Add(testcase);
             }
+        }
+
+        private TestCase ParseTests(HtmlDocument doc, Function decl)
+        {            
+            int i = 0;
+            var dd = doc.DocumentNode.Descendants("dd").FirstOrDefault();
+            if (dd == null)
+                return null;
+            var iter = dd.ChildNodes.SkipWhile(x =>
+                  !(x.Name == "p" && x.Attributes["class"]?.Value == "rubric" && x.InnerText == "Examples"));
+            var nodes = iter.Skip(1).ToArray();
+            if (nodes.Length == 0)
+                return null;
+            var testcase = new TestCase() { Name = $"{decl.Name}Test" };
+            foreach (var element in nodes)
+            {
+                if (element.Name == "p")
+                {
+                    var text = HtmlEntity.DeEntitize(element.InnerText??"").Trim();
+                    if (!string.IsNullOrWhiteSpace(text))
+                        testcase.TestParts.Add(new Comment() { Text =  text});
+                    continue;
+                }
+                var pre = element.Descendants("pre").FirstOrDefault();
+                if (pre == null)
+                {
+                    //Debugger.Break();
+                    continue;
+                }
+                var part = new ExampleCode() { Text = HtmlEntity.DeEntitize( pre.InnerText) };
+                //&gt; &gt; &gt; np.eye(2, dtype = int)
+                //array([[1, 0],
+                //       [0, 1]])
+                //&gt;&gt;&gt; np.eye(3, k=1)
+                //array([[ 0.,  1.,  0.],
+                //       [ 0.,  0.,  1.],
+                //       [ 0.,  0.,  0.]])
+                var lines = new Queue<string>(Regex.Split(part.Text.Trim(), @"\r?\n"));
+                foreach (var line in lines)
+                {
+                    if (line.StartsWith(">>>"))
+                    {
+                        part.Lines.Add(new CodeLine() { Text = { line.Replace(">>>", "")}, Type = "cmd" });
+                        continue;
+                    }
+                    if (line.StartsWith("#"))
+                    {
+                        part.Lines.Add(new CodeLine() { Text = { line.Replace("#", "//") }, Type = "comment" });
+                        continue;
+                    }
+                    if (part.Lines.Count==0 || part.Lines.Last().Type!="output")
+                        part.Lines.Add(new CodeLine() { Text = { line }, Type = "output" });
+                    else
+                        part.Lines.Last().Text.Add(line);
+                }
+                testcase.TestParts.Add(part);
+            }
+            if (testcase.TestParts.Count == 0)
+                return null;
+            return testcase;
         }
 
         private string ParseDescription(HtmlNode dd)
@@ -335,8 +407,8 @@ namespace Numpy.ApiGenerator
                     decl.CommentOut = true;
                     break;
                 case "require":
-                    if (decl.Returns.Count==0)
-                        decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array"});
+                    if (decl.Returns.Count == 0)
+                        decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array" });
                     break;
             }
         }
@@ -435,7 +507,7 @@ namespace Numpy.ApiGenerator
                         {
                             var clone = overload.Clone<Function>();
                             clone.Arguments[i].Type = type;
-                            clone.Generics = new string[] {"T"};
+                            clone.Generics = new string[] { "T" };
                             clone.Arguments[i].ConvertToSharpType = "NDarray";
                             if (clone.Returns.FirstOrDefault()?.Type == "NDarray"
                             ) // TODO: this feels like a hack. make it more robust if necessary
@@ -557,7 +629,7 @@ namespace Numpy.ApiGenerator
                 case "int or sequence of int": return "int[]";
                 case "int or sequence of ints": return "int[]";
                 case "int or array of ints": return "int[]";
-                case "int or tuple of ints":return "int[]";                    
+                case "int or tuple of ints": return "int[]";
                 case "None or int or tuple of ints": return "int[]";
                 case "int or 1-D array": return "int[]";
                 case "boolean": return "bool";
