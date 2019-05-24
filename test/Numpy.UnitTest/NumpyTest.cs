@@ -239,29 +239,24 @@ namespace Numpy.UnitTests
         public void ndarray_slice1()
         {
             var y = np.arange(35).reshape(5, 7);
-            var b = np.array(new[,] { { true, true, false }, { false, true, true } });
+            var b = y > 20;
             Assert.AreEqual(
                 "array([[ 1,  2],\n" +
                 "       [15, 16],\n" +
                 "       [29, 30]])",
                 y[np.array(0, 2, 4), "1:3"].repr);
-            // TODO: this example is incorrect. Reported it to numpy at: https://github.com/numpy/numpy/issues/13611
-            //Assert.AreEqual("array([[22, 23],\n       [29, 30]])", y[b[":", 5], "1:3"].repr);
+            Assert.AreEqual("array([[22, 23],\n       [29, 30]])", y[b[":", 5], "1:3"].repr);
         }
 
-        [Ignore("TODO: implement")]
         [TestMethod]
         public void ndarray_masking()
         {
             var y = np.arange(35).reshape(5, 7);
-            //>>> b = y > 20
-            //>>> y[b]
-            //array([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34])
-            //>>> b[:, 5] # use a 1-D boolean whose first dim agrees with the first dim of y
-            //array([False, False, False, True, True])
-            //>>> y[b[:, 5]]
-            //array([[21, 22, 23, 24, 25, 26, 27],
-            //       [28, 29, 30, 31, 32, 33, 34]])
+            var b = y > 20;
+            Assert.AreEqual("array([21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34])", y[b].repr);
+            // use a 1-D boolean whose first dim agrees with the first dim of y
+            Assert.AreEqual("array([False, False, False,  True,  True])", b[":", 5].repr);
+            Assert.AreEqual("array([[21, 22, 23, 24, 25, 26, 27],\n       [28, 29, 30, 31, 32, 33, 34]])", y[b[":", 5]].repr);
         }
 
         [TestMethod]
