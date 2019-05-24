@@ -24,6 +24,10 @@ namespace Numpy.ApiGenerator
                 s.Out("switch(a)", () =>
                 {
                     s.Out("case bool[] arr: return np.array(arr);");
+                    s.Out("case int[,] arr: return np.array(arr.Cast<int>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));");
+                    s.Out("case float[,] arr: return np.array(arr.Cast<float>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));");
+                    s.Out("case double[,] arr: return np.array(arr.Cast<double>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));");
+                    s.Out("case bool[,] arr: return np.array(arr.Cast<bool>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));");
                     s.Out("default: throw new NotImplementedException($\"Type {a.GetType()} not supported yet in ConvertArrayToNDarray.\");");
                 });
             });

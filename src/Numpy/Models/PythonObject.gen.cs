@@ -55,6 +55,16 @@ namespace Numpy
                 // types from 'ToCsharpConversions'
                 case "Dtype": return (T)(object)new Dtype(pyobj);
                 case "NDarray": return (T)(object)new NDarray(pyobj);
+                case "NDarray`1":
+                switch (typeof(T).GenericTypeArguments[0].Name)
+                {
+                   case "Int32": return (T)(object)new NDarray<int>(pyobj);
+                   case "Int64": return (T)(object)new NDarray<long>(pyobj); 
+                   case "Single": return (T)(object)new NDarray<float>(pyobj); 
+                   case "Double": return (T)(object)new NDarray<double>(pyobj); 
+                   default: throw new NotImplementedException($"Type NDarray<{typeof(T).GenericTypeArguments[0].Name}> missing. Add it to 'ToCsharpConversions'");
+                }
+                break;
                 case "Matrix": return (T)(object)new Matrix(pyobj);
                 default: return (T)pyobj;
             }
@@ -80,6 +90,10 @@ namespace Numpy
             switch(a)
             {
                 case bool[] arr: return np.array(arr);
+                case int[,] arr: return np.array(arr.Cast<int>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));
+                case float[,] arr: return np.array(arr.Cast<float>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));
+                case double[,] arr: return np.array(arr.Cast<double>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));
+                case bool[,] arr: return np.array(arr.Cast<bool>().ToArray()).reshape(arr.GetLength(0), arr.GetLength(1));
                 default: throw new NotImplementedException($"Type {a.GetType()} not supported yet in ConvertArrayToNDarray.");
             }
         }

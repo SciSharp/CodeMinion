@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using Python.Runtime;
 using Python.Included;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,31 +20,11 @@ namespace Numpy.UnitTest
         [TestMethod]
         public void emptyTest()
         {
-            // >>> np.empty([2, 2])
-            // array([[ -9.74499359e+001,   6.69583040e-309],
-            //        [  2.13182611e-314,   3.06959433e-309]])         #random
-            // 
             var given = np.empty(new Shape(2, 2), np.int32);
-            var data = given.GetData<int>();
-            var expected =
-                $"[[{data[0]} {data[1]}]\n [{data[2]} {data[3]}]]";
-            Assert.AreEqual(expected, given.str);
-
-            // >>> np.empty([2, 2], dtype=int)
-            // array([[-1073741821, -1067949133],
-            //        [  496041986,    19249760]])                     #random
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.empty([2, 2], dtype=int);
-            expected=
-                "array([[-1073741821, -1067949133],\n" +
-                "       [  496041986,    19249760]])                     #random";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+            Assert.IsTrue(given.repr.StartsWith("array([["));
+            Assert.IsTrue(given.repr.EndsWith("]])"));
         }
+
         [TestMethod]
         public void empty_likeTest()
         {
@@ -56,24 +37,17 @@ namespace Numpy.UnitTest
             // array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000],#random
             //        [  4.38791518e-305,  -2.00000715e+000,   4.17269252e-309]])
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  a = ([1,2,3], [4,5,6])                         # a is array-like;
-            given=  np.empty_like(a);
-            expected=
-                "array([[-1073741821, -1073741821,           3],    #random\n" +
-                "       [          0,           0, -1073741821]])";
-            Assert.AreEqual(expected, given.repr);
-            given=  a = np.array([[1., 2., 3.],[4.,5.,6.]]);
-            given=  np.empty_like(a);
-            expected=
-                "array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000],#random\n" +
-                "       [  4.38791518e-305,  -2.00000715e+000,   4.17269252e-309]])";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+            var a = new[,] {{1, 2, 3}, {4, 5, 6}};
+            var given=  np.empty_like(a);
+            Assert.AreEqual(new Shape(2,3), given.shape );
+            Assert.AreEqual(np.int32, given.dtype);
+
+            var b = np.array(new[,]{{1f, 2f, 3f},{4f,5f,6f} });
+            var c =  np.empty_like(b);
+            Assert.AreEqual(new Shape(2, 3), c.shape);
+            Assert.AreEqual(np.float32, c.dtype);
         }
+
         [TestMethod]
         public void eyeTest()
         {
