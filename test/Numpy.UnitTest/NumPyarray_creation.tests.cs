@@ -7,9 +7,8 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Python.Included;
-using NumSharp;
-
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Numpy.Models;
 using Assert = NUnit.Framework.Assert;
 
 namespace Numpy.UnitTest
@@ -24,16 +23,12 @@ namespace Numpy.UnitTest
             // array([[ -9.74499359e+001,   6.69583040e-309],
             //        [  2.13182611e-314,   3.06959433e-309]])         #random
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.empty([2, 2]);
-            var expected=
-                "array([[ -9.74499359e+001,   6.69583040e-309],\n",+
-                "       [  2.13182611e-314,   3.06959433e-309]])         #random";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+            var given = np.empty(new Shape(2, 2), np.int32);
+            var data = given.GetData<int>();
+            var expected =
+                $"[[{data[0]} {data[1]}]\n [{data[2]} {data[3]}]]";
+            Assert.AreEqual(expected, given.str);
+
             // >>> np.empty([2, 2], dtype=int)
             // array([[-1073741821, -1067949133],
             //        [  496041986,    19249760]])                     #random
@@ -43,8 +38,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.empty([2, 2], dtype=int);
-            var expected=
-                "array([[-1073741821, -1067949133],\n",+
+            expected=
+                "array([[-1073741821, -1067949133],\n" +
                 "       [  496041986,    19249760]])                     #random";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -67,14 +62,14 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  a = ([1,2,3], [4,5,6])                         # a is array-like;
             given=  np.empty_like(a);
-            var expected=
-                "array([[-1073741821, -1073741821,           3],    #random\n",+
+            expected=
+                "array([[-1073741821, -1073741821,           3],    #random\n" +
                 "       [          0,           0, -1073741821]])";
             Assert.AreEqual(expected, given.repr);
             given=  a = np.array([[1., 2., 3.],[4.,5.,6.]]);
             given=  np.empty_like(a);
-            var expected=
-                "array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000],#random\n",+
+            expected=
+                "array([[ -2.00000715e+000,   1.48219694e-323,  -2.00000572e+000],#random\n" +
                 "       [  4.38791518e-305,  -2.00000715e+000,   4.17269252e-309]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -95,14 +90,14 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.eye(2, dtype=int);
-            var expected=
-                "array([[1, 0],\n",+
+            expected=
+                "array([[1, 0],\n" +
                 "       [0, 1]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.eye(3, k=1);
-            var expected=
-                "array([[ 0.,  1.,  0.],\n",+
-                "       [ 0.,  0.,  1.],\n",+
+            expected=
+                "array([[ 0.,  1.,  0.],\n" +
+                "       [ 0.,  0.,  1.],\n" +
                 "       [ 0.,  0.,  0.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -120,9 +115,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.identity(3);
-            var expected=
-                "array([[ 1.,  0.,  0.],\n",+
-                "       [ 0.,  1.,  0.],\n",+
+            expected=
+                "array([[ 1.,  0.,  0.],\n" +
+                "       [ 0.,  1.,  0.],\n" +
                 "       [ 0.,  0.,  1.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -138,7 +133,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.ones(5);
-            var expected=
+            expected=
                 "array([ 1.,  1.,  1.,  1.,  1.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -150,7 +145,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.ones((5,), dtype=int);
-            var expected=
+            expected=
                 "array([1, 1, 1, 1, 1])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -163,8 +158,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.ones((2, 1));
-            var expected=
-                "array([[ 1.],\n",+
+            expected=
+                "array([[ 1.],\n" +
                 "       [ 1.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -179,8 +174,8 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  s = (2,2);
             given=  np.ones(s);
-            var expected=
-                "array([[ 1.,  1.],\n",+
+            expected=
+                "array([[ 1.,  1.],\n" +
                 "       [ 1.,  1.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -204,13 +199,13 @@ namespace Numpy.UnitTest
             given=  x = np.arange(6);
             given=  x = x.reshape((2, 3));
             given=  x;
-            var expected=
-                "array([[0, 1, 2],\n",+
+            expected=
+                "array([[0, 1, 2],\n" +
                 "       [3, 4, 5]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.ones_like(x);
-            var expected=
-                "array([[1, 1, 1],\n",+
+            expected=
+                "array([[1, 1, 1],\n" +
                 "       [1, 1, 1]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -226,11 +221,11 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  y = np.arange(3, dtype=float);
             given=  y;
-            var expected=
+            expected=
                 "array([ 0.,  1.,  2.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.ones_like(y);
-            var expected=
+            expected=
                 "array([ 1.,  1.,  1.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -246,7 +241,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.zeros(5);
-            var expected=
+            expected=
                 "array([ 0.,  0.,  0.,  0.,  0.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -258,7 +253,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.zeros((5,), dtype=int);
-            var expected=
+            expected=
                 "array([0, 0, 0, 0, 0])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -271,8 +266,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.zeros((2, 1));
-            var expected=
-                "array([[ 0.],\n",+
+            expected=
+                "array([[ 0.],\n" +
                 "       [ 0.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -287,8 +282,8 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  s = (2,2);
             given=  np.zeros(s);
-            var expected=
-                "array([[ 0.,  0.],\n",+
+            expected=
+                "array([[ 0.,  0.],\n" +
                 "       [ 0.,  0.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -301,8 +296,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.zeros((2,), dtype=[('x', 'i4'), ('y', 'i4')]) # custom dtype;
-            var expected=
-                "array([(0, 0), (0, 0)],\n",+
+            expected=
+                "array([(0, 0), (0, 0)],\n" +
                 "      dtype=[('x', '<i4'), ('y', '<i4')])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -326,13 +321,13 @@ namespace Numpy.UnitTest
             given=  x = np.arange(6);
             given=  x = x.reshape((2, 3));
             given=  x;
-            var expected=
-                "array([[0, 1, 2],\n",+
+            expected=
+                "array([[0, 1, 2],\n" +
                 "       [3, 4, 5]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.zeros_like(x);
-            var expected=
-                "array([[0, 0, 0],\n",+
+            expected=
+                "array([[0, 0, 0],\n" +
                 "       [0, 0, 0]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -348,11 +343,11 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  y = np.arange(3, dtype=float);
             given=  y;
-            var expected=
+            expected=
                 "array([ 0.,  1.,  2.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.zeros_like(y);
-            var expected=
+            expected=
                 "array([ 0.,  0.,  0.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -372,13 +367,13 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.full((2, 2), np.inf);
-            var expected=
-                "array([[ inf,  inf],\n",+
+            expected=
+                "array([[ inf,  inf],\n" +
                 "       [ inf,  inf]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.full((2, 2), 10);
-            var expected=
-                "array([[10, 10],\n",+
+            expected=
+                "array([[10, 10],\n" +
                 "       [10, 10]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -402,19 +397,19 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  x = np.arange(6, dtype=int);
             given=  np.full_like(x, 1);
-            var expected=
+            expected=
                 "array([1, 1, 1, 1, 1, 1])";
             Assert.AreEqual(expected, given.repr);
             given=  np.full_like(x, 0.1);
-            var expected=
+            expected=
                 "array([0, 0, 0, 0, 0, 0])";
             Assert.AreEqual(expected, given.repr);
             given=  np.full_like(x, 0.1, dtype=np.double);
-            var expected=
+            expected=
                 "array([ 0.1,  0.1,  0.1,  0.1,  0.1,  0.1])";
             Assert.AreEqual(expected, given.repr);
             given=  np.full_like(x, np.nan, dtype=np.double);
-            var expected=
+            expected=
                 "array([ nan,  nan,  nan,  nan,  nan,  nan])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -428,7 +423,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  y = np.arange(6, dtype=np.double);
             given=  np.full_like(y, 0.1);
-            var expected=
+            expected=
                 "array([ 0.1,  0.1,  0.1,  0.1,  0.1,  0.1])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -444,7 +439,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array([1, 2, 3]);
-            var expected=
+            expected=
                 "array([1, 2, 3])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -458,7 +453,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array([1, 2, 3.0]);
-            var expected=
+            expected=
                 "array([ 1.,  2.,  3.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -473,8 +468,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array([[1, 2], [3, 4]]);
-            var expected=
-                "array([[1, 2],\n",+
+            expected=
+                "array([[1, 2],\n" +
                 "       [3, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -488,7 +483,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array([1, 2, 3], ndmin=2);
-            var expected=
+            expected=
                 "array([[1, 2, 3]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -502,7 +497,7 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array([1, 2, 3], dtype=complex);
-            var expected=
+            expected=
                 "array([ 1.+0.j,  2.+0.j,  3.+0.j])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -518,7 +513,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  x = np.array([(1,2),(3,4)],dtype=[('a','<i4'),('b','<i4')]);
             given=  x['a'];
-            var expected=
+            expected=
                 "array([1, 3])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -533,8 +528,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array(np.mat('1 2; 3 4'));
-            var expected=
-                "array([[1, 2],\n",+
+            expected=
+                "array([[1, 2],\n" +
                 "       [3, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -547,8 +542,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.array(np.mat('1 2; 3 4'), subok=True);
-            var expected=
-                "matrix([[1, 2],\n",+
+            expected=
+                "matrix([[1, 2],\n" +
                 "        [3, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -568,7 +563,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  a = [1, 2];
             given=  np.asarray(a);
-            var expected=
+            expected=
                 "array([1, 2])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -584,7 +579,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  a = np.array([1, 2]);
             given=  np.asarray(a) is a;
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -602,11 +597,11 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  a = np.array([1, 2], dtype=np.float32);
             given=  np.asarray(a, dtype=np.float32) is a;
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             given=  np.asarray(a, dtype=np.float64) is a;
-            var expected=
+            expected=
                 "False";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -625,16 +620,16 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  issubclass(np.recarray, np.ndarray);
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             given=  a = np.array([(1.0, 2), (3.0, 4)], dtype='f4,i4').view(np.recarray);
             given=  np.asarray(a) is a;
-            var expected=
+            expected=
                 "False";
             Assert.AreEqual(expected, given.repr);
             given=  np.asanyarray(a) is a;
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -654,7 +649,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  a = [1, 2];
             given=  np.asanyarray(a);
-            var expected=
+            expected=
                 "array([1, 2])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -670,7 +665,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  a = np.array([(1.0, 2), (3.0, 4)], dtype='f4,i4').view(np.recarray);
             given=  np.asanyarray(a) is a;
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -691,12 +686,12 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  x = np.arange(6).reshape(2,3);
             given=  np.ascontiguousarray(x, dtype=np.float32);
-            var expected=
-                "array([[ 0.,  1.,  2.],\n",+
+            expected=
+                "array([[ 0.,  1.,  2.],\n" +
                 "       [ 3.,  4.,  5.]], dtype=float32)";
             Assert.AreEqual(expected, given.repr);
             given=  x.flags['C_CONTIGUOUS'];
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -740,8 +735,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  m;
-            var expected=
-                "matrix([[5, 2],\n",+
+            expected=
+                "matrix([[5, 2],\n" +
                 "        [3, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -777,11 +772,11 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  x[0] = 10;
             given=  x[0] == y[0];
-            var expected=
+            expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
             given=  x[0] == z[0];
-            var expected=
+            expected=
                 "False";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -800,8 +795,8 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  s = 'hello world';
             given=  np.frombuffer(s, dtype='S1', count=5, offset=6);
-            var expected=
-                "array(['w', 'o', 'r', 'l', 'd'],\n",+
+            expected=
+                "array(['w', 'o', 'r', 'l', 'd'],\n" +
                 "      dtype='|S1')";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -815,11 +810,11 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.frombuffer(b'\x01\x02', dtype=np.uint8);
-            var expected=
+            expected=
                 "array([1, 2], dtype=uint8)";
             Assert.AreEqual(expected, given.repr);
             given=  np.frombuffer(b'\x01\x02\x03\x04\x05', dtype=np.uint8, count=3);
-            var expected=
+            expected=
                 "array([1, 2, 3], dtype=uint8)";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -842,14 +837,14 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  dt = np.dtype([('time', [('min', int), ('sec', int)]),;
-            var expected=
+            expected=
                 "...                ('temp', float)])";
             Assert.AreEqual(expected, given.repr);
             given=  x = np.zeros((1,), dtype=dt);
             given=  x['time']['min'] = 10; x['temp'] = 98.25;
             given=  x;
-            var expected=
-                "array([((10, 0), 98.25)],\n",+
+            expected=
+                "array([((10, 0), 98.25)],\n" +
                 "      dtype=[('time', [('min', '<i4'), ('sec', '<i4')]), ('temp', '<f8')])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -878,8 +873,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.fromfile(fname, dtype=dt);
-            var expected=
-                "array([((10, 0), 98.25)],\n",+
+            expected=
+                "array([((10, 0), 98.25)],\n" +
                 "      dtype=[('time', [('min', '<i4'), ('sec', '<i4')]), ('temp', '<f8')])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -896,8 +891,8 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  np.save(fname, x);
             given=  np.load(fname + '.npy');
-            var expected=
-                "array([((10, 0), 98.25)],\n",+
+            expected=
+                "array([((10, 0), 98.25)],\n" +
                 "      dtype=[('time', [('min', '<i4'), ('sec', '<i4')]), ('temp', '<f8')])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -915,9 +910,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.fromfunction(lambda i, j: i == j, (3, 3), dtype=int);
-            var expected=
-                "array([[ True, False, False],\n",+
-                "       [False,  True, False],\n",+
+            expected=
+                "array([[ True, False, False],\n" +
+                "       [False,  True, False],\n" +
                 "       [False, False,  True]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -931,9 +926,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.fromfunction(lambda i, j: i + j, (3, 3), dtype=int);
-            var expected=
-                "array([[0, 1, 2],\n",+
-                "       [1, 2, 3],\n",+
+            expected=
+                "array([[0, 1, 2],\n" +
+                "       [1, 2, 3],\n" +
                 "       [2, 3, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -951,7 +946,7 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  iterable = (x*x for x in range(5));
             given=  np.fromiter(iterable, float);
-            var expected=
+            expected=
                 "array([  0.,   1.,   4.,   9.,  16.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -969,11 +964,11 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.fromstring('1 2', dtype=int, sep=' ');
-            var expected=
+            expected=
                 "array([1, 2])";
             Assert.AreEqual(expected, given.repr);
             given=  np.fromstring('1, 2', dtype=int, sep=',');
-            var expected=
+            expected=
                 "array([1, 2])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -994,8 +989,8 @@ namespace Numpy.UnitTest
             given=  from io import StringIO   # StringIO behaves like a file object;
             given=  c = StringIO(u"0 1\n2 3");
             given=  np.loadtxt(c);
-            var expected=
-                "array([[ 0.,  1.],\n",+
+            expected=
+                "array([[ 0.,  1.],\n" +
                 "       [ 2.,  3.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1011,9 +1006,9 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  d = StringIO(u"M 21 72\nF 35 58");
             given=  np.loadtxt(d, dtype={'names': ('gender', 'age', 'weight'),;
-            var expected=
-                "...                      'formats': ('S1', 'i4', 'f4')})\n",+
-                "array([('M', 21, 72.0), ('F', 35, 58.0)],\n",+
+            expected=
+                "...                      'formats': ('S1', 'i4', 'f4')})\n" +
+                "array([('M', 21, 72.0), ('F', 35, 58.0)],\n" +
                 "      dtype=[('gender', '|S1'), ('age', '<i4'), ('weight', '<f4')])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1031,11 +1026,11 @@ namespace Numpy.UnitTest
             given=  c = StringIO(u"1,0,2\n3,0,4");
             given=  x, y = np.loadtxt(c, delimiter=',', usecols=(0, 2), unpack=True);
             given=  x;
-            var expected=
+            expected=
                 "array([ 1.,  3.])";
             Assert.AreEqual(expected, given.repr);
             given=  y;
-            var expected=
+            expected=
                 "array([ 2.,  4.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1057,19 +1052,19 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.arange(3);
-            var expected=
+            expected=
                 "array([0, 1, 2])";
             Assert.AreEqual(expected, given.repr);
             given=  np.arange(3.0);
-            var expected=
+            expected=
                 "array([ 0.,  1.,  2.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.arange(3,7);
-            var expected=
+            expected=
                 "array([3, 4, 5, 6])";
             Assert.AreEqual(expected, given.repr);
             given=  np.arange(3,7,2);
-            var expected=
+            expected=
                 "array([3, 5])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1089,15 +1084,15 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.linspace(2.0, 3.0, num=5);
-            var expected=
+            expected=
                 "array([ 2.  ,  2.25,  2.5 ,  2.75,  3.  ])";
             Assert.AreEqual(expected, given.repr);
             given=  np.linspace(2.0, 3.0, num=5, endpoint=False);
-            var expected=
+            expected=
                 "array([ 2. ,  2.2,  2.4,  2.6,  2.8])";
             Assert.AreEqual(expected, given.repr);
             given=  np.linspace(2.0, 3.0, num=5, retstep=True);
-            var expected=
+            expected=
                 "(array([ 2.  ,  2.25,  2.5 ,  2.75,  3.  ]), 0.25)";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1126,15 +1121,15 @@ namespace Numpy.UnitTest
             given=  x1 = np.linspace(0, 10, N, endpoint=True);
             given=  x2 = np.linspace(0, 10, N, endpoint=False);
             given=  plt.plot(x1, y, 'o');
-            var expected=
+            expected=
                 "[<matplotlib.lines.Line2D object at 0x...>]";
             Assert.AreEqual(expected, given.repr);
             given=  plt.plot(x2, y + 0.5, 'o');
-            var expected=
+            expected=
                 "[<matplotlib.lines.Line2D object at 0x...>]";
             Assert.AreEqual(expected, given.repr);
             given=  plt.ylim([-0.5, 1]);
-            var expected=
+            expected=
                 "(-0.5, 1)";
             Assert.AreEqual(expected, given.repr);
             given=  plt.show();
@@ -1155,15 +1150,15 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.logspace(2.0, 3.0, num=4);
-            var expected=
+            expected=
                 "array([  100.        ,   215.443469  ,   464.15888336,  1000.        ])";
             Assert.AreEqual(expected, given.repr);
             given=  np.logspace(2.0, 3.0, num=4, endpoint=False);
-            var expected=
+            expected=
                 "array([ 100.        ,  177.827941  ,  316.22776602,  562.34132519])";
             Assert.AreEqual(expected, given.repr);
             given=  np.logspace(2.0, 3.0, num=4, base=2.0);
-            var expected=
+            expected=
                 "array([ 4.        ,  5.0396842 ,  6.34960421,  8.        ])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1192,15 +1187,15 @@ namespace Numpy.UnitTest
             given=  x2 = np.logspace(0.1, 1, N, endpoint=False);
             given=  y = np.zeros(N);
             given=  plt.plot(x1, y, 'o');
-            var expected=
+            expected=
                 "[<matplotlib.lines.Line2D object at 0x...>]";
             Assert.AreEqual(expected, given.repr);
             given=  plt.plot(x2, y + 0.5, 'o');
-            var expected=
+            expected=
                 "[<matplotlib.lines.Line2D object at 0x...>]";
             Assert.AreEqual(expected, given.repr);
             given=  plt.ylim([-0.5, 1]);
-            var expected=
+            expected=
                 "(-0.5, 1)";
             Assert.AreEqual(expected, given.repr);
             given=  plt.show();
@@ -1223,19 +1218,19 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.geomspace(1, 1000, num=4);
-            var expected=
+            expected=
                 "array([    1.,    10.,   100.,  1000.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.geomspace(1, 1000, num=3, endpoint=False);
-            var expected=
+            expected=
                 "array([   1.,   10.,  100.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.geomspace(1, 1000, num=4, endpoint=False);
-            var expected=
+            expected=
                 "array([   1.        ,    5.62341325,   31.6227766 ,  177.827941  ])";
             Assert.AreEqual(expected, given.repr);
             given=  np.geomspace(1, 256, num=9);
-            var expected=
+            expected=
                 "array([   1.,    2.,    4.,    8.,   16.,   32.,   64.,  128.,  256.])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1251,11 +1246,11 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.geomspace(1, 256, num=9, dtype=int);
-            var expected=
+            expected=
                 "array([  1,   2,   4,   7,  16,  32,  63, 127, 256])";
             Assert.AreEqual(expected, given.repr);
             given=  np.around(np.geomspace(1, 256, num=9)).astype(int);
-            var expected=
+            expected=
                 "array([  1,   2,   4,   8,  16,  32,  64, 128, 256])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1277,21 +1272,21 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.geomspace(1000, 1, num=4);
-            var expected=
+            expected=
                 "array([ 1000.,   100.,    10.,     1.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.geomspace(-1000, -1, num=4);
-            var expected=
+            expected=
                 "array([-1000.,  -100.,   -10.,    -1.])";
             Assert.AreEqual(expected, given.repr);
             given=  np.geomspace(1j, 1000j, num=4)  # Straight line;
-            var expected=
+            expected=
                 "array([ 0.   +1.j,  0.  +10.j,  0. +100.j,  0.+1000.j])";
             Assert.AreEqual(expected, given.repr);
             given=  np.geomspace(-1+0j, 1+0j, num=5)  # Circle;
-            var expected=
-                "array([-1.00000000+0.j        , -0.70710678+0.70710678j,\n",+
-                "        0.00000000+1.j        ,  0.70710678+0.70710678j,\n",+
+            expected=
+                "array([-1.00000000+0.j        , -0.70710678+0.70710678j,\n" +
+                "        0.00000000+1.j        ,  0.70710678+0.70710678j,\n" +
                 "        1.00000000+0.j        ])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1349,23 +1344,23 @@ namespace Numpy.UnitTest
             given=  y = np.linspace(0, 1, ny);
             given=  xv, yv = np.meshgrid(x, y);
             given=  xv;
-            var expected=
-                "array([[ 0. ,  0.5,  1. ],\n",+
+            expected=
+                "array([[ 0. ,  0.5,  1. ],\n" +
                 "       [ 0. ,  0.5,  1. ]])";
             Assert.AreEqual(expected, given.repr);
             given=  yv;
-            var expected=
-                "array([[ 0.,  0.,  0.],\n",+
+            expected=
+                "array([[ 0.,  0.,  0.],\n" +
                 "       [ 1.,  1.,  1.]])";
             Assert.AreEqual(expected, given.repr);
             given=  xv, yv = np.meshgrid(x, y, sparse=True)  # make sparse output arrays;
             given=  xv;
-            var expected=
+            expected=
                 "array([[ 0. ,  0.5,  1. ]])";
             Assert.AreEqual(expected, given.repr);
             given=  yv;
-            var expected=
-                "array([[ 0.],\n",+
+            expected=
+                "array([[ 0.],\n" +
                 "       [ 1.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1407,9 +1402,9 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  x = np.arange(9).reshape((3,3));
             given=  x;
-            var expected=
-                "array([[0, 1, 2],\n",+
-                "       [3, 4, 5],\n",+
+            expected=
+                "array([[0, 1, 2],\n" +
+                "       [3, 4, 5],\n" +
                 "       [6, 7, 8]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1425,15 +1420,15 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.diag(x);
-            var expected=
+            expected=
                 "array([0, 4, 8])";
             Assert.AreEqual(expected, given.repr);
             given=  np.diag(x, k=1);
-            var expected=
+            expected=
                 "array([1, 5])";
             Assert.AreEqual(expected, given.repr);
             given=  np.diag(x, k=-1);
-            var expected=
+            expected=
                 "array([3, 7])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1447,9 +1442,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.diag(np.diag(x));
-            var expected=
-                "array([[0, 0, 0],\n",+
-                "       [0, 4, 0],\n",+
+            expected=
+                "array([[0, 0, 0],\n" +
+                "       [0, 4, 0],\n" +
                 "       [0, 0, 8]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1468,10 +1463,10 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.diagflat([[1,2], [3,4]]);
-            var expected=
-                "array([[1, 0, 0, 0],\n",+
-                "       [0, 2, 0, 0],\n",+
-                "       [0, 0, 3, 0],\n",+
+            expected=
+                "array([[1, 0, 0, 0],\n" +
+                "       [0, 2, 0, 0],\n" +
+                "       [0, 0, 3, 0],\n" +
                 "       [0, 0, 0, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1485,9 +1480,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.diagflat([1,2], 1);
-            var expected=
-                "array([[0, 1, 0],\n",+
-                "       [0, 0, 2],\n",+
+            expected=
+                "array([[0, 1, 0],\n" +
+                "       [0, 0, 2],\n" +
                 "       [0, 0, 0]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1505,9 +1500,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.tri(3, 5, 2, dtype=int);
-            var expected=
-                "array([[1, 1, 1, 0, 0],\n",+
-                "       [1, 1, 1, 1, 0],\n",+
+            expected=
+                "array([[1, 1, 1, 0, 0],\n" +
+                "       [1, 1, 1, 1, 0],\n" +
                 "       [1, 1, 1, 1, 1]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1521,9 +1516,9 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.tri(3, 5, -1);
-            var expected=
-                "array([[ 0.,  0.,  0.,  0.,  0.],\n",+
-                "       [ 1.,  0.,  0.,  0.,  0.],\n",+
+            expected=
+                "array([[ 0.,  0.,  0.,  0.,  0.],\n" +
+                "       [ 1.,  0.,  0.,  0.,  0.],\n" +
                 "       [ 1.,  1.,  0.,  0.,  0.]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1542,10 +1537,10 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.tril([[1,2,3],[4,5,6],[7,8,9],[10,11,12]], -1);
-            var expected=
-                "array([[ 0,  0,  0],\n",+
-                "       [ 4,  0,  0],\n",+
-                "       [ 7,  8,  0],\n",+
+            expected=
+                "array([[ 0,  0,  0],\n" +
+                "       [ 4,  0,  0],\n" +
+                "       [ 7,  8,  0],\n" +
                 "       [10, 11, 12]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1568,10 +1563,10 @@ namespace Numpy.UnitTest
             given=  x = np.array([1, 2, 3, 5]);
             given=  N = 3;
             given=  np.vander(x, N);
-            var expected=
-                "array([[ 1,  1,  1],\n",+
-                "       [ 4,  2,  1],\n",+
-                "       [ 9,  3,  1],\n",+
+            expected=
+                "array([[ 1,  1,  1],\n" +
+                "       [ 4,  2,  1],\n" +
+                "       [ 9,  3,  1],\n" +
                 "       [25,  5,  1]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1586,10 +1581,10 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.column_stack([x**(N-1-i) for i in range(N)]);
-            var expected=
-                "array([[ 1,  1,  1],\n",+
-                "       [ 4,  2,  1],\n",+
-                "       [ 9,  3,  1],\n",+
+            expected=
+                "array([[ 1,  1,  1],\n" +
+                "       [ 4,  2,  1],\n" +
+                "       [ 9,  3,  1],\n" +
                 "       [25,  5,  1]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1611,17 +1606,17 @@ namespace Numpy.UnitTest
             object expected = null;
             given=  x = np.array([1, 2, 3, 5]);
             given=  np.vander(x);
-            var expected=
-                "array([[  1,   1,   1,   1],\n",+
-                "       [  8,   4,   2,   1],\n",+
-                "       [ 27,   9,   3,   1],\n",+
+            expected=
+                "array([[  1,   1,   1,   1],\n" +
+                "       [  8,   4,   2,   1],\n" +
+                "       [ 27,   9,   3,   1],\n" +
                 "       [125,  25,   5,   1]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.vander(x, increasing=True);
-            var expected=
-                "array([[  1,   1,   1,   1],\n",+
-                "       [  1,   2,   4,   8],\n",+
-                "       [  1,   3,   9,  27],\n",+
+            expected=
+                "array([[  1,   1,   1,   1],\n" +
+                "       [  1,   2,   4,   8],\n" +
+                "       [  1,   3,   9,  27],\n" +
                 "       [  1,   5,  25, 125]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1638,11 +1633,11 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.linalg.det(np.vander(x));
-            var expected=
+            expected=
                 "48.000000000000043";
             Assert.AreEqual(expected, given.repr);
             given=  (5-3)*(5-2)*(5-1)*(3-2)*(3-1)*(2-1);
-            var expected=
+            expected=
                 "48";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1683,8 +1678,8 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  m;
-            var expected=
-                "matrix([[5, 2],\n",+
+            expected=
+                "matrix([[5, 2],\n" +
                 "        [3, 4]])";
             Assert.AreEqual(expected, given.repr);
             #endif
@@ -1729,24 +1724,24 @@ namespace Numpy.UnitTest
             object given = null;
             object expected = null;
             given=  np.bmat([[A, B], [C, D]]);
-            var expected=
-                "matrix([[1, 1, 2, 2],\n",+
-                "        [1, 1, 2, 2],\n",+
-                "        [3, 4, 7, 8],\n",+
+            expected=
+                "matrix([[1, 1, 2, 2],\n" +
+                "        [1, 1, 2, 2],\n" +
+                "        [3, 4, 7, 8],\n" +
                 "        [5, 6, 9, 0]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.bmat(np.r_[np.c_[A, B], np.c_[C, D]]);
-            var expected=
-                "matrix([[1, 1, 2, 2],\n",+
-                "        [1, 1, 2, 2],\n",+
-                "        [3, 4, 7, 8],\n",+
+            expected=
+                "matrix([[1, 1, 2, 2],\n" +
+                "        [1, 1, 2, 2],\n" +
+                "        [3, 4, 7, 8],\n" +
                 "        [5, 6, 9, 0]])";
             Assert.AreEqual(expected, given.repr);
             given=  np.bmat('A,B; C,D');
-            var expected=
-                "matrix([[1, 1, 2, 2],\n",+
-                "        [1, 1, 2, 2],\n",+
-                "        [3, 4, 7, 8],\n",+
+            expected=
+                "matrix([[1, 1, 2, 2],\n" +
+                "        [1, 1, 2, 2],\n" +
+                "        [3, 4, 7, 8],\n" +
                 "        [5, 6, 9, 0]])";
             Assert.AreEqual(expected, given.repr);
             #endif

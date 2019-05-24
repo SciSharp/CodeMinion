@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Python.Included;
-using NumSharp;
+using Numpy.Models;
 
 namespace Numpy
 {
@@ -264,7 +264,7 @@ namespace Numpy
         /// be a copy.  Note there is no guarantee of the memory layout (C- or
         /// Fortran- contiguous) of the returned array.
         /// </returns>
-        public NDarray reshape(NDarray a, NumSharp.Shape newshape, string order = null)
+        public NDarray reshape(NDarray a, Shape newshape, string order = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -570,7 +570,7 @@ namespace Numpy
         /// typically not contiguous. Furthermore, more than one element of a
         /// broadcasted array may refer to a single memory location.
         /// </returns>
-        public NDarray broadcast_to(NDarray array, NumSharp.Shape shape, bool? subok = null)
+        public NDarray broadcast_to(NDarray array, Shape shape, bool? subok = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1809,9 +1809,9 @@ namespace Numpy
         // Error generating delaration: unique
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -1996,9 +1996,9 @@ namespace Numpy
         // Error generating delaration: unique
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -2185,9 +2185,9 @@ namespace Numpy
         // Error generating delaration: unique
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Python.Included;
-using NumSharp;
+using Numpy.Models;
 
 namespace Numpy
 {
@@ -492,7 +492,7 @@ namespace Numpy
         /// <param name="rawdata">
         /// a binary string with the data (or a list if ‘a’ is an object array)
         /// </param>
-        public void __setstate__(int version, NumSharp.Shape shape, Dtype dtype, bool isFortran, string rawdata)
+        public void __setstate__(int version, Shape shape, Dtype dtype, bool isFortran, string rawdata)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -550,7 +550,7 @@ namespace Numpy
         /// be a copy.  Note there is no guarantee of the memory layout (C- or
         /// Fortran- contiguous) of the returned array.
         /// </returns>
-        public NDarray reshape(NumSharp.Shape newshape, string order = null)
+        public NDarray reshape(Shape newshape, string order = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -695,7 +695,7 @@ namespace Numpy
         /// typically not contiguous. Furthermore, more than one element of a
         /// broadcasted array may refer to a single memory location.
         /// </returns>
-        public NDarray broadcast_to(NumSharp.Shape shape, bool? subok = null)
+        public NDarray broadcast_to(Shape shape, bool? subok = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1215,9 +1215,9 @@ namespace Numpy
         // Error generating delaration: unique
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass55_0.<GenerateDynamicApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 507
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass55_0.<GenerateDynamicApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 484
         ----------------------------
         Declaration JSON:
         {

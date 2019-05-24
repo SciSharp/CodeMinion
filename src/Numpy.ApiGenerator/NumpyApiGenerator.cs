@@ -25,15 +25,17 @@ namespace Numpy.ApiGenerator
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Numpy",
                 TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
-                Usings = { "using NumSharp;" },
+                Usings = { "using Numpy.Models;" },
                 ToPythonConversions = {
-                    "case NumSharp.Shape o: return ToTuple(o.Dimensions);",
+                    "case Shape o: return ToTuple(o.Dimensions);",
+                    "case Slice o: return o.ToPython();",
                     "case PythonObject o: return o.PyObject;",
                 },
                 ToCsharpConversions =
                 {
                     "case \"Dtype\": return (T)(object)new Dtype(pyobj);",
                     "case \"NDarray\": return (T)(object)new NDarray(pyobj);",
+                    "case \"Matrix\": return (T)(object)new Matrix(pyobj);",
                 },
                 SpecialConversionGenerators = { SpecialGenerators.ConvertArrayToNDarray },
                 SharpToSharpConversions =
@@ -591,11 +593,12 @@ namespace Numpy.ApiGenerator
         {
             switch (arg.Name)
             {
-                case "shape": return "NumSharp.Shape";
-                case "newshape": return "NumSharp.Shape";
-                case "new_shape": return "NumSharp.Shape";
+                case "shape": return "Shape";
+                case "newshape": return "Shape";
+                case "new_shape": return "Shape";
                 case "dtype": return "Dtype";
                 case "order": return "string";
+                case "slice": return "Slice";
                 case "arys1, arys2, …":
                     arg.Name = "arys";
                     return "params NDarray[]";
@@ -609,6 +612,7 @@ namespace Numpy.ApiGenerator
             switch (type)
             {
                 case "data-type": return "Dtype";
+                case "matrix": return "Matrix";
                 case "ndarray": return "NDarray";
                 case "np.ndarray": return "NDarray";
                 case "2-D array": return "NDarray";

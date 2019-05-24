@@ -3,7 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Numpy;
-using NumSharp;
+using Numpy.Models;
 using Python.Included;
 using Python.Runtime;
 using Assert = NUnit.Framework.Assert;
@@ -17,7 +17,7 @@ namespace Numpy.UnitTests
         public void empty()
         {
             // initialize an array with random integers
-            var a = np.empty((2, 3), np.int32);
+            var a = np.empty(new Shape(2, 3), np.int32);
             Console.WriteLine(a);
             Assert.IsNotNull(a.ToString());
             // this should print out the exact integers of the array
@@ -28,7 +28,7 @@ namespace Numpy.UnitTests
         [TestMethod]
         public void efficient_array_copy()
         {
-            var a = np.empty((2, 3), np.int32);
+            var a = np.empty(new Shape(2, 3), np.int32);
             Console.WriteLine(a);
             Assert.IsNotNull(a.ToString());
             long ptr = a.PyObject.ctypes.data;

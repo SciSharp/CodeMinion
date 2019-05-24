@@ -4,8 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Numpy;
-using NumSharp;
-using NumSharp.Utilities;
+using Numpy.Models;
 using Python.Runtime;
 
 namespace Numpy
@@ -93,21 +92,4 @@ namespace Numpy
 
     }
 
-    public static partial class np
-    {
-
-        /// <summary>
-        /// Create an array.
-        /// 
-        /// <param name="data">
-        /// The array to initialize the ndarray with
-        /// </param>
-        /// <returns>
-        /// An array object satisfying the specified requirements.
-        /// </returns>
-        public static NDarray<T> array<T>(params T[] data)
-        {
-            return NumPy.Instance.array(data);
-        }
-    }
 }

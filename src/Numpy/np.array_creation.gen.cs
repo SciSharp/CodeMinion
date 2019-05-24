@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Python.Included;
-using NumSharp;
+using Numpy.Models;
 
 namespace Numpy
 {
@@ -40,7 +40,7 @@ namespace Numpy
         /// Array of uninitialized (arbitrary) data of the given shape, dtype, and
         /// order.  Object arrays will be initialized to None.
         /// </returns>
-        public static NDarray empty(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+        public static NDarray empty(Shape shape, Dtype dtype = null, string order = null)
             => NumPy.Instance.empty(shape, dtype:dtype, order:order);
         
         /// <summary>
@@ -210,7 +210,7 @@ namespace Numpy
         /// <returns>
         /// Array of ones with the given shape, dtype, and order.
         /// </returns>
-        public static NDarray ones(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+        public static NDarray ones(Shape shape, Dtype dtype = null, string order = null)
             => NumPy.Instance.ones(shape, dtype:dtype, order:order);
         
         /// <summary>
@@ -312,7 +312,7 @@ namespace Numpy
         /// <returns>
         /// Array of zeros with the given shape, dtype, and order.
         /// </returns>
-        public static NDarray zeros(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+        public static NDarray zeros(Shape shape, Dtype dtype = null, string order = null)
             => NumPy.Instance.zeros(shape, dtype:dtype, order:order);
         
         /// <summary>
@@ -412,7 +412,7 @@ namespace Numpy
         /// <returns>
         /// Array of fill_value with the given shape, dtype, and order.
         /// </returns>
-        public static NDarray full(NumSharp.Shape shape, ValueType fill_value, Dtype dtype = null, string order = null)
+        public static NDarray full(Shape shape, ValueType fill_value, Dtype dtype = null, string order = null)
             => NumPy.Instance.full(shape, fill_value, dtype:dtype, order:order);
         
         /// <summary>
@@ -856,7 +856,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public static matrix asmatrix(NDarray data, Dtype dtype)
+        public static Matrix asmatrix(NDarray data, Dtype dtype)
             => NumPy.Instance.asmatrix(data, dtype);
         
         /// <summary>
@@ -874,7 +874,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public static matrix asmatrix<T>(T[] data, Dtype dtype)
+        public static Matrix asmatrix<T>(T[] data, Dtype dtype)
             => NumPy.Instance.asmatrix(data, dtype);
         
         /// <summary>
@@ -892,7 +892,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public static matrix asmatrix<T>(T[,] data, Dtype dtype)
+        public static Matrix asmatrix<T>(T[,] data, Dtype dtype)
             => NumPy.Instance.asmatrix(data, dtype);
         
         /// <summary>
@@ -1063,7 +1063,7 @@ namespace Numpy
         /// function.  If function returns a scalar value, the shape of
         /// fromfunction would not match the shape parameter.
         /// </returns>
-        public static object fromfunction(Delegate function, NumSharp.Shape shape, Dtype dtype = null)
+        public static object fromfunction(Delegate function, Shape shape, Dtype dtype = null)
             => NumPy.Instance.fromfunction(function, shape, dtype:dtype);
         
         /// <summary>
@@ -1713,9 +1713,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -1893,9 +1893,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -2075,9 +2075,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -2257,9 +2257,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -2439,9 +2439,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -2621,9 +2621,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -2803,9 +2803,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -2985,9 +2985,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -3167,9 +3167,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 105
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 428
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass52_0.<GenerateStaticApi>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 405
         ----------------------------
         Declaration JSON:
         {
@@ -3849,7 +3849,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public static matrix mat(NDarray data, Dtype dtype)
+        public static Matrix mat(NDarray data, Dtype dtype)
             => NumPy.Instance.mat(data, dtype);
         */
         
@@ -3869,7 +3869,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public static matrix mat<T>(T[] data, Dtype dtype)
+        public static Matrix mat<T>(T[] data, Dtype dtype)
             => NumPy.Instance.mat(data, dtype);
         */
         
@@ -3889,7 +3889,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public static matrix mat<T>(T[,] data, Dtype dtype)
+        public static Matrix mat<T>(T[,] data, Dtype dtype)
             => NumPy.Instance.mat(data, dtype);
         */
         
@@ -3912,7 +3912,7 @@ namespace Numpy
         /// <returns>
         /// Returns a matrix object, which is a specialized 2-D array.
         /// </returns>
-        public static matrix bmat(string obj, Hashtable ldict = null, Hashtable gdict = null)
+        public static Matrix bmat(string obj, Hashtable ldict = null, Hashtable gdict = null)
             => NumPy.Instance.bmat(obj, ldict:ldict, gdict:gdict);
         */
         

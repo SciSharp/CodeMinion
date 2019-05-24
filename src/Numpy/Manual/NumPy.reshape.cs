@@ -4,8 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Numpy;
-using NumSharp;
-using NumSharp.Utilities;
+using Numpy.Models;
 using Python.Runtime;
 
 namespace Numpy

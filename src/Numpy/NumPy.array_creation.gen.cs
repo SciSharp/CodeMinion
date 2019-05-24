@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Python.Included;
-using NumSharp;
+using Numpy.Models;
 
 namespace Numpy
 {
@@ -40,7 +40,7 @@ namespace Numpy
         /// Array of uninitialized (arbitrary) data of the given shape, dtype, and
         /// order.  Object arrays will be initialized to None.
         /// </returns>
-        public NDarray empty(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+        public NDarray empty(Shape shape, Dtype dtype = null, string order = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -280,7 +280,7 @@ namespace Numpy
         /// <returns>
         /// Array of ones with the given shape, dtype, and order.
         /// </returns>
-        public NDarray ones(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+        public NDarray ones(Shape shape, Dtype dtype = null, string order = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -429,7 +429,7 @@ namespace Numpy
         /// <returns>
         /// Array of zeros with the given shape, dtype, and order.
         /// </returns>
-        public NDarray zeros(NumSharp.Shape shape, Dtype dtype = null, string order = null)
+        public NDarray zeros(Shape shape, Dtype dtype = null, string order = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -576,7 +576,7 @@ namespace Numpy
         /// <returns>
         /// Array of fill_value with the given shape, dtype, and order.
         /// </returns>
-        public NDarray full(NumSharp.Shape shape, ValueType fill_value, Dtype dtype = null, string order = null)
+        public NDarray full(Shape shape, ValueType fill_value, Dtype dtype = null, string order = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1017,7 +1017,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix asmatrix(NDarray data, Dtype dtype)
+        public Matrix asmatrix(NDarray data, Dtype dtype)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1027,7 +1027,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("asmatrix", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         
         /// <summary>
@@ -1045,7 +1045,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix asmatrix<T>(T[] data, Dtype dtype)
+        public Matrix asmatrix<T>(T[] data, Dtype dtype)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1055,7 +1055,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("asmatrix", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         
         /// <summary>
@@ -1073,7 +1073,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix asmatrix<T>(T[,] data, Dtype dtype)
+        public Matrix asmatrix<T>(T[,] data, Dtype dtype)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -1083,7 +1083,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("asmatrix", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         
         /// <summary>
@@ -1306,7 +1306,7 @@ namespace Numpy
         /// function.  If function returns a scalar value, the shape of
         /// fromfunction would not match the shape parameter.
         /// </returns>
-        public object fromfunction(Delegate function, NumSharp.Shape shape, Dtype dtype = null)
+        public object fromfunction(Delegate function, Shape shape, Dtype dtype = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -2147,9 +2147,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -2327,9 +2327,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -2509,9 +2509,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -2691,9 +2691,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -2873,9 +2873,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -3055,9 +3055,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -3237,9 +3237,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -3419,9 +3419,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -3601,9 +3601,9 @@ namespace Numpy
         // Error generating delaration: linspace
         // Message: Return tuple
         /*
-           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 258
+           at CodeMinion.Core.CodeGenerator.GenerateReturnType(Declaration decl) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 235
    at CodeMinion.Core.CodeGenerator.GenerateApiFunction(Declaration decl, CodeWriter s) in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 62
-   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 472
+   at CodeMinion.Core.CodeGenerator.<>c__DisplayClass54_0.<GenerateApiImpl>b__1() in D:\dev\CodeMinion\src\CodeMinion.Core\CodeGenerator.cs:line 449
         ----------------------------
         Declaration JSON:
         {
@@ -4483,7 +4483,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix mat(NDarray data, Dtype dtype)
+        public Matrix mat(NDarray data, Dtype dtype)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -4493,7 +4493,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("mat", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         */
         
@@ -4513,7 +4513,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix mat<T>(T[] data, Dtype dtype)
+        public Matrix mat<T>(T[] data, Dtype dtype)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -4523,7 +4523,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("mat", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         */
         
@@ -4543,7 +4543,7 @@ namespace Numpy
         /// <returns>
         /// data interpreted as a matrix.
         /// </returns>
-        public matrix mat<T>(T[,] data, Dtype dtype)
+        public Matrix mat<T>(T[,] data, Dtype dtype)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -4553,7 +4553,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = self.InvokeMethod("mat", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         */
         
@@ -4576,7 +4576,7 @@ namespace Numpy
         /// <returns>
         /// Returns a matrix object, which is a specialized 2-D array.
         /// </returns>
-        public matrix bmat(string obj, Hashtable ldict = null, Hashtable gdict = null)
+        public Matrix bmat(string obj, Hashtable ldict = null, Hashtable gdict = null)
         {
             //auto-generated code, do not change
             var pyargs=ToTuple(new object[]
@@ -4587,7 +4587,7 @@ namespace Numpy
             if (ldict!=null) kwargs["ldict"]=ToPython(ldict);
             if (gdict!=null) kwargs["gdict"]=ToPython(gdict);
             dynamic py = self.InvokeMethod("bmat", pyargs, kwargs);
-            return ToCsharp<matrix>(py);
+            return ToCsharp<Matrix>(py);
         }
         */
         

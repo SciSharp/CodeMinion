@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Numpy.Models;
-using NumSharp;
 using Python.Runtime;
 
 
@@ -73,7 +72,7 @@ namespace Numpy
         /// <summary>
         /// Tuple of array dimensions.
         /// </summary>
-        public Shape shape => self.GetAttr("shape").As<int[]>();
+        public Shape shape => new Shape( self.GetAttr("shape").As<int[]>());
 
         /// <summary>
         /// Tuple of bytes to step in each dimension when traversing an array.
@@ -368,31 +367,19 @@ namespace Numpy
         public NDarray this[string slicing_notation]
         {
             get
-            {
-                var f = new Func<int?, string>(FormatNullableIntForPython);
+            {                
                 var tuple=new PyTuple(Slice.ParseSlices(slicing_notation).Select(s =>
                 {
                     if (s.IsIndex)
                         return new PyInt(s.Start.Value);
                     else
-                        return SliceToPython(s);
+                        return s.ToPython();
                 }).ToArray());
                 return new NDarray(this.PyObject[tuple]);
             }
         }
 
-        protected PyObject SliceToPython(Slice s)
-        {
-            var f = new Func<int?, string>(FormatNullableIntForPython);
-            return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
-        }
-
-        protected string FormatNullableIntForPython(int? i)
-        {
-            if (i == null)
-                return "None";
-            return i.Value.ToString();
-        }
+    
 
         public new NDarray this[params int[] coords]
         {
@@ -422,7 +409,7 @@ namespace Numpy
                     {
                         case int i: return new PyInt(i);
                         case NDarray a: return a.PyObject;
-                        case string s: return SliceToPython(new Slice(s));
+                        case string s: return new Slice(s).ToPython();
                         default: return ToPython(x);
                     }
                 }).ToArray();
@@ -454,13 +441,12 @@ namespace Numpy
         {
             get
             {
-                var f = new Func<int?, string>(FormatNullableIntForPython);
                 var tuple = new PyTuple(Slice.ParseSlices(slicing_notation).Select(s =>
                 {
                     if (s.IsIndex)
                         return new PyInt(s.Start.Value);
                     else
-                        return PythonEngine.Eval($"slice({f(s.Start)},{f(s.Stop)},{f(s.Step)})");
+                        return s.ToPython();
                 }).ToArray());
                 return new NDarray<T>(this.PyObject[tuple]);
             }
@@ -494,7 +480,7 @@ namespace Numpy
                     {
                         case int i: return new PyInt(i);
                         case NDarray a: return a.PyObject;
-                        case string s: return SliceToPython(new Slice(s));
+                        case string s: return new Slice(s).ToPython();
                         default: return ToPython(x);
                     }
                 }).ToArray();

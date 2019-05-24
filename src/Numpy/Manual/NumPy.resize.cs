@@ -4,8 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Numpy;
-using NumSharp;
-using NumSharp.Utilities;
+using Numpy.Models;
 using Python.Runtime;
 
 namespace Numpy
@@ -45,7 +44,7 @@ namespace Numpy
         /// if necessary to fill out the required number of elements.  The
         /// data are repeated in the order that they are stored in memory.
         /// </returns>
-        public NDarray resize(NDarray a, NumSharp.Shape new_shape)
+        public NDarray resize(NDarray a, Shape new_shape)
         {
             var pyargs = ToTuple(new object[]
             {

@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Python.Included;
-using NumSharp;
+using Numpy.Models;
 
 namespace Numpy
 {
@@ -79,7 +79,8 @@ namespace Numpy
                 // sequence types
                 case Array o: return ToTuple(o);
                 // special types from 'ToPythonConversions'
-                case NumSharp.Shape o: return ToTuple(o.Dimensions);
+                case Shape o: return ToTuple(o.Dimensions);
+                case Slice o: return o.ToPython();
                 case PythonObject o: return o.PyObject;
                 default: throw new NotImplementedException($"Type is not yet supported: { obj.GetType().Name}. Add it to 'ToPythonConversions'");
             }
@@ -93,6 +94,7 @@ namespace Numpy
                 // types from 'ToCsharpConversions'
                 case "Dtype": return (T)(object)new Dtype(pyobj);
                 case "NDarray": return (T)(object)new NDarray(pyobj);
+                case "Matrix": return (T)(object)new Matrix(pyobj);
                 default: return (T)pyobj;
             }
         }

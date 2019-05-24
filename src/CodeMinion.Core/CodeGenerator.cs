@@ -171,29 +171,6 @@ namespace CodeMinion.Core
             return s.ToString();
         }
 
-        //protected virtual IEnumerable<Declaration> ExpandOverloads(Declaration decl)
-        //{
-        //    // todo: let's hope there are not multiple expansions in one declaration, or else this will get complicated
-        //    if (decl.Arguments.Any(a => a.Type == "(array_like)"))
-        //    {
-        //        foreach (var type in "NumSharp.NDArray T[]".Split())
-        //        {
-        //            var clone_decl = decl.Clone();
-        //            clone_decl.Arguments.ForEach(a =>
-        //            {
-        //                if (a.Type == "(array_like)")
-        //                    a.Type = type;
-        //            });
-        //            if (type == "T[]")
-        //                clone_decl.Generics = new string[] { "T" };
-        //            yield return clone_decl;
-        //        }
-        //        yield break;
-        //    }
-        //    yield return decl;
-        //}
-
-
         // maps None to null, etc
         protected virtual string MapDefaultValue(Argument arg)
         {
@@ -648,14 +625,14 @@ namespace CodeMinion.Core
 
                                 if (line.Type == "output")
                                 {
-                                    s.Out("var expected=");
+                                    s.Out("expected=");
                                     s.Indent(() =>
                                     {
                                         int i = 0;
                                         foreach (var output in line.Text)
                                         {
                                             var newline = i < line.Text.Count - 1 ? @"\n" : "";
-                                            var delimiter = i < line.Text.Count - 1 ? @",+" : ";";
+                                            var delimiter = i < line.Text.Count - 1 ? @" +" : ";";
                                             s.Out($"\"{output}{newline}\"{delimiter}");
                                             i++;
                                         }
