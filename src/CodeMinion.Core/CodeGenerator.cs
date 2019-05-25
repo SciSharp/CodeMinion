@@ -101,7 +101,7 @@ namespace CodeMinion.Core
                 Debugger.Break();
             if (decl.CommentOut)
                 s.Out("/*");
-            var class_names = (decl.ClassName ?? "no_name").Split('.');
+            var class_names = (decl.GeneratedClassName ?? decl.ClassName ?? "no_name").Split('.');
             int levels = class_names.Length - 1;
             if (levels > 0)
             {

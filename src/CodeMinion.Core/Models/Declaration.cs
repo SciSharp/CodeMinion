@@ -15,6 +15,7 @@ namespace CodeMinion.Core.Models
         /// If it is a nested class the class name contains all nesting levels (i.e. "numpy.core.records")
         /// </summary>
         public string ClassName { get; set; }
+        public string GeneratedClassName { get; set; }
 
         public List<Argument> Returns { get; set; } = new List<Argument>();
         public bool IsDeprecated { get; set; }

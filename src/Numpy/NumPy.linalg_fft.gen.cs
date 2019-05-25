@@ -612,7 +612,8 @@ namespace Numpy
         public NDarray fft(NDarray a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -667,7 +668,8 @@ namespace Numpy
         public NDarray<T> fft<T>(T[] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -722,7 +724,8 @@ namespace Numpy
         public NDarray<T> fft<T>(T[,] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -784,7 +787,8 @@ namespace Numpy
         public NDarray fft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -846,7 +850,8 @@ namespace Numpy
         public NDarray<T> fft2<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -908,7 +913,8 @@ namespace Numpy
         public NDarray<T> fft2<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -967,7 +973,8 @@ namespace Numpy
         public NDarray fftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1026,7 +1033,8 @@ namespace Numpy
         public NDarray<T> fftn<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1085,7 +1093,8 @@ namespace Numpy
         public NDarray<T> fftn<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1145,7 +1154,8 @@ namespace Numpy
         public NDarray ifft(NDarray a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1205,7 +1215,8 @@ namespace Numpy
         public NDarray<T> ifft<T>(T[] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1265,7 +1276,8 @@ namespace Numpy
         public NDarray<T> ifft<T>(T[,] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1333,7 +1345,8 @@ namespace Numpy
         public NDarray ifft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1401,7 +1414,8 @@ namespace Numpy
         public NDarray<T> ifft2<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1469,7 +1483,8 @@ namespace Numpy
         public NDarray<T> ifft2<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1536,7 +1551,8 @@ namespace Numpy
         public NDarray ifftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1603,7 +1619,8 @@ namespace Numpy
         public NDarray<T> ifftn<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1670,7 +1687,8 @@ namespace Numpy
         public NDarray<T> ifftn<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var fft = self.GetAttr("fft");
+            var __self__=fft;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),

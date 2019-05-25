@@ -979,11 +979,8 @@ namespace Numpy.UnitTest
             //          1.14383329e-17 +1.22460635e-16j,
             //          -1.64863782e-15 +1.77635684e-15j])
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.fft.fft(np.exp(2j * np.pi * np.arange(8) / 8));
+#if TODO
+            var given=  np.fft(np.exp(2j * np.pi * np.arange(8) / 8));
             expected=
                 "array([ -3.44505240e-16 +1.14383329e-17j,\n" +
                 "         8.00000000e+00 -5.71092652e-15j,\n" +
@@ -994,11 +991,11 @@ namespace Numpy.UnitTest
                 "         1.14383329e-17 +1.22460635e-16j,\n" +
                 "         -1.64863782e-15 +1.77635684e-15j])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // In this example, real input has an FFT which is Hermitian, i.e., symmetric
             // in the real part and anti-symmetric in the imaginary part, as described in
             // the numpy.fft documentation:
-            
+
             // >>> import matplotlib.pyplot as plt
             // >>> t = np.arange(256)
             // >>> sp = np.fft.fft(np.sin(t))
@@ -1007,8 +1004,8 @@ namespace Numpy.UnitTest
             // [<matplotlib.lines.Line2D object at 0x...>, <matplotlib.lines.Line2D object at 0x...>]
             // >>> plt.show()
             // 
-            
-            #if TODO
+
+#if TODO
             object given = null;
             object expected = null;
             given=  import matplotlib.pyplot as plt;
@@ -1020,7 +1017,7 @@ namespace Numpy.UnitTest
                 "[<matplotlib.lines.Line2D object at 0x...>, <matplotlib.lines.Line2D object at 0x...>]";
             Assert.AreEqual(expected, given.repr);
             given=  plt.show();
-            #endif
+#endif
         }
         [TestMethod]
         public void fft2Test()
@@ -1178,6 +1175,7 @@ namespace Numpy.UnitTest
             given=  plt.show();
             #endif
         }
+
         [TestMethod]
         public void ifft2Test()
         {
@@ -1187,21 +1185,18 @@ namespace Numpy.UnitTest
             //        [ 0.+0.j,  0.+0.j,  0.+0.j,  1.+0.j],
             //        [ 0.+0.j,  0.+0.j,  1.+0.j,  0.+0.j],
             //        [ 0.+0.j,  1.+0.j,  0.+0.j,  0.+0.j]])
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  a = 4 * np.eye(4);
-            given=  np.fft.ifft2(a);
-            expected=
-                "array([[ 1.+0.j,  0.+0.j,  0.+0.j,  0.+0.j],\n" +
-                "       [ 0.+0.j,  0.+0.j,  0.+0.j,  1.+0.j],\n" +
-                "       [ 0.+0.j,  0.+0.j,  1.+0.j,  0.+0.j],\n" +
-                "       [ 0.+0.j,  1.+0.j,  0.+0.j,  0.+0.j]])";
+            //   
+
+            var  a = np.eye(4) * 4;
+            var given=  np.FFT.ifft2(a);
+            var expected=
+                "array([[1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j],\n" +
+                "       [0.+0.j, 0.+0.j, 0.+0.j, 1.+0.j],\n" +
+                "       [0.+0.j, 0.+0.j, 1.+0.j, 0.+0.j],\n" +
+                "       [0.+0.j, 1.+0.j, 0.+0.j, 0.+0.j]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
         }
+
         [TestMethod]
         public void ifftnTest()
         {
