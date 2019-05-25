@@ -4,8 +4,6 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Numpy;
 using Numpy.Models;
-using Python.Included;
-using Python.Runtime;
 using Assert = NUnit.Framework.Assert;
 
 namespace Numpy.UnitTests
@@ -45,25 +43,6 @@ namespace Numpy.UnitTests
             var a = np.array(array);
             Console.WriteLine(a.repr);
             Assert.AreEqual(array, a.GetData());
-        }
-
-        [TestMethod]
-        public void EmbeddedNumpyTest()
-        {
-            var numpy = NumPy.Instance;
-            Console.WriteLine(numpy.self);
-            dynamic sys = Py.Import("sys");
-            Console.WriteLine(sys.version);
-        }
-
-        [TestMethod]
-        public void NonEmbeddedNumpyTest()
-        {
-            PythonEnv.DeployEmbeddedPython = false;
-            var numpy = NumPy.Instance;
-            Console.WriteLine(numpy.self);
-            dynamic sys = Py.Import("sys");
-            Console.WriteLine(sys.version);
         }
 
         [TestMethod]
