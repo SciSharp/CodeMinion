@@ -11,7 +11,7 @@ using HtmlAgilityPack;
 
 namespace Numpy.ApiGenerator
 {
-    // Routines:
+    // Routines: [x] means generated
     // ====================
     // [x] Array creation routines 
     // [x] Array manipulation routines
@@ -30,7 +30,7 @@ namespace Numpy.ApiGenerator
     //Indexing routines
     //Input and output
     //Linear algebra(numpy.linalg)
-    //Logic functions
+    // [x] Logic functions
     //Masked array operations
     // [x] Mathematical functions
     //Matrix library(numpy.matlib)
@@ -73,6 +73,9 @@ namespace Numpy.ApiGenerator
                     "case \"NDarray`1\":",
                     "switch (typeof(T).GenericTypeArguments[0].Name)",
                     "{",
+                    "   case \"Byte\": return (T)(object)new NDarray<byte>(pyobj);",
+                    "   case \"Short\": return (T)(object)new NDarray<short>(pyobj);",
+                    "   case \"Boolean\": return (T)(object)new NDarray<bool>(pyobj);",
                     "   case \"Int32\": return (T)(object)new NDarray<int>(pyobj);",
                     "   case \"Int64\": return (T)(object)new NDarray<long>(pyobj); ",
                     "   case \"Single\": return (T)(object)new NDarray<float>(pyobj); ",
@@ -150,7 +153,15 @@ namespace Numpy.ApiGenerator
             // ----------------------------------------------------
             var math_api = new StaticApi() { PartialName = "math", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(math_api);
-            ParseNumpyApi(math_api, "routines.math.html");            
+            ParseNumpyApi(math_api, "routines.math.html");
+            // ----------------------------------------------------
+            // Logic functions
+            // ----------------------------------------------------
+            var logic_api = new StaticApi() { PartialName = "logic", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(logic_api);
+            ParseNumpyApi(logic_api, "routines.logic.html");
+
+            
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -427,6 +438,12 @@ namespace Numpy.ApiGenerator
             {
                 decl.Generics = new string[] { "T" };
             }
+            if (decl.Arguments.Count>0 && (decl.Arguments[0].Name == "a, b" || decl.Arguments[0].Name== "a1, a2")) // allclose etc ...
+            {
+                decl.Arguments[0].Name = "a";
+                decl.Arguments.Insert(1, decl.Arguments[0].Clone());
+                decl.Arguments[1].Name = "b";
+            }
             switch (decl.Name)
             {
                 case "array":
@@ -460,14 +477,18 @@ namespace Numpy.ApiGenerator
                     break;
                 case "require":
                     if (decl.Returns.Count == 0)
-                        decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array" });
+                        decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array", IsReturnValue = true });
+                    break;
+                case "isfortran":
+                    if (decl.Returns.Count == 0)
+                        decl.Returns.Add(new Argument() { Type = "bool", Name = "retval", IsReturnValue = true});
                     break;
                 case "diff":
                     decl.Arguments[3].Name = "prepend";
                     decl.Arguments[3].Type = "NDarray";
                     decl.Arguments[3].IsNamedArg = true;
                     decl.Arguments[3].IsValueType = false;
-                    decl.Arguments.Add(new Argument(){ Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true });
+                    decl.Arguments.Add(new Argument(){ Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true, IsReturnValue = true });
                     break;
             }
         }
@@ -502,7 +523,20 @@ namespace Numpy.ApiGenerator
             {
                 case "norm":
                 case "asscalar":
-                    yield break; 
+                    yield break;
+                case "all":
+                case "any":
+                    decl.Arguments[0].Type = "NDarray";
+                    decl.Returns[0].Type = "NDarray<bool>";
+                    decl.Arguments.FirstOrDefault(x => x.Name == "axis").IsNullable = false; // make axis mandatory
+                    yield return decl;
+                    var clone = decl.Clone<Function>();
+                    clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "axis"));
+                    clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "out"));
+                    clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "keepdims"));
+                    clone.Returns[0].Type = "bool";
+                    yield return clone;
+                    yield break;
             }
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
@@ -706,7 +740,10 @@ namespace Numpy.ApiGenerator
                 case "float or ndarray": return "NDarray";
                 case "(…) array_like of float": return "NDarray";
                 case "complex ndarray": return "NDarray";
-                case "scalar": return "ValueType";
+                case "scalar":
+                    if (!arg.IsReturnValue)
+                        return "ValueType"; // <-- this actually doesn't quite work if it is a return value. conversion to ValueType fails needs generic overloads
+                    break;
                 case "file": return "string";
                 case "str": return "string";
                 case "string or list": return "string";

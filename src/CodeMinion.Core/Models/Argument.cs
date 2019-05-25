@@ -1,4 +1,6 @@
-﻿namespace CodeMinion.Core.Models
+﻿using Newtonsoft.Json.Linq;
+
+namespace CodeMinion.Core.Models
 {
     public class Argument
     {
@@ -18,5 +20,10 @@
         public int Position { get; set; }
         public bool IsReturnValue { get; set; }
         public string Tag { get; set; }
+
+        public Argument Clone()
+        {
+            return JObject.FromObject(this).ToObject<Argument>();
+        }
     }
 }

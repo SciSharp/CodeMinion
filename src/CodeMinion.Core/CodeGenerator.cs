@@ -631,9 +631,12 @@ namespace CodeMinion.Core
 
         private void GenerateTestCase(TestCase testcase, CodeWriter s)
         {
+            s.Break();
             s.Out("[TestMethod]");
             s.Out($"public void {testcase.Name}()", () =>
             {
+                var given_var = false;
+                var expected_var = false;
                 foreach (var part in testcase.TestParts)
                 {
                     switch (part)
@@ -649,8 +652,6 @@ namespace CodeMinion.Core
                                 s.Out(@"// " + ln);
                             s.Break();
                             s.Out("#if TODO");
-                            s.Out("object given = null;");
-                            s.Out("object expected = null;");
                             foreach (var line in example.Lines)
                             {
                                 if (line.Type == "comment")
@@ -660,13 +661,18 @@ namespace CodeMinion.Core
                                 }
                                 if (line.Type == "cmd")
                                 {
-                                    s.Out("given= " + line.Text[0] + ";");
+                                    var cmd = line.Text[0];
+                                    if (cmd.Contains("np."))
+                                        cmd = cmd.Replace('[', '{').Replace(']', '}');
+                                    s.Out($"{(given_var?"":"var")} given= " + cmd + ";");
+                                    given_var = true;
                                     continue;
                                 }
 
                                 if (line.Type == "output")
                                 {
-                                    s.Out("expected=");
+                                    s.Out($"{(expected_var ? "" : "var")} expected=");
+                                    expected_var = true;
                                     s.Indent(() =>
                                     {
                                         int i = 0;
@@ -686,6 +692,7 @@ namespace CodeMinion.Core
                     }
                 }
             });
+            s.Break();
         }
 
         private void GenerateApiImplConversions(StaticApi api, CodeWriter s)

@@ -99,6 +99,9 @@ namespace Numpy
                 case "NDarray`1":
                 switch (typeof(T).GenericTypeArguments[0].Name)
                 {
+                   case "Byte": return (T)(object)new NDarray<byte>(pyobj);
+                   case "Short": return (T)(object)new NDarray<short>(pyobj);
+                   case "Boolean": return (T)(object)new NDarray<bool>(pyobj);
                    case "Int32": return (T)(object)new NDarray<int>(pyobj);
                    case "Int64": return (T)(object)new NDarray<long>(pyobj); 
                    case "Single": return (T)(object)new NDarray<float>(pyobj); 
@@ -107,7 +110,7 @@ namespace Numpy
                 }
                 break;
                 case "Matrix": return (T)(object)new Matrix(pyobj);
-                default: return pyobj.As<T>();
+                default: return (T)pyobj;
             }
         }
         

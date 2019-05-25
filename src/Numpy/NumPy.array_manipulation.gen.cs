@@ -640,7 +640,7 @@ namespace Numpy
             dynamic py = __self__.InvokeMethod("asarray_chkfinite", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
-               
+        
         /// <summary>
         /// Return an ndarray of the provided type that satisfies requirements.
         /// 
