@@ -128,15 +128,15 @@ namespace Numpy
         /// </summary>
         public NDarray T => new NDarray(self.GetAttr("T"));
 
-        /// <summary>
-        /// The real part of the array.
-        /// </summary>
-        public NDarray real => new NDarray(self.GetAttr("real"));
+        ///// <summary>
+        ///// The real part of the array.
+        ///// </summary>
+        //public NDarray real => new NDarray(self.GetAttr("real"));
 
-        /// <summary>
-        /// The imaginary part of the array.
-        /// </summary>
-        public NDarray imag => new NDarray(self.GetAttr("imag"));
+        ///// <summary>
+        ///// The imaginary part of the array.
+        ///// </summary>
+        //public NDarray imag => new NDarray(self.GetAttr("imag"));
 
         /// <summary>
         /// A 1-D iterator over the array.

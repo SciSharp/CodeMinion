@@ -32,7 +32,7 @@ namespace Numpy.ApiGenerator
     //Linear algebra(numpy.linalg)
     //Logic functions
     //Masked array operations
-    //Mathematical functions
+    // [x] Mathematical functions
     //Matrix library(numpy.matlib)
     //Miscellaneous routines
     //Padding Arrays
@@ -144,7 +144,13 @@ namespace Numpy.ApiGenerator
             // ----------------------------------------------------
             var linalg_fft_api = new StaticApi() { PartialName = "linalg_fft", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(linalg_fft_api);
-            ParseNumpyApi(linalg_fft_api, "routines.dual.html");            
+            ParseNumpyApi(linalg_fft_api, "routines.dual.html");
+            // ----------------------------------------------------
+            // Mathematical functions
+            // ----------------------------------------------------
+            var math_api = new StaticApi() { PartialName = "math", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(math_api);
+            ParseNumpyApi(math_api, "routines.math.html");            
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -224,7 +230,7 @@ namespace Numpy.ApiGenerator
                 if (parsed_api_functions.Contains(func_name))
                     continue;
                 parsed_api_functions.Add(func_name);
-                var decl = new Function() { Name = func_name, ClassName = class_name.TrimEnd('.') };
+                var decl = new Function() { Tag=link, Name = func_name, ClassName = class_name.TrimEnd('.') };
                 // function description
                 var dd = dl.Descendants("dd").FirstOrDefault();
                 decl.Description = ParseDescription(dd);
@@ -343,7 +349,7 @@ namespace Numpy.ApiGenerator
                 return;
             foreach (var dt in tr.Descendants("dt"))
             {
-                var arg = new Argument();
+                var arg = new Argument() { Tag=decl.Tag };
                 var strong = dt.Descendants("strong").FirstOrDefault();
                 if (strong == null)
                     continue;
@@ -449,11 +455,19 @@ namespace Numpy.ApiGenerator
                 case "mat":
                 case "bmat":
                 case "block":
+                case "interp":
                     decl.CommentOut = true;
                     break;
                 case "require":
                     if (decl.Returns.Count == 0)
                         decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array" });
+                    break;
+                case "diff":
+                    decl.Arguments[3].Name = "prepend";
+                    decl.Arguments[3].Type = "NDarray";
+                    decl.Arguments[3].IsNamedArg = true;
+                    decl.Arguments[3].IsValueType = false;
+                    decl.Arguments.Add(new Argument(){ Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true });
                     break;
             }
         }
@@ -469,7 +483,7 @@ namespace Numpy.ApiGenerator
                 var strong = dt.Descendants("strong").FirstOrDefault();
                 if (strong != null)
                     arg.Name = strong.InnerText;
-                if (arg.Name.ToLower() == "none")
+                if (arg.Name==null || arg.Name.ToLower() == "none")
                     continue;
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
@@ -510,13 +524,16 @@ namespace Numpy.ApiGenerator
                 yield break;
             }
             HashSet<Function> overloads = new HashSet<Function>() { decl };
-            int i = 0;
+            int i = -1;
             foreach (var arg in decl.Arguments)
             {
+                i++;
                 // array_like
                 if (arg.Type == "array_like")
                 {
                     arg.Type = "NDarray";
+                    if (arg.Tag!= "routines.array-creation.html")
+                        continue;
                     switch (decl.Name)
                     {
                         case "insert":
@@ -534,10 +551,7 @@ namespace Numpy.ApiGenerator
                         case "reshape":
                         case "copyto":
                             if (i == 0)
-                            {
-                                i++;
                                 continue;
-                            }
                             break;
                         case "logspace":
                         case "linspace":
@@ -590,7 +604,6 @@ namespace Numpy.ApiGenerator
                         }
                     }
                 }
-                i++;
             }
             foreach (var overload in overloads)
                 yield return overload;
@@ -658,6 +671,11 @@ namespace Numpy.ApiGenerator
                     if (type == "{None")
                         return "string";
                     break;
+                case "axis":
+                    if (type == "{int")
+                        return "int[]";
+                    break;
+                case "edge_order": return "int";
             }
             switch (type)
             {
@@ -672,10 +690,14 @@ namespace Numpy.ApiGenerator
                 case "{(…": return "NDarray";
                 case "{ (…": return "NDarray";                    
                 case "(M": return "NDarray";
+                case "(N": return "NDarray";
                 case "{(M": return "NDarray";
                 case "{(N": return "NDarray";
                 case "{(1": return "NDarray";
                 case "(min(M": return "NDarray";
+                case "list of scalar or array": return "NDarray";
+                case "scalar or array_like or None": return "NDarray";
+                case "scalar or array_like": return "NDarray";
                 case "float or ndarray": return "NDarray";
                 case "(…) array_like of float": return "NDarray";
                 case "complex ndarray": return "NDarray";

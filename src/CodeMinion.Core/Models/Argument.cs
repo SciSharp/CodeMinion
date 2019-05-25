@@ -17,5 +17,6 @@
 
         public int Position { get; set; }
         public bool IsReturnValue { get; set; }
+        public string Tag { get; set; }
     }
 }

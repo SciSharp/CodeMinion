@@ -39,6 +39,7 @@ namespace CodeMinion.Core.Models
             return JObject.FromObject(this).ToObject<T>();
         }
 
+        public string Tag { get; set; }
     }
 
     public class Function : Declaration
@@ -54,6 +55,7 @@ namespace CodeMinion.Core.Models
         /// If this is set the member will be forwarded to the given static api object with self as first parameter
         /// </summary>
         public string ForwardToStaticImpl { get; set; }
+
     }
 
     public class Property : Declaration
