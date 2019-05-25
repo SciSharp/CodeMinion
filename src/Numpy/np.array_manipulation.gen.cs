@@ -439,19 +439,6 @@ namespace Numpy
             => NumPy.Instance.asarray_chkfinite(a, dtype:dtype, order:order);
         
         /// <summary>
-        /// Convert an array of size 1 to its scalar equivalent.
-        /// </summary>
-        /// <param name="a">
-        /// Input array of size 1.
-        /// </param>
-        /// <returns>
-        /// Scalar representation of a. The output data type is the same type
-        /// returned by the input’s item method.
-        /// </returns>
-        public static ValueType asscalar(NDarray a)
-            => NumPy.Instance.asscalar(a);
-        
-        /// <summary>
         /// Return an ndarray of the provided type that satisfies requirements.
         /// 
         /// This function is useful to be sure that an array with the correct flags

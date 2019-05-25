@@ -379,8 +379,6 @@ namespace Numpy
             }
         }
 
-    
-
         public new NDarray this[params int[] coords]
         {
             get
@@ -416,6 +414,18 @@ namespace Numpy
                 var tuple = new PyTuple(pyobjs);
                 return new NDarray(this.PyObject[tuple]);
             }
+        }
+
+        /// <summary>
+        /// Convert an array of size 1 to its scalar equivalent.
+        /// </summary>
+        /// <returns>
+        /// Scalar representation of a. The output data type is the same type
+        /// returned by the input’s item method.
+        /// </returns>
+        public T asscalar<T>()
+        {
+            return NumPy.Instance.asscalar<T>(this);
         }
     }
 

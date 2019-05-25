@@ -640,30 +640,7 @@ namespace Numpy
             dynamic py = __self__.InvokeMethod("asarray_chkfinite", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
-        
-        /// <summary>
-        /// Convert an array of size 1 to its scalar equivalent.
-        /// </summary>
-        /// <param name="a">
-        /// Input array of size 1.
-        /// </param>
-        /// <returns>
-        /// Scalar representation of a. The output data type is the same type
-        /// returned by the input’s item method.
-        /// </returns>
-        public ValueType asscalar(NDarray a)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-                a,
-            });
-            var kwargs=new PyDict();
-            dynamic py = __self__.InvokeMethod("asscalar", pyargs, kwargs);
-            return ToCsharp<ValueType>(py);
-        }
-        
+               
         /// <summary>
         /// Return an ndarray of the provided type that satisfies requirements.
         /// 

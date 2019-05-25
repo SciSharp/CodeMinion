@@ -497,14 +497,19 @@ namespace Numpy.ApiGenerator
 
         private IEnumerable<Function> InferOverloads(Function decl)
         {
+            // don't generate at all:
+            switch (decl.Name)
+            {
+                case "norm":
+                case "asscalar":
+                    yield break; 
+            }
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
             {
                 yield return decl;
                 yield break;
             }
-            if (decl.Name=="norm")
-                yield break; // don't generate at all
             if (decl.Name == "arange")
             {
                 foreach (var d in ExpandArange(decl))

@@ -113,100 +113,57 @@ namespace Numpy.UnitTest
             Assert.AreEqual(expected, given.repr);
             #endif
         }
+
         [TestMethod]
         public void prodTest()
         {
             // By default, calculate the product of all elements:
-            
+
             // >>> np.prod([1.,2.])
             // 2.0
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.prod([1.,2.]);
-            expected=
-                "2.0";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+
+            Assert.AreEqual(2.0, np.prod(new[] { 1.0, 2.0 }).asscalar<double>());
+
             // Even when the input array is two-dimensional:
             
             // >>> np.prod([[1.,2.],[3.,4.]])
             // 24.0
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.prod([[1.,2.],[3.,4.]]);
-            expected=
-                "24.0";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+
+            Assert.AreEqual(24.0, (double)np.prod(new[,] { { 1.0, 2.0 }, { 3.0, 4.0 } }));
+
             // But we can also specify the axis over which to multiply:
             
             // >>> np.prod([[1.,2.],[3.,4.]], axis=1)
             // array([  2.,  12.])
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.prod([[1.,2.],[3.,4.]], axis=1);
-            expected=
-                "array([  2.,  12.])";
+
+            var given= np.prod(new[,] { { 1.0, 2.0 }, { 3.0, 4.0 } }, axis:new []{1});
+            var expected= "array([ 2., 12.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+
             // If the type of x is unsigned, then the output type is
             // the unsigned platform integer:
             
             // >>> x = np.array([1, 2, 3], dtype=np.uint8)
             // >>> np.prod(x).dtype == np.uint
             // True
-            // 
             
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  x = np.array([1, 2, 3], dtype=np.uint8);
-            given=  np.prod(x).dtype == np.uint;
-            expected=
-                "True";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+            var  x = np.array(new byte[]{1, 2, 3}, dtype:np.uint8);
+            Assert.AreEqual( np.@uint, np.prod(x).dtype);
+
             // If x is of a signed integer type, then the output type
             // is the default platform integer:
-            
-            // >>> x = np.array([1, 2, 3], dtype=np.int8)
-            // >>> np.prod(x).dtype == int
-            // True
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  x = np.array([1, 2, 3], dtype=np.int8);
-            given=  np.prod(x).dtype == int;
-            expected=
-                "True";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+
+            x = np.array(new byte[] { 1, 2, 3 }, dtype: np.int8);
+            Assert.AreEqual(np.int_, np.prod(x).dtype);
+
             // You can also start the product with a value other than one:
-            
+
             // >>> np.prod([1, 2], initial=5)
             // 10
-            // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  np.prod([1, 2], initial=5);
-            expected=
-                "10";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+
+            Assert.AreEqual(10, (int)np.prod(new[] { 1, 2 }, initial: 5));
         }
+
         [TestMethod]
         public void sumTest()
         {

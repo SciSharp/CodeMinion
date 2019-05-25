@@ -107,7 +107,7 @@ namespace Numpy
                 }
                 break;
                 case "Matrix": return (T)(object)new Matrix(pyobj);
-                default: return (T)pyobj;
+                default: return pyobj.As<T>();
             }
         }
         
