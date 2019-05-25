@@ -11,6 +11,40 @@ using HtmlAgilityPack;
 
 namespace Numpy.ApiGenerator
 {
+    // Routines:
+    // ====================
+    // [x] Array creation routines 
+    // [x] Array manipulation routines
+    // [x] Binary operations
+    // [ ] String operations
+    // [ ] C-Types Foreign Function Interface(numpy.ctypeslib)
+    // [ ] Datetime Support Functions
+    // [ ] Data type routines
+    // [x] Optionally Scipy-accelerated routines(numpy.dual)
+    //Mathematical functions with automatic domain(numpy.emath)
+    //Floating point error handling
+    //Discrete Fourier Transform(numpy.fft)
+    //Financial functions
+    //Functional programming
+    //NumPy-specific help functions
+    //Indexing routines
+    //Input and output
+    //Linear algebra(numpy.linalg)
+    //Logic functions
+    //Masked array operations
+    //Mathematical functions
+    //Matrix library(numpy.matlib)
+    //Miscellaneous routines
+    //Padding Arrays
+    //Polynomials
+    //Random sampling(numpy.random)
+    //Set routines
+    //Sorting, searching, and counting
+    //Statistics
+    //Test Support(numpy.testing)
+    //Window functions
+
+
     public class NumpyApiGenerator
     {
         private CodeGenerator _generator;
@@ -90,39 +124,27 @@ namespace Numpy.ApiGenerator
             // ----------------------------------------------------
             // array manipulation
             // ----------------------------------------------------
-            var array_manipulation_api = new StaticApi()
-            {
-                PartialName = "array_manipulation", // name-part of the partial class file
-                StaticName = "np", // name of the static API class
-                ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
-                PythonModule = "numpy", // name of the Python module that the static api wraps 
-            };
+            var array_manipulation_api = new StaticApi() { PartialName = "array_manipulation", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy",  };
             _generator.StaticApis.Add(array_manipulation_api);
             ParseNumpyApi(array_manipulation_api, "routines.array-manipulation.html");
             // ----------------------------------------------------
             // dtype
             // ----------------------------------------------------
-            var dtype_api = new StaticApi()
-            {
-                PartialName = "dtype",
-                StaticName = "np", // name of the static API class
-                ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
-                PythonModule = "numpy", // name of the Python module that the static api wraps 
-            };
+            var dtype_api = new StaticApi() { PartialName = "dtype", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(dtype_api);
             ParseDtypeApi(dtype_api);
             // ----------------------------------------------------
-            // array manipulation
+            // bitwise api
             // ----------------------------------------------------
-            var bitwise_api = new StaticApi()
-            {
-                PartialName = "bitwise", // name-part of the partial class file
-                StaticName = "np", // name of the static API class
-                ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
-                PythonModule = "numpy", // name of the Python module that the static api wraps 
-            };
+            var bitwise_api = new StaticApi() { PartialName = "bitwise", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(bitwise_api);
             ParseNumpyApi(bitwise_api, "routines.bitwise.html");
+            // ----------------------------------------------------
+            // Optionally Scipy-accelerated routines (linalg, fft, ...)
+            // ----------------------------------------------------
+            var linalg_fft_api = new StaticApi() { PartialName = "linalg_fft", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(linalg_fft_api);
+            ParseNumpyApi(linalg_fft_api, "routines.dual.html");            
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -465,6 +487,8 @@ namespace Numpy.ApiGenerator
                 yield return decl;
                 yield break;
             }
+            if (decl.Name=="norm")
+                yield break; // don't generate at all
             if (decl.Name == "arange")
             {
                 foreach (var d in ExpandArange(decl))
@@ -479,7 +503,7 @@ namespace Numpy.ApiGenerator
                 clone_decl.Arguments[0].Type = "T[]";
                 clone_decl.Arguments[0].ConvertToSharpType = "NDarray";
                 clone_decl.Generics = new[] { "T" };
-                clone_decl.Returns[0].Type = "matrix<T>";
+                clone_decl.Returns[0].Type = "Matrix<T>";
                 yield return clone_decl;
                 yield break;
             }
@@ -514,6 +538,7 @@ namespace Numpy.ApiGenerator
                             }
                             break;
                         case "logspace":
+                        case "linspace":
                         case "geomspace":
                         case "tile":
                         case "delete":
@@ -627,6 +652,10 @@ namespace Numpy.ApiGenerator
                 case "a1, a2, …":
                     arg.Name = "arys";
                     break;
+                case "norm":
+                    if (type == "{None")
+                        return "string";
+                    break;
             }
             switch (type)
             {
@@ -636,6 +665,18 @@ namespace Numpy.ApiGenerator
                 case "np.ndarray": return "NDarray";
                 case "2-D array": return "NDarray";
                 case "1-D array or sequence": return "NDarray";
+                case "(…": return "NDarray";
+                case "(…) array_like": return "NDarray";
+                case "{(…": return "NDarray";
+                case "{ (…": return "NDarray";                    
+                case "(M": return "NDarray";
+                case "{(M": return "NDarray";
+                case "{(N": return "NDarray";
+                case "{(1": return "NDarray";
+                case "(min(M": return "NDarray";
+                case "float or ndarray": return "NDarray";
+                case "(…) array_like of float": return "NDarray";
+                case "complex ndarray": return "NDarray";
                 case "scalar": return "ValueType";
                 case "file": return "string";
                 case "str": return "string";
@@ -651,12 +692,16 @@ namespace Numpy.ApiGenerator
                 case "int or sequence": return "int[]";
                 case "int or sequence of int": return "int[]";
                 case "int or sequence of ints": return "int[]";
+                case "sequence of ints": return "int[]";
                 case "int or array of ints": return "int[]";
                 case "int or tuple of ints": return "int[]";
                 case "None or int or tuple of ints": return "int[]";
                 case "int or 1-D array": return "int[]";
                 case "boolean": return "bool";
                 case "integer": return "int";
+                case "int or None":
+                    arg.IsNullable = true;
+                    return "int";
                 case "Standard Python scalar object": return "T";
                 case "Arguments (variable number and type)": return "params int[]";
                 case "list": return "List<T>";

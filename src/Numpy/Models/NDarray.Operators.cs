@@ -35,17 +35,22 @@ namespace Numpy
             return new NDarray<bool>(a.self.InvokeMethod("__ge__", obj.ToPython()));
         }
 
-        // Return self==value.
-        public static NDarray<bool> operator ==(NDarray a, ValueType obj)
+        /// <summary>
+        /// Returns an array of bool where the elements of the array are == value
+        /// </summary>
+        public static NDarray<bool> equals(NDarray a, ValueType obj)
         {
             return new NDarray<bool>(a.self.InvokeMethod("__eq__", obj.ToPython()));
         }
 
-        // Return self!=value.
-        public static NDarray<bool> operator !=(NDarray a, ValueType obj)
+        /// <summary>
+        /// Returns an array of bool where the elements of the array are == value
+        /// </summary>
+        public static NDarray<bool> not_equals(NDarray a, ValueType obj)
         {
             return new NDarray<bool>(a.self.InvokeMethod("__ne__", obj.ToPython()));
         }
+
 
         //------------------------------
         // Truth value of an array(bool) :
@@ -280,7 +285,7 @@ namespace Numpy
         /// <summary>
         /// Return self&=value.
         /// </summary>
-        public static NDarray iand(NDarray a, int obj)
+        public static NDarray iand(NDarray a, ValueType obj)
         {
             return new NDarray(a.self.InvokeMethod("__iand__", obj.ToPython()));
         }
@@ -288,7 +293,7 @@ namespace Numpy
         /// <summary>
         /// Return self|=value.
         /// </summary>
-        public static NDarray ior(NDarray a, int obj)
+        public static NDarray ior(NDarray a, ValueType obj)
         {
             return new NDarray(a.self.InvokeMethod("__ior__", obj.ToPython()));
         }
@@ -296,7 +301,7 @@ namespace Numpy
         /// <summary>
         /// Return self^=value.
         /// </summary>
-        public static NDarray ixor(NDarray a, int obj)
+        public static NDarray ixor(NDarray a, ValueType obj)
         {
             return new NDarray(a.self.InvokeMethod("__ixor__", obj.ToPython()));
         }
