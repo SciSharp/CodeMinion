@@ -406,6 +406,8 @@ namespace Numpy.ApiGenerator
 
         private void PostProcess(Function decl)
         {
+            if (decl.ClassName=="numpy.fft")
+                decl.ClassName="numpy";
             if (decl.Arguments.Any(a => a.Type == "buffer_like"))
                 decl.CommentOut = true;
             // iterable object            

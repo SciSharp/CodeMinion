@@ -11,6 +11,7 @@ using Numpy.Models;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = NUnit.Framework.Assert;
+using LA = Numpy.np.linalg;
 
 namespace Numpy.UnitTest
 {
@@ -75,6 +76,7 @@ namespace Numpy.UnitTest
             Assert.AreEqual(expected, given.repr);
             #endif
         }
+
         [TestMethod]
         public void detTest()
         {
@@ -84,16 +86,13 @@ namespace Numpy.UnitTest
             // >>> np.linalg.det(a)
             // -2.0
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  a = np.array([[1, 2], [3, 4]]);
-            given=  np.linalg.det(a);
-            expected=
+
+            var  a = np.array(new int[,] {{1, 2}, {3, 4}});
+            var given=  np.linalg.det(a);
+            var expected=
                 "-2.0";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+            Assert.AreEqual(expected, given.repr.Substring(0, 4));
+            
             // Computing determinants for a stack of matrices:
             
             // >>> a = np.array([ [[1, 2], [3, 4]], [[1, 2], [2, 1]], [[1, 3], [3, 1]] ])
@@ -102,21 +101,18 @@ namespace Numpy.UnitTest
             // >>> np.linalg.det(a)
             // array([-2., -3., -8.])
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  a = np.array([ [[1, 2], [3, 4]], [[1, 2], [2, 1]], [[1, 3], [3, 1]] ]);
-            given=  a.shape;
+
+              a = np.array(new int[,,] { { {1, 2}, {3, 4}}, {{1, 2}, {2, 1}}, {{1, 3}, {3, 1}} });
+            var shape=  a.shape;
             expected=
                 "(3, 2, 2)";
-            Assert.AreEqual(expected, given.repr);
+            Assert.AreEqual(expected, shape.ToString());
             given=  np.linalg.det(a);
             expected=
                 "array([-2., -3., -8.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
         }
+
         [TestMethod]
         public void eigTest()
         {
@@ -614,6 +610,7 @@ namespace Numpy.UnitTest
             given=  plt.show();
             #endif
         }
+
         [TestMethod]
         public void normTest()
         {
@@ -627,24 +624,19 @@ namespace Numpy.UnitTest
             //        [-1,  0,  1],
             //        [ 2,  3,  4]])
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  from numpy import linalg as LA;
-            given=  a = np.arange(9) - 4;
-            given=  a;
-            expected=
+            var  a = np.arange(9) - 4;
+            NDarray given=  a;
+            var expected=
                 "array([-4, -3, -2, -1,  0,  1,  2,  3,  4])";
             Assert.AreEqual(expected, given.repr);
-            given=  b = a.reshape((3, 3));
+            var  b = a.reshape(3, 3);
             given=  b;
             expected=
                 "array([[-4, -3, -2],\n" +
                 "       [-1,  0,  1],\n" +
                 "       [ 2,  3,  4]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+
             // >>> LA.norm(a)
             // 7.745966692414834
             // >>> LA.norm(b)
@@ -661,38 +653,14 @@ namespace Numpy.UnitTest
             // 2.0
             // 
             
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  LA.norm(a);
-            expected=
-                "7.745966692414834";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b);
-            expected=
-                "7.745966692414834";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b, 'fro');
-            expected=
-                "7.745966692414834";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(a, np.inf);
-            expected=
-                "4.0";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b, np.inf);
-            expected=
-                "9.0";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(a, -np.inf);
-            expected=
-                "0.0";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b, -np.inf);
-            expected=
-                "2.0";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+            Assert.GreaterOrEqual(7.74596669f, LA.norm(a));
+            Assert.GreaterOrEqual(7.74596669f, LA.norm(b));
+            Assert.GreaterOrEqual(7.74596669f, LA.norm(b, "fro"));
+            Assert.AreEqual(4, LA.norm(a, Constants.inf));
+            Assert.AreEqual(9, LA.norm(b, Constants.inf));
+            Assert.AreEqual(0, LA.norm(a, Constants.neg_inf));
+            Assert.AreEqual(2, LA.norm(b, Constants.neg_inf));
+
             // >>> LA.norm(a, 1)
             // 20.0
             // >>> LA.norm(b, 1)
@@ -706,35 +674,14 @@ namespace Numpy.UnitTest
             // >>> LA.norm(b, 2)
             // 7.3484692283495345
             // 
-            
-            #if TODO
-            object given = null;
-            object expected = null;
-            given=  LA.norm(a, 1);
-            expected=
-                "20.0";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b, 1);
-            expected=
-                "7.0";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(a, -1);
-            expected=
-                "-4.6566128774142013e-010";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b, -1);
-            expected=
-                "6.0";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(a, 2);
-            expected=
-                "7.745966692414834";
-            Assert.AreEqual(expected, given.repr);
-            given=  LA.norm(b, 2);
-            expected=
-                "7.3484692283495345";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+
+            Assert.AreEqual(20, LA.norm(a, 1));
+            Assert.AreEqual(7, LA.norm(b, 1));
+            Assert.GreaterOrEqual(0f, LA.norm(a, -1));
+            Assert.GreaterOrEqual(6, LA.norm(b, -1));
+            Assert.GreaterOrEqual(7.74596669f, LA.norm(a, 2));
+            Assert.GreaterOrEqual(7.34846922f, LA.norm(b, 2));
+
             // >>> LA.norm(a, -2)
             // nan
             // >>> LA.norm(b, -2)
@@ -744,8 +691,8 @@ namespace Numpy.UnitTest
             // >>> LA.norm(a, -3)
             // nan
             // 
-            
-            #if TODO
+
+#if TODO
             object given = null;
             object expected = null;
             given=  LA.norm(a, -2);
@@ -764,9 +711,9 @@ namespace Numpy.UnitTest
             expected=
                 "nan";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // Using the axis argument to compute vector norms:
-            
+
             // >>> c = np.array([[ 1, 2, 3],
             // ...               [-1, 1, 4]])
             // >>> LA.norm(c, axis=0)
@@ -776,8 +723,8 @@ namespace Numpy.UnitTest
             // >>> LA.norm(c, ord=1, axis=1)
             // array([ 6.,  6.])
             // 
-            
-            #if TODO
+
+#if TODO
             object given = null;
             object expected = null;
             given=  c = np.array([[ 1, 2, 3],;
@@ -796,17 +743,17 @@ namespace Numpy.UnitTest
             expected=
                 "array([ 6.,  6.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // Using the axis argument to compute matrix norms:
-            
+
             // >>> m = np.arange(8).reshape(2,2,2)
             // >>> LA.norm(m, axis=(1,2))
             // array([  3.74165739,  11.22497216])
             // >>> LA.norm(m[0, :, :]), LA.norm(m[1, :, :])
             // (3.7416573867739413, 11.224972160321824)
             // 
-            
-            #if TODO
+
+#if TODO
             object given = null;
             object expected = null;
             given=  m = np.arange(8).reshape(2,2,2);
@@ -818,7 +765,7 @@ namespace Numpy.UnitTest
             expected=
                 "(3.7416573867739413, 11.224972160321824)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
         [TestMethod]
         public void pinvTest()

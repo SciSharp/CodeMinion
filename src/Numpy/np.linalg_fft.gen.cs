@@ -16,426 +16,448 @@ namespace Numpy
     public static partial class np
     {
         
-        /// <summary>
-        /// Cholesky decomposition.
-        /// 
-        /// Return the Cholesky decomposition, L * L.H, of the square matrix a,
-        /// where L is lower-triangular and .H is the conjugate transpose operator
-        /// (which is the ordinary transpose if a is real-valued).  a must be
-        /// Hermitian (symmetric if real-valued) and positive-definite.  Only L is
-        /// actually returned.
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// The Cholesky decomposition is often used as a fast way of solving
-        /// 
-        /// (when A is both Hermitian/symmetric and positive-definite).
-        /// 
-        /// First, we solve for  in
-        /// 
-        /// and then for  in
-        /// </summary>
-        /// <param name="a">
-        /// Hermitian (symmetric if all elements are real), positive-definite
-        /// input matrix.
-        /// </param>
-        /// <returns>
-        /// Upper or lower-triangular Cholesky factor of a.  Returns a
-        /// matrix object if a is a matrix object.
-        /// </returns>
-        public static NDarray cholesky(NDarray a)
-            => NumPy.Instance.cholesky(a);
+        public static partial class linalg {
+            /// <summary>
+            /// Cholesky decomposition.
+            /// 
+            /// Return the Cholesky decomposition, L * L.H, of the square matrix a,
+            /// where L is lower-triangular and .H is the conjugate transpose operator
+            /// (which is the ordinary transpose if a is real-valued).  a must be
+            /// Hermitian (symmetric if real-valued) and positive-definite.  Only L is
+            /// actually returned.
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// The Cholesky decomposition is often used as a fast way of solving
+            /// 
+            /// (when A is both Hermitian/symmetric and positive-definite).
+            /// 
+            /// First, we solve for  in
+            /// 
+            /// and then for  in
+            /// </summary>
+            /// <param name="a">
+            /// Hermitian (symmetric if all elements are real), positive-definite
+            /// input matrix.
+            /// </param>
+            /// <returns>
+            /// Upper or lower-triangular Cholesky factor of a.  Returns a
+            /// matrix object if a is a matrix object.
+            /// </returns>
+            public static NDarray cholesky(NDarray a)
+                => NumPy.Instance.cholesky(a);
+        }
         
-        /// <summary>
-        /// Compute the determinant of an array.
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// The determinant is computed via LU factorization using the LAPACK
-        /// routine z/dgetrf.
-        /// </summary>
-        /// <param name="a">
-        /// Input array to compute determinants for.
-        /// </param>
-        /// <returns>
-        /// Determinant of a.
-        /// </returns>
-        public static NDarray det(NDarray a)
-            => NumPy.Instance.det(a);
+        public static partial class linalg {
+            /// <summary>
+            /// Compute the determinant of an array.
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// The determinant is computed via LU factorization using the LAPACK
+            /// routine z/dgetrf.
+            /// </summary>
+            /// <param name="a">
+            /// Input array to compute determinants for.
+            /// </param>
+            /// <returns>
+            /// Determinant of a.
+            /// </returns>
+            public static NDarray det(NDarray a)
+                => NumPy.Instance.det(a);
+        }
         
-        /// <summary>
-        /// Compute the eigenvalues and right eigenvectors of a square array.
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// This is implemented using the _geev LAPACK routines which compute
-        /// the eigenvalues and eigenvectors of general square arrays.
-        /// 
-        /// The number w is an eigenvalue of a if there exists a vector
-        /// v such that dot(a,v) = w * v. Thus, the arrays a, w, and
-        /// v satisfy the equations dot(a[:,:], v[:,i]) = w[i] * v[:,i]
-        /// for .
-        /// 
-        /// The array v of eigenvectors may not be of maximum rank, that is, some
-        /// of the columns may be linearly dependent, although round-off error may
-        /// obscure that fact. If the eigenvalues are all different, then theoretically
-        /// the eigenvectors are linearly independent. Likewise, the (complex-valued)
-        /// matrix of eigenvectors v is unitary if the matrix a is normal, i.e.,
-        /// if dot(a, a.H) = dot(a.H, a), where a.H denotes the conjugate
-        /// transpose of a.
-        /// 
-        /// Finally, it is emphasized that v consists of the right (as in
-        /// right-hand side) eigenvectors of a.  A vector y satisfying
-        /// dot(y.T, a) = z * y.T for some number z is called a left
-        /// eigenvector of a, and, in general, the left and right eigenvectors
-        /// of a matrix are not necessarily the (perhaps conjugate) transposes
-        /// of each other.
-        /// 
-        /// References
-        /// 
-        /// G. Strang, Linear Algebra and Its Applications, 2nd Ed., Orlando, FL,
-        /// Academic Press, Inc., 1980, Various pp.
-        /// </summary>
-        /// <param name="a">
-        /// Matrices for which the eigenvalues and right eigenvectors will
-        /// be computed
-        /// </param>
-        /// <returns>
-        /// A tuple of:
-        /// w
-        /// The eigenvalues, each repeated according to its multiplicity.
-        /// The eigenvalues are not necessarily ordered. The resulting
-        /// array will be of complex type, unless the imaginary part is
-        /// zero in which case it will be cast to a real type. When a
-        /// is real the resulting eigenvalues will be real (0 imaginary
-        /// part) or occur in conjugate pairs
-        /// v
-        /// The normalized (unit “length”) eigenvectors, such that the
-        /// column v[:,i] is the eigenvector corresponding to the
-        /// eigenvalue w[i].
-        /// </returns>
-        public static (NDarray, NDarray) eig(NDarray a)
-            => NumPy.Instance.eig(a);
+        public static partial class linalg {
+            /// <summary>
+            /// Compute the eigenvalues and right eigenvectors of a square array.
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// This is implemented using the _geev LAPACK routines which compute
+            /// the eigenvalues and eigenvectors of general square arrays.
+            /// 
+            /// The number w is an eigenvalue of a if there exists a vector
+            /// v such that dot(a,v) = w * v. Thus, the arrays a, w, and
+            /// v satisfy the equations dot(a[:,:], v[:,i]) = w[i] * v[:,i]
+            /// for .
+            /// 
+            /// The array v of eigenvectors may not be of maximum rank, that is, some
+            /// of the columns may be linearly dependent, although round-off error may
+            /// obscure that fact. If the eigenvalues are all different, then theoretically
+            /// the eigenvectors are linearly independent. Likewise, the (complex-valued)
+            /// matrix of eigenvectors v is unitary if the matrix a is normal, i.e.,
+            /// if dot(a, a.H) = dot(a.H, a), where a.H denotes the conjugate
+            /// transpose of a.
+            /// 
+            /// Finally, it is emphasized that v consists of the right (as in
+            /// right-hand side) eigenvectors of a.  A vector y satisfying
+            /// dot(y.T, a) = z * y.T for some number z is called a left
+            /// eigenvector of a, and, in general, the left and right eigenvectors
+            /// of a matrix are not necessarily the (perhaps conjugate) transposes
+            /// of each other.
+            /// 
+            /// References
+            /// 
+            /// G. Strang, Linear Algebra and Its Applications, 2nd Ed., Orlando, FL,
+            /// Academic Press, Inc., 1980, Various pp.
+            /// </summary>
+            /// <param name="a">
+            /// Matrices for which the eigenvalues and right eigenvectors will
+            /// be computed
+            /// </param>
+            /// <returns>
+            /// A tuple of:
+            /// w
+            /// The eigenvalues, each repeated according to its multiplicity.
+            /// The eigenvalues are not necessarily ordered. The resulting
+            /// array will be of complex type, unless the imaginary part is
+            /// zero in which case it will be cast to a real type. When a
+            /// is real the resulting eigenvalues will be real (0 imaginary
+            /// part) or occur in conjugate pairs
+            /// v
+            /// The normalized (unit “length”) eigenvectors, such that the
+            /// column v[:,i] is the eigenvector corresponding to the
+            /// eigenvalue w[i].
+            /// </returns>
+            public static (NDarray, NDarray) eig(NDarray a)
+                => NumPy.Instance.eig(a);
+        }
         
-        /// <summary>
-        /// Return the eigenvalues and eigenvectors of a complex Hermitian
-        /// (conjugate symmetric) or a real symmetric matrix.
-        /// 
-        /// Returns two objects, a 1-D array containing the eigenvalues of a, and
-        /// a 2-D square array or matrix (depending on the input type) of the
-        /// corresponding eigenvectors (in columns).
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// The eigenvalues/eigenvectors are computed using LAPACK routines _syevd,
-        /// _heevd
-        /// 
-        /// The eigenvalues of real symmetric or complex Hermitian matrices are
-        /// always real. [1] The array v of (column) eigenvectors is unitary
-        /// and a, w, and v satisfy the equations
-        /// dot(a, v[:, i]) = w[i] * v[:, i].
-        /// 
-        /// References
-        /// </summary>
-        /// <param name="a">
-        /// Hermitian or real symmetric matrices whose eigenvalues and
-        /// eigenvectors are to be computed.
-        /// </param>
-        /// <param name="UPLO">
-        /// Specifies whether the calculation is done with the lower triangular
-        /// part of a (‘L’, default) or the upper triangular part (‘U’).
-        /// Irrespective of this value only the real parts of the diagonal will
-        /// be considered in the computation to preserve the notion of a Hermitian
-        /// matrix. It therefore follows that the imaginary part of the diagonal
-        /// will always be treated as zero.
-        /// </param>
-        /// <returns>
-        /// A tuple of:
-        /// w
-        /// The eigenvalues in ascending order, each repeated according to
-        /// its multiplicity.
-        /// v
-        /// The column v[:, i] is the normalized eigenvector corresponding
-        /// to the eigenvalue w[i].  Will return a matrix object if a is
-        /// a matrix object.
-        /// </returns>
-        public static (NDarray, NDarray) eigh(NDarray a, string UPLO = null)
-            => NumPy.Instance.eigh(a, UPLO:UPLO);
+        public static partial class linalg {
+            /// <summary>
+            /// Return the eigenvalues and eigenvectors of a complex Hermitian
+            /// (conjugate symmetric) or a real symmetric matrix.
+            /// 
+            /// Returns two objects, a 1-D array containing the eigenvalues of a, and
+            /// a 2-D square array or matrix (depending on the input type) of the
+            /// corresponding eigenvectors (in columns).
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// The eigenvalues/eigenvectors are computed using LAPACK routines _syevd,
+            /// _heevd
+            /// 
+            /// The eigenvalues of real symmetric or complex Hermitian matrices are
+            /// always real. [1] The array v of (column) eigenvectors is unitary
+            /// and a, w, and v satisfy the equations
+            /// dot(a, v[:, i]) = w[i] * v[:, i].
+            /// 
+            /// References
+            /// </summary>
+            /// <param name="a">
+            /// Hermitian or real symmetric matrices whose eigenvalues and
+            /// eigenvectors are to be computed.
+            /// </param>
+            /// <param name="UPLO">
+            /// Specifies whether the calculation is done with the lower triangular
+            /// part of a (‘L’, default) or the upper triangular part (‘U’).
+            /// Irrespective of this value only the real parts of the diagonal will
+            /// be considered in the computation to preserve the notion of a Hermitian
+            /// matrix. It therefore follows that the imaginary part of the diagonal
+            /// will always be treated as zero.
+            /// </param>
+            /// <returns>
+            /// A tuple of:
+            /// w
+            /// The eigenvalues in ascending order, each repeated according to
+            /// its multiplicity.
+            /// v
+            /// The column v[:, i] is the normalized eigenvector corresponding
+            /// to the eigenvalue w[i].  Will return a matrix object if a is
+            /// a matrix object.
+            /// </returns>
+            public static (NDarray, NDarray) eigh(NDarray a, string UPLO = null)
+                => NumPy.Instance.eigh(a, UPLO:UPLO);
+        }
         
-        /// <summary>
-        /// Compute the eigenvalues of a general matrix.
-        /// 
-        /// Main difference between eigvals and eig: the eigenvectors aren’t
-        /// returned.
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// This is implemented using the _geev LAPACK routines which compute
-        /// the eigenvalues and eigenvectors of general square arrays.
-        /// </summary>
-        /// <param name="a">
-        /// A complex- or real-valued matrix whose eigenvalues will be computed.
-        /// </param>
-        /// <returns>
-        /// The eigenvalues, each repeated according to its multiplicity.
-        /// They are not necessarily ordered, nor are they necessarily
-        /// real for real matrices.
-        /// </returns>
-        public static NDarray eigvals(NDarray a)
-            => NumPy.Instance.eigvals(a);
+        public static partial class linalg {
+            /// <summary>
+            /// Compute the eigenvalues of a general matrix.
+            /// 
+            /// Main difference between eigvals and eig: the eigenvectors aren’t
+            /// returned.
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// This is implemented using the _geev LAPACK routines which compute
+            /// the eigenvalues and eigenvectors of general square arrays.
+            /// </summary>
+            /// <param name="a">
+            /// A complex- or real-valued matrix whose eigenvalues will be computed.
+            /// </param>
+            /// <returns>
+            /// The eigenvalues, each repeated according to its multiplicity.
+            /// They are not necessarily ordered, nor are they necessarily
+            /// real for real matrices.
+            /// </returns>
+            public static NDarray eigvals(NDarray a)
+                => NumPy.Instance.eigvals(a);
+        }
         
-        /// <summary>
-        /// Compute the eigenvalues of a complex Hermitian or real symmetric matrix.
-        /// 
-        /// Main difference from eigh: the eigenvectors are not computed.
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// The eigenvalues are computed using LAPACK routines _syevd, _heevd
-        /// </summary>
-        /// <param name="a">
-        /// A complex- or real-valued matrix whose eigenvalues are to be
-        /// computed.
-        /// </param>
-        /// <param name="UPLO">
-        /// Specifies whether the calculation is done with the lower triangular
-        /// part of a (‘L’, default) or the upper triangular part (‘U’).
-        /// Irrespective of this value only the real parts of the diagonal will
-        /// be considered in the computation to preserve the notion of a Hermitian
-        /// matrix. It therefore follows that the imaginary part of the diagonal
-        /// will always be treated as zero.
-        /// </param>
-        /// <returns>
-        /// The eigenvalues in ascending order, each repeated according to
-        /// its multiplicity.
-        /// </returns>
-        public static NDarray eigvalsh(NDarray a, string UPLO = null)
-            => NumPy.Instance.eigvalsh(a, UPLO:UPLO);
+        public static partial class linalg {
+            /// <summary>
+            /// Compute the eigenvalues of a complex Hermitian or real symmetric matrix.
+            /// 
+            /// Main difference from eigh: the eigenvectors are not computed.
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// The eigenvalues are computed using LAPACK routines _syevd, _heevd
+            /// </summary>
+            /// <param name="a">
+            /// A complex- or real-valued matrix whose eigenvalues are to be
+            /// computed.
+            /// </param>
+            /// <param name="UPLO">
+            /// Specifies whether the calculation is done with the lower triangular
+            /// part of a (‘L’, default) or the upper triangular part (‘U’).
+            /// Irrespective of this value only the real parts of the diagonal will
+            /// be considered in the computation to preserve the notion of a Hermitian
+            /// matrix. It therefore follows that the imaginary part of the diagonal
+            /// will always be treated as zero.
+            /// </param>
+            /// <returns>
+            /// The eigenvalues in ascending order, each repeated according to
+            /// its multiplicity.
+            /// </returns>
+            public static NDarray eigvalsh(NDarray a, string UPLO = null)
+                => NumPy.Instance.eigvalsh(a, UPLO:UPLO);
+        }
         
-        /// <summary>
-        /// Compute the (multiplicative) inverse of a matrix.
-        /// 
-        /// Given a square matrix a, return the matrix ainv satisfying
-        /// dot(a, ainv) = dot(ainv, a) = eye(a.shape[0]).
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// </summary>
-        /// <param name="a">
-        /// Matrix to be inverted.
-        /// </param>
-        /// <returns>
-        /// (Multiplicative) inverse of the matrix a.
-        /// </returns>
-        public static NDarray inv(NDarray a)
-            => NumPy.Instance.inv(a);
+        public static partial class linalg {
+            /// <summary>
+            /// Compute the (multiplicative) inverse of a matrix.
+            /// 
+            /// Given a square matrix a, return the matrix ainv satisfying
+            /// dot(a, ainv) = dot(ainv, a) = eye(a.shape[0]).
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// </summary>
+            /// <param name="a">
+            /// Matrix to be inverted.
+            /// </param>
+            /// <returns>
+            /// (Multiplicative) inverse of the matrix a.
+            /// </returns>
+            public static NDarray inv(NDarray a)
+                => NumPy.Instance.inv(a);
+        }
         
-        /// <summary>
-        /// Return the least-squares solution to a linear matrix equation.
-        /// 
-        /// Solves the equation a x = b by computing a vector x that
-        /// minimizes the Euclidean 2-norm || b - a x ||^2.  The equation may
-        /// be under-, well-, or over- determined (i.e., the number of
-        /// linearly independent rows of a can be less than, equal to, or
-        /// greater than its number of linearly independent columns).  If a
-        /// is square and of full rank, then x (but for round-off error) is
-        /// the “exact” solution of the equation.
-        /// 
-        /// Notes
-        /// 
-        /// If b is a matrix, then all array results are returned as matrices.
-        /// </summary>
-        /// <param name="a">
-        /// “Coefficient” matrix.
-        /// </param>
-        /// <param name="b">
-        /// Ordinate or “dependent variable” values. If b is two-dimensional,
-        /// the least-squares solution is calculated for each of the K columns
-        /// of b.
-        /// </param>
-        /// <param name="rcond">
-        /// Cut-off ratio for small singular values of a.
-        /// For the purposes of rank determination, singular values are treated
-        /// as zero if they are smaller than rcond times the largest singular
-        /// value of a.
-        /// </param>
-        /// <returns>
-        /// A tuple of:
-        /// x
-        /// Least-squares solution. If b is two-dimensional,
-        /// the solutions are in the K columns of x.
-        /// residuals
-        /// Sums of residuals; squared Euclidean 2-norm for each column in
-        /// b - a*x.
-        /// If the rank of a is &lt; N or M &lt;= N, this is an empty array.
-        /// If b is 1-dimensional, this is a (1,) shape array.
-        /// Otherwise the shape is (K,).
-        /// rank
-        /// Rank of matrix a.
-        /// s
-        /// Singular values of a.
-        /// </returns>
-        public static (NDarray, NDarray, int, NDarray) lstsq(NDarray a, NDarray b, float? rcond = null)
-            => NumPy.Instance.lstsq(a, b, rcond:rcond);
+        public static partial class linalg {
+            /// <summary>
+            /// Return the least-squares solution to a linear matrix equation.
+            /// 
+            /// Solves the equation a x = b by computing a vector x that
+            /// minimizes the Euclidean 2-norm || b - a x ||^2.  The equation may
+            /// be under-, well-, or over- determined (i.e., the number of
+            /// linearly independent rows of a can be less than, equal to, or
+            /// greater than its number of linearly independent columns).  If a
+            /// is square and of full rank, then x (but for round-off error) is
+            /// the “exact” solution of the equation.
+            /// 
+            /// Notes
+            /// 
+            /// If b is a matrix, then all array results are returned as matrices.
+            /// </summary>
+            /// <param name="a">
+            /// “Coefficient” matrix.
+            /// </param>
+            /// <param name="b">
+            /// Ordinate or “dependent variable” values. If b is two-dimensional,
+            /// the least-squares solution is calculated for each of the K columns
+            /// of b.
+            /// </param>
+            /// <param name="rcond">
+            /// Cut-off ratio for small singular values of a.
+            /// For the purposes of rank determination, singular values are treated
+            /// as zero if they are smaller than rcond times the largest singular
+            /// value of a.
+            /// </param>
+            /// <returns>
+            /// A tuple of:
+            /// x
+            /// Least-squares solution. If b is two-dimensional,
+            /// the solutions are in the K columns of x.
+            /// residuals
+            /// Sums of residuals; squared Euclidean 2-norm for each column in
+            /// b - a*x.
+            /// If the rank of a is &lt; N or M &lt;= N, this is an empty array.
+            /// If b is 1-dimensional, this is a (1,) shape array.
+            /// Otherwise the shape is (K,).
+            /// rank
+            /// Rank of matrix a.
+            /// s
+            /// Singular values of a.
+            /// </returns>
+            public static (NDarray, NDarray, int, NDarray) lstsq(NDarray a, NDarray b, float? rcond = null)
+                => NumPy.Instance.lstsq(a, b, rcond:rcond);
+        }
         
-        /// <summary>
-        /// Compute the (Moore-Penrose) pseudo-inverse of a matrix.
-        /// 
-        /// Calculate the generalized inverse of a matrix using its
-        /// singular-value decomposition (SVD) and including all
-        /// large singular values.
-        /// 
-        /// Notes
-        /// 
-        /// The pseudo-inverse of a matrix A, denoted , is
-        /// defined as: “the matrix that ‘solves’ [the least-squares problem]
-        /// ,” i.e., if  is said solution, then
-        ///  is that matrix such that .
-        /// 
-        /// It can be shown that if  is the singular
-        /// value decomposition of A, then
-        /// , where  are
-        /// orthogonal matrices,  is a diagonal matrix consisting
-        /// of A’s so-called singular values, (followed, typically, by
-        /// zeros), and then  is simply the diagonal matrix
-        /// consisting of the reciprocals of A’s singular values
-        /// (again, followed by zeros). [1]
-        /// 
-        /// References
-        /// </summary>
-        /// <param name="a">
-        /// Matrix or stack of matrices to be pseudo-inverted.
-        /// </param>
-        /// <param name="rcond">
-        /// Cutoff for small singular values.
-        /// Singular values smaller (in modulus) than
-        /// rcond * largest_singular_value (again, in modulus)
-        /// are set to zero. Broadcasts against the stack of matrices
-        /// </param>
-        /// <returns>
-        /// The pseudo-inverse of a. If a is a matrix instance, then so
-        /// is B.
-        /// </returns>
-        public static NDarray pinv(NDarray a, NDarray rcond)
-            => NumPy.Instance.pinv(a, rcond);
+        public static partial class linalg {
+            /// <summary>
+            /// Compute the (Moore-Penrose) pseudo-inverse of a matrix.
+            /// 
+            /// Calculate the generalized inverse of a matrix using its
+            /// singular-value decomposition (SVD) and including all
+            /// large singular values.
+            /// 
+            /// Notes
+            /// 
+            /// The pseudo-inverse of a matrix A, denoted , is
+            /// defined as: “the matrix that ‘solves’ [the least-squares problem]
+            /// ,” i.e., if  is said solution, then
+            ///  is that matrix such that .
+            /// 
+            /// It can be shown that if  is the singular
+            /// value decomposition of A, then
+            /// , where  are
+            /// orthogonal matrices,  is a diagonal matrix consisting
+            /// of A’s so-called singular values, (followed, typically, by
+            /// zeros), and then  is simply the diagonal matrix
+            /// consisting of the reciprocals of A’s singular values
+            /// (again, followed by zeros). [1]
+            /// 
+            /// References
+            /// </summary>
+            /// <param name="a">
+            /// Matrix or stack of matrices to be pseudo-inverted.
+            /// </param>
+            /// <param name="rcond">
+            /// Cutoff for small singular values.
+            /// Singular values smaller (in modulus) than
+            /// rcond * largest_singular_value (again, in modulus)
+            /// are set to zero. Broadcasts against the stack of matrices
+            /// </param>
+            /// <returns>
+            /// The pseudo-inverse of a. If a is a matrix instance, then so
+            /// is B.
+            /// </returns>
+            public static NDarray pinv(NDarray a, NDarray rcond)
+                => NumPy.Instance.pinv(a, rcond);
+        }
         
-        /// <summary>
-        /// Solve a linear matrix equation, or system of linear scalar equations.
-        /// 
-        /// Computes the “exact” solution, x, of the well-determined, i.e., full
-        /// rank, linear matrix equation ax = b.
-        /// 
-        /// Notes
-        /// 
-        /// Broadcasting rules apply, see the numpy.linalg documentation for
-        /// details.
-        /// 
-        /// The solutions are computed using LAPACK routine _gesv
-        /// 
-        /// a must be square and of full-rank, i.e., all rows (or, equivalently,
-        /// columns) must be linearly independent; if either is not true, use
-        /// lstsq for the least-squares best “solution” of the
-        /// system/equation.
-        /// 
-        /// References
-        /// </summary>
-        /// <param name="a">
-        /// Coefficient matrix.
-        /// </param>
-        /// <param name="b">
-        /// Ordinate or “dependent variable” values.
-        /// </param>
-        /// <returns>
-        /// Solution to the system a x = b.  Returned shape is identical to b.
-        /// </returns>
-        public static NDarray solve(NDarray a, NDarray b)
-            => NumPy.Instance.solve(a, b);
+        public static partial class linalg {
+            /// <summary>
+            /// Solve a linear matrix equation, or system of linear scalar equations.
+            /// 
+            /// Computes the “exact” solution, x, of the well-determined, i.e., full
+            /// rank, linear matrix equation ax = b.
+            /// 
+            /// Notes
+            /// 
+            /// Broadcasting rules apply, see the numpy.linalg documentation for
+            /// details.
+            /// 
+            /// The solutions are computed using LAPACK routine _gesv
+            /// 
+            /// a must be square and of full-rank, i.e., all rows (or, equivalently,
+            /// columns) must be linearly independent; if either is not true, use
+            /// lstsq for the least-squares best “solution” of the
+            /// system/equation.
+            /// 
+            /// References
+            /// </summary>
+            /// <param name="a">
+            /// Coefficient matrix.
+            /// </param>
+            /// <param name="b">
+            /// Ordinate or “dependent variable” values.
+            /// </param>
+            /// <returns>
+            /// Solution to the system a x = b.  Returned shape is identical to b.
+            /// </returns>
+            public static NDarray solve(NDarray a, NDarray b)
+                => NumPy.Instance.solve(a, b);
+        }
         
-        /// <summary>
-        /// Singular Value Decomposition.
-        /// 
-        /// When a is a 2D array, it is factorized as u &#64; np.diag(s) &#64; vh
-        /// = (u * s) &#64; vh, where u and vh are 2D unitary arrays and s is a 1D
-        /// array of a’s singular values. When a is higher-dimensional, SVD is
-        /// applied in stacked mode as explained below.
-        /// 
-        /// Notes
-        /// 
-        /// The decomposition is performed using LAPACK routine _gesdd.
-        /// 
-        /// SVD is usually described for the factorization of a 2D matrix .
-        /// The higher-dimensional case will be discussed below. In the 2D case, SVD is
-        /// written as , where , ,
-        ///  and . The 1D array s
-        /// contains the singular values of a and u and vh are unitary. The rows
-        /// of vh are the eigenvectors of  and the columns of u are
-        /// the eigenvectors of . In both cases the corresponding
-        /// (possibly non-zero) eigenvalues are given by s**2.
-        /// 
-        /// If a has more than two dimensions, then broadcasting rules apply, as
-        /// explained in Linear algebra on several matrices at once. This means that SVD is
-        /// working in “stacked” mode: it iterates over all indices of the first
-        /// a.ndim - 2 dimensions and for each combination SVD is applied to the
-        /// last two indices. The matrix a can be reconstructed from the
-        /// decomposition with either (u * s[..., None, :]) &#64; vh or
-        /// u &#64; (s[..., None] * vh). (The &#64; operator can be replaced by the
-        /// function np.matmul for python versions below 3.5.)
-        /// 
-        /// If a is a matrix object (as opposed to an ndarray), then so are
-        /// all the return values.
-        /// </summary>
-        /// <param name="a">
-        /// A real or complex array with a.ndim &gt;= 2.
-        /// </param>
-        /// <param name="full_matrices">
-        /// If True (default), u and vh have the shapes (..., M, M) and
-        /// (..., N, N), respectively.  Otherwise, the shapes are
-        /// (..., M, K) and (..., K, N), respectively, where
-        /// K = min(M, N).
-        /// </param>
-        /// <param name="compute_uv">
-        /// Whether or not to compute u and vh in addition to s.  True
-        /// by default.
-        /// </param>
-        /// <returns>
-        /// A tuple of:
-        /// u
-        /// Unitary array(s). The first a.ndim - 2 dimensions have the same
-        /// size as those of the input a. The size of the last two dimensions
-        /// depends on the value of full_matrices. Only returned when
-        /// compute_uv is True.
-        /// s
-        /// Vector(s) with the singular values, within each vector sorted in
-        /// descending order. The first a.ndim - 2 dimensions have the same
-        /// size as those of the input a.
-        /// vh
-        /// Unitary array(s). The first a.ndim - 2 dimensions have the same
-        /// size as those of the input a. The size of the last two dimensions
-        /// depends on the value of full_matrices. Only returned when
-        /// compute_uv is True.
-        /// </returns>
-        public static (NDarray, NDarray, NDarray) svd(NDarray a, bool? full_matrices = null, bool? compute_uv = null)
-            => NumPy.Instance.svd(a, full_matrices:full_matrices, compute_uv:compute_uv);
+        public static partial class linalg {
+            /// <summary>
+            /// Singular Value Decomposition.
+            /// 
+            /// When a is a 2D array, it is factorized as u &#64; np.diag(s) &#64; vh
+            /// = (u * s) &#64; vh, where u and vh are 2D unitary arrays and s is a 1D
+            /// array of a’s singular values. When a is higher-dimensional, SVD is
+            /// applied in stacked mode as explained below.
+            /// 
+            /// Notes
+            /// 
+            /// The decomposition is performed using LAPACK routine _gesdd.
+            /// 
+            /// SVD is usually described for the factorization of a 2D matrix .
+            /// The higher-dimensional case will be discussed below. In the 2D case, SVD is
+            /// written as , where , ,
+            ///  and . The 1D array s
+            /// contains the singular values of a and u and vh are unitary. The rows
+            /// of vh are the eigenvectors of  and the columns of u are
+            /// the eigenvectors of . In both cases the corresponding
+            /// (possibly non-zero) eigenvalues are given by s**2.
+            /// 
+            /// If a has more than two dimensions, then broadcasting rules apply, as
+            /// explained in Linear algebra on several matrices at once. This means that SVD is
+            /// working in “stacked” mode: it iterates over all indices of the first
+            /// a.ndim - 2 dimensions and for each combination SVD is applied to the
+            /// last two indices. The matrix a can be reconstructed from the
+            /// decomposition with either (u * s[..., None, :]) &#64; vh or
+            /// u &#64; (s[..., None] * vh). (The &#64; operator can be replaced by the
+            /// function np.matmul for python versions below 3.5.)
+            /// 
+            /// If a is a matrix object (as opposed to an ndarray), then so are
+            /// all the return values.
+            /// </summary>
+            /// <param name="a">
+            /// A real or complex array with a.ndim &gt;= 2.
+            /// </param>
+            /// <param name="full_matrices">
+            /// If True (default), u and vh have the shapes (..., M, M) and
+            /// (..., N, N), respectively.  Otherwise, the shapes are
+            /// (..., M, K) and (..., K, N), respectively, where
+            /// K = min(M, N).
+            /// </param>
+            /// <param name="compute_uv">
+            /// Whether or not to compute u and vh in addition to s.  True
+            /// by default.
+            /// </param>
+            /// <returns>
+            /// A tuple of:
+            /// u
+            /// Unitary array(s). The first a.ndim - 2 dimensions have the same
+            /// size as those of the input a. The size of the last two dimensions
+            /// depends on the value of full_matrices. Only returned when
+            /// compute_uv is True.
+            /// s
+            /// Vector(s) with the singular values, within each vector sorted in
+            /// descending order. The first a.ndim - 2 dimensions have the same
+            /// size as those of the input a.
+            /// vh
+            /// Unitary array(s). The first a.ndim - 2 dimensions have the same
+            /// size as those of the input a. The size of the last two dimensions
+            /// depends on the value of full_matrices. Only returned when
+            /// compute_uv is True.
+            /// </returns>
+            public static (NDarray, NDarray, NDarray) svd(NDarray a, bool? full_matrices = null, bool? compute_uv = null)
+                => NumPy.Instance.svd(a, full_matrices:full_matrices, compute_uv:compute_uv);
+        }
         
         /// <summary>
         /// Compute the one-dimensional discrete Fourier Transform.

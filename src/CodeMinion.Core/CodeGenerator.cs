@@ -101,6 +101,16 @@ namespace CodeMinion.Core
                 Debugger.Break();
             if (decl.CommentOut)
                 s.Out("/*");
+            var class_names = (decl.ClassName ?? "no_name").Split('.');
+            int levels = class_names.Length - 1;
+            if (levels > 0)
+            {
+                foreach (var name in class_names.Skip(1))
+                {
+                    s.Out($"public static partial class {EscapeName(name)} {{");
+                    s.Indent();
+                }
+            }
             GenerateDocString(decl, s);
             var retval = GenerateReturnType(decl);
             switch (decl)
@@ -118,6 +128,14 @@ namespace CodeMinion.Core
                     s.Indent(() => s.Out(
                         $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)};"));
                     break;
+            }
+            if (levels > 0)
+            {
+                foreach (var name in class_names.Skip(1))
+                {
+                    s.Outdent();
+                    s.Out("}");
+                }
             }
             if (decl.CommentOut)
                 s.Out("*/");
@@ -230,7 +248,7 @@ namespace CodeMinion.Core
             }
             else
             {
-                return "(" + string.Join(", ", decl.Returns.Select(x=>x.Type).ToArray()) + ")";
+                return "(" + string.Join(", ", decl.Returns.Select(x => x.Type).ToArray()) + ")";
             }
         }
 
@@ -315,6 +333,21 @@ namespace CodeMinion.Core
                 _templates[func.Name].GenerateBody(func, s);
                 return;
             }
+
+            var class_names = (func.ClassName ?? "no_name").Split('.');
+            int levels = class_names.Length - 1;
+            if (levels < 1)
+                s.Out("var __self__=self;");
+            else
+            {
+                var last = "self";
+                foreach (var name in class_names.Skip(1))
+                {
+                    s.Out($"var {EscapeName(name)} = {last}.GetAttr(\"{name}\");");
+                    last = name;
+                }
+                s.Out($"var __self__={last};");
+            }
             if (func.Arguments.Any())
             {
                 // first generate the positional args
@@ -338,12 +371,12 @@ namespace CodeMinion.Core
                     s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                 }
                 // then call the function
-                s.Out($"dynamic py = self.InvokeMethod(\"{func.Name}\", pyargs, kwargs);");
+                s.Out($"dynamic py = __self__.InvokeMethod(\"{func.Name}\", pyargs, kwargs);");
             }
             else
             {
                 // call function with no arguments
-                s.Out($"dynamic py = self.InvokeMethod(\"{func.Name}\");");
+                s.Out($"dynamic py = __self__.InvokeMethod(\"{func.Name}\");");
             }
             // return the return value if any
             if (func.Returns.Count == 0)

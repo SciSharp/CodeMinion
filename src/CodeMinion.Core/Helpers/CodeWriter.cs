@@ -50,6 +50,22 @@ namespace CodeMinion.Core.Helpers
         /// <summary>
         /// Increase the level of indentation
         /// </summary>
+        public void Indent()
+        {
+             _level++;
+        }
+
+        /// <summary>
+        /// Decrease the level of indentation
+        /// </summary>
+        public void Outdent()
+        {
+            _level--;
+        }
+
+        /// <summary>
+        /// Increase the level of indentation for the generator action, then outdent
+        /// </summary>
         public void Indent(Action a)
         {
             _level++;

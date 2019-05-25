@@ -49,12 +49,14 @@ namespace Numpy
         public NDarray cholesky(NDarray a)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("cholesky", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("cholesky", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -78,12 +80,14 @@ namespace Numpy
         public NDarray det(NDarray a)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("det", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("det", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -144,12 +148,14 @@ namespace Numpy
         public (NDarray, NDarray) eig(NDarray a)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("eig", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("eig", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]));
         }
@@ -202,13 +208,15 @@ namespace Numpy
         public (NDarray, NDarray) eigh(NDarray a, string UPLO = null)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
             if (UPLO!=null) kwargs["UPLO"]=ToPython(UPLO);
-            dynamic py = self.InvokeMethod("eigh", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("eigh", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]));
         }
@@ -238,12 +246,14 @@ namespace Numpy
         public NDarray eigvals(NDarray a)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("eigvals", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("eigvals", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -278,13 +288,15 @@ namespace Numpy
         public NDarray eigvalsh(NDarray a, string UPLO = null)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
             if (UPLO!=null) kwargs["UPLO"]=ToPython(UPLO);
-            dynamic py = self.InvokeMethod("eigvalsh", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("eigvalsh", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -308,12 +320,14 @@ namespace Numpy
         public NDarray inv(NDarray a)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("inv", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("inv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -365,6 +379,8 @@ namespace Numpy
         public (NDarray, NDarray, int, NDarray) lstsq(NDarray a, NDarray b, float? rcond = null)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -372,7 +388,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (rcond!=null) kwargs["rcond"]=ToPython(rcond);
-            dynamic py = self.InvokeMethod("lstsq", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("lstsq", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<int>(t[2]), ToCsharp<NDarray>(t[3]));
         }
@@ -418,13 +434,15 @@ namespace Numpy
         public NDarray pinv(NDarray a, NDarray rcond)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
                 rcond,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("pinv", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("pinv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -460,13 +478,15 @@ namespace Numpy
         public NDarray solve(NDarray a, NDarray b)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
                 b,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("solve", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("solve", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -536,6 +556,8 @@ namespace Numpy
         public (NDarray, NDarray, NDarray) svd(NDarray a, bool? full_matrices = null, bool? compute_uv = null)
         {
             //auto-generated code, do not change
+            var linalg = self.GetAttr("linalg");
+            var __self__=linalg;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -543,7 +565,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (full_matrices!=null) kwargs["full_matrices"]=ToPython(full_matrices);
             if (compute_uv!=null) kwargs["compute_uv"]=ToPython(compute_uv);
-            dynamic py = self.InvokeMethod("svd", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("svd", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<NDarray>(t[2]));
         }
@@ -590,6 +612,7 @@ namespace Numpy
         public NDarray fft(NDarray a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -598,7 +621,7 @@ namespace Numpy
             if (n!=null) kwargs["n"]=ToPython(n);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fft", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -644,6 +667,7 @@ namespace Numpy
         public NDarray<T> fft<T>(T[] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -652,7 +676,7 @@ namespace Numpy
             if (n!=null) kwargs["n"]=ToPython(n);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fft", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fft", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -698,6 +722,7 @@ namespace Numpy
         public NDarray<T> fft<T>(T[,] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -706,7 +731,7 @@ namespace Numpy
             if (n!=null) kwargs["n"]=ToPython(n);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fft", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fft", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -759,6 +784,7 @@ namespace Numpy
         public NDarray fft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -767,7 +793,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fft2", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fft2", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -820,6 +846,7 @@ namespace Numpy
         public NDarray<T> fft2<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -828,7 +855,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fft2", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fft2", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -881,6 +908,7 @@ namespace Numpy
         public NDarray<T> fft2<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -889,7 +917,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fft2", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fft2", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -939,6 +967,7 @@ namespace Numpy
         public NDarray fftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -947,7 +976,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fftn", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fftn", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -997,6 +1026,7 @@ namespace Numpy
         public NDarray<T> fftn<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1005,7 +1035,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fftn", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fftn", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1055,6 +1085,7 @@ namespace Numpy
         public NDarray<T> fftn<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1063,7 +1094,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("fftn", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fftn", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1114,6 +1145,7 @@ namespace Numpy
         public NDarray ifft(NDarray a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1122,7 +1154,7 @@ namespace Numpy
             if (n!=null) kwargs["n"]=ToPython(n);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifft", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -1173,6 +1205,7 @@ namespace Numpy
         public NDarray<T> ifft<T>(T[] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1181,7 +1214,7 @@ namespace Numpy
             if (n!=null) kwargs["n"]=ToPython(n);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifft", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifft", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1232,6 +1265,7 @@ namespace Numpy
         public NDarray<T> ifft<T>(T[,] a, int? n = null, int? axis = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1240,7 +1274,7 @@ namespace Numpy
             if (n!=null) kwargs["n"]=ToPython(n);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifft", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifft", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1299,6 +1333,7 @@ namespace Numpy
         public NDarray ifft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1307,7 +1342,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifft2", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifft2", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -1366,6 +1401,7 @@ namespace Numpy
         public NDarray<T> ifft2<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1374,7 +1410,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifft2", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifft2", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1433,6 +1469,7 @@ namespace Numpy
         public NDarray<T> ifft2<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1441,7 +1478,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifft2", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifft2", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1499,6 +1536,7 @@ namespace Numpy
         public NDarray ifftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 a,
@@ -1507,7 +1545,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifftn", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifftn", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -1565,6 +1603,7 @@ namespace Numpy
         public NDarray<T> ifftn<T>(T[] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1573,7 +1612,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifftn", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifftn", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1631,6 +1670,7 @@ namespace Numpy
         public NDarray<T> ifftn<T>(T[,] a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(a),
@@ -1639,7 +1679,7 @@ namespace Numpy
             if (s!=null) kwargs["s"]=ToPython(s);
             if (axes!=null) kwargs["axes"]=ToPython(axes);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
-            dynamic py = self.InvokeMethod("ifftn", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("ifftn", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1670,12 +1710,13 @@ namespace Numpy
         public NDarray i0(NDarray x)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 x,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("i0", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("i0", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -1706,12 +1747,13 @@ namespace Numpy
         public NDarray<T> i0<T>(T[] x)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(x),
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("i0", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("i0", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         
@@ -1742,12 +1784,13 @@ namespace Numpy
         public NDarray<T> i0<T>(T[,] x)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 SharpToSharp<NDarray>(x),
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("i0", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("i0", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
         

@@ -38,12 +38,13 @@ namespace Numpy
         public T item<T>(params int[] args)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 args,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("item", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("item", pyargs, kwargs);
             return ToCsharp<T>(py);
         }
         
@@ -63,7 +64,8 @@ namespace Numpy
         public List<T> tolist<T>()
         {
             //auto-generated code, do not change
-            dynamic py = self.InvokeMethod("tolist");
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("tolist");
             return ToCsharp<List<T>>(py);
         }
         
@@ -104,6 +106,7 @@ namespace Numpy
         public void tofile(string fid, string sep, string format)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 fid,
@@ -111,7 +114,7 @@ namespace Numpy
                 format,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("tofile", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("tofile", pyargs, kwargs);
         }
         
         /// <summary>
@@ -124,12 +127,13 @@ namespace Numpy
         public void dump(string file)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 file,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("dump", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("dump", pyargs, kwargs);
         }
         
         /// <summary>
@@ -139,7 +143,8 @@ namespace Numpy
         public void dumps()
         {
             //auto-generated code, do not change
-            dynamic py = self.InvokeMethod("dumps");
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("dumps");
         }
         
         /// <summary>
@@ -186,6 +191,7 @@ namespace Numpy
         public NDarray astype(Dtype dtype, string order = null, string casting = null, bool? subok = null, bool? copy = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 dtype,
@@ -195,7 +201,7 @@ namespace Numpy
             if (casting!=null) kwargs["casting"]=ToPython(casting);
             if (subok!=null) kwargs["subok"]=ToPython(subok);
             if (copy!=null) kwargs["copy"]=ToPython(copy);
-            dynamic py = self.InvokeMethod("astype", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("astype", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -215,12 +221,13 @@ namespace Numpy
         public NDarray byteswap(bool? inplace = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
             });
             var kwargs=new PyDict();
             if (inplace!=null) kwargs["inplace"]=ToPython(inplace);
-            dynamic py = self.InvokeMethod("byteswap", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("byteswap", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -238,12 +245,13 @@ namespace Numpy
         public void copy(string order = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
             });
             var kwargs=new PyDict();
             if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("copy", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("copy", pyargs, kwargs);
         }
         
         /// <summary>
@@ -266,13 +274,14 @@ namespace Numpy
         public void getfield(Dtype dtype, int offset)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 dtype,
                 offset,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("getfield", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("getfield", pyargs, kwargs);
         }
         
         /// <summary>
@@ -321,6 +330,7 @@ namespace Numpy
         public void setflags(bool? write = null, bool? align = null, bool? uic = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
             });
@@ -328,7 +338,7 @@ namespace Numpy
             if (write!=null) kwargs["write"]=ToPython(write);
             if (align!=null) kwargs["align"]=ToPython(align);
             if (uic!=null) kwargs["uic"]=ToPython(uic);
-            dynamic py = self.InvokeMethod("setflags", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("setflags", pyargs, kwargs);
         }
         
         /// <summary>
@@ -340,12 +350,13 @@ namespace Numpy
         public void fill(ValueType @value)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 @value,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("fill", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("fill", pyargs, kwargs);
         }
         
         /// <summary>
@@ -365,12 +376,13 @@ namespace Numpy
         public NDarray transpose(int[] axes = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 axes,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("transpose", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("transpose", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -392,12 +404,13 @@ namespace Numpy
         public NDarray flatten(string order = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
             });
             var kwargs=new PyDict();
             if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("flatten", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("flatten", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -425,6 +438,7 @@ namespace Numpy
         public void sort(int? axis = null, string kind = null, string order = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
             });
@@ -432,7 +446,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (kind!=null) kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("sort", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("sort", pyargs, kwargs);
         }
         
         /// <summary>
@@ -471,6 +485,7 @@ namespace Numpy
         public void partition(int[] kth, int? axis = null, string kind = null, string order = null)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 kth,
@@ -479,7 +494,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (kind!=null) kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
-            dynamic py = self.InvokeMethod("partition", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("partition", pyargs, kwargs);
         }
         
         /// <summary>
@@ -497,6 +512,7 @@ namespace Numpy
         public void __setstate__(int version, Shape shape, Dtype dtype, bool isFortran, string rawdata)
         {
             //auto-generated code, do not change
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 version,
@@ -506,7 +522,7 @@ namespace Numpy
                 rawdata,
             });
             var kwargs=new PyDict();
-            dynamic py = self.InvokeMethod("__setstate__", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("__setstate__", pyargs, kwargs);
         }
         
         /// <summary>

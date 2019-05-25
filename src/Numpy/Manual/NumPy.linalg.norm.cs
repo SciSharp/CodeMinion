@@ -65,7 +65,8 @@ namespace Numpy
             if (ord != null) kwargs["ord"] = ToPython(ord);
             if (axis != null) kwargs["axis"] = ToPython(axis);
             if (keepdims != null) kwargs["keepdims"] = ToPython(keepdims);
-            dynamic py = self.InvokeMethod("norm", pyargs, kwargs);
+            var linalg = self.GetAttr("linalg");
+            dynamic py = linalg.InvokeMethod("norm", pyargs, kwargs);
             return ToCsharp <NDarray> (py);
         }
         
@@ -74,9 +75,9 @@ namespace Numpy
             var pyargs = ToTuple(new object[] { x, });
             var kwargs = new PyDict();
             if (ord != null) kwargs["ord"] = ToPython(ord);
-            //if (axis != null) kwargs["axis"] = ToPython(axis);
-            //if (keepdims != null) kwargs["keepdims"] = ToPython(keepdims);
-            dynamic py = self.InvokeMethod("norm", pyargs, kwargs);
+            var linalg = self.GetAttr("linalg");
+            dynamic py = linalg.InvokeMethod("norm", pyargs, kwargs);
+
             return ToCsharp<float>(py);
         }
 
@@ -85,9 +86,8 @@ namespace Numpy
             var pyargs = ToTuple(new object[] { x, });
             var kwargs = new PyDict();
             if (ord != null) kwargs["ord"] = ToPython(ord);
-            //if (axis != null) kwargs["axis"] = ToPython(axis);
-            //if (keepdims != null) kwargs["keepdims"] = ToPython(keepdims);
-            dynamic py = self.InvokeMethod("norm", pyargs, kwargs);
+            var linalg = self.GetAttr("linalg");
+            dynamic py = linalg.InvokeMethod("norm", pyargs, kwargs);
             return ToCsharp<float>(py);
         }
 
@@ -98,10 +98,9 @@ namespace Numpy
 
             var pyargs = ToTuple(new object[] { x, });
             var kwargs = new PyDict();
-            if (ord != null) kwargs["ord"] = ord==Constants.inf ? self.inf : self.neg_inf;
-            //if (axis != null) kwargs["axis"] = ToPython(axis);
-            //if (keepdims != null) kwargs["keepdims"] = ToPython(keepdims);
-            dynamic py = self.InvokeMethod("norm", pyargs, kwargs);
+            if (ord != null) kwargs["ord"] = ord==Constants.inf ? self.inf : -(self.inf);
+            var linalg = self.GetAttr("linalg");
+            dynamic py = linalg.InvokeMethod("norm", pyargs, kwargs);
             return ToCsharp<float>(py);
         }
 
