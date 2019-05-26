@@ -40,7 +40,7 @@ namespace Numpy.ApiGenerator
     //Random sampling(numpy.random)
     //Set routines
     // [x] Sorting, searching, and counting
-    //Statistics
+    // [x] Statistics
     //Test Support(numpy.testing)
     //Window functions
 
@@ -56,7 +56,7 @@ namespace Numpy.ApiGenerator
 
             _generator = new CodeGenerator
             {
-                //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
+                CopyrightNotice = "Copyright (c) 2019 by the SciSharp Team",
                 NameSpace = "Numpy",
                 StaticApiFilesPath = Path.Combine(src_dir, "Numpy"),
                 TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
@@ -166,6 +166,12 @@ namespace Numpy.ApiGenerator
             var sorting_api = new StaticApi() { PartialName = "sorting", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(sorting_api);
             ParseNumpyApi(sorting_api, "routines.sort.html");
+            // ----------------------------------------------------
+            // Statistics
+            // ----------------------------------------------------
+            var staticstics_api = new StaticApi() { PartialName = "staticstics", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(staticstics_api);
+            ParseNumpyApi(staticstics_api, "routines.statistics.html");
 
             // ----------------------------------------------------
             // generate all
@@ -419,6 +425,11 @@ namespace Numpy.ApiGenerator
                 arg.DefaultValue = "null";
                 return;
             }
+            if (arg.Name == "out")
+            {
+                arg.IsNullable = true;
+                arg.IsNamedArg = true;
+            }
             if (arg.Name.StartsWith("*"))
                 arg.Name = arg.Name.TrimStart('*');
             switch (arg.Type)
@@ -454,12 +465,19 @@ namespace Numpy.ApiGenerator
             for (int i = decl.Arguments.Count - 1; i >= 0; i--)
             {
                 var arg = decl.Arguments[i];
-                if (!arg.Name.Contains(","))
+                if (arg.Type == "_NoValue")
+                {
+                    decl.Arguments.RemoveAt(i);
                     continue;
-                var names = arg.Name.Split(',').Select(x => x.Trim()).ToArray();
-                arg.Name = names[0];
-                decl.Arguments.Insert(i + 1, decl.Arguments[i].Clone());
-                decl.Arguments[i].Name = names[1];
+                }
+                if (arg.Name.Contains(","))
+                {
+                    var names = arg.Name.Split(',').Select(x => x.Trim()).ToArray();
+                    arg.Name = names[0];
+                    decl.Arguments.Insert(i + 1, decl.Arguments[i].Clone());
+                    decl.Arguments[i].Name = names[1];
+                    continue;
+                }
             }
             switch (decl.Name)
             {
@@ -500,13 +518,16 @@ namespace Numpy.ApiGenerator
                     if (decl.Returns.Count == 0)
                         decl.Returns.Add(new Argument() { Type = "bool", Name = "retval", IsReturnValue = true });
                     break;
-                //case "diff":
-                //    decl.Arguments[3].Name = "prepend";
-                //    decl.Arguments[3].Type = "NDarray";
-                //    decl.Arguments[3].IsNamedArg = true;
-                //    decl.Arguments[3].IsValueType = false;
-                //    decl.Arguments.Add(new Argument() { Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true, IsReturnValue = true });
-                //    break;
+                case "correlate":
+                    decl.Arguments.Remove(decl.Arguments.FirstOrDefault(x => x.Name == "old_behavior"));
+                    break;
+                    //case "diff":
+                    //    decl.Arguments[3].Name = "prepend";
+                    //    decl.Arguments[3].Type = "NDarray";
+                    //    decl.Arguments[3].IsNamedArg = true;
+                    //    decl.Arguments[3].IsValueType = false;
+                    //    decl.Arguments.Add(new Argument() { Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true, IsReturnValue = true });
+                    //    break;
             }
         }
 
@@ -571,7 +592,92 @@ namespace Numpy.ApiGenerator
                 case "sort":
                     decl.Arguments.FirstOrDefault(x => x.Name == "axis").DefaultValue = "-1";
                     break;
-
+                case "percentile":
+                case "nanpercentile":
+                case "quantile":
+                case "nanquantile":
+                case "median":
+                case "average":
+                case "mean":
+                case "std":
+                case "var":
+                case "nanmedian":
+                case "nanmean":
+                case "nanstd":
+                case "nanvar":
+                    {
+                        decl.Arguments[0].Type = "NDarray";
+                        decl.Returns[0].Type = "NDarray<double>";
+                        var interpol = decl.Arguments.FirstOrDefault(x => x.Name == "interpolation");
+                        if (interpol != null)
+                        {
+                            interpol.DefaultValue = "\"linear\"";
+                            interpol.IsNamedArg = true;
+                        }
+                        var weights = decl.Arguments.FirstOrDefault(x => x.Name == "weights");
+                        if (weights != null)
+                        {
+                            weights.Type = "NDarray";
+                            weights.IsNamedArg = true;
+                            weights.IsNullable = true;
+                        }
+                        //decl.Generics=new string[]{"T"};
+                        decl.Arguments.FirstOrDefault(x => x.Name == "axis").IsNullable = false; // make axis mandatory
+                        yield return decl;
+                        var clone = decl.Clone<Function>();
+                        clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "axis"));
+                        //clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "out"));
+                        clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "keepdims"));
+                        clone.Returns[0].Type = "double";
+                        yield return clone;
+                        yield break;
+                    }
+                    break;
+                case "histogram":
+                case "histogram2d":
+                case "histogramdd":
+                case "histogram_bin_edges":
+                    {
+                        decl.Arguments[0].Type = "NDarray";
+                        if (decl.Returns.Count > 1)
+                        {
+                            decl.Returns[1].Type = "NDarray";
+                            decl.Generics = null;
+                        }
+                        var bins = decl.Arguments.FirstOrDefault(x => x.Name == "bins");
+                        if (bins != null)
+                        {
+                            bins.Type = "int";
+                            bins.IsNamedArg = true;
+                        }
+                        var range = decl.Arguments.FirstOrDefault(x => x.Name == "range");
+                        if (range != null)
+                        {
+                            range.Type = "(float, float)";
+                            range.IsNamedArg = true;
+                            range.IsValueType = true;
+                            range.IsNullable = true;
+                        }
+                        var weights = decl.Arguments.FirstOrDefault(x => x.Name == "weights");
+                        if (weights != null)
+                        {
+                            weights.Type = "NDarray";
+                            weights.IsNamedArg = true;
+                            weights.IsNullable = true;
+                        }
+                        var y = decl.Arguments.FirstOrDefault(x => x.Name == "y");
+                        if (y != null)
+                            y.Type = "NDarray";
+                        yield return decl;
+                        var clone1 = decl.Clone<Function>();
+                        clone1.Arguments.First(x => x.Name == "bins").Type="NDarray";
+                        yield return clone1;
+                        var clone2 = decl.Clone<Function>();
+                        clone2.Arguments.First(x => x.Name == "bins").Type = "List<string>";
+                        yield return clone2;
+                        yield break;
+                    }
+                    break;
             }
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
@@ -778,10 +884,14 @@ namespace Numpy.ApiGenerator
                 case "(…) array_like of float":
                 case "complex ndarray":
                 case "1-D array_like":
+                case "scalar or ndarray":
                     return "NDarray";
                 case "array of ints searchsorted(1-D array_like":
                 case "array of ints":
                     return "NDarray<int>";
+                case "array_like of float":
+                case "array of dtype float":
+                    return "NDarray<float>";
                 case "scalar":
                     if (!arg.IsReturnValue)
                         return "ValueType"; // <-- this actually doesn't quite work if it is a return value. conversion to ValueType fails needs generic overloads
@@ -808,7 +918,8 @@ namespace Numpy.ApiGenerator
                 case "int or 1-D array":
                     return "int[]";
                 case "boolean": return "bool";
-                case "integer": return "int";
+                case "integer":
+                    return "int";
                 case "int or None":
                     arg.IsNullable = true;
                     return "int";
