@@ -29,7 +29,7 @@ namespace Numpy.ApiGenerator
     //NumPy-specific help functions
     //Indexing routines
     //Input and output
-    //Linear algebra(numpy.linalg)
+    // [x] Linear algebra(numpy.linalg)
     // [x] Logic functions
     //Masked array operations
     // [x] Mathematical functions
@@ -154,6 +154,12 @@ namespace Numpy.ApiGenerator
             var math_api = new StaticApi() { PartialName = "math", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(math_api);
             ParseNumpyApi(math_api, "routines.math.html");
+            // ----------------------------------------------------
+            // Linear Algebra
+            // ----------------------------------------------------
+            var linalg_api = new StaticApi() { PartialName = "linalg", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(linalg_api);
+            ParseNumpyApi(linalg_api, "routines.linalg.html");
             // ----------------------------------------------------
             // Logic functions
             // ----------------------------------------------------
@@ -508,9 +514,12 @@ namespace Numpy.ApiGenerator
                 case "bmat":
                 case "block":
                 case "interp":
+                case "einsum_path":
+                case "cond":
                     decl.CommentOut = true;
                     break;
                 case "require":
+                case "tensordot":
                     if (decl.Returns.Count == 0)
                         decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array", IsReturnValue = true });
                     break;
@@ -518,16 +527,19 @@ namespace Numpy.ApiGenerator
                     if (decl.Returns.Count == 0)
                         decl.Returns.Add(new Argument() { Type = "bool", Name = "retval", IsReturnValue = true });
                     break;
+                case "matrix_rank":
+                    if (decl.Returns.Count == 0)
+                        decl.Returns.Add(new Argument() { Type = "int", Name = "retval", IsReturnValue = true });
+                    break;
                 case "correlate":
                     decl.Arguments.Remove(decl.Arguments.FirstOrDefault(x => x.Name == "old_behavior"));
                     break;
-                    //case "diff":
-                    //    decl.Arguments[3].Name = "prepend";
-                    //    decl.Arguments[3].Type = "NDarray";
-                    //    decl.Arguments[3].IsNamedArg = true;
-                    //    decl.Arguments[3].IsValueType = false;
-                    //    decl.Arguments.Add(new Argument() { Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true, IsReturnValue = true });
-                    //    break;
+                case "einsum":
+                    decl.Arguments.First(x => x.Name == "optimize").Type = "object";
+                    break;
+                //case "cond":
+                //    decl.Returns[0].Type = "float";
+                //    break;
             }
         }
 
@@ -545,7 +557,9 @@ namespace Numpy.ApiGenerator
                 if (arg.Name == null || arg.Name.ToLower() == "none")
                     continue;
                 var type_description = dt.Descendants("span")
-                    .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
+                    .FirstOrDefault(span => span.Attributes["class"]?.Value == "classifier")?.InnerText;
+                if (type_description == null)
+                    continue;
                 var type = type_description.Split(",").FirstOrDefault();
                 arg.Type = InferType(type, arg);
                 var dd = dt.NextSibling?.NextSibling;
@@ -670,7 +684,7 @@ namespace Numpy.ApiGenerator
                             y.Type = "NDarray";
                         yield return decl;
                         var clone1 = decl.Clone<Function>();
-                        clone1.Arguments.First(x => x.Name == "bins").Type="NDarray";
+                        clone1.Arguments.First(x => x.Name == "bins").Type = "NDarray";
                         yield return clone1;
                         var clone2 = decl.Clone<Function>();
                         clone2.Arguments.First(x => x.Name == "bins").Type = "List<string>";
@@ -894,7 +908,9 @@ namespace Numpy.ApiGenerator
                     return "NDarray<float>";
                 case "scalar":
                     if (!arg.IsReturnValue)
-                        return "ValueType"; // <-- this actually doesn't quite work if it is a return value. conversion to ValueType fails needs generic overloads
+                        return "ValueType";
+                    else
+                        return "T";
                     break;
                 case "file": return "string";
                 case "str": return "string";
@@ -926,6 +942,7 @@ namespace Numpy.ApiGenerator
                 case "Standard Python scalar object": return "T";
                 case "Arguments (variable number and type)": return "params int[]";
                 case "list": return "List<T>";
+                // NDarray[]
                 case "list of arrays":
                 case "array_likes":
                 case "sequence of arrays":
@@ -934,6 +951,7 @@ namespace Numpy.ApiGenerator
                 case "sequence of 1-D or 2-D arrays.":
                 case "list of ndarrays":
                 case "tuple":
+                case "list of array_like":
                     return "NDarray[]";
                 case "slice": return "Slice";
             }
