@@ -334,10 +334,10 @@ namespace Numpy
         /// allclose(a, b) to evaluate to True.  The same is true for
         /// equal but not array_equal.
         /// </summary>
-        /// <param name="a">
+        /// <param name="b">
         /// Input arrays to compare.
         /// </param>
-        /// <param name="b">
+        /// <param name="a">
         /// Input arrays to compare.
         /// </param>
         /// <param name="rtol">
@@ -354,8 +354,8 @@ namespace Numpy
         /// Returns True if the two arrays are equal within the given
         /// tolerance; False otherwise.
         /// </returns>
-        public static bool allclose(NDarray a, NDarray b, float rtol, float atol, bool equal_nan)
-            => NumPy.Instance.allclose(a, b, rtol, atol, equal_nan);
+        public static bool allclose(NDarray b, NDarray a, float rtol, float atol, bool equal_nan)
+            => NumPy.Instance.allclose(b, a, rtol, atol, equal_nan);
         
         /// <summary>
         /// Returns a boolean array where two arrays are element-wise equal within a
@@ -381,10 +381,10 @@ namespace Numpy
         /// atol should be carefully selected for the use case at hand. A zero value
         /// for atol will result in False if either a or b is zero.
         /// </summary>
-        /// <param name="a">
+        /// <param name="b">
         /// Input arrays to compare.
         /// </param>
-        /// <param name="b">
+        /// <param name="a">
         /// Input arrays to compare.
         /// </param>
         /// <param name="rtol">
@@ -402,23 +402,23 @@ namespace Numpy
         /// given tolerance. If both a and b are scalars, returns a single
         /// boolean value.
         /// </returns>
-        public static NDarray isclose(NDarray a, NDarray b, float rtol, float atol, bool equal_nan)
-            => NumPy.Instance.isclose(a, b, rtol, atol, equal_nan);
+        public static NDarray isclose(NDarray b, NDarray a, float rtol, float atol, bool equal_nan)
+            => NumPy.Instance.isclose(b, a, rtol, atol, equal_nan);
         
         /// <summary>
         /// True if two arrays have the same shape and elements, False otherwise.
         /// </summary>
-        /// <param name="a">
+        /// <param name="a2">
         /// Input arrays.
         /// </param>
-        /// <param name="b">
+        /// <param name="a1">
         /// Input arrays.
         /// </param>
         /// <returns>
         /// Returns True if the arrays are equal.
         /// </returns>
-        public static bool array_equal(NDarray a, NDarray b)
-            => NumPy.Instance.array_equal(a, b);
+        public static bool array_equal(NDarray a2, NDarray a1)
+            => NumPy.Instance.array_equal(a2, a1);
         
         /// <summary>
         /// Returns True if input arrays are shape consistent and all elements equal.
@@ -426,17 +426,17 @@ namespace Numpy
         /// Shape consistent means they are either the same shape, or one input array
         /// can be broadcasted to create the same shape as the other one.
         /// </summary>
-        /// <param name="a">
+        /// <param name="a2">
         /// Input arrays.
         /// </param>
-        /// <param name="b">
+        /// <param name="a1">
         /// Input arrays.
         /// </param>
         /// <returns>
         /// True if equivalent, False otherwise.
         /// </returns>
-        public static bool array_equiv(NDarray a, NDarray b)
-            => NumPy.Instance.array_equiv(a, b);
+        public static bool array_equiv(NDarray a2, NDarray a1)
+            => NumPy.Instance.array_equiv(a2, a1);
         
         
     }

@@ -368,7 +368,10 @@ namespace CodeMinion.Core
                 foreach (var arg in func.Arguments.Where(a => a.IsNamedArg == true))
                 {
                     var name = EscapeName(arg.Name);
-                    s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                    if (string.IsNullOrWhiteSpace(arg.DefaultValue))
+                        s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                    else
+                        s.Out($"if ({name}!={arg.DefaultValue}) kwargs[\"{arg.Name}\"]=ToPython({name});");
                 }
                 // then call the function
                 s.Out($"dynamic py = __self__.InvokeMethod(\"{func.Name}\", pyargs, kwargs);");
@@ -814,7 +817,7 @@ namespace CodeMinion.Core
             s.Out("//auto-generated");
             s.Out("protected PyObject ToPython(object obj)", () =>
             {
-                s.Out("if (obj == null) return null;");
+                s.Out("if (obj == null) return new PyObject( Runtime.PyNone);");
                 s.Out("switch (obj)", () =>
                 {
                     s.Out("// basic types");

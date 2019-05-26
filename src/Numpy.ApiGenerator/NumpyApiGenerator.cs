@@ -39,7 +39,7 @@ namespace Numpy.ApiGenerator
     //Polynomials
     //Random sampling(numpy.random)
     //Set routines
-    //Sorting, searching, and counting
+    // [x] Sorting, searching, and counting
     //Statistics
     //Test Support(numpy.testing)
     //Window functions
@@ -58,7 +58,7 @@ namespace Numpy.ApiGenerator
             {
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Numpy",
-                StaticApiFilesPath =  Path.Combine(src_dir, "Numpy"),
+                StaticApiFilesPath = Path.Combine(src_dir, "Numpy"),
                 TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
                 Usings = { "using Numpy.Models;" },
                 ToPythonConversions = {
@@ -127,7 +127,7 @@ namespace Numpy.ApiGenerator
             // ----------------------------------------------------
             // array manipulation
             // ----------------------------------------------------
-            var array_manipulation_api = new StaticApi() { PartialName = "array_manipulation", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy",  };
+            var array_manipulation_api = new StaticApi() { PartialName = "array_manipulation", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(array_manipulation_api);
             ParseNumpyApi(array_manipulation_api, "routines.array-manipulation.html");
             // ----------------------------------------------------
@@ -160,8 +160,13 @@ namespace Numpy.ApiGenerator
             var logic_api = new StaticApi() { PartialName = "logic", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(logic_api);
             ParseNumpyApi(logic_api, "routines.logic.html");
+            // ----------------------------------------------------
+            // Sorting, searching, and counting
+            // ----------------------------------------------------
+            var sorting_api = new StaticApi() { PartialName = "sorting", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(sorting_api);
+            ParseNumpyApi(sorting_api, "routines.sort.html");
 
-            
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -184,6 +189,13 @@ namespace Numpy.ApiGenerator
                     .First(x => x.Attributes["class"]?.Value == "descclassname").InnerText;
                 var func_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descname").InnerText;
+                // do not generate the following:
+                switch (func_name)
+                {
+                    case "sort":
+                    case "partition":
+                        continue;
+                }
                 var decl = new Function() { Name = func_name, ClassName = class_name.TrimEnd('.') };
                 // function description
                 var dd = dl.Descendants("dd").FirstOrDefault();
@@ -241,7 +253,7 @@ namespace Numpy.ApiGenerator
                 if (parsed_api_functions.Contains(func_name))
                     continue;
                 parsed_api_functions.Add(func_name);
-                var decl = new Function() { Tag=link, Name = func_name, ClassName = class_name.TrimEnd('.') };
+                var decl = new Function() { Tag = link, Name = func_name, ClassName = class_name.TrimEnd('.') };
                 // function description
                 var dd = dl.Descendants("dd").FirstOrDefault();
                 decl.Description = ParseDescription(dd);
@@ -286,7 +298,7 @@ namespace Numpy.ApiGenerator
         }
 
         private TestCase ParseTests(HtmlDocument doc, Function decl)
-        {            
+        {
             int i = 0;
             var dd = doc.DocumentNode.Descendants("dd").FirstOrDefault();
             if (dd == null)
@@ -301,9 +313,9 @@ namespace Numpy.ApiGenerator
             {
                 if (element.Name == "p")
                 {
-                    var text = HtmlEntity.DeEntitize(element.InnerText??"").Trim();
+                    var text = HtmlEntity.DeEntitize(element.InnerText ?? "").Trim();
                     if (!string.IsNullOrWhiteSpace(text))
-                        testcase.TestParts.Add(new Comment() { Text =  text});
+                        testcase.TestParts.Add(new Comment() { Text = text });
                     continue;
                 }
                 var pre = element.Descendants("pre").FirstOrDefault();
@@ -312,7 +324,7 @@ namespace Numpy.ApiGenerator
                     //Debugger.Break();
                     continue;
                 }
-                var part = new ExampleCode() { Text = HtmlEntity.DeEntitize( pre.InnerText) };
+                var part = new ExampleCode() { Text = HtmlEntity.DeEntitize(pre.InnerText) };
                 //&gt; &gt; &gt; np.eye(2, dtype = int)
                 //array([[1, 0],
                 //       [0, 1]])
@@ -325,7 +337,7 @@ namespace Numpy.ApiGenerator
                 {
                     if (line.StartsWith(">>>"))
                     {
-                        part.Lines.Add(new CodeLine() { Text = { line.Replace(">>>", "")}, Type = "cmd" });
+                        part.Lines.Add(new CodeLine() { Text = { line.Replace(">>>", "") }, Type = "cmd" });
                         continue;
                     }
                     if (line.StartsWith("#"))
@@ -333,7 +345,7 @@ namespace Numpy.ApiGenerator
                         part.Lines.Add(new CodeLine() { Text = { line.Replace("#", "//") }, Type = "comment" });
                         continue;
                     }
-                    if (part.Lines.Count==0 || part.Lines.Last().Type!="output")
+                    if (part.Lines.Count == 0 || part.Lines.Last().Type != "output")
                         part.Lines.Add(new CodeLine() { Text = { line }, Type = "output" });
                     else
                         part.Lines.Last().Text.Add(line);
@@ -360,7 +372,7 @@ namespace Numpy.ApiGenerator
                 return;
             foreach (var dt in tr.Descendants("dt"))
             {
-                var arg = new Argument() { Tag=decl.Tag };
+                var arg = new Argument() { Tag = decl.Tag };
                 var strong = dt.Descendants("strong").FirstOrDefault();
                 if (strong == null)
                     continue;
@@ -423,7 +435,7 @@ namespace Numpy.ApiGenerator
 
         private void PostProcess(Function decl)
         {
-            if (decl.ClassName=="numpy.fft")
+            if (decl.ClassName == "numpy.fft")
                 decl.GeneratedClassName = "numpy.FFT";
             if (decl.Arguments.Any(a => a.Type == "buffer_like"))
                 decl.CommentOut = true;
@@ -438,11 +450,16 @@ namespace Numpy.ApiGenerator
             {
                 decl.Generics = new string[] { "T" };
             }
-            if (decl.Arguments.Count>0 && (decl.Arguments[0].Name == "a, b" || decl.Arguments[0].Name== "a1, a2")) // allclose etc ...
+            // split combined arguments: NDarray x, y => NDarray x, NDarray y
+            for (int i = decl.Arguments.Count - 1; i >= 0; i--)
             {
-                decl.Arguments[0].Name = "a";
-                decl.Arguments.Insert(1, decl.Arguments[0].Clone());
-                decl.Arguments[1].Name = "b";
+                var arg = decl.Arguments[i];
+                if (!arg.Name.Contains(","))
+                    continue;
+                var names = arg.Name.Split(',').Select(x => x.Trim()).ToArray();
+                arg.Name = names[0];
+                decl.Arguments.Insert(i + 1, decl.Arguments[i].Clone());
+                decl.Arguments[i].Name = names[1];
             }
             switch (decl.Name)
             {
@@ -481,15 +498,15 @@ namespace Numpy.ApiGenerator
                     break;
                 case "isfortran":
                     if (decl.Returns.Count == 0)
-                        decl.Returns.Add(new Argument() { Type = "bool", Name = "retval", IsReturnValue = true});
+                        decl.Returns.Add(new Argument() { Type = "bool", Name = "retval", IsReturnValue = true });
                     break;
-                case "diff":
-                    decl.Arguments[3].Name = "prepend";
-                    decl.Arguments[3].Type = "NDarray";
-                    decl.Arguments[3].IsNamedArg = true;
-                    decl.Arguments[3].IsValueType = false;
-                    decl.Arguments.Add(new Argument(){ Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true, IsReturnValue = true });
-                    break;
+                //case "diff":
+                //    decl.Arguments[3].Name = "prepend";
+                //    decl.Arguments[3].Type = "NDarray";
+                //    decl.Arguments[3].IsNamedArg = true;
+                //    decl.Arguments[3].IsValueType = false;
+                //    decl.Arguments.Add(new Argument() { Name = "append", Type = "NDarray", IsNamedArg = true, IsValueType = false, IsNullable = true, IsReturnValue = true });
+                //    break;
             }
         }
 
@@ -504,7 +521,7 @@ namespace Numpy.ApiGenerator
                 var strong = dt.Descendants("strong").FirstOrDefault();
                 if (strong != null)
                     arg.Name = strong.InnerText;
-                if (arg.Name==null || arg.Name.ToLower() == "none")
+                if (arg.Name == null || arg.Name.ToLower() == "none")
                     continue;
                 var type_description = dt.Descendants("span")
                     .First(span => span.Attributes["class"]?.Value == "classifier").InnerText;
@@ -526,17 +543,35 @@ namespace Numpy.ApiGenerator
                     yield break;
                 case "all":
                 case "any":
-                    decl.Arguments[0].Type = "NDarray";
-                    decl.Returns[0].Type = "NDarray<bool>";
-                    decl.Arguments.FirstOrDefault(x => x.Name == "axis").IsNullable = false; // make axis mandatory
-                    yield return decl;
-                    var clone = decl.Clone<Function>();
-                    clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "axis"));
-                    clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "out"));
-                    clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "keepdims"));
-                    clone.Returns[0].Type = "bool";
-                    yield return clone;
-                    yield break;
+                    {
+                        decl.Arguments[0].Type = "NDarray";
+                        decl.Returns[0].Type = "NDarray<bool>";
+                        decl.Arguments.FirstOrDefault(x => x.Name == "axis").IsNullable = false; // make axis mandatory
+                        yield return decl;
+                        var clone = decl.Clone<Function>();
+                        clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "axis"));
+                        clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "out"));
+                        clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "keepdims"));
+                        clone.Returns[0].Type = "bool";
+                        yield return clone;
+                        yield break;
+                    }
+                case "count_nonzero":
+                    {
+                        decl.Arguments[0].Type = "NDarray";
+                        decl.Returns[0].Type = "NDarray<int>";
+                        decl.Arguments.FirstOrDefault(x => x.Name == "axis").IsNullable = false; // make axis mandatory
+                        yield return decl;
+                        var clone = decl.Clone<Function>();
+                        clone.Arguments.Remove(clone.Arguments.FirstOrDefault(x => x.Name == "axis"));
+                        clone.Returns[0].Type = "int";
+                        yield return clone;
+                        yield break;
+                    }
+                case "sort":
+                    decl.Arguments.FirstOrDefault(x => x.Name == "axis").DefaultValue = "-1";
+                    break;
+
             }
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
@@ -571,7 +606,7 @@ namespace Numpy.ApiGenerator
                 if (arg.Type == "array_like")
                 {
                     arg.Type = "NDarray";
-                    if (arg.Tag!= "routines.array-creation.html")
+                    if (arg.Tag != "routines.array-creation.html")
                         continue;
                     switch (decl.Name)
                     {
@@ -720,26 +755,33 @@ namespace Numpy.ApiGenerator
             {
                 case "data-type": return "Dtype";
                 case "matrix": return "Matrix";
-                case "ndarray": return "NDarray";
-                case "np.ndarray": return "NDarray";
-                case "2-D array": return "NDarray";
-                case "1-D array or sequence": return "NDarray";
-                case "(…": return "NDarray";
-                case "(…) array_like": return "NDarray";
-                case "{(…": return "NDarray";
-                case "{ (…": return "NDarray";                    
-                case "(M": return "NDarray";
-                case "(N": return "NDarray";
-                case "{(M": return "NDarray";
-                case "{(N": return "NDarray";
-                case "{(1": return "NDarray";
-                case "(min(M": return "NDarray";
-                case "list of scalar or array": return "NDarray";
-                case "scalar or array_like or None": return "NDarray";
-                case "scalar or array_like": return "NDarray";
-                case "float or ndarray": return "NDarray";
-                case "(…) array_like of float": return "NDarray";
-                case "complex ndarray": return "NDarray";
+                case "array":
+                case "ndarray":
+                case "np.ndarray":
+                case "2-D array":
+                case "1-D array or sequence":
+                case "(…":
+                case "(…) array_like":
+                case "{(…":
+                case "{ (…":
+                case "(M":
+                case "(N":
+                case "(k":
+                case "{(M":
+                case "{(N":
+                case "{(1":
+                case "(min(M":
+                case "list of scalar or array":
+                case "scalar or array_like or None":
+                case "scalar or array_like":
+                case "float or ndarray":
+                case "(…) array_like of float":
+                case "complex ndarray":
+                case "1-D array_like":
+                    return "NDarray";
+                case "array of ints searchsorted(1-D array_like":
+                case "array of ints":
+                    return "NDarray<int>";
                 case "scalar":
                     if (!arg.IsReturnValue)
                         return "ValueType"; // <-- this actually doesn't quite work if it is a return value. conversion to ValueType fails needs generic overloads
@@ -755,14 +797,16 @@ namespace Numpy.ApiGenerator
                 case "any": return "object";
                 case "iterable object": return "IEnumerable<T>";
                 case "dict": return "Hashtable";
-                case "int or sequence": return "int[]";
-                case "int or sequence of int": return "int[]";
-                case "int or sequence of ints": return "int[]";
-                case "sequence of ints": return "int[]";
-                case "int or array of ints": return "int[]";
-                case "int or tuple of ints": return "int[]";
-                case "None or int or tuple of ints": return "int[]";
-                case "int or 1-D array": return "int[]";
+                case "int or tuple":
+                case "int or sequence":
+                case "int or sequence of int":
+                case "int or sequence of ints":
+                case "sequence of ints":
+                case "int or array of ints":
+                case "int or tuple of ints":
+                case "None or int or tuple of ints":
+                case "int or 1-D array":
+                    return "int[]";
                 case "boolean": return "bool";
                 case "integer": return "int";
                 case "int or None":
@@ -771,13 +815,15 @@ namespace Numpy.ApiGenerator
                 case "Standard Python scalar object": return "T";
                 case "Arguments (variable number and type)": return "params int[]";
                 case "list": return "List<T>";
-                case "list of arrays": return "NDarray[]";
-                case "array_likes": return "NDarray[]";
-                case "sequence of arrays": return "NDarray[]";
-                case "sequence of ndarrays": return "NDarray[]";
-                case "sequence of array_like": return "NDarray[]";
-                case "sequence of 1-D or 2-D arrays.": return "NDarray[]";
-                case "list of ndarrays": return "NDarray[]";
+                case "list of arrays":
+                case "array_likes":
+                case "sequence of arrays":
+                case "sequence of ndarrays":
+                case "sequence of array_like":
+                case "sequence of 1-D or 2-D arrays.":
+                case "list of ndarrays":
+                case "tuple":
+                    return "NDarray[]";
                 case "slice": return "Slice";
             }
             if (arg.IsReturnValue)

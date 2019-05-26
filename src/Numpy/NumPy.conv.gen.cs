@@ -70,7 +70,7 @@ namespace Numpy
         //auto-generated
         protected PyObject ToPython(object obj)
         {
-            if (obj == null) return null;
+            if (obj == null) return new PyObject( Runtime.PyNone);
             switch (obj)
             {
                 // basic types

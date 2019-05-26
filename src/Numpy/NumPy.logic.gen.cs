@@ -462,10 +462,10 @@ namespace Numpy
         /// allclose(a, b) to evaluate to True.  The same is true for
         /// equal but not array_equal.
         /// </summary>
-        /// <param name="a">
+        /// <param name="b">
         /// Input arrays to compare.
         /// </param>
-        /// <param name="b">
+        /// <param name="a">
         /// Input arrays to compare.
         /// </param>
         /// <param name="rtol">
@@ -482,14 +482,14 @@ namespace Numpy
         /// Returns True if the two arrays are equal within the given
         /// tolerance; False otherwise.
         /// </returns>
-        public bool allclose(NDarray a, NDarray b, float rtol, float atol, bool equal_nan)
+        public bool allclose(NDarray b, NDarray a, float rtol, float atol, bool equal_nan)
         {
             //auto-generated code, do not change
             var __self__=self;
             var pyargs=ToTuple(new object[]
             {
-                a,
                 b,
+                a,
                 rtol,
                 atol,
                 equal_nan,
@@ -523,10 +523,10 @@ namespace Numpy
         /// atol should be carefully selected for the use case at hand. A zero value
         /// for atol will result in False if either a or b is zero.
         /// </summary>
-        /// <param name="a">
+        /// <param name="b">
         /// Input arrays to compare.
         /// </param>
-        /// <param name="b">
+        /// <param name="a">
         /// Input arrays to compare.
         /// </param>
         /// <param name="rtol">
@@ -544,14 +544,14 @@ namespace Numpy
         /// given tolerance. If both a and b are scalars, returns a single
         /// boolean value.
         /// </returns>
-        public NDarray isclose(NDarray a, NDarray b, float rtol, float atol, bool equal_nan)
+        public NDarray isclose(NDarray b, NDarray a, float rtol, float atol, bool equal_nan)
         {
             //auto-generated code, do not change
             var __self__=self;
             var pyargs=ToTuple(new object[]
             {
-                a,
                 b,
+                a,
                 rtol,
                 atol,
                 equal_nan,
@@ -564,23 +564,23 @@ namespace Numpy
         /// <summary>
         /// True if two arrays have the same shape and elements, False otherwise.
         /// </summary>
-        /// <param name="a">
+        /// <param name="a2">
         /// Input arrays.
         /// </param>
-        /// <param name="b">
+        /// <param name="a1">
         /// Input arrays.
         /// </param>
         /// <returns>
         /// Returns True if the arrays are equal.
         /// </returns>
-        public bool array_equal(NDarray a, NDarray b)
+        public bool array_equal(NDarray a2, NDarray a1)
         {
             //auto-generated code, do not change
             var __self__=self;
             var pyargs=ToTuple(new object[]
             {
-                a,
-                b,
+                a2,
+                a1,
             });
             var kwargs=new PyDict();
             dynamic py = __self__.InvokeMethod("array_equal", pyargs, kwargs);
@@ -593,23 +593,23 @@ namespace Numpy
         /// Shape consistent means they are either the same shape, or one input array
         /// can be broadcasted to create the same shape as the other one.
         /// </summary>
-        /// <param name="a">
+        /// <param name="a2">
         /// Input arrays.
         /// </param>
-        /// <param name="b">
+        /// <param name="a1">
         /// Input arrays.
         /// </param>
         /// <returns>
         /// True if equivalent, False otherwise.
         /// </returns>
-        public bool array_equiv(NDarray a, NDarray b)
+        public bool array_equiv(NDarray a2, NDarray a1)
         {
             //auto-generated code, do not change
             var __self__=self;
             var pyargs=ToTuple(new object[]
             {
-                a,
-                b,
+                a2,
+                a1,
             });
             var kwargs=new PyDict();
             dynamic py = __self__.InvokeMethod("array_equiv", pyargs, kwargs);

@@ -31,7 +31,7 @@ namespace Numpy
         //auto-generated
         protected PyObject ToPython(object obj)
         {
-            if (obj == null) return null;
+            if (obj == null) return new PyObject( Runtime.PyNone);
             switch (obj)
             {
                 // basic types
@@ -60,6 +60,9 @@ namespace Numpy
                 case "NDarray`1":
                 switch (typeof(T).GenericTypeArguments[0].Name)
                 {
+                   case "Byte": return (T)(object)new NDarray<byte>(pyobj);
+                   case "Short": return (T)(object)new NDarray<short>(pyobj);
+                   case "Boolean": return (T)(object)new NDarray<bool>(pyobj);
                    case "Int32": return (T)(object)new NDarray<int>(pyobj);
                    case "Int64": return (T)(object)new NDarray<long>(pyobj); 
                    case "Single": return (T)(object)new NDarray<float>(pyobj); 
