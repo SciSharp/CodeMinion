@@ -210,6 +210,34 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Return a copy of the array collapsed into one dimension.
+        /// </summary>
+        /// <param name="order">
+        /// ‘C’ means to flatten in row-major (C-style) order.
+        /// ‘F’ means to flatten in column-major (Fortran-
+        /// style) order. ‘A’ means to flatten in column-major
+        /// order if a is Fortran contiguous in memory,
+        /// row-major order otherwise. ‘K’ means to flatten
+        /// a in the order the elements occur in memory.
+        /// The default is ‘C’.
+        /// </param>
+        /// <returns>
+        /// A copy of the input array, flattened to one dimension.
+        /// </returns>
+        public NDarray flatten(string order = null)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+            });
+            var kwargs=new PyDict();
+            if (order!=null) kwargs["order"]=ToPython(order);
+            dynamic py = __self__.InvokeMethod("flatten", pyargs, kwargs);
+            return ToCsharp<NDarray>(py);
+        }
+        
+        /// <summary>
         /// Move axes of an array to new positions.
         /// 
         /// Other axes remain in their original order.
@@ -425,6 +453,35 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             dynamic py = __self__.InvokeMethod("atleast_3d", pyargs, kwargs);
+            return ToCsharp<NDarray>(py);
+        }
+        
+        /// <summary>
+        /// Produce an object that mimics broadcasting.
+        /// </summary>
+        /// <param name="in2">
+        /// Input parameters.
+        /// </param>
+        /// <param name="in1">
+        /// Input parameters.
+        /// </param>
+        /// <returns>
+        /// Broadcast the input parameters against one another, and
+        /// return an object that encapsulates the result.
+        /// Amongst others, it has shape and nd properties, and
+        /// may be used as an iterator.
+        /// </returns>
+        public NDarray broadcast(NDarray in2, NDarray in1)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                in2,
+                in1,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("broadcast", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         

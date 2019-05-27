@@ -162,6 +162,36 @@ namespace Numpy
             => NumPy.Instance.outer(a, b, @out:@out);
         
         /// <summary>
+        /// Matrix product of two arrays.
+        /// 
+        /// Notes
+        /// 
+        /// The behavior depends on the arguments in the following way.
+        /// 
+        /// matmul differs from dot in two important ways:
+        /// 
+        /// The matmul function implements the semantics of the &#64; operator introduced
+        /// in Python 3.5 following PEP465.
+        /// </summary>
+        /// <param name="x2">
+        /// Input arrays, scalars not allowed.
+        /// </param>
+        /// <param name="x1">
+        /// Input arrays, scalars not allowed.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that matches the signature (n,k),(k,m)-&gt;(n,m). If not
+        /// provided or None, a freshly-allocated array is returned.
+        /// </param>
+        /// <returns>
+        /// The matrix product of the inputs.
+        /// This is a scalar only when both x1, x2 are 1-d vectors.
+        /// </returns>
+        public static NDarray matmul(NDarray x2, NDarray x1, NDarray @out = null)
+            => NumPy.Instance.matmul(x2, x1, @out:@out);
+        
+        /// <summary>
         /// Compute tensor dot product along specified axes for arrays &gt;= 1-D.
         /// 
         /// Given two tensors (arrays of dimension greater than or equal to one),
@@ -705,6 +735,19 @@ namespace Numpy
             /// </returns>
             public static NDarray tensorinv(NDarray a, int? ind = null)
                 => NumPy.Instance.tensorinv(a, ind:ind);
+        }
+        
+        public static partial class linalg {
+            /// <summary>
+            /// Generic Python-exception-derived object raised by linalg functions.
+            /// 
+            /// General purpose exception class, derived from Python’s exception.Exception
+            /// class, programmatically raised in linalg functions when a Linear
+            /// Algebra-related condition would prevent further correct execution of the
+            /// function.
+            /// </summary>
+            public static void LinAlgError()
+                => NumPy.Instance.LinAlgError();
         }
         
         

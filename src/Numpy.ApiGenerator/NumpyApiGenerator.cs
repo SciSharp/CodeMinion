@@ -257,7 +257,7 @@ namespace Numpy.ApiGenerator
                 if (h1 == null)
                     continue;
                 var dl = doc.DocumentNode.Descendants("dl").FirstOrDefault();
-                if (dl == null || dl.Attributes["class"]?.Value != "function") continue;
+                //if (dl == null || dl.Attributes["class"]?.Value != "function") continue;
                 var class_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descclassname").InnerText;
                 var func_name = doc.DocumentNode.Descendants("code")
@@ -403,6 +403,8 @@ namespace Numpy.ApiGenerator
                     type_description = dt.Descendants("span")
                         .FirstOrDefault(span => span.Attributes["class"]?.Value == "classifier")?.InnerText;
                 }
+                if (type_description == null)
+                    type_description = "_NoValue";
                 var type = type_description.Split(",").FirstOrDefault();
                 arg.Type = InferType(type, arg);
                 if (type_description.Contains("optional"))
@@ -516,6 +518,7 @@ namespace Numpy.ApiGenerator
                 case "interp":
                 case "einsum_path":
                 case "cond":
+                case "ogrid":
                     decl.CommentOut = true;
                     break;
                 case "require":
@@ -852,6 +855,7 @@ namespace Numpy.ApiGenerator
                 case "dtype": return "Dtype";
                 case "order": return "string";
                 case "slice": return "Slice";
+                case "strides": return "int[]";
                 case "arys1, arys2, …":
                     arg.Name = "arys";
                     return "params NDarray[]";
@@ -875,6 +879,7 @@ namespace Numpy.ApiGenerator
             {
                 case "data-type": return "Dtype";
                 case "matrix": return "Matrix";
+                // NDarray
                 case "array":
                 case "ndarray":
                 case "np.ndarray":
@@ -899,13 +904,21 @@ namespace Numpy.ApiGenerator
                 case "complex ndarray":
                 case "1-D array_like":
                 case "scalar or ndarray":
+                case "broadcast object":
+                case "array_like or scalar":
                     return "NDarray";
+                // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
                 case "array of ints":
+                case "array of integer type":
+                case "array_like of integer type":
                     return "NDarray<int>";
                 case "array_like of float":
                 case "array of dtype float":
                     return "NDarray<float>";
+                case "bool (scalar) or boolean ndarray":
+                case "bool or ndarray of bool":
+                    return "NDarray<bool>";
                 case "scalar":
                     if (!arg.IsReturnValue)
                         return "ValueType";

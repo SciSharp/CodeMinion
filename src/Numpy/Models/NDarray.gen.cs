@@ -615,6 +615,25 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Produce an object that mimics broadcasting.
+        /// </summary>
+        /// <param name="in1">
+        /// Input parameters.
+        /// </param>
+        /// <returns>
+        /// Broadcast the input parameters against one another, and
+        /// return an object that encapsulates the result.
+        /// Amongst others, it has shape and nd properties, and
+        /// may be used as an iterator.
+        /// </returns>
+        public NDarray broadcast(NDarray in1)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.broadcast(@this, in1);
+        }
+        
+        /// <summary>
         /// Broadcast an array to a new shape.
         /// 
         /// Notes
@@ -1151,6 +1170,171 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.rot90(@this, k, axes);
+        }
+        
+        /// <summary>
+        /// Compute the bit-wise AND of two arrays element-wise.
+        /// 
+        /// Computes the bit-wise AND of the underlying binary representation of
+        /// the integers in the input arrays. This ufunc implements the C/Python
+        /// operator &amp;.
+        /// </summary>
+        /// <param name="x1">
+        /// Only integer and boolean types are handled.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Result.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray bitwise_and(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.bitwise_and(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the bit-wise OR of two arrays element-wise.
+        /// 
+        /// Computes the bit-wise OR of the underlying binary representation of
+        /// the integers in the input arrays. This ufunc implements the C/Python
+        /// operator |.
+        /// </summary>
+        /// <param name="x1">
+        /// Only integer and boolean types are handled.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Result.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray bitwise_or(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.bitwise_or(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the bit-wise XOR of two arrays element-wise.
+        /// 
+        /// Computes the bit-wise XOR of the underlying binary representation of
+        /// the integers in the input arrays. This ufunc implements the C/Python
+        /// operator ^.
+        /// </summary>
+        /// <param name="x1">
+        /// Only integer and boolean types are handled.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Result.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray bitwise_xor(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.bitwise_xor(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute bit-wise inversion, or bit-wise NOT, element-wise.
+        /// 
+        /// Computes the bit-wise NOT of the underlying binary representation of
+        /// the integers in the input arrays. This ufunc implements the C/Python
+        /// operator ~.
+        /// 
+        /// For signed integer inputs, the two’s complement is returned.  In a
+        /// two’s-complement system negative numbers are represented by the two’s
+        /// complement of the absolute value. This is the most common method of
+        /// representing signed integers on computers [1]. A N-bit
+        /// two’s-complement system can represent every integer in the range
+        ///  to .
+        /// 
+        /// Notes
+        /// 
+        /// bitwise_not is an alias for invert:
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Result.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray invert(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.invert(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Shift the bits of an integer to the right.
+        /// 
+        /// Bits are shifted to the right x2.  Because the internal
+        /// representation of numbers is in binary format, this operation is
+        /// equivalent to dividing x1 by 2**x2.
+        /// </summary>
+        /// <param name="x2">
+        /// Number of bits to remove at the right of x1.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Return x1 with bits shifted x2 times to the right.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray right_shift(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.right_shift(@this, x2, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -1953,6 +2137,390 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Trigonometric sine, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// The sine is one of the fundamental functions of trigonometry (the
+        /// mathematical study of triangles).  Consider a circle of radius 1
+        /// centered on the origin.  A ray comes in from the  axis, makes
+        /// an angle at the origin (measured counter-clockwise from that axis), and
+        /// departs from the origin.  The  coordinate of the outgoing
+        /// ray’s intersection with the unit circle is the sine of that angle.  It
+        /// ranges from -1 for  to +1 for   The
+        /// function has zeroes where the angle is a multiple of .
+        /// Sines of angles between  and  are negative.
+        /// The numerous properties of the sine and related functions are included
+        /// in any standard trigonometry text.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The sine of each element of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray sin(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.sin(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Cosine element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// If out is provided, the function writes the result into it,
+        /// and returns a reference to out.  (See Examples)
+        /// 
+        /// References
+        /// 
+        /// M. Abramowitz and I. A. Stegun, Handbook of Mathematical Functions.
+        /// New York, NY: Dover, 1972.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding cosine values.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray cos(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.cos(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute tangent element-wise.
+        /// 
+        /// Equivalent to np.sin(x)/np.cos(x) element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// If out is provided, the function writes the result into it,
+        /// and returns a reference to out.  (See Examples)
+        /// 
+        /// References
+        /// 
+        /// M. Abramowitz and I. A. Stegun, Handbook of Mathematical Functions.
+        /// New York, NY: Dover, 1972.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding tangent values.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray tan(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.tan(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Inverse sine, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// arcsin is a multivalued function: for each x there are infinitely
+        /// many numbers z such that .  The convention is to
+        /// return the angle z whose real part lies in [-pi/2, pi/2].
+        /// 
+        /// For real-valued input data types, arcsin always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, arcsin is a complex analytic function that
+        /// has, by convention, the branch cuts [-inf, -1] and [1, inf]  and is
+        /// continuous from above on the former and from below on the latter.
+        /// 
+        /// The inverse sine is also known as asin or sin^{-1}.
+        /// 
+        /// References
+        /// 
+        /// Abramowitz, M. and Stegun, I. A., Handbook of Mathematical Functions,
+        /// 10th printing, New York: Dover, 1964, pp. 79ff.
+        /// http://www.math.sfu.ca/~cbm/aands/
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The inverse sine of each element in x, in radians and in the
+        /// closed interval [-pi/2, pi/2].
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray arcsin(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arcsin(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Trigonometric inverse cosine, element-wise.
+        /// 
+        /// The inverse of cos so that, if y = cos(x), then x = arccos(y).
+        /// 
+        /// Notes
+        /// 
+        /// arccos is a multivalued function: for each x there are infinitely
+        /// many numbers z such that cos(z) = x. The convention is to return
+        /// the angle z whose real part lies in [0, pi].
+        /// 
+        /// For real-valued input data types, arccos always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, arccos is a complex analytic function that
+        /// has branch cuts [-inf, -1] and [1, inf] and is continuous from
+        /// above on the former and from below on the latter.
+        /// 
+        /// The inverse cos is also known as acos or cos^-1.
+        /// 
+        /// References
+        /// 
+        /// M. Abramowitz and I.A. Stegun, “Handbook of Mathematical Functions”,
+        /// 10th printing, 1964, pp. 79. http://www.math.sfu.ca/~cbm/aands/
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The angle of the ray intersecting the unit circle at the given
+        /// x-coordinate in radians [0, pi].
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray arccos(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arccos(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Trigonometric inverse tangent, element-wise.
+        /// 
+        /// The inverse of tan, so that if y = tan(x) then x = arctan(y).
+        /// 
+        /// Notes
+        /// 
+        /// arctan is a multi-valued function: for each x there are infinitely
+        /// many numbers z such that tan(z) = x.  The convention is to return
+        /// the angle z whose real part lies in [-pi/2, pi/2].
+        /// 
+        /// For real-valued input data types, arctan always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, arctan is a complex analytic function that
+        /// has [1j, infj] and [-1j, -infj] as branch cuts, and is continuous
+        /// from the left on the former and from the right on the latter.
+        /// 
+        /// The inverse tangent is also known as atan or tan^{-1}.
+        /// 
+        /// References
+        /// 
+        /// Abramowitz, M. and Stegun, I. A., Handbook of Mathematical Functions,
+        /// 10th printing, New York: Dover, 1964, pp. 79.
+        /// http://www.math.sfu.ca/~cbm/aands/
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Out has the same shape as x.  Its real part is in
+        /// [-pi/2, pi/2] (arctan(+/-inf) returns +/-pi/2).
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray arctan(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arctan(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Given the “legs” of a right triangle, return its hypotenuse.
+        /// 
+        /// Equivalent to sqrt(x1**2 + x2**2), element-wise.  If x1 or
+        /// x2 is scalar_like (i.e., unambiguously cast-able to a scalar type),
+        /// it is broadcast for use with each element of the other argument.
+        /// (See Examples)
+        /// </summary>
+        /// <param name="x1">
+        /// Leg of the triangle(s).
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The hypotenuse of the triangle(s).
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray hypot(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.hypot(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Element-wise arc tangent of x1/x2 choosing the quadrant correctly.
+        /// 
+        /// The quadrant (i.e., branch) is chosen so that arctan2(x1, x2) is
+        /// the signed angle in radians between the ray ending at the origin and
+        /// passing through the point (1,0), and the ray ending at the origin and
+        /// passing through the point (x2, x1).  (Note the role reversal: the
+        /// “y-coordinate” is the first function parameter, the “x-coordinate”
+        /// is the second.)  By IEEE convention, this function is defined for
+        /// x2 = +/-0 and for either or both of x1 and x2 = +/-inf (see
+        /// Notes for specific values).
+        /// 
+        /// This function is not defined for complex-valued arguments; for the
+        /// so-called argument of complex values, use angle.
+        /// 
+        /// Notes
+        /// 
+        /// arctan2 is identical to the atan2 function of the underlying
+        /// C library.  The following special values are defined in the C
+        /// standard: [1]
+        /// 
+        /// Note that +0 and -0 are distinct floating point numbers, as are +inf
+        /// and -inf.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="x2">
+        /// x-coordinates. x2 must be broadcastable to match the shape of
+        /// x1 or vice versa.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Array of angles in radians, in the range [-pi, pi].
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray arctan2(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arctan2(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Convert angles from radians to degrees.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding degree values; if out was supplied this is a
+        /// reference to it.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray degrees(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.degrees(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Convert angles from degrees to radians.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding radian values.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray radians(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.radians(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
         /// Unwrap by changing deltas between values to 2*pi complement.
         /// 
         /// Unwrap radian phase p by changing absolute jumps greater than
@@ -1978,6 +2546,282 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.unwrap(@this, discont:discont, axis:axis);
+        }
+        
+        /// <summary>
+        /// Convert angles from degrees to radians.
+        /// 
+        /// Notes
+        /// 
+        /// deg2rad(x) is x * pi / 180.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding angle in radians.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray deg2rad(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.deg2rad(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Convert angles from radians to degrees.
+        /// 
+        /// Notes
+        /// 
+        /// rad2deg(x) is 180 * x / pi.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding angle in degrees.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray rad2deg(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.rad2deg(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Hyperbolic sine, element-wise.
+        /// 
+        /// Equivalent to 1/2 * (np.exp(x) - np.exp(-x)) or
+        /// -1j * np.sin(1j*x).
+        /// 
+        /// Notes
+        /// 
+        /// If out is provided, the function writes the result into it,
+        /// and returns a reference to out.  (See Examples)
+        /// 
+        /// References
+        /// 
+        /// M. Abramowitz and I. A. Stegun, Handbook of Mathematical Functions.
+        /// New York, NY: Dover, 1972, pg. 83.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding hyperbolic sine values.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray sinh(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.sinh(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Hyperbolic cosine, element-wise.
+        /// 
+        /// Equivalent to 1/2 * (np.exp(x) + np.exp(-x)) and np.cos(1j*x).
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array of same shape as x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray cosh(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.cosh(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute hyperbolic tangent element-wise.
+        /// 
+        /// Equivalent to np.sinh(x)/np.cosh(x) or -1j * np.tan(1j*x).
+        /// 
+        /// Notes
+        /// 
+        /// If out is provided, the function writes the result into it,
+        /// and returns a reference to out.  (See Examples)
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The corresponding hyperbolic tangent values.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray tanh(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.tanh(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Inverse hyperbolic sine element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// arcsinh is a multivalued function: for each x there are infinitely
+        /// many numbers z such that sinh(z) = x. The convention is to return the
+        /// z whose imaginary part lies in [-pi/2, pi/2].
+        /// 
+        /// For real-valued input data types, arcsinh always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity, it
+        /// returns nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, arccos is a complex analytical function that
+        /// has branch cuts [1j, infj] and [-1j, -infj] and is continuous from
+        /// the right on the former and from the left on the latter.
+        /// 
+        /// The inverse hyperbolic sine is also known as asinh or sinh^-1.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Array of the same shape as x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray arcsinh(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arcsinh(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Inverse hyperbolic cosine, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// arccosh is a multivalued function: for each x there are infinitely
+        /// many numbers z such that cosh(z) = x. The convention is to return the
+        /// z whose imaginary part lies in [-pi, pi] and the real part in
+        /// [0, inf].
+        /// 
+        /// For real-valued input data types, arccosh always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity, it
+        /// yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, arccosh is a complex analytical function that
+        /// has a branch cut [-inf, 1] and is continuous from above on it.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Array of the same shape as x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray arccosh(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arccosh(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Inverse hyperbolic tangent element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// arctanh is a multivalued function: for each x there are infinitely
+        /// many numbers z such that tanh(z) = x. The convention is to return
+        /// the z whose imaginary part lies in [-pi/2, pi/2].
+        /// 
+        /// For real-valued input data types, arctanh always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, arctanh is a complex analytical function
+        /// that has branch cuts [-1, -inf] and [1, inf] and is continuous from
+        /// above on the former and from below on the latter.
+        /// 
+        /// The inverse hyperbolic tangent is also known as atanh or tanh^-1.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Array of the same shape as x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray arctanh(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.arctanh(@this, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -2021,6 +2865,30 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Round elements of the array to the nearest integer.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array is same shape and type as x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray rint(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.rint(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
         /// Round to nearest integer towards zero.
         /// 
         /// Round an array of floats element-wise to nearest integer towards zero.
@@ -2037,6 +2905,96 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.fix(@this, y:y);
+        }
+        
+        /// <summary>
+        /// Return the floor of the input, element-wise.
+        /// 
+        /// The floor of the scalar x is the largest integer i, such that
+        /// i &lt;= x.  It is often denoted as .
+        /// 
+        /// Notes
+        /// 
+        /// Some spreadsheet programs calculate the “floor-towards-zero”, in other
+        /// words floor(-2.5) == -2.  NumPy instead uses the definition of
+        /// floor where floor(-2.5) == -3.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The floor of each element in x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray floor(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.floor(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the ceiling of the input, element-wise.
+        /// 
+        /// The ceil of the scalar x is the smallest integer i, such that
+        /// i &gt;= x.  It is often denoted as .
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The ceiling of each element in x, with float dtype.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray ceil(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.ceil(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the truncated value of the input, element-wise.
+        /// 
+        /// The truncated value of the scalar x is the nearest integer i which
+        /// is closer to zero than x is. In short, the fractional part of the
+        /// signed number x is discarded.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The truncated value of each element in x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray trunc(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.trunc(@this, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -2615,6 +3573,342 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Calculate the exponential of all elements in the input array.
+        /// 
+        /// Notes
+        /// 
+        /// The irrational number e is also known as Euler’s number.  It is
+        /// approximately 2.718281, and is the base of the natural logarithm,
+        /// ln (this means that, if ,
+        /// then . For real input, exp(x) is always positive.
+        /// 
+        /// For complex arguments, x = a + ib, we can write
+        /// .  The first term, , is already
+        /// known (it is the real argument, described above).  The second term,
+        /// , is , a function with
+        /// magnitude 1 and a periodic phase.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise exponential of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray exp(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.exp(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Calculate exp(x) - 1 for all elements in the array.
+        /// 
+        /// Notes
+        /// 
+        /// This function provides greater precision than exp(x) - 1
+        /// for small values of x.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Element-wise exponential minus one: out = exp(x) - 1.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray expm1(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.expm1(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Calculate 2**p for all p in the input array.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Element-wise 2 to the power x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray exp2(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.exp2(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Natural logarithm, element-wise.
+        /// 
+        /// The natural logarithm log is the inverse of the exponential function,
+        /// so that log(exp(x)) = x. The natural logarithm is logarithm in base
+        /// e.
+        /// 
+        /// Notes
+        /// 
+        /// Logarithm is a multivalued function: for each x there is an infinite
+        /// number of z such that exp(z) = x. The convention is to return the
+        /// z whose imaginary part lies in [-pi, pi].
+        /// 
+        /// For real-valued input data types, log always returns real output. For
+        /// each value that cannot be expressed as a real number or infinity, it
+        /// yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, log is a complex analytical function that
+        /// has a branch cut [-inf, 0] and is continuous from above on it. log
+        /// handles the floating-point negative zero as an infinitesimal negative
+        /// number, conforming to the C99 standard.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The natural logarithm of x, element-wise.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray log(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.log(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the base 10 logarithm of the input array, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// Logarithm is a multivalued function: for each x there is an infinite
+        /// number of z such that 10**z = x. The convention is to return the
+        /// z whose imaginary part lies in [-pi, pi].
+        /// 
+        /// For real-valued input data types, log10 always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, log10 is a complex analytical function that
+        /// has a branch cut [-inf, 0] and is continuous from above on it.
+        /// log10 handles the floating-point negative zero as an infinitesimal
+        /// negative number, conforming to the C99 standard.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The logarithm to the base 10 of x, element-wise. NaNs are
+        /// returned where x is negative.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray log10(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.log10(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Base-2 logarithm of x.
+        /// 
+        /// Notes
+        /// 
+        /// Logarithm is a multivalued function: for each x there is an infinite
+        /// number of z such that 2**z = x. The convention is to return the z
+        /// whose imaginary part lies in [-pi, pi].
+        /// 
+        /// For real-valued input data types, log2 always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, log2 is a complex analytical function that
+        /// has a branch cut [-inf, 0] and is continuous from above on it. log2
+        /// handles the floating-point negative zero as an infinitesimal negative
+        /// number, conforming to the C99 standard.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Base-2 logarithm of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray log2(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.log2(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the natural logarithm of one plus the input array, element-wise.
+        /// 
+        /// Calculates log(1 + x).
+        /// 
+        /// Notes
+        /// 
+        /// For real-valued input, log1p is accurate also for x so small
+        /// that 1 + x == 1 in floating-point accuracy.
+        /// 
+        /// Logarithm is a multivalued function: for each x there is an infinite
+        /// number of z such that exp(z) = 1 + x. The convention is to return
+        /// the z whose imaginary part lies in [-pi, pi].
+        /// 
+        /// For real-valued input data types, log1p always returns real output.
+        /// For each value that cannot be expressed as a real number or infinity,
+        /// it yields nan and sets the invalid floating point error flag.
+        /// 
+        /// For complex-valued input, log1p is a complex analytical function that
+        /// has a branch cut [-inf, -1] and is continuous from above on it.
+        /// log1p handles the floating-point negative zero as an infinitesimal
+        /// negative number, conforming to the C99 standard.
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Natural logarithm of 1 + x, element-wise.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray log1p(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.log1p(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Logarithm of the sum of exponentiations of the inputs.
+        /// 
+        /// Calculates log(exp(x1) + exp(x2)). This function is useful in
+        /// statistics where the calculated probabilities of events may be so small
+        /// as to exceed the range of normal floating point numbers.  In such cases
+        /// the logarithm of the calculated probability is stored. This function
+        /// allows adding probabilities stored in such a fashion.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <param name="x1">
+        /// Input values.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Logarithm of exp(x1) + exp(x2).
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray logaddexp(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.logaddexp(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Logarithm of the sum of exponentiations of the inputs in base-2.
+        /// 
+        /// Calculates log2(2**x1 + 2**x2). This function is useful in machine
+        /// learning when the calculated probabilities of events may be so small as
+        /// to exceed the range of normal floating point numbers.  In such cases
+        /// the base-2 logarithm of the calculated probability can be used instead.
+        /// This function allows adding probabilities stored in such a fashion.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <param name="x1">
+        /// Input values.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Base-2 logarithm of 2**x1 + 2**x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray logaddexp2(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.logaddexp2(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
         /// Return the sinc function.
         /// 
         /// The sinc function is .
@@ -2642,6 +3936,768 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.sinc(@this);
+        }
+        
+        /// <summary>
+        /// Returns element-wise True where signbit is set (less than zero).
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, or reference to out if that was supplied.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray signbit(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.signbit(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Change the sign of x1 to that of x2, element-wise.
+        /// 
+        /// If both arguments are arrays or sequences, they have to be of the same
+        /// length. If x2 is a scalar, its sign will be copied to all elements of
+        /// x1.
+        /// </summary>
+        /// <param name="x2">
+        /// The sign of x2 is copied to x1.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The values of x1 with the sign of x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray copysign(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.copysign(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Decompose the elements of x into mantissa and twos exponent.
+        /// 
+        /// Returns (mantissa, exponent), where x = mantissa * 2**exponent`.
+        /// The mantissa is lies in the open interval(-1, 1), while the twos
+        /// exponent is a signed integer.
+        /// 
+        /// Notes
+        /// 
+        /// Complex dtypes are not supported, they will raise a TypeError.
+        /// </summary>
+        /// <param name="out1">
+        /// Output array for the mantissa. Must have the same shape as x.
+        /// </param>
+        /// <param name="out2">
+        /// Output array for the exponent. Must have the same shape as x.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// mantissa
+        /// Floating values between -1 and 1.
+        /// This is a scalar if x is a scalar.
+        /// exponent
+        /// Integer exponents of 2.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public (NDarray, NDarray) frexp(NDarray out1 = null, NDarray out2 = null, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.frexp(@this, out1:out1, out2:out2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Returns x1 * 2**x2, element-wise.
+        /// 
+        /// The mantissas x1 and twos exponents x2 are used to construct
+        /// floating point numbers x1 * 2**x2.
+        /// 
+        /// Notes
+        /// 
+        /// Complex dtypes are not supported, they will raise a TypeError.
+        /// 
+        /// ldexp is useful as the inverse of frexp, if used by itself it is
+        /// more clear to simply use the expression x1 * 2**x2.
+        /// </summary>
+        /// <param name="x2">
+        /// Array of twos exponents.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The result of x1 * 2**x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray ldexp(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.ldexp(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the next floating-point value after x1 towards x2, element-wise.
+        /// </summary>
+        /// <param name="x2">
+        /// The direction where to look for the next representable value of x1.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The next representable values of x1 in the direction of x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray nextafter(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.nextafter(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the distance between x and the nearest adjacent number.
+        /// 
+        /// Notes
+        /// 
+        /// It can be considered as a generalization of EPS:
+        /// spacing(np.float64(1)) == np.finfo(np.float64).eps, and there
+        /// should not be any representable number between x + spacing(x) and
+        /// x for any finite x.
+        /// 
+        /// Spacing of +- inf and NaN is NaN.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The spacing of values of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray spacing(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.spacing(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Returns the lowest common multiple of |x1| and |x2|
+        /// </summary>
+        /// <param name="x1">
+        /// Arrays of values
+        /// </param>
+        /// <returns>
+        /// The lowest common multiple of the absolute value of the inputs
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray lcm(NDarray x1)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.lcm(@this, x1);
+        }
+        
+        /// <summary>
+        /// Returns the greatest common divisor of |x1| and |x2|
+        /// </summary>
+        /// <param name="x1">
+        /// Arrays of values
+        /// </param>
+        /// <returns>
+        /// The greatest common divisor of the absolute value of the inputs
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray gcd(NDarray x1)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.gcd(@this, x1);
+        }
+        
+        /// <summary>
+        /// Add arguments element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// Equivalent to x1 + x2 in terms of array broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// The arrays to be added.  If x1.shape != x2.shape, they must be
+        /// broadcastable to a common shape (which may be the shape of one or
+        /// the other).
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The sum of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray @add(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.@add(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the reciprocal of the argument, element-wise.
+        /// 
+        /// Calculates 1/x.
+        /// 
+        /// Notes
+        /// 
+        /// For integer arguments with absolute value larger than 1 the result is
+        /// always zero because of the way Python handles integer division.  For
+        /// integer zero the result is an overflow.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Return array.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray reciprocal(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.reciprocal(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Numerical positive, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// Equivalent to x.copy(), but only defined for types that support
+        /// arithmetic.
+        /// </summary>
+        /// <returns>
+        /// Returned array or scalar: y = +x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray positive()
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.positive(@this);
+        }
+        
+        /// <summary>
+        /// Numerical negative, element-wise.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Returned array or scalar: y = -x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray negative(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.negative(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Multiply arguments element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// Equivalent to x1 * x2 in terms of array broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays to be multiplied.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The product of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray multiply(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.multiply(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Returns a true division of the inputs, element-wise.
+        /// 
+        /// Instead of the Python traditional ‘floor division’, this returns a true
+        /// division.  True division adjusts the output type to present the best
+        /// answer, regardless of input types.
+        /// 
+        /// Notes
+        /// 
+        /// The floor division operator // was added in Python 2.2 making
+        /// // and / equivalent operators.  The default floor division
+        /// operation of / can be replaced by true division with from
+        /// __future__ import division.
+        /// 
+        /// In Python 3.0, // is the floor division operator and / the
+        /// true division operator.  The true_divide(x1, x2) function is
+        /// equivalent to true division in Python.
+        /// </summary>
+        /// <param name="x2">
+        /// Divisor array.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray divide(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.divide(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// First array elements raised to powers from second array, element-wise.
+        /// 
+        /// Raise each base in x1 to the positionally-corresponding power in
+        /// x2.  x1 and x2 must be broadcastable to the same shape. Note that an
+        /// integer type raised to a negative integer power will raise a ValueError.
+        /// </summary>
+        /// <param name="x2">
+        /// The exponents.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The bases in x1 raised to the exponents in x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray power(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.power(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Subtract arguments, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// Equivalent to x1 - x2 in terms of array broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// The arrays to be subtracted from each other.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The difference of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray subtract(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.subtract(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Returns a true division of the inputs, element-wise.
+        /// 
+        /// Instead of the Python traditional ‘floor division’, this returns a true
+        /// division.  True division adjusts the output type to present the best
+        /// answer, regardless of input types.
+        /// 
+        /// Notes
+        /// 
+        /// The floor division operator // was added in Python 2.2 making
+        /// // and / equivalent operators.  The default floor division
+        /// operation of / can be replaced by true division with from
+        /// __future__ import division.
+        /// 
+        /// In Python 3.0, // is the floor division operator and / the
+        /// true division operator.  The true_divide(x1, x2) function is
+        /// equivalent to true division in Python.
+        /// </summary>
+        /// <param name="x2">
+        /// Divisor array.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray true_divide(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.true_divide(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the largest integer smaller or equal to the division of the inputs.
+        /// It is equivalent to the Python // operator and pairs with the
+        /// Python % (remainder), function so that b = a % b + b * (a // b)
+        /// up to roundoff.
+        /// </summary>
+        /// <param name="x2">
+        /// Denominator.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// y = floor(x1/x2)
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray floor_divide(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.floor_divide(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// First array elements raised to powers from second array, element-wise.
+        /// 
+        /// Raise each base in x1 to the positionally-corresponding power in x2.
+        /// x1 and x2 must be broadcastable to the same shape. This differs from
+        /// the power function in that integers, float16, and float32  are promoted to
+        /// floats with a minimum precision of float64 so that the result is always
+        /// inexact.  The intent is that the function will return a usable result for
+        /// negative powers and seldom overflow for positive powers.
+        /// </summary>
+        /// <param name="x2">
+        /// The exponents.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The bases in x1 raised to the exponents in x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray float_power(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.float_power(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the element-wise remainder of division.
+        /// 
+        /// This is the NumPy implementation of the C library function fmod, the
+        /// remainder has the same sign as the dividend x1. It is equivalent to
+        /// the Matlab(TM) rem function and should not be confused with the
+        /// Python modulus operator x1 % x2.
+        /// 
+        /// Notes
+        /// 
+        /// The result of the modulo operation for negative dividend and divisors
+        /// is bound by conventions. For fmod, the sign of result is the sign of
+        /// the dividend, while for remainder the sign of the result is the sign
+        /// of the divisor. The fmod function is equivalent to the Matlab(TM)
+        /// rem function.
+        /// </summary>
+        /// <param name="x2">
+        /// Divisor.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The remainder of the division of x1 by x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray fmod(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.fmod(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return element-wise remainder of division.
+        /// 
+        /// Computes the remainder complementary to the floor_divide function.  It is
+        /// equivalent to the Python modulus operator``x1 % x2`` and has the same sign
+        /// as the divisor x2. The MATLAB function equivalent to np.remainder
+        /// is mod.
+        /// 
+        /// Notes
+        /// 
+        /// Returns 0 when x2 is 0 and both x1 and x2 are (arrays of)
+        /// integers.
+        /// </summary>
+        /// <param name="x2">
+        /// Divisor array.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The element-wise remainder of the quotient floor_divide(x1, x2).
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray mod(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.mod(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the fractional and integral parts of an array, element-wise.
+        /// 
+        /// The fractional and integral parts are negative if the given number is
+        /// negative.
+        /// 
+        /// Notes
+        /// 
+        /// For integer input the return values are floats.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// y1
+        /// Fractional part of x.
+        /// This is a scalar if x is a scalar.
+        /// y2
+        /// Integral part of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public (NDarray, NDarray) modf(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.modf(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return element-wise remainder of division.
+        /// 
+        /// Computes the remainder complementary to the floor_divide function.  It is
+        /// equivalent to the Python modulus operator``x1 % x2`` and has the same sign
+        /// as the divisor x2. The MATLAB function equivalent to np.remainder
+        /// is mod.
+        /// 
+        /// Notes
+        /// 
+        /// Returns 0 when x2 is 0 and both x1 and x2 are (arrays of)
+        /// integers.
+        /// </summary>
+        /// <param name="x2">
+        /// Divisor array.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The element-wise remainder of the quotient floor_divide(x1, x2).
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray remainder(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.remainder(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return element-wise quotient and remainder simultaneously.
+        /// 
+        /// np.divmod(x, y) is equivalent to (x // y, x % y), but faster
+        /// because it avoids redundant work. It is used to implement the Python
+        /// built-in function divmod on NumPy arrays.
+        /// </summary>
+        /// <param name="x2">
+        /// Divisor array.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// A tuple of:
+        /// out1
+        /// Element-wise quotient resulting from floor division.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// out2
+        /// Element-wise remainder from floor division.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public (NDarray, NDarray) divmod(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.divmod(@this, x2, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -2689,6 +4745,33 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.imag(@this);
+        }
+        
+        /// <summary>
+        /// Return the complex conjugate, element-wise.
+        /// 
+        /// The complex conjugate of a complex number is obtained by changing the
+        /// sign of its imaginary part.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The complex conjugate of x, with same dtype as y.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray conj(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.conj(@this, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -2762,6 +4845,383 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.clip(@this, a_min, a_max, @out:@out);
+        }
+        
+        /// <summary>
+        /// Return the non-negative square-root of an array, element-wise.
+        /// 
+        /// Notes
+        /// 
+        /// sqrt has–consistent with common convention–as its branch cut the
+        /// real “interval” [-inf, 0), and is continuous from above on it.
+        /// A branch cut is a curve in the complex plane across which a given
+        /// complex function fails to be continuous.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// An array of the same shape as x, containing the positive
+        /// square-root of each element in x.  If any element in x is
+        /// complex, a complex array is returned (and the square-roots of
+        /// negative reals are calculated).  If all of the elements in x
+        /// are real, so is y, with negative elements returning nan.
+        /// If out was provided, y is a reference to it.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray sqrt(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.sqrt(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the cube-root of an array, element-wise.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// An array of the same shape as x, containing the cube
+        /// cube-root of each element in x.
+        /// If out was provided, y is a reference to it.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray cbrt(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.cbrt(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the element-wise square of the input.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Element-wise x*x, of the same shape and dtype as x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray square(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.square(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Calculate the absolute value element-wise.
+        /// 
+        /// np.abs is a shorthand for this function.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// An ndarray containing the absolute value of
+        /// each element in x.  For complex input, a + ib, the
+        /// absolute value is .
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray absolute(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.absolute(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the absolute values element-wise.
+        /// 
+        /// This function returns the absolute values (positive magnitude) of the
+        /// data in x. Complex values are not handled, use absolute to find the
+        /// absolute values of complex data.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The absolute values of x, the returned values are always floats.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray fabs(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.fabs(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Returns an element-wise indication of the sign of a number.
+        /// 
+        /// The sign function returns -1 if x &lt; 0, 0 if x==0, 1 if x &gt; 0.  nan
+        /// is returned for nan inputs.
+        /// 
+        /// For complex inputs, the sign function returns
+        /// sign(x.real) + 0j if x.real != 0 else sign(x.imag) + 0j.
+        /// 
+        /// complex(nan, 0) is returned for complex nan inputs.
+        /// 
+        /// Notes
+        /// 
+        /// There is more than one definition of sign in common use for complex
+        /// numbers.  The definition used here is equivalent to 
+        /// which is different from a common alternative, .
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The sign of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray sign(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.sign(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the Heaviside step function.
+        /// 
+        /// The Heaviside step function is defined as:
+        /// 
+        /// where x2 is often taken to be 0.5, but 0 and 1 are also sometimes used.
+        /// 
+        /// Notes
+        /// 
+        /// References
+        /// </summary>
+        /// <param name="x2">
+        /// The value of the function when x1 is 0.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The output array, element-wise Heaviside step function of x1.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray heaviside(NDarray x2, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.heaviside(@this, x2, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Element-wise maximum of array elements.
+        /// 
+        /// Compare two arrays and returns a new array containing the element-wise
+        /// maxima. If one of the elements being compared is a NaN, then that
+        /// element is returned. If both elements are NaNs then the first is
+        /// returned. The latter distinction is important for complex NaNs, which
+        /// are defined as at least one of the real or imaginary parts being a NaN.
+        /// The net effect is that NaNs are propagated.
+        /// 
+        /// Notes
+        /// 
+        /// The maximum is equivalent to np.where(x1 &gt;= x2, x1, x2) when
+        /// neither x1 nor x2 are nans, but it is faster and does proper
+        /// broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// The arrays holding the elements to be compared. They must have
+        /// the same shape, or shapes that can be broadcast to a single shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The maximum of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray maximum(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.maximum(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Element-wise minimum of array elements.
+        /// 
+        /// Compare two arrays and returns a new array containing the element-wise
+        /// minima. If one of the elements being compared is a NaN, then that
+        /// element is returned. If both elements are NaNs then the first is
+        /// returned. The latter distinction is important for complex NaNs, which
+        /// are defined as at least one of the real or imaginary parts being a NaN.
+        /// The net effect is that NaNs are propagated.
+        /// 
+        /// Notes
+        /// 
+        /// The minimum is equivalent to np.where(x1 &lt;= x2, x1, x2) when
+        /// neither x1 nor x2 are NaNs, but it is faster and does proper
+        /// broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// The arrays holding the elements to be compared. They must have
+        /// the same shape, or shapes that can be broadcast to a single shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The minimum of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray minimum(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.minimum(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Element-wise maximum of array elements.
+        /// 
+        /// Compare two arrays and returns a new array containing the element-wise
+        /// maxima. If one of the elements being compared is a NaN, then the
+        /// non-nan element is returned. If both elements are NaNs then the first
+        /// is returned.  The latter distinction is important for complex NaNs,
+        /// which are defined as at least one of the real or imaginary parts being
+        /// a NaN. The net effect is that NaNs are ignored when possible.
+        /// 
+        /// Notes
+        /// 
+        /// The fmax is equivalent to np.where(x1 &gt;= x2, x1, x2) when neither
+        /// x1 nor x2 are NaNs, but it is faster and does proper broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// The arrays holding the elements to be compared. They must have
+        /// the same shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The maximum of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray fmax(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.fmax(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Element-wise minimum of array elements.
+        /// 
+        /// Compare two arrays and returns a new array containing the element-wise
+        /// minima. If one of the elements being compared is a NaN, then the
+        /// non-nan element is returned. If both elements are NaNs then the first
+        /// is returned.  The latter distinction is important for complex NaNs,
+        /// which are defined as at least one of the real or imaginary parts being
+        /// a NaN. The net effect is that NaNs are ignored when possible.
+        /// 
+        /// Notes
+        /// 
+        /// The fmin is equivalent to np.where(x1 &lt;= x2, x1, x2) when neither
+        /// x1 nor x2 are NaNs, but it is faster and does proper broadcasting.
+        /// </summary>
+        /// <param name="x1">
+        /// The arrays holding the elements to be compared. They must have
+        /// the same shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// The minimum of x1 and x2, element-wise.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray fmin(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.fmin(@this, x1, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -2974,6 +5434,37 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.outer(@this, b, @out:@out);
+        }
+        
+        /// <summary>
+        /// Matrix product of two arrays.
+        /// 
+        /// Notes
+        /// 
+        /// The behavior depends on the arguments in the following way.
+        /// 
+        /// matmul differs from dot in two important ways:
+        /// 
+        /// The matmul function implements the semantics of the &#64; operator introduced
+        /// in Python 3.5 following PEP465.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays, scalars not allowed.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that matches the signature (n,k),(k,m)-&gt;(n,m). If not
+        /// provided or None, a freshly-allocated array is returned.
+        /// </param>
+        /// <returns>
+        /// The matrix product of the inputs.
+        /// This is a scalar only when both x1, x2 are 1-d vectors.
+        /// </returns>
+        public NDarray matmul(NDarray x1, NDarray @out = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.matmul(@this, x1, @out:@out);
         }
         
         /// <summary>
@@ -3477,6 +5968,134 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Test element-wise for finiteness (not infinity or not Not a Number).
+        /// 
+        /// The result is returned as a boolean array.
+        /// 
+        /// Notes
+        /// 
+        /// Not a Number, positive infinity and negative infinity are considered
+        /// to be non-finite.
+        /// 
+        /// NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
+        /// (IEEE 754). This means that Not a Number is not equivalent to infinity.
+        /// Also that positive infinity is not equivalent to negative infinity. But
+        /// infinity is equivalent to positive infinity.  Errors result if the
+        /// second argument is also supplied when x is a scalar input, or if
+        /// first and second arguments have different shapes.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// True where x is not positive infinity, negative infinity,
+        /// or NaN; false otherwise.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray isfinite(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.isfinite(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Test element-wise for positive or negative infinity.
+        /// 
+        /// Returns a boolean array of the same shape as x, True where x ==
+        /// +/-inf, otherwise False.
+        /// 
+        /// Notes
+        /// 
+        /// NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
+        /// (IEEE 754).
+        /// 
+        /// Errors result if the second argument is supplied when the first
+        /// argument is a scalar, or if the first and second arguments have
+        /// different shapes.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// True where x is positive or negative infinity, false otherwise.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray<bool> isinf(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.isinf(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Test element-wise for NaN and return result as a boolean array.
+        /// 
+        /// Notes
+        /// 
+        /// NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
+        /// (IEEE 754). This means that Not a Number is not equivalent to infinity.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// True where x is NaN, false otherwise.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray isnan(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.isnan(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Test element-wise for NaT (not a time) and return result as a boolean array.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// True where x is NaT, false otherwise.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray isnat(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.isnat(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
         /// Test element-wise for negative infinity, return result as bool array.
         /// 
         /// Notes
@@ -3590,6 +6209,118 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.isreal(@this);
+        }
+        
+        /// <summary>
+        /// Compute the truth value of x1 AND x2 element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays. x1 and x2 must be of the same shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Boolean result with the same shape as x1 and x2 of the logical
+        /// AND operation on corresponding elements of x1 and x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray logical_and(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.logical_and(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the truth value of x1 OR x2 element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Logical OR is applied to the elements of x1 and x2.
+        /// They have to be of the same shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Boolean result with the same shape as x1 and x2 of the logical
+        /// OR operation on elements of x1 and x2.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray logical_or(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.logical_or(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the truth value of NOT x element-wise.
+        /// </summary>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Boolean result with the same shape as x of the NOT operation
+        /// on elements of x.
+        /// This is a scalar if x is a scalar.
+        /// </returns>
+        public NDarray<bool> logical_not(NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.logical_not(@this, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Compute the truth value of x1 XOR x2, element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Logical XOR is applied to the elements of x1 and x2.  They must
+        /// be broadcastable to the same shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Boolean result of the logical XOR operation applied to the elements
+        /// of x1 and x2; the shape is determined by whether or not
+        /// broadcasting of one or both arrays was required.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray<bool> logical_xor(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.logical_xor(@this, x1, @out:@out, @where:@where);
         }
         
         /// <summary>
@@ -3724,6 +6455,182 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.array_equiv(@this, a1);
+        }
+        
+        /// <summary>
+        /// Return the truth value of (x1 &gt; x2) element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays.  If x1.shape != x2.shape, they must be
+        /// broadcastable to a common shape (which may be the shape of one or
+        /// the other).
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise comparison of x1 and x2.
+        /// Typically of type bool, unless dtype=object is passed.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray greater(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.greater(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the truth value of (x1 &gt;= x2) element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays.  If x1.shape != x2.shape, they must be
+        /// broadcastable to a common shape (which may be the shape of one or
+        /// the other).
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise comparison of x1 and x2.
+        /// Typically of type bool, unless dtype=object is passed.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray<bool> greater_equal(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.greater_equal(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the truth value of (x1 &lt; x2) element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays.  If x1.shape != x2.shape, they must be
+        /// broadcastable to a common shape (which may be the shape of one or
+        /// the other).
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise comparison of x1 and x2.
+        /// Typically of type bool, unless dtype=object is passed.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray less(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.less(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return the truth value of (x1 =&lt; x2) element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays.  If x1.shape != x2.shape, they must be
+        /// broadcastable to a common shape (which may be the shape of one or
+        /// the other).
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise comparison of x1 and x2.
+        /// Typically of type bool, unless dtype=object is passed.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray less_equal(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.less_equal(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return (x1 == x2) element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays of the same shape.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise comparison of x1 and x2.
+        /// Typically of type bool, unless dtype=object is passed.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray equal(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.equal(@this, x1, @out:@out, @where:@where);
+        }
+        
+        /// <summary>
+        /// Return (x1 != x2) element-wise.
+        /// </summary>
+        /// <param name="x1">
+        /// Input arrays.
+        /// </param>
+        /// <param name="@out">
+        /// A location into which the result is stored. If provided, it must have
+        /// a shape that the inputs broadcast to. If not provided or None,
+        /// a freshly-allocated array is returned. A tuple (possible only as a
+        /// keyword argument) must have length equal to the number of outputs.
+        /// </param>
+        /// <param name="@where">
+        /// Values of True indicate to calculate the ufunc at that position, values
+        /// of False indicate to leave the value in the output alone.
+        /// </param>
+        /// <returns>
+        /// Output array, element-wise comparison of x1 and x2.
+        /// Typically of type bool, unless dtype=object is passed.
+        /// This is a scalar if both x1 and x2 are scalars.
+        /// </returns>
+        public NDarray not_equal(NDarray x1, NDarray @out = null, NDarray @where = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.not_equal(@this, x1, @out:@out, @where:@where);
         }
         
         /// <summary>

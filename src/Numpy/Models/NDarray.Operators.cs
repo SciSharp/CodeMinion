@@ -117,16 +117,16 @@ namespace Numpy
         // Return self/value.
         public static NDarray operator /(NDarray a, ValueType obj)
         {
-            return new NDarray(a.self.InvokeMethod("__div__", obj.ToPython()));
-        }
-
-        /// <summary>
-        /// Return self/value.
-        /// </summary>
-        public static NDarray truediv(NDarray a, ValueType obj)
-        {
             return new NDarray(a.self.InvokeMethod("__truediv__", obj.ToPython()));
         }
+
+        ///// <summary>
+        ///// Return self/value.
+        ///// </summary>
+        //public static NDarray truediv(NDarray a, ValueType obj)
+        //{
+        //    return new NDarray(a.self.InvokeMethod("__truediv__", obj.ToPython()));
+        //}
 
         /// <summary>
         /// Return self//value. 

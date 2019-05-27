@@ -1198,6 +1198,51 @@ namespace Numpy
             => NumPy.Instance.loadtxt(fname, dtype:dtype, comments:comments, delimiter:delimiter, converters:converters, skiprows:skiprows, usecols:usecols, unpack:unpack, ndmin:ndmin, encoding:encoding, max_rows:max_rows);
         
         /// <summary>
+        /// Provides a convenient view on arrays of string and unicode values.
+        /// 
+        /// Versus a regular NumPy array of type str or unicode, this
+        /// class adds the following functionality:
+        /// 
+        /// chararrays should be created using numpy.char.array or
+        /// numpy.char.asarray, rather than this constructor directly.
+        /// 
+        /// This constructor creates the array, using buffer (with offset
+        /// and strides) if it is not None. If buffer is None, then
+        /// constructs a new array with strides in “C order”, unless both
+        /// len(shape) &gt;= 2 and order='Fortran', in which case strides
+        /// is in “Fortran order”.
+        /// </summary>
+        /// <param name="shape">
+        /// Shape of the array.
+        /// </param>
+        /// <param name="itemsize">
+        /// Length of each array element, in number of characters. Default is 1.
+        /// </param>
+        /// <param name="unicode">
+        /// Are the array elements of type unicode (True) or string (False).
+        /// Default is False.
+        /// </param>
+        /// <param name="buffer">
+        /// Memory address of the start of the array data.  Default is None,
+        /// in which case a new array is created.
+        /// </param>
+        /// <param name="offset">
+        /// Fixed stride displacement from the beginning of an axis?
+        /// Default is 0. Needs to be &gt;=0.
+        /// </param>
+        /// <param name="strides">
+        /// Strides for the array (see ndarray.strides for full description).
+        /// Default is None.
+        /// </param>
+        /// <param name="order">
+        /// The order in which the array data is stored in memory: ‘C’ -&gt;
+        /// “row major” order (the default), ‘F’ -&gt; “column major”
+        /// (Fortran) order.
+        /// </param>
+        public static void chararray(Shape shape, int? itemsize = null, bool? unicode = null, int? buffer = null, int? offset = null, int[] strides = null, string order = null)
+            => NumPy.Instance.chararray(shape, itemsize:itemsize, unicode:unicode, buffer:buffer, offset:offset, strides:strides, order:order);
+        
+        /// <summary>
         /// Return evenly spaced values within a given interval.
         /// 
         /// Values are generated within the half-open interval [start, stop)
@@ -2290,6 +2335,42 @@ namespace Numpy
         /// </returns>
         public static NDarray<T> meshgrid<T>(T[,] x2, T[,] x1, string indexing = null, bool? sparse = null, bool? copy = null)
             => NumPy.Instance.meshgrid(x2, x1, indexing:indexing, sparse:sparse, copy:copy);
+        */
+        
+        /// <summary>
+        /// nd_grid instance which returns a dense multi-dimensional “meshgrid”.
+        /// 
+        /// An instance of numpy.lib.index_tricks.nd_grid which returns an dense
+        /// (or fleshed out) mesh-grid when indexed, so that each returned argument
+        /// has the same shape.  The dimensions and number of the output arrays are
+        /// equal to the number of indexing dimensions.  If the step length is not a
+        /// complex number, then the stop is not inclusive.
+        /// 
+        /// However, if the step length is a complex number (e.g. 5j), then
+        /// the integer part of its magnitude is interpreted as specifying the
+        /// number of points to create between the start and stop values, where
+        /// the stop value is inclusive.
+        /// </summary>
+        public static void mgrid()
+            => NumPy.Instance.mgrid();
+        
+        /*
+        /// <summary>
+        /// nd_grid instance which returns an open multi-dimensional “meshgrid”.
+        /// 
+        /// An instance of numpy.lib.index_tricks.nd_grid which returns an open
+        /// (i.e. not fleshed out) mesh-grid when indexed, so that only one dimension
+        /// of each returned array is greater than 1.  The dimension and number of the
+        /// output arrays are equal to the number of indexing dimensions.  If the step
+        /// length is not a complex number, then the stop is not inclusive.
+        /// 
+        /// However, if the step length is a complex number (e.g. 5j), then
+        /// the integer part of its magnitude is interpreted as specifying the
+        /// number of points to create between the start and stop values, where
+        /// the stop value is inclusive.
+        /// </summary>
+        public static void ogrid(math mesh-grid `ndarrays` with only one dimension)
+            => NumPy.Instance.ogrid(mesh-grid `ndarrays` with only one dimension);
         */
         
         /// <summary>
