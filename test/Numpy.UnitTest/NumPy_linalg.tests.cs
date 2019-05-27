@@ -8,8 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Python.Runtime;
-using Python.Included;
 using Numpy.Models;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -308,6 +306,121 @@ namespace Numpy.UnitTest
                 "array([[a, aa, aaa],\n" +
                 "       [b, bb, bbb],\n" +
                 "       [c, cc, ccc]], dtype=object)";
+            Assert.AreEqual(expected, given.repr);
+            #endif
+        }
+        
+        
+        [TestMethod]
+        public void matmulTest()
+        {
+            // For 2-D arrays it is the matrix product:
+            
+            // >>> a = np.array([[1, 0],
+            // ...               [0, 1]])
+            // >>> b = np.array([[4, 1], 
+            // ...               [2, 2]]
+            // >>> np.matmul(a, b)
+            // array([[4, 1],
+            //        [2, 2]])
+            // 
+            
+            #if TODO
+            var given=  a = np.array({{1, 0},;
+            var expected=
+                "...               [0, 1]])";
+            Assert.AreEqual(expected, given.repr);
+             given=  b = np.array({{4, 1}, ;
+             expected=
+                "...               [2, 2]]";
+            Assert.AreEqual(expected, given.repr);
+             given=  np.matmul(a, b);
+             expected=
+                "array([[4, 1],\n" +
+                "       [2, 2]])";
+            Assert.AreEqual(expected, given.repr);
+            #endif
+            // For 2-D mixed with 1-D, the result is the usual.
+            
+            // >>> a = np.array([[1, 0],
+            // ...               [0, 1]]
+            // >>> b = np.array([1, 2])
+            // >>> np.matmul(a, b)
+            // array([1, 2])
+            // >>> np.matmul(b, a)
+            // array([1, 2])
+            // 
+            
+            #if TODO
+             given=  a = np.array({{1, 0},;
+             expected=
+                "...               [0, 1]]";
+            Assert.AreEqual(expected, given.repr);
+             given=  b = np.array({1, 2});
+             given=  np.matmul(a, b);
+             expected=
+                "array([1, 2])";
+            Assert.AreEqual(expected, given.repr);
+             given=  np.matmul(b, a);
+             expected=
+                "array([1, 2])";
+            Assert.AreEqual(expected, given.repr);
+            #endif
+            // Broadcasting is conventional for stacks of arrays
+            
+            // >>> a = np.arange(2 * 2 * 4).reshape((2, 2, 4))
+            // >>> b = np.arange(2 * 2 * 4).reshape((2, 4, 2))
+            // >>> np.matmul(a,b).shape
+            // (2, 2, 2)
+            // >>> np.matmul(a, b)[0, 1, 1]
+            // 98
+            // >>> sum(a[0, 1, :] * b[0 , :, 1])
+            // 98
+            // 
+            
+            #if TODO
+             given=  a = np.arange(2 * 2 * 4).reshape((2, 2, 4));
+             given=  b = np.arange(2 * 2 * 4).reshape((2, 4, 2));
+             given=  np.matmul(a,b).shape;
+             expected=
+                "(2, 2, 2)";
+            Assert.AreEqual(expected, given.repr);
+             given=  np.matmul(a, b){0, 1, 1};
+             expected=
+                "98";
+            Assert.AreEqual(expected, given.repr);
+             given=  sum(a[0, 1, :] * b[0 , :, 1]);
+             expected=
+                "98";
+            Assert.AreEqual(expected, given.repr);
+            #endif
+            // Vector, vector returns the scalar inner product, but neither argument
+            // is complex-conjugated:
+            
+            // >>> np.matmul([2j, 3j], [2j, 3j])
+            // (-13+0j)
+            // 
+            
+            #if TODO
+             given=  np.matmul({2j, 3j}, {2j, 3j});
+             expected=
+                "(-13+0j)";
+            Assert.AreEqual(expected, given.repr);
+            #endif
+            // Scalar multiplication raises an error.
+            
+            // >>> np.matmul([1,2], 3)
+            // Traceback (most recent call last):
+            // ...
+            // ValueError: matmul: Input operand 1 does not have enough dimensions ...
+            // 
+            
+            #if TODO
+             given=  np.matmul({1,2}, 3);
+             expected=
+                "Traceback (most recent call last):\n" +
+                "...\n" +
+                "ValueError: matmul: Input operand 1 does not have enough dimensions ...";
             Assert.AreEqual(expected, given.repr);
             #endif
         }
@@ -1586,6 +1699,38 @@ namespace Numpy.UnitTest
              given=  np.allclose(np.tensordot(ainv, b, 1), np.linalg.tensorsolve(a, b));
              expected=
                 "True";
+            Assert.AreEqual(expected, given.repr);
+            #endif
+        }
+        
+        
+        [TestMethod]
+        public void LinAlgErrorTest()
+        {
+            // >>> from numpy import linalg as LA
+            // >>> LA.inv(np.zeros((2,2)))
+            // Traceback (most recent call last):
+            //   File "<stdin>", line 1, in <module>
+            //   File "...linalg.py", line 350,
+            //     in inv return wrap(solve(a, identity(a.shape[0], dtype=a.dtype)))
+            //   File "...linalg.py", line 249,
+            //     in solve
+            //     raise LinAlgError('Singular matrix')
+            // numpy.linalg.LinAlgError: Singular matrix
+            // 
+            
+            #if TODO
+            var given=  from numpy import linalg as LA;
+             given=  LA.inv(np.zeros((2,2)));
+            var expected=
+                "Traceback (most recent call last):\n" +
+                "  File "<stdin>", line 1, in <module>\n" +
+                "  File "...linalg.py", line 350,\n" +
+                "    in inv return wrap(solve(a, identity(a.shape[0], dtype=a.dtype)))\n" +
+                "  File "...linalg.py", line 249,\n" +
+                "    in solve\n" +
+                "    raise LinAlgError('Singular matrix')\n" +
+                "numpy.linalg.LinAlgError: Singular matrix";
             Assert.AreEqual(expected, given.repr);
             #endif
         }
