@@ -6,7 +6,7 @@ using Numpy;
 using Numpy.Models;
 using Assert = NUnit.Framework.Assert;
 
-namespace Numpy.UnitTests
+namespace Numpy.UnitTest
 {
     [TestClass]
     public class NumpyTest
