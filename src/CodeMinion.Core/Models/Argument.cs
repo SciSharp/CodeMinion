@@ -21,6 +21,12 @@ namespace CodeMinion.Core.Models
         public bool IsReturnValue { get; set; }
         public string Tag { get; set; }
 
+        /// <summary>
+        /// This default value is not a compile time constant, so it can not be used as a C# default value in
+        /// the function declaration. So if the parameter is passed as null it will be initialized with the given value.
+        /// </summary>
+        public string DefaultIfNull { get; set; }
+
         public Argument Clone()
         {
             return JObject.FromObject(this).ToObject<Argument>();

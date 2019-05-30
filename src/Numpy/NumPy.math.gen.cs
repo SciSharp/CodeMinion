@@ -535,7 +535,7 @@ namespace Numpy
         /// <returns>
         /// Output array.
         /// </returns>
-        public NDarray unwrap(NDarray p, float? discont = null, int? axis = null)
+        public NDarray unwrap(NDarray p, float? discont = 3.141592653589793f, int? axis = -1)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -544,8 +544,8 @@ namespace Numpy
                 p,
             });
             var kwargs=new PyDict();
-            if (discont!=null) kwargs["discont"]=ToPython(discont);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (discont!=3.141592653589793f) kwargs["discont"]=ToPython(discont);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("unwrap", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -950,7 +950,7 @@ namespace Numpy
         /// The real and imaginary parts of complex numbers are rounded
         /// separately.  The result of rounding a float is a float.
         /// </returns>
-        public NDarray around(NDarray a, int? decimals = null, NDarray @out = null)
+        public NDarray around(NDarray a, int? decimals = 0, NDarray @out = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -959,7 +959,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (decimals!=null) kwargs["decimals"]=ToPython(decimals);
+            if (decimals!=0) kwargs["decimals"]=ToPython(decimals);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("around", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1665,7 +1665,7 @@ namespace Numpy
         /// a in most cases. A notable exception is datetime64, which
         /// results in a timedelta64 output array.
         /// </returns>
-        public NDarray diff(NDarray a, int? n = null, int? axis = null, NDarray append = null, NDarray prepend = null)
+        public NDarray diff(NDarray a, int? n = 1, int? axis = -1, NDarray append = null, NDarray prepend = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1674,8 +1674,8 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (n!=1) kwargs["n"]=ToPython(n);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             if (append!=null) kwargs["append"]=ToPython(append);
             if (prepend!=null) kwargs["prepend"]=ToPython(prepend);
             dynamic py = __self__.InvokeMethod("diff", pyargs, kwargs);
@@ -1827,7 +1827,7 @@ namespace Numpy
         /// <returns>
         /// Vector cross product(s).
         /// </returns>
-        public NDarray cross(NDarray a, NDarray b, int? axisa = null, int? axisb = null, int? axisc = null, int? axis = null)
+        public NDarray cross(NDarray a, NDarray b, int? axisa = -1, int? axisb = -1, int? axisc = -1, int? axis = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1837,9 +1837,9 @@ namespace Numpy
                 b,
             });
             var kwargs=new PyDict();
-            if (axisa!=null) kwargs["axisa"]=ToPython(axisa);
-            if (axisb!=null) kwargs["axisb"]=ToPython(axisb);
-            if (axisc!=null) kwargs["axisc"]=ToPython(axisc);
+            if (axisa!=-1) kwargs["axisa"]=ToPython(axisa);
+            if (axisb!=-1) kwargs["axisb"]=ToPython(axisb);
+            if (axisc!=-1) kwargs["axisc"]=ToPython(axisc);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("cross", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1877,7 +1877,7 @@ namespace Numpy
         /// <returns>
         /// Definite integral as approximated by trapezoidal rule.
         /// </returns>
-        public float trapz(NDarray y, NDarray x = null, ValueType dx = null, int? axis = null)
+        public float trapz(NDarray y, NDarray x = null, float? dx = 1.0f, int? axis = -1)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1887,8 +1887,8 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (x!=null) kwargs["x"]=ToPython(x);
-            if (dx!=null) kwargs["dx"]=ToPython(dx);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (dx!=1.0f) kwargs["dx"]=ToPython(dx);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("trapz", pyargs, kwargs);
             return ToCsharp<float>(py);
         }
@@ -3427,7 +3427,7 @@ namespace Numpy
         /// The counterclockwise angle from the positive real axis on
         /// the complex plane, with dtype as numpy.float64.
         /// </returns>
-        public NDarray angle(NDarray z, bool? deg = null)
+        public NDarray angle(NDarray z, bool? deg = false)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -3436,7 +3436,7 @@ namespace Numpy
                 z,
             });
             var kwargs=new PyDict();
-            if (deg!=null) kwargs["deg"]=ToPython(deg);
+            if (deg!=false) kwargs["deg"]=ToPython(deg);
             dynamic py = __self__.InvokeMethod("angle", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3560,7 +3560,7 @@ namespace Numpy
         /// <returns>
         /// Discrete, linear convolution of a and v.
         /// </returns>
-        public NDarray convolve(NDarray a, NDarray v, string mode = null)
+        public NDarray convolve(NDarray a, NDarray v, string mode = "full")
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -3570,7 +3570,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="full") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("convolve", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -4161,7 +4161,7 @@ namespace Numpy
         /// x, with the non-finite values replaced. If copy is False, this may
         /// be x itself.
         /// </returns>
-        public NDarray nan_to_num(NDarray x, bool? copy = null)
+        public NDarray nan_to_num(NDarray x, bool? copy = true)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -4170,7 +4170,7 @@ namespace Numpy
                 x,
             });
             var kwargs=new PyDict();
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
+            if (copy!=true) kwargs["copy"]=ToPython(copy);
             dynamic py = __self__.InvokeMethod("nan_to_num", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -4199,7 +4199,7 @@ namespace Numpy
         /// If a is real, the type of a is used for the output.  If a
         /// has complex elements, the returned type is float.
         /// </returns>
-        public NDarray real_if_close(NDarray a, float tol)
+        public NDarray real_if_close(NDarray a, float tol = 100)
         {
             //auto-generated code, do not change
             var __self__=self;

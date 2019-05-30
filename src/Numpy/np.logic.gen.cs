@@ -589,7 +589,7 @@ namespace Numpy
         /// Returns True if the two arrays are equal within the given
         /// tolerance; False otherwise.
         /// </returns>
-        public static bool allclose(NDarray b, NDarray a, float rtol, float atol, bool equal_nan)
+        public static bool allclose(NDarray b, NDarray a, float rtol = 1e-05f, float atol = 1e-08f, bool equal_nan = false)
             => NumPy.Instance.allclose(b, a, rtol, atol, equal_nan);
         
         /// <summary>
@@ -637,7 +637,7 @@ namespace Numpy
         /// given tolerance. If both a and b are scalars, returns a single
         /// boolean value.
         /// </returns>
-        public static NDarray isclose(NDarray b, NDarray a, float rtol, float atol, bool equal_nan)
+        public static NDarray isclose(NDarray b, NDarray a, float rtol = 1e-05f, float atol = 1e-08f, bool equal_nan = false)
             => NumPy.Instance.isclose(b, a, rtol, atol, equal_nan);
         
         /// <summary>

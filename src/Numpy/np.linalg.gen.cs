@@ -357,7 +357,7 @@ namespace Numpy
         /// <returns>
         /// The calculation based on the Einstein summation convention.
         /// </returns>
-        public static NDarray einsum(string subscripts, NDarray[] operands, NDarray @out = null, Dtype dtype = null, string order = null, string casting = null, object optimize = null)
+        public static NDarray einsum(string subscripts, NDarray[] operands, NDarray @out = null, Dtype dtype = null, string order = null, string casting = "safe", object optimize = null)
             => NumPy.Instance.einsum(subscripts, operands, @out:@out, dtype:dtype, order:order, casting:casting, optimize:optimize);
         
         /*
@@ -393,7 +393,7 @@ namespace Numpy
         /// string_repr
         /// A printable representation of the einsum path.
         /// </returns>
-        public static (list of tuples, string) einsum_path(string subscripts, NDarray[] operands, {bool optimize)
+        public static (list of tuples, string) einsum_path(string subscripts, NDarray[] operands, {bool optimize = "greedy")
             => NumPy.Instance.einsum_path(subscripts, operands, optimize);
         */
         
@@ -505,7 +505,7 @@ namespace Numpy
             /// along with r. The tau array contains scaling factors for the
             /// reflectors. In the deprecated  ‘economic’ mode only h is returned.
             /// </returns>
-            public static (NDarray, NDarray, NDarray) qr(NDarray a, string mode = null)
+            public static (NDarray, NDarray, NDarray) qr(NDarray a, string mode = "reduced")
                 => NumPy.Instance.qr(a, mode:mode);
         }
         
@@ -604,7 +604,7 @@ namespace Numpy
             /// enabling a more efficient method for finding singular values.
             /// Defaults to False.
             /// </param>
-            public static int matrix_rank(NDarray M, NDarray tol = null, bool? hermitian = null)
+            public static int matrix_rank(NDarray M, NDarray tol = null, bool? hermitian = false)
                 => NumPy.Instance.matrix_rank(M, tol:tol, hermitian:hermitian);
         }
         
@@ -684,7 +684,7 @@ namespace Numpy
         /// If a is 2-D, the sum along the diagonal is returned.  If a has
         /// larger dimensions, then an array of sums along diagonals is returned.
         /// </returns>
-        public static NDarray trace(NDarray a, int? offset = null, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
+        public static NDarray trace(NDarray a, int? offset = 0, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
             => NumPy.Instance.trace(a, offset:offset, axis2:axis2, axis1:axis1, dtype:dtype, @out:@out);
         
         public static partial class linalg {
@@ -733,7 +733,7 @@ namespace Numpy
             /// <returns>
             /// a’s tensordot inverse, shape a.shape[ind:] + a.shape[:ind].
             /// </returns>
-            public static NDarray tensorinv(NDarray a, int? ind = null)
+            public static NDarray tensorinv(NDarray a, int? ind = 2)
                 => NumPy.Instance.tensorinv(a, ind:ind);
         }
         

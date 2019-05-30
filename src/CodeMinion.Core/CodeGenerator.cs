@@ -370,7 +370,12 @@ namespace CodeMinion.Core
                 {
                     var name = EscapeName(arg.Name);
                     if (string.IsNullOrWhiteSpace(arg.DefaultValue))
-                        s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                    {
+                        if (string.IsNullOrWhiteSpace(arg.DefaultIfNull) || arg.DefaultValue=="null")
+                            s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                        else
+                            s.Out($"kwargs[\"{arg.Name}\"]=ToPython({name} ?? {arg.DefaultIfNull});");
+                    }
                     else
                         s.Out($"if ({name}!={arg.DefaultValue}) kwargs[\"{arg.Name}\"]=ToPython({name});");
                 }

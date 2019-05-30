@@ -418,25 +418,60 @@ namespace Numpy.ApiGenerator
                 var dd = dt.NextSibling?.NextSibling;
                 arg.Description = ParseDescription(dd);
                 arg.Position = decl.Arguments.Count;
-                PostProcess(arg);
                 decl.Arguments.Add(arg);
+            }
+            ParseDefaultValues(html_doc, decl);
+            foreach (var arg in decl.Arguments)
+                PostProcess(arg);
+        }
+
+        private void ParseDefaultValues(HtmlDoc htmlDoc, Function decl)
+        {
+            var dl = htmlDoc.Doc.DocumentNode.Descendants("dl").FirstOrDefault(x => x.Attributes["class"]?.Value == "function");
+            if (dl == null)
+                return;
+            foreach (var em in dl.Descendants("em"))
+            {
+                var tokens = em.InnerText.Split("=");
+                if (tokens.Length >= 2)
+                {
+                    var (attr_name, default_value) = (tokens[0], tokens[1]);
+                    var attr = decl.Arguments.FirstOrDefault(x => x.Name == attr_name);
+                    if (attr == null)
+                    {
+                        Console.WriteLine("ParseDefaultValues: Attr '{attr_name}' not found");
+                        continue;
+                    }
+                    attr.DefaultValue = InferDefaultValue(default_value);
+                }
             }
         }
 
         private void PostProcess(Argument arg)
         {
-            if (arg.Name == "order")
-                arg.DefaultValue = null;
-            if (arg.Name == "axes")
+            switch (arg.Name)
             {
-                arg.Type = "int[]";
-                arg.DefaultValue = "null";
-                return;
-            }
-            if (arg.Name == "out")
-            {
-                arg.IsNullable = true;
-                arg.IsNamedArg = true;
+                case "order":
+                    arg.DefaultValue = null;
+                    break;
+                case "axes":
+                    {
+                        arg.Type = "int[]";
+                        arg.DefaultValue = "null";
+                        return;
+                    }
+                case "where":
+                case "out":
+                    {
+                        arg.IsNullable = true;
+                        arg.IsNamedArg = true;
+                        arg.DefaultValue = null;
+                        break;
+                    }
+                case "requirements":
+                case "comments":
+                    arg.DefaultValue = "null";
+                    break;
             }
             if (arg.Name.StartsWith("*"))
                 arg.Name = arg.Name.TrimStart('*');
@@ -448,6 +483,8 @@ namespace Numpy.ApiGenerator
                 //    break;
                 case "Dtype":
                     arg.IsValueType = false;
+                    if (!string.IsNullOrWhiteSpace(arg.DefaultValue))
+                        arg.DefaultValue = "null";
                     break;
             }
         }
@@ -538,11 +575,50 @@ namespace Numpy.ApiGenerator
                     decl.Arguments.Remove(decl.Arguments.FirstOrDefault(x => x.Name == "old_behavior"));
                     break;
                 case "einsum":
-                    decl.Arguments.First(x => x.Name == "optimize").Type = "object";
+                    var optimize=decl.Arguments.First(x => x.Name == "optimize");
+                        optimize.Type = "object";
+                    optimize.DefaultValue = "null";
+                    optimize.DefaultIfNull = "false";
                     break;
+                case "rot90":
+                    var axes = decl.Arguments.First(x => x.Name == "axes");
+                    axes.DefaultValue = "null";
+                    axes.DefaultIfNull = "new int[] {0, 1}";
+                    break;
+                case "insert":
+                    var obj = decl.Arguments.First(x => x.Name == "obj");
+                    obj.DefaultValue = "0";
+                    var values= decl.Arguments.First(x => x.Name == "values");
+                    values.DefaultValue = "null";
+                    break;
+                case "trapz":
+                    var dx = decl.Arguments.First(x => x.Name == "dx");
+                    dx.Type = "float";
+                    break;
+                case "lstsq":
+                {
+                    var rcond = decl.Arguments.First(x => x.Name == "rcond");
+                    rcond.DefaultValue = "null";
+                    break;
+                }
+                case "pinv":
+                {
+                    var rcond = decl.Arguments.First(x => x.Name == "rcond");
+                    rcond.Type = "float";
+                    break;
+                }
+                case "histogram":
+                case "histogram2d":
+                case "histogramdd":
+                case "histogram_bin_edges":
+                {
+                        var bins = decl.Arguments.First(x => x.Name == "bins");
+                    bins.DefaultValue="null";
+                    break;
+                }
                 //case "cond":
-                //    decl.Returns[0].Type = "float";
-                //    break;
+                    //    decl.Returns[0].Type = "float";
+                    //    break;
             }
         }
 
@@ -839,9 +915,21 @@ namespace Numpy.ApiGenerator
 
         private string InferDefaultValue(string default_value)
         {
-            // string
-            //if (Regex.IsMatch(default_value, @"$‘(.+)’"))
-            //    return $"\"{ default_value.Trim('\'', '‘', '’') }\""; //   ‘C’ => "C"
+            switch (default_value)
+            {
+                case "None":
+                case "&lt;class 'float'&gt;":
+                case "&lt;class 'numpy.float64'&gt;":
+                case "&lt;no value&gt;":
+                    return null;
+                case "True": return "true";
+                case "False": return "false";
+                case "'C'": return "\"C\"";
+            }
+            if (default_value.StartsWith("'"))
+                return $"\"{default_value.Trim('\'')}\"";
+            if (Regex.IsMatch(default_value, @"[+-]?(\d+\.\d+)|(\d+(\.\d+)?e[+-]\d+)"))
+                return default_value + "f";
             return default_value;
         }
 

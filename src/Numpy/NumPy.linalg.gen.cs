@@ -436,7 +436,7 @@ namespace Numpy
         /// <returns>
         /// The calculation based on the Einstein summation convention.
         /// </returns>
-        public NDarray einsum(string subscripts, NDarray[] operands, NDarray @out = null, Dtype dtype = null, string order = null, string casting = null, object optimize = null)
+        public NDarray einsum(string subscripts, NDarray[] operands, NDarray @out = null, Dtype dtype = null, string order = null, string casting = "safe", object optimize = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -449,7 +449,7 @@ namespace Numpy
             if (@out!=null) kwargs["out"]=ToPython(@out);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="safe") kwargs["casting"]=ToPython(casting);
             if (optimize!=null) kwargs["optimize"]=ToPython(optimize);
             dynamic py = __self__.InvokeMethod("einsum", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -488,7 +488,7 @@ namespace Numpy
         /// string_repr
         /// A printable representation of the einsum path.
         /// </returns>
-        public (list of tuples, string) einsum_path(string subscripts, NDarray[] operands, {bool optimize)
+        public (list of tuples, string) einsum_path(string subscripts, NDarray[] operands, {bool optimize = "greedy")
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -633,7 +633,7 @@ namespace Numpy
         /// along with r. The tau array contains scaling factors for the
         /// reflectors. In the deprecated  ‘economic’ mode only h is returned.
         /// </returns>
-        public (NDarray, NDarray, NDarray) qr(NDarray a, string mode = null)
+        public (NDarray, NDarray, NDarray) qr(NDarray a, string mode = "reduced")
         {
             //auto-generated code, do not change
             var linalg = self.GetAttr("linalg");
@@ -643,7 +643,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="reduced") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("qr", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<NDarray>(t[2]));
@@ -753,7 +753,7 @@ namespace Numpy
         /// enabling a more efficient method for finding singular values.
         /// Defaults to False.
         /// </param>
-        public int matrix_rank(NDarray M, NDarray tol = null, bool? hermitian = null)
+        public int matrix_rank(NDarray M, NDarray tol = null, bool? hermitian = false)
         {
             //auto-generated code, do not change
             var linalg = self.GetAttr("linalg");
@@ -764,7 +764,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (tol!=null) kwargs["tol"]=ToPython(tol);
-            if (hermitian!=null) kwargs["hermitian"]=ToPython(hermitian);
+            if (hermitian!=false) kwargs["hermitian"]=ToPython(hermitian);
             dynamic py = __self__.InvokeMethod("matrix_rank", pyargs, kwargs);
             return ToCsharp<int>(py);
         }
@@ -855,7 +855,7 @@ namespace Numpy
         /// If a is 2-D, the sum along the diagonal is returned.  If a has
         /// larger dimensions, then an array of sums along diagonals is returned.
         /// </returns>
-        public NDarray trace(NDarray a, int? offset = null, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
+        public NDarray trace(NDarray a, int? offset = 0, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -864,7 +864,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
             if (axis2!=null) kwargs["axis2"]=ToPython(axis2);
             if (axis1!=null) kwargs["axis1"]=ToPython(axis1);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -929,7 +929,7 @@ namespace Numpy
         /// <returns>
         /// a’s tensordot inverse, shape a.shape[ind:] + a.shape[:ind].
         /// </returns>
-        public NDarray tensorinv(NDarray a, int? ind = null)
+        public NDarray tensorinv(NDarray a, int? ind = 2)
         {
             //auto-generated code, do not change
             var linalg = self.GetAttr("linalg");
@@ -939,7 +939,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (ind!=null) kwargs["ind"]=ToPython(ind);
+            if (ind!=2) kwargs["ind"]=ToPython(ind);
             dynamic py = __self__.InvokeMethod("tensorinv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

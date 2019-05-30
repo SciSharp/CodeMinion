@@ -37,7 +37,7 @@ namespace Numpy
         /// of dst, and selects elements to copy from src to dst
         /// wherever it contains the value True.
         /// </param>
-        public void copyto(NDarray dst, NDarray src, string casting = null, NDarray @where = null)
+        public void copyto(NDarray dst, NDarray src, string casting = "same_kind", NDarray @where = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -47,7 +47,7 @@ namespace Numpy
                 src,
             });
             var kwargs=new PyDict();
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
             if (@where!=null) kwargs["where"]=ToPython(@where);
             dynamic py = __self__.InvokeMethod("copyto", pyargs, kwargs);
         }
@@ -72,7 +72,7 @@ namespace Numpy
         /// of dst, and selects elements to copy from src to dst
         /// wherever it contains the value True.
         /// </param>
-        public void copyto(NDarray dst, NDarray src, string casting = null, bool[] @where = null)
+        public void copyto(NDarray dst, NDarray src, string casting = "same_kind", bool[] @where = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -82,7 +82,7 @@ namespace Numpy
                 src,
             });
             var kwargs=new PyDict();
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
             if (@where!=null) kwargs["where"]=ToPython(@where);
             dynamic py = __self__.InvokeMethod("copyto", pyargs, kwargs);
         }
@@ -293,7 +293,7 @@ namespace Numpy
         /// NumPy versions a view of a is returned only if the order of the
         /// axes is changed, otherwise the input array is returned.
         /// </returns>
-        public NDarray rollaxis(NDarray a, int axis, int? start = null)
+        public NDarray rollaxis(NDarray a, int axis, int? start = 0)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -303,7 +303,7 @@ namespace Numpy
                 axis,
             });
             var kwargs=new PyDict();
-            if (start!=null) kwargs["start"]=ToPython(start);
+            if (start!=0) kwargs["start"]=ToPython(start);
             dynamic py = __self__.InvokeMethod("rollaxis", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -505,7 +505,7 @@ namespace Numpy
         /// typically not contiguous. Furthermore, more than one element of a
         /// broadcasted array may refer to a single memory location.
         /// </returns>
-        public NDarray broadcast_to(NDarray array, Shape shape, bool? subok = null)
+        public NDarray broadcast_to(NDarray array, Shape shape, bool? subok = false)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -515,7 +515,7 @@ namespace Numpy
                 shape,
             });
             var kwargs=new PyDict();
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=false) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("broadcast_to", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -721,7 +721,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public NDarray require(NDarray a, Dtype dtype, string[] requirements)
+        public NDarray require(NDarray a, Dtype dtype, string[] requirements = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -763,7 +763,7 @@ namespace Numpy
         /// <returns>
         /// The concatenated array.
         /// </returns>
-        public NDarray concatenate(NDarray[] arys, int? axis = null, NDarray @out = null)
+        public NDarray concatenate(NDarray[] arys, int? axis = 0, NDarray @out = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -772,7 +772,7 @@ namespace Numpy
                 arys,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("concatenate", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -799,7 +799,7 @@ namespace Numpy
         /// <returns>
         /// The stacked array has one more dimension than the input arrays.
         /// </returns>
-        public NDarray stack(NDarray[] arrays, int? axis = null, NDarray @out = null)
+        public NDarray stack(NDarray[] arrays, int? axis = 0, NDarray @out = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -808,7 +808,7 @@ namespace Numpy
                 arrays,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("stack", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1025,7 +1025,7 @@ namespace Numpy
         /// <returns>
         /// A list of sub-arrays.
         /// </returns>
-        public NDarray[] split(NDarray ary, int[] indices_or_sections, int? axis = null)
+        public NDarray[] split(NDarray ary, int[] indices_or_sections, int? axis = 0)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1035,7 +1035,7 @@ namespace Numpy
                 indices_or_sections,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("split", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
         }
@@ -1192,7 +1192,7 @@ namespace Numpy
         /// does not occur in-place: a new array is returned. If
         /// axis is None, out is a flattened array.
         /// </returns>
-        public NDarray insert(NDarray arr, int obj, NDarray values, int? axis = null)
+        public NDarray insert(NDarray arr, int obj = 0, NDarray values = null, int? axis = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1258,7 +1258,7 @@ namespace Numpy
         /// <returns>
         /// The result of trimming the input. The input data type is preserved.
         /// </returns>
-        public NDarray trim_zeros(NDarray filt, string trim = null)
+        public NDarray trim_zeros(NDarray filt, string trim = "fb")
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1267,7 +1267,7 @@ namespace Numpy
                 filt,
             });
             var kwargs=new PyDict();
-            if (trim!=null) kwargs["trim"]=ToPython(trim);
+            if (trim!="fb") kwargs["trim"]=ToPython(trim);
             dynamic py = __self__.InvokeMethod("trim_zeros", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -1327,7 +1327,7 @@ namespace Numpy
         /// The number of times each of the unique values comes up in the
         /// original array. Only provided if return_counts is True.
         /// </returns>
-        public (NDarray, NDarray, NDarray, NDarray) unique(NDarray ar, bool? return_index = null, bool? return_inverse = null, bool? return_counts = null, int? axis = null)
+        public (NDarray, NDarray, NDarray, NDarray) unique(NDarray ar, bool? return_index = false, bool? return_inverse = false, bool? return_counts = false, int? axis = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1336,9 +1336,9 @@ namespace Numpy
                 ar,
             });
             var kwargs=new PyDict();
-            if (return_index!=null) kwargs["return_index"]=ToPython(return_index);
-            if (return_inverse!=null) kwargs["return_inverse"]=ToPython(return_inverse);
-            if (return_counts!=null) kwargs["return_counts"]=ToPython(return_counts);
+            if (return_index!=false) kwargs["return_index"]=ToPython(return_index);
+            if (return_inverse!=false) kwargs["return_inverse"]=ToPython(return_inverse);
+            if (return_counts!=false) kwargs["return_counts"]=ToPython(return_counts);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("unique", pyargs, kwargs);
             var t = py as PyTuple;
@@ -1520,7 +1520,7 @@ namespace Numpy
         /// <returns>
         /// A rotated view of m.
         /// </returns>
-        public NDarray rot90(NDarray m, int k, int[] axes = null)
+        public NDarray rot90(NDarray m, int k = 1, int[] axes = null)
         {
             //auto-generated code, do not change
             var __self__=self;

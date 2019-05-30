@@ -585,7 +585,7 @@ namespace Numpy
         /// NumPy versions a view of a is returned only if the order of the
         /// axes is changed, otherwise the input array is returned.
         /// </returns>
-        public NDarray rollaxis(int axis, int? start = null)
+        public NDarray rollaxis(int axis, int? start = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -650,7 +650,7 @@ namespace Numpy
         /// typically not contiguous. Furthermore, more than one element of a
         /// broadcasted array may refer to a single memory location.
         /// </returns>
-        public NDarray broadcast_to(Shape shape, bool? subok = null)
+        public NDarray broadcast_to(Shape shape, bool? subok = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -772,7 +772,7 @@ namespace Numpy
         /// <param name="requirements">
         /// The requirements list can be any of the following
         /// </param>
-        public NDarray require(Dtype dtype, string[] requirements)
+        public NDarray require(Dtype dtype, string[] requirements = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -800,7 +800,7 @@ namespace Numpy
         /// <returns>
         /// A list of sub-arrays.
         /// </returns>
-        public NDarray[] split(int[] indices_or_sections, int? axis = null)
+        public NDarray[] split(int[] indices_or_sections, int? axis = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -924,7 +924,7 @@ namespace Numpy
         /// does not occur in-place: a new array is returned. If
         /// axis is None, out is a flattened array.
         /// </returns>
-        public NDarray insert(int obj, NDarray values, int? axis = null)
+        public NDarray insert(int obj = 0, NDarray values = null, int? axis = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -967,7 +967,7 @@ namespace Numpy
         /// <returns>
         /// The result of trimming the input. The input data type is preserved.
         /// </returns>
-        public NDarray trim_zeros(string trim = null)
+        public NDarray trim_zeros(string trim = "fb")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1025,7 +1025,7 @@ namespace Numpy
         /// The number of times each of the unique values comes up in the
         /// original array. Only provided if return_counts is True.
         /// </returns>
-        public (NDarray, NDarray, NDarray, NDarray) unique(bool? return_index = null, bool? return_inverse = null, bool? return_counts = null, int? axis = null)
+        public (NDarray, NDarray, NDarray, NDarray) unique(bool? return_index = false, bool? return_inverse = false, bool? return_counts = false, int? axis = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1165,7 +1165,7 @@ namespace Numpy
         /// <returns>
         /// A rotated view of m.
         /// </returns>
-        public NDarray rot90(int k, int[] axes = null)
+        public NDarray rot90(int k = 1, int[] axes = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1533,7 +1533,7 @@ namespace Numpy
         /// to the eigenvalue w[i].  Will return a matrix object if a is
         /// a matrix object.
         /// </returns>
-        public (NDarray, NDarray) eigh(string UPLO = null)
+        public (NDarray, NDarray) eigh(string UPLO = "L")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1590,7 +1590,7 @@ namespace Numpy
         /// The eigenvalues in ascending order, each repeated according to
         /// its multiplicity.
         /// </returns>
-        public NDarray eigvalsh(string UPLO = null)
+        public NDarray eigvalsh(string UPLO = "L")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1702,7 +1702,7 @@ namespace Numpy
         /// The pseudo-inverse of a. If a is a matrix instance, then so
         /// is B.
         /// </returns>
-        public NDarray pinv(NDarray rcond)
+        public NDarray pinv(float rcond = 1e-15f)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1802,7 +1802,7 @@ namespace Numpy
         /// depends on the value of full_matrices. Only returned when
         /// compute_uv is True.
         /// </returns>
-        public (NDarray, NDarray, NDarray) svd(bool? full_matrices = null, bool? compute_uv = null)
+        public (NDarray, NDarray, NDarray) svd(bool? full_matrices = true, bool? compute_uv = true)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1845,7 +1845,7 @@ namespace Numpy
         /// The truncated or zero-padded input, transformed along the axis
         /// indicated by axis, or the last one if axis is not specified.
         /// </returns>
-        public NDarray fft(int? n = null, int? axis = null, string norm = null)
+        public NDarray fft(int? n = null, int? axis = -1, string norm = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -1990,7 +1990,7 @@ namespace Numpy
         /// The truncated or zero-padded input, transformed along the axis
         /// indicated by axis, or the last one if axis is not specified.
         /// </returns>
-        public NDarray ifft(int? n = null, int? axis = null, string norm = null)
+        public NDarray ifft(int? n = null, int? axis = -1, string norm = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -2541,7 +2541,7 @@ namespace Numpy
         /// <returns>
         /// Output array.
         /// </returns>
-        public NDarray unwrap(float? discont = null, int? axis = null)
+        public NDarray unwrap(float? discont = 3.141592653589793f, int? axis = -1)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -2857,7 +2857,7 @@ namespace Numpy
         /// The real and imaginary parts of complex numbers are rounded
         /// separately.  The result of rounding a float is a float.
         /// </returns>
-        public NDarray around(int? decimals = null, NDarray @out = null)
+        public NDarray around(int? decimals = 0, NDarray @out = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -3403,7 +3403,7 @@ namespace Numpy
         /// a in most cases. A notable exception is datetime64, which
         /// results in a timedelta64 output array.
         /// </returns>
-        public NDarray diff(int? n = null, int? axis = null, NDarray append = null, NDarray prepend = null)
+        public NDarray diff(int? n = 1, int? axis = -1, NDarray append = null, NDarray prepend = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -3529,7 +3529,7 @@ namespace Numpy
         /// <returns>
         /// Vector cross product(s).
         /// </returns>
-        public NDarray cross(NDarray b, int? axisa = null, int? axisb = null, int? axisc = null, int? axis = null)
+        public NDarray cross(NDarray b, int? axisa = -1, int? axisb = -1, int? axisc = -1, int? axis = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -3565,7 +3565,7 @@ namespace Numpy
         /// <returns>
         /// Definite integral as approximated by trapezoidal rule.
         /// </returns>
-        public float trapz(NDarray x = null, ValueType dx = null, int? axis = null)
+        public float trapz(NDarray x = null, float? dx = 1.0f, int? axis = -1)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -4710,7 +4710,7 @@ namespace Numpy
         /// The counterclockwise angle from the positive real axis on
         /// the complex plane, with dtype as numpy.float64.
         /// </returns>
-        public NDarray angle(bool? deg = null)
+        public NDarray angle(bool? deg = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -4804,7 +4804,7 @@ namespace Numpy
         /// <returns>
         /// Discrete, linear convolution of a and v.
         /// </returns>
-        public NDarray convolve(NDarray v, string mode = null)
+        public NDarray convolve(NDarray v, string mode = "full")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -5251,7 +5251,7 @@ namespace Numpy
         /// x, with the non-finite values replaced. If copy is False, this may
         /// be x itself.
         /// </returns>
-        public NDarray nan_to_num(bool? copy = null)
+        public NDarray nan_to_num(bool? copy = true)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -5279,7 +5279,7 @@ namespace Numpy
         /// If a is real, the type of a is used for the output.  If a
         /// has complex elements, the returned type is float.
         /// </returns>
-        public NDarray real_if_close(float tol)
+        public NDarray real_if_close(float tol = 100)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -5607,7 +5607,7 @@ namespace Numpy
         /// along with r. The tau array contains scaling factors for the
         /// reflectors. In the deprecated  ‘economic’ mode only h is returned.
         /// </returns>
-        public (NDarray, NDarray, NDarray) qr(string mode = null)
+        public (NDarray, NDarray, NDarray) qr(string mode = "reduced")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -5704,7 +5704,7 @@ namespace Numpy
         /// enabling a more efficient method for finding singular values.
         /// Defaults to False.
         /// </param>
-        public int matrix_rank(NDarray tol = null, bool? hermitian = null)
+        public int matrix_rank(NDarray tol = null, bool? hermitian = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -5783,7 +5783,7 @@ namespace Numpy
         /// If a is 2-D, the sum along the diagonal is returned.  If a has
         /// larger dimensions, then an array of sums along diagonals is returned.
         /// </returns>
-        public NDarray trace(int? offset = null, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
+        public NDarray trace(int? offset = 0, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -5826,7 +5826,7 @@ namespace Numpy
         /// <returns>
         /// a’s tensordot inverse, shape a.shape[ind:] + a.shape[:ind].
         /// </returns>
-        public NDarray tensorinv(int? ind = null)
+        public NDarray tensorinv(int? ind = 2)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6366,7 +6366,7 @@ namespace Numpy
         /// Returns True if the two arrays are equal within the given
         /// tolerance; False otherwise.
         /// </returns>
-        public bool allclose(NDarray a, float rtol, float atol, bool equal_nan)
+        public bool allclose(NDarray a, float rtol = 1e-05f, float atol = 1e-08f, bool equal_nan = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6415,7 +6415,7 @@ namespace Numpy
         /// given tolerance. If both a and b are scalars, returns a single
         /// boolean value.
         /// </returns>
-        public NDarray isclose(NDarray a, float rtol, float atol, bool equal_nan)
+        public NDarray isclose(NDarray a, float rtol = 1e-05f, float atol = 1e-08f, bool equal_nan = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6687,7 +6687,7 @@ namespace Numpy
         /// <returns>
         /// Array of the same type and shape as a.
         /// </returns>
-        public NDarray sort(int? axis = -1, string kind = null, string order = null)
+        public NDarray sort(int? axis = -1, string kind = "quicksort", string order = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6712,7 +6712,7 @@ namespace Numpy
         /// <returns>
         /// Array of indices that sort the keys along the specified axis.
         /// </returns>
-        public NDarray lexsort(int? axis = null)
+        public NDarray lexsort(int? axis = -1)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6753,7 +6753,7 @@ namespace Numpy
         /// More generally, np.take_along_axis(a, index_array, axis=a) always
         /// yields the sorted a, irrespective of dimensionality.
         /// </returns>
-        public NDarray argsort(int? axis = null, string kind = null, string order = null)
+        public NDarray argsort(int? axis = -1, string kind = "quicksort", string order = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6843,7 +6843,7 @@ namespace Numpy
         /// <returns>
         /// Array of the same type and shape as a.
         /// </returns>
-        public NDarray partition(int[] kth, int? axis = null, string kind = null, string order = null)
+        public NDarray partition(int[] kth, int? axis = -1, string kind = "introselect", string order = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -6888,7 +6888,7 @@ namespace Numpy
         /// More generally, np.take_along_axis(a, index_array, axis=a) always
         /// yields the partitioned a, irrespective of dimensionality.
         /// </returns>
-        public NDarray argpartition(int[] kth, int? axis = null, string kind = null, string order = null)
+        public NDarray argpartition(int[] kth, int? axis = -1, string kind = "introselect", string order = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7106,7 +7106,7 @@ namespace Numpy
         /// <returns>
         /// Array of insertion points with the same shape as v.
         /// </returns>
-        public NDarray<int> searchsorted(NDarray v, string side = null, NDarray sorter = null)
+        public NDarray<int> searchsorted(NDarray v, string side = "left", NDarray sorter = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7480,7 +7480,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public NDarray<double> percentile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear", bool? keepdims = null)
+        public NDarray<double> percentile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7532,7 +7532,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public double percentile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear")
+        public double percentile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7601,7 +7601,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public NDarray<double> nanpercentile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear", bool? keepdims = null)
+        public NDarray<double> nanpercentile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7654,7 +7654,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public double nanpercentile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear")
+        public double nanpercentile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7715,7 +7715,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public NDarray<double> quantile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear", bool? keepdims = null)
+        public NDarray<double> quantile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7766,7 +7766,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public double quantile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear")
+        public double quantile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7824,7 +7824,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public NDarray<double> nanquantile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear", bool? keepdims = null)
+        public NDarray<double> nanquantile(NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7866,7 +7866,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public double nanquantile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = null, string interpolation = "linear")
+        public double nanquantile(NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7916,7 +7916,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public NDarray<double> median(int[] axis, NDarray @out = null, bool? overwrite_input = null, bool? keepdims = null)
+        public NDarray<double> median(int[] axis, NDarray @out = null, bool? overwrite_input = false, bool? keepdims = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -7956,7 +7956,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public double median(NDarray @out = null, bool? overwrite_input = null)
+        public double median(NDarray @out = null, bool? overwrite_input = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8001,7 +8001,7 @@ namespace Numpy
         /// integral, the previous rules still applies but the result dtype will
         /// at least be float64.
         /// </returns>
-        public NDarray<double> average(int[] axis, NDarray weights = null, bool? returned = null)
+        public NDarray<double> average(int[] axis, NDarray weights = null, bool? returned = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8037,7 +8037,7 @@ namespace Numpy
         /// integral, the previous rules still applies but the result dtype will
         /// at least be float64.
         /// </returns>
-        public double average(NDarray weights = null, bool? returned = null)
+        public double average(NDarray weights = null, bool? returned = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8216,7 +8216,7 @@ namespace Numpy
         /// If out is None, return a new array containing the standard deviation,
         /// otherwise return a reference to the output array.
         /// </returns>
-        public NDarray<double> std(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = null, bool? keepdims = null)
+        public NDarray<double> std(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8273,7 +8273,7 @@ namespace Numpy
         /// If out is None, return a new array containing the standard deviation,
         /// otherwise return a reference to the output array.
         /// </returns>
-        public double std(Dtype dtype = null, NDarray @out = null, int? ddof = null)
+        public double std(Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8345,7 +8345,7 @@ namespace Numpy
         /// If out=None, returns a new array containing the variance;
         /// otherwise, a reference to the output array is returned.
         /// </returns>
-        public NDarray<double> @var(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = null, bool? keepdims = null)
+        public NDarray<double> @var(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8399,7 +8399,7 @@ namespace Numpy
         /// If out=None, returns a new array containing the variance;
         /// otherwise, a reference to the output array is returned.
         /// </returns>
-        public double @var(Dtype dtype = null, NDarray @out = null, int? ddof = null)
+        public double @var(Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8455,7 +8455,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public NDarray<double> nanmedian(int[] axis, NDarray @out = null, bool? overwrite_input = null, bool? keepdims = null)
+        public NDarray<double> nanmedian(int[] axis, NDarray @out = null, bool? overwrite_input = false, bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8495,7 +8495,7 @@ namespace Numpy
         /// same as that of the input. If out is specified, that array is
         /// returned instead.
         /// </returns>
-        public double nanmedian(NDarray @out = null, bool? overwrite_input = null)
+        public double nanmedian(NDarray @out = null, bool? overwrite_input = false)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8673,7 +8673,7 @@ namespace Numpy
         /// ddof is &gt;= the number of non-NaN elements in a slice or the slice
         /// contains only NaNs, then the result for that slice is NaN.
         /// </returns>
-        public NDarray<double> nanstd(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = null, bool? keepdims = null)
+        public NDarray<double> nanstd(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8737,7 +8737,7 @@ namespace Numpy
         /// ddof is &gt;= the number of non-NaN elements in a slice or the slice
         /// contains only NaNs, then the result for that slice is NaN.
         /// </returns>
-        public double nanstd(Dtype dtype = null, NDarray @out = null, int? ddof = null)
+        public double nanstd(Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8808,7 +8808,7 @@ namespace Numpy
         /// number of non-NaN elements in a slice or the slice contains only
         /// NaNs, then the result for that slice is NaN.
         /// </returns>
-        public NDarray<double> nanvar(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = null, bool? keepdims = null)
+        public NDarray<double> nanvar(int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8870,7 +8870,7 @@ namespace Numpy
         /// number of non-NaN elements in a slice or the slice contains only
         /// NaNs, then the result for that slice is NaN.
         /// </returns>
-        public double nanvar(Dtype dtype = null, NDarray @out = null, int? ddof = null)
+        public double nanvar(Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8912,7 +8912,7 @@ namespace Numpy
         /// <returns>
         /// The correlation coefficient matrix of the variables.
         /// </returns>
-        public NDarray corrcoef(NDarray y = null, bool? rowvar = null)
+        public NDarray corrcoef(NDarray y = null, bool? rowvar = true)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -8945,7 +8945,7 @@ namespace Numpy
         /// <returns>
         /// Discrete cross-correlation of a and v.
         /// </returns>
-        public NDarray correlate(NDarray a, string mode = null)
+        public NDarray correlate(NDarray a, string mode = "valid")
         {
             //auto-generated code, do not change
             var @this=this;
@@ -9009,7 +9009,7 @@ namespace Numpy
         /// <returns>
         /// The covariance matrix of the variables.
         /// </returns>
-        public NDarray cov(NDarray y = null, bool? rowvar = null, bool? bias = null, int? ddof = null, NDarray fweights = null, NDarray aweights = null)
+        public NDarray cov(NDarray y = null, bool? rowvar = true, bool? bias = false, int? ddof = null, NDarray fweights = null, NDarray aweights = null)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -9557,7 +9557,7 @@ namespace Numpy
         /// The result of binning the input array.
         /// The length of out is equal to np.amax(x)+1.
         /// </returns>
-        public NDarray bincount(NDarray weights = null, int? minlength = null)
+        public NDarray bincount(NDarray weights = null, int? minlength = 0)
         {
             //auto-generated code, do not change
             var @this=this;
@@ -9771,7 +9771,7 @@ namespace Numpy
         /// <returns>
         /// Output array of indices, of same shape as x.
         /// </returns>
-        public NDarray digitize(NDarray bins, bool? right = null)
+        public NDarray digitize(NDarray bins, bool? right = false)
         {
             //auto-generated code, do not change
             var @this=this;

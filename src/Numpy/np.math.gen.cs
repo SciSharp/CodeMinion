@@ -413,7 +413,7 @@ namespace Numpy
         /// <returns>
         /// Output array.
         /// </returns>
-        public static NDarray unwrap(NDarray p, float? discont = null, int? axis = null)
+        public static NDarray unwrap(NDarray p, float? discont = 3.141592653589793f, int? axis = -1)
             => NumPy.Instance.unwrap(p, discont:discont, axis:axis);
         
         /// <summary>
@@ -720,7 +720,7 @@ namespace Numpy
         /// The real and imaginary parts of complex numbers are rounded
         /// separately.  The result of rounding a float is a float.
         /// </returns>
-        public static NDarray around(NDarray a, int? decimals = null, NDarray @out = null)
+        public static NDarray around(NDarray a, int? decimals = 0, NDarray @out = null)
             => NumPy.Instance.around(a, decimals:decimals, @out:@out);
         
         /// <summary>
@@ -1254,7 +1254,7 @@ namespace Numpy
         /// a in most cases. A notable exception is datetime64, which
         /// results in a timedelta64 output array.
         /// </returns>
-        public static NDarray diff(NDarray a, int? n = null, int? axis = null, NDarray append = null, NDarray prepend = null)
+        public static NDarray diff(NDarray a, int? n = 1, int? axis = -1, NDarray append = null, NDarray prepend = null)
             => NumPy.Instance.diff(a, n:n, axis:axis, append:append, prepend:prepend);
         
         /// <summary>
@@ -1377,7 +1377,7 @@ namespace Numpy
         /// <returns>
         /// Vector cross product(s).
         /// </returns>
-        public static NDarray cross(NDarray a, NDarray b, int? axisa = null, int? axisb = null, int? axisc = null, int? axis = null)
+        public static NDarray cross(NDarray a, NDarray b, int? axisa = -1, int? axisb = -1, int? axisc = -1, int? axis = null)
             => NumPy.Instance.cross(a, b, axisa:axisa, axisb:axisb, axisc:axisc, axis:axis);
         
         /// <summary>
@@ -1412,7 +1412,7 @@ namespace Numpy
         /// <returns>
         /// Definite integral as approximated by trapezoidal rule.
         /// </returns>
-        public static float trapz(NDarray y, NDarray x = null, ValueType dx = null, int? axis = null)
+        public static float trapz(NDarray y, NDarray x = null, float? dx = 1.0f, int? axis = -1)
             => NumPy.Instance.trapz(y, x:x, dx:dx, axis:axis);
         
         /// <summary>
@@ -2525,7 +2525,7 @@ namespace Numpy
         /// The counterclockwise angle from the positive real axis on
         /// the complex plane, with dtype as numpy.float64.
         /// </returns>
-        public static NDarray angle(NDarray z, bool? deg = null)
+        public static NDarray angle(NDarray z, bool? deg = false)
             => NumPy.Instance.angle(z, deg:deg);
         
         /// <summary>
@@ -2615,7 +2615,7 @@ namespace Numpy
         /// <returns>
         /// Discrete, linear convolution of a and v.
         /// </returns>
-        public static NDarray convolve(NDarray a, NDarray v, string mode = null)
+        public static NDarray convolve(NDarray a, NDarray v, string mode = "full")
             => NumPy.Instance.convolve(a, v, mode:mode);
         
         /// <summary>
@@ -3054,7 +3054,7 @@ namespace Numpy
         /// x, with the non-finite values replaced. If copy is False, this may
         /// be x itself.
         /// </returns>
-        public static NDarray nan_to_num(NDarray x, bool? copy = null)
+        public static NDarray nan_to_num(NDarray x, bool? copy = true)
             => NumPy.Instance.nan_to_num(x, copy:copy);
         
         /// <summary>
@@ -3081,7 +3081,7 @@ namespace Numpy
         /// If a is real, the type of a is used for the output.  If a
         /// has complex elements, the returned type is float.
         /// </returns>
-        public static NDarray real_if_close(NDarray a, float tol)
+        public static NDarray real_if_close(NDarray a, float tol = 100)
             => NumPy.Instance.real_if_close(a, tol);
         
         /*
