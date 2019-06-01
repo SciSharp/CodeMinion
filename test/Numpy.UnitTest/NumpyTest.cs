@@ -158,6 +158,7 @@ namespace Numpy.UnitTest
         [TestMethod]
         public void ndarray_indexing()
         {
+            // using string indices
             var x = np.arange(10);
             Assert.AreEqual("2", x["2"].str);
             Assert.AreEqual("8", x["-2"].str);
@@ -172,6 +173,7 @@ namespace Numpy.UnitTest
         [TestMethod]
         public void ndarray_indexing1()
         {
+            // using int indices
             var x = np.arange(10);
             Assert.AreEqual("2", x[2].str);
             Assert.AreEqual("8", x[-2].str);
@@ -201,6 +203,67 @@ namespace Numpy.UnitTest
             Assert.AreEqual(
                 "array([[ 0,  1,  2,  3,  4,  5,  6],\n       [14, 15, 16, 17, 18, 19, 20],\n       [28, 29, 30, 31, 32, 33, 34]])",
                 y[np.array(0, 2, 4)].repr);
+        }
+
+        [TestMethod]
+        public void ndarray_indexing_setter1()
+        {
+            // using int indices
+            var x = np.arange(10);
+            Assert.AreEqual("2", x[2].str);
+            x[2] = (NDarray)22;
+            Assert.AreEqual("22", x[2].str);
+            Assert.AreEqual("8", x[-2].str);
+            x[-2] = (NDarray)88;
+            Assert.AreEqual("88", x[-2].str);
+            var y = x.reshape(new Shape(2, 5));
+            Assert.AreEqual("88", y[1, 3].str);
+            y[1,3] = (NDarray)888;
+            Assert.AreEqual("888", y[1, 3].str);
+            Assert.AreEqual("array([ 0,  1, 22,  3,  4])", y[0].repr);
+            Assert.AreEqual("22", y[0][2].str);
+            y[0][2] = (NDarray)222;
+            Assert.AreEqual("222", y[0][2].str);
+        }
+
+        [TestMethod]
+        public void ndarray_indexing_setter2()
+        {
+            // using string indices
+            var x = np.arange(10);
+            Assert.AreEqual("2", x[2].str);
+            x["2"] = (NDarray)22;
+            Assert.AreEqual("22", x[2].str);
+            Assert.AreEqual("8", x[-2].str);
+            x["-2"] = (NDarray)88;
+            Assert.AreEqual("88", x[-2].str);
+            var y = x.reshape(new Shape(2, 5));
+            Assert.AreEqual("88", y[1, 3].str);
+            y["1, 3"] = (NDarray)888;
+            Assert.AreEqual("888", y[1, 3].str);
+            Assert.AreEqual("array([ 0,  1, 22,  3,  4])", y[0].repr);
+            Assert.AreEqual("22", y[0][2].str);
+            y["0"]["2"] = (NDarray)222;
+            Assert.AreEqual("222", y[0][2].str);
+        }
+
+        [TestMethod]
+        public void ndarray_indexing_setter3()
+        {
+            var a = np.array(new int[] { 1, 2, 3, 4, 5, 6 }).reshape(new Shape(2, 3));
+            Assert.AreEqual("[[1 2 3]\n [4 5 6]]", a.str);
+            a[":", 1] = a[":", 1] * 2;
+            Assert.AreEqual("[[ 1  4  3]\n [ 4 10  6]]", a.str);
+        }
+
+        [TestMethod]
+        public void ndarray_indexing_setter4()
+        {
+            var x = np.arange(10, 1, -1);
+            Assert.AreEqual("array([10,  9,  8,  7,  6,  5,  4,  3,  2])", x.repr);
+            Assert.AreEqual("array([7, 7, 9, 2])", x[np.array(new[] { 3, 3, 1, 8 })].repr);
+            x[np.array(new[] {3, 3, 1, 8})] = np.arange(4);
+            Assert.AreEqual("array([10,  2,  8,  1,  6,  5,  4,  3,  3])", x.repr);
         }
 
         [TestMethod]

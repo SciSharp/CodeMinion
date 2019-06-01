@@ -377,14 +377,30 @@ namespace Numpy
                 }).ToArray());
                 return new NDarray(this.PyObject[tuple]);
             }
+            set
+            {
+                var tuple = new PyTuple(Slice.ParseSlices(slicing_notation).Select(s =>
+                {
+                    if (s.IsIndex)
+                        return new PyInt(s.Start.Value);
+                    else
+                        return s.ToPython();
+                }).ToArray());
+                self.SetItem(tuple, ToPython(value));
+            }
         }
 
-        public new NDarray this[params int[] coords]
+        public NDarray this[params int[] coords]
         {
             get
             {
                 var tuple = ToTuple(coords);
                 return new NDarray(this.PyObject[tuple]);
+            }
+            set
+            {
+                var tuple = ToTuple(coords);
+                self.SetItem(tuple, ToPython(value));
             }
         }
 
@@ -395,9 +411,14 @@ namespace Numpy
                 var tuple = new PyTuple(indices.Select(a => (PyObject)a.PyObject).ToArray());
                 return new NDarray(this.PyObject[tuple]);
             }
+            set
+            {
+                var tuple = new PyTuple(indices.Select(a => (PyObject)a.PyObject).ToArray());
+                self.SetItem(tuple, ToPython(value));
+            }
         }
 
-        public new NDarray this[params object[] arrays_slices_or_indices]
+        public NDarray this[params object[] arrays_slices_or_indices]
         {
             get
             {
@@ -413,6 +434,21 @@ namespace Numpy
                 }).ToArray();
                 var tuple = new PyTuple(pyobjs);
                 return new NDarray(this.PyObject[tuple]);
+            }
+            set
+            {
+                var pyobjs = arrays_slices_or_indices.Select<object, PyObject>(x =>
+                {
+                    switch (x)
+                    {
+                        case int i: return new PyInt(i);
+                        case NDarray a: return a.PyObject;
+                        case string s: return new Slice(s).ToPython();
+                        default: return ToPython(x);
+                    }
+                }).ToArray();
+                var tuple = new PyTuple(pyobjs);
+                self.SetItem(tuple, ToPython(value));
             }
         }
 
