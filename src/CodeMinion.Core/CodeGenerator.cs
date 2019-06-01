@@ -407,7 +407,8 @@ namespace CodeMinion.Core
             func.Arguments.Insert(0, new Argument() { Name = "this", Type = "irrelevant" });
             var passed_args = GeneratePassedArgs(func);
             s.Out("var @this=this;");
-            s.Out($"return {func.ForwardToStaticImpl}.{EscapeName(func.Name)}({passed_args});");
+            var return_keyword = member_func.Returns.Count > 0 ? "return " : "";
+            s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(func.Name)}({passed_args});");
         }
 
         private void GeneratePropertyGetter(Property prop, CodeWriter s)

@@ -37,7 +37,7 @@ namespace Numpy.ApiGenerator
     //Miscellaneous routines
     //Padding Arrays
     //Polynomials
-    //Random sampling(numpy.random)
+    // [x] Random sampling(numpy.random)
     //Set routines
     // [x] Sorting, searching, and counting
     // [x] Statistics
@@ -166,6 +166,12 @@ namespace Numpy.ApiGenerator
             var logic_api = new StaticApi() { PartialName = "logic", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(logic_api);
             ParseNumpyApi(logic_api, "routines.logic.html");
+            // ----------------------------------------------------
+            // Random sampling
+            // ----------------------------------------------------
+            var random_api = new StaticApi() { PartialName = "random", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(random_api);
+            ParseNumpyApi(random_api, "routines.random.html");
             // ----------------------------------------------------
             // Sorting, searching, and counting
             // ----------------------------------------------------
@@ -493,6 +499,8 @@ namespace Numpy.ApiGenerator
         {
             if (decl.ClassName == "numpy.fft")
                 decl.GeneratedClassName = "numpy.FFT";
+            if (decl.ClassName == "numpy.random")
+                decl.GeneratedClassName = "numpy.Random";
             if (decl.Arguments.Any(a => a.Type == "buffer_like"))
                 decl.CommentOut = true;
             // iterable object            
@@ -556,6 +564,8 @@ namespace Numpy.ApiGenerator
                 case "einsum_path":
                 case "cond":
                 case "ogrid":
+                case "get_state":
+                case "set_state":
                     decl.CommentOut = true;
                     break;
                 case "require":
@@ -575,8 +585,8 @@ namespace Numpy.ApiGenerator
                     decl.Arguments.Remove(decl.Arguments.FirstOrDefault(x => x.Name == "old_behavior"));
                     break;
                 case "einsum":
-                    var optimize=decl.Arguments.First(x => x.Name == "optimize");
-                        optimize.Type = "object";
+                    var optimize = decl.Arguments.First(x => x.Name == "optimize");
+                    optimize.Type = "object";
                     optimize.DefaultValue = "null";
                     optimize.DefaultIfNull = "false";
                     break;
@@ -588,7 +598,7 @@ namespace Numpy.ApiGenerator
                 case "insert":
                     var obj = decl.Arguments.First(x => x.Name == "obj");
                     obj.DefaultValue = "0";
-                    var values= decl.Arguments.First(x => x.Name == "values");
+                    var values = decl.Arguments.First(x => x.Name == "values");
                     values.DefaultValue = "null";
                     break;
                 case "trapz":
@@ -596,29 +606,54 @@ namespace Numpy.ApiGenerator
                     dx.Type = "float";
                     break;
                 case "lstsq":
-                {
-                    var rcond = decl.Arguments.First(x => x.Name == "rcond");
-                    rcond.DefaultValue = "null";
-                    break;
-                }
+                    {
+                        var rcond = decl.Arguments.First(x => x.Name == "rcond");
+                        rcond.DefaultValue = "null";
+                        break;
+                    }
                 case "pinv":
-                {
-                    var rcond = decl.Arguments.First(x => x.Name == "rcond");
-                    rcond.Type = "float";
-                    break;
-                }
+                    {
+                        var rcond = decl.Arguments.First(x => x.Name == "rcond");
+                        rcond.Type = "float";
+                        break;
+                    }
                 case "histogram":
                 case "histogram2d":
                 case "histogramdd":
                 case "histogram_bin_edges":
-                {
+                    {
                         var bins = decl.Arguments.First(x => x.Name == "bins");
-                    bins.DefaultValue="null";
+                        bins.DefaultValue = "null";
+                        break;
+                    }
+                case "exponential":
+                    decl.Arguments[0].DefaultValue = "null";
                     break;
-                }
-                //case "cond":
-                    //    decl.Returns[0].Type = "float";
-                    //    break;
+                case "gamma":
+                    decl.Arguments.First(x => x.Name == "scale").DefaultValue = "null";
+                    break;
+                case "gumbel":
+                case "laplace":
+                case "logistic":
+                case "lognormal":
+                case "normal":
+                case "poisson":
+                case "rayleigh":
+                case "uniform":
+                    decl.Arguments.ForEach(x =>
+                    {
+                        x.DefaultValue = "null";
+                        x.IsNamedArg = true;
+                    }); 
+                    break;
+                case "RandomState":
+                    {
+                        decl.Arguments[0].Type = "int";
+                        decl.Arguments[0].DefaultValue = "null";
+                        decl.Arguments[0].IsNullable = true;
+                        decl.Arguments[0].IsNamedArg = true;
+                    }
+                    break;
             }
         }
 
@@ -770,6 +805,32 @@ namespace Numpy.ApiGenerator
                         yield return clone2;
                         yield break;
                     }
+                    break;
+                case "choice":
+                case "permutation":
+                case "binomial":
+                    {
+                        if (!decl.Arguments[0].Type.StartsWith("NDarray"))
+                            decl.Arguments[0].Type = "NDarray";
+                        yield return decl;
+                        var clone = decl.Clone<Function>();
+                        clone.Arguments[0].Type = "int";
+                        yield return clone;
+                        yield break;
+                    }
+                    break;
+                case "seed":
+                case "RandomState":
+                {
+                        decl.Arguments[0].Type = "int";
+                    decl.Arguments[0].DefaultValue = "null";
+                    decl.Arguments[0].IsNullable = true;
+                    yield return decl;
+                    var clone = decl.Clone<Function>();
+                    clone.Arguments[0].Type = "NDarray";
+                    yield return clone;
+                    yield break;
+                }
                     break;
             }
             // without args we don't need to consider possible overloads
@@ -994,15 +1055,25 @@ namespace Numpy.ApiGenerator
                 case "scalar or ndarray":
                 case "broadcast object":
                 case "array_like or scalar":
+                case "single item or ndarray":
+                case "1-D array-like":
+                case "2-D array_like":
                     return "NDarray";
                 // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
                 case "array of ints":
                 case "array of integer type":
                 case "array_like of integer type":
+                case "int or ndarray of ints":
+                case "int or array_like of ints":
                     return "NDarray<int>";
+                // NDarray<float>
                 case "array_like of float":
                 case "array of dtype float":
+                case "float or ndarray of floats":
+                case "float or array_like of floats":
+                case "float or array_like of float":
+                case "sequence of floats":
                     return "NDarray<float>";
                 case "bool (scalar) or boolean ndarray":
                 case "bool or ndarray of bool":
@@ -1013,10 +1084,13 @@ namespace Numpy.ApiGenerator
                     else
                         return "T";
                     break;
-                case "file": return "string";
-                case "str": return "string";
-                case "string or list": return "string";
-                case "file or str": return "string";
+                // string
+                case "{ ‘warn’":
+                case "file":
+                case "str":
+                case "string or list":
+                case "file or str":
+                    return "string";
                 case "str or sequence of str": return "string[]";
                 case "str or list of str": return "string[]";
                 case "array of str or unicode-like": return "string[]";
