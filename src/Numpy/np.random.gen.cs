@@ -17,7 +17,7 @@ namespace Numpy
     public static partial class np
     {
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Random values in a given shape.
             /// 
@@ -46,7 +46,7 @@ namespace Numpy
                 => NumPy.Instance.rand(d1:d1, d0:d0);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return a sample (or samples) from the “standard normal” distribution.
             /// 
@@ -84,7 +84,7 @@ namespace Numpy
                 => NumPy.Instance.randn(d1:d1, d0:d0);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return random integers from low (inclusive) to high (exclusive).
             /// 
@@ -120,7 +120,7 @@ namespace Numpy
                 => NumPy.Instance.randint(low, high:high, size:size, dtype:dtype);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Random integers of type np.int between low and high, inclusive.
             /// 
@@ -159,7 +159,7 @@ namespace Numpy
                 => NumPy.Instance.random_integers(low, high:high, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return random floats in the half-open interval [0.0, 1.0).
             /// 
@@ -180,7 +180,7 @@ namespace Numpy
                 => NumPy.Instance.random_sample(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return random floats in the half-open interval [0.0, 1.0).
             /// 
@@ -197,11 +197,11 @@ namespace Numpy
             /// Array of random floats of shape size (unless size=None, in which
             /// case a single float is returned).
             /// </returns>
-            public static NDarray<float> random(int[] size = null)
+            public static NDarray<float> random_(int[] size = null)
                 => NumPy.Instance.random(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return random floats in the half-open interval [0.0, 1.0).
             /// 
@@ -222,7 +222,7 @@ namespace Numpy
                 => NumPy.Instance.ranf(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return random floats in the half-open interval [0.0, 1.0).
             /// 
@@ -243,7 +243,7 @@ namespace Numpy
                 => NumPy.Instance.sample(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Generates a random sample from a given 1-D array
             /// </summary>
@@ -271,7 +271,7 @@ namespace Numpy
                 => NumPy.Instance.choice(a, size:size, replace:replace, p:p);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Generates a random sample from a given 1-D array
             /// </summary>
@@ -299,7 +299,7 @@ namespace Numpy
                 => NumPy.Instance.choice(a, size:size, replace:replace, p:p);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return random bytes.
             /// </summary>
@@ -313,7 +313,7 @@ namespace Numpy
                 => NumPy.Instance.bytes(length);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Modify a sequence in-place by shuffling its contents.
             /// 
@@ -328,7 +328,7 @@ namespace Numpy
                 => NumPy.Instance.shuffle(x);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Randomly permute a sequence, or return a permuted range.
             /// 
@@ -347,7 +347,7 @@ namespace Numpy
                 => NumPy.Instance.permutation(x);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Randomly permute a sequence, or return a permuted range.
             /// 
@@ -366,7 +366,7 @@ namespace Numpy
                 => NumPy.Instance.permutation(x);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Beta distribution.
             /// 
@@ -397,7 +397,7 @@ namespace Numpy
                 => NumPy.Instance.beta(a, b, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a binomial distribution.
             /// 
@@ -444,7 +444,7 @@ namespace Numpy
                 => NumPy.Instance.binomial(n, p, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a binomial distribution.
             /// 
@@ -491,7 +491,7 @@ namespace Numpy
                 => NumPy.Instance.binomial(n, p, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a chi-square distribution.
             /// 
@@ -529,7 +529,7 @@ namespace Numpy
                 => NumPy.Instance.chisquare(df, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from the Dirichlet distribution.
             /// 
@@ -564,7 +564,7 @@ namespace Numpy
                 => NumPy.Instance.dirichlet(alpha, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from an exponential distribution.
             /// 
@@ -598,7 +598,7 @@ namespace Numpy
                 => NumPy.Instance.exponential(scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from an F distribution.
             /// 
@@ -643,7 +643,7 @@ namespace Numpy
                 => NumPy.Instance.f(dfnum, dfden, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Gamma distribution.
             /// 
@@ -684,7 +684,7 @@ namespace Numpy
                 => NumPy.Instance.gamma(shape, scale:scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from the geometric distribution.
             /// 
@@ -714,7 +714,7 @@ namespace Numpy
                 => NumPy.Instance.geometric(p, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Gumbel distribution.
             /// 
@@ -772,7 +772,7 @@ namespace Numpy
                 => NumPy.Instance.gumbel(loc:loc, scale:scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Hypergeometric distribution.
             /// 
@@ -827,7 +827,7 @@ namespace Numpy
                 => NumPy.Instance.hypergeometric(ngood, nbad, nsample, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from the Laplace or double exponential distribution with
             /// specified location (or mean) and scale (decay).
@@ -869,7 +869,7 @@ namespace Numpy
                 => NumPy.Instance.laplace(loc:loc, scale:scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a logistic distribution.
             /// 
@@ -910,7 +910,7 @@ namespace Numpy
                 => NumPy.Instance.logistic(loc:loc, scale:scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a log-normal distribution.
             /// 
@@ -955,7 +955,7 @@ namespace Numpy
                 => NumPy.Instance.lognormal(mean:mean, sigma:sigma, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a logarithmic series distribution.
             /// 
@@ -991,7 +991,7 @@ namespace Numpy
                 => NumPy.Instance.logseries(p, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a multinomial distribution.
             /// 
@@ -1028,7 +1028,7 @@ namespace Numpy
                 => NumPy.Instance.multinomial(n, pvals, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw random samples from a multivariate normal distribution.
             /// 
@@ -1097,7 +1097,7 @@ namespace Numpy
                 => NumPy.Instance.multivariate_normal(mean, cov, size:size, check_valid:check_valid, tol:tol);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a negative binomial distribution.
             /// 
@@ -1142,7 +1142,7 @@ namespace Numpy
                 => NumPy.Instance.negative_binomial(n, p, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a noncentral chi-square distribution.
             /// 
@@ -1182,7 +1182,7 @@ namespace Numpy
                 => NumPy.Instance.noncentral_chisquare(df, nonc, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from the noncentral F distribution.
             /// 
@@ -1225,7 +1225,7 @@ namespace Numpy
                 => NumPy.Instance.noncentral_f(dfnum, dfden, nonc, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw random samples from a normal (Gaussian) distribution.
             /// 
@@ -1274,7 +1274,7 @@ namespace Numpy
                 => NumPy.Instance.normal(loc:loc, scale:scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Pareto II or Lomax distribution with
             /// specified shape.
@@ -1331,7 +1331,7 @@ namespace Numpy
                 => NumPy.Instance.pareto(a, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Poisson distribution.
             /// 
@@ -1370,7 +1370,7 @@ namespace Numpy
                 => NumPy.Instance.poisson(lam:lam, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Rayleigh distribution.
             /// 
@@ -1404,7 +1404,7 @@ namespace Numpy
                 => NumPy.Instance.rayleigh(scale:scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a standard Cauchy distribution with mode = 0.
             /// 
@@ -1441,7 +1441,7 @@ namespace Numpy
                 => NumPy.Instance.standard_cauchy(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from the standard exponential distribution.
             /// 
@@ -1460,7 +1460,7 @@ namespace Numpy
                 => NumPy.Instance.standard_exponential(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a standard Gamma distribution.
             /// 
@@ -1496,7 +1496,7 @@ namespace Numpy
                 => NumPy.Instance.standard_gamma(shape, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a standard Normal distribution (mean=0, stdev=1).
             /// </summary>
@@ -1512,7 +1512,7 @@ namespace Numpy
                 => NumPy.Instance.standard_normal(size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a standard Student’s t distribution with df degrees
             /// of freedom.
@@ -1553,7 +1553,7 @@ namespace Numpy
                 => NumPy.Instance.standard_t(df, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from the triangular distribution over the
             /// interval [left, right].
@@ -1598,7 +1598,7 @@ namespace Numpy
                 => NumPy.Instance.triangular(left, mode, right, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a uniform distribution.
             /// 
@@ -1640,7 +1640,7 @@ namespace Numpy
                 => NumPy.Instance.uniform(low:low, high:high, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a von Mises distribution.
             /// 
@@ -1686,7 +1686,7 @@ namespace Numpy
                 => NumPy.Instance.vonmises(mu, kappa, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Wald, or inverse Gaussian, distribution.
             /// 
@@ -1729,7 +1729,7 @@ namespace Numpy
                 => NumPy.Instance.wald(mean, scale, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Weibull distribution.
             /// 
@@ -1777,7 +1777,7 @@ namespace Numpy
                 => NumPy.Instance.weibull(a, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Draw samples from a Zipf distribution.
             /// 
@@ -1817,7 +1817,7 @@ namespace Numpy
                 => NumPy.Instance.zipf(a, size:size);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Container for the Mersenne Twister pseudo-random number generator.
             /// 
@@ -1860,7 +1860,7 @@ namespace Numpy
                 => NumPy.Instance.RandomState(seed:seed);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Container for the Mersenne Twister pseudo-random number generator.
             /// 
@@ -1903,7 +1903,7 @@ namespace Numpy
                 => NumPy.Instance.RandomState(seed:seed);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Seed the generator.
             /// 
@@ -1918,7 +1918,7 @@ namespace Numpy
                 => NumPy.Instance.seed(seed:seed);
         }
         
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Seed the generator.
             /// 
@@ -1934,7 +1934,7 @@ namespace Numpy
         }
         
         /*
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Return a tuple representing the internal state of the generator.
             /// 
@@ -1958,7 +1958,7 @@ namespace Numpy
         */
         
         /*
-        public static partial class Random {
+        public static partial class random {
             /// <summary>
             /// Set the internal state of the generator from a tuple.
             /// 

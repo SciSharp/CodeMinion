@@ -497,10 +497,6 @@ namespace Numpy.ApiGenerator
 
         private void PostProcess(Function decl)
         {
-            if (decl.ClassName == "numpy.fft")
-                decl.GeneratedClassName = "numpy.FFT";
-            if (decl.ClassName == "numpy.random")
-                decl.GeneratedClassName = "numpy.Random";
             if (decl.Arguments.Any(a => a.Type == "buffer_like"))
                 decl.CommentOut = true;
             // iterable object            
@@ -534,6 +530,10 @@ namespace Numpy.ApiGenerator
             }
             switch (decl.Name)
             {
+                case "fft":
+                case "random":
+                    decl.SharpOnlyPostfix = "_";
+                    break;
                 case "array":
                 case "itemset":
                 case "tostring":

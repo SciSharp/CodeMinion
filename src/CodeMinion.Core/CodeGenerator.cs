@@ -120,7 +120,7 @@ namespace CodeMinion.Core
                     var arguments = GenerateArguments(func);
                     var passed_args = GeneratePassedArgs(func);
                     var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
-                    s.Out($"public static {retval} {EscapeName(decl.Name)}{generics}({arguments})");
+                    s.Out($"public static {retval} {EscapeName(decl.Name)}{func.SharpOnlyPostfix}{generics}({arguments})");
                     s.Indent(() => s.Out(
                         $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)}({passed_args});"));
                     break;

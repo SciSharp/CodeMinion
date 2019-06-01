@@ -8,8 +8,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using Python.Runtime;
-using Python.Included;
 using Numpy.Models;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -80,9 +78,9 @@ namespace Numpy.UnitTest
             // array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
             // 
 
-            var given = np.Random.randint(2, size: new int[] { 10 });
+            var given = np.random.randint(2, size: new int[] { 10 });
             Assert.LessOrEqual( (int)np.sum(given), 10);
-            given = np.Random.randint(1, size: new int[] { 10 });
+            given = np.random.randint(1, size: new int[] { 10 });
             var expected =
                "array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])";
             Assert.AreEqual(expected, given.repr);
@@ -93,7 +91,7 @@ namespace Numpy.UnitTest
             //        [3, 2, 2, 0]])
             // 
 
-             given=  np.Random.randint(5, size:new int[]{2, 4});
+             given=  np.random.randint(5, size:new int[]{2, 4});
             Assert.AreEqual(4, (int)given.max());
             Assert.AreEqual(0, (int)given.min());
         }

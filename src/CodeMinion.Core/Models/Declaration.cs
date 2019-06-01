@@ -21,6 +21,7 @@ namespace CodeMinion.Core.Models
         public bool IsDeprecated { get; set; }
         public bool ManualOverride { get; set; }
         public bool CommentOut { get; set; }
+        public string SharpOnlyPostfix { get; set; }
 
         /// <summary>
         /// Break into the Debugger when generating this declaration
