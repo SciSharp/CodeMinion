@@ -36,6 +36,7 @@ namespace Numpy
             else if (typeof(T) == typeof(long)) array = new long[size];
             else if (typeof(T) == typeof(float)) array = new float[size];
             else if (typeof(T) == typeof(double)) array = new double[size];
+            else if (typeof(T) == typeof(bool)) array = new byte[size];
             else
                 throw new InvalidOperationException(
                     "Can not copy the data with data type due to limitations of Marshal.Copy: " + typeof(T).Name);
@@ -60,7 +61,8 @@ namespace Numpy
                     Marshal.Copy(new IntPtr(ptr), a, 0, a.Length);
                     break;
             }
-
+            // special handling for types that are not supported by Marshal.Copy: must be converted i.e. 1 => true, 0 => false
+            if (typeof(T) == typeof(bool)) return (T[])(object)((byte[])array).Select(x=>x>0).ToArray();
             return (T[]) array;
         }
 

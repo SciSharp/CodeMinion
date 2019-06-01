@@ -322,6 +322,70 @@ namespace Numpy.UnitTest
             x[b].repr);
         }
 
+        [TestMethod]
+        public void ndarray_comparison_operators()
+        {
+            var a = np.array(1, 2, 3);
+            // comparison with a scalar
+            Assert.AreEqual(new[] {true, false, false}, (a < 2).GetData());
+            Assert.AreEqual(new[] {true, true, false}, (a <= 2).GetData());
+            Assert.AreEqual(new[] {false, false, true}, (a > 2).GetData());
+            Assert.AreEqual(new[] {false, true, true}, (a >= 2).GetData());
+            Assert.AreEqual(new[] {false, true, false}, (a.equals(2)).GetData());
+            Assert.AreEqual(new[] {true, false, true}, (a.not_equals(2)).GetData());
+            // comparison with an array
+            var b = (np.ones(new Shape(3), np.int32) * 2);
+            Assert.AreEqual(new[] {true, false, false}, (a < b).GetData());
+            Assert.AreEqual(new[] {true, true, false}, (a <= b).GetData());
+            Assert.AreEqual(new[] {false, false, true}, (a > b).GetData());
+            Assert.AreEqual(new[] {false, true, true}, (a >= b).GetData());
+            Assert.AreEqual(new[] {false, true, false}, (a.equals(b)).GetData());
+            Assert.AreEqual(new[] {true, false, true}, (a.not_equals(b)).GetData());
+        }
+
+        [TestMethod]
+        public void ndarray_unary_operators()
+        {
+            // unary operations
+            var a = np.array(1, 2, 3);
+            Assert.AreEqual(new[] {-1, -2, -3}, (-a).GetData<int>());
+            Assert.AreEqual(new[] {1, 2, 3}, (+a).GetData<int>());
+            // todo: test operator ~
+        }
+
+        [TestMethod]
+        public void ndarray_arithmetic_operators()
+        {
+            // arithmetic operators
+            var a = np.array(1, 2, 3);
+            var b = (np.ones(new Shape(3), np.int32) * 2);
+            Assert.AreEqual(new[] { 11, 12, 13 }, (a+10).GetData<int>());
+            Assert.AreEqual(new[] { 3, 4, 5 }, (a + b).GetData<int>());
+            Assert.AreEqual(new[] { -9, -8, -7 }, (a - 10).GetData<int>());
+            Assert.AreEqual(new[] { -1, 0, 1 }, (a - b).GetData<int>());
+            Assert.AreEqual(new[] { 10, 20, 30 }, (a * 10).GetData<int>());
+            Assert.AreEqual(new[] { 2, 4, 6 }, (a * b).GetData<int>());
+            a = np.array(2, 4, 16);
+            Console.WriteLine((a / 2).repr);
+            Assert.AreEqual(new[] { 1, 2, 8 }, (a / 2).GetData<double>());
+            Assert.AreEqual(new[] { 1, 2, 8 }, (a / b).GetData<double>());
+        }
+
+        [TestMethod]
+        public void ndarray_arithmetic_inplace_operators()
+        {
+            var a = np.array(1, 2, 3);
+            var b = (np.ones(new Shape(3), np.int32) * 2);
+            a.iadd(10);
+            Assert.AreEqual(new[] { 11, 12, 13 }, a.GetData<int>());
+            a.isub(10);
+            Assert.AreEqual(new[] { 1, 2, 3 }, a.GetData<int>());
+            a.iadd(b);
+            Assert.AreEqual(new[] { 3, 4, 5 }, a.GetData<int>());
+            a.isub(b);
+            Assert.AreEqual(new[] { 1, 2, 3 }, a.GetData<int>());
+        }
+
         // TODO:  https://docs.scipy.org/doc/numpy/user/basics.indexing.html?highlight=slice#structural-indexing-tools
         // TODO:  https://docs.scipy.org/doc/numpy/user/basics.indexing.html?highlight=slice#assigning-values-to-indexed-arrays
         // TODO:  https://docs.scipy.org/doc/numpy/user/basics.indexing.html?highlight=slice#dealing-with-variable-numbers-of-indices-within-programs
