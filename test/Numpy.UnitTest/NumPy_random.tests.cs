@@ -92,8 +92,8 @@ namespace Numpy.UnitTest
             // 
 
              given=  np.random.randint(5, size:new int[]{2, 4});
-            Assert.AreEqual(4, (int)given.max());
-            Assert.AreEqual(0, (int)given.min());
+            Assert.LessOrEqual((int)given.max(), 4);
+            Assert.GreaterOrEqual((int)given.min(), 0);
         }
 
 
