@@ -171,6 +171,12 @@ namespace Numpy.ApiGenerator
             _generator.StaticApis.Add(logic_api);
             ParseNumpyApi(logic_api, "routines.logic.html");
             // ----------------------------------------------------
+            // Padding Arrays
+            // ----------------------------------------------------
+            var padding_api = new StaticApi() { PartialName = "padding", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(padding_api);
+            ParseNumpyApi(padding_api, "routines.padding.html");
+            // ----------------------------------------------------
             // Random sampling
             // ----------------------------------------------------
             var random_api = new StaticApi() { PartialName = "random", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
@@ -1078,6 +1084,8 @@ namespace Numpy.ApiGenerator
                 case "single item or ndarray":
                 case "1-D array-like":
                 case "2-D array_like":
+                case "array_like of rank N":
+                case "{sequence":
                     return "NDarray";
                 // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
@@ -1110,6 +1118,7 @@ namespace Numpy.ApiGenerator
                 case "str":
                 case "string or list":
                 case "file or str":
+                case "str or function":
                     return "string";
                 case "str or sequence of str": return "string[]";
                 case "str or list of str": return "string[]";
@@ -1118,6 +1127,7 @@ namespace Numpy.ApiGenerator
                 case "any": return "object";
                 case "iterable object": return "IEnumerable<T>";
                 case "dict": return "Hashtable";
+                // int[]
                 case "int or tuple":
                 case "int or sequence":
                 case "int or sequence of int":
@@ -1127,6 +1137,7 @@ namespace Numpy.ApiGenerator
                 case "int or tuple of ints":
                 case "None or int or tuple of ints":
                 case "int or 1-D array":
+                case "sequence or int":
                     return "int[]";
                 case "boolean": return "bool";
                 case "integer":
