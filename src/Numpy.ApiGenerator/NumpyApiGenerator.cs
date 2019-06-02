@@ -40,7 +40,7 @@ namespace Numpy.ApiGenerator
     // [x] Set routines
     // [x] Sorting, searching, and counting
     // [x] Statistics
-    // [ ] Window functions
+    // [x] Window functions
 
 
     public class NumpyApiGenerator
@@ -194,7 +194,13 @@ namespace Numpy.ApiGenerator
             var staticstics_api = new StaticApi() { PartialName = "staticstics", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(staticstics_api);
             ParseNumpyApi(staticstics_api, "routines.statistics.html");
-
+            // ----------------------------------------------------
+            // Window functions
+            // ----------------------------------------------------
+            var window_api = new StaticApi() { PartialName = "window", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(window_api);
+            ParseNumpyApi(window_api, "routines.window.html");
+            
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
