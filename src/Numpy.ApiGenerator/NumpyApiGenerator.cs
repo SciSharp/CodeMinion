@@ -37,7 +37,7 @@ namespace Numpy.ApiGenerator
     // [ ] Padding Arrays
     // [ ] Polynomials
     // [x] Random sampling(numpy.random)
-    // [ ] Set routines
+    // [x] Set routines
     // [x] Sorting, searching, and counting
     // [x] Statistics
     // [ ] Window functions
@@ -176,6 +176,12 @@ namespace Numpy.ApiGenerator
             var random_api = new StaticApi() { PartialName = "random", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(random_api);
             ParseNumpyApi(random_api, "routines.random.html");
+            // ----------------------------------------------------
+            // Set routines
+            // ----------------------------------------------------
+            var set_api = new StaticApi() { PartialName = "set", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(set_api);
+            ParseNumpyApi(set_api, "routines.set.html");            
             // ----------------------------------------------------
             // Sorting, searching, and counting
             // ----------------------------------------------------
