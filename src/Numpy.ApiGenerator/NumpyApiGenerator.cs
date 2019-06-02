@@ -17,32 +17,30 @@ namespace Numpy.ApiGenerator
     // [x] Array manipulation routines
     // [x] Binary operations
     // [ ] String operations
-    // [ ] C-Types Foreign Function Interface(numpy.ctypeslib)
     // [ ] Datetime Support Functions
     // [ ] Data type routines
     // [x] Optionally Scipy-accelerated routines(numpy.dual)
-    //Mathematical functions with automatic domain(numpy.emath)
-    //Floating point error handling
-    //Discrete Fourier Transform(numpy.fft)
-    //Financial functions
-    //Functional programming
-    //NumPy-specific help functions
-    //Indexing routines
-    //Input and output
+    // [ ] Mathematical functions with automatic domain(numpy.emath)
+    // [ ] Floating point error handling
+    // [x] Discrete Fourier Transform(numpy.fft)
+    // [ ] Financial functions
+    // [ ] Functional programming
+    // [ ] NumPy-specific help functions
+    // [ ] Indexing routines
+    // [ ] Input and output
     // [x] Linear algebra(numpy.linalg)
     // [x] Logic functions
-    //Masked array operations
+    // [ ] Masked array operations
     // [x] Mathematical functions
-    //Matrix library(numpy.matlib)
-    //Miscellaneous routines
-    //Padding Arrays
-    //Polynomials
+    // [ ] Matrix library(numpy.matlib)
+    // [ ] Miscellaneous routines
+    // [ ] Padding Arrays
+    // [ ] Polynomials
     // [x] Random sampling(numpy.random)
-    //Set routines
+    // [ ] Set routines
     // [x] Sorting, searching, and counting
     // [x] Statistics
-    //Test Support(numpy.testing)
-    //Window functions
+    // [ ] Window functions
 
 
     public class NumpyApiGenerator
@@ -148,6 +146,12 @@ namespace Numpy.ApiGenerator
             var linalg_fft_api = new StaticApi() { PartialName = "linalg_fft", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(linalg_fft_api);
             ParseNumpyApi(linalg_fft_api, "routines.dual.html");
+            // ----------------------------------------------------
+            // Discrete Fourier Transform (numpy.fft)
+            // ----------------------------------------------------
+            var fft_api = new StaticApi() { PartialName = "fft", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(fft_api);
+            ParseNumpyApi(fft_api, "routines.fft.html");
             // ----------------------------------------------------
             // Mathematical functions
             // ----------------------------------------------------
@@ -653,6 +657,10 @@ namespace Numpy.ApiGenerator
                         decl.Arguments[0].IsNullable = true;
                         decl.Arguments[0].IsNamedArg = true;
                     }
+                    break;
+                case "fftfreq":
+                case "rfftfreq":
+                    decl.Arguments[1].Type = "float";
                     break;
             }
         }
@@ -1184,6 +1192,33 @@ namespace Numpy.ApiGenerator
             }
             var web = new HtmlWeb();
             doc.Doc = web.Load(BaseUrl + relative_url);
+            doc.Text = doc.Doc.Text;
+            File.WriteAllText(doc.Filename, doc.Text);
+            return doc;
+        }
+
+        public void ApiStatistics()
+        {
+            //var doc=GetNumpyReference();
+            //var li=doc.Doc.DocumentNode.DescendantsOfClass("li", "toctree-l1").FirstOrDefault(x=>x.InnerText.StartsWith("NumPy Reference"));
+            //li.ChildNodes(1).Where(x=>x.Name=="ul").FirstOrDefault()
+        }
+
+        public HtmlDoc GetNumpyReference()
+        {
+            var url = "https://docs.scipy.org/doc/numpy/contents.html";
+            Console.WriteLine("Loading: " + url);
+            var doc = new HtmlDoc();
+            doc.Filename = "contents.html";
+            if (File.Exists(doc.Filename))
+            {
+                doc.Doc = new HtmlDocument();
+                doc.Doc.Load(doc.Filename);
+                doc.Text = doc.Doc.Text;
+                return doc;
+            }
+            var web = new HtmlWeb();
+            doc.Doc = web.Load( url);
             doc.Text = doc.Doc.Text;
             File.WriteAllText(doc.Filename, doc.Text);
             return doc;

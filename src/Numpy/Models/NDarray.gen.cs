@@ -2137,6 +2137,388 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Compute the one-dimensional discrete Fourier Transform for real input.
+        /// 
+        /// This function computes the one-dimensional n-point discrete Fourier
+        /// Transform (DFT) of a real-valued array by means of an efficient algorithm
+        /// called the Fast Fourier Transform (FFT).
+        /// 
+        /// Notes
+        /// 
+        /// When the DFT is computed for purely real input, the output is
+        /// Hermitian-symmetric, i.e. the negative frequency terms are just the complex
+        /// conjugates of the corresponding positive-frequency terms, and the
+        /// negative-frequency terms are therefore redundant.  This function does not
+        /// compute the negative frequency terms, and the length of the transformed
+        /// axis of the output is therefore n//2 + 1.
+        /// 
+        /// When A = rfft(a) and fs is the sampling frequency, A[0] contains
+        /// the zero-frequency term 0*fs, which is real due to Hermitian symmetry.
+        /// 
+        /// If n is even, A[-1] contains the term representing both positive
+        /// and negative Nyquist frequency (+fs/2 and -fs/2), and must also be purely
+        /// real. If n is odd, there is no term at fs/2; A[-1] contains
+        /// the largest positive frequency (fs/2*(n-1)/n), and is complex in the
+        /// general case.
+        /// 
+        /// If the input a contains an imaginary part, it is silently discarded.
+        /// </summary>
+        /// <param name="n">
+        /// Number of points along transformation axis in the input to use.
+        /// If n is smaller than the length of the input, the input is cropped.
+        /// If it is larger, the input is padded with zeros. If n is not given,
+        /// the length of the input along the axis specified by axis is used.
+        /// </param>
+        /// <param name="axis">
+        /// Axis over which to compute the FFT. If not given, the last axis is
+        /// used.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The truncated or zero-padded input, transformed along the axis
+        /// indicated by axis, or the last one if axis is not specified.
+        /// If n is even, the length of the transformed axis is (n/2)+1.
+        /// If n is odd, the length is (n+1)/2.
+        /// </returns>
+        public NDarray rfft(int? n = null, int? axis = -1, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.rfft(@this, n:n, axis:axis, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the inverse of the n-point DFT for real input.
+        /// 
+        /// This function computes the inverse of the one-dimensional n-point
+        /// discrete Fourier Transform of real input computed by rfft.
+        /// In other words, irfft(rfft(a), len(a)) == a to within numerical
+        /// accuracy. (See Notes below for why len(a) is necessary here.)
+        /// 
+        /// The input is expected to be in the form returned by rfft, i.e. the
+        /// real zero-frequency term followed by the complex positive frequency terms
+        /// in order of increasing frequency.  Since the discrete Fourier Transform of
+        /// real input is Hermitian-symmetric, the negative frequency terms are taken
+        /// to be the complex conjugates of the corresponding positive frequency terms.
+        /// 
+        /// Notes
+        /// 
+        /// Returns the real valued n-point inverse discrete Fourier transform
+        /// of a, where a contains the non-negative frequency terms of a
+        /// Hermitian-symmetric sequence. n is the length of the result, not the
+        /// input.
+        /// 
+        /// If you specify an n such that a must be zero-padded or truncated, the
+        /// extra/removed values will be added/removed at high frequencies. One can
+        /// thus resample a series to m points via Fourier interpolation by:
+        /// a_resamp = irfft(rfft(a), m).
+        /// </summary>
+        /// <param name="n">
+        /// Length of the transformed axis of the output.
+        /// For n output points, n//2+1 input points are necessary.  If the
+        /// input is longer than this, it is cropped.  If it is shorter than this,
+        /// it is padded with zeros.  If n is not given, it is determined from
+        /// the length of the input along the axis specified by axis.
+        /// </param>
+        /// <param name="axis">
+        /// Axis over which to compute the inverse FFT. If not given, the last
+        /// axis is used.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The truncated or zero-padded input, transformed along the axis
+        /// indicated by axis, or the last one if axis is not specified.
+        /// The length of the transformed axis is n, or, if n is not given,
+        /// 2*(m-1) where m is the length of the transformed axis of the
+        /// input. To get an odd number of output points, n must be specified.
+        /// </returns>
+        public NDarray irfft(int? n = null, int? axis = -1, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.irfft(@this, n:n, axis:axis, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the 2-dimensional FFT of a real array.
+        /// 
+        /// Notes
+        /// 
+        /// This is really just rfftn with different default behavior.
+        /// For more details see rfftn.
+        /// </summary>
+        /// <param name="s">
+        /// Shape of the FFT.
+        /// </param>
+        /// <param name="axes">
+        /// Axes over which to compute the FFT.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The result of the real 2-D FFT.
+        /// </returns>
+        public NDarray rfft2(int[] s = null, int[] axes = null, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.rfft2(@this, s:s, axes:axes, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the 2-dimensional inverse FFT of a real array.
+        /// 
+        /// Notes
+        /// 
+        /// This is really irfftn with different defaults.
+        /// For more details see irfftn.
+        /// </summary>
+        /// <param name="s">
+        /// Shape of the inverse FFT.
+        /// </param>
+        /// <param name="axes">
+        /// The axes over which to compute the inverse fft.
+        /// Default is the last two axes.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The result of the inverse real 2-D FFT.
+        /// </returns>
+        public NDarray irfft2(int[] s = null, int[] axes = null, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.irfft2(@this, s:s, axes:axes, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the N-dimensional discrete Fourier Transform for real input.
+        /// 
+        /// This function computes the N-dimensional discrete Fourier Transform over
+        /// any number of axes in an M-dimensional real array by means of the Fast
+        /// Fourier Transform (FFT).  By default, all axes are transformed, with the
+        /// real transform performed over the last axis, while the remaining
+        /// transforms are complex.
+        /// 
+        /// Notes
+        /// 
+        /// The transform for real input is performed over the last transformation
+        /// axis, as by rfft, then the transform over the remaining axes is
+        /// performed as by fftn.  The order of the output is as for rfft for the
+        /// final transformation axis, and as for fftn for the remaining
+        /// transformation axes.
+        /// 
+        /// See fft for details, definitions and conventions used.
+        /// </summary>
+        /// <param name="s">
+        /// Shape (length along each transformed axis) to use from the input.
+        /// (s[0] refers to axis 0, s[1] to axis 1, etc.).
+        /// The final element of s corresponds to n for rfft(x, n), while
+        /// for the remaining axes, it corresponds to n for fft(x, n).
+        /// Along any axis, if the given shape is smaller than that of the input,
+        /// the input is cropped.  If it is larger, the input is padded with zeros.
+        /// if s is not given, the shape of the input along the axes specified
+        /// by axes is used.
+        /// </param>
+        /// <param name="axes">
+        /// Axes over which to compute the FFT.  If not given, the last len(s)
+        /// axes are used, or all axes if s is also not specified.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The truncated or zero-padded input, transformed along the axes
+        /// indicated by axes, or by a combination of s and a,
+        /// as explained in the parameters section above.
+        /// The length of the last axis transformed will be s[-1]//2+1,
+        /// while the remaining transformed axes will have lengths according to
+        /// s, or unchanged from the input.
+        /// </returns>
+        public NDarray rfftn(int[] s = null, int[] axes = null, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.rfftn(@this, s:s, axes:axes, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the inverse of the N-dimensional FFT of real input.
+        /// 
+        /// This function computes the inverse of the N-dimensional discrete
+        /// Fourier Transform for real input over any number of axes in an
+        /// M-dimensional array by means of the Fast Fourier Transform (FFT).  In
+        /// other words, irfftn(rfftn(a), a.shape) == a to within numerical
+        /// accuracy. (The a.shape is necessary like len(a) is for irfft,
+        /// and for the same reason.)
+        /// 
+        /// The input should be ordered in the same way as is returned by rfftn,
+        /// i.e. as for irfft for the final transformation axis, and as for ifftn
+        /// along all the other axes.
+        /// 
+        /// Notes
+        /// 
+        /// See fft for definitions and conventions used.
+        /// 
+        /// See rfft for definitions and conventions used for real input.
+        /// </summary>
+        /// <param name="s">
+        /// Shape (length of each transformed axis) of the output
+        /// (s[0] refers to axis 0, s[1] to axis 1, etc.). s is also the
+        /// number of input points used along this axis, except for the last axis,
+        /// where s[-1]//2+1 points of the input are used.
+        /// Along any axis, if the shape indicated by s is smaller than that of
+        /// the input, the input is cropped.  If it is larger, the input is padded
+        /// with zeros. If s is not given, the shape of the input along the
+        /// axes specified by axes is used.
+        /// </param>
+        /// <param name="axes">
+        /// Axes over which to compute the inverse FFT. If not given, the last
+        /// len(s) axes are used, or all axes if s is also not specified.
+        /// Repeated indices in axes means that the inverse transform over that
+        /// axis is performed multiple times.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The truncated or zero-padded input, transformed along the axes
+        /// indicated by axes, or by a combination of s or a,
+        /// as explained in the parameters section above.
+        /// The length of each transformed axis is as given by the corresponding
+        /// element of s, or the length of the input in every axis except for the
+        /// last one if s is not given.  In the final transformed axis the length
+        /// of the output when s is not given is 2*(m-1) where m is the
+        /// length of the final transformed axis of the input.  To get an odd
+        /// number of output points in the final axis, s must be specified.
+        /// </returns>
+        public NDarray irfftn(int[] s = null, int[] axes = null, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.irfftn(@this, s:s, axes:axes, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the FFT of a signal that has Hermitian symmetry, i.e., a real
+        /// spectrum.
+        /// 
+        /// Notes
+        /// 
+        /// hfft/ihfft are a pair analogous to rfft/irfft, but for the
+        /// opposite case: here the signal has Hermitian symmetry in the time
+        /// domain and is real in the frequency domain. So here it’s hfft for
+        /// which you must supply the length of the result if it is to be odd.
+        /// </summary>
+        /// <param name="n">
+        /// Length of the transformed axis of the output. For n output
+        /// points, n//2 + 1 input points are necessary.  If the input is
+        /// longer than this, it is cropped.  If it is shorter than this, it is
+        /// padded with zeros.  If n is not given, it is determined from the
+        /// length of the input along the axis specified by axis.
+        /// </param>
+        /// <param name="axis">
+        /// Axis over which to compute the FFT. If not given, the last
+        /// axis is used.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The truncated or zero-padded input, transformed along the axis
+        /// indicated by axis, or the last one if axis is not specified.
+        /// The length of the transformed axis is n, or, if n is not given,
+        /// 2*m - 2 where m is the length of the transformed axis of
+        /// the input. To get an odd number of output points, n must be
+        /// specified, for instance as 2*m - 1 in the typical case,
+        /// </returns>
+        public NDarray hfft(int? n = null, int? axis = -1, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.hfft(@this, n:n, axis:axis, norm:norm);
+        }
+        
+        /// <summary>
+        /// Compute the inverse FFT of a signal that has Hermitian symmetry.
+        /// 
+        /// Notes
+        /// 
+        /// hfft/ihfft are a pair analogous to rfft/irfft, but for the
+        /// opposite case: here the signal has Hermitian symmetry in the time
+        /// domain and is real in the frequency domain. So here it’s hfft for
+        /// which you must supply the length of the result if it is to be odd:
+        /// </summary>
+        /// <param name="n">
+        /// Length of the inverse FFT, the number of points along
+        /// transformation axis in the input to use.  If n is smaller than
+        /// the length of the input, the input is cropped.  If it is larger,
+        /// the input is padded with zeros. If n is not given, the length of
+        /// the input along the axis specified by axis is used.
+        /// </param>
+        /// <param name="axis">
+        /// Axis over which to compute the inverse FFT. If not given, the last
+        /// axis is used.
+        /// </param>
+        /// <param name="norm">
+        /// Normalization mode (see numpy.fft). Default is None.
+        /// </param>
+        /// <returns>
+        /// The truncated or zero-padded input, transformed along the axis
+        /// indicated by axis, or the last one if axis is not specified.
+        /// The length of the transformed axis is n//2 + 1.
+        /// </returns>
+        public NDarray ihfft(int? n = null, int? axis = -1, string norm = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.ihfft(@this, n:n, axis:axis, norm:norm);
+        }
+        
+        /// <summary>
+        /// Shift the zero-frequency component to the center of the spectrum.
+        /// 
+        /// This function swaps half-spaces for all axes listed (defaults to all).
+        /// Note that y[0] is the Nyquist component only if len(x) is even.
+        /// </summary>
+        /// <param name="axes">
+        /// Axes over which to shift.  Default is None, which shifts all axes.
+        /// </param>
+        /// <returns>
+        /// The shifted array.
+        /// </returns>
+        public NDarray fftshift(int[] axes = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.fftshift(@this, axes:axes);
+        }
+        
+        /// <summary>
+        /// The inverse of fftshift. Although identical for even-length x, the
+        /// functions differ by one sample for odd-length x.
+        /// </summary>
+        /// <param name="axes">
+        /// Axes over which to calculate.  Defaults to None, which shifts all axes.
+        /// </param>
+        /// <returns>
+        /// The shifted array.
+        /// </returns>
+        public NDarray ifftshift(int[] axes = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.ifftshift(@this, axes:axes);
+        }
+        
+        /// <summary>
         /// Trigonometric sine, element-wise.
         /// 
         /// Notes
