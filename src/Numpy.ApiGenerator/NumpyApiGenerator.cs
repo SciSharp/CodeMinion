@@ -17,8 +17,8 @@ namespace Numpy.ApiGenerator
     // [x] Array manipulation routines
     // [x] Binary operations
     // [ ] String operations
-    // [ ] Datetime Support Functions
-    // [ ] Data type routines
+    // [x] Datetime Support Functions
+    // [x] Data type routines
     // [x] Optionally Scipy-accelerated routines(numpy.dual)
     // [ ] Floating point error handling
     // [x] Discrete Fourier Transform(numpy.fft)
@@ -138,6 +138,12 @@ namespace Numpy.ApiGenerator
             var bitwise_api = new StaticApi() { PartialName = "bitwise", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(bitwise_api);
             ParseNumpyApi(bitwise_api, "routines.bitwise.html");
+            // ----------------------------------------------------
+            // Datetime Support Functions
+            // ----------------------------------------------------
+            var datetime_api = new StaticApi() { PartialName = "datetime", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(datetime_api);
+            ParseNumpyApi(datetime_api, "routines.datetime.html");            
             // ----------------------------------------------------
             // Data type routines
             // ----------------------------------------------------
@@ -624,6 +630,10 @@ namespace Numpy.ApiGenerator
                 case "result_type":
                 case "issubclass_":
                 case "find_common_type":
+                case "busdaycalendar":
+                case "is_busday":
+                case "busday_count":
+                case "busday_offset":
                     decl.CommentOut = true;
                     break;
                 case "require":
@@ -1189,6 +1199,7 @@ namespace Numpy.ApiGenerator
                 case "bool (scalar) or boolean ndarray":
                 case "bool or ndarray of bool":
                 case "1-D array of bools":
+                case "array of bool":
                     return "NDarray<bool>";
                 // NDarray<bool>[]
                 case "list of bool ndarrays":
@@ -1213,6 +1224,7 @@ namespace Numpy.ApiGenerator
                 case "str or None":
                 case "file-like":
                 case "{{‘begin’":
+                case "str or array_like of bool":
                     return "string";
                 // string[]
                 case "str or sequence of str":
@@ -1223,6 +1235,8 @@ namespace Numpy.ApiGenerator
                 case "str or list":
                 case "str or list/tuple of str":
                 case "list of str or array_like":
+                case "array_like of datetime64":
+                case "array_like of datetime64[D]":
                     return "string[]";
                 // Delegate
                 case "callable":
