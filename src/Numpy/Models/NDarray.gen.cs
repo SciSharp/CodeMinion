@@ -1384,6 +1384,50 @@ namespace Numpy
         }
         
         /// <summary>
+        /// For scalar a, returns the data type with the smallest size
+        /// and smallest scalar kind which can hold its value.  For non-scalar
+        /// array a, returns the vector’s dtype unmodified.
+        /// 
+        /// Floating point values are not demoted to integers,
+        /// and complex values are not demoted to floats.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <returns>
+        /// The minimal data type.
+        /// </returns>
+        public Dtype min_scalar_type()
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.min_scalar_type(@this);
+        }
+        
+        /// <summary>
+        /// Return a scalar type which is common to the input arrays.
+        /// 
+        /// The return type will always be an inexact (i.e. floating point) scalar
+        /// type, even if all the arrays are integer arrays. If one of the inputs is
+        /// an integer array, the minimum precision type that is returned is a
+        /// 64-bit floating point dtype.
+        /// 
+        /// All input arrays except int64 and uint64 can be safely cast to the
+        /// returned dtype without loss of information.
+        /// </summary>
+        /// <param name="array1">
+        /// Input arrays.
+        /// </param>
+        /// <returns>
+        /// Data type code.
+        /// </returns>
+        public Dtype common_type(NDarray array1)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.common_type(@this, array1);
+        }
+        
+        /// <summary>
         /// Cholesky decomposition.
         /// 
         /// Return the Cholesky decomposition, L * L.H, of the square matrix a,

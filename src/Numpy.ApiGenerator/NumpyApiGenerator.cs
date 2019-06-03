@@ -20,7 +20,6 @@ namespace Numpy.ApiGenerator
     // [ ] Datetime Support Functions
     // [ ] Data type routines
     // [x] Optionally Scipy-accelerated routines(numpy.dual)
-    // [ ] Mathematical functions with automatic domain(numpy.emath)
     // [ ] Floating point error handling
     // [x] Discrete Fourier Transform(numpy.fft)
     // [x] Financial functions
@@ -139,6 +138,12 @@ namespace Numpy.ApiGenerator
             var bitwise_api = new StaticApi() { PartialName = "bitwise", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(bitwise_api);
             ParseNumpyApi(bitwise_api, "routines.bitwise.html");
+            // ----------------------------------------------------
+            // Data type routines
+            // ----------------------------------------------------
+            var dtype_routines_api = new StaticApi() { PartialName = "dtype.routines", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(dtype_routines_api);
+            ParseNumpyApi(dtype_routines_api, "routines.dtype.html");
             // ----------------------------------------------------
             // Optionally Scipy-accelerated routines (linalg, fft, ...)
             // ----------------------------------------------------
@@ -616,6 +621,9 @@ namespace Numpy.ApiGenerator
                 case "ravel_multi_index":
                 case "nditer":
                 case "nested_iters":
+                case "result_type":
+                case "issubclass_":
+                case "find_common_type":
                     decl.CommentOut = true;
                     break;
                 case "require":
@@ -736,6 +744,12 @@ namespace Numpy.ApiGenerator
                     var when = decl.Arguments.FirstOrDefault(x => x.Name == "when");
                     if (when != null)
                         when.IsNamedArg = true;
+                    break;
+                case "format_parser":
+                    decl.Arguments.First(x => x.Name == "titles").Type = "string[]";
+                    break;
+                case "mintypecode":
+                    decl.Arguments.First(x => x.Name == "typeset").DefaultValue = "null";
                     break;
             }
         }
@@ -1109,7 +1123,14 @@ namespace Numpy.ApiGenerator
             }
             switch (type)
             {
-                case "data-type": return "Dtype";
+                // Dtype
+                case "dtype":
+                case "data-type":
+                case "dtype or dtype specifier":
+                case "data type code":
+                case "integer type":
+                case "dtype_like":
+                    return "Dtype";
                 case "matrix": return "Matrix";
                 // NDarray
                 case "array":
@@ -1200,8 +1221,13 @@ namespace Numpy.ApiGenerator
                 case "str or sequence of strs":
                 case "sequence of str":
                 case "str or list":
+                case "str or list/tuple of str":
+                case "list of str or array_like":
                     return "string[]";
-                case "callable": return "Delegate";
+                // Delegate
+                case "callable":
+                case "function":
+                    return "Delegate";
                 case "any": return "object";
                 case "iterable object": return "IEnumerable<T>";
                 case "dict": return "Hashtable";
@@ -1249,6 +1275,9 @@ namespace Numpy.ApiGenerator
                 // double
                 case "Number":
                     return "double";
+                // object
+                case "scalar dtype or object":
+                    return "object";
             }
             if (arg.IsReturnValue)
             {
