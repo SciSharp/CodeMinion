@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using CodeMinion.Core;
 using CodeMinion.Core.Models;
 using CodeMinion.Parser;
@@ -149,7 +150,7 @@ namespace Numpy.ApiGenerator
             // ----------------------------------------------------
             var datetime_api = new StaticApi() { PartialName = "datetime", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(datetime_api);
-            ParseNumpyApi(datetime_api, "routines.datetime.html");            
+            ParseNumpyApi(datetime_api, "routines.datetime.html");
             // ----------------------------------------------------
             // Data type routines
             // ----------------------------------------------------
@@ -245,6 +246,9 @@ namespace Numpy.ApiGenerator
             // generate all
             // ----------------------------------------------------
             _generator.Generate();
+            ApiStatistics();
+            Console.WriteLine($"Number of generated functions: {parsed_api_functions.Count} / {all_api_functions.Count}");
+            Thread.Sleep(2000);
         }
 
         private void ParseNdarrayApi(DynamicApi api)
@@ -291,6 +295,8 @@ namespace Numpy.ApiGenerator
             }
         }
 
+        private int _function_count = 0;
+
         private void ParseDtypeApi(StaticApi api)
         {
             var doc = GetHtml("arrays.scalars.html");
@@ -302,6 +308,7 @@ namespace Numpy.ApiGenerator
                 if (span == null)
                     continue;
                 var td = tr.Descendants("td").Skip(1).FirstOrDefault();
+                _function_count++;
                 api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument() { Type = "Dtype" } } });
             }
         }
@@ -345,6 +352,9 @@ namespace Numpy.ApiGenerator
                 ParseReturnTypes(html_doc, table, decl);
 
                 PostProcess(decl);
+                if (!decl.CommentOut)
+                    _function_count++;
+
                 // if necessary create overloads
                 foreach (var d in InferOverloads(decl))
                 {
@@ -592,7 +602,7 @@ namespace Numpy.ApiGenerator
                     decl.SharpOnlyPostfix = "_";
                     break;
                 case "array":
-                    if (decl.ClassName=="numpy")
+                    if (decl.ClassName == "numpy")
                         decl.ManualOverride = true; // do not generate an implementation
                     break;
                 case "itemset":
@@ -1371,9 +1381,25 @@ namespace Numpy.ApiGenerator
 
         public void ApiStatistics()
         {
-            //var doc=GetNumpyReference();
-            //var li=doc.Doc.DocumentNode.DescendantsOfClass("li", "toctree-l1").FirstOrDefault(x=>x.InnerText.StartsWith("NumPy Reference"));
-            //li.ChildNodes(1).Where(x=>x.Name=="ul").FirstOrDefault()
+            var doc = GetNumpyReference();
+            var li = doc.Doc.DocumentNode.DescendantsOfClass("li", "toctree-l1").FirstOrDefault(x => x.InnerText.StartsWith("NumPy Reference"));
+            var stack = new Stack<string>();
+            CollectApiFunctions(li, stack);
+        }
+
+        HashSet<string> all_api_functions = new HashSet<string>();
+
+        private void CollectApiFunctions(HtmlNode li, Stack<string> stack)
+        {
+            var a = li.ChildNodes.FirstOrDefault(x => x.Name == "a");
+            var ul = li.ChildNodes.FirstOrDefault(x => x.Name == "ul");
+            stack.Push(a.InnerText);
+            if (a.InnerText.StartsWith("numpy"))
+                all_api_functions.Add(a.InnerText);
+            if (ul != null)
+                foreach (var sub_li in ul.ChildNodes.Where(x => x.Name == "li"))
+                    CollectApiFunctions(sub_li, stack);
+            stack.Pop();
         }
 
         public HtmlDoc GetNumpyReference()
