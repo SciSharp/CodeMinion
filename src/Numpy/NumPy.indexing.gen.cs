@@ -907,7 +907,7 @@ namespace Numpy
         /// Otherwise it will be writable if the original array was. It
         /// is advisable to set this to False if possible (see Notes).
         /// </param>
-        public NDarray as_strided(NDarray x, Shape shape = null, int[] strides = null, bool? subok = false, bool? writeable = true)
+        public NDarray lib_stride_tricks_as_strided(NDarray x, Shape shape = null, int[] strides = null, bool? subok = false, bool? writeable = true)
         {
             //auto-generated code, do not change
             var lib = self.GetAttr("lib");
@@ -1331,7 +1331,7 @@ namespace Numpy
         /// Default is None, which will read as many element as possible
         /// into memory.
         /// </param>
-        public void Arrayterator(NDarray @var, int? buf_size = null)
+        public void lib_Arrayterator(NDarray @var, int? buf_size = null)
         {
             //auto-generated code, do not change
             var lib = self.GetAttr("lib");

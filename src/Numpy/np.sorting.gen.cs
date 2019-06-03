@@ -143,6 +143,30 @@ namespace Numpy
             => NumPy.Instance.argsort(a, axis:axis, kind:kind, order:order);
         
         /// <summary>
+        /// Sort an array, in-place.
+        /// 
+        /// Notes
+        /// 
+        /// See sort for notes on the different sorting algorithms.
+        /// </summary>
+        /// <param name="axis">
+        /// Axis along which to sort. Default is -1, which means sort along the
+        /// last axis.
+        /// </param>
+        /// <param name="kind">
+        /// Sorting algorithm. Default is ‘quicksort’.
+        /// </param>
+        /// <param name="order">
+        /// When a is an array with fields defined, this argument specifies
+        /// which fields to compare first, second, etc.  A single field can
+        /// be specified as a string, and not all fields need be specified,
+        /// but unspecified fields will still be used, in the order in which
+        /// they come up in the dtype, to break ties.
+        /// </param>
+        public static void sort(int? axis = -1, string kind = null, string order = null)
+            => NumPy.Instance.sort(axis:axis, kind:kind, order:order);
+        
+        /// <summary>
         /// Return a copy of an array sorted along the first axis.
         /// 
         /// Notes

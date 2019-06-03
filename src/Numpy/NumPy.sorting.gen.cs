@@ -180,6 +180,41 @@ namespace Numpy
         }
         
         /// <summary>
+        /// Sort an array, in-place.
+        /// 
+        /// Notes
+        /// 
+        /// See sort for notes on the different sorting algorithms.
+        /// </summary>
+        /// <param name="axis">
+        /// Axis along which to sort. Default is -1, which means sort along the
+        /// last axis.
+        /// </param>
+        /// <param name="kind">
+        /// Sorting algorithm. Default is ‘quicksort’.
+        /// </param>
+        /// <param name="order">
+        /// When a is an array with fields defined, this argument specifies
+        /// which fields to compare first, second, etc.  A single field can
+        /// be specified as a string, and not all fields need be specified,
+        /// but unspecified fields will still be used, in the order in which
+        /// they come up in the dtype, to break ties.
+        /// </param>
+        public void sort(int? axis = -1, string kind = null, string order = null)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+            });
+            var kwargs=new PyDict();
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (kind!=null) kwargs["kind"]=ToPython(kind);
+            if (order!=null) kwargs["order"]=ToPython(order);
+            dynamic py = __self__.InvokeMethod("sort", pyargs, kwargs);
+        }
+        
+        /// <summary>
         /// Return a copy of an array sorted along the first axis.
         /// 
         /// Notes

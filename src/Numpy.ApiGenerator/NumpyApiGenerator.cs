@@ -16,7 +16,7 @@ namespace Numpy.ApiGenerator
     // [x] Array creation routines 
     // [x] Array manipulation routines
     // [x] Binary operations
-    // [ ] String operations
+    // [x] String operations
     // [x] Datetime Support Functions
     // [x] Data type routines
     // [x] Optionally Scipy-accelerated routines(numpy.dual)
@@ -138,6 +138,12 @@ namespace Numpy.ApiGenerator
             var bitwise_api = new StaticApi() { PartialName = "bitwise", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(bitwise_api);
             ParseNumpyApi(bitwise_api, "routines.bitwise.html");
+            // ----------------------------------------------------
+            // String operations
+            // ----------------------------------------------------
+            var string_api = new StaticApi() { PartialName = "string", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(string_api);
+            ParseNumpyApi(string_api, "routines.char.html");
             // ----------------------------------------------------
             // Datetime Support Functions
             // ----------------------------------------------------
@@ -319,9 +325,9 @@ namespace Numpy.ApiGenerator
                     continue;
                 var func_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descname").InnerText;
-                if (parsed_api_functions.Contains(func_name))
+                if (parsed_api_functions.Contains(class_name + "." + func_name))
                     continue;
-                parsed_api_functions.Add(func_name);
+                parsed_api_functions.Add(class_name + "." + func_name);
                 var decl = new Function() { Tag = link, Name = func_name, ClassName = class_name.TrimEnd('.') };
                 // function description
                 var dd = dl.Descendants("dd").FirstOrDefault();
@@ -344,7 +350,7 @@ namespace Numpy.ApiGenerator
                 {
                     api.Declarations.Add(d);
                     // if this is an ndarray member, add it to the dynamic api also
-                    if (ndarray_api != null && d.Arguments.FirstOrDefault()?.Type == "NDarray")
+                    if (ndarray_api != null && d.Arguments.FirstOrDefault()?.Type == "NDarray" && class_name == "numpy.")
                     {
                         switch (decl.Name)
                         {
@@ -586,6 +592,9 @@ namespace Numpy.ApiGenerator
                     decl.SharpOnlyPostfix = "_";
                     break;
                 case "array":
+                    if (decl.ClassName=="numpy")
+                        decl.ManualOverride = true; // do not generate an implementation
+                    break;
                 case "itemset":
                 case "tostring":
                 case "tobytes":
@@ -1177,6 +1186,8 @@ namespace Numpy.ApiGenerator
                 case "1D or 2D array_like":
                 case "1-D sequence":
                 case "scalar or array_like of shape(M":
+                case "array_like of values":
+                case "array-like":
                     return "NDarray";
                 // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
@@ -1225,6 +1236,9 @@ namespace Numpy.ApiGenerator
                 case "file-like":
                 case "{{‘begin’":
                 case "str or array_like of bool":
+                case "str or unicode":
+                case "{str":
+                case "str of length 256":
                     return "string";
                 // string[]
                 case "str or sequence of str":
@@ -1237,6 +1251,8 @@ namespace Numpy.ApiGenerator
                 case "list of str or array_like":
                 case "array_like of datetime64":
                 case "array_like of datetime64[D]":
+                case "array_like of str or unicode":
+                case "array-like of str or unicode":
                     return "string[]";
                 // Delegate
                 case "callable":
@@ -1256,6 +1272,7 @@ namespace Numpy.ApiGenerator
                 case "None or int or tuple of ints":
                 case "int or 1-D array":
                 case "sequence or int":
+                case "array_like of ints":
                 case "ints":
                     return "int[]";
                 case "boolean": return "bool";

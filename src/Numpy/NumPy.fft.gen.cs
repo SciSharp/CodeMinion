@@ -66,7 +66,7 @@ namespace Numpy
         /// If n is even, the length of the transformed axis is (n/2)+1.
         /// If n is odd, the length is (n+1)/2.
         /// </returns>
-        public NDarray rfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
+        public NDarray fft_rfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -133,7 +133,7 @@ namespace Numpy
         /// 2*(m-1) where m is the length of the transformed axis of the
         /// input. To get an odd number of output points, n must be specified.
         /// </returns>
-        public NDarray irfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
+        public NDarray fft_irfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -173,7 +173,7 @@ namespace Numpy
         /// <returns>
         /// The result of the real 2-D FFT.
         /// </returns>
-        public NDarray rfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
+        public NDarray fft_rfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -214,7 +214,7 @@ namespace Numpy
         /// <returns>
         /// The result of the inverse real 2-D FFT.
         /// </returns>
-        public NDarray irfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
+        public NDarray fft_irfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -278,7 +278,7 @@ namespace Numpy
         /// while the remaining transformed axes will have lengths according to
         /// s, or unchanged from the input.
         /// </returns>
-        public NDarray rfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
+        public NDarray fft_rfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -348,7 +348,7 @@ namespace Numpy
         /// length of the final transformed axis of the input.  To get an odd
         /// number of output points in the final axis, s must be specified.
         /// </returns>
-        public NDarray irfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
+        public NDarray fft_irfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -401,7 +401,7 @@ namespace Numpy
         /// the input. To get an odd number of output points, n must be
         /// specified, for instance as 2*m - 1 in the typical case,
         /// </returns>
-        public NDarray hfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
+        public NDarray fft_hfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -450,7 +450,7 @@ namespace Numpy
         /// indicated by axis, or the last one if axis is not specified.
         /// The length of the transformed axis is n//2 + 1.
         /// </returns>
-        public NDarray ihfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
+        public NDarray fft_ihfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -485,7 +485,7 @@ namespace Numpy
         /// <returns>
         /// Array of length n containing the sample frequencies.
         /// </returns>
-        public NDarray fftfreq(int n, float? d = 1.0f)
+        public NDarray fft_fftfreq(int n, float? d = 1.0f)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -522,7 +522,7 @@ namespace Numpy
         /// <returns>
         /// Array of length n//2 + 1 containing the sample frequencies.
         /// </returns>
-        public NDarray rfftfreq(int n, float? d = 1.0f)
+        public NDarray fft_rfftfreq(int n, float? d = 1.0f)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -552,7 +552,7 @@ namespace Numpy
         /// <returns>
         /// The shifted array.
         /// </returns>
-        public NDarray fftshift(NDarray x, int[] axes = null)
+        public NDarray fft_fftshift(NDarray x, int[] axes = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");
@@ -580,7 +580,7 @@ namespace Numpy
         /// <returns>
         /// The shifted array.
         /// </returns>
-        public NDarray ifftshift(NDarray x, int[] axes = null)
+        public NDarray fft_ifftshift(NDarray x, int[] axes = null)
         {
             //auto-generated code, do not change
             var fft = self.GetAttr("fft");

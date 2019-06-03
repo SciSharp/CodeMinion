@@ -677,7 +677,7 @@ namespace Numpy
                 /// is advisable to set this to False if possible (see Notes).
                 /// </param>
                 public static NDarray as_strided(NDarray x, Shape shape = null, int[] strides = null, bool? subok = false, bool? writeable = true)
-                    => NumPy.Instance.as_strided(x, shape:shape, strides:strides, subok:subok, writeable:writeable);
+                    => NumPy.Instance.lib_stride_tricks_as_strided(x, shape:shape, strides:strides, subok:subok, writeable:writeable);
             }
         }
         
@@ -981,7 +981,7 @@ namespace Numpy
             /// into memory.
             /// </param>
             public static void Arrayterator(NDarray @var, int? buf_size = null)
-                => NumPy.Instance.Arrayterator(@var, buf_size:buf_size);
+                => NumPy.Instance.lib_Arrayterator(@var, buf_size:buf_size);
         }
         
         

@@ -68,7 +68,7 @@ namespace Numpy
             /// If n is odd, the length is (n+1)/2.
             /// </returns>
             public static NDarray rfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
-                => NumPy.Instance.rfft(a, n:n, axis:axis, norm:norm);
+                => NumPy.Instance.fft_rfft(a, n:n, axis:axis, norm:norm);
         }
         
         public static partial class fft {
@@ -123,7 +123,7 @@ namespace Numpy
             /// input. To get an odd number of output points, n must be specified.
             /// </returns>
             public static NDarray irfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
-                => NumPy.Instance.irfft(a, n:n, axis:axis, norm:norm);
+                => NumPy.Instance.fft_irfft(a, n:n, axis:axis, norm:norm);
         }
         
         public static partial class fft {
@@ -151,7 +151,7 @@ namespace Numpy
             /// The result of the real 2-D FFT.
             /// </returns>
             public static NDarray rfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
-                => NumPy.Instance.rfft2(a, s:s, axes:axes, norm:norm);
+                => NumPy.Instance.fft_rfft2(a, s:s, axes:axes, norm:norm);
         }
         
         public static partial class fft {
@@ -180,7 +180,7 @@ namespace Numpy
             /// The result of the inverse real 2-D FFT.
             /// </returns>
             public static NDarray irfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
-                => NumPy.Instance.irfft2(a, s:s, axes:axes, norm:norm);
+                => NumPy.Instance.fft_irfft2(a, s:s, axes:axes, norm:norm);
         }
         
         public static partial class fft {
@@ -232,7 +232,7 @@ namespace Numpy
             /// s, or unchanged from the input.
             /// </returns>
             public static NDarray rfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
-                => NumPy.Instance.rfftn(a, s:s, axes:axes, norm:norm);
+                => NumPy.Instance.fft_rfftn(a, s:s, axes:axes, norm:norm);
         }
         
         public static partial class fft {
@@ -290,7 +290,7 @@ namespace Numpy
             /// number of output points in the final axis, s must be specified.
             /// </returns>
             public static NDarray irfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
-                => NumPy.Instance.irfftn(a, s:s, axes:axes, norm:norm);
+                => NumPy.Instance.fft_irfftn(a, s:s, axes:axes, norm:norm);
         }
         
         public static partial class fft {
@@ -331,7 +331,7 @@ namespace Numpy
             /// specified, for instance as 2*m - 1 in the typical case,
             /// </returns>
             public static NDarray hfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
-                => NumPy.Instance.hfft(a, n:n, axis:axis, norm:norm);
+                => NumPy.Instance.fft_hfft(a, n:n, axis:axis, norm:norm);
         }
         
         public static partial class fft {
@@ -368,7 +368,7 @@ namespace Numpy
             /// The length of the transformed axis is n//2 + 1.
             /// </returns>
             public static NDarray ihfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
-                => NumPy.Instance.ihfft(a, n:n, axis:axis, norm:norm);
+                => NumPy.Instance.fft_ihfft(a, n:n, axis:axis, norm:norm);
         }
         
         public static partial class fft {
@@ -391,7 +391,7 @@ namespace Numpy
             /// Array of length n containing the sample frequencies.
             /// </returns>
             public static NDarray fftfreq(int n, float? d = 1.0f)
-                => NumPy.Instance.fftfreq(n, d:d);
+                => NumPy.Instance.fft_fftfreq(n, d:d);
         }
         
         public static partial class fft {
@@ -418,7 +418,7 @@ namespace Numpy
             /// Array of length n//2 + 1 containing the sample frequencies.
             /// </returns>
             public static NDarray rfftfreq(int n, float? d = 1.0f)
-                => NumPy.Instance.rfftfreq(n, d:d);
+                => NumPy.Instance.fft_rfftfreq(n, d:d);
         }
         
         public static partial class fft {
@@ -438,7 +438,7 @@ namespace Numpy
             /// The shifted array.
             /// </returns>
             public static NDarray fftshift(NDarray x, int[] axes = null)
-                => NumPy.Instance.fftshift(x, axes:axes);
+                => NumPy.Instance.fft_fftshift(x, axes:axes);
         }
         
         public static partial class fft {
@@ -456,7 +456,7 @@ namespace Numpy
             /// The shifted array.
             /// </returns>
             public static NDarray ifftshift(NDarray x, int[] axes = null)
-                => NumPy.Instance.ifftshift(x, axes:axes);
+                => NumPy.Instance.fft_ifftshift(x, axes:axes);
         }
         
         

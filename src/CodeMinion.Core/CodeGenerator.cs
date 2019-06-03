@@ -53,13 +53,15 @@ namespace CodeMinion.Core
         }
 
         // generate an entire API function declaration
-        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s)
+        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s, bool prefix=false)
         {
             if (decl.DebuggerBreak)
                 Debugger.Break();
             if (decl.CommentOut)
                 s.Out("/*");
             GenerateDocString(decl, s);
+            var class_names = (decl.GeneratedClassName ?? decl.ClassName ?? "no_name").Split('.');
+            int levels = class_names.Length - 1;
             var retval = GenerateReturnType(decl);
             switch (decl)
             {
@@ -67,10 +69,13 @@ namespace CodeMinion.Core
                     var arguments = GenerateArguments(func);
                     var passed_args = GeneratePassedArgs(func);
                     var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
-                    s.Out($"public {retval} {EscapeName(decl.Name)}{generics}({arguments})");
+                    var prefix_str = "";
+                    if (prefix && levels > 0)
+                        prefix_str = string.Join("_", class_names.Skip(1)) + "_";
+                    s.Out($"public {retval} {EscapeName(prefix_str + decl.Name)}{generics}({arguments})");
                     s.Block(() =>
                     {
-                        GenerateFunctionBody(func, s);
+                        GenerateFunctionBody(func, s, prefix_str);
                     });
                     break;
                 case Property prop:
@@ -121,8 +126,11 @@ namespace CodeMinion.Core
                     var passed_args = GeneratePassedArgs(func);
                     var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
                     s.Out($"public static {retval} {EscapeName(decl.Name)}{func.SharpOnlyPostfix}{generics}({arguments})");
+                    var prefix = "";
+                    if (levels > 0)
+                        prefix = string.Join("_", class_names.Skip(1)) + "_";
                     s.Indent(() => s.Out(
-                        $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)}({passed_args});"));
+                        $"=> {api.ImplName}.Instance.{EscapeName(prefix+decl.Name)}({passed_args});"));
                     break;
                 case Property prop:
                     s.Out($"public static {retval} {EscapeName(decl.Name)}");
@@ -320,12 +328,12 @@ namespace CodeMinion.Core
         }
 
         // generates only the body of the API function declaration
-        protected virtual void GenerateFunctionBody(Function func, CodeWriter s)
+        protected virtual void GenerateFunctionBody(Function func, CodeWriter s, string prefix="")
         {
             s.Out("//auto-generated code, do not change");
             if (!string.IsNullOrWhiteSpace(func.ForwardToStaticImpl))
             {
-                GenerateForwardingBody(func, s);
+                GenerateForwardingBody(func, s, prefix);
                 return;
             }
             if (_templates.ContainsKey(func.Name))
@@ -400,7 +408,7 @@ namespace CodeMinion.Core
             }
         }
 
-        private void GenerateForwardingBody(Function member_func, CodeWriter s)
+        private void GenerateForwardingBody(Function member_func, CodeWriter s, string prefix="")
         {
             var func = member_func.Clone<Function>();
             // inserting this at position 0 since this is a forwarding of a member function to a static implementation
@@ -408,7 +416,7 @@ namespace CodeMinion.Core
             var passed_args = GeneratePassedArgs(func);
             s.Out("var @this=this;");
             var return_keyword = member_func.Returns.Count > 0 ? "return " : "";
-            s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(func.Name)}({passed_args});");
+            s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(prefix+func.Name)}({passed_args});");
         }
 
         private void GeneratePropertyGetter(Property prop, CodeWriter s)
@@ -491,7 +499,7 @@ namespace CodeMinion.Core
                         try
                         {
                             if (!decl.ManualOverride)
-                                GenerateApiFunction(decl, s);
+                                GenerateApiFunction(decl, s, prefix:true);
                         }
                         catch (Exception e)
                         {
