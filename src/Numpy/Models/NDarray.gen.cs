@@ -2520,6 +2520,549 @@ namespace Numpy
             return NumPy.Instance.ifftshift(@this, axes:axes);
         }
         
+        /// <summary>
+        /// Return the indices of the elements that are non-zero.
+        /// 
+        /// Returns a tuple of arrays, one for each dimension of a,
+        /// containing the indices of the non-zero elements in that
+        /// dimension. The values in a are always tested and returned in
+        /// row-major, C-style order. The corresponding non-zero
+        /// values can be obtained with:
+        /// 
+        /// To group the indices by element, rather than dimension, use:
+        /// 
+        /// The result of this is always a 2-D array, with a row for
+        /// each non-zero element.
+        /// </summary>
+        /// <returns>
+        /// Indices of elements that are non-zero.
+        /// </returns>
+        public NDarray[] nonzero()
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.nonzero(@this);
+        }
+        
+        /// <summary>
+        /// Return elements chosen from x or y depending on condition.
+        /// 
+        /// Notes
+        /// 
+        /// If all the arrays are 1-D, where is equivalent to:
+        /// </summary>
+        /// <param name="y">
+        /// Values from which to choose. x, y and condition need to be
+        /// broadcastable to some shape.
+        /// </param>
+        /// <param name="x">
+        /// Values from which to choose. x, y and condition need to be
+        /// broadcastable to some shape.
+        /// </param>
+        /// <returns>
+        /// An array with elements from x where condition is True, and elements
+        /// from y elsewhere.
+        /// </returns>
+        public NDarray @where(NDarray y, NDarray x)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.@where(@this, y, x);
+        }
+        
+        /// <summary>
+        /// Converts a flat index or array of flat indices into a tuple
+        /// of coordinate arrays.
+        /// </summary>
+        /// <param name="shape">
+        /// The shape of the array to use for unraveling indices.
+        /// </param>
+        /// <param name="order">
+        /// Determines whether the indices should be viewed as indexing in
+        /// row-major (C-style) or column-major (Fortran-style) order.
+        /// </param>
+        /// <returns>
+        /// Each array in the tuple has the same shape as the indices
+        /// array.
+        /// </returns>
+        public NDarray[] unravel_index(Shape shape, string order = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.unravel_index(@this, shape, order:order);
+        }
+        
+        /// <summary>
+        /// Return the indices to access the main diagonal of an n-dimensional array.
+        /// 
+        /// See diag_indices for full details.
+        /// 
+        /// Notes
+        /// </summary>
+        public void diag_indices_from()
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.diag_indices_from(@this);
+        }
+        
+        /// <summary>
+        /// Return the indices for the lower-triangle of arr.
+        /// 
+        /// See tril_indices for full details.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <param name="k">
+        /// Diagonal offset (see tril for details).
+        /// </param>
+        public void tril_indices_from(int? k = 0)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.tril_indices_from(@this, k:k);
+        }
+        
+        /// <summary>
+        /// Return the indices for the upper-triangle of arr.
+        /// 
+        /// See triu_indices for full details.
+        /// 
+        /// Notes
+        /// </summary>
+        /// <param name="k">
+        /// Diagonal offset (see triu for details).
+        /// </param>
+        /// <returns>
+        /// Indices for the upper-triangle of arr.
+        /// </returns>
+        public NDarray[] triu_indices_from(int? k = 0)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.triu_indices_from(@this, k:k);
+        }
+        
+        /// <summary>
+        /// Take values from the input array by matching 1d index and data slices.
+        /// 
+        /// This iterates over matching 1d slices oriented along the specified axis in
+        /// the index and data arrays, and uses the former to look up values in the
+        /// latter. These slices can be different lengths.
+        /// 
+        /// Functions returning an index along an axis, like argsort and
+        /// argpartition, produce suitable indices for this function.
+        /// 
+        /// Notes
+        /// 
+        /// This is equivalent to (but faster than) the following use of ndindex and
+        /// s_, which sets each of ii and kk to a tuple of indices:
+        /// 
+        /// Equivalently, eliminating the inner loop, the last two lines would be:
+        /// </summary>
+        /// <param name="indices">
+        /// Indices to take along each 1d slice of arr. This must match the
+        /// dimension of arr, but dimensions Ni and Nj only need to broadcast
+        /// against arr.
+        /// </param>
+        /// <param name="axis">
+        /// The axis to take 1d slices along. If axis is None, the input array is
+        /// treated as if it had first been flattened to 1d, for consistency with
+        /// sort and argsort.
+        /// </param>
+        public void take_along_axis(NDarray indices, int axis)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.take_along_axis(@this, indices, axis);
+        }
+        
+        /// <summary>
+        /// Return specified diagonals.
+        /// 
+        /// If a is 2-D, returns the diagonal of a with the given offset,
+        /// i.e., the collection of elements of the form a[i, i+offset].  If
+        /// a has more than two dimensions, then the axes specified by axis1
+        /// and axis2 are used to determine the 2-D sub-array whose diagonal is
+        /// returned.  The shape of the resulting array can be determined by
+        /// removing axis1 and axis2 and appending an index to the right equal
+        /// to the size of the resulting diagonals.
+        /// 
+        /// In versions of NumPy prior to 1.7, this function always returned a new,
+        /// independent array containing a copy of the values in the diagonal.
+        /// 
+        /// In NumPy 1.7 and 1.8, it continues to return a copy of the diagonal,
+        /// but depending on this fact is deprecated. Writing to the resulting
+        /// array continues to work as it used to, but a FutureWarning is issued.
+        /// 
+        /// Starting in NumPy 1.9 it returns a read-only view on the original array.
+        /// Attempting to write to the resulting array will produce an error.
+        /// 
+        /// In some future release, it will return a read/write view and writing to
+        /// the returned array will alter your original array.  The returned array
+        /// will have the same type as the input array.
+        /// 
+        /// If you don’t write to the array returned by this function, then you can
+        /// just ignore all of the above.
+        /// 
+        /// If you depend on the current behavior, then we suggest copying the
+        /// returned array explicitly, i.e., use np.diagonal(a).copy() instead
+        /// of just np.diagonal(a). This will work with both past and future
+        /// versions of NumPy.
+        /// </summary>
+        /// <param name="offset">
+        /// Offset of the diagonal from the main diagonal.  Can be positive or
+        /// negative.  Defaults to main diagonal (0).
+        /// </param>
+        /// <param name="axis1">
+        /// Axis to be used as the first axis of the 2-D sub-arrays from which
+        /// the diagonals should be taken.  Defaults to first axis (0).
+        /// </param>
+        /// <param name="axis2">
+        /// Axis to be used as the second axis of the 2-D sub-arrays from
+        /// which the diagonals should be taken. Defaults to second axis (1).
+        /// </param>
+        /// <returns>
+        /// If a is 2-D, then a 1-D array containing the diagonal and of the
+        /// same type as a is returned unless a is a matrix, in which case
+        /// a 1-D array rather than a (2-D) matrix is returned in order to
+        /// maintain backward compatibility.
+        /// 
+        /// If a.ndim &gt; 2, then the dimensions specified by axis1 and axis2
+        /// are removed, and a new axis inserted at the end corresponding to the
+        /// diagonal.
+        /// </returns>
+        public NDarray diagonal(int? offset = 0, int? axis1 = 0, int? axis2 = 1)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.diagonal(@this, offset:offset, axis1:axis1, axis2:axis2);
+        }
+        
+        /// <summary>
+        /// Create a view into the array with the given shape and strides.
+        /// 
+        /// Notes
+        /// 
+        /// as_strided creates a view into the array given the exact strides
+        /// and shape. This means it manipulates the internal data structure of
+        /// ndarray and, if done incorrectly, the array elements can point to
+        /// invalid memory and can corrupt results or crash your program.
+        /// It is advisable to always use the original x.strides when
+        /// calculating new strides to avoid reliance on a contiguous memory
+        /// layout.
+        /// 
+        /// Furthermore, arrays created with this function often contain self
+        /// overlapping memory, so that two elements are identical.
+        /// Vectorized write operations on such arrays will typically be
+        /// unpredictable. They may even give different results for small, large,
+        /// or transposed arrays.
+        /// Since writing to these arrays has to be tested and done with great
+        /// care, you may want to use writeable=False to avoid accidental write
+        /// operations.
+        /// 
+        /// For these reasons it is advisable to avoid as_strided when
+        /// possible.
+        /// </summary>
+        /// <param name="shape">
+        /// The shape of the new array. Defaults to x.shape.
+        /// </param>
+        /// <param name="strides">
+        /// The strides of the new array. Defaults to x.strides.
+        /// </param>
+        /// <param name="subok">
+        /// If True, subclasses are preserved.
+        /// </param>
+        /// <param name="writeable">
+        /// If set to False, the returned array will always be readonly.
+        /// Otherwise it will be writable if the original array was. It
+        /// is advisable to set this to False if possible (see Notes).
+        /// </param>
+        public NDarray as_strided(Shape shape = null, int[] strides = null, bool? subok = false, bool? writeable = true)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.as_strided(@this, shape:shape, strides:strides, subok:subok, writeable:writeable);
+        }
+        
+        /// <summary>
+        /// Change elements of an array based on conditional and input values.
+        /// 
+        /// Similar to np.copyto(arr, vals, where=mask), the difference is that
+        /// place uses the first N elements of vals, where N is the number of
+        /// True values in mask, while copyto uses the elements where mask
+        /// is True.
+        /// 
+        /// Note that extract does the exact opposite of place.
+        /// </summary>
+        /// <param name="mask">
+        /// Boolean mask array. Must have the same size as a.
+        /// </param>
+        /// <param name="vals">
+        /// Values to put into a. Only the first N elements are used, where
+        /// N is the number of True values in mask. If vals is smaller
+        /// than N, it will be repeated, and if elements of a are to be masked,
+        /// this sequence must be non-empty.
+        /// </param>
+        public void place(NDarray mask, NDarray vals)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.place(@this, mask, vals);
+        }
+        
+        /// <summary>
+        /// Replaces specified elements of an array with given values.
+        /// 
+        /// The indexing works on the flattened target array. put is roughly
+        /// equivalent to:
+        /// </summary>
+        /// <param name="ind">
+        /// Target indices, interpreted as integers.
+        /// </param>
+        /// <param name="v">
+        /// Values to place in a at target indices. If v is shorter than
+        /// ind it will be repeated as necessary.
+        /// </param>
+        /// <param name="mode">
+        /// Specifies how out-of-bounds indices will behave.
+        /// 
+        /// ‘clip’ mode means that all indices that are too large are replaced
+        /// by the index that addresses the last element along that axis. Note
+        /// that this disables indexing with negative numbers.
+        /// </param>
+        public void put(NDarray ind, NDarray v, string mode = "raise")
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.put(@this, ind, v, mode:mode);
+        }
+        
+        /// <summary>
+        /// Put values into the destination array by matching 1d index and data slices.
+        /// 
+        /// This iterates over matching 1d slices oriented along the specified axis in
+        /// the index and data arrays, and uses the former to place values into the
+        /// latter. These slices can be different lengths.
+        /// 
+        /// Functions returning an index along an axis, like argsort and
+        /// argpartition, produce suitable indices for this function.
+        /// 
+        /// Notes
+        /// 
+        /// This is equivalent to (but faster than) the following use of ndindex and
+        /// s_, which sets each of ii and kk to a tuple of indices:
+        /// 
+        /// Equivalently, eliminating the inner loop, the last two lines would be:
+        /// </summary>
+        /// <param name="indices">
+        /// Indices to change along each 1d slice of arr. This must match the
+        /// dimension of arr, but dimensions in Ni and Nj may be 1 to broadcast
+        /// against arr.
+        /// </param>
+        /// <param name="values">
+        /// values to insert at those indices. Its shape and dimension are
+        /// broadcast to match that of indices.
+        /// </param>
+        /// <param name="axis">
+        /// The axis to take 1d slices along. If axis is None, the destination
+        /// array is treated as if a flattened 1d view had been created of it.
+        /// </param>
+        public void put_along_axis(NDarray indices, NDarray[] values, int axis)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.put_along_axis(@this, indices, values, axis);
+        }
+        
+        /// <summary>
+        /// Changes elements of an array based on conditional and input values.
+        /// 
+        /// Sets a.flat[n] = values[n] for each n where mask.flat[n]==True.
+        /// 
+        /// If values is not the same size as a and mask then it will repeat.
+        /// This gives behavior different from a[mask] = values.
+        /// </summary>
+        /// <param name="mask">
+        /// Boolean mask array. It has to be the same shape as a.
+        /// </param>
+        /// <param name="values">
+        /// Values to put into a where mask is True. If values is smaller
+        /// than a it will be repeated.
+        /// </param>
+        public void putmask(NDarray mask, NDarray values)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.putmask(@this, mask, values);
+        }
+        
+        /// <summary>
+        /// Fill the main diagonal of the given array of any dimensionality.
+        /// 
+        /// For an array a with a.ndim &gt;= 2, the diagonal is the list of
+        /// locations with indices a[i, ..., i] all identical. This function
+        /// modifies the input array in-place, it does not return a value.
+        /// 
+        /// Notes
+        /// 
+        /// This functionality can be obtained via diag_indices, but internally
+        /// this version uses a much faster implementation that never constructs the
+        /// indices and uses simple slicing.
+        /// </summary>
+        /// <param name="val">
+        /// Value to be written on the diagonal, its type must be compatible with
+        /// that of the array a.
+        /// </param>
+        /// <param name="wrap">
+        /// For tall matrices in NumPy version up to 1.6.2, the
+        /// diagonal “wrapped” after N columns. You can have this behavior
+        /// with this option. This affects only tall matrices.
+        /// </param>
+        public void fill_diagonal(ValueType val, bool wrap = false)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.fill_diagonal(@this, val, wrap);
+        }
+        
+        /*
+        /// <summary>
+        /// Efficient multi-dimensional iterator object to iterate over arrays.
+        /// To get started using this object, see the
+        /// introductory guide to array iteration.
+        /// 
+        /// Notes
+        /// 
+        /// nditer supersedes flatiter.  The iterator implementation behind
+        /// nditer is also exposed by the NumPy C API.
+        /// 
+        /// The Python exposure supplies two iteration interfaces, one which follows
+        /// the Python iterator protocol, and another which mirrors the C-style
+        /// do-while pattern.  The native Python approach is better in most cases, but
+        /// if you need the iterator’s coordinates or index, use the C-style pattern.
+        /// </summary>
+        /// <param name="flags">
+        /// Flags to control the behavior of the iterator.
+        /// </param>
+        /// <param name="op_flags">
+        /// This is a list of flags for each operand. At minimum, one of
+        /// “readonly”, “readwrite”, or “writeonly” must be specified.
+        /// </param>
+        /// <param name="op_dtypes">
+        /// The required data type(s) of the operands. If copying or buffering
+        /// is enabled, the data will be converted to/from their original types.
+        /// </param>
+        /// <param name="order">
+        /// Controls the iteration order. ‘C’ means C order, ‘F’ means
+        /// Fortran order, ‘A’ means ‘F’ order if all the arrays are Fortran
+        /// contiguous, ‘C’ order otherwise, and ‘K’ means as close to the
+        /// order the array elements appear in memory as possible. This also
+        /// affects the element memory order of “allocate” operands, as they
+        /// are allocated to be compatible with iteration order.
+        /// Default is ‘K’.
+        /// </param>
+        /// <param name="casting">
+        /// Controls what kind of data casting may occur when making a copy
+        /// or buffering.  Setting this to ‘unsafe’ is not recommended,
+        /// as it can adversely affect accumulations.
+        /// </param>
+        /// <param name="op_axes">
+        /// If provided, is a list of ints or None for each operands.
+        /// The list of axes for an operand is a mapping from the dimensions
+        /// of the iterator to the dimensions of the operand. A value of
+        /// -1 can be placed for entries, causing that dimension to be
+        /// treated as “newaxis”.
+        /// </param>
+        /// <param name="itershape">
+        /// The desired shape of the iterator. This allows “allocate” operands
+        /// with a dimension mapped by op_axes not corresponding to a dimension
+        /// of a different operand to get a value not equal to 1 for that
+        /// dimension.
+        /// </param>
+        /// <param name="buffersize">
+        /// When buffering is enabled, controls the size of the temporary
+        /// buffers. Set to 0 for the default value.
+        /// </param>
+        public void nditer(string[] flags = null, list of list of str op_flags = null, dtype or tuple of dtype(s) op_dtypes = null, string order = null, string casting = null, list of list of ints op_axes = null, tuple of ints itershape = null, int? buffersize = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.nditer(@this, flags:flags, op_flags:op_flags, op_dtypes:op_dtypes, order:order, casting:casting, op_axes:op_axes, itershape:itershape, buffersize:buffersize);
+        }
+        */
+        
+        /// <summary>
+        /// Multidimensional index iterator.
+        /// 
+        /// Return an iterator yielding pairs of array coordinates and values.
+        /// </summary>
+        public void ndenumerate()
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.ndenumerate(@this);
+        }
+        
+        /*
+        /// <summary>
+        /// Create nditers for use in nested loops
+        /// 
+        /// Create a tuple of nditer objects which iterate in nested loops over
+        /// different axes of the op argument. The first iterator is used in the
+        /// outermost loop, the last in the innermost loop. Advancing one will change
+        /// the subsequent iterators to point at its new element.
+        /// </summary>
+        /// <param name="axes">
+        /// Each item is used as an “op_axes” argument to an nditer
+        /// </param>
+        /// <returns>
+        /// An nditer for each item in axes, outermost first
+        /// </returns>
+        public tuple of nditer nested_iters(int[] axes = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            return NumPy.Instance.nested_iters(@this, axes);
+        }
+        */
+        
+        /// <summary>
+        /// Buffered iterator for big arrays.
+        /// 
+        /// Arrayterator creates a buffered iterator for reading big arrays in small
+        /// contiguous blocks. The class is useful for objects stored in the
+        /// file system. It allows iteration over the object without reading
+        /// everything in memory; instead, small blocks are read and iterated over.
+        /// 
+        /// Arrayterator can be used with any object that supports multidimensional
+        /// slices. This includes NumPy arrays, but also variables from
+        /// Scientific.IO.NetCDF or pynetcdf for example.
+        /// 
+        /// Notes
+        /// 
+        /// The algorithm works by first finding a “running dimension”, along which
+        /// the blocks will be extracted. Given an array of dimensions
+        /// (d1, d2, ..., dn), e.g. if buf_size is smaller than d1, the
+        /// first dimension will be used. If, on the other hand,
+        /// d1 &lt; buf_size &lt; d1*d2 the second dimension will be used, and so on.
+        /// Blocks are extracted along this dimension, and when the last block is
+        /// returned the process continues from the next dimension, until all
+        /// elements have been read.
+        /// </summary>
+        /// <param name="buf_size">
+        /// The buffer size. If buf_size is supplied, the maximum amount of
+        /// data that will be read into memory is buf_size elements.
+        /// Default is None, which will read as many element as possible
+        /// into memory.
+        /// </param>
+        public void Arrayterator(int? buf_size = null)
+        {
+            //auto-generated code, do not change
+            var @this=this;
+            NumPy.Instance.Arrayterator(@this, buf_size:buf_size);
+        }
+        
         /*
         /// <summary>
         /// Return a string representation of an array.
@@ -8009,30 +8552,6 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Return the indices of the elements that are non-zero.
-        /// 
-        /// Returns a tuple of arrays, one for each dimension of a,
-        /// containing the indices of the non-zero elements in that
-        /// dimension. The values in a are always tested and returned in
-        /// row-major, C-style order. The corresponding non-zero
-        /// values can be obtained with:
-        /// 
-        /// To group the indices by element, rather than dimension, use:
-        /// 
-        /// The result of this is always a 2-D array, with a row for
-        /// each non-zero element.
-        /// </summary>
-        /// <returns>
-        /// Indices of elements that are non-zero.
-        /// </returns>
-        public NDarray[] nonzero()
-        {
-            //auto-generated code, do not change
-            var @this=this;
-            return NumPy.Instance.nonzero(@this);
-        }
-        
-        /// <summary>
         /// Return indices that are non-zero in the flattened version of a.
         /// 
         /// This is equivalent to np.nonzero(np.ravel(a))[0].
@@ -8046,32 +8565,6 @@ namespace Numpy
             //auto-generated code, do not change
             var @this=this;
             return NumPy.Instance.flatnonzero(@this);
-        }
-        
-        /// <summary>
-        /// Return elements chosen from x or y depending on condition.
-        /// 
-        /// Notes
-        /// 
-        /// If all the arrays are 1-D, where is equivalent to:
-        /// </summary>
-        /// <param name="y">
-        /// Values from which to choose. x, y and condition need to be
-        /// broadcastable to some shape.
-        /// </param>
-        /// <param name="x">
-        /// Values from which to choose. x, y and condition need to be
-        /// broadcastable to some shape.
-        /// </param>
-        /// <returns>
-        /// An array with elements from x where condition is True, and elements
-        /// from y elsewhere.
-        /// </returns>
-        public NDarray @where(NDarray y, NDarray x)
-        {
-            //auto-generated code, do not change
-            var @this=this;
-            return NumPy.Instance.@where(@this, y, x);
         }
         
         /// <summary>

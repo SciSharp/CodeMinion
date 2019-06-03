@@ -26,7 +26,7 @@ namespace Numpy.ApiGenerator
     // [ ] Financial functions
     // [ ] Functional programming
     // [ ] NumPy-specific help functions
-    // [ ] Indexing routines
+    // [x] Indexing routines
     // [x] Input and output
     // [x] Linear algebra(numpy.linalg)
     // [x] Logic functions
@@ -152,6 +152,12 @@ namespace Numpy.ApiGenerator
             var fft_api = new StaticApi() { PartialName = "fft", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(fft_api);
             ParseNumpyApi(fft_api, "routines.fft.html");
+            // ----------------------------------------------------
+            // Indexing routines
+            // ----------------------------------------------------
+            var indexing_api = new StaticApi() { PartialName = "indexing", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(indexing_api);
+            ParseNumpyApi(indexing_api, "routines.indexing.html");
             // ----------------------------------------------------
             // Input and output
             // ----------------------------------------------------
@@ -602,6 +608,9 @@ namespace Numpy.ApiGenerator
                 case "format_float_scientific":
                 case "set_printoptions":
                 case "set_string_function":
+                case "ravel_multi_index":
+                case "nditer":
+                case "nested_iters":
                     decl.CommentOut = true;
                     break;
                 case "require":
@@ -705,6 +714,13 @@ namespace Numpy.ApiGenerator
                 case "savetxt":
                     decl.Arguments.First(x => x.Name == "fmt").DefaultValue = "null";
                     decl.Arguments.First(x => x.Name == "encoding").Type = "string";
+                    break;
+                case "mask_indices":
+                    decl.Arguments.First(x => x.Name == "k").Type = "int";
+                    break;
+                case "select":
+                    decl.Arguments.First(x => x.Name == "default").Type = "object";
+                    decl.Arguments.First(x => x.Name == "default").DefaultValue = "null";
                     break;
             }
         }
@@ -1113,6 +1129,7 @@ namespace Numpy.ApiGenerator
                 case "array_like of rank N":
                 case "{sequence":
                 case "1D or 2D array_like":
+                case "1-D sequence":
                     return "NDarray";
                 // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
@@ -1121,6 +1138,7 @@ namespace Numpy.ApiGenerator
                 case "array_like of integer type":
                 case "int or ndarray of ints":
                 case "int or array_like of ints":
+                case "int array":
                     return "NDarray<int>";
                 // NDarray<float>
                 case "array_like of float":
@@ -1130,9 +1148,14 @@ namespace Numpy.ApiGenerator
                 case "float or array_like of float":
                 case "sequence of floats":
                     return "NDarray<float>";
+                // NDarray<bool>
                 case "bool (scalar) or boolean ndarray":
                 case "bool or ndarray of bool":
+                case "1-D array of bools":
                     return "NDarray<bool>";
+                // NDarray<bool>[]
+                case "list of bool ndarrays":
+                    return "NDarray<bool>[]";
                 case "scalar":
                     if (!arg.IsReturnValue)
                         return "ValueType";
@@ -1157,6 +1180,7 @@ namespace Numpy.ApiGenerator
                 case "str or list of str": 
                 case "array of str or unicode-like":
                 case "str or sequence of strs":
+                case "sequence of str":
                     return "string[]";
                 case "callable": return "Delegate";
                 case "any": return "object";
@@ -1173,6 +1197,7 @@ namespace Numpy.ApiGenerator
                 case "None or int or tuple of ints":
                 case "int or 1-D array":
                 case "sequence or int":
+                case "ints":
                     return "int[]";
                 case "boolean": return "bool";
                 case "integer":
@@ -1193,6 +1218,13 @@ namespace Numpy.ApiGenerator
                 case "list of ndarrays":
                 case "tuple":
                 case "list of array_like":
+                case "tuple of ndarrays":
+                case "tuple of ndarray":
+                case "1-D sequences":
+                case "tuple of arrays.":
+                case "tuple of arrays":
+                case "array_like (Ni…":
+                case "array_like (Nj…)":
                     return "NDarray[]";
                 case "slice": return "Slice";
             }

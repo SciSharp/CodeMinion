@@ -379,29 +379,6 @@ namespace Numpy
             => NumPy.Instance.argwhere(a);
         
         /// <summary>
-        /// Return the indices of the elements that are non-zero.
-        /// 
-        /// Returns a tuple of arrays, one for each dimension of a,
-        /// containing the indices of the non-zero elements in that
-        /// dimension. The values in a are always tested and returned in
-        /// row-major, C-style order. The corresponding non-zero
-        /// values can be obtained with:
-        /// 
-        /// To group the indices by element, rather than dimension, use:
-        /// 
-        /// The result of this is always a 2-D array, with a row for
-        /// each non-zero element.
-        /// </summary>
-        /// <param name="a">
-        /// Input array.
-        /// </param>
-        /// <returns>
-        /// Indices of elements that are non-zero.
-        /// </returns>
-        public static NDarray[] nonzero(NDarray a)
-            => NumPy.Instance.nonzero(a);
-        
-        /// <summary>
         /// Return indices that are non-zero in the flattened version of a.
         /// 
         /// This is equivalent to np.nonzero(np.ravel(a))[0].
@@ -415,31 +392,6 @@ namespace Numpy
         /// </returns>
         public static NDarray flatnonzero(NDarray a)
             => NumPy.Instance.flatnonzero(a);
-        
-        /// <summary>
-        /// Return elements chosen from x or y depending on condition.
-        /// 
-        /// Notes
-        /// 
-        /// If all the arrays are 1-D, where is equivalent to:
-        /// </summary>
-        /// <param name="condition">
-        /// Where True, yield x, otherwise yield y.
-        /// </param>
-        /// <param name="y">
-        /// Values from which to choose. x, y and condition need to be
-        /// broadcastable to some shape.
-        /// </param>
-        /// <param name="x">
-        /// Values from which to choose. x, y and condition need to be
-        /// broadcastable to some shape.
-        /// </param>
-        /// <returns>
-        /// An array with elements from x where condition is True, and elements
-        /// from y elsewhere.
-        /// </returns>
-        public static NDarray @where(NDarray condition, NDarray y, NDarray x)
-            => NumPy.Instance.@where(condition, y, x);
         
         /// <summary>
         /// Find indices where elements should be inserted to maintain order.
