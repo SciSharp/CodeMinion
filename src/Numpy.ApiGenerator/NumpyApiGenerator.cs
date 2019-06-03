@@ -23,9 +23,8 @@ namespace Numpy.ApiGenerator
     // [ ] Mathematical functions with automatic domain(numpy.emath)
     // [ ] Floating point error handling
     // [x] Discrete Fourier Transform(numpy.fft)
-    // [ ] Financial functions
+    // [x] Financial functions
     // [ ] Functional programming
-    // [ ] NumPy-specific help functions
     // [x] Indexing routines
     // [x] Input and output
     // [x] Linear algebra(numpy.linalg)
@@ -152,6 +151,12 @@ namespace Numpy.ApiGenerator
             var fft_api = new StaticApi() { PartialName = "fft", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(fft_api);
             ParseNumpyApi(fft_api, "routines.fft.html");
+            // ----------------------------------------------------
+            // Financial functions
+            // ----------------------------------------------------
+            var financial_api = new StaticApi() { PartialName = "financial", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(financial_api);
+            ParseNumpyApi(financial_api, "routines.financial.html");
             // ----------------------------------------------------
             // Indexing routines
             // ----------------------------------------------------
@@ -708,8 +713,8 @@ namespace Numpy.ApiGenerator
                     break;
                 case "savez":
                 case "savez_compressed":
-                        decl.Arguments.First(x => x.Name == "args").Type = "NDarray[]";
-                        decl.Arguments.First(x => x.Name == "kwds").Type = "Dictionary<string, NDarray>";
+                    decl.Arguments.First(x => x.Name == "args").Type = "NDarray[]";
+                    decl.Arguments.First(x => x.Name == "kwds").Type = "Dictionary<string, NDarray>";
                     break;
                 case "savetxt":
                     decl.Arguments.First(x => x.Name == "fmt").DefaultValue = "null";
@@ -721,6 +726,16 @@ namespace Numpy.ApiGenerator
                 case "select":
                     decl.Arguments.First(x => x.Name == "default").Type = "object";
                     decl.Arguments.First(x => x.Name == "default").DefaultValue = "null";
+                    break;
+                case "pv":
+                case "pmt":
+                case "ppmt":
+                case "ipmt":
+                case "nper":
+                    decl.Arguments.First(x => x.Name == "fv").DefaultValue = "null";
+                    var when = decl.Arguments.FirstOrDefault(x => x.Name == "when");
+                    if (when != null)
+                        when.IsNamedArg = true;
                     break;
             }
         }
@@ -1130,6 +1145,7 @@ namespace Numpy.ApiGenerator
                 case "{sequence":
                 case "1D or 2D array_like":
                 case "1-D sequence":
+                case "scalar or array_like of shape(M":
                     return "NDarray";
                 // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
@@ -1174,13 +1190,16 @@ namespace Numpy.ApiGenerator
                 case "filename or file handle":
                 case "str or regexp":
                 case "str or None":
+                case "file-like":
+                case "{{‘begin’":
                     return "string";
                 // string[]
-                case "str or sequence of str": 
-                case "str or list of str": 
+                case "str or sequence of str":
+                case "str or list of str":
                 case "array of str or unicode-like":
                 case "str or sequence of strs":
                 case "sequence of str":
+                case "str or list":
                     return "string[]";
                 case "callable": return "Delegate";
                 case "any": return "object";
@@ -1227,6 +1246,9 @@ namespace Numpy.ApiGenerator
                 case "array_like (Nj…)":
                     return "NDarray[]";
                 case "slice": return "Slice";
+                // double
+                case "Number":
+                    return "double";
             }
             if (arg.IsReturnValue)
             {
