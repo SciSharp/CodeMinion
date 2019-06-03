@@ -27,14 +27,14 @@ namespace Numpy.ApiGenerator
     // [ ] Functional programming
     // [ ] NumPy-specific help functions
     // [ ] Indexing routines
-    // [ ] Input and output
+    // [x] Input and output
     // [x] Linear algebra(numpy.linalg)
     // [x] Logic functions
     // [ ] Masked array operations
     // [x] Mathematical functions
     // [ ] Matrix library(numpy.matlib)
     // [ ] Miscellaneous routines
-    // [ ] Padding Arrays
+    // [x] Padding Arrays
     // [ ] Polynomials
     // [x] Random sampling(numpy.random)
     // [x] Set routines
@@ -153,11 +153,11 @@ namespace Numpy.ApiGenerator
             _generator.StaticApis.Add(fft_api);
             ParseNumpyApi(fft_api, "routines.fft.html");
             // ----------------------------------------------------
-            // Mathematical functions
+            // Input and output
             // ----------------------------------------------------
-            var math_api = new StaticApi() { PartialName = "math", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
-            _generator.StaticApis.Add(math_api);
-            ParseNumpyApi(math_api, "routines.math.html");
+            var io_api = new StaticApi() { PartialName = "io", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(io_api);
+            ParseNumpyApi(io_api, "routines.io.html");
             // ----------------------------------------------------
             // Linear Algebra
             // ----------------------------------------------------
@@ -170,6 +170,12 @@ namespace Numpy.ApiGenerator
             var logic_api = new StaticApi() { PartialName = "logic", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(logic_api);
             ParseNumpyApi(logic_api, "routines.logic.html");
+            // ----------------------------------------------------
+            // Mathematical functions
+            // ----------------------------------------------------
+            var math_api = new StaticApi() { PartialName = "math", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
+            _generator.StaticApis.Add(math_api);
+            ParseNumpyApi(math_api, "routines.math.html");
             // ----------------------------------------------------
             // Padding Arrays
             // ----------------------------------------------------
@@ -187,7 +193,7 @@ namespace Numpy.ApiGenerator
             // ----------------------------------------------------
             var set_api = new StaticApi() { PartialName = "set", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(set_api);
-            ParseNumpyApi(set_api, "routines.set.html");            
+            ParseNumpyApi(set_api, "routines.set.html");
             // ----------------------------------------------------
             // Sorting, searching, and counting
             // ----------------------------------------------------
@@ -206,7 +212,7 @@ namespace Numpy.ApiGenerator
             var window_api = new StaticApi() { PartialName = "window", StaticName = "np", ImplName = "NumPy", PythonModule = "numpy", };
             _generator.StaticApis.Add(window_api);
             ParseNumpyApi(window_api, "routines.window.html");
-            
+
             // ----------------------------------------------------
             // generate all
             // ----------------------------------------------------
@@ -286,8 +292,9 @@ namespace Numpy.ApiGenerator
                     continue;
                 var dl = doc.DocumentNode.Descendants("dl").FirstOrDefault();
                 //if (dl == null || dl.Attributes["class"]?.Value != "function") continue;
-                var class_name = doc.DocumentNode.Descendants("code")
-                    .First(x => x.Attributes["class"]?.Value == "descclassname").InnerText;
+                var class_name = doc.DocumentNode.Descendants("code").FirstOrDefault(x => x.Attributes["class"]?.Value == "descclassname")?.InnerText;
+                if (class_name == null)
+                    continue;
                 var func_name = doc.DocumentNode.Descendants("code")
                     .First(x => x.Attributes["class"]?.Value == "descname").InnerText;
                 if (parsed_api_functions.Contains(func_name))
@@ -588,6 +595,13 @@ namespace Numpy.ApiGenerator
                 case "ogrid":
                 case "get_state":
                 case "set_state":
+                case "genfromtxt":
+                case "array2string":
+                case "tolist":
+                case "format_float_positional":
+                case "format_float_scientific":
+                case "set_printoptions":
+                case "set_string_function":
                     decl.CommentOut = true;
                     break;
                 case "require":
@@ -666,7 +680,7 @@ namespace Numpy.ApiGenerator
                     {
                         x.DefaultValue = "null";
                         x.IsNamedArg = true;
-                    }); 
+                    });
                     break;
                 case "RandomState":
                     {
@@ -679,6 +693,18 @@ namespace Numpy.ApiGenerator
                 case "fftfreq":
                 case "rfftfreq":
                     decl.Arguments[1].Type = "float";
+                    break;
+                case "load":
+                    decl.Arguments.First(x => x.Name == "mmap_mode").Type = "MemMapMode";
+                    break;
+                case "savez":
+                case "savez_compressed":
+                        decl.Arguments.First(x => x.Name == "args").Type = "NDarray[]";
+                        decl.Arguments.First(x => x.Name == "kwds").Type = "Dictionary<string, NDarray>";
+                    break;
+                case "savetxt":
+                    decl.Arguments.First(x => x.Name == "fmt").DefaultValue = "null";
+                    decl.Arguments.First(x => x.Name == "encoding").Type = "string";
                     break;
             }
         }
@@ -847,16 +873,16 @@ namespace Numpy.ApiGenerator
                     break;
                 case "seed":
                 case "RandomState":
-                {
+                    {
                         decl.Arguments[0].Type = "int";
-                    decl.Arguments[0].DefaultValue = "null";
-                    decl.Arguments[0].IsNullable = true;
-                    yield return decl;
-                    var clone = decl.Clone<Function>();
-                    clone.Arguments[0].Type = "NDarray";
-                    yield return clone;
-                    yield break;
-                }
+                        decl.Arguments[0].DefaultValue = "null";
+                        decl.Arguments[0].IsNullable = true;
+                        yield return decl;
+                        var clone = decl.Clone<Function>();
+                        clone.Arguments[0].Type = "NDarray";
+                        yield return clone;
+                        yield break;
+                    }
                     break;
             }
             // without args we don't need to consider possible overloads
@@ -1086,6 +1112,7 @@ namespace Numpy.ApiGenerator
                 case "2-D array_like":
                 case "array_like of rank N":
                 case "{sequence":
+                case "1D or 2D array_like":
                     return "NDarray";
                 // NDarray<int>
                 case "array of ints searchsorted(1-D array_like":
@@ -1119,10 +1146,18 @@ namespace Numpy.ApiGenerator
                 case "string or list":
                 case "file or str":
                 case "str or function":
+                case "file-like object":
+                case "str or file":
+                case "filename or file handle":
+                case "str or regexp":
+                case "str or None":
                     return "string";
-                case "str or sequence of str": return "string[]";
-                case "str or list of str": return "string[]";
-                case "array of str or unicode-like": return "string[]";
+                // string[]
+                case "str or sequence of str": 
+                case "str or list of str": 
+                case "array of str or unicode-like":
+                case "str or sequence of strs":
+                    return "string[]";
                 case "callable": return "Delegate";
                 case "any": return "object";
                 case "iterable object": return "IEnumerable<T>";
@@ -1241,7 +1276,7 @@ namespace Numpy.ApiGenerator
                 return doc;
             }
             var web = new HtmlWeb();
-            doc.Doc = web.Load( url);
+            doc.Doc = web.Load(url);
             doc.Text = doc.Doc.Text;
             File.WriteAllText(doc.Filename, doc.Text);
             return doc;
