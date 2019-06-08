@@ -437,7 +437,10 @@ namespace Numpy.ApiGenerator
                 {
                     if (line.StartsWith(">>>"))
                     {
-                        part.Lines.Add(new CodeLine() { Text = { line.Replace(">>>", "") }, Type = "cmd" });
+                        var cmd = line.Replace(">>>", "");
+                        if (cmd.Contains("np."))
+                            cmd = cmd.Replace('[', '{').Replace(']', '}');
+                        part.Lines.Add(new CodeLine() { Text = { cmd }, Type = "cmd" });
                         continue;
                     }
                     if (line.StartsWith("#"))

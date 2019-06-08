@@ -39,6 +39,8 @@ namespace Torch
             return self.GetHashCode();
         }
 
+        public string repr => ToString();
+
         public override string ToString()
         {
             return self.ToString();

@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Text.RegularExpressions;
 using CodeMinion.Core;
 using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
+using CodeMinion.Parser;
 
 namespace Torch.ApiGenerator
 {
@@ -16,11 +18,15 @@ namespace Torch.ApiGenerator
         private CodeGenerator _generator;
         public TorchApiGenerator()
         {
+            var dir = Directory.GetCurrentDirectory();
+            var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
+            var test_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\test\\";
             _generator = new CodeGenerator
             {
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Torch",
                 UsePythonIncluded = false,
+                TestFilesPath = Path.Combine(test_dir, "Torch.UnitTest"),
                 Usings =
                 {
                     "using Numpy;",
@@ -58,18 +64,12 @@ namespace Torch.ApiGenerator
             _generator.StaticApis.Add(api);
             foreach (var html in docs)
             {
+                var testfile = new TestFile() { Name = $"{api.ImplName}_{api.PartialName}" };
+                _generator.TestFiles.Add(testfile);
+
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html.Value);
 
-                /*<dt id="torch.is_tensor">
-                    <code class="descclassname">torch.</code><code class="descname">is_tensor</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/torch.html#is_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#torch.is_tensor" title="Permalink to this definition">¶</a></dt>
-                        <dd><p>Returns True if <cite>obj</cite> is a PyTorch tensor.</p>
-                        <dl class="field-list simple">
-                        <dt class="field-odd">Parameters</dt>
-                        <dd class="field-odd"><p><strong>obj</strong> (<em>Object</em>) – Object to test</p>
-                        </dd>
-                    </dl>
-                </dd>*/
                 var nodes = doc.DocumentNode.Descendants("dl")
                      .Where(x => x.Attributes["class"]?.Value == "function")
                      .ToList();
@@ -78,24 +78,111 @@ namespace Torch.ApiGenerator
                 {
                     var decl = new Function();
                     ParseFunctionName(decl, node);
+                    if (decl.Name == "addcdiv")
+                        break;
+                    ParseDocString(decl, node);
                     if (ManualOverride.Contains(decl.Name)) continue;
                     //if (!InMigrationApiList(decl.Name)) continue;
                     SetReturnType(decl, node);
                     ParseArguments(decl, node);
+                    ParseDefaultValues(decl, node);
 
-                    foreach(var d in InferOverloads(decl))
+                    foreach (var d in InferOverloads(decl))
                         api.Declarations.Add(d);
+
+                    PostProcess(decl);
+
+                    // see if there are any examples which we can convert to test cases
+                    var testcase = ParseTests(decl, node);
+                    if (testcase != null)
+                        testfile.TestCases.Add(testcase);
                 }
             }
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
-            api.OutputPath = Path.Combine(src_dir, "Torch");
-
-
-
+            _generator.StaticApiFilesPath = Path.Combine(src_dir, "Torch");
+            _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Torch");
+            //_generator.GenerateIntermediateJson();
             _generator.Generate();
             return "DONE";
+        }
+
+        private void ParseDefaultValues(Function decl, HtmlNode dl)
+        {
+            switch (decl.Name)
+            {
+                case "is_floating_point":
+                case "bernoulli":
+                    return;
+            }
+            var dt = dl.Descendants("dt").FirstOrDefault();
+            if (dt == null)
+                return;
+            foreach (var em in dt.Descendants("em"))
+            {
+                Argument arg = null;
+                var tokens = em.InnerText.Split("=");
+                if (tokens.Length == 1)
+                {
+                    var attr_name = tokens[0].TrimStart('*');
+                    arg = decl.Arguments.FirstOrDefault(x => x.Name == attr_name);
+                    if (arg == null)
+                        decl.Arguments.Add(arg = new Argument() { Name = attr_name });
+                }
+                else if (tokens.Length >= 2)
+                {
+                    var (attr_name, default_value) = (tokens[0].TrimStart('*'), tokens[1]);
+                    arg = decl.Arguments.FirstOrDefault(x => x.Name == attr_name);
+                    if (arg == null)
+                        decl.Arguments.Add(arg = new Argument() { Name = attr_name });
+                    if (arg.DefaultValue == null)
+                        arg.DefaultValue = InferDefaultValue(default_value, arg);
+                }
+            }
+        }
+
+        private void ParseDocString(Function decl, HtmlNode node)
+        {
+            var dd = node.Descendants("dd").FirstOrDefault();
+            if (dd == null)
+                return;
+            // function description
+            decl.Description = string.Join("\n\n", dd.ChildNodes.TakeWhile(x => x.Name != "dl" && !x.InnerText.StartsWith("Example")).Select(x => x.InnerText.Trim()).Distinct().Where(x => !string.IsNullOrWhiteSpace(x)));
+        }
+
+        private TestCase ParseTests(Function decl, HtmlNode node)
+        {
+            var testcase = new TestCase() { Name = $"{decl.Name}Test" };
+            foreach (var pre in node.Descendants("pre"))
+            {
+                var part = new ExampleCode() { Text = HtmlEntity.DeEntitize(pre.InnerText) };
+                var lines = new Queue<string>(Regex.Split(part.Text.Trim(), @"\r?\n"));
+                foreach (var line in lines)
+                {
+                    if (line.StartsWith(">>>"))
+                    {
+                        var cmd = line.Replace(">>>", "");
+                        if (cmd.Contains("torch."))
+                            cmd = cmd.Replace('[', '{').Replace(']', '}');
+                        part.Lines.Add(new CodeLine() { Text = { cmd }, Type = "cmd" });
+                        continue;
+                    }
+                    if (line.StartsWith("#"))
+                    {
+                        part.Lines.Add(new CodeLine() { Text = { line.Replace("#", "//") }, Type = "comment" });
+                        continue;
+                    }
+                    if (part.Lines.Count == 0 || part.Lines.Last().Type != "output")
+                        part.Lines.Add(new CodeLine() { Text = { line }, Type = "output" });
+                    else
+                        part.Lines.Last().Text.Add(line);
+                }
+                testcase.TestParts.Add(part);
+            }
+            if (testcase.TestParts.Count == 0)
+                return null;
+            return testcase;
         }
 
         private void ParseFunctionName(Declaration decl, HtmlNode node)
@@ -111,9 +198,13 @@ namespace Torch.ApiGenerator
                 decl.Returns.Add(new Argument { Type = "bool" });
             }
 
-            if(node.Element("dt").InnerText.Contains("&#x2192; Tensor"))
+            var dt = node.Element("dt");
+            if (dt.InnerText.Contains("&#x2192;"))
             {
-                decl.Returns.Add(new Argument { Type = "Tensor" });
+                var return_type = dt.InnerText.Trim().Split(' ').Last().Trim('¶');
+                var arg = new Argument { Name = "retval" };
+                arg.Type = InferType(return_type, null, arg);
+                decl.Returns.Add(arg);
             }
         }
 
@@ -125,20 +216,18 @@ namespace Torch.ApiGenerator
 
             var p_node = p_nodes.Descendants("dd").First();
             if (p_node.InnerHtml == "")
-            {
-                Console.WriteLine($"Skipped {decl.Name}");
                 return;
-            }
 
             if (p_node.Element("ul") != null) // multiple parameters
             {
-                foreach(var li in p_node.Element("ul").Elements("li"))
+                foreach (var li in p_node.Element("ul").Elements("li"))
                 {
                     var arg = new Argument();
 
                     // precision – Number of digits of precision for floating point output(default = 4).
                     var p_desc = li.InnerText;
-                    arg.Name = p_desc.Split(' ')[0];
+                    arg.Name = p_desc.Split(' ')[0].TrimStart('*');
+                    arg.Description = p_desc.Split('–')[1].Trim();
 
                     var type_part = Regex.Match(p_desc, @"\(\S+, optional\)")?.Value; //(torch.dtype, optional)
                     if (!string.IsNullOrEmpty(type_part))
@@ -163,12 +252,11 @@ namespace Torch.ApiGenerator
                         arg.IsNamedArg = true;
                     }
 
-                    if (string.IsNullOrEmpty(arg.Type)) {
+                    if (string.IsNullOrEmpty(arg.Type))
+                    {
                         var hint = p_desc.Split('–')[1];
                         arg.Type = InferType(Regex.Match(p_desc, @"\(\S+\)")?.Value, hint, arg);
                     }
-
-                    PostProcess(arg);
                     decl.Arguments.Add(arg);
                 }
             }
@@ -192,56 +280,108 @@ namespace Torch.ApiGenerator
 
         private void PostProcess(Argument arg)
         {
-            switch (arg.Type) {
+            switch (arg.Name)
+            {
+                case "pin_memory":
+                    arg.PassOnlyIfNotNull = true;
+                    break;
+            }
+            switch (arg.Type)
+            {
                 case "Dtype":
                 case "Device":
                 case "Layout":
                     arg.IsValueType = false;
+                    if (arg.DefaultValue != null)
+                        arg.DefaultValue = "null";
+                    break;
+                case null:
+                case "":
+                    switch (arg.Name)
+                    {
+                        case "ndarray":
+                            arg.Type = "NDarray";
+                            break;
+                        case "fill_value":
+                            arg.Type = "object";
+                            break;
+                        case "out":
+                            arg.Type = "Tensor";
+                            break;
+                        case "tensors":
+                            arg.Type = "Tensor[]";
+                            break;
+                        case "shape":
+                            arg.Type = "Shape";
+                            break;
+
+                    }
+                    break;
+            }
+
+        }
+
+        private void PostProcess(Function func)
+        {
+            foreach (var arg in func.Arguments)
+                PostProcess(arg);
+            switch (func.Name)
+            {
+                case "set_printoptions":
+                    func.ChangeArg("profile", Type: "string", DefaultValue: "\"default\"");
+                    func.ChangeArg("sci_mode", IsNullable: true);
+                    break;
+                case "sparse_coo_tensor":
+                    func["indices"].Type = "NDarray<int>";
+                    func["values"].Type = "NDarray";
+                    func.ChangeArg("size", Type: "int", IsNullable: true);
+                    break;
+                case "stack":
+                    func["seq"].Type = "Tensor[]";
+                    break;
+                case "normal":
+                case "add":
+                    func.CommentOut = true;
+                    break;
+                case "save":
+                    func["obj"].Type = "PythonObject";
+                    func["f"].Type = "string";
+                    func["pickle_module"].Type = "PyObject";
+                    func["pickle_module"].DefaultValue = "null";
+                    func["pickle_protocol"].Type = "int";
+                    break;
+                case "load":
+                    func["f"].Type = "string";
+                    func["map_location"].Type = "PyObject";
+                    func["map_location"].DefaultValue = "null";
+                    func["pickle_module"].Type = "PyObject";
+                    func["pickle_module"].DefaultValue = "null";
+                    func["pickle_load_args"].Type = "params PyObject[]";
+                    break;
+                case "unbind":
+                    func.Returns[0].Type = "Tensor[]";
+                    break;
+                case "set_num_threads":
+                    func.Arguments[0].Name = "num";
+                    func.Arguments[0].Type = "int";
                     break;
             }
         }
 
-        private IEnumerable<Function> InferOverloads(Function decl)
-        {
-            // without args we don't need to consider possible overloads
-            if (decl.Arguments.Count == 0)
-            {
-                yield return decl;
-                yield break;
-            }
-            // array_like
-            if (decl.Arguments.Any(a => a.Type == "(array_like)"))
-            {
-                foreach (var type in "NDarray T[]".Split())
-                {
-                    var clone_decl = decl.Clone<Function>();
-                    clone_decl.Arguments.ForEach(a =>
-                    {
-                        if (a.Type == "array_like")
-                            a.Type = type;
-                    });
-                    if (type == "T[]")
-                        clone_decl.Generics = new string[] { "T" };
-                    yield return clone_decl;
-                }
-                yield break;
-            }
-            yield return decl;
-        }
-
         protected string InferType(string value, string hint, Argument arg)
         {
-            if (hint!=null&& hint.ToLower().Contains("number of "))
+            if (hint != null && hint.ToLower().Contains("number of "))
                 return "int";
+            value = value.Trim('(', ')').Replace("torch.", "");
             switch (value)
             {
-                case "(array_like)":
-                    return "(array_like)"; // keep it like that so we can generate overloads
-                case "(int)":
+                case "array_like":
+                    return "NDarray";
+                case "int":
                     return "int";
-                case "(float)":
+                case "float":
                     return "float";
-                case "(list of Tensor)":
+                case "list of Tensor":
                 case "Tensors...":
                     return "Tensor[]";
                 case "IntArrayRef":
@@ -249,30 +389,86 @@ namespace Torch.ApiGenerator
                         return "Shape"; // <-- int[] size usually means Shape of the tensor. 
                     return "int[]";
                 case "Number":
-                case "(Number)":
                     return "double";
                 case "boolean":
-                case "(bool)":
-                case "(True)":
-                case "(False)":
+                case "bool":
+                case "True":
+                case "False":
+                    return "bool";
+                case "bool,optional":
+                    arg.IsNullable = true;
                     return "bool";
                 // torch types
                 case "int...":
                     return "Shape";
                 case "Tensor":
-                case "(Tensor)":
                     return "Tensor";
-                case "torch.dtype":
+                case "LongTensor": return "Tensor<long>";
+                case "IntTensor": return "Tensor<int>";
+                case "FloatTensor": return "Tensor<float>";
+                case "DoubleTensor": return "Tensor<double>";
+                case "ByteTensor": return "Tensor<byte>";
+                case "Tensors":
+                    return "Tensor[]";
+                case "dtype":
                 case "type":
                     return "Dtype";
-                case "torch.layout":
+                case "layout":
                     return "Layout";
-                case "torch.device":
+                case "device":
                     return "Device";
                 default:
                     return value;
             }
         }
+
+        private string InferDefaultValue(string defaultValue, Argument arg)
+        {
+            switch (defaultValue)
+            {
+                case "torch.strided":
+                case "None":
+                    return "null";
+                case "True":
+                    return "true";
+                case "False":
+                    return "false";
+            }
+            if (arg.Type == "float" && defaultValue != "null")
+                return defaultValue + "f";
+            return defaultValue;
+        }
+
+        private IEnumerable<Function> InferOverloads(Function func)
+        {
+            // without args we don't need to consider possible overloads
+            if (func.Arguments.Count == 0)
+            {
+                yield return func;
+                yield break;
+            }
+            switch (func.Name)
+            {
+                case "arange":
+                case "range":
+                    func["start"].DefaultValue = null;
+                    yield return func.Clone(clone => { clone.Arguments.RemoveAt(0); });
+                    break;
+                case "randint":
+                    func["size"].Type = "Shape";
+                    func["low"].DefaultValue = null;
+                    func["low"].IsNullable = false;
+                    yield return func.Clone(clone => { clone.Arguments.RemoveAt(0); });
+                    break;
+                case "randint_like":
+                    func["low"].DefaultValue = null;
+                    func["low"].IsNullable = false;
+                    yield return func.Clone(clone => { clone.Arguments.RemoveAt(1); });
+                    break;
+            }
+            yield return func;
+        }
+
 
         public Dictionary<string, string> LoadDocs()
         {

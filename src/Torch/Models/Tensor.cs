@@ -17,6 +17,10 @@ namespace Torch
         {
         }
 
+        /// <summary>
+        /// Element type of the tensor
+        /// </summary>
+        public Dtype dtype => new Dtype( self.GetAttr("dtype"));
     }
 
     public partial class Tensor<T> : Tensor

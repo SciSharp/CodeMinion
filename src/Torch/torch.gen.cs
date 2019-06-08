@@ -11,773 +11,1656 @@ using Python.Runtime;
 using Numpy;
 using Numpy.Models;
 
-
 namespace Torch
 {
     public static partial class torch
     {
         
+        /// <summary>
+        /// Returns True if obj is a PyTorch tensor.
+        /// </summary>
         public static bool is_tensor(Object obj)
             => PyTorch.Instance.is_tensor(obj);
         
+        /// <summary>
+        /// Returns True if obj is a PyTorch storage object.
+        /// </summary>
         public static bool is_storage(Object obj)
             => PyTorch.Instance.is_storage(obj);
         
+        /// <summary>
+        /// Returns True if the data type of tensor is a floating point data type i.e.,
+        /// one of torch.float64, torch.float32 and torch.float16.
+        /// </summary>
         public static bool is_floating_point(Tensor tensor)
             => PyTorch.Instance.is_floating_point(tensor);
         
+        /// <summary>
+        /// Sets the default floating point dtype to d. This type will be
+        /// used as default floating point type for type inference in
+        /// torch.tensor().
+        /// 
+        /// The default floating point dtype is initially torch.float32.
+        /// </summary>
         public static void set_default_dtype(Dtype d)
             => PyTorch.Instance.set_default_dtype(d);
         
-        public static void get_default_dtype()
+        /// <summary>
+        /// Get the current default floating point torch.dtype.
+        /// </summary>
+        public static Dtype get_default_dtype()
             => PyTorch.Instance.get_default_dtype();
         
+        /// <summary>
+        /// Sets the default torch.Tensor type to floating point tensor type
+        /// t. This type will also be used as default floating point type for
+        /// type inference in torch.tensor().
+        /// 
+        /// The default floating point tensor type is initially torch.FloatTensor.
+        /// </summary>
         public static void set_default_tensor_type(Dtype t)
             => PyTorch.Instance.set_default_tensor_type(t);
         
-        public static void numel(Tensor input)
+        /// <summary>
+        /// Returns the total number of elements in the input tensor.
+        /// </summary>
+        public static int numel(Tensor input)
             => PyTorch.Instance.numel(input);
         
-        //public static void set_printoptions(int precision =  4, int threshold =  1000, int edgeitems =  3, int linewidth =  80,  profile, bool sci_mode)
-        //    => PyTorch.Instance.set_printoptions(precision:precision, threshold:threshold, edgeitems:edgeitems, linewidth:linewidth, profile, sci_mode);
+        /// <summary>
+        /// Set options for printing. Items shamelessly taken from NumPy
+        /// </summary>
+        /// <param name="precision">
+        /// Number of digits of precision for floating point output
+        /// (default = 4).
+        /// </param>
+        /// <param name="threshold">
+        /// Total number of array elements which trigger summarization
+        /// rather than full repr (default = 1000).
+        /// </param>
+        /// <param name="edgeitems">
+        /// Number of array items in summary at beginning and end of
+        /// each dimension (default = 3).
+        /// </param>
+        /// <param name="linewidth">
+        /// The number of characters per line for the purpose of
+        /// inserting line breaks (default = 80). Thresholded matrices will
+        /// ignore this parameter.
+        /// </param>
+        /// <param name="profile">
+        /// Sane defaults for pretty printing. Can override with any of
+        /// the above options. (any one of default, short, full)
+        /// </param>
+        /// <param name="sci_mode">
+        /// Enable (True) or disable (False) scientific notation. If
+        /// None (default) is specified, the value is defined by _Formatter
+        /// </param>
+        public static void set_printoptions(int precision =  4, int threshold =  1000, int edgeitems =  3, int linewidth =  80, string profile = "default", bool? sci_mode = null)
+            => PyTorch.Instance.set_printoptions(precision:precision, threshold:threshold, edgeitems:edgeitems, linewidth:linewidth, profile:profile, sci_mode:sci_mode);
         
-        //public static void set_flush_denormal(bool mode)
-        //    => PyTorch.Instance.set_flush_denormal(mode);
+        /// <summary>
+        /// Disables denormal floating numbers on CPU.
+        /// 
+        /// Returns True if your system supports flushing denormal numbers and it
+        /// successfully configures flush denormal mode.  set_flush_denormal()
+        /// is only supported on x86 architectures supporting SSE3.
+        /// </summary>
+        public static bool set_flush_denormal(bool mode)
+            => PyTorch.Instance.set_flush_denormal(mode);
         
-        //public static Tensor sparse_coo_tensor(int indices, (array_like) values,  size, Dtype dtype = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.sparse_coo_tensor(indices, values, size, dtype:dtype, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Constructs a sparse tensors in COO(rdinate) format with non-zero elements at the given indices
+        /// with the given values. A sparse tensor can be uncoalesced, in that case, there are duplicate
+        /// coordinates in the indices, and the value at that index is the sum of all duplicate value entries:
+        /// torch.sparse.
+        /// </summary>
+        /// <param name="indices">
+        /// Initial data for the tensor. Can be a list, tuple,
+        /// NumPy ndarray, scalar, and other types. Will be cast to a torch.LongTensor
+        /// internally. The indices are the coordinates of the non-zero values in the matrix, and thus
+        /// should be two-dimensional where the first dimension is the number of tensor dimensions and
+        /// the second dimension is the number of non-zero values.
+        /// </param>
+        /// <param name="values">
+        /// Initial values for the tensor. Can be a list, tuple,
+        /// NumPy ndarray, scalar, and other types.
+        /// </param>
+        /// <param name="size">
+        /// Size of the sparse tensor. If not
+        /// provided the size will be inferred as the minimum size big enough to hold all non-zero
+        /// elements.
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, infers data type from values.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor sparse_coo_tensor(NDarray<int> indices, NDarray values, int? size = null, Dtype dtype = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.sparse_coo_tensor(indices, values, size:size, dtype:dtype, device:device, requires_grad:requires_grad);
         
-        //public static Tensor sparse_coo_tensor<T>(int indices, (array_like) values,  size, Dtype dtype = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.sparse_coo_tensor(indices, values, size, dtype:dtype, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Convert the data into a torch.Tensor. If the data is already a Tensor with the same dtype and device,
+        /// no copy will be performed, otherwise a new Tensor will be returned with computational graph retained if data
+        /// Tensor has requires_grad=True. Similarly, if the data is an ndarray of the corresponding dtype and
+        /// the device is the cpu, no copy will be performed.
+        /// </summary>
+        /// <param name="data">
+        /// Initial data for the tensor. Can be a list, tuple,
+        /// NumPy ndarray, scalar, and other types.
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, infers data type from data.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        public static Tensor as_tensor(NDarray data, Dtype dtype = null, Device device = null)
+            => PyTorch.Instance.as_tensor(data, dtype:dtype, device:device);
         
-        //public static Tensor as_tensor((array_like) data, Dtype dtype = null, Device device = null)
-        //    => PyTorch.Instance.as_tensor(data, dtype:dtype, device:device);
+        /// <summary>
+        /// Creates a Tensor from a numpy.ndarray.
+        /// 
+        /// The returned tensor and ndarray share the same memory. Modifications to
+        /// the tensor will be reflected in the ndarray and vice versa. The returned
+        /// tensor is not resizable.
+        /// </summary>
+        public static Tensor from_numpy(NDarray ndarray)
+            => PyTorch.Instance.from_numpy(ndarray);
         
-        //public static Tensor as_tensor<T>((array_like) data, Dtype dtype = null, Device device = null)
-        //    => PyTorch.Instance.as_tensor(data, dtype:dtype, device:device);
+        /// <summary>
+        /// Returns a tensor filled with the scalar value 0, with the shape defined
+        /// by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor zeros(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.zeros(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor from_numpy()
-        //    => PyTorch.Instance.from_numpy();
+        /// <summary>
+        /// Returns a tensor filled with the scalar value 0, with the same size as
+        /// input. torch.zeros_like(input) is equivalent to
+        /// torch.zeros(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
+        /// 
+        /// Warning
+        /// As of 0.4, this function does not support an out keyword. As an alternative,
+        /// the old torch.zeros_like(input, out=output) is equivalent to
+        /// torch.zeros(input.size(), out=output).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor zeros_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.zeros_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor zeros(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.zeros(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a tensor filled with the scalar value 1, with the shape defined
+        /// by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor ones(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.ones(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor zeros_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.zeros_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a tensor filled with the scalar value 1, with the same size as
+        /// input. torch.ones_like(input) is equivalent to
+        /// torch.ones(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
+        /// 
+        /// Warning
+        /// As of 0.4, this function does not support an out keyword. As an alternative,
+        /// the old torch.ones_like(input, out=output) is equivalent to
+        /// torch.ones(input.size(), out=output).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor ones_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.ones_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor ones(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.ones(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor\)
+        /// with values from the interval [start, end) taken with common difference
+        /// step beginning from start.
+        /// 
+        /// Note that non-integer step is subject to floating point rounding errors when
+        /// comparing against end; to avoid inconsistency, we advise adding a small epsilon to end
+        /// in such cases.
+        /// 
+        /// \[\text{out}_{{i+1}} = \text{out}_{i} + \text{step}
+        /// 
+        /// \]
+        /// </summary>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="step">
+        /// the gap between each pair of adjacent points. Default: 1.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor arange(double end, double step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.arange(end, step:step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor ones_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.ones_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor\)
+        /// with values from the interval [start, end) taken with common difference
+        /// step beginning from start.
+        /// 
+        /// Note that non-integer step is subject to floating point rounding errors when
+        /// comparing against end; to avoid inconsistency, we advise adding a small epsilon to end
+        /// in such cases.
+        /// 
+        /// \[\text{out}_{{i+1}} = \text{out}_{i} + \text{step}
+        /// 
+        /// \]
+        /// </summary>
+        /// <param name="start">
+        /// the starting value for the set of points. Default: 0.
+        /// </param>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="step">
+        /// the gap between each pair of adjacent points. Default: 1.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor arange(double start, double end, double step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.arange(start, end, step:step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor arange(double start, double end, double step, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.arange(start, end, step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor + 1\)
+        /// with values from start to end with step step. Step is
+        /// the gap between two values in the tensor.
+        /// 
+        /// \[\text{out}_{i+1} = \text{out}_i + \text{step}.
+        /// 
+        /// \]
+        /// 
+        /// Warning
+        /// This function is deprecated in favor of torch.arange().
+        /// </summary>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="step">
+        /// the gap between each pair of adjacent points. Default: 1.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor range(float end, float step = 1f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.range(end, step:step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor range(float start, float end, float step, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.range(start, end, step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor + 1\)
+        /// with values from start to end with step step. Step is
+        /// the gap between two values in the tensor.
+        /// 
+        /// \[\text{out}_{i+1} = \text{out}_i + \text{step}.
+        /// 
+        /// \]
+        /// 
+        /// Warning
+        /// This function is deprecated in favor of torch.arange().
+        /// </summary>
+        /// <param name="start">
+        /// the starting value for the set of points. Default: 0.
+        /// </param>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="step">
+        /// the gap between each pair of adjacent points. Default: 1.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor range(float start, float end, float step = 1f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.range(start, end, step:step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor linspace(float start, float end, int steps, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.linspace(start, end, steps, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a one-dimensional tensor of steps
+        /// equally spaced points between start and end.
+        /// 
+        /// The output tensor is 1-D of size steps.
+        /// </summary>
+        /// <param name="start">
+        /// the starting value for the set of points
+        /// </param>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="steps">
+        /// number of points to sample between start
+        /// and end. Default: 100.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor linspace(float start, float end, int steps = 100, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.linspace(start, end, steps:steps, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor logspace(float start, float end, int steps, float @base, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.logspace(start, end, steps, @base, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a one-dimensional tensor of steps points
+        /// logarithmically spaced with base base between
+        /// \({\text{base}}^{\text{start}}\) and \({\text{base}}^{\text{end}}\).
+        /// 
+        /// The output tensor is 1-D of size steps.
+        /// </summary>
+        /// <param name="start">
+        /// the starting value for the set of points
+        /// </param>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="steps">
+        /// number of points to sample between start
+        /// and end. Default: 100.
+        /// </param>
+        /// <param name="@base">
+        /// base of the logarithm function. Default: 10.0.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor logspace(float start, float end, int steps = 100, float @base = 10.0f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.logspace(start, end, steps:steps, @base:@base, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        //public static Tensor eye(int n, int? m = null, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.eye(n, m:m, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        /// <summary>
+        /// Returns a 2-D tensor with ones on the diagonal and zeros elsewhere.
+        /// </summary>
+        /// <param name="n">
+        /// the number of rows
+        /// </param>
+        /// <param name="m">
+        /// the number of columns with default being n
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor eye(int n, int? m = null, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.eye(n, m:m, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
-        public static Tensor empty(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null, bool? pin_memory = null)
+        /// <summary>
+        /// Returns a tensor filled with uninitialized data. The shape of the tensor is
+        /// defined by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        /// <param name="pin_memory">
+        /// If set, returned tensor would be allocated in
+        /// the pinned memory. Works only for CPU tensors. Default: False.
+        /// </param>
+        public static Tensor empty(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, bool? pin_memory = false)
             => PyTorch.Instance.empty(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad, pin_memory:pin_memory);
         
-        //public static Tensor empty_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.empty_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor full(Shape size,  fill_value, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.full(size, fill_value, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor full_like(Tensor input,  fill_value, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.full_like(input, fill_value, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor cat( tensors, int? dim = null, Tensor @out = null)
-        //    => PyTorch.Instance.cat(tensors, dim:dim, @out:@out);
-        
-        //public static void chunk(Tensor tensor, int chunks, int dim)
-        //    => PyTorch.Instance.chunk(tensor, chunks, dim);
-        
-        //public static Tensor gather(Tensor input, int dim, (LongTensor) index, Tensor @out = null, (bool,optional) sparse_grad)
-        //    => PyTorch.Instance.gather(input, dim, index, @out:@out, sparse_grad);
-        
-        //public static Tensor index_select(Tensor input, int dim, (LongTensor) index, Tensor @out = null)
-        //    => PyTorch.Instance.index_select(input, dim, index, @out:@out);
-        
-        //public static Tensor masked_select(Tensor input, (ByteTensor) mask, Tensor @out = null)
-        //    => PyTorch.Instance.masked_select(input, mask, @out:@out);
-        
-        //public static Tensor narrow(Tensor input, int dimension, int start, int length)
-        //    => PyTorch.Instance.narrow(input, dimension, start, length);
-        
-        //public static void nonzero(Tensor input, LongTensor @out = null)
-        //    => PyTorch.Instance.nonzero(input, @out:@out);
-        
-        //public static Tensor reshape(Tensor input,  shape)
-        //    => PyTorch.Instance.reshape(input, shape);
-        
-        //public static void split(Tensor tensor, int split_size_or_sections, int dim)
-        //    => PyTorch.Instance.split(tensor, split_size_or_sections, dim);
-        
-        //public static Tensor squeeze(Tensor input, int? dim = null, Tensor @out = null)
-        //    => PyTorch.Instance.squeeze(input, dim:dim, @out:@out);
-        
-        //public static Tensor stack( seq, int dim, Tensor @out = null)
-        //    => PyTorch.Instance.stack(seq, dim, @out:@out);
-        
-        //public static Tensor t(Tensor input)
-        //    => PyTorch.Instance.t(input);
-        
-        //public static Tensor take(Tensor input, (LongTensor) indices)
-        //    => PyTorch.Instance.take(input, indices);
-        
-        //public static Tensor transpose(Tensor input, int dim0, int dim1)
-        //    => PyTorch.Instance.transpose(input, dim0, dim1);
-        
-        //public static void unbind(Tensor tensor, int dim)
-        //    => PyTorch.Instance.unbind(tensor, dim);
-        
-        //public static Tensor unsqueeze(Tensor input, int dim, Tensor @out = null)
-        //    => PyTorch.Instance.unsqueeze(input, dim, @out:@out);
-        
-        //public static Tensor @where((ByteTensor) condition, Tensor x, Tensor y)
-        //    => PyTorch.Instance.@where(condition, x, y);
-        
-        //public static void manual_seed(int seed)
-        //    => PyTorch.Instance.manual_seed(seed);
-        
-        //public static void initial_seed()
-        //    => PyTorch.Instance.initial_seed();
-        
-        //public static void get_rng_state()
-        //    => PyTorch.Instance.get_rng_state();
-        
-        //public static void set_rng_state(torch.ByteTensor new_state)
-        //    => PyTorch.Instance.set_rng_state(new_state);
-        
-        //public static Tensor bernoulli(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.bernoulli(input, @out:@out);
-        
-        //public static void multinomial(Tensor input, int num_samples, bool? replacement = null, Tensor @out = null)
-        //    => PyTorch.Instance.multinomial(input, num_samples, replacement:replacement, @out:@out);
-        
-        //public static void normal()
-        //    => PyTorch.Instance.normal();
-        
-        //public static Tensor normal()
-        //    => PyTorch.Instance.normal();
-        
-        //public static Tensor normal()
-        //    => PyTorch.Instance.normal();
-        
-        //public static Tensor normal()
-        //    => PyTorch.Instance.normal();
-        
-        //public static Tensor rand(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.rand(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor rand_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.rand_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor randint(int? low = null, int high, (tuple) size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.randint(low:low, high, size, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor randint_like(Tensor input, int? low = null, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.randint_like(input, low:low, high, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor randn(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.randn(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor randn_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.randn_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static void randperm(int n, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.randperm(n, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static void save( obj,  f,  pickle_module,  pickle_protocol)
-        //    => PyTorch.Instance.save(obj, f, pickle_module, pickle_protocol);
-        
-        //public static void load( f,  map_location,  pickle_module,  pickle_load_args)
-        //    => PyTorch.Instance.load(f, map_location, pickle_module, pickle_load_args);
-        
-        //public static void get_num_threads()
-        //    => PyTorch.Instance.get_num_threads();
-        
-        //public static void set_num_threads()
-        //    => PyTorch.Instance.set_num_threads();
-        
-        //public static Tensor abs(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.abs(input, @out:@out);
-        
-        //public static Tensor acos(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.acos(input, @out:@out);
-        
-        //public static void @add()
-        //    => PyTorch.Instance.@add();
-        
-        //public static void @add()
-        //    => PyTorch.Instance.@add();
-        
-        //public static void @add()
-        //    => PyTorch.Instance.@add();
-        
-        //public static Tensor addcdiv(Tensor tensor, double? @value = null, Tensor tensor1, Tensor tensor2, Tensor @out = null)
-        //    => PyTorch.Instance.addcdiv(tensor, @value:@value, tensor1, tensor2, @out:@out);
-        
-        //public static Tensor addcmul(Tensor tensor, double? @value = null, Tensor tensor1, Tensor tensor2, Tensor @out = null)
-        //    => PyTorch.Instance.addcmul(tensor, @value:@value, tensor1, tensor2, @out:@out);
-        
-        //public static Tensor asin(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.asin(input, @out:@out);
-        
-        //public static Tensor atan(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.atan(input, @out:@out);
-        
-        //public static Tensor atan2(Tensor input1, Tensor input2, Tensor @out = null)
-        //    => PyTorch.Instance.atan2(input1, input2, @out:@out);
-        
-        //public static Tensor ceil(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.ceil(input, @out:@out);
-        
-        //public static Tensor clamp(Tensor input, double min, double max, Tensor @out = null)
-        //    => PyTorch.Instance.clamp(input, min, max, @out:@out);
-        
-        //public static Tensor clamp()
-        //    => PyTorch.Instance.clamp();
-        
-        //public static Tensor clamp()
-        //    => PyTorch.Instance.clamp();
-        
-        //public static Tensor cos(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.cos(input, @out:@out);
-        
-        //public static Tensor cosh(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.cosh(input, @out:@out);
-        
-        //public static void div()
-        //    => PyTorch.Instance.div();
-        
-        //public static Tensor div()
-        //    => PyTorch.Instance.div();
-        
-        //public static Tensor div()
-        //    => PyTorch.Instance.div();
-        
-        //public static Tensor digamma(Tensor input)
-        //    => PyTorch.Instance.digamma(input);
-        
-        //public static Tensor erf(Tensor tensor, Tensor @out = null)
-        //    => PyTorch.Instance.erf(tensor, @out:@out);
-        
-        //public static Tensor erfc(Tensor tensor, Tensor @out = null)
-        //    => PyTorch.Instance.erfc(tensor, @out:@out);
-        
-        //public static Tensor erfinv(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.erfinv(input, @out:@out);
-        
-        //public static Tensor exp(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.exp(input, @out:@out);
-        
-        //public static Tensor expm1(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.expm1(input, @out:@out);
-        
-        //public static Tensor floor(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.floor(input, @out:@out);
-        
-        //public static Tensor fmod(Tensor input,  divisor, Tensor @out = null)
-        //    => PyTorch.Instance.fmod(input, divisor, @out:@out);
-        
-        //public static Tensor frac()
-        //    => PyTorch.Instance.frac();
-        
-        //public static void lerp(Tensor start, Tensor end,  weight, Tensor @out = null)
-        //    => PyTorch.Instance.lerp(start, end, weight, @out:@out);
-        
-        //public static Tensor log(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.log(input, @out:@out);
-        
-        //public static Tensor log10(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.log10(input, @out:@out);
-        
-        //public static Tensor log1p(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.log1p(input, @out:@out);
-        
-        //public static Tensor log2(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.log2(input, @out:@out);
-        
-        //public static void mul()
-        //    => PyTorch.Instance.mul();
-        
-        //public static void mul()
-        //    => PyTorch.Instance.mul();
-        
-        //public static void mul()
-        //    => PyTorch.Instance.mul();
-        
-        //public static Tensor mvlgamma(Tensor input, int p)
-        //    => PyTorch.Instance.mvlgamma(input, p);
-        
-        //public static Tensor neg(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.neg(input, @out:@out);
-        
-        //public static void pow()
-        //    => PyTorch.Instance.pow();
-        
-        //public static Tensor pow()
-        //    => PyTorch.Instance.pow();
-        
-        //public static Tensor pow()
-        //    => PyTorch.Instance.pow();
-        
-        //public static Tensor reciprocal(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.reciprocal(input, @out:@out);
-        
-        //public static Tensor remainder(Tensor input,  divisor, Tensor @out = null)
-        //    => PyTorch.Instance.remainder(input, divisor, @out:@out);
-        
-        //public static Tensor round(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.round(input, @out:@out);
-        
-        //public static Tensor rsqrt(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.rsqrt(input, @out:@out);
-        
-        //public static Tensor sigmoid(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.sigmoid(input, @out:@out);
-        
-        //public static Tensor sign(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.sign(input, @out:@out);
-        
-        //public static Tensor sin(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.sin(input, @out:@out);
-        
-        //public static Tensor sinh(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.sinh(input, @out:@out);
-        
-        //public static Tensor sqrt(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.sqrt(input, @out:@out);
-        
-        //public static Tensor tan(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.tan(input, @out:@out);
-        
-        //public static Tensor tanh(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.tanh(input, @out:@out);
-        
-        //public static Tensor trunc(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.trunc(input, @out:@out);
-        
-        //public static void argmax()
-        //    => PyTorch.Instance.argmax();
-        
-        //public static void argmax()
-        //    => PyTorch.Instance.argmax();
-        
-        //public static void argmax()
-        //    => PyTorch.Instance.argmax();
-        
-        //public static void argmin()
-        //    => PyTorch.Instance.argmin();
-        
-        //public static void argmin()
-        //    => PyTorch.Instance.argmin();
-        
-        //public static void argmin()
-        //    => PyTorch.Instance.argmin();
-        
-        //public static Tensor cumprod(Tensor input, int dim, Dtype dtype = null, Tensor @out = null)
-        //    => PyTorch.Instance.cumprod(input, dim, dtype:dtype, @out:@out);
-        
-        //public static Tensor cumsum(Tensor input, int dim, Dtype dtype = null, Tensor @out = null)
-        //    => PyTorch.Instance.cumsum(input, dim, dtype:dtype, @out:@out);
-        
-        //public static Tensor dist(Tensor input, Tensor other, float? p = null)
-        //    => PyTorch.Instance.dist(input, other, p:p);
-        
-        //public static void logsumexp(Tensor input,  dim, bool keepdim, Tensor @out = null)
-        //    => PyTorch.Instance.logsumexp(input, dim, keepdim, @out:@out);
-        
-        //public static void mean()
-        //    => PyTorch.Instance.mean();
-        
-        //public static Tensor mean()
-        //    => PyTorch.Instance.mean();
-        
-        //public static Tensor mean()
-        //    => PyTorch.Instance.mean();
-        
-        //public static void median()
-        //    => PyTorch.Instance.median();
-        
-        //public static Tensor median()
-        //    => PyTorch.Instance.median();
-        
-        //public static void median()
-        //    => PyTorch.Instance.median();
-        
-        //public static void mode(Tensor input, int dim, bool keepdim, Tensor values = null, Tensor indices = null)
-        //    => PyTorch.Instance.mode(input, dim, keepdim, values:values, indices:indices);
-        
-        //public static void norm(Tensor input, (abs(x)**ord)**(1./ord) p,  dim, bool? keepdim = null, Tensor @out = null, Dtype dtype = null)
-        //    => PyTorch.Instance.norm(input, p, dim, keepdim:keepdim, @out:@out, dtype:dtype);
-        
-        //public static void prod()
-        //    => PyTorch.Instance.prod();
-        
-        //public static Tensor prod()
-        //    => PyTorch.Instance.prod();
-        
-        //public static Tensor prod()
-        //    => PyTorch.Instance.prod();
-        
-        //public static void std()
-        //    => PyTorch.Instance.std();
-        
-        //public static Tensor std()
-        //    => PyTorch.Instance.std();
-        
-        //public static Tensor std()
-        //    => PyTorch.Instance.std();
-        
-        //public static void sum()
-        //    => PyTorch.Instance.sum();
-        
-        //public static Tensor sum()
-        //    => PyTorch.Instance.sum();
-        
-        //public static Tensor sum()
-        //    => PyTorch.Instance.sum();
-        
-        //public static void unique(Tensor input, bool sorted, bool return_inverse, bool return_counts, int dim)
-        //    => PyTorch.Instance.unique(input, sorted, return_inverse, return_counts, dim);
-        
-        //public static void unique_consecutive(Tensor input, bool return_inverse, bool return_counts, int dim)
-        //    => PyTorch.Instance.unique_consecutive(input, return_inverse, return_counts, dim);
-        
-        //public static void @var()
-        //    => PyTorch.Instance.@var();
-        
-        //public static Tensor @var()
-        //    => PyTorch.Instance.@var();
-        
-        //public static Tensor @var()
-        //    => PyTorch.Instance.@var();
-        
-        //public static void allclose(Tensor self, Tensor other, float? atol = null, float? rtol = null, float? equal_nan = null)
-        //    => PyTorch.Instance.allclose(self, other, atol:atol, rtol:rtol, equal_nan:equal_nan);
-        
-        //public static void argsort(Tensor input, int? dim = null, bool? @descending = null)
-        //    => PyTorch.Instance.argsort(input, dim:dim, @descending:@descending);
-        
-        //public static Tensor eq(Tensor input,  other, Tensor @out = null)
-        //    => PyTorch.Instance.eq(input, other, @out:@out);
-        
-        //public static void equal()
-        //    => PyTorch.Instance.equal();
-        
-        //public static Tensor ge(Tensor input,  other, Tensor @out = null)
-        //    => PyTorch.Instance.ge(input, other, @out:@out);
-        
-        //public static Tensor gt(Tensor input,  other, Tensor @out = null)
-        //    => PyTorch.Instance.gt(input, other, @out:@out);
-        
-        //public static void isfinite(Tensor tensor)
-        //    => PyTorch.Instance.isfinite(tensor);
-        
-        //public static void isinf(Tensor tensor)
-        //    => PyTorch.Instance.isinf(tensor);
-        
-        //public static void isnan(Tensor tensor)
-        //    => PyTorch.Instance.isnan(tensor);
-        
-        //public static void kthvalue(Tensor input, int k, int? dim = null, bool keepdim, tuple @out = null)
-        //    => PyTorch.Instance.kthvalue(input, k, dim:dim, keepdim, @out:@out);
-        
-        //public static Tensor le(Tensor input,  other, Tensor @out = null)
-        //    => PyTorch.Instance.le(input, other, @out:@out);
-        
-        //public static Tensor lt(Tensor input,  other, Tensor @out = null)
-        //    => PyTorch.Instance.lt(input, other, @out:@out);
-        
-        //public static void max()
-        //    => PyTorch.Instance.max();
-        
-        //public static Tensor max()
-        //    => PyTorch.Instance.max();
-        
-        //public static void max()
-        //    => PyTorch.Instance.max();
-        
-        //public static Tensor max()
-        //    => PyTorch.Instance.max();
-        
-        //public static void min()
-        //    => PyTorch.Instance.min();
-        
-        //public static Tensor min()
-        //    => PyTorch.Instance.min();
-        
-        //public static void min()
-        //    => PyTorch.Instance.min();
-        
-        //public static Tensor min()
-        //    => PyTorch.Instance.min();
-        
-        //public static Tensor ne(Tensor input,  other, Tensor @out = null)
-        //    => PyTorch.Instance.ne(input, other, @out:@out);
-        
-        //public static void sort(Tensor input, int? dim = null, bool? @descending = null, tuple @out = null)
-        //    => PyTorch.Instance.sort(input, dim:dim, @descending:@descending, @out:@out);
-        
-        //public static void topk(Tensor input, int k, int? dim = null, bool? largest = null, bool? sorted = null, tuple @out = null)
-        //    => PyTorch.Instance.topk(input, k, dim:dim, largest:largest, sorted:sorted, @out:@out);
-        
-        //public static Tensor fft(Tensor input, int signal_ndim, bool? normalized = null)
-        //    => PyTorch.Instance.fft(input, signal_ndim, normalized:normalized);
-        
-        //public static Tensor ifft(Tensor input, int signal_ndim, bool? normalized = null)
-        //    => PyTorch.Instance.ifft(input, signal_ndim, normalized:normalized);
-        
-        //public static Tensor rfft(Tensor input, int signal_ndim, bool? normalized = null, bool? onesided = null)
-        //    => PyTorch.Instance.rfft(input, signal_ndim, normalized:normalized, onesided:onesided);
-        
-        //public static Tensor irfft(Tensor input, int signal_ndim, bool? normalized = null, bool? onesided = null,  signal_sizes)
-        //    => PyTorch.Instance.irfft(input, signal_ndim, normalized:normalized, onesided:onesided, signal_sizes);
-        
-        //public static void stft(Tensor input, int n_fft, int? hop_length = null, int? win_length = null, Tensor window = null, bool? center = null, string pad_mode = null, bool? normalized = null, bool? onesided = null)
-        //    => PyTorch.Instance.stft(input, n_fft, hop_length:hop_length, win_length:win_length, window:window, center:center, pad_mode:pad_mode, normalized:normalized, onesided:onesided);
-        
-        //public static Tensor bartlett_window(int window_length, bool? periodic = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.bartlett_window(window_length, periodic:periodic, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor blackman_window(int window_length, bool? periodic = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.blackman_window(window_length, periodic:periodic, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor hamming_window(int window_length, bool? periodic = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.hamming_window(window_length, periodic:periodic, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor hann_window(int window_length, bool? periodic = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = null)
-        //    => PyTorch.Instance.hann_window(window_length, periodic:periodic, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
-        
-        //public static Tensor bincount(Tensor input, Tensor weights, int minlength)
-        //    => PyTorch.Instance.bincount(input, weights, minlength);
-        
-        //public static void broadcast_tensors(int *tensors)
-        //    => PyTorch.Instance.broadcast_tensors(*tensors);
-        
-        //public static void cartesian_prod(int *tensors)
-        //    => PyTorch.Instance.cartesian_prod(*tensors);
-        
-        //public static void combinations(Tensor tensor, int? r = null, bool? with_replacement = null)
-        //    => PyTorch.Instance.combinations(tensor, r:r, with_replacement:with_replacement);
-        
-        //public static Tensor cross(Tensor input, Tensor other, int? dim = null, Tensor @out = null)
-        //    => PyTorch.Instance.cross(input, other, dim:dim, @out:@out);
-        
-        //public static Tensor diag(Tensor input, int? diagonal = null, Tensor @out = null)
-        //    => PyTorch.Instance.diag(input, diagonal:diagonal, @out:@out);
-        
-        //public static Tensor diag_embed(Tensor input, int? offset = null, int? dim1 = null, int? dim2 = null)
-        //    => PyTorch.Instance.diag_embed(input, offset:offset, dim1:dim1, dim2:dim2);
-        
-        //public static Tensor diagflat(Tensor input, int? offset = null)
-        //    => PyTorch.Instance.diagflat(input, offset:offset);
-        
-        //public static Tensor diagonal(Tensor input, int? offset = null, int? dim1 = null, int? dim2 = null)
-        //    => PyTorch.Instance.diagonal(input, offset:offset, dim1:dim1, dim2:dim2);
-        
-        //public static Tensor einsum(int equation,  operands)
-        //    => PyTorch.Instance.einsum(equation, operands);
-        
-        //public static Tensor flatten(Tensor input, int start_dim, int end_dim)
-        //    => PyTorch.Instance.flatten(input, start_dim, end_dim);
-        
-        //public static Tensor flip(Tensor input,  dims)
-        //    => PyTorch.Instance.flip(input, dims);
-        
-        //public static Tensor rot90(Tensor input, int k,  dims)
-        //    => PyTorch.Instance.rot90(input, k, dims);
-        
-        //public static Tensor histc(Tensor input, int bins, int min, int max, Tensor @out = null)
-        //    => PyTorch.Instance.histc(input, bins, min, max, @out:@out);
-        
-        //public static void meshgrid(Tensor[] tensors)
-        //    => PyTorch.Instance.meshgrid(tensors);
-        
-        //public static Tensor renorm(Tensor input, float p, int dim, float maxnorm, Tensor @out = null)
-        //    => PyTorch.Instance.renorm(input, p, dim, maxnorm, @out:@out);
-        
-        //public static void repeat_interleave()
-        //    => PyTorch.Instance.repeat_interleave();
-        
-        //public static Tensor repeat_interleave()
-        //    => PyTorch.Instance.repeat_interleave();
-        
-        //public static Tensor repeat_interleave()
-        //    => PyTorch.Instance.repeat_interleave();
-        
-        //public static Tensor roll(Tensor input, int shifts,  dims)
-        //    => PyTorch.Instance.roll(input, shifts, dims);
-        
-        //public static void tensordot(Tensor a, Tensor b, int dims)
-        //    => PyTorch.Instance.tensordot(a, b, dims);
-        
-        //public static Tensor trace()
-        //    => PyTorch.Instance.trace();
-        
-        //public static Tensor tril(Tensor input, int? diagonal = null, Tensor @out = null)
-        //    => PyTorch.Instance.tril(input, diagonal:diagonal, @out:@out);
-        
-        //public static Tensor tril_indices(int row, int column, int offset, Dtype dtype = null, Device device = null, Layout layout = null)
-        //    => PyTorch.Instance.tril_indices(row, column, offset, dtype:dtype, device:device, layout:layout);
-        
-        //public static Tensor triu(Tensor input, int? diagonal = null, Tensor @out = null)
-        //    => PyTorch.Instance.triu(input, diagonal:diagonal, @out:@out);
-        
-        //public static Tensor triu_indices(int row, int column, int offset, Dtype dtype = null, Device device = null, Layout layout = null)
-        //    => PyTorch.Instance.triu_indices(row, column, offset, dtype:dtype, device:device, layout:layout);
-        
-        //public static Tensor addbmm(double? beta = null, Tensor mat, double? alpha = null, Tensor batch1, Tensor batch2, Tensor @out = null)
-        //    => PyTorch.Instance.addbmm(beta:beta, mat, alpha:alpha, batch1, batch2, @out:@out);
-        
-        //public static Tensor addmm(double? beta = null, Tensor mat, double? alpha = null, Tensor mat1, Tensor mat2, Tensor @out = null)
-        //    => PyTorch.Instance.addmm(beta:beta, mat, alpha:alpha, mat1, mat2, @out:@out);
-        
-        //public static Tensor addmv(double? beta = null, Tensor tensor, double? alpha = null, Tensor mat, Tensor vec, Tensor @out = null)
-        //    => PyTorch.Instance.addmv(beta:beta, tensor, alpha:alpha, mat, vec, @out:@out);
-        
-        //public static Tensor addr(double? beta = null, Tensor mat, double? alpha = null, Tensor vec1, Tensor vec2, Tensor @out = null)
-        //    => PyTorch.Instance.addr(beta:beta, mat, alpha:alpha, vec1, vec2, @out:@out);
-        
-        //public static Tensor baddbmm(double? beta = null, Tensor mat, double? alpha = null, Tensor batch1, Tensor batch2, Tensor @out = null)
-        //    => PyTorch.Instance.baddbmm(beta:beta, mat, alpha:alpha, batch1, batch2, @out:@out);
-        
-        //public static Tensor bmm(Tensor batch1, Tensor batch2, Tensor @out = null)
-        //    => PyTorch.Instance.bmm(batch1, batch2, @out:@out);
-        
-        //public static void btrifact()
-        //    => PyTorch.Instance.btrifact();
-        
-        //public static void btrifact_with_info()
-        //    => PyTorch.Instance.btrifact_with_info();
-        
-        //public static void btrisolve()
-        //    => PyTorch.Instance.btrisolve();
-        
-        //public static void btriunpack()
-        //    => PyTorch.Instance.btriunpack();
-        
-        //public static void chain_matmul(Tensor[] matrices)
-        //    => PyTorch.Instance.chain_matmul(matrices);
-        
-        //public static Tensor cholesky(Tensor a, bool? upper = null, Tensor @out = null)
-        //    => PyTorch.Instance.cholesky(a, upper:upper, @out:@out);
-        
-        //public static Tensor cholesky_inverse(Tensor u, bool? upper = null, Tensor @out = null)
-        //    => PyTorch.Instance.cholesky_inverse(u, upper:upper, @out:@out);
-        
-        //public static Tensor cholesky_solve(Tensor b, Tensor u, bool? upper = null, Tensor @out = null)
-        //    => PyTorch.Instance.cholesky_solve(b, u, upper:upper, @out:@out);
-        
-        //public static Tensor dot()
-        //    => PyTorch.Instance.dot();
-        
-        //public static void eig(Tensor a, bool eigenvectors, tuple @out = null)
-        //    => PyTorch.Instance.eig(a, eigenvectors, @out:@out);
-        
-        //public static Tensor gels(Tensor B, Tensor A, tuple @out = null)
-        //    => PyTorch.Instance.gels(B, A, @out:@out);
-        
-        //public static void geqrf(Tensor input, tuple @out = null)
-        //    => PyTorch.Instance.geqrf(input, @out:@out);
-        
-        //public static Tensor ger(Tensor vec1, Tensor vec2, Tensor @out = null)
-        //    => PyTorch.Instance.ger(vec1, vec2, @out:@out);
-        
-        //public static void gesv()
-        //    => PyTorch.Instance.gesv();
-        
-        //public static Tensor inverse(Tensor input, Tensor @out = null)
-        //    => PyTorch.Instance.inverse(input, @out:@out);
-        
-        //public static Tensor det(Tensor A)
-        //    => PyTorch.Instance.det(A);
-        
-        //public static Tensor logdet(Tensor A)
-        //    => PyTorch.Instance.logdet(A);
-        
-        //public static void slogdet(Tensor A)
-        //    => PyTorch.Instance.slogdet(A);
-        
-        //public static void lu(Tensor A, bool? pivot = null, bool? get_infos = null, tuple @out = null)
-        //    => PyTorch.Instance.lu(A, pivot:pivot, get_infos:get_infos, @out:@out);
-        
-        //public static Tensor lu_solve(Tensor b, Tensor LU_data, (IntTensor) LU_pivots, Tensor @out = null)
-        //    => PyTorch.Instance.lu_solve(b, LU_data, LU_pivots, @out:@out);
-        
-        //public static void lu_unpack(Tensor LU_data, Tensor LU_pivots, bool unpack_data, bool unpack_pivots)
-        //    => PyTorch.Instance.lu_unpack(LU_data, LU_pivots, unpack_data, unpack_pivots);
-        
-        //public static Tensor matmul(Tensor tensor1, Tensor tensor2, Tensor @out = null)
-        //    => PyTorch.Instance.matmul(tensor1, tensor2, @out:@out);
-        
-        //public static Tensor matrix_power(Tensor input, int n)
-        //    => PyTorch.Instance.matrix_power(input, n);
-        
-        //public static Tensor matrix_rank(Tensor input, float? tol = null, bool? symmetric = null)
-        //    => PyTorch.Instance.matrix_rank(input, tol:tol, symmetric:symmetric);
-        
-        //public static Tensor mm(Tensor mat1, Tensor mat2, Tensor @out = null)
-        //    => PyTorch.Instance.mm(mat1, mat2, @out:@out);
-        
-        //public static Tensor mv(Tensor mat, Tensor vec, Tensor @out = null)
-        //    => PyTorch.Instance.mv(mat, vec, @out:@out);
-        
-        //public static Tensor orgqr(Tensor a, Tensor tau)
-        //    => PyTorch.Instance.orgqr(a, tau);
-        
-        //public static Tensor ormqr(Tensor a, Tensor tau, Tensor mat)
-        //    => PyTorch.Instance.ormqr(a, tau, mat);
-        
-        //public static Tensor pinverse(Tensor input, float rcond)
-        //    => PyTorch.Instance.pinverse(input, rcond);
-        
-        //public static void potrf()
-        //    => PyTorch.Instance.potrf();
-        
-        //public static void potri()
-        //    => PyTorch.Instance.potri();
-        
-        //public static void potrs()
-        //    => PyTorch.Instance.potrs();
-        
-        //public static void pstrf(Tensor a, bool? upper = null, tuple @out = null)
-        //    => PyTorch.Instance.pstrf(a, upper:upper, @out:@out);
-        
-        //public static void qr(Tensor input, tuple @out = null)
-        //    => PyTorch.Instance.qr(input, @out:@out);
-        
-        //public static void solve(Tensor B, Tensor A,  @out)
-        //    => PyTorch.Instance.solve(B, A, @out);
-        
-        //public static void svd(Tensor input, bool? some = null, tuple @out = null)
-        //    => PyTorch.Instance.svd(input, some:some, @out:@out);
-        
-        //public static void symeig(Tensor input, bool? eigenvectors = null, bool? upper = null, tuple @out = null)
-        //    => PyTorch.Instance.symeig(input, eigenvectors:eigenvectors, upper:upper, @out:@out);
-        
-        //public static void triangular_solve(Tensor A, Tensor b, bool? upper = null, bool? transpose = null, bool? unitriangular = null)
-        //    => PyTorch.Instance.triangular_solve(A, b, upper:upper, transpose:transpose, unitriangular:unitriangular);
-        
-        //public static void trtrs()
-        //    => PyTorch.Instance.trtrs();
-        
-        //public static void compiled_with_cxx11_abi()
-        //    => PyTorch.Instance.compiled_with_cxx11_abi();
+        /// <summary>
+        /// Returns an uninitialized tensor with the same size as input.
+        /// torch.empty_like(input) is equivalent to
+        /// torch.empty(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor empty_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.empty_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor of size size filled with fill_value.
+        /// </summary>
+        /// <param name="size">
+        /// a list, tuple, or torch.Size of integers defining the
+        /// shape of the output tensor.
+        /// </param>
+        /// <param name="fill_value">
+        /// the number to fill the output tensor with.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor full(Shape size, object fill_value, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.full(size, fill_value, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor with the same size as input filled with fill_value.
+        /// torch.full_like(input, fill_value) is equivalent to
+        /// torch.full(input.size(), fill_value, dtype=input.dtype, layout=input.layout, device=input.device).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="fill_value">
+        /// the number to fill the output tensor with.
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor full_like(Tensor input, object fill_value, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, Tensor @out = null)
+            => PyTorch.Instance.full_like(input, fill_value, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad, @out:@out);
+        
+        /// <summary>
+        /// Concatenates the given sequence of seq tensors in the given dimension.
+        /// All tensors must either have the same shape (except in the concatenating
+        /// dimension) or be empty.
+        /// 
+        /// torch.cat() can be seen as an inverse operation for torch.split()
+        /// and torch.chunk().
+        /// 
+        /// torch.cat() can be best understood via examples.
+        /// </summary>
+        /// <param name="tensors">
+        /// any python sequence of tensors of the same type.
+        /// Non-empty tensors provided must have the same shape, except in the
+        /// cat dimension.
+        /// </param>
+        /// <param name="dim">
+        /// the dimension over which the tensors are concatenated
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor cat(Tensor[] tensors, int? dim = 0, Tensor @out = null)
+            => PyTorch.Instance.cat(tensors, dim:dim, @out:@out);
+        
+        /// <summary>
+        /// Splits a tensor into a specific number of chunks.
+        /// 
+        /// Last chunk will be smaller if the tensor size along the given dimension
+        /// dim is not divisible by chunks.
+        /// </summary>
+        /// <param name="tensor">
+        /// the tensor to split
+        /// </param>
+        /// <param name="chunks">
+        /// number of chunks to return
+        /// </param>
+        /// <param name="dim">
+        /// dimension along which to split the tensor
+        /// </param>
+        public static Tensor[] chunk(Tensor tensor, int chunks, int dim = 0)
+            => PyTorch.Instance.chunk(tensor, chunks, dim:dim);
+        
+        /// <summary>
+        /// Gathers values along an axis specified by dim.
+        /// 
+        /// For a 3-D tensor the output is specified by:
+        /// 
+        /// out[i][j][k] = input[index[i][j][k]][j][k]  # if dim == 0
+        /// out[i][j][k] = input[i][index[i][j][k]][k]  # if dim == 1
+        /// out[i][j][k] = input[i][j][index[i][j][k]]  # if dim == 2
+        /// 
+        /// If input is an n-dimensional tensor with size
+        /// \((x_0, x_1..., x_{i-1}, x_i, x_{i+1}, ..., x_{n-1})\)
+        /// and dim = i, then index must be an \(n\)-dimensional tensor with
+        /// size \((x_0, x_1, ..., x_{i-1}, y, x_{i+1}, ..., x_{n-1})\) where \(y \geq 1\)
+        /// and out will have the same size as index.
+        /// </summary>
+        /// <param name="input">
+        /// the source tensor
+        /// </param>
+        /// <param name="dim">
+        /// the axis along which to index
+        /// </param>
+        /// <param name="index">
+        /// the indices of elements to gather
+        /// </param>
+        /// <param name="@out">
+        /// the destination tensor
+        /// </param>
+        /// <param name="sparse_grad">
+        /// If True, gradient w.r.t. input will be a sparse tensor.
+        /// </param>
+        public static Tensor gather(Tensor input, int dim, Tensor<long> index, Tensor @out = null, bool? sparse_grad = false)
+            => PyTorch.Instance.gather(input, dim, index, @out:@out, sparse_grad:sparse_grad);
+        
+        /// <summary>
+        /// Returns a new tensor which indexes the input tensor along dimension
+        /// dim using the entries in index which is a LongTensor.
+        /// 
+        /// The returned tensor has the same number of dimensions as the original tensor
+        /// (input).  The dimth dimension has the same size as the length
+        /// of index; other dimensions have the same size as in the original tensor.
+        /// 
+        /// Note
+        /// The returned tensor does not use the same storage as the original
+        /// tensor.  If out has a different shape than expected, we
+        /// silently change it to the correct shape, reallocating the underlying
+        /// storage if necessary.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="dim">
+        /// the dimension in which we index
+        /// </param>
+        /// <param name="index">
+        /// the 1-D tensor containing the indices to index
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor index_select(Tensor input, int dim, Tensor<long> index, Tensor @out = null)
+            => PyTorch.Instance.index_select(input, dim, index, @out:@out);
+        
+        /// <summary>
+        /// Returns a new 1-D tensor which indexes the input tensor according to
+        /// the binary mask mask which is a ByteTensor.
+        /// 
+        /// The shapes of the mask tensor and the input tensor don’t need
+        /// to match, but they must be broadcastable.
+        /// 
+        /// Note
+        /// The returned tensor does not use the same storage
+        /// as the original tensor
+        /// </summary>
+        /// <param name="input">
+        /// the input data
+        /// </param>
+        /// <param name="mask">
+        /// the tensor containing the binary mask to index with
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor masked_select(Tensor input, Tensor<byte> mask, Tensor @out = null)
+            => PyTorch.Instance.masked_select(input, mask, @out:@out);
+        
+        /// <summary>
+        /// Returns a new tensor that is a narrowed version of input tensor. The
+        /// dimension dim is input from start to start + length. The
+        /// returned tensor and input tensor share the same underlying storage.
+        /// </summary>
+        /// <param name="input">
+        /// the tensor to narrow
+        /// </param>
+        /// <param name="dimension">
+        /// the dimension along which to narrow
+        /// </param>
+        /// <param name="start">
+        /// the starting dimension
+        /// </param>
+        /// <param name="length">
+        /// the distance to the ending dimension
+        /// </param>
+        public static Tensor narrow(Tensor input, int dimension, int start, int length)
+            => PyTorch.Instance.narrow(input, dimension, start, length);
+        
+        /// <summary>
+        /// Returns a tensor containing the indices of all non-zero elements of
+        /// input.  Each row in the result contains the indices of a non-zero
+        /// element in input. The result is sorted lexicographically, with
+        /// the last index changing the fastest (C-style).
+        /// 
+        /// If input has n dimensions, then the resulting indices tensor
+        /// out is of size \((z \times n)\), where \(z\) is the total number of
+        /// non-zero elements in the input tensor.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor containing indices
+        /// </param>
+        public static Tensor<long> nonzero(Tensor input, Tensor<long> @out = null)
+            => PyTorch.Instance.nonzero(input, @out:@out);
+        
+        /// <summary>
+        /// Returns a tensor with the same data and number of elements as input,
+        /// but with the specified shape. When possible, the returned tensor will be a view
+        /// of input. Otherwise, it will be a copy. Contiguous inputs and inputs
+        /// with compatible strides can be reshaped without copying, but you should not
+        /// depend on the copying vs. viewing behavior.
+        /// 
+        /// See torch.Tensor.view() on when it is possible to return a view.
+        /// 
+        /// A single dimension may be -1, in which case it’s inferred from the remaining
+        /// dimensions and the number of elements in input.
+        /// </summary>
+        /// <param name="input">
+        /// the tensor to be reshaped
+        /// </param>
+        /// <param name="shape">
+        /// the new shape
+        /// </param>
+        public static Tensor reshape(Tensor input, Shape shape)
+            => PyTorch.Instance.reshape(input, shape);
+        
+        /// <summary>
+        /// Splits the tensor into chunks.
+        /// 
+        /// If split_size_or_sections is an integer type, then tensor will
+        /// be split into equally sized chunks (if possible). Last chunk will be smaller if
+        /// the tensor size along the given dimension dim is not divisible by
+        /// split_size.
+        /// 
+        /// If split_size_or_sections is a list, then tensor will be split
+        /// into len(split_size_or_sections) chunks with sizes in dim according
+        /// to split_size_or_sections.
+        /// </summary>
+        /// <param name="tensor">
+        /// tensor to split.
+        /// </param>
+        /// <param name="split_size_or_sections">
+        /// size of a single chunk or
+        /// list of sizes for each chunk
+        /// </param>
+        /// <param name="dim">
+        /// dimension along which to split the tensor.
+        /// </param>
+        public static void split(Tensor tensor, int split_size_or_sections, int dim = 0)
+            => PyTorch.Instance.split(tensor, split_size_or_sections, dim:dim);
+        
+        /// <summary>
+        /// Returns a tensor with all the dimensions of input of size 1 removed.
+        /// 
+        /// For example, if input is of shape:
+        /// \((A \times 1 \times B \times C \times 1 \times D)\) then the out tensor
+        /// will be of shape: \((A \times B \times C \times D)\).
+        /// 
+        /// When dim is given, a squeeze operation is done only in the given
+        /// dimension. If input is of shape: \((A \times 1 \times B)\),
+        /// squeeze(input, 0) leaves the tensor unchanged, but squeeze(input, 1)
+        /// will squeeze the tensor to the shape \((A \times B)\).
+        /// 
+        /// Note
+        /// The returned tensor shares the storage with the input tensor,
+        /// so changing the contents of one will change the contents of the other.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="dim">
+        /// if given, the input will be squeezed only in
+        /// this dimension
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor squeeze(Tensor input, int? dim = null, Tensor @out = null)
+            => PyTorch.Instance.squeeze(input, dim:dim, @out:@out);
+        
+        /// <summary>
+        /// Concatenates sequence of tensors along a new dimension.
+        /// 
+        /// All tensors need to be of the same size.
+        /// </summary>
+        /// <param name="seq">
+        /// sequence of tensors to concatenate
+        /// </param>
+        /// <param name="dim">
+        /// dimension to insert. Has to be between 0 and the number
+        /// of dimensions of concatenated tensors (inclusive)
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor stack(Tensor[] seq, int dim = 0, Tensor @out = null)
+            => PyTorch.Instance.stack(seq, dim:dim, @out:@out);
+        
+        /// <summary>
+        /// Expects input to be &lt;= 2-D tensor and transposes dimensions 0
+        /// and 1.
+        /// 
+        /// 0-D and 1-D tensors are returned as it is and
+        /// 2-D tensor can be seen as a short-hand function for transpose(input, 0, 1).
+        /// </summary>
+        public static Tensor t(Tensor input)
+            => PyTorch.Instance.t(input);
+        
+        /// <summary>
+        /// Returns a new tensor with the elements of input at the given indices.
+        /// The input tensor is treated as if it were viewed as a 1-D tensor. The result
+        /// takes the same shape as the indices.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="indices">
+        /// the indices into tensor
+        /// </param>
+        public static Tensor take(Tensor input, Tensor<long> indices)
+            => PyTorch.Instance.take(input, indices);
+        
+        /// <summary>
+        /// Returns a tensor that is a transposed version of input.
+        /// The given dimensions dim0 and dim1 are swapped.
+        /// 
+        /// The resulting out tensor shares it’s underlying storage with the
+        /// input tensor, so changing the content of one would change the content
+        /// of the other.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="dim0">
+        /// the first dimension to be transposed
+        /// </param>
+        /// <param name="dim1">
+        /// the second dimension to be transposed
+        /// </param>
+        public static Tensor transpose(Tensor input, int dim0, int dim1)
+            => PyTorch.Instance.transpose(input, dim0, dim1);
+        
+        /// <summary>
+        /// Removes a tensor dimension.
+        /// 
+        /// Returns a tuple of all slices along a given dimension, already without it.
+        /// </summary>
+        /// <param name="tensor">
+        /// the tensor to unbind
+        /// </param>
+        /// <param name="dim">
+        /// dimension to remove
+        /// </param>
+        public static Tensor[] unbind(Tensor tensor, int dim = 0)
+            => PyTorch.Instance.unbind(tensor, dim:dim);
+        
+        /// <summary>
+        /// Returns a new tensor with a dimension of size one inserted at the
+        /// specified position.
+        /// 
+        /// The returned tensor shares the same underlying data with this tensor.
+        /// 
+        /// A dim value within the range [-input.dim() - 1, input.dim() + 1)
+        /// can be used. Negative dim will correspond to unsqueeze()
+        /// applied at dim = dim + input.dim() + 1.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="dim">
+        /// the index at which to insert the singleton dimension
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor unsqueeze(Tensor input, int dim, Tensor @out = null)
+            => PyTorch.Instance.unsqueeze(input, dim, @out:@out);
+        
+        /// <summary>
+        /// Return a tensor of elements selected from either x or y, depending on condition.
+        /// 
+        /// The operation is defined as:
+        /// 
+        /// \[out_i = \begin{cases}
+        ///     x_i & \text{if } \text{condition}_i \\
+        ///     y_i & \text{otherwise} \\
+        /// \end{cases}
+        /// 
+        /// \]
+        /// 
+        /// Note
+        /// The tensors condition, x, y must be broadcastable.
+        /// </summary>
+        /// <param name="condition">
+        /// When True (nonzero), yield x, otherwise yield y
+        /// </param>
+        /// <param name="x">
+        /// values selected at indices where condition is True
+        /// </param>
+        /// <param name="y">
+        /// values selected at indices where condition is False
+        /// </param>
+        public static Tensor @where(Tensor<byte> condition, Tensor x, Tensor y)
+            => PyTorch.Instance.@where(condition, x, y);
+        
+        /// <summary>
+        /// Sets the seed for generating random numbers. Returns a
+        /// torch._C.Generator object.
+        /// </summary>
+        public static void manual_seed(int seed)
+            => PyTorch.Instance.manual_seed(seed);
+        
+        /// <summary>
+        /// Returns the initial seed for generating random numbers as a
+        /// Python long.
+        /// </summary>
+        public static void initial_seed()
+            => PyTorch.Instance.initial_seed();
+        
+        /// <summary>
+        /// Returns the random number generator state as a torch.ByteTensor.
+        /// </summary>
+        public static void get_rng_state()
+            => PyTorch.Instance.get_rng_state();
+        
+        /// <summary>
+        /// Sets the random number generator state.
+        /// </summary>
+        public static void set_rng_state(Tensor<byte> new_state)
+            => PyTorch.Instance.set_rng_state(new_state);
+        
+        /// <summary>
+        /// Draws binary random numbers (0 or 1) from a Bernoulli distribution.
+        /// 
+        /// The input tensor should be a tensor containing probabilities
+        /// to be used for drawing the binary random number.
+        /// Hence, all values in input have to be in the range:
+        /// \(0 \leq \text{input}_i \leq 1\).
+        /// 
+        /// The \(\text{i}^{th}\) element of the output tensor will draw a
+        /// value \(1\) according to the \(\text{i}^{th}\) probability value given
+        /// in input.
+        /// 
+        /// \[\text{out}_{i} \sim \mathrm{Bernoulli}(p = \text{input}_{i})
+        /// 
+        /// \]
+        /// 
+        /// The returned out tensor only has values 0 or 1 and is of the same
+        /// shape as input.
+        /// 
+        /// out can have integral dtype, but input must have floating
+        /// point dtype.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor of probability values for the Bernoulli distribution
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor bernoulli(Tensor input, Tensor @out = null)
+            => PyTorch.Instance.bernoulli(input, @out:@out);
+        
+        /// <summary>
+        /// Returns a tensor where each row contains num_samples indices sampled
+        /// from the multinomial probability distribution located in the corresponding row
+        /// of tensor input.
+        /// 
+        /// Note
+        /// The rows of input do not need to sum to one (in which case we use
+        /// the values as weights), but must be non-negative, finite and have
+        /// a non-zero sum.
+        /// 
+        /// Indices are ordered from left to right according to when each was sampled
+        /// (first samples are placed in first column).
+        /// 
+        /// If input is a vector, out is a vector of size num_samples.
+        /// 
+        /// If input is a matrix with m rows, out is an matrix of shape
+        /// \((m \times \text{num\_samples})\).
+        /// 
+        /// If replacement is True, samples are drawn with replacement.
+        /// 
+        /// If not, they are drawn without replacement, which means that when a
+        /// sample index is drawn for a row, it cannot be drawn again for that row.
+        /// 
+        /// Note
+        /// When drawn without replacement, num_samples must be lower than
+        /// number of non-zero elements in input (or the min number of non-zero
+        /// elements in each row of input if it is a matrix).
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor containing probabilities
+        /// </param>
+        /// <param name="num_samples">
+        /// number of samples to draw
+        /// </param>
+        /// <param name="replacement">
+        /// whether to draw with replacement or not
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor<long> multinomial(Tensor input, int num_samples, bool? replacement = false, Tensor @out = null)
+            => PyTorch.Instance.multinomial(input, num_samples, replacement:replacement, @out:@out);
+        
+        /*
+        public static void normal()
+            => PyTorch.Instance.normal();
+        */
+        
+        /*
+        public static Tensor normal( mean,  std, Tensor @out = null)
+            => PyTorch.Instance.normal(mean, std, @out:@out);
+        */
+        
+        /*
+        public static Tensor normal( mean = 0.0,  std, Tensor @out = null)
+            => PyTorch.Instance.normal(mean:mean, std:std, @out:@out);
+        */
+        
+        /*
+        public static Tensor normal( mean,  std = 1.0, Tensor @out = null)
+            => PyTorch.Instance.normal(mean, std:std, @out:@out);
+        */
+        
+        /// <summary>
+        /// Returns a tensor filled with random numbers from a uniform distribution
+        /// on the interval \([0, 1)\)
+        /// 
+        /// The shape of the tensor is defined by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor rand(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.rand(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor with the same size as input that is filled with
+        /// random numbers from a uniform distribution on the interval \([0, 1)\).
+        /// torch.rand_like(input) is equivalent to
+        /// torch.rand(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor rand_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.rand_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor filled with random integers generated uniformly
+        /// between low (inclusive) and high (exclusive).
+        /// 
+        /// The shape of the tensor is defined by the variable argument size.
+        /// </summary>
+        /// <param name="high">
+        /// One above the highest integer to be drawn from the distribution.
+        /// </param>
+        /// <param name="size">
+        /// a tuple defining the shape of the output tensor.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor randint(int high, Shape size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randint(high, size, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor filled with random integers generated uniformly
+        /// between low (inclusive) and high (exclusive).
+        /// 
+        /// The shape of the tensor is defined by the variable argument size.
+        /// </summary>
+        /// <param name="low">
+        /// Lowest integer to be drawn from the distribution. Default: 0.
+        /// </param>
+        /// <param name="high">
+        /// One above the highest integer to be drawn from the distribution.
+        /// </param>
+        /// <param name="size">
+        /// a tuple defining the shape of the output tensor.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor randint(int low, int high, Shape size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randint(low:low, high:high, size:size, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor with the same shape as Tensor input filled with
+        /// random integers generated uniformly between low (inclusive) and
+        /// high (exclusive).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="high">
+        /// One above the highest integer to be drawn from the distribution.
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor randint_like(Tensor input, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randint_like(input, high, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor with the same shape as Tensor input filled with
+        /// random integers generated uniformly between low (inclusive) and
+        /// high (exclusive).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="low">
+        /// Lowest integer to be drawn from the distribution. Default: 0.
+        /// </param>
+        /// <param name="high">
+        /// One above the highest integer to be drawn from the distribution.
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor randint_like(Tensor input, int low, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randint_like(input, low:low, high:high, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor filled with random numbers from a normal distribution
+        /// with mean 0 and variance 1 (also called the standard normal
+        /// distribution).
+        /// 
+        /// \[\text{out}_{i} \sim \mathcal{N}(0, 1)
+        /// 
+        /// \]
+        /// 
+        /// The shape of the tensor is defined by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor randn(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randn(sizes, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a tensor with the same size as input that is filled with
+        /// random numbers from a normal distribution with mean 0 and variance 1.
+        /// torch.randn_like(input) is equivalent to
+        /// torch.randn(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
+        /// </summary>
+        /// <param name="input">
+        /// the size of input will determine size of the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned Tensor.
+        /// Default: if None, defaults to the dtype of input.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned tensor.
+        /// Default: if None, defaults to the layout of input.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, defaults to the device of input.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor randn_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randn_like(input, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Returns a random permutation of integers from 0 to n - 1.
+        /// </summary>
+        /// <param name="n">
+        /// the upper bound (exclusive)
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor<long> randperm(int n, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.randperm(n, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        
+        /// <summary>
+        /// Saves an object to a disk file.
+        /// 
+        /// See also: Recommended approach for saving a model
+        /// </summary>
+        /// <param name="obj">
+        /// saved object
+        /// </param>
+        /// <param name="f">
+        /// a file-like object (has to implement write and flush) or a string
+        /// containing a file name
+        /// </param>
+        /// <param name="pickle_module">
+        /// module used for pickling metadata and objects
+        /// </param>
+        /// <param name="pickle_protocol">
+        /// can be specified to override the default protocol
+        /// </param>
+        public static void save(PythonObject obj, string f, PyObject pickle_module = null, int pickle_protocol = 2)
+            => PyTorch.Instance.save(obj, f, pickle_module:pickle_module, pickle_protocol:pickle_protocol);
+        
+        /// <summary>
+        /// Loads an object saved with torch.save() from a file.
+        /// 
+        /// torch.load() uses Python’s unpickling facilities but treats storages,
+        /// which underlie tensors, specially. They are first deserialized on the
+        /// CPU and are then moved to the device they were saved from. If this fails
+        /// (e.g. because the run time system doesn’t have certain devices), an exception
+        /// is raised. However, storages can be dynamically remapped to an alternative
+        /// set of devices using the map_location argument.
+        /// 
+        /// If map_location is a callable, it will be called once for each serialized
+        /// storage with two arguments: storage and location. The storage argument
+        /// will be the initial deserialization of the storage, residing on the CPU.
+        /// Each serialized storage has a location tag associated with it which
+        /// identifies the device it was saved from, and this tag is the second
+        /// argument passed to map_location. The builtin location tags are ‘cpu’ for
+        /// CPU tensors and ‘cuda:device_id’ (e.g. ‘cuda:2’) for CUDA tensors.
+        /// map_location should return either None or a storage. If map_location returns
+        /// a storage, it will be used as the final deserialized object, already moved to
+        /// the right device. Otherwise, \(torch.load\) will fall back to the default
+        /// behavior, as if map_location wasn’t specified.
+        /// 
+        /// If map_location is a string, it should be a device tag, where all tensors
+        /// should be loaded.
+        /// 
+        /// Otherwise, if map_location is a dict, it will be used to remap location tags
+        /// appearing in the file (keys), to ones that specify where to put the
+        /// storages (values).
+        /// 
+        /// User extensions can register their own location tags and tagging and
+        /// deserialization methods using register_package.
+        /// </summary>
+        /// <param name="f">
+        /// a file-like object (has to implement read, readline, tell, and seek),
+        /// or a string containing a file name
+        /// </param>
+        /// <param name="map_location">
+        /// a function, torch.device, string or a dict specifying how to remap storage
+        /// locations
+        /// </param>
+        /// <param name="pickle_module">
+        /// module used for unpickling metadata and objects (has to
+        /// match the pickle_module used to serialize file)
+        /// </param>
+        /// <param name="pickle_load_args">
+        /// optional keyword arguments passed over to
+        /// pickle_module.load and pickle_module.Unpickler, e.g.,
+        /// encoding=....
+        /// </param>
+        public static void load(string f, PyObject map_location = null, PyObject pickle_module = null, params PyObject[] pickle_load_args)
+            => PyTorch.Instance.load(f, map_location:map_location, pickle_module:pickle_module, pickle_load_args:pickle_load_args);
+        
+        /// <summary>
+        /// Gets the number of threads used for parallelizing CPU operations
+        /// </summary>
+        public static int get_num_threads()
+            => PyTorch.Instance.get_num_threads();
+        
+        /// <summary>
+        /// Sets the number of threads used for parallelizing CPU operations.
+        /// WARNING:
+        /// To ensure that the correct number of threads is used, set_num_threads
+        /// must be called before running eager, JIT or autograd code.
+        /// </summary>
+        public static void set_num_threads(int num)
+            => PyTorch.Instance.set_num_threads(num);
+        
+        /// <summary>
+        /// Computes the element-wise absolute value of the given input tensor.
+        /// 
+        /// \[\text{out}_{i} = |\text{input}_{i}|
+        /// 
+        /// \]
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor abs(Tensor input, Tensor @out = null)
+            => PyTorch.Instance.abs(input, @out:@out);
+        
+        /// <summary>
+        /// Returns a new tensor with the arccosine  of the elements of input.
+        /// 
+        /// \[\text{out}_{i} = \cos^{-1}(\text{input}_{i})
+        /// 
+        /// \]
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        public static Tensor acos(Tensor input, Tensor @out = null)
+            => PyTorch.Instance.acos(input, @out:@out);
+        
+        /*
+        public static void @add()
+            => PyTorch.Instance.@add();
+        */
+        
+        /*
+        public static void @add( input,  @value, Tensor @out = null)
+            => PyTorch.Instance.@add(input, @value, @out:@out);
+        */
+        
+        /*
+        public static void @add( input,  @value = 1,  other, Tensor @out = null)
+            => PyTorch.Instance.@add(input, @value:@value, other:other, @out:@out);
+        */
         
         
     }

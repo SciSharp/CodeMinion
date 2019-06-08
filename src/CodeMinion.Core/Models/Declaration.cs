@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace CodeMinion.Core.Models
@@ -41,6 +43,11 @@ namespace CodeMinion.Core.Models
         }
 
         public string Tag { get; set; }
+
+        public virtual void Sanitize()
+        {
+            
+        }
     }
 
     public class Function : Declaration
@@ -57,6 +64,40 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string ForwardToStaticImpl { get; set; }
 
+        public virtual Function Clone(Action<Function> a)
+        {
+            var clone= Clone<Function>();
+            a(clone);
+            return clone;
+        }
+
+        public void ChangeArg(string name, string Type=null, string DefaultValue = null, bool? IsNullable = null)
+        {
+            var arg = Arguments.First(a => a.Name == name);
+            if (Type != null) arg.Type = Type;
+            if (DefaultValue != null) arg.DefaultValue = DefaultValue;
+            if (IsNullable != null) arg.IsNullable = IsNullable.Value;
+        }
+
+        public override void Sanitize()
+        {
+            base.Sanitize();
+            SanitizeArguments();
+        }
+
+        public void SanitizeArguments()
+        {
+            var all_named = false;
+            foreach (var arg in Arguments)
+            {
+                if (arg.DefaultValue != null || arg.IsNamedArg)
+                    all_named = true;
+                if (all_named)
+                    arg.IsNamedArg = true;
+            }
+        }
+
+        public Argument this[string name] => Arguments.FirstOrDefault(x => x.Name == name);
     }
 
     public class Property : Declaration

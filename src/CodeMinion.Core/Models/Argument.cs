@@ -27,6 +27,8 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string DefaultIfNull { get; set; }
 
+        public bool PassOnlyIfNotNull { get; set; }
+
         public Argument Clone()
         {
             return JObject.FromObject(this).ToObject<Argument>();

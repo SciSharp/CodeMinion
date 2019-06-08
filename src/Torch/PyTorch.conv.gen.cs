@@ -11,7 +11,6 @@ using Python.Runtime;
 using Numpy;
 using Numpy.Models;
 
-
 namespace Torch
 {
     public partial class PyTorch : IDisposable
@@ -38,8 +37,6 @@ namespace Torch
         
         private static PyObject InstallAndImport(bool force = false)
         {
-            //var installer = new Installer();
-            //installer.SetupPython(force).Wait();
             PythonEngine.Initialize();
             var mod = Py.Import("torch");
             return mod;

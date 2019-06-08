@@ -57,6 +57,7 @@ namespace CodeMinion.Core
         {
             if (decl.DebuggerBreak)
                 Debugger.Break();
+            decl.Sanitize();
             if (decl.CommentOut)
                 s.Out("/*");
             GenerateDocString(decl, s);
@@ -105,6 +106,7 @@ namespace CodeMinion.Core
         {
             if (decl.DebuggerBreak)
                 Debugger.Break();
+            decl.Sanitize();
             if (decl.CommentOut)
                 s.Out("/*");
             var class_names = (decl.GeneratedClassName ?? decl.ClassName ?? "no_name").Split('.');
@@ -384,6 +386,8 @@ namespace CodeMinion.Core
                         else
                             s.Out($"kwargs[\"{arg.Name}\"]=ToPython({name} ?? {arg.DefaultIfNull});");
                     }
+                    else if(arg.IsNullable)
+                        s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                     else
                         s.Out($"if ({name}!={arg.DefaultValue}) kwargs[\"{arg.Name}\"]=ToPython({name});");
                 }
@@ -684,8 +688,6 @@ namespace CodeMinion.Core
                                 if (line.Type == "cmd")
                                 {
                                     var cmd = line.Text[0];
-                                    if (cmd.Contains("np."))
-                                        cmd = cmd.Replace('[', '{').Replace(']', '}');
                                     s.Out($"{(given_var?"":"var")} given= " + cmd + ";");
                                     given_var = true;
                                     continue;
@@ -893,5 +895,26 @@ namespace CodeMinion.Core
             }
         }
 
+        public void GenerateIntermediateJson()
+        {
+            foreach (var api in StaticApis)
+            {
+                var outpath = api.OutputPath ?? StaticApiFilesPath;
+                if (string.IsNullOrWhiteSpace(outpath))
+                    throw new InvalidDataException("either set generators StaticApiFilesPath or static_api's OutputPath");
+                // generate static apis
+                var partial = (api.PartialName == null ? "" : "." + api.PartialName);
+                var api_file = Path.Combine(outpath, $"{api.StaticName + partial}.gen.json");
+                WriteFile(api_file, s => s.AppendLine( JObject.FromObject(api).ToString(Formatting.Indented)));
+            }
+            foreach (var api in DynamicApis)
+            {
+                var outpath = api.OutputPath ?? DynamicApiFilesPath;
+                // generate dynamic apis
+                var partial = (api.PartialName == null ? "" : "." + api.PartialName);
+                var api_file = Path.Combine(outpath, $"{api.ClassName + partial}.gen.json");
+                WriteFile(api_file, s => s.AppendLine(JObject.FromObject(api).ToString(Formatting.Indented)));
+            }
+        }
     }
 }
