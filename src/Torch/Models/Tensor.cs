@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
-using Torch.Models;
+using Numpy.Models;
 
 namespace Torch
 {

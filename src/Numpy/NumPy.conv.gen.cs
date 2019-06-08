@@ -9,8 +9,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
-using Python.Included;
 using Numpy.Models;
+using Python.Included;
 
 namespace Numpy
 {
@@ -79,6 +79,7 @@ namespace Numpy
                 case float o: return new PyFloat(o);
                 case double o: return new PyFloat(o);
                 case string o: return new PyString(o);
+                case PyObject o: return o;
                 // sequence types
                 case Array o: return ToTuple(o);
                 // special types from 'ToPythonConversions'

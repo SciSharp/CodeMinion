@@ -27,6 +27,7 @@ namespace CodeMinion.Core
         public List<DynamicApi> DynamicApis { get; set; } = new List<DynamicApi>();
         public bool PrintModelJson { get; set; } = false;
         public string NameSpace { get; set; } = "Numpy";
+        public bool UsePythonIncluded { get; set; } = true;
         public HashSet<string> Usings { get; set; } = new HashSet<string>()
         {
             @"using System;",
@@ -37,7 +38,6 @@ namespace CodeMinion.Core
             @"using System.Runtime.InteropServices;",
             @"using System.Text;",
             @"using Python.Runtime;",
-            @"using Python.Included;",
         };
         public string StaticApiFilesPath { get; set; }
         public string DynamicApiFilesPath { get; set; }
@@ -481,6 +481,8 @@ namespace CodeMinion.Core
             {
                 s.AppendLine(@using);
             }
+            if (UsePythonIncluded)
+                s.Out(@"using Python.Included;");
             s.AppendLine();
         }
 
@@ -580,37 +582,37 @@ namespace CodeMinion.Core
             var generated_implementations = new HashSet<string>();
             foreach (var api in StaticApis)
             {
-                if (string.IsNullOrWhiteSpace(api.OutputPath))
-                    api.OutputPath = StaticApiFilesPath;
-                if (string.IsNullOrWhiteSpace(api.OutputPath))
+                var outpath = api.OutputPath ?? StaticApiFilesPath;
+                if (string.IsNullOrWhiteSpace(outpath))
                     throw new InvalidDataException("either set generators StaticApiFilesPath or static_api's OutputPath");
                 // generate static apis
                 if (!generated_implementations.Contains(api.ImplName))
                 {
-                    var conv_file = Path.Combine(api.OutputPath, $"{api.ImplName}.conv.gen.cs");
+                    var conv_file = Path.Combine(outpath, $"{api.ImplName}.conv.gen.cs");
                     WriteFile(conv_file, s => { GenerateApiImplConversions(api, s); });
                 }
 
                 generated_implementations.Add(api.ImplName);
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
-                var api_file = Path.Combine(api.OutputPath, $"{api.StaticName + partial}.gen.cs");
-                var impl_file = Path.Combine(api.OutputPath, $"{api.ImplName + partial}.gen.cs");
+                var api_file = Path.Combine(outpath, $"{api.StaticName + partial}.gen.cs");
+                var impl_file = Path.Combine(outpath, $"{api.ImplName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
                 WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
             bool generated_pyobject = false;
             foreach (var api in DynamicApis)
             {
+                var outpath = api.OutputPath ?? DynamicApiFilesPath;
                 if (!generated_pyobject)
                 {
                     // PythonObject functions:
-                    var pyobj_file = Path.Combine(api.OutputPath, $"PythonObject.gen.cs");
+                    var pyobj_file = Path.Combine(outpath, $"PythonObject.gen.cs");
                     WriteFile(pyobj_file, s => { GeneratePythonObjectConversions(s); });
                     generated_pyobject = true;
                 }
                 // generate dynamic apis
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
-                var api_file = Path.Combine(api.OutputPath, $"{api.ClassName + partial}.gen.cs");
+                var api_file = Path.Combine(outpath, $"{api.ClassName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateDynamicApi(api, s); });
             }
             // generate missing tests
@@ -745,11 +747,13 @@ namespace CodeMinion.Core
                     s.Break();
                     s.Out("private static PyObject InstallAndImport(bool force = false)", () =>
                     {
-                        s.Out("var installer = new Installer();");
-                        s.Out("installer.SetupPython(force).Wait();");
+                        if (UsePythonIncluded)
+                        {
+                            s.Out("var installer = new Installer();");
+                            s.Out("installer.SetupPython(force).Wait();");
+                        }
                         foreach (var generator in api.InitializationGenerators)
                             generator(s);
-                        //s.Out("installer.InstallWheel(typeof(NumPy).Assembly, \"numpy -1.16.3-cp37-cp37m-win_amd64.whl\", force).Wait();");
                         s.Out("PythonEngine.Initialize();");
                         s.Out($"var mod = Py.Import(\"{api.PythonModule}\");");
                         s.Out("return mod;");
@@ -758,7 +762,7 @@ namespace CodeMinion.Core
                     s.Out("public dynamic self => _pyobj;");
                     s.Out("private bool IsInitialized => _pyobj != null;");
                     s.Break();
-                    s.Out("private NumPy() { }");
+                    s.Out($"private {api.ImplName}() {{ }}");
                     s.Break();
                     s.Out("public void Dispose()", () =>
                     {
@@ -842,7 +846,7 @@ namespace CodeMinion.Core
                     s.Out("case float o: return new PyFloat(o);");
                     s.Out("case double o: return new PyFloat(o);");
                     s.Out("case string o: return new PyString(o);");
-                    // case dtype o: return o.ToPython();
+                    s.Out("case PyObject o: return o;");
                     s.Out("// sequence types");
                     s.Out("case Array o: return ToTuple(o);");
                     s.Out("// special types from 'ToPythonConversions'");

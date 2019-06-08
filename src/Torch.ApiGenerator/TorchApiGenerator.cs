@@ -20,29 +20,28 @@ namespace Torch.ApiGenerator
             {
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Torch",
-                Usings = {"using NumSharp;"},
+                UsePythonIncluded = false,
+                Usings =
+                {
+                    "using Numpy;",
+                    "using Numpy.Models;"
+                },
                 ToCsharpConversions =
                 {
                     "case \"Tensor\": return (T)(object)new Tensor(pyobj);",
                 },
                 ToPythonConversions =
                 {
-                    "case NumSharp.Shape o: return ToTuple(o.Dimensions);",
+                    "case Shape o: return ToTuple(o.Dimensions);",
                     "case Tensor o: return o.PyObject;",
-                    "case NumSharp.NDArray o: return NDArrayToPython(o);",
+                    "case Dtype o: return o.PyObject;",
+                    "case NDarray o: return o.PyObject;",
                 },
                 SpecialConversionGenerators =
                 {
-                    SpecialGenerators.GenNDArrayToPython,
+                    //SpecialGenerators.GenNDArrayToPython,
                 }
             };
-        }
-
-        // generate these API calls
-        protected bool InMigrationApiList(string apiName)
-        {
-            var apis = new string[] { "empty", "tensor" };
-            return apis.Contains(apiName);
         }
 
         private HashSet<string> ManualOverride = new HashSet<string>() { "tensor" };
@@ -80,7 +79,7 @@ namespace Torch.ApiGenerator
                     var decl = new Function();
                     ParseFunctionName(decl, node);
                     if (ManualOverride.Contains(decl.Name)) continue;
-                    if (!InMigrationApiList(decl.Name)) continue;
+                    //if (!InMigrationApiList(decl.Name)) continue;
                     SetReturnType(decl, node);
                     ParseArguments(decl, node);
 
@@ -92,6 +91,8 @@ namespace Torch.ApiGenerator
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
             api.OutputPath = Path.Combine(src_dir, "Torch");
+
+
 
             _generator.Generate();
             return "DONE";
@@ -142,14 +143,14 @@ namespace Torch.ApiGenerator
                     var type_part = Regex.Match(p_desc, @"\(\S+, optional\)")?.Value; //(torch.dtype, optional)
                     if (!string.IsNullOrEmpty(type_part))
                     {
-                        arg.Type = InferDataType(type_part.Split(',')[0].Substring(1).Trim(), null, arg);
+                        arg.Type = InferType(type_part.Split(',')[0].Substring(1).Trim(), null, arg);
                         arg.IsNullable = true;
                         arg.IsNamedArg = true;
                     }
 
                     type_part = Regex.Match(p_desc, @"\(int...\)")?.Value; //(int...)
                     if (!string.IsNullOrEmpty(type_part))
-                        arg.Type = InferDataType("int...", null, arg);
+                        arg.Type = InferType("int...", null, arg);
 
                     var default_part = Regex.Match(p_desc, @"\(default = \d+\)")?.Value; //(default = 4)
                     if (!string.IsNullOrEmpty(default_part))
@@ -158,13 +159,13 @@ namespace Torch.ApiGenerator
                         var hint = p_desc.Split('–')[1];
                         // infer data type
                         if (string.IsNullOrEmpty(arg.Type))
-                            arg.Type = InferDataType(arg.DefaultValue, hint, arg);
+                            arg.Type = InferType(arg.DefaultValue, hint, arg);
                         arg.IsNamedArg = true;
                     }
 
                     if (string.IsNullOrEmpty(arg.Type)) {
                         var hint = p_desc.Split('–')[1];
-                        arg.Type = InferDataType(Regex.Match(p_desc, @"\(\S+\)")?.Value, hint, arg);
+                        arg.Type = InferType(Regex.Match(p_desc, @"\(\S+\)")?.Value, hint, arg);
                     }
 
                     PostProcess(arg);
@@ -180,9 +181,9 @@ namespace Torch.ApiGenerator
                 // may contain type desc
                 var type_part = Regex.Match(p_desc.Split('–')[0], @"\([\S,\s]+\):")?.Value; // (list of Tensor):
                 if (!string.IsNullOrEmpty(type_part))
-                    arg.Type = InferDataType(type_part.Replace(":", string.Empty), p_desc, arg);
+                    arg.Type = InferType(type_part.Replace(":", string.Empty), p_desc, arg);
                 if (string.IsNullOrEmpty(arg.Type))
-                    arg.Type = p_desc.Split('–')[0].Split(' ')[1].Replace("(", string.Empty).Replace(")", string.Empty);
+                    arg.Type = InferType(p_desc.Split('–')[0].Split(' ')[1].Replace("(", string.Empty).Replace(")", string.Empty), p_desc, arg);
                 //var desc = p_desc.Split('–')[1].Trim();
 
                 decl.Arguments.Add(arg);
@@ -192,10 +193,10 @@ namespace Torch.ApiGenerator
         private void PostProcess(Argument arg)
         {
             switch (arg.Type) {
-                case "dtype":
-                case "device":
-                case "layout":
-                    arg.IsValueType = true;
+                case "Dtype":
+                case "Device":
+                case "Layout":
+                    arg.IsValueType = false;
                     break;
             }
         }
@@ -228,7 +229,7 @@ namespace Torch.ApiGenerator
             yield return decl;
         }
 
-        protected string InferDataType(string value, string hint, Argument arg)
+        protected string InferType(string value, string hint, Argument arg)
         {
             if (hint!=null&& hint.ToLower().Contains("number of "))
                 return "int";
@@ -238,21 +239,37 @@ namespace Torch.ApiGenerator
                     return "(array_like)"; // keep it like that so we can generate overloads
                 case "(int)":
                     return "int";
+                case "(float)":
+                    return "float";
                 case "(list of Tensor)":
+                case "Tensors...":
                     return "Tensor[]";
                 case "IntArrayRef":
                     if (arg.Name == "size")
-                        return "NumSharp.Shape"; // <-- int[] size usually means Shape of the tensor. 
+                        return "Shape"; // <-- int[] size usually means Shape of the tensor. 
                     return "int[]";
+                case "Number":
+                case "(Number)":
+                    return "double";
+                case "boolean":
+                case "(bool)":
+                case "(True)":
+                case "(False)":
+                    return "bool";
                 // torch types
                 case "int...":
-                    return "NumSharp.Shape";
+                    return "Shape";
                 case "Tensor":
+                case "(Tensor)":
                     return "Tensor";
+                case "torch.dtype":
+                case "type":
+                    return "Dtype";
+                case "torch.layout":
+                    return "Layout";
+                case "torch.device":
+                    return "Device";
                 default:
-                    // Console.WriteLine("MapType doesn't handle type: " + arg.type);
-                    if(value != null && value.StartsWith("torch."))
-                        return value.Replace("torch.", string.Empty);
                     return value;
             }
         }

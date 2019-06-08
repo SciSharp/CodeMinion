@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using CodeMinion.Core;
+using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
 using CodeMinion.Parser;
 using HtmlAgilityPack;
@@ -55,7 +56,6 @@ namespace Numpy.ApiGenerator
             {
                 CopyrightNotice = "Copyright (c) 2019 by the SciSharp Team",
                 NameSpace = "Numpy",
-                StaticApiFilesPath = Path.Combine(src_dir, "Numpy"),
                 TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
                 Usings = { "using Numpy.Models;" },
                 ToPythonConversions = {
@@ -117,7 +117,6 @@ namespace Numpy.ApiGenerator
             ndarray_api = new DynamicApi()
             {
                 ClassName = "NDarray",
-                OutputPath = Path.Combine(src_dir, "Numpy/Models"),
             };
             _generator.DynamicApis.Add(ndarray_api);
             ParseNdarrayApi(ndarray_api);
@@ -243,11 +242,27 @@ namespace Numpy.ApiGenerator
             ParseNumpyApi(window_api, "routines.window.html");
 
             // ----------------------------------------------------
-            // generate all
+            // generate Numpy
+            // it is based on Python.Included and packs the Numpy wheel
             // ----------------------------------------------------
+            ndarray_api.OutputPath = Path.Combine(src_dir, "Numpy/Models");
+            _generator.StaticApiFilesPath = Path.Combine(src_dir, "Numpy");
+            _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Numpy");
             _generator.Generate();
             ApiStatistics();
             Console.WriteLine($"Number of generated functions: {parsed_api_functions.Count} / {all_api_functions.Count}");
+
+            // ----------------------------------------------------
+            // generate Numpy.Bare
+            // it is based on Python.Runtime only and doesn't pack anything. Python 3.7 installation including numpy pip module are required for this to run
+            // ----------------------------------------------------
+            array_creation_api.InitializationGenerators = new List<Action<CodeWriter>>(); // <--- do not install wheel in numpy bare
+            ndarray_api.OutputPath = Path.Combine(src_dir, "Numpy.Bare/Models");
+            _generator.StaticApiFilesPath = Path.Combine(src_dir, "Numpy.Bare");
+            _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Numpy.Bare");
+            _generator.UsePythonIncluded = false;
+            _generator.Generate();
+
             Thread.Sleep(2000);
         }
 

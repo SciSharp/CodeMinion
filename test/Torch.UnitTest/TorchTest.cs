@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Numpy.Models;
 using Python.Runtime;
 using Assert = NUnit.Framework.Assert;
 
@@ -16,7 +17,7 @@ namespace Torch
         [TestMethod]
         public void empty()
         {
-            var tensor = torch.empty((2, 3));
+            var tensor = torch.empty(new Shape(2, 3));
             Assert.IsNotNull(tensor.ToString());
         }
 
@@ -40,7 +41,7 @@ namespace Torch
         [TestMethod]
         public void efficient_array_copy()
         {
-            var tensor = torch.empty((2, 3), dtype:dtype.Int32);
+            var tensor = torch.empty(new Shape(2, 3), dtype:torch.int32);
             Console.WriteLine(tensor.ToString());
             var storage=tensor.PyObject.storage();
             Console.WriteLine("storage:"+storage);
