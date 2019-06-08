@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Numpy</RootNamespace>
     <AssemblyName>Numpy</AssemblyName>
   </PropertyGroup>
@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\numpy-1.16.3-cp37-cp37m-win_amd64.whl" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

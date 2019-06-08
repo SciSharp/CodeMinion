@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.Core", "src\Code
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch.ApiGenerator", "src\Torch.ApiGenerator\Torch.ApiGenerator.csproj", "{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch", "src\Torch\Torch.csproj", "{CA25729A-1201-46B6-AEB8-62C9092AFA49}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy", "src\Numpy\Numpy.csproj", "{D527C885-AD64-4499-9E92-F9A543C0D14B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.ApiGenerator", "src\Numpy.ApiGenerator\Numpy.ApiGenerator.csproj", "{413C9CA7-B970-4DEB-AD48-0095F05F24F1}"
@@ -31,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.Bare", "src\Numpy.Bar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.Bare.UnitTest", "test\Numpy.UnitTest\Numpy.Bare.UnitTest.csproj", "{DFD075FA-DEDC-4446-BA9D-78899E1DF8FC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch", "src\Torch\Torch.csproj", "{B8DAC728-812C-4DC0-B09C-85764C4B112B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,10 +45,6 @@ Global
 		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA25729A-1201-46B6-AEB8-62C9092AFA49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA25729A-1201-46B6-AEB8-62C9092AFA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA25729A-1201-46B6-AEB8-62C9092AFA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA25729A-1201-46B6-AEB8-62C9092AFA49}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -93,6 +89,10 @@ Global
 		{DFD075FA-DEDC-4446-BA9D-78899E1DF8FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFD075FA-DEDC-4446-BA9D-78899E1DF8FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFD075FA-DEDC-4446-BA9D-78899E1DF8FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

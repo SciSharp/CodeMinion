@@ -30,7 +30,7 @@ namespace Torch
             if (device != null) kwargs["device"] = ToPython(device);
             if (requires_grad != null) kwargs["requires_grad"] = ToPython(requires_grad);
             if (pin_memory != null) kwargs["pin_memory"] = ToPython(pin_memory);
-            dynamic py = __self__.InvokeMethod("empty", pyargs, kwargs);
+            dynamic py = __self__.InvokeMethod("tensor", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
 
