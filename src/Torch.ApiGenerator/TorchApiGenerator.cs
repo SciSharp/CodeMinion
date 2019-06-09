@@ -35,13 +35,16 @@ namespace Torch.ApiGenerator
                 ToCsharpConversions =
                 {
                     "case \"Tensor\": return (T)(object)new Tensor(pyobj);",
+                    "case \"Dtype\": return (T)(object)new Dtype(pyobj);",
+                    "case \"Layout\": return (T)(object)new Layout(pyobj);",
+                    "case \"Device\": return (T)(object)new Device(pyobj);",
+                    "case \"NDarray\": return (T)(object)new NDarray(pyobj);",
                 },
                 ToPythonConversions =
                 {
                     "case Shape o: return ToTuple(o.Dimensions);",
-                    "case Tensor o: return o.PyObject;",
-                    "case Dtype o: return o.PyObject;",
-                    "case NDarray o: return o.PyObject;",
+                    "case Torch.PythonObject o: return o.PyObject;",
+                    "case Numpy.PythonObject o: return o.PyObject;",
                 },
                 SpecialConversionGenerators =
                 {
@@ -102,7 +105,7 @@ namespace Torch.ApiGenerator
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
             _generator.StaticApiFilesPath = Path.Combine(src_dir, "Torch");
-            _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Torch");
+            _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Torch\\Models");
             //_generator.GenerateIntermediateJson();
             _generator.Generate();
             return "DONE";

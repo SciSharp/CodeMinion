@@ -53,7 +53,7 @@ namespace CodeMinion.Core
         }
 
         // generate an entire API function declaration
-        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s, bool prefix=false)
+        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s, bool prefix = false)
         {
             if (decl.DebuggerBreak)
                 Debugger.Break();
@@ -132,7 +132,7 @@ namespace CodeMinion.Core
                     if (levels > 0)
                         prefix = string.Join("_", class_names.Skip(1)) + "_";
                     s.Indent(() => s.Out(
-                        $"=> {api.ImplName}.Instance.{EscapeName(prefix+decl.Name)}({passed_args});"));
+                        $"=> {api.ImplName}.Instance.{EscapeName(prefix + decl.Name)}({passed_args});"));
                     break;
                 case Property prop:
                     s.Out($"public static {retval} {EscapeName(decl.Name)}");
@@ -330,7 +330,7 @@ namespace CodeMinion.Core
         }
 
         // generates only the body of the API function declaration
-        protected virtual void GenerateFunctionBody(Function func, CodeWriter s, string prefix="")
+        protected virtual void GenerateFunctionBody(Function func, CodeWriter s, string prefix = "")
         {
             s.Out("//auto-generated code, do not change");
             if (!string.IsNullOrWhiteSpace(func.ForwardToStaticImpl))
@@ -381,12 +381,12 @@ namespace CodeMinion.Core
                     var name = EscapeName(arg.Name);
                     if (string.IsNullOrWhiteSpace(arg.DefaultValue))
                     {
-                        if (string.IsNullOrWhiteSpace(arg.DefaultIfNull) || arg.DefaultValue=="null")
+                        if (string.IsNullOrWhiteSpace(arg.DefaultIfNull) || arg.DefaultValue == "null")
                             s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                         else
                             s.Out($"kwargs[\"{arg.Name}\"]=ToPython({name} ?? {arg.DefaultIfNull});");
                     }
-                    else if(arg.IsNullable)
+                    else if (arg.IsNullable)
                         s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                     else
                         s.Out($"if ({name}!={arg.DefaultValue}) kwargs[\"{arg.Name}\"]=ToPython({name});");
@@ -412,7 +412,7 @@ namespace CodeMinion.Core
             }
         }
 
-        private void GenerateForwardingBody(Function member_func, CodeWriter s, string prefix="")
+        private void GenerateForwardingBody(Function member_func, CodeWriter s, string prefix = "")
         {
             var func = member_func.Clone<Function>();
             // inserting this at position 0 since this is a forwarding of a member function to a static implementation
@@ -420,7 +420,7 @@ namespace CodeMinion.Core
             var passed_args = GeneratePassedArgs(func);
             s.Out("var @this=this;");
             var return_keyword = member_func.Returns.Count > 0 ? "return " : "";
-            s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(prefix+func.Name)}({passed_args});");
+            s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(prefix + func.Name)}({passed_args});");
         }
 
         private void GeneratePropertyGetter(Property prop, CodeWriter s)
@@ -505,7 +505,7 @@ namespace CodeMinion.Core
                         try
                         {
                             if (!decl.ManualOverride)
-                                GenerateApiFunction(decl, s, prefix:true);
+                                GenerateApiFunction(decl, s, prefix: true);
                         }
                         catch (Exception e)
                         {
@@ -603,17 +603,12 @@ namespace CodeMinion.Core
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
                 WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
-            bool generated_pyobject = false;
+            // PythonObject functions:
+            var pyobj_file = Path.Combine(DynamicApiFilesPath, $"PythonObject.gen.cs");
+            WriteFile(pyobj_file, s => { GeneratePythonObjectConversions(s); });
             foreach (var api in DynamicApis)
             {
                 var outpath = api.OutputPath ?? DynamicApiFilesPath;
-                if (!generated_pyobject)
-                {
-                    // PythonObject functions:
-                    var pyobj_file = Path.Combine(outpath, $"PythonObject.gen.cs");
-                    WriteFile(pyobj_file, s => { GeneratePythonObjectConversions(s); });
-                    generated_pyobject = true;
-                }
                 // generate dynamic apis
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
                 var api_file = Path.Combine(outpath, $"{api.ClassName + partial}.gen.cs");
@@ -688,7 +683,7 @@ namespace CodeMinion.Core
                                 if (line.Type == "cmd")
                                 {
                                     var cmd = line.Text[0];
-                                    s.Out($"{(given_var?"":"var")} given= " + cmd + ";");
+                                    s.Out($"{(given_var ? "" : "var")} given= " + cmd + ";");
                                     given_var = true;
                                     continue;
                                 }
@@ -801,7 +796,7 @@ namespace CodeMinion.Core
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("protected PyTuple ToTuple(Array input)", () =>
+            s.Out("public PyTuple ToTuple(Array input)", () =>
             {
                 s.Out("var array = new PyObject[input.Length];");
                 s.Out("for (int i = 0; i < input.Length; i++)", () =>
@@ -818,7 +813,7 @@ namespace CodeMinion.Core
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("protected T ToCsharp<T>(dynamic pyobj)", () =>
+            s.Out("public T ToCsharp<T>(dynamic pyobj)", () =>
             {
                 s.Out("switch (typeof(T).Name)", () =>
                 {
@@ -838,16 +833,18 @@ namespace CodeMinion.Core
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("protected PyObject ToPython(object obj)", () =>
+            s.Out("public PyObject ToPython(object obj)", () =>
             {
                 s.Out("if (obj == null) return Runtime.GetPyNone();");
                 s.Out("switch (obj)", () =>
                 {
                     s.Out("// basic types");
                     s.Out("case int o: return new PyInt(o);");
+                    s.Out("case long o: return new PyLong(o);");
                     s.Out("case float o: return new PyFloat(o);");
                     s.Out("case double o: return new PyFloat(o);");
                     s.Out("case string o: return new PyString(o);");
+                    s.Out("case bool o: return ConverterExtension.ToPython(o);");
                     s.Out("case PyObject o: return o;");
                     s.Out("// sequence types");
                     s.Out("case Array o: return ToTuple(o);");
@@ -867,7 +864,7 @@ namespace CodeMinion.Core
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("protected T SharpToSharp<T>(object obj)", () =>
+            s.Out("public T SharpToSharp<T>(object obj)", () =>
             {
                 s.Out("if (obj == null) return default(T);");
                 s.Out("switch (obj)", () =>
@@ -905,7 +902,7 @@ namespace CodeMinion.Core
                 // generate static apis
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
                 var api_file = Path.Combine(outpath, $"{api.StaticName + partial}.gen.json");
-                WriteFile(api_file, s => s.AppendLine( JObject.FromObject(api).ToString(Formatting.Indented)));
+                WriteFile(api_file, s => s.AppendLine(JObject.FromObject(api).ToString(Formatting.Indented)));
             }
             foreach (var api in DynamicApis)
             {

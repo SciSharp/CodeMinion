@@ -10,6 +10,7 @@ using System.Text;
 using Python.Runtime;
 using Numpy;
 using Numpy.Models;
+using numpy=Numpy.np;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = NUnit.Framework.Assert;
@@ -19,7 +20,7 @@ namespace Torch.UnitTest
     [TestClass]
     public class PyTorch_Test : BaseTestCase
     {
-        
+
         [TestMethod]
         public void set_default_dtypeTest()
         {
@@ -30,17 +31,17 @@ namespace Torch.UnitTest
             // torch.float64
             // 
 
-            var given = torch.tensor(new[] {1.2f, 3}).dtype; // initial default for floating point is torch.float32
-            var expected= "torch.float32";
+            var given = torch.tensor(new[] { 1.2f, 3 }).dtype; // initial default for floating point is torch.float32
+            var expected = "torch.float32";
             Assert.AreEqual(expected, given.repr);
             torch.set_default_dtype(torch.float64);
-            given = torch.tensor(new[] {1.2, 3}).dtype;          // a new floating point tensor;
-             expected=
-                "torch.float64";
+            given = torch.tensor(new[] { 1.2, 3 }).dtype;          // a new floating point tensor;
+            expected =
+               "torch.float64";
             Assert.AreEqual(expected, given.repr);
         }
-        
-        
+
+
         [TestMethod]
         public void get_default_dtypeTest()
         {
@@ -53,26 +54,24 @@ namespace Torch.UnitTest
             // >>> torch.get_default_dtype()  # changed to torch.float32, the dtype for torch.FloatTensor
             // torch.float32
             // 
-            
-            #if TODO
-            var given=  torch.get_default_dtype()  # initial default for floating point is torch.float32;
-            var expected=
+
+            var given = torch.get_default_dtype(); // initial default for floating point is torch.float32;
+            var expected =
                 "torch.float32";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.set_default_dtype(torch.float64);
-             given=  torch.get_default_dtype()  # default is now changed to torch.float64;
-             expected=
-                "torch.float64";
+            torch.set_default_dtype(torch.float64);
+            given = torch.get_default_dtype();  // default is now changed to torch.float64;
+            expected =
+               "torch.float64";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.set_default_tensor_type(torch.FloatTensor)  # setting tensor type also affects this;
-             given=  torch.get_default_dtype()  # changed to torch.float32, the dtype for torch.FloatTensor;
-             expected=
-                "torch.float32";
+            torch.set_default_tensor_type(torch.FloatTensor); // setting tensor type also affects this;
+            given = torch.get_default_dtype();  // changed to torch.float32, the dtype for torch.FloatTensor;
+            expected =
+               "torch.float32";
             Assert.AreEqual(expected, given.repr);
-            #endif
         }
-        
-        
+
+
         [TestMethod]
         public void set_default_tensor_typeTest()
         {
@@ -82,21 +81,19 @@ namespace Torch.UnitTest
             // >>> torch.tensor([1.2, 3]).dtype    # a new floating point tensor
             // torch.float64
             // 
-            
-            #if TODO
-            var given=  torch.tensor({1.2, 3}).dtype    # initial default for floating point is torch.float32;
-            var expected=
+
+            var given = torch.tensor(new[] { 1.2f, 3 }).dtype;    // initial default for floating point is torch.float32;
+            var expected =
                 "torch.float32";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.set_default_tensor_type(torch.DoubleTensor);
-             given=  torch.tensor({1.2, 3}).dtype    # a new floating point tensor;
-             expected=
-                "torch.float64";
+            torch.set_default_tensor_type(torch.DoubleTensor);
+            given = torch.tensor(new[] { 1.2, 3 }).dtype;    // a new floating point tensor;
+            expected =
+               "torch.float64";
             Assert.AreEqual(expected, given.repr);
-            #endif
         }
-        
-        
+
+
         [TestMethod]
         public void numelTest()
         {
@@ -107,22 +104,17 @@ namespace Torch.UnitTest
             // >>> torch.numel(a)
             // 16
             // 
-            
-            #if TODO
-            var given=  a = torch.randn(1, 2, 3, 4, 5);
-             given=  torch.numel(a);
-            var expected=
-                "120";
-            Assert.AreEqual(expected, given.repr);
-             given=  a = torch.zeros(4,4);
-             given=  torch.numel(a);
-             expected=
-                "16";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+
+            var a = torch.randn(1, 2, 3, 4, 5);
+            var given = torch.numel(a);
+            Assert.AreEqual(120, given);
+
+            a = torch.zeros(4, 4);
+            given = torch.numel(a);
+            Assert.AreEqual(16, given);
         }
-        
-        
+
+
         [TestMethod]
         public void set_flush_denormalTest()
         {
@@ -136,8 +128,8 @@ namespace Torch.UnitTest
             // tensor(9.88131e-324 *
             //        [ 1.0000], dtype=torch.float64)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.set_flush_denormal(True);
             var expected=
                 "True";
@@ -155,10 +147,10 @@ namespace Torch.UnitTest
                 "tensor(9.88131e-324 *\n" +
                 "       [ 1.0000], dtype=torch.float64)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sparse_coo_tensorTest()
         {
@@ -205,8 +197,8 @@ namespace Torch.UnitTest
             //        values=tensor([], size=(0, 2)),
             //        size=(1, 2), nnz=0, layout=torch.sparse_coo)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  i = torch.tensor({{0, 1, 1},;
             var expected=
                 "                      [2, 0, 2]])";
@@ -261,10 +253,10 @@ namespace Torch.UnitTest
                 "       values=tensor([], size=(0, 2)),\n" +
                 "       size=(1, 2), nnz=0, layout=torch.sparse_coo)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void as_tensorTest()
         {
@@ -284,35 +276,30 @@ namespace Torch.UnitTest
             // >>> a
             // array([1,  2,  3])
             // 
-            
-            #if TODO
-            var given=  a = numpy.array([1, 2, 3]);
-             given=  t = torch.as_tensor(a);
-             given=  t;
+
+            var a = numpy.array(new[]{1, 2, 3});
+             var  t = torch.as_tensor(a).AsTensor<int>();
+            var given=  t;
             var expected=
-                "tensor([ 1,  2,  3])";
+                "tensor([1, 2, 3], dtype=torch.int32)";
             Assert.AreEqual(expected, given.repr);
-             given=  t[0] = -1;
-             given=  a;
-             expected=
-                "array([-1,  2,  3])\n" +
-                "";
-            Assert.AreEqual(expected, given.repr);
-             given=  a = numpy.array([1, 2, 3]);
-             given=  t = torch.as_tensor(a, device=torch.device('cuda'));
+             t[0] = -1;             
+            expected =
+                "array([-1,  2,  3])";
+            Assert.AreEqual(expected, a.repr);
+             a = numpy.array(1, 2, 3);
+             t = torch.as_tensor(a, device:torch.device("cuda")).AsTensor<int>();
              given=  t;
              expected=
-                "tensor([ 1,  2,  3])";
+                "tensor([1, 2, 3], device='cuda:0', dtype=torch.int32)";
             Assert.AreEqual(expected, given.repr);
-             given=  t[0] = -1;
-             given=  a;
+             t[0] = -1;
              expected=
-                "array([1,  2,  3])";
-            Assert.AreEqual(expected, given.repr);
-            #endif
+                "array([1, 2, 3], device='cuda:0', dtype=torch.int32)";
+            Assert.AreEqual(expected, a.repr);
         }
-        
-        
+
+
         [TestMethod]
         public void from_numpyTest()
         {
@@ -324,8 +311,8 @@ namespace Torch.UnitTest
             // >>> a
             // array([-1,  2,  3])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = numpy.array([1, 2, 3]);
              given=  t = torch.from_numpy(a);
              given=  t;
@@ -337,10 +324,10 @@ namespace Torch.UnitTest
              expected=
                 "array([-1,  2,  3])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void zerosTest()
         {
@@ -351,8 +338,8 @@ namespace Torch.UnitTest
             // >>> torch.zeros(5)
             // tensor([ 0.,  0.,  0.,  0.,  0.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.zeros(2, 3);
             var expected=
                 "tensor([[ 0.,  0.,  0.],\n" +
@@ -363,10 +350,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.,  0.,  0.,  0.,  0.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void zeros_likeTest()
         {
@@ -375,18 +362,18 @@ namespace Torch.UnitTest
             // tensor([[ 0.,  0.,  0.],
             //         [ 0.,  0.,  0.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  input = torch.empty(2, 3);
              given=  torch.zeros_like(input);
             var expected=
                 "tensor([[ 0.,  0.,  0.],\n" +
                 "        [ 0.,  0.,  0.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void onesTest()
         {
@@ -397,8 +384,8 @@ namespace Torch.UnitTest
             // >>> torch.ones(5)
             // tensor([ 1.,  1.,  1.,  1.,  1.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.ones(2, 3);
             var expected=
                 "tensor([[ 1.,  1.,  1.],\n" +
@@ -409,10 +396,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.,  1.,  1.,  1.,  1.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void ones_likeTest()
         {
@@ -421,18 +408,18 @@ namespace Torch.UnitTest
             // tensor([[ 1.,  1.,  1.],
             //         [ 1.,  1.,  1.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  input = torch.empty(2, 3);
              given=  torch.ones_like(input);
             var expected=
                 "tensor([[ 1.,  1.,  1.],\n" +
                 "        [ 1.,  1.,  1.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void arangeTest()
         {
@@ -443,8 +430,8 @@ namespace Torch.UnitTest
             // >>> torch.arange(1, 2.5, 0.5)
             // tensor([ 1.0000,  1.5000,  2.0000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.arange(5);
             var expected=
                 "tensor([ 0,  1,  2,  3,  4])";
@@ -457,10 +444,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.0000,  1.5000,  2.0000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void rangeTest()
         {
@@ -469,8 +456,8 @@ namespace Torch.UnitTest
             // >>> torch.range(1, 4, 0.5)
             // tensor([ 1.0000,  1.5000,  2.0000,  2.5000,  3.0000,  3.5000,  4.0000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.range(1, 4);
             var expected=
                 "tensor([ 1.,  2.,  3.,  4.])";
@@ -479,10 +466,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.0000,  1.5000,  2.0000,  2.5000,  3.0000,  3.5000,  4.0000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void linspaceTest()
         {
@@ -495,8 +482,8 @@ namespace Torch.UnitTest
             // >>> torch.linspace(start=-10, end=10, steps=1)
             // tensor([-10.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.linspace(3, 10, steps=5);
             var expected=
                 "tensor([  3.0000,   4.7500,   6.5000,   8.2500,  10.0000])";
@@ -513,10 +500,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-10.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void logspaceTest()
         {
@@ -529,8 +516,8 @@ namespace Torch.UnitTest
             // >>> torch.logspace(start=2, end=2, steps=1, base=2)
             // tensor([4.0])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.logspace(start=-10, end=10, steps=5);
             var expected=
                 "tensor([ 1.0000e-10,  1.0000e-05,  1.0000e+00,  1.0000e+05,  1.0000e+10])";
@@ -547,10 +534,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([4.0])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void eyeTest()
         {
@@ -559,18 +546,18 @@ namespace Torch.UnitTest
             //         [ 0.,  1.,  0.],
             //         [ 0.,  0.,  1.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.eye(3);
             var expected=
                 "tensor([[ 1.,  0.,  0.],\n" +
                 "        [ 0.,  1.,  0.],\n" +
                 "        [ 0.,  0.,  1.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void emptyTest()
         {
@@ -579,18 +566,18 @@ namespace Torch.UnitTest
             //        [[ 6.3984,  0.0000,  0.0000],
             //         [ 0.0000,  0.0000,  0.0000]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.empty(2, 3);
             var expected=
                 "tensor(1.00000e-08 *\n" +
                 "       [[ 6.3984,  0.0000,  0.0000],\n" +
                 "        [ 0.0000,  0.0000,  0.0000]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void empty_likeTest()
         {
@@ -598,17 +585,17 @@ namespace Torch.UnitTest
             // tensor([[ 9.4064e+13,  2.8000e+01,  9.3493e+13],
             //         [ 7.5751e+18,  7.1428e+18,  7.5955e+18]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.empty((2,3), dtype=torch.int64);
             var expected=
                 "tensor([[ 9.4064e+13,  2.8000e+01,  9.3493e+13],\n" +
                 "        [ 7.5751e+18,  7.1428e+18,  7.5955e+18]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void fullTest()
         {
@@ -616,17 +603,17 @@ namespace Torch.UnitTest
             // tensor([[ 3.1416,  3.1416,  3.1416],
             //         [ 3.1416,  3.1416,  3.1416]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.full((2, 3), 3.141592);
             var expected=
                 "tensor([[ 3.1416,  3.1416,  3.1416],\n" +
                 "        [ 3.1416,  3.1416,  3.1416]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void catTest()
         {
@@ -647,8 +634,8 @@ namespace Torch.UnitTest
             //         [-0.1034, -0.5790,  0.1497, -0.1034, -0.5790,  0.1497, -0.1034,
             //          -0.5790,  0.1497]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(2, 3);
              given=  x;
             var expected=
@@ -671,10 +658,10 @@ namespace Torch.UnitTest
                 "        [-0.1034, -0.5790,  0.1497, -0.1034, -0.5790,  0.1497, -0.1034,\n" +
                 "         -0.5790,  0.1497]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void gatherTest()
         {
@@ -682,31 +669,31 @@ namespace Torch.UnitTest
             // out[i][j][k] = input[i][index[i][j][k]][k]  # if dim == 1
             // out[i][j][k] = input[i][j][index[i][j][k]]  # if dim == 2
             // 
-            
-            #if TODO
+
+#if TODO
             var expected=
                 "out[i][j][k] = input[index[i][j][k]][j][k]  # if dim == 0\n" +
                 "out[i][j][k] = input[i][index[i][j][k]][k]  # if dim == 1\n" +
                 "out[i][j][k] = input[i][j][index[i][j][k]]  # if dim == 2";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> t = torch.tensor([[1,2],[3,4]])
             // >>> torch.gather(t, 1, torch.tensor([[0,0],[1,0]]))
             // tensor([[ 1,  1],
             //         [ 4,  3]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  t = torch.tensor({{1,2},{3,4}});
              given=  torch.gather(t, 1, torch.tensor({{0,0},{1,0}}));
              expected=
                 "tensor([[ 1,  1],\n" +
                 "        [ 4,  3]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void index_selectTest()
         {
@@ -724,8 +711,8 @@ namespace Torch.UnitTest
             //         [-0.4664, -0.1228],
             //         [-1.1734,  0.7230]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(3, 4);
              given=  x;
             var expected=
@@ -745,10 +732,10 @@ namespace Torch.UnitTest
                 "        [-0.4664, -0.1228],\n" +
                 "        [-1.1734,  0.7230]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void masked_selectTest()
         {
@@ -765,8 +752,8 @@ namespace Torch.UnitTest
             // >>> torch.masked_select(x, mask)
             // tensor([ 1.2252,  0.5002,  0.6248,  2.0139])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(3, 4);
              given=  x;
             var expected=
@@ -785,10 +772,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.2252,  0.5002,  0.6248,  2.0139])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void narrowTest()
         {
@@ -801,8 +788,8 @@ namespace Torch.UnitTest
             //         [ 5,  6],
             //         [ 8,  9]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.tensor({{1, 2, 3}, {4, 5, 6}, {7, 8, 9}});
              given=  torch.narrow(x, 0, 0, 2);
             var expected=
@@ -815,10 +802,10 @@ namespace Torch.UnitTest
                 "        [ 5,  6],\n" +
                 "        [ 8,  9]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void nonzeroTest()
         {
@@ -836,8 +823,8 @@ namespace Torch.UnitTest
             //         [ 2,  2],
             //         [ 3,  3]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.nonzero(torch.tensor({1, 1, 1, 0, 1}));
             var expected=
                 "tensor([[ 0],\n" +
@@ -855,10 +842,10 @@ namespace Torch.UnitTest
                 "        [ 2,  2],\n" +
                 "        [ 3,  3]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void reshapeTest()
         {
@@ -870,8 +857,8 @@ namespace Torch.UnitTest
             // >>> torch.reshape(b, (-1,))
             // tensor([ 0,  1,  2,  3])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.arange(4.);
              given=  torch.reshape(a, (2, 2));
             var expected=
@@ -883,10 +870,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0,  1,  2,  3])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void squeezeTest()
         {
@@ -903,8 +890,8 @@ namespace Torch.UnitTest
             // >>> y.size()
             // torch.Size([2, 2, 1, 2])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.zeros(2, 1, 2, 1, 2);
              given=  x.size();
             var expected=
@@ -925,10 +912,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.Size([2, 2, 1, 2])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void tTest()
         {
@@ -951,8 +938,8 @@ namespace Torch.UnitTest
             //         [ 0.9158, -0.6929],
             //         [-0.5872,  0.6932]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(());
              given=  x;
             var expected=
@@ -983,10 +970,10 @@ namespace Torch.UnitTest
                 "        [ 0.9158, -0.6929],\n" +
                 "        [-0.5872,  0.6932]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void takeTest()
         {
@@ -995,8 +982,8 @@ namespace Torch.UnitTest
             // >>> torch.take(src, torch.tensor([0, 2, 5]))
             // tensor([ 4,  5,  8])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  src = torch.tensor({{4, 3, 5},;
             var expected=
                 "                        [6, 7, 8]])";
@@ -1005,10 +992,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 4,  5,  8])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void transposeTest()
         {
@@ -1021,8 +1008,8 @@ namespace Torch.UnitTest
             //         [-0.9893,  0.7299],
             //         [ 0.5809,  0.4942]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(2, 3);
              given=  x;
             var expected=
@@ -1035,10 +1022,10 @@ namespace Torch.UnitTest
                 "        [-0.9893,  0.7299],\n" +
                 "        [ 0.5809,  0.4942]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void unbindTest()
         {
@@ -1047,18 +1034,18 @@ namespace Torch.UnitTest
             // >>>                            [7, 8, 9]]))
             // (tensor([1, 2, 3]), tensor([4, 5, 6]), tensor([7, 8, 9]))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.unbind(torch.tensor({{1, 2, 3},;
              given=                             [4, 5, 6],;
              given=                             [7, 8, 9]]));
             var expected=
                 "(tensor([1, 2, 3]), tensor([4, 5, 6]), tensor([7, 8, 9]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void unsqueezeTest()
         {
@@ -1071,8 +1058,8 @@ namespace Torch.UnitTest
             //         [ 3],
             //         [ 4]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.tensor({1, 2, 3, 4});
              given=  torch.unsqueeze(x, 0);
             var expected=
@@ -1085,10 +1072,10 @@ namespace Torch.UnitTest
                 "        [ 3],\n" +
                 "        [ 4]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void whereTest()
         {
@@ -1103,8 +1090,8 @@ namespace Torch.UnitTest
             //         [ 0.3898,  1.0000],
             //         [ 0.0478,  1.0000]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(3, 2);
              given=  y = torch.ones(3, 2);
              given=  x;
@@ -1119,10 +1106,10 @@ namespace Torch.UnitTest
                 "        [ 0.3898,  1.0000],\n" +
                 "        [ 0.0478,  1.0000]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void bernoulliTest()
         {
@@ -1147,8 +1134,8 @@ namespace Torch.UnitTest
             //         [ 0.,  0.,  0.],
             //         [ 0.,  0.,  0.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.empty(3, 3).uniform_(0, 1)  # generate a uniform random matrix with range {0, 1};
              given=  a;
             var expected=
@@ -1177,10 +1164,10 @@ namespace Torch.UnitTest
                 "        [ 0.,  0.,  0.],\n" +
                 "        [ 0.,  0.,  0.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void multinomialTest()
         {
@@ -1193,8 +1180,8 @@ namespace Torch.UnitTest
             // >>> torch.multinomial(weights, 4, replacement=True)
             // tensor([ 2,  1,  1,  1])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  weights = torch.tensor({0, 10, 3, 0}, dtype=torch.float) # create a tensor of weights;
              given=  torch.multinomial(weights, 2);
             var expected=
@@ -1209,10 +1196,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 2,  1,  1,  1])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void normalTest()
         {
@@ -1220,37 +1207,37 @@ namespace Torch.UnitTest
             // tensor([  1.0425,   3.5672,   2.7969,   4.2925,   4.7229,   6.2134,
             //           8.0505,   8.1408,   9.0563,  10.0566])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.normal(mean=torch.arange(1., 11.), std=torch.arange(1, 0, -0.1));
             var expected=
                 "tensor([  1.0425,   3.5672,   2.7969,   4.2925,   4.7229,   6.2134,\n" +
                 "          8.0505,   8.1408,   9.0563,  10.0566])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> torch.normal(mean=0.5, std=torch.arange(1., 6.))
             // tensor([-1.2793, -1.0732, -2.0687,  5.1177, -1.2303])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  torch.normal(mean=0.5, std=torch.arange(1., 6.));
              expected=
                 "tensor([-1.2793, -1.0732, -2.0687,  5.1177, -1.2303])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> torch.normal(mean=torch.arange(1., 6.))
             // tensor([ 1.1552,  2.6148,  2.6535,  5.8318,  4.2361])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  torch.normal(mean=torch.arange(1., 6.));
              expected=
                 "tensor([ 1.1552,  2.6148,  2.6535,  5.8318,  4.2361])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void randTest()
         {
@@ -1260,8 +1247,8 @@ namespace Torch.UnitTest
             // tensor([[ 0.8237,  0.5781,  0.6879],
             //         [ 0.3816,  0.7249,  0.0998]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.rand(4);
             var expected=
                 "tensor([ 0.5204,  0.2503,  0.3525,  0.5673])";
@@ -1271,10 +1258,10 @@ namespace Torch.UnitTest
                 "tensor([[ 0.8237,  0.5781,  0.6879],\n" +
                 "        [ 0.3816,  0.7249,  0.0998]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void randintTest()
         {
@@ -1291,8 +1278,8 @@ namespace Torch.UnitTest
             // tensor([[4, 5],
             //         [6, 7]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.randint(3, 5, (3,));
             var expected=
                 "tensor([4, 3, 4])\n" +
@@ -1311,10 +1298,10 @@ namespace Torch.UnitTest
                 "tensor([[4, 5],\n" +
                 "        [6, 7]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void randnTest()
         {
@@ -1324,8 +1311,8 @@ namespace Torch.UnitTest
             // tensor([[ 1.5954,  2.8929, -1.0923],
             //         [ 1.1719, -0.4709, -0.1996]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.randn(4);
             var expected=
                 "tensor([-2.1436,  0.9966,  2.3426, -0.6366])";
@@ -1335,26 +1322,26 @@ namespace Torch.UnitTest
                 "tensor([[ 1.5954,  2.8929, -1.0923],\n" +
                 "        [ 1.1719, -0.4709, -0.1996]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void randpermTest()
         {
             // >>> torch.randperm(4)
             // tensor([2, 1, 0, 3])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.randperm(4);
             var expected=
                 "tensor([2, 1, 0, 3])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void saveTest()
         {
@@ -1365,18 +1352,18 @@ namespace Torch.UnitTest
             // >>> buffer = io.BytesIO()
             // >>> torch.save(x, buffer)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  # Save to file;
              given=  x = torch.tensor({0, 1, 2, 3, 4});
              given=  torch.save(x, 'tensor.pt');
              given=  # Save to io.BytesIO buffer;
              given=  buffer = io.BytesIO();
              given=  torch.save(x, buffer);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void loadTest()
         {
@@ -1394,8 +1381,8 @@ namespace Torch.UnitTest
             //         buffer = io.BytesIO(f.read())
             // >>> torch.load(buffer)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.load('tensors.pt');
             // Load all tensors onto the CPU
              given=  torch.load('tensors.pt', map_location=torch.device('cpu'));
@@ -1411,26 +1398,26 @@ namespace Torch.UnitTest
                 "        buffer = io.BytesIO(f.read())";
             Assert.AreEqual(expected, given.repr);
              given=  torch.load(buffer);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void absTest()
         {
             // >>> torch.abs(torch.tensor([-1, -2, 3]))
             // tensor([ 1,  2,  3])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.abs(torch.tensor({-1, -2, 3}));
             var expected=
                 "tensor([ 1,  2,  3])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void acosTest()
         {
@@ -1440,8 +1427,8 @@ namespace Torch.UnitTest
             // >>> torch.acos(a)
             // tensor([ 1.2294,  2.2004,  1.3690,  1.7298])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1451,10 +1438,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.2294,  2.2004,  1.3690,  1.7298])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addTest()
         {
@@ -1464,8 +1451,8 @@ namespace Torch.UnitTest
             // >>> torch.add(a, 20)
             // tensor([ 20.0202,  21.0985,  21.3506,  19.3944])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1475,7 +1462,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 20.0202,  21.0985,  21.3506,  19.3944])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4)
             // >>> a
             // tensor([-0.9732, -0.3497,  0.6245,  0.4022])
@@ -1491,8 +1478,8 @@ namespace Torch.UnitTest
             //         [ -6.7845,  -6.1610,  -5.1868,  -5.4090],
             //         [ -8.9902,  -8.3667,  -7.3925,  -7.6147]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4);
              given=  a;
              expected=
@@ -1513,10 +1500,10 @@ namespace Torch.UnitTest
                 "        [ -6.7845,  -6.1610,  -5.1868,  -5.4090],\n" +
                 "        [ -8.9902,  -8.3667,  -7.3925,  -7.6147]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addcdivTest()
         {
@@ -1528,8 +1515,8 @@ namespace Torch.UnitTest
             //         [-1.0428,  3.4292, -0.1030],
             //         [-0.5369, -0.9829,  0.0430]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  t = torch.randn(1, 3);
              given=  t1 = torch.randn(3, 1);
              given=  t2 = torch.randn(1, 3);
@@ -1539,10 +1526,10 @@ namespace Torch.UnitTest
                 "        [-1.0428,  3.4292, -0.1030],\n" +
                 "        [-0.5369, -0.9829,  0.0430]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addcmulTest()
         {
@@ -1554,8 +1541,8 @@ namespace Torch.UnitTest
             //         [-0.7617, -0.5879,  1.7388],
             //         [-0.8353, -0.6249,  1.6511]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  t = torch.randn(1, 3);
              given=  t1 = torch.randn(3, 1);
              given=  t2 = torch.randn(1, 3);
@@ -1565,10 +1552,10 @@ namespace Torch.UnitTest
                 "        [-0.7617, -0.5879,  1.7388],\n" +
                 "        [-0.8353, -0.6249,  1.6511]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void asinTest()
         {
@@ -1578,8 +1565,8 @@ namespace Torch.UnitTest
             // >>> torch.asin(a)
             // tensor([-0.6387,     nan, -0.4552,     nan])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1589,10 +1576,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.6387,     nan, -0.4552,     nan])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void atanTest()
         {
@@ -1602,8 +1589,8 @@ namespace Torch.UnitTest
             // >>> torch.atan(a)
             // tensor([ 0.2299,  0.2487, -0.5591, -0.5727])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1613,10 +1600,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.2299,  0.2487, -0.5591, -0.5727])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void atan2Test()
         {
@@ -1626,8 +1613,8 @@ namespace Torch.UnitTest
             // >>> torch.atan2(a, torch.randn(4))
             // tensor([ 0.9833,  0.0811, -1.9743, -1.4151])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1637,10 +1624,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.9833,  0.0811, -1.9743, -1.4151])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void ceilTest()
         {
@@ -1650,8 +1637,8 @@ namespace Torch.UnitTest
             // >>> torch.ceil(a)
             // tensor([-0., -1., -1.,  1.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1661,10 +1648,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0., -1., -1.,  1.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void clampTest()
         {
@@ -1674,8 +1661,8 @@ namespace Torch.UnitTest
             // >>> torch.clamp(a, min=-0.5, max=0.5)
             // tensor([-0.5000,  0.1734, -0.0478, -0.0922])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1685,15 +1672,15 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.5000,  0.1734, -0.0478, -0.0922])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4)
             // >>> a
             // tensor([-0.0299, -2.3184,  2.1593, -0.8883])
             // >>> torch.clamp(a, min=0.5)
             // tensor([ 0.5000,  0.5000,  2.1593,  0.5000])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4);
              given=  a;
              expected=
@@ -1703,15 +1690,15 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.5000,  0.5000,  2.1593,  0.5000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4)
             // >>> a
             // tensor([ 0.7753, -0.4702, -0.4599,  1.1899])
             // >>> torch.clamp(a, max=0.5)
             // tensor([ 0.5000, -0.4702, -0.4599,  0.5000])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4);
              given=  a;
              expected=
@@ -1721,10 +1708,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.5000, -0.4702, -0.4599,  0.5000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void cosTest()
         {
@@ -1734,8 +1721,8 @@ namespace Torch.UnitTest
             // >>> torch.cos(a)
             // tensor([ 0.1395,  0.2957,  0.6553,  0.5574])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1745,10 +1732,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.1395,  0.2957,  0.6553,  0.5574])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void coshTest()
         {
@@ -1758,8 +1745,8 @@ namespace Torch.UnitTest
             // >>> torch.cosh(a)
             // tensor([ 1.0133,  1.7860,  1.2536,  1.2805])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1769,10 +1756,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.0133,  1.7860,  1.2536,  1.2805])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void divTest()
         {
@@ -1782,8 +1769,8 @@ namespace Torch.UnitTest
             // >>> torch.div(a, 0.5)
             // tensor([ 0.7620,  2.5548, -0.5944, -0.7439,  0.9275])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(5);
              given=  a;
             var expected=
@@ -1793,7 +1780,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.7620,  2.5548, -0.5944, -0.7439,  0.9275])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[-0.3711, -1.9353, -0.4605, -0.2917],
@@ -1809,8 +1796,8 @@ namespace Torch.UnitTest
             //         [ 0.1322,  4.9764, -0.9564,  5.3480],
             //         [-0.2278, -0.1068, -1.4678,  6.3936]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -1831,10 +1818,10 @@ namespace Torch.UnitTest
                 "        [ 0.1322,  4.9764, -0.9564,  5.3480],\n" +
                 "        [-0.2278, -0.1068, -1.4678,  6.3936]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void digammaTest()
         {
@@ -1842,97 +1829,97 @@ namespace Torch.UnitTest
             // >>> torch.digamma(a)
             // tensor([-0.5772, -1.9635])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.tensor({1, 0.5});
              given=  torch.digamma(a);
             var expected=
                 "tensor([-0.5772, -1.9635])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void erfTest()
         {
             // >>> torch.erf(torch.tensor([0, -1., 10.]))
             // tensor([ 0.0000, -0.8427,  1.0000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.erf(torch.tensor({0, -1., 10.}));
             var expected=
                 "tensor([ 0.0000, -0.8427,  1.0000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void erfcTest()
         {
             // >>> torch.erfc(torch.tensor([0, -1., 10.]))
             // tensor([ 1.0000, 1.8427,  0.0000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.erfc(torch.tensor({0, -1., 10.}));
             var expected=
                 "tensor([ 1.0000, 1.8427,  0.0000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void erfinvTest()
         {
             // >>> torch.erfinv(torch.tensor([0, 0.5, -1.]))
             // tensor([ 0.0000,  0.4769,    -inf])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.erfinv(torch.tensor({0, 0.5, -1.}));
             var expected=
                 "tensor([ 0.0000,  0.4769,    -inf])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void expTest()
         {
             // >>> torch.exp(torch.tensor([0, math.log(2.)]))
             // tensor([ 1.,  2.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.exp(torch.tensor({0, math.log(2.)}));
             var expected=
                 "tensor([ 1.,  2.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void expm1Test()
         {
             // >>> torch.expm1(torch.tensor([0, math.log(2.)]))
             // tensor([ 0.,  1.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.expm1(torch.tensor({0, math.log(2.)}));
             var expected=
                 "tensor([ 0.,  1.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void floorTest()
         {
@@ -1942,8 +1929,8 @@ namespace Torch.UnitTest
             // >>> torch.floor(a)
             // tensor([-1.,  1., -1., -1.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -1953,10 +1940,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-1.,  1., -1., -1.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void fmodTest()
         {
@@ -1965,8 +1952,8 @@ namespace Torch.UnitTest
             // >>> torch.fmod(torch.tensor([1., 2, 3, 4, 5]), 1.5)
             // tensor([ 1.0000,  0.5000,  0.0000,  1.0000,  0.5000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.fmod(torch.tensor({-3., -2, -1, 1, 2, 3}), 2);
             var expected=
                 "tensor([-1., -0., -1.,  1.,  0.,  1.])";
@@ -1975,26 +1962,26 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.0000,  0.5000,  0.0000,  1.0000,  0.5000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void fracTest()
         {
             // >>> torch.frac(torch.tensor([1, 2.5, -3.2]))
             // tensor([ 0.0000,  0.5000, -0.2000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.frac(torch.tensor({1, 2.5, -3.2}));
             var expected=
                 "tensor([ 0.0000,  0.5000, -0.2000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void lerpTest()
         {
@@ -2009,8 +1996,8 @@ namespace Torch.UnitTest
             // >>> torch.lerp(start, end, torch.full_like(start, 0.5))
             // tensor([ 5.5000,  6.0000,  6.5000,  7.0000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  start = torch.arange(1., 5.);
              given=  end = torch.empty(4).fill_(10);
              given=  start;
@@ -2029,10 +2016,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 5.5000,  6.0000,  6.5000,  7.0000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void logTest()
         {
@@ -2042,8 +2029,8 @@ namespace Torch.UnitTest
             // >>> torch.log(a)
             // tensor([ nan,  nan,  nan,  nan,  nan])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(5);
              given=  a;
             var expected=
@@ -2053,10 +2040,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ nan,  nan,  nan,  nan,  nan])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void log10Test()
         {
@@ -2068,8 +2055,8 @@ namespace Torch.UnitTest
             // >>> torch.log10(a)
             // tensor([-0.2820, -0.0290, -0.1392, -0.8857, -0.6476])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.rand(5);
              given=  a;
             var expected=
@@ -2081,10 +2068,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.2820, -0.0290, -0.1392, -0.8857, -0.6476])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void log1pTest()
         {
@@ -2094,8 +2081,8 @@ namespace Torch.UnitTest
             // >>> torch.log1p(a)
             // tensor([    nan, -4.8653,  0.7055, -0.7705,  0.2225])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(5);
              given=  a;
             var expected=
@@ -2105,10 +2092,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([    nan, -4.8653,  0.7055, -0.7705,  0.2225])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void log2Test()
         {
@@ -2120,8 +2107,8 @@ namespace Torch.UnitTest
             // >>> torch.log2(a)
             // tensor([-0.2483, -0.3213, -0.0042, -0.9196, -4.3504])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.rand(5);
              given=  a;
             var expected=
@@ -2133,10 +2120,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.2483, -0.3213, -0.0042, -0.9196, -4.3504])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void mulTest()
         {
@@ -2146,8 +2133,8 @@ namespace Torch.UnitTest
             // >>> torch.mul(a, 100)
             // tensor([  20.1494,  -42.5491,  260.8663])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3);
              given=  a;
             var expected=
@@ -2157,7 +2144,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor([  20.1494,  -42.5491,  260.8663])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 1)
             // >>> a
             // tensor([[ 1.1207],
@@ -2173,8 +2160,8 @@ namespace Torch.UnitTest
             //         [ 0.0360,  0.0085, -0.0367,  0.1567],
             //         [ 0.4312,  0.1019, -0.4394,  1.8753]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 1);
              given=  a;
              expected=
@@ -2195,10 +2182,10 @@ namespace Torch.UnitTest
                 "        [ 0.0360,  0.0085, -0.0367,  0.1567],\n" +
                 "        [ 0.4312,  0.1019, -0.4394,  1.8753]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void mvlgammaTest()
         {
@@ -2210,8 +2197,8 @@ namespace Torch.UnitTest
             // tensor([[0.3928, 0.4007, 0.7586],
             //         [1.0311, 0.3901, 0.5049]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.empty(2, 3).uniform_(1, 2);
              given=  a;
             var expected=
@@ -2223,10 +2210,10 @@ namespace Torch.UnitTest
                 "tensor([[0.3928, 0.4007, 0.7586],\n" +
                 "        [1.0311, 0.3901, 0.5049]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void negTest()
         {
@@ -2236,8 +2223,8 @@ namespace Torch.UnitTest
             // >>> torch.neg(a)
             // tensor([-0.0090,  0.2262,  0.0682,  0.2866, -0.3940])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(5);
              given=  a;
             var expected=
@@ -2247,10 +2234,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.0090,  0.2262,  0.0682,  0.2866, -0.3940])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void powTest()
         {
@@ -2269,8 +2256,8 @@ namespace Torch.UnitTest
             // >>> torch.pow(a, exp)
             // tensor([   1.,    4.,   27.,  256.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2297,24 +2284,24 @@ namespace Torch.UnitTest
              expected=
                 "tensor([   1.,    4.,   27.,  256.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> exp = torch.arange(1., 5.)
             // >>> base = 2
             // >>> torch.pow(base, exp)
             // tensor([  2.,   4.,   8.,  16.])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  exp = torch.arange(1., 5.);
              given=  base = 2;
              given=  torch.pow(base, exp);
              expected=
                 "tensor([  2.,   4.,   8.,  16.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void reciprocalTest()
         {
@@ -2324,8 +2311,8 @@ namespace Torch.UnitTest
             // >>> torch.reciprocal(a)
             // tensor([-2.1763, -0.4713, -0.6986,  1.3702])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2335,10 +2322,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-2.1763, -0.4713, -0.6986,  1.3702])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void remainderTest()
         {
@@ -2347,8 +2334,8 @@ namespace Torch.UnitTest
             // >>> torch.remainder(torch.tensor([1., 2, 3, 4, 5]), 1.5)
             // tensor([ 1.0000,  0.5000,  0.0000,  1.0000,  0.5000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.remainder(torch.tensor({-3., -2, -1, 1, 2, 3}), 2);
             var expected=
                 "tensor([ 1.,  0.,  1.,  1.,  0.,  1.])";
@@ -2357,10 +2344,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.0000,  0.5000,  0.0000,  1.0000,  0.5000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void roundTest()
         {
@@ -2370,8 +2357,8 @@ namespace Torch.UnitTest
             // >>> torch.round(a)
             // tensor([ 1.,  1.,  1., -1.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2381,10 +2368,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.,  1.,  1., -1.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void rsqrtTest()
         {
@@ -2394,8 +2381,8 @@ namespace Torch.UnitTest
             // >>> torch.rsqrt(a)
             // tensor([    nan,  1.8351,  0.8053,     nan])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2405,10 +2392,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([    nan,  1.8351,  0.8053,     nan])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sigmoidTest()
         {
@@ -2418,8 +2405,8 @@ namespace Torch.UnitTest
             // >>> torch.sigmoid(a)
             // tensor([ 0.7153,  0.7481,  0.2920,  0.1458])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2429,10 +2416,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.7153,  0.7481,  0.2920,  0.1458])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void signTest()
         {
@@ -2442,8 +2429,8 @@ namespace Torch.UnitTest
             // >>> torch.sign(a)
             // tensor([ 1., -1.,  0.,  1.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.tensor({0.7, -1.2, 0., 2.3});
              given=  a;
             var expected=
@@ -2453,10 +2440,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1., -1.,  0.,  1.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sinTest()
         {
@@ -2466,8 +2453,8 @@ namespace Torch.UnitTest
             // >>> torch.sin(a)
             // tensor([-0.5194,  0.1343, -0.4032, -0.2711])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2477,10 +2464,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.5194,  0.1343, -0.4032, -0.2711])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sinhTest()
         {
@@ -2490,8 +2477,8 @@ namespace Torch.UnitTest
             // >>> torch.sinh(a)
             // tensor([ 0.5644, -0.9744, -0.1268,  1.0845])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2501,10 +2488,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.5644, -0.9744, -0.1268,  1.0845])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sqrtTest()
         {
@@ -2514,8 +2501,8 @@ namespace Torch.UnitTest
             // >>> torch.sqrt(a)
             // tensor([    nan,  1.0112,  0.2883,  0.6933])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2525,10 +2512,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([    nan,  1.0112,  0.2883,  0.6933])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void tanTest()
         {
@@ -2538,8 +2525,8 @@ namespace Torch.UnitTest
             // >>> torch.tan(a)
             // tensor([-2.5930,  4.9859,  0.4722, -5.3366])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2549,10 +2536,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-2.5930,  4.9859,  0.4722, -5.3366])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void tanhTest()
         {
@@ -2562,8 +2549,8 @@ namespace Torch.UnitTest
             // >>> torch.tanh(a)
             // tensor([ 0.7156, -0.6218,  0.8257,  0.2553])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2573,10 +2560,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.7156, -0.6218,  0.8257,  0.2553])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void truncTest()
         {
@@ -2586,8 +2573,8 @@ namespace Torch.UnitTest
             // >>> torch.trunc(a)
             // tensor([ 3.,  0., -0., -0.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4);
              given=  a;
             var expected=
@@ -2597,10 +2584,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 3.,  0., -0., -0.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void argmaxTest()
         {
@@ -2613,8 +2600,8 @@ namespace Torch.UnitTest
             // >>> torch.argmax(a)
             // tensor(0)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4, 4);
              given=  a;
             var expected=
@@ -2627,7 +2614,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[ 1.3398,  0.2663, -0.2686,  0.2450],
@@ -2637,8 +2624,8 @@ namespace Torch.UnitTest
             // >>> torch.argmax(a, dim=1)
             // tensor([ 0,  2,  0,  1])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -2651,10 +2638,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0,  2,  0,  1])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void argminTest()
         {
@@ -2667,8 +2654,8 @@ namespace Torch.UnitTest
             // >>> torch.argmin(a)
             // tensor(13)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4, 4);
              given=  a;
             var expected=
@@ -2681,7 +2668,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(13)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[ 0.1139,  0.2254, -0.1381,  0.3687],
@@ -2691,8 +2678,8 @@ namespace Torch.UnitTest
             // >>> torch.argmin(a, dim=1)
             // tensor([ 2,  1,  3,  1])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -2705,10 +2692,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 2,  1,  3,  1])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void cumprodTest()
         {
@@ -2725,8 +2712,8 @@ namespace Torch.UnitTest
             // tensor([ 0.6001,  0.1241, -0.0238, -0.0233, -0.0157, -0.0000, -0.0000,
             //          0.0000, -0.0000, -0.0000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(10);
              given=  a;
             var expected=
@@ -2745,10 +2732,10 @@ namespace Torch.UnitTest
                 "tensor([ 0.6001,  0.1241, -0.0238, -0.0233, -0.0157, -0.0000, -0.0000,\n" +
                 "         0.0000, -0.0000, -0.0000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void cumsumTest()
         {
@@ -2760,8 +2747,8 @@ namespace Torch.UnitTest
             // tensor([-0.8286, -1.3175, -0.8020,  0.0423,  0.2289,  0.0537, -2.0058,
             //         -1.8209, -2.9780, -3.4022])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(10);
              given=  a;
             var expected=
@@ -2773,10 +2760,10 @@ namespace Torch.UnitTest
                 "tensor([-0.8286, -1.3175, -0.8020,  0.0423,  0.2289,  0.0537, -2.0058,\n" +
                 "        -1.8209, -2.9780, -3.4022])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void distTest()
         {
@@ -2795,8 +2782,8 @@ namespace Torch.UnitTest
             // >>> torch.dist(x, y, 1)
             // tensor(2.6537)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(4);
              given=  x;
             var expected=
@@ -2823,10 +2810,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor(2.6537)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void logsumexpTest()
         {
@@ -2834,17 +2821,17 @@ namespace Torch.UnitTest
             // >>> torch.logsumexp(a, 1)
             // tensor([ 0.8442,  1.4322,  0.8711])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  torch.logsumexp(a, 1);
             var expected=
                 "tensor([ 0.8442,  1.4322,  0.8711])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void meanTest()
         {
@@ -2854,8 +2841,8 @@ namespace Torch.UnitTest
             // >>> torch.mean(a)
             // tensor(0.3367)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -2865,7 +2852,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.3367)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[-0.3841,  0.6320,  0.4254, -0.7384],
@@ -2880,8 +2867,8 @@ namespace Torch.UnitTest
             //         [-0.4599],
             //         [ 0.1807]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -2901,10 +2888,10 @@ namespace Torch.UnitTest
                 "        [-0.4599],\n" +
                 "        [ 0.1807]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void medianTest()
         {
@@ -2914,8 +2901,8 @@ namespace Torch.UnitTest
             // >>> torch.median(a)
             // tensor(0.2202)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -2925,7 +2912,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.2202)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 5)
             // >>> a
             // tensor([[ 0.2505, -0.3982, -0.9948,  0.3518, -1.3131],
@@ -2935,8 +2922,8 @@ namespace Torch.UnitTest
             // >>> torch.median(a, 1)
             // torch.return_types.median(values=tensor([-0.3982,  0.2270,  0.2488,  0.4742]), indices=tensor([1, 4, 4, 3]))
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 5);
              given=  a;
              expected=
@@ -2949,10 +2936,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.median(values=tensor([-0.3982,  0.2270,  0.2488,  0.4742]), indices=tensor([1, 4, 4, 3]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void modeTest()
         {
@@ -2963,8 +2950,8 @@ namespace Torch.UnitTest
             // >>> torch.mode(b, 0)
             // torch.return_types.mode(values=tensor([6, 5, 1, 0, 2]), indices=tensor([2, 2, 2, 2, 2]))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randint(10, (5,));
              given=  a;
             var expected=
@@ -2975,10 +2962,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.mode(values=tensor([6, 5, 1, 0, 2]), indices=tensor([2, 2, 2, 2, 2]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void normTest()
         {
@@ -3006,8 +2993,8 @@ namespace Torch.UnitTest
             // >>> torch.norm(d[0, :, :]), torch.norm(d[1, :, :])
             // (tensor(3.7417), tensor(11.2250))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  import torch;
              given=  a = torch.arange(9, dtype= torch.float) - 4;
              given=  b = a.reshape((3, 3));
@@ -3049,10 +3036,10 @@ namespace Torch.UnitTest
              expected=
                 "(tensor(3.7417), tensor(11.2250))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void prodTest()
         {
@@ -3062,8 +3049,8 @@ namespace Torch.UnitTest
             // >>> torch.prod(a)
             // tensor(0.6902)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -3073,7 +3060,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.6902)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 2)
             // >>> a
             // tensor([[ 0.5261, -0.3837],
@@ -3083,8 +3070,8 @@ namespace Torch.UnitTest
             // >>> torch.prod(a, 1)
             // tensor([-0.2018, -0.2962, -0.0821, -1.1831])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 2);
              given=  a;
              expected=
@@ -3097,10 +3084,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.2018, -0.2962, -0.0821, -1.1831])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void stdTest()
         {
@@ -3110,8 +3097,8 @@ namespace Torch.UnitTest
             // >>> torch.std(a)
             // tensor(0.5130)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -3121,7 +3108,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.5130)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[ 0.2035,  1.2959,  1.8101, -0.4644],
@@ -3131,8 +3118,8 @@ namespace Torch.UnitTest
             // >>> torch.std(a, dim=1)
             // tensor([ 1.0311,  0.7477,  1.2204,  0.9087])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -3145,10 +3132,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.0311,  0.7477,  1.2204,  0.9087])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sumTest()
         {
@@ -3158,8 +3145,8 @@ namespace Torch.UnitTest
             // >>> torch.sum(a)
             // tensor(-0.5475)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -3169,7 +3156,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(-0.5475)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[ 0.0569, -0.2475,  0.0737, -0.3429],
@@ -3182,8 +3169,8 @@ namespace Torch.UnitTest
             // >>> torch.sum(b, (2, 1))
             // tensor([  435.,  1335.,  2235.,  3135.])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -3201,10 +3188,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([  435.,  1335.,  2235.,  3135.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void uniqueTest()
         {
@@ -3227,8 +3214,8 @@ namespace Torch.UnitTest
             // tensor([[ 0,  2],
             //         [ 1,  2]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  output = torch.unique(torch.tensor({1, 3, 2, 3}, dtype=torch.long));
              given=  output;
             var expected=
@@ -3261,10 +3248,10 @@ namespace Torch.UnitTest
                 "tensor([[ 0,  2],\n" +
                 "        [ 1,  2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void unique_consecutiveTest()
         {
@@ -3285,8 +3272,8 @@ namespace Torch.UnitTest
             // >>> counts
             // tensor([2, 2, 1, 2, 1])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.tensor({1, 1, 2, 2, 3, 1, 1, 2});
              given=  output = torch.unique_consecutive(x);
              given=  output;
@@ -3313,10 +3300,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([2, 2, 1, 2, 1])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void varTest()
         {
@@ -3326,8 +3313,8 @@ namespace Torch.UnitTest
             // >>> torch.var(a)
             // tensor(0.2455)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -3337,7 +3324,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.2455)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[-0.3567,  1.7385, -1.3042,  0.7423],
@@ -3347,8 +3334,8 @@ namespace Torch.UnitTest
             // >>> torch.var(a, 1)
             // tensor([ 1.7444,  1.1363,  0.7356,  0.5112])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -3361,10 +3348,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 1.7444,  1.1363,  0.7356,  0.5112])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void allcloseTest()
         {
@@ -3377,8 +3364,8 @@ namespace Torch.UnitTest
             // >>> torch.allclose(torch.tensor([1.0, float('nan')]), torch.tensor([1.0, float('nan')]), equal_nan=True)
             // True
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.allclose(torch.tensor({10000., 1e-07}), torch.tensor({10000.1, 1e-08}));
             var expected=
                 "False";
@@ -3395,10 +3382,10 @@ namespace Torch.UnitTest
              expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void argsortTest()
         {
@@ -3416,8 +3403,8 @@ namespace Torch.UnitTest
             //         [2, 1, 0, 3],
             //         [3, 2, 1, 0]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4, 4);
              given=  a;
             var expected=
@@ -3435,10 +3422,10 @@ namespace Torch.UnitTest
                 "        [2, 1, 0, 3],\n" +
                 "        [3, 2, 1, 0]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void eqTest()
         {
@@ -3446,33 +3433,33 @@ namespace Torch.UnitTest
             // tensor([[ 1,  0],
             //         [ 0,  1]], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.eq(torch.tensor({{1, 2}, {3, 4}}), torch.tensor({{1, 1}, {4, 4}}));
             var expected=
                 "tensor([[ 1,  0],\n" +
                 "        [ 0,  1]], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void equalTest()
         {
             // >>> torch.equal(torch.tensor([1, 2]), torch.tensor([1, 2]))
             // True
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.equal(torch.tensor({1, 2}), torch.tensor({1, 2}));
             var expected=
                 "True";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void geTest()
         {
@@ -3480,17 +3467,17 @@ namespace Torch.UnitTest
             // tensor([[ 1,  1],
             //         [ 0,  1]], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.ge(torch.tensor({{1, 2}, {3, 4}}), torch.tensor({{1, 1}, {4, 4}}));
             var expected=
                 "tensor([[ 1,  1],\n" +
                 "        [ 0,  1]], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void gtTest()
         {
@@ -3498,65 +3485,65 @@ namespace Torch.UnitTest
             // tensor([[ 0,  1],
             //         [ 0,  0]], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.gt(torch.tensor({{1, 2}, {3, 4}}), torch.tensor({{1, 1}, {4, 4}}));
             var expected=
                 "tensor([[ 0,  1],\n" +
                 "        [ 0,  0]], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void isfiniteTest()
         {
             // >>> torch.isfinite(torch.tensor([1, float('inf'), 2, float('-inf'), float('nan')]))
             // tensor([ 1,  0,  1,  0,  0], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.isfinite(torch.tensor({1, float('inf'), 2, float('-inf'), float('nan')}));
             var expected=
                 "tensor([ 1,  0,  1,  0,  0], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void isinfTest()
         {
             // >>> torch.isinf(torch.tensor([1, float('inf'), 2, float('-inf'), float('nan')]))
             // tensor([ 0,  1,  0,  1,  0], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.isinf(torch.tensor({1, float('inf'), 2, float('-inf'), float('nan')}));
             var expected=
                 "tensor([ 0,  1,  0,  1,  0], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void isnanTest()
         {
             // >>> torch.isnan(torch.tensor([1, float('nan'), 2]))
             // tensor([ 0,  1,  0], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.isnan(torch.tensor({1, float('nan'), 2}));
             var expected=
                 "tensor([ 0,  1,  0], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void kthvalueTest()
         {
@@ -3573,8 +3560,8 @@ namespace Torch.UnitTest
             // >>> torch.kthvalue(x, 2, 0, True)
             // torch.return_types.kthvalue(values=tensor([[4., 5., 6.]]), indices=tensor([[1, 1, 1]]))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.arange(1., 6.);
              given=  x;
             var expected=
@@ -3595,10 +3582,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.kthvalue(values=tensor([[4., 5., 6.]]), indices=tensor([[1, 1, 1]]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void leTest()
         {
@@ -3606,17 +3593,17 @@ namespace Torch.UnitTest
             // tensor([[ 1,  0],
             //         [ 1,  1]], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.le(torch.tensor({{1, 2}, {3, 4}}), torch.tensor({{1, 1}, {4, 4}}));
             var expected=
                 "tensor([[ 1,  0],\n" +
                 "        [ 1,  1]], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void ltTest()
         {
@@ -3624,17 +3611,17 @@ namespace Torch.UnitTest
             // tensor([[ 0,  0],
             //         [ 1,  0]], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.lt(torch.tensor({{1, 2}, {3, 4}}), torch.tensor({{1, 1}, {4, 4}}));
             var expected=
                 "tensor([[ 0,  0],\n" +
                 "        [ 1,  0]], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void maxTest()
         {
@@ -3644,8 +3631,8 @@ namespace Torch.UnitTest
             // >>> torch.max(a)
             // tensor(0.7445)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -3655,7 +3642,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.7445)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[-1.2360, -0.2942, -0.1222,  0.8475],
@@ -3665,8 +3652,8 @@ namespace Torch.UnitTest
             // >>> torch.max(a, 1)
             // torch.return_types.max(values=tensor([0.8475, 1.1949, 1.5717, 1.0036]), indices=tensor([3, 0, 0, 1]))
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -3679,7 +3666,7 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.max(values=tensor([0.8475, 1.1949, 1.5717, 1.0036]), indices=tensor([3, 0, 0, 1]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4)
             // >>> a
             // tensor([ 0.2942, -0.7416,  0.2653, -0.1584])
@@ -3689,8 +3676,8 @@ namespace Torch.UnitTest
             // >>> torch.max(a, b)
             // tensor([ 0.8722, -0.7416,  0.2653, -0.1584])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4);
              given=  a;
              expected=
@@ -3705,10 +3692,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.8722, -0.7416,  0.2653, -0.1584])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void minTest()
         {
@@ -3718,8 +3705,8 @@ namespace Torch.UnitTest
             // >>> torch.min(a)
             // tensor(0.6750)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(1, 3);
              given=  a;
             var expected=
@@ -3729,7 +3716,7 @@ namespace Torch.UnitTest
              expected=
                 "tensor(0.6750)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4, 4)
             // >>> a
             // tensor([[-0.6248,  1.1334, -1.1899, -0.2803],
@@ -3739,8 +3726,8 @@ namespace Torch.UnitTest
             // >>> torch.min(a, 1)
             // torch.return_types.min(values=tensor([-1.1899, -1.4644,  0.0384, -0.1153]), indices=tensor([2, 0, 1, 0]))
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4, 4);
              given=  a;
              expected=
@@ -3753,7 +3740,7 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.min(values=tensor([-1.1899, -1.4644,  0.0384, -0.1153]), indices=tensor([2, 0, 1, 0]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(4)
             // >>> a
             // tensor([ 0.8137, -1.1740, -0.6460,  0.6308])
@@ -3763,8 +3750,8 @@ namespace Torch.UnitTest
             // >>> torch.min(a, b)
             // tensor([-0.1369, -1.1740, -0.6460, -0.1929])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(4);
              given=  a;
              expected=
@@ -3779,10 +3766,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([-0.1369, -1.1740, -0.6460, -0.1929])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void neTest()
         {
@@ -3790,17 +3777,17 @@ namespace Torch.UnitTest
             // tensor([[ 0,  1],
             //         [ 1,  0]], dtype=torch.uint8)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.ne(torch.tensor({{1, 2}, {3, 4}}), torch.tensor({{1, 1}, {4, 4}}));
             var expected=
                 "tensor([[ 0,  1],\n" +
                 "        [ 1,  0]], dtype=torch.uint8)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void sortTest()
         {
@@ -3825,8 +3812,8 @@ namespace Torch.UnitTest
             //         [ 0,  1,  1,  2],
             //         [ 1,  2,  2,  0]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(3, 4);
              given=  sorted, indices = torch.sort(x);
              given=  sorted;
@@ -3855,10 +3842,10 @@ namespace Torch.UnitTest
                 "        [ 0,  1,  1,  2],\n" +
                 "        [ 1,  2,  2,  0]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void topkTest()
         {
@@ -3868,8 +3855,8 @@ namespace Torch.UnitTest
             // >>> torch.topk(x, 3)
             // torch.return_types.topk(values=tensor([5., 4., 3.]), indices=tensor([4, 3, 2]))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.arange(1., 6.);
              given=  x;
             var expected=
@@ -3879,10 +3866,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.topk(values=tensor([5., 4., 3.]), indices=tensor([4, 3, 2]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void fftTest()
         {
@@ -3927,8 +3914,8 @@ namespace Torch.UnitTest
             // >>> y.shape
             // torch.Size([3, 3, 5, 5, 2])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  # unbatched 2D FFT;
              given=  x = torch.randn(4, 3, 2);
              given=  torch.fft(x, 2);
@@ -3975,10 +3962,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.Size([3, 3, 5, 5, 2])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void ifftTest()
         {
@@ -4009,8 +3996,8 @@ namespace Torch.UnitTest
             //          [-0.1843, -0.2287],
             //          [-1.9034, -0.2196]]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(3, 3, 2);
              given=  x;
             var expected=
@@ -4041,10 +4028,10 @@ namespace Torch.UnitTest
                 "         [-0.1843, -0.2287],\n" +
                 "         [-1.9034, -0.2196]]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void rfftTest()
         {
@@ -4054,8 +4041,8 @@ namespace Torch.UnitTest
             // >>> torch.rfft(x, 2, onesided=False).shape
             // torch.Size([5, 5, 2])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(5, 5);
              given=  torch.rfft(x, 2).shape;
             var expected=
@@ -4065,10 +4052,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.Size([5, 5, 2])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void irfftTest()
         {
@@ -4095,8 +4082,8 @@ namespace Torch.UnitTest
             //         [-2.0329,  1.1031,  0.6869, -0.5042,  0.9895],
             //         [-0.1884,  0.2858, -1.5831,  0.9917, -0.8356]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(4, 4);
              given=  torch.rfft(x, 2, onesided=True).shape;
             var expected=
@@ -4129,10 +4116,10 @@ namespace Torch.UnitTest
                 "        [-2.0329,  1.1031,  0.6869, -0.5042,  0.9895],\n" +
                 "        [-0.1884,  0.2858, -1.5831,  0.9917, -0.8356]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void bincountTest()
         {
@@ -4148,8 +4135,8 @@ namespace Torch.UnitTest
             // >>> input.bincount(weights)
             // tensor([0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 0.0000, 0.5000])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  input = torch.randint(0, 8, (5,), dtype=torch.int64);
              given=  weights = torch.linspace(0, 1, steps=5);
              given=  input, weights;
@@ -4167,10 +4154,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 0.0000, 0.5000])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void broadcast_tensorsTest()
         {
@@ -4183,8 +4170,8 @@ namespace Torch.UnitTest
             // tensor([[0, 1, 2],
             //         [0, 1, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.arange(3).view(1, 3);
              given=  y = torch.arange(2).view(2, 1);
              given=  a, b = torch.broadcast_tensors(x, y);
@@ -4197,10 +4184,10 @@ namespace Torch.UnitTest
                 "tensor([[0, 1, 2],\n" +
                 "        [0, 1, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void cartesian_prodTest()
         {
@@ -4218,8 +4205,8 @@ namespace Torch.UnitTest
             //         [3, 4],
             //         [3, 5]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = [1, 2, 3];
              given=  b = [4, 5];
              given=  list(itertools.product(a, b));
@@ -4237,10 +4224,10 @@ namespace Torch.UnitTest
                 "        [3, 4],\n" +
                 "        [3, 5]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void combinationsTest()
         {
@@ -4266,8 +4253,8 @@ namespace Torch.UnitTest
             //         [2, 3],
             //         [3, 3]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = [1, 2, 3];
              given=  list(itertools.combinations(a, r=2));
             var expected=
@@ -4301,10 +4288,10 @@ namespace Torch.UnitTest
                 "        [2, 3],\n" +
                 "        [3, 3]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void crossTest()
         {
@@ -4331,8 +4318,8 @@ namespace Torch.UnitTest
             //         [-0.8304, -1.3037,  0.5650],
             //         [-1.2329,  1.9883,  1.0551]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(4, 3);
              given=  a;
             var expected=
@@ -4363,10 +4350,10 @@ namespace Torch.UnitTest
                 "        [-0.8304, -1.3037,  0.5650],\n" +
                 "        [-1.2329,  1.9883,  1.0551]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void diagTest()
         {
@@ -4383,8 +4370,8 @@ namespace Torch.UnitTest
             //         [ 0.0000, 0.0000, 0.0000, 2.3298],
             //         [ 0.0000, 0.0000, 0.0000, 0.0000]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3);
              given=  a;
             var expected=
@@ -4403,7 +4390,7 @@ namespace Torch.UnitTest
                 "        [ 0.0000, 0.0000, 0.0000, 2.3298],\n" +
                 "        [ 0.0000, 0.0000, 0.0000, 0.0000]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.randn(3, 3)
             // >>> a
             // tensor([[-0.4264, 0.0255,-0.1064],
@@ -4414,8 +4401,8 @@ namespace Torch.UnitTest
             // >>> torch.diag(a, 1)
             // tensor([ 0.0255, 0.1374])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.randn(3, 3);
              given=  a;
              expected=
@@ -4431,10 +4418,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor([ 0.0255, 0.1374])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void diag_embedTest()
         {
@@ -4461,8 +4448,8 @@ namespace Torch.UnitTest
             //         [[ 0.0000,  0.0000,  0.0000,  0.0000],
             //          [ 0.0000,  0.0000,  0.0000,  0.0000]]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(2, 3);
              given=  torch.diag_embed(a);
             var expected=
@@ -4489,10 +4476,10 @@ namespace Torch.UnitTest
                 "        [[ 0.0000,  0.0000,  0.0000,  0.0000],\n" +
                 "         [ 0.0000,  0.0000,  0.0000,  0.0000]]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void diagflatTest()
         {
@@ -4519,8 +4506,8 @@ namespace Torch.UnitTest
             //         [ 0.0000,  0.0000, -0.1516,  0.0000],
             //         [ 0.0000,  0.0000,  0.0000,  1.9342]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3);
              given=  a;
             var expected=
@@ -4553,10 +4540,10 @@ namespace Torch.UnitTest
                 "        [ 0.0000,  0.0000, -0.1516,  0.0000],\n" +
                 "        [ 0.0000,  0.0000,  0.0000,  1.9342]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void diagonalTest()
         {
@@ -4583,8 +4570,8 @@ namespace Torch.UnitTest
             //         [[-1.7325, -0.3081,  0.6166,  0.2335],
             //          [ 1.0500,  0.7336, -0.3836, -1.1015]]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a;
             var expected=
@@ -4615,10 +4602,10 @@ namespace Torch.UnitTest
                 "        [[-1.7325, -0.3081,  0.6166,  0.2335],\n" +
                 "         [ 1.0500,  0.7336, -0.3836, -1.1015]]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void einsumTest()
         {
@@ -4667,8 +4654,8 @@ namespace Torch.UnitTest
             // >>> torch.einsum('...ij->...ji', A).shape # batch permute
             // torch.Size([2, 3, 5, 4])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.randn(5);
              given=  y = torch.randn(4);
              given=  torch.einsum('i,j->ij', x, y)  # outer product;
@@ -4725,10 +4712,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.Size([2, 3, 5, 4])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void flattenTest()
         {
@@ -4742,8 +4729,8 @@ namespace Torch.UnitTest
             // tensor([[1, 2, 3, 4],
             //         [5, 6, 7, 8]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  t = torch.tensor({{{1, 2},;
             var expected=
                 "                       [3, 4]],\n" +
@@ -4759,10 +4746,10 @@ namespace Torch.UnitTest
                 "tensor([[1, 2, 3, 4],\n" +
                 "        [5, 6, 7, 8]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void flipTest()
         {
@@ -4780,8 +4767,8 @@ namespace Torch.UnitTest
             //         [[ 2,  3],
             //          [ 0,  1]]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.arange(8).view(2, 2, 2);
              given=  x;
             var expected=
@@ -4799,10 +4786,10 @@ namespace Torch.UnitTest
                 "        [[ 2,  3],\n" +
                 "         [ 0,  1]]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void rot90Test()
         {
@@ -4828,8 +4815,8 @@ namespace Torch.UnitTest
             //         [[5, 7],
             //          [4, 6]]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.arange(4).view(2, 2);
              given=  x;
             var expected=
@@ -4859,26 +4846,26 @@ namespace Torch.UnitTest
                 "        [[5, 7],\n" +
                 "         [4, 6]]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void histcTest()
         {
             // >>> torch.histc(torch.tensor([1., 2, 1]), bins=4, min=0, max=3)
             // tensor([ 0.,  2.,  1.,  0.])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.histc(torch.tensor({1., 2, 1}), bins=4, min=0, max=3);
             var expected=
                 "tensor([ 0.,  2.,  1.,  0.])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void meshgridTest()
         {
@@ -4894,8 +4881,8 @@ namespace Torch.UnitTest
             //         [4, 5, 6],
             //         [4, 5, 6]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.tensor({1, 2, 3});
              given=  y = torch.tensor({4, 5, 6});
              given=  grid_x, grid_y = torch.meshgrid(x, y);
@@ -4911,10 +4898,10 @@ namespace Torch.UnitTest
                 "        [4, 5, 6],\n" +
                 "        [4, 5, 6]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void renormTest()
         {
@@ -4932,8 +4919,8 @@ namespace Torch.UnitTest
             //         [ 1.6667,  1.6667,  1.6667],
             //         [ 1.6667,  1.6667,  1.6667]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.ones(3, 3);
              given=  x[1].fill_(2);
             var expected=
@@ -4955,10 +4942,10 @@ namespace Torch.UnitTest
                 "        [ 1.6667,  1.6667,  1.6667],\n" +
                 "        [ 1.6667,  1.6667,  1.6667]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void repeat_interleaveTest()
         {
@@ -4976,8 +4963,8 @@ namespace Torch.UnitTest
             //         [3, 4],
             //         [3, 4]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.tensor({1, 2, 3});
              given=  x.repeat_interleave(2);
             var expected=
@@ -4999,10 +4986,10 @@ namespace Torch.UnitTest
                 "        [3, 4],\n" +
                 "        [3, 4]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void rollTest()
         {
@@ -5028,8 +5015,8 @@ namespace Torch.UnitTest
             //         [2, 1],
             //         [4, 3]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.tensor({1, 2, 3, 4, 5, 6, 7, 8}).view(4, 2);
              given=  x;
             var expected=
@@ -5059,10 +5046,10 @@ namespace Torch.UnitTest
                 "        [2, 1],\n" +
                 "        [4, 3]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void tensordotTest()
         {
@@ -5082,8 +5069,8 @@ namespace Torch.UnitTest
             //         [ 3.3161,  0.0704,  5.0187, -0.4079, -4.3126,  4.8744],
             //         [ 0.8223,  3.9445,  3.2168, -0.2400,  3.4117,  1.7780]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.arange(60.).reshape(3, 4, 5);
              given=  b = torch.arange(24.).reshape(4, 3, 2);
              given=  torch.tensordot(a, b, dims=({1, 0}, {0, 1}));
@@ -5103,10 +5090,10 @@ namespace Torch.UnitTest
                 "        [ 3.3161,  0.0704,  5.0187, -0.4079, -4.3126,  4.8744],\n" +
                 "        [ 0.8223,  3.9445,  3.2168, -0.2400,  3.4117,  1.7780]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void traceTest()
         {
@@ -5118,8 +5105,8 @@ namespace Torch.UnitTest
             // >>> torch.trace(x)
             // tensor(15.)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.arange(1., 10.).view(3, 3);
              given=  x;
             var expected=
@@ -5131,10 +5118,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor(15.)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void trilTest()
         {
@@ -5165,8 +5152,8 @@ namespace Torch.UnitTest
             //         [ 1.1502,  3.2716,  0.0000,  0.0000,  0.0000,  0.0000],
             //         [-0.0614, -0.7344, -1.3164,  0.0000,  0.0000,  0.0000]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a;
             var expected=
@@ -5203,10 +5190,10 @@ namespace Torch.UnitTest
                 "        [ 1.1502,  3.2716,  0.0000,  0.0000,  0.0000,  0.0000],\n" +
                 "        [-0.0614, -0.7344, -1.3164,  0.0000,  0.0000,  0.0000]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void tril_indicesTest()
         {
@@ -5215,46 +5202,46 @@ namespace Torch.UnitTest
             // tensor([[0, 1, 1, 2, 2, 2],
             //         [0, 0, 1, 0, 1, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.tril_indices(3, 3);
              given=  a;
             var expected=
                 "tensor([[0, 1, 1, 2, 2, 2],\n" +
                 "        [0, 0, 1, 0, 1, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.tril_indices(4, 3, -1)
             // >>> a
             // tensor([[1, 2, 2, 3, 3, 3],
             //         [0, 0, 1, 0, 1, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.tril_indices(4, 3, -1);
              given=  a;
              expected=
                 "tensor([[1, 2, 2, 3, 3, 3],\n" +
                 "        [0, 0, 1, 0, 1, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.tril_indices(4, 3, 1)
             // >>> a
             // tensor([[0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],
             //         [0, 1, 0, 1, 2, 0, 1, 2, 0, 1, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.tril_indices(4, 3, 1);
              given=  a;
              expected=
                 "tensor([[0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],\n" +
                 "        [0, 1, 0, 1, 2, 0, 1, 2, 0, 1, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void triuTest()
         {
@@ -5293,8 +5280,8 @@ namespace Torch.UnitTest
             //         [ 0.0000,  0.3146,  0.6576, -1.0432,  0.9348, -0.4410],
             //         [ 0.0000,  0.0000, -1.3337, -1.6556,  0.4798,  0.2830]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a;
             var expected=
@@ -5343,10 +5330,10 @@ namespace Torch.UnitTest
                 "        [ 0.0000,  0.3146,  0.6576, -1.0432,  0.9348, -0.4410],\n" +
                 "        [ 0.0000,  0.0000, -1.3337, -1.6556,  0.4798,  0.2830]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void triu_indicesTest()
         {
@@ -5355,46 +5342,46 @@ namespace Torch.UnitTest
             // tensor([[0, 0, 0, 1, 1, 2],
             //         [0, 1, 2, 1, 2, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.triu_indices(3, 3);
              given=  a;
             var expected=
                 "tensor([[0, 0, 0, 1, 1, 2],\n" +
                 "        [0, 1, 2, 1, 2, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.triu_indices(4, 3, -1)
             // >>> a
             // tensor([[0, 0, 0, 1, 1, 1, 2, 2, 3],
             //         [0, 1, 2, 0, 1, 2, 1, 2, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.triu_indices(4, 3, -1);
              given=  a;
              expected=
                 "tensor([[0, 0, 0, 1, 1, 1, 2, 2, 3],\n" +
                 "        [0, 1, 2, 0, 1, 2, 1, 2, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
             // >>> a = torch.triu_indices(4, 3, 1)
             // >>> a
             // tensor([[0, 0, 1],
             //         [1, 2, 2]])
             // 
-            
-            #if TODO
+
+#if TODO
              given=  a = torch.triu_indices(4, 3, 1);
              given=  a;
              expected=
                 "tensor([[0, 0, 1],\n" +
                 "        [1, 2, 2]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addbmmTest()
         {
@@ -5406,8 +5393,8 @@ namespace Torch.UnitTest
             //         [ -4.8185,  -1.4255,  -6.6760,   8.9453,   2.5743],
             //         [ -3.8202,   4.3691,   1.0943,  -1.1109,   5.4730]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  M = torch.randn(3, 5);
              given=  batch1 = torch.randn(10, 3, 4);
              given=  batch2 = torch.randn(10, 4, 5);
@@ -5417,10 +5404,10 @@ namespace Torch.UnitTest
                 "        [ -4.8185,  -1.4255,  -6.6760,   8.9453,   2.5743],\n" +
                 "        [ -3.8202,   4.3691,   1.0943,  -1.1109,   5.4730]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addmmTest()
         {
@@ -5431,8 +5418,8 @@ namespace Torch.UnitTest
             // tensor([[-4.8716,  1.4671, -1.3746],
             //         [ 0.7573, -3.9555, -2.8681]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  M = torch.randn(2, 3);
              given=  mat1 = torch.randn(2, 3);
              given=  mat2 = torch.randn(3, 3);
@@ -5441,10 +5428,10 @@ namespace Torch.UnitTest
                 "tensor([[-4.8716,  1.4671, -1.3746],\n" +
                 "        [ 0.7573, -3.9555, -2.8681]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addmvTest()
         {
@@ -5454,8 +5441,8 @@ namespace Torch.UnitTest
             // >>> torch.addmv(M, mat, vec)
             // tensor([-0.3768, -5.5565])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  M = torch.randn(2);
              given=  mat = torch.randn(2, 3);
              given=  vec = torch.randn(3);
@@ -5463,10 +5450,10 @@ namespace Torch.UnitTest
             var expected=
                 "tensor([-0.3768, -5.5565])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void addrTest()
         {
@@ -5478,8 +5465,8 @@ namespace Torch.UnitTest
             //         [ 2.,  4.],
             //         [ 3.,  6.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  vec1 = torch.arange(1., 4.);
              given=  vec2 = torch.arange(1., 3.);
              given=  M = torch.zeros(3, 2);
@@ -5489,10 +5476,10 @@ namespace Torch.UnitTest
                 "        [ 2.,  4.],\n" +
                 "        [ 3.,  6.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void baddbmmTest()
         {
@@ -5502,8 +5489,8 @@ namespace Torch.UnitTest
             // >>> torch.baddbmm(M, batch1, batch2).size()
             // torch.Size([10, 3, 5])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  M = torch.randn(10, 3, 5);
              given=  batch1 = torch.randn(10, 3, 4);
              given=  batch2 = torch.randn(10, 4, 5);
@@ -5511,10 +5498,10 @@ namespace Torch.UnitTest
             var expected=
                 "torch.Size([10, 3, 5])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void bmmTest()
         {
@@ -5524,8 +5511,8 @@ namespace Torch.UnitTest
             // >>> res.size()
             // torch.Size([10, 3, 5])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  batch1 = torch.randn(10, 3, 4);
              given=  batch2 = torch.randn(10, 4, 5);
              given=  res = torch.bmm(batch1, batch2);
@@ -5533,10 +5520,10 @@ namespace Torch.UnitTest
             var expected=
                 "torch.Size([10, 3, 5])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void chain_matmulTest()
         {
@@ -5549,8 +5536,8 @@ namespace Torch.UnitTest
             //         [ 21.4038,   3.3378,  -8.4982,  -5.2457, -10.2561,  -2.4684,   2.7163],
             //         [ -0.9647,  -5.8917,  -2.3213,  -5.2284,  12.8615, -12.2816,  -2.5095]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 4);
              given=  b = torch.randn(4, 5);
              given=  c = torch.randn(5, 6);
@@ -5561,10 +5548,10 @@ namespace Torch.UnitTest
                 "        [ 21.4038,   3.3378,  -8.4982,  -5.2457, -10.2561,  -2.4684,   2.7163],\n" +
                 "        [ -0.9647,  -5.8917,  -2.3213,  -5.2284,  12.8615, -12.2816,  -2.5095]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void choleskyTest()
         {
@@ -5590,8 +5577,8 @@ namespace Torch.UnitTest
             // >>> torch.max(torch.abs(z - a)) # Max non-zero
             // tensor(2.3842e-07)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a = torch.mm(a, a.t()) # make symmetric positive-definite;
              given=  l = torch.cholesky(a);
@@ -5621,10 +5608,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor(2.3842e-07)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void cholesky_inverseTest()
         {
@@ -5644,8 +5631,8 @@ namespace Torch.UnitTest
             //         [ 1.2251,  2.4439,  0.2122],
             //         [-0.0889,  0.2122,  0.1412]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a = torch.mm(a, a.t()) + 1e-05 * torch.eye(3) # make symmetric positive definite;
              given=  u = torch.cholesky(a);
@@ -5667,10 +5654,10 @@ namespace Torch.UnitTest
                 "        [ 1.2251,  2.4439,  0.2122],\n" +
                 "        [-0.0889,  0.2122,  0.1412]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void cholesky_solveTest()
         {
@@ -5695,8 +5682,8 @@ namespace Torch.UnitTest
             //         [ -5.8398,  14.2387],
             //         [ -4.3771,  10.4173]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a = torch.mm(a, a.t()) # make symmetric positive definite;
              given=  u = torch.cholesky(a);
@@ -5725,26 +5712,26 @@ namespace Torch.UnitTest
                 "        [ -5.8398,  14.2387],\n" +
                 "        [ -4.3771,  10.4173]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void dotTest()
         {
             // >>> torch.dot(torch.tensor([2, 3]), torch.tensor([2, 1]))
             // tensor(7)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  torch.dot(torch.tensor({2, 3}), torch.tensor({2, 1}));
             var expected=
                 "tensor(7)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void gelsTest()
         {
@@ -5766,8 +5753,8 @@ namespace Torch.UnitTest
             //         [ 10.9635,   4.8501],
             //         [  8.9332,   5.2418]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.tensor({{1., 1, 1},;
             var expected=
                 "                      [2, 3, 4],\n" +
@@ -5791,10 +5778,10 @@ namespace Torch.UnitTest
                 "        [ 10.9635,   4.8501],\n" +
                 "        [  8.9332,   5.2418]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void gerTest()
         {
@@ -5806,8 +5793,8 @@ namespace Torch.UnitTest
             //         [  3.,   6.,   9.],
             //         [  4.,   8.,  12.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  v1 = torch.arange(1., 5.);
              given=  v2 = torch.arange(1., 4.);
              given=  torch.ger(v1, v2);
@@ -5817,10 +5804,10 @@ namespace Torch.UnitTest
                 "        [  3.,   6.,   9.],\n" +
                 "        [  4.,   8.,  12.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void inverseTest()
         {
@@ -5841,8 +5828,8 @@ namespace Torch.UnitTest
             // >>> torch.max(torch.abs(z - torch.eye(4).expand_as(x))) # Max non-zero
             // tensor(1.9073e-06)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  x = torch.rand(4, 4);
              given=  y = torch.inverse(x);
              given=  z = torch.mm(x, y);
@@ -5865,10 +5852,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor(1.9073e-06)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void detTest()
         {
@@ -5876,17 +5863,17 @@ namespace Torch.UnitTest
             // >>> torch.det(A)
             // tensor(3.7641)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(3, 3);
              given=  torch.det(A);
             var expected=
                 "tensor(3.7641)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void logdetTest()
         {
@@ -5896,8 +5883,8 @@ namespace Torch.UnitTest
             // >>> torch.logdet(A)
             // tensor(-1.3430)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(3, 3);
              given=  torch.det(A);
             var expected=
@@ -5907,10 +5894,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor(-1.3430)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void slogdetTest()
         {
@@ -5926,8 +5913,8 @@ namespace Torch.UnitTest
             // >>> torch.slogdet(A)
             // torch.return_types.slogdet(sign=tensor(-1.), logabsdet=tensor(-0.2776))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(3, 3);
              given=  A;
             var expected=
@@ -5947,10 +5934,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.return_types.slogdet(sign=tensor(-1.), logabsdet=tensor(-0.2776))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void luTest()
         {
@@ -5972,8 +5959,8 @@ namespace Torch.UnitTest
             // ...   print('LU factorization succeeded for all samples!')
             // LU factorization succeeded for all samples!
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(2, 3, 3);
              given=  A_LU, pivots = torch.lu(A);
              given=  A_LU;
@@ -5997,10 +5984,10 @@ namespace Torch.UnitTest
                 "...   print('LU factorization succeeded for all samples!')\n" +
                 "LU factorization succeeded for all samples!";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void lu_solveTest()
         {
@@ -6012,8 +5999,8 @@ namespace Torch.UnitTest
             // tensor(1.00000e-07 *
             //        2.8312)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(2, 3, 3);
              given=  b = torch.randn(2, 3);
              given=  A_LU = torch.lu(A);
@@ -6023,10 +6010,10 @@ namespace Torch.UnitTest
                 "tensor(1.00000e-07 *\n" +
                 "       2.8312)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void lu_unpackTest()
         {
@@ -6037,18 +6024,18 @@ namespace Torch.UnitTest
             // >>> # can recover A from factorization
             // >>> A_ = torch.bmm(P, torch.bmm(A_L, A_U))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(2, 3, 3);
              given=  A_LU, pivots = A.lu();
              given=  P, A_L, A_U = torch.lu_unpack(A_LU, pivots);
              given= ;
              given=  # can recover A from factorization;
              given=  A_ = torch.bmm(P, torch.bmm(A_L, A_U));
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void matmulTest()
         {
@@ -6078,8 +6065,8 @@ namespace Torch.UnitTest
             // >>> torch.matmul(tensor1, tensor2).size()
             // torch.Size([10, 3, 5])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  # vector x vector;
              given=  tensor1 = torch.randn(3);
              given=  tensor2 = torch.randn(3);
@@ -6115,10 +6102,10 @@ namespace Torch.UnitTest
              expected=
                 "torch.Size([10, 3, 5])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void matrix_powerTest()
         {
@@ -6136,8 +6123,8 @@ namespace Torch.UnitTest
             //         [[  0.2468,  -6.7168],
             //          [  2.0774,  -0.8187]]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(2, 2, 2);
              given=  a;
             var expected=
@@ -6155,10 +6142,10 @@ namespace Torch.UnitTest
                 "        [[  0.2468,  -6.7168],\n" +
                 "         [  2.0774,  -0.8187]]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void matrix_rankTest()
         {
@@ -6170,8 +6157,8 @@ namespace Torch.UnitTest
             // >>> torch.matrix_rank(b)
             // tensor(9)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.eye(10);
              given=  torch.matrix_rank(a);
             var expected=
@@ -6183,10 +6170,10 @@ namespace Torch.UnitTest
              expected=
                 "tensor(9)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void mmTest()
         {
@@ -6196,8 +6183,8 @@ namespace Torch.UnitTest
             // tensor([[ 0.4851,  0.5037, -0.3633],
             //         [-0.0760, -3.6705,  2.4784]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  mat1 = torch.randn(2, 3);
              given=  mat2 = torch.randn(3, 3);
              given=  torch.mm(mat1, mat2);
@@ -6205,10 +6192,10 @@ namespace Torch.UnitTest
                 "tensor([[ 0.4851,  0.5037, -0.3633],\n" +
                 "        [-0.0760, -3.6705,  2.4784]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void mvTest()
         {
@@ -6217,18 +6204,18 @@ namespace Torch.UnitTest
             // >>> torch.mv(mat, vec)
             // tensor([ 1.0404, -0.6361])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  mat = torch.randn(2, 3);
              given=  vec = torch.randn(3);
              given=  torch.mv(mat, vec);
             var expected=
                 "tensor([ 1.0404, -0.6361])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void pinverseTest()
         {
@@ -6244,8 +6231,8 @@ namespace Torch.UnitTest
             //         [ 0.1356,  0.3933, -0.5023],
             //         [-0.0308, -0.1725, -0.5216]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  input = torch.randn(3, 5);
              given=  input;
             var expected=
@@ -6261,10 +6248,10 @@ namespace Torch.UnitTest
                 "        [ 0.1356,  0.3933, -0.5023],\n" +
                 "        [-0.0308, -0.1725, -0.5216]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void pstrfTest()
         {
@@ -6287,8 +6274,8 @@ namespace Torch.UnitTest
             //         [-0.4577,  1.8244, -0.1996],
             //         [ 0.8342, -0.1996,  3.7493]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.randn(3, 3);
              given=  a = torch.mm(a, a.t()) # make symmetric positive definite;
              given=  a;
@@ -6315,10 +6302,10 @@ namespace Torch.UnitTest
                 "        [-0.4577,  1.8244, -0.1996],\n" +
                 "        [ 0.8342, -0.1996,  3.7493]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void qrTest()
         {
@@ -6341,8 +6328,8 @@ namespace Torch.UnitTest
             //         [ 0.,  1., -0.],
             //         [ 0., -0.,  1.]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.tensor({{12., -51, 4}, {6, 167, -68}, {-4, 24, -41}});
              given=  q, r = torch.qr(a);
              given=  q;
@@ -6369,10 +6356,10 @@ namespace Torch.UnitTest
                 "        [ 0.,  1., -0.],\n" +
                 "        [ 0., -0.,  1.]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void solveTest()
         {
@@ -6397,8 +6384,8 @@ namespace Torch.UnitTest
             // tensor(1.00000e-06 *
             //    3.6386)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.tensor({{6.80, -2.11,  5.66,  5.97,  8.23},;
             var expected=
                 "                      [-6.05, -3.30,  5.36, -4.44,  1.08],\n" +
@@ -6427,10 +6414,10 @@ namespace Torch.UnitTest
                 "tensor(1.00000e-06 *\n" +
                 "   3.6386)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void svdTest()
         {
@@ -6462,8 +6449,8 @@ namespace Torch.UnitTest
             // tensor(1.00000e-06 *
             //        9.3738)
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.tensor({{8.79,  6.11, -9.15,  9.57, -3.49,  9.84},;
             var expected=
                 "                      [9.93,  6.91, -7.93,  1.64,  4.02,  0.15],\n" +
@@ -6503,10 +6490,10 @@ namespace Torch.UnitTest
                 "tensor(1.00000e-06 *\n" +
                 "       9.3738)";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void symeigTest()
         {
@@ -6525,8 +6512,8 @@ namespace Torch.UnitTest
             //         [-0.0036, -0.4467,  0.4553,  0.6204, -0.4564],
             //         [-0.8041,  0.4480,  0.1725,  0.3108,  0.1622]])
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  a = torch.tensor({{ 1.96,  0.00,  0.00,  0.00,  0.00},;
             var expected=
                 "                      [-6.49,  3.80,  0.00,  0.00,  0.00],\n" +
@@ -6547,10 +6534,10 @@ namespace Torch.UnitTest
                 "        [-0.0036, -0.4467,  0.4553,  0.6204, -0.4564],\n" +
                 "        [-0.8041,  0.4480,  0.1725,  0.3108,  0.1622]])";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
-        
+
+
         [TestMethod]
         public void triangular_solveTest()
         {
@@ -6569,8 +6556,8 @@ namespace Torch.UnitTest
             // cloned_coefficient=tensor([[ 1.1527, -1.0753],
             //         [ 0.0000,  0.7986]]))
             // 
-            
-            #if TODO
+
+#if TODO
             var given=  A = torch.randn(2, 2).triu();
              given=  A;
             var expected=
@@ -6591,8 +6578,8 @@ namespace Torch.UnitTest
                 "cloned_coefficient=tensor([[ 1.1527, -1.0753],\n" +
                 "        [ 0.0000,  0.7986]]))";
             Assert.AreEqual(expected, given.repr);
-            #endif
+#endif
         }
-        
+
     }
 }

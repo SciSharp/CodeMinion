@@ -21,6 +21,8 @@ namespace Torch
         /// Element type of the tensor
         /// </summary>
         public Dtype dtype => new Dtype( self.GetAttr("dtype"));
+
+        public Tensor<T> AsTensor<T>() => new Tensor<T>(self);
     }
 
     public partial class Tensor<T> : Tensor
@@ -60,6 +62,12 @@ namespace Torch
                 case double[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
             }
             return (T[])array;
+        }
+
+        public T this[int index]
+        {
+            get { return self.GetItem(index).As<T>(); }
+            set { self.SetItem(index, ConverterExtension.ToPython(value)); }
         }
     }
 }

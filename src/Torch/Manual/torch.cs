@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using Python.Runtime;
 using Numpy;
+using Numpy.Models;
 
 namespace Torch
 {
@@ -39,6 +40,11 @@ namespace Torch
         public static Dtype @int => new Dtype(PyTorch.Instance.self.GetAttr("int"));
         public static Dtype int64 => new Dtype(PyTorch.Instance.self.GetAttr("int64"));
         public static Dtype @long => new Dtype(PyTorch.Instance.self.GetAttr("long"));
+        public static Dtype FloatTensor => new Dtype(PyTorch.Instance.self.GetAttr("FloatTensor"));
+        public static Dtype DoubleTensor => new Dtype(PyTorch.Instance.self.GetAttr("DoubleTensor"));
+        public static Dtype IntTensor => new Dtype(PyTorch.Instance.self.GetAttr("IntTensor"));
+        public static Dtype LongTensor => new Dtype(PyTorch.Instance.self.GetAttr("LongTensor"));
+        public static Dtype ByteTensor => new Dtype(PyTorch.Instance.self.GetAttr("ByteTensor"));
 
         /// <summary>
         /// A torch.device is an object representing the device on which a torch.Tensor is or will be allocated.
@@ -57,8 +63,8 @@ namespace Torch
         public static Device device(string name, int? index=null)
         {
             if (index==null)
-                return new Device(PyTorch.Instance.self.InvokeMethod("device", name));
-            return new Device(PyTorch.Instance.self.InvokeMethod("device", name, index.Value));
+                return new Device(PyTorch.Instance.self.InvokeMethod("device", PyTorch.Instance.ToTuple(new object[]{name})));
+            return new Device(PyTorch.Instance.self.InvokeMethod("device", PyTorch.Instance.ToTuple(new object[] { name, index.Value })));
         }
 
         /// <summary>
@@ -66,7 +72,7 @@ namespace Torch
         /// </summary>
         public static Device device(int index)
         {
-            return new Device(PyTorch.Instance.self.InvokeMethod("device", index));
+            return new Device(PyTorch.Instance.self.InvokeMethod("device", PyTorch.Instance.ToTuple(new object[] { index})));
         }
 
         /// <summary>
@@ -143,6 +149,59 @@ namespace Torch
         /// <param name="out">the output tensor</param>
         public static void @add(Tensor input, Tensor other, Tensor @out = null)
             => PyTorch.Instance.@add(input, @value: 1, other: other, @out: @out);
+
+        /// <summary>
+        /// Returns a tensor filled with random numbers from a uniform distribution
+        /// on the interval \([0, 1)\)
+        /// 
+        /// The shape of the tensor is defined by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        public static Tensor rand(params int[] sizes)
+            => PyTorch.Instance.rand(new Shape(sizes));
+
+        /// <summary>
+        /// Returns a tensor filled with random numbers from a normal distribution
+        /// with mean 0 and variance 1 (also called the standard normal
+        /// distribution).
+        /// 
+        /// \[\text{out}_{i} \sim \mathcal{N}(0, 1)
+        /// 
+        /// \]
+        /// 
+        /// The shape of the tensor is defined by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        public static Tensor randn(params int[] sizes)
+            => PyTorch.Instance.randn(new Shape(sizes));
+
+        /// <summary>
+        /// Returns a tensor filled with the scalar value 0, with the shape defined
+        /// by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        public static Tensor zeros(params int[] sizes)
+            => PyTorch.Instance.zeros(new Shape(sizes));
+
+        /// <summary>
+        /// Returns a tensor filled with the scalar value 1, with the shape defined
+        /// by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        public static Tensor ones(params int[] sizes)
+            => PyTorch.Instance.ones(new Shape(sizes));
 
     }
 }

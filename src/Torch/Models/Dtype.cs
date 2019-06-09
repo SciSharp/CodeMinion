@@ -14,20 +14,4 @@ namespace Torch
 
         public bool is_floating_point => self.GetAttr("is_floating_point").As<bool>();
     }
-
-    public partial class Device : PythonObject
-    {
-        public Device(PyObject pyobj) : base(pyobj)
-        {
-        }
-
-    }
-
-    public partial class Layout : PythonObject
-    {
-        public Layout(PyObject pyobj) : base(pyobj)
-        {
-        }
-
-    }
 }
