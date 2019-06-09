@@ -324,9 +324,6 @@ namespace Torch
         /// <param name="end">
         /// the ending value for the set of points
         /// </param>
-        /// <param name="step">
-        /// the gap between each pair of adjacent points. Default: 1.
-        /// </param>
         /// <param name="@out">
         /// the output tensor
         /// </param>
@@ -352,8 +349,8 @@ namespace Torch
         /// If autograd should record operations on the
         /// returned tensor. Default: False.
         /// </param>
-        public static Tensor arange(double end, double step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
-            => PyTorch.Instance.arange(end, step:step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        public static Tensor arange(double end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.arange(end, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
         /// <summary>
         /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor\)
@@ -420,9 +417,6 @@ namespace Torch
         /// <param name="end">
         /// the ending value for the set of points
         /// </param>
-        /// <param name="step">
-        /// the gap between each pair of adjacent points. Default: 1.
-        /// </param>
         /// <param name="@out">
         /// the output tensor
         /// </param>
@@ -448,8 +442,8 @@ namespace Torch
         /// If autograd should record operations on the
         /// returned tensor. Default: False.
         /// </param>
-        public static Tensor range(float end, float step = 1f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
-            => PyTorch.Instance.range(end, step:step, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
+        public static Tensor range(float end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.range(end, @out:@out, dtype:dtype, layout:layout, device:device, requires_grad:requires_grad);
         
         /// <summary>
         /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor + 1\)

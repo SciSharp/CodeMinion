@@ -39,6 +39,20 @@ namespace Torch
             return self.GetHashCode();
         }
 
+        // there is no need for this yet. if it is, we'll generate it automatically
+        public object FromPython(PyObject obj)
+        {
+            if (obj.IsNone())
+                return null;
+            var python_typename = Runtime.PyObject_GetTypeName(obj.Handle);
+            switch (python_typename)
+            {
+                case "Tensor": return new Tensor(obj);
+                default: throw new NotImplementedException($"Type is not yet supported: { python_typename}. Add it to 'FromPythonConversions'");
+            }
+            return obj;
+        }
+
         public string repr => ToString();
 
         public override string ToString()

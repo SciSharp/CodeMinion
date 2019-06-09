@@ -21,6 +21,24 @@ namespace Torch
         public static Tensor<T> tensor<T>(T[] data, Dtype dtype = null, Device device = null, bool? requires_grad = null, bool? pin_memory = null)
             => PyTorch.Instance.tensor(data, dtype: dtype, device: device, requires_grad: requires_grad, pin_memory: pin_memory);
 
+        /// <summary>
+        /// retrun a Tensor from a scalar value
+        /// </summary>
+        public static Tensor<T> as_tensor<T>(T scalar, Dtype dtype = null, Device device = null)
+        {
+            var self = PyTorch.Instance.self;
+            var pyargs = PyTorch.Instance.ToTuple(new object[] { scalar });
+            var kwargs = new PyDict();
+            if (dtype != null) kwargs["dtype"] = PyTorch.Instance.ToPython(dtype);
+            if (device != null) kwargs["device"] = PyTorch.Instance.ToPython(device);
+            return new Tensor<T>(self.InvokeMethod("as_tensor", pyargs, kwargs));
+        }
+
+        public static Tensor<T> as_tensor<T>(T[] data, Dtype dtype = null, Device device = null)
+        {
+            return tensor(data, dtype, device);
+        }
+
         // layouts
         public static Layout strided => new Layout(PyTorch.Instance.self.GetAttr("strided"));
         public static Layout sparse_coo => new Layout(PyTorch.Instance.self.GetAttr("sparse_coo"));
@@ -202,6 +220,112 @@ namespace Torch
         /// </param>
         public static Tensor ones(params int[] sizes)
             => PyTorch.Instance.ones(new Shape(sizes));
+
+
+        /// <summary>
+        /// Returns a tensor filled with uninitialized data. The shape of the tensor is
+        /// defined by the variable argument sizes.
+        /// </summary>
+        /// <param name="sizes">
+        /// a sequence of integers defining the shape of the output tensor.
+        /// Can be a variable number of arguments or a collection like a list or tuple.
+        /// </param>
+        public static Tensor empty(params int[] sizes)
+            => PyTorch.Instance.empty(new Shape(sizes));
+
+        /// <summary>
+        /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor\)
+        /// with values from the interval [start, end) taken with common difference
+        /// step beginning from start.
+        /// 
+        /// Note that non-integer step is subject to floating point rounding errors when
+        /// comparing against end; to avoid inconsistency, we advise adding a small epsilon to end
+        /// in such cases.
+        /// 
+        /// \[\text{out}_{{i+1}} = \text{out}_{i} + \text{step}
+        /// 
+        /// \]
+        /// </summary>
+        /// <param name="start">
+        /// the starting value for the set of points. Default: 0.
+        /// </param>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="step">
+        /// the gap between each pair of adjacent points. Default: 1.
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor arange(int start, int end, int step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.arange(start, end, step: step, @out: @out, dtype: torch.int64, layout: layout, device: device, requires_grad: requires_grad);
+
+        /// <summary>
+        /// Returns a 1-D tensor of size \(\left\lfloor \frac{\text{end} - \text{start}}{\text{step}} \right\rfloor\)
+        /// with values from the interval [start, end) taken with common difference
+        /// step beginning from start.
+        /// 
+        /// Note that non-integer step is subject to floating point rounding errors when
+        /// comparing against end; to avoid inconsistency, we advise adding a small epsilon to end
+        /// in such cases.
+        /// 
+        /// \[\text{out}_{{i+1}} = \text{out}_{i} + \text{step}
+        /// 
+        /// \]
+        /// </summary>
+        /// <param name="end">
+        /// the ending value for the set of points
+        /// </param>
+        /// <param name="@out">
+        /// the output tensor
+        /// </param>
+        /// <param name="dtype">
+        /// the desired data type of returned tensor.
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
+        /// </param>
+        /// <param name="layout">
+        /// the desired layout of returned Tensor.
+        /// Default: torch.strided.
+        /// </param>
+        /// <param name="device">
+        /// the desired device of returned tensor.
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
+        /// </param>
+        /// <param name="requires_grad">
+        /// If autograd should record operations on the
+        /// returned tensor. Default: False.
+        /// </param>
+        public static Tensor arange(int end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+            => PyTorch.Instance.arange(0, end, 1, @out: @out, dtype: torch.int64, layout: layout, device: device, requires_grad: requires_grad);
 
     }
 }

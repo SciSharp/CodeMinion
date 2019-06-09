@@ -455,7 +455,23 @@ namespace Torch.ApiGenerator
                 case "arange":
                 case "range":
                     func["start"].DefaultValue = null;
-                    yield return func.Clone(clone => { clone.Arguments.RemoveAt(0); });
+                    yield return func.Clone(clone =>
+                    {
+                        clone.Arguments.RemoveAt(0);
+                        clone.Arguments.RemoveAt(1);
+                    });
+                    //yield return func.Clone(clone =>
+                    //{
+                    //    clone["start"].Type="int";
+                    //    clone["end"].Type = "int";
+                    //    clone["step"].Type = "int";
+                    //});
+                    //yield return func.Clone(clone =>
+                    //{
+                    //    clone["end"].Type = "int";
+                    //    clone.Arguments.RemoveAt(0);
+                    //    clone.Arguments.RemoveAt(1);
+                    //});
                     break;
                 case "randint":
                     func["size"].Type = "Shape";

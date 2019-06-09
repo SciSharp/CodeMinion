@@ -506,9 +506,6 @@ namespace Torch
         /// <param name="end">
         /// the ending value for the set of points
         /// </param>
-        /// <param name="step">
-        /// the gap between each pair of adjacent points. Default: 1.
-        /// </param>
         /// <param name="@out">
         /// the output tensor
         /// </param>
@@ -534,7 +531,7 @@ namespace Torch
         /// If autograd should record operations on the
         /// returned tensor. Default: False.
         /// </param>
-        public Tensor arange(double end, double step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+        public Tensor arange(double end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -543,7 +540,6 @@ namespace Torch
                 end,
             });
             var kwargs=new PyDict();
-            if (step!=1) kwargs["step"]=ToPython(step);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
@@ -635,9 +631,6 @@ namespace Torch
         /// <param name="end">
         /// the ending value for the set of points
         /// </param>
-        /// <param name="step">
-        /// the gap between each pair of adjacent points. Default: 1.
-        /// </param>
         /// <param name="@out">
         /// the output tensor
         /// </param>
@@ -663,7 +656,7 @@ namespace Torch
         /// If autograd should record operations on the
         /// returned tensor. Default: False.
         /// </param>
-        public Tensor range(float end, float step = 1f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
+        public Tensor range(float end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -672,7 +665,6 @@ namespace Torch
                 end,
             });
             var kwargs=new PyDict();
-            if (step!=1f) kwargs["step"]=ToPython(step);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);

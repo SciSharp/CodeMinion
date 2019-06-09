@@ -23,6 +23,18 @@ namespace Torch
         public Dtype dtype => new Dtype( self.GetAttr("dtype"));
 
         public Tensor<T> AsTensor<T>() => new Tensor<T>(self);
+
+
+        public Tensor this[params int[] index]
+        {
+            get { return new Tensor( self.GetItem(ToTuple(index))); }
+            set { self.SetItem(ToTuple(index), value.PyObject); }
+        }
+
+        private T as_scalar<T>()
+        {
+            return self.InvokeMethod("item").As<T>();
+        }
     }
 
     public partial class Tensor<T> : Tensor
@@ -64,10 +76,11 @@ namespace Torch
             return (T[])array;
         }
 
-        public T this[int index]
+        public new T this[int index]
         {
             get { return self.GetItem(index).As<T>(); }
             set { self.SetItem(index, ConverterExtension.ToPython(value)); }
         }
+
     }
 }
