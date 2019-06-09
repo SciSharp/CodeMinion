@@ -1814,66 +1814,6 @@ namespace Torch
             return ToCsharp<Tensor<long>>(py);
         }
         
-        /*
-        public void normal()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("normal");
-        }
-        */
-        
-        /*
-        public Tensor normal( mean,  std, Tensor @out = null)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-                mean,
-                std,
-            });
-            var kwargs=new PyDict();
-            if (@out!=null) kwargs["out"]=ToPython(@out);
-            dynamic py = __self__.InvokeMethod("normal", pyargs, kwargs);
-            return ToCsharp<Tensor>(py);
-        }
-        */
-        
-        /*
-        public Tensor normal( mean = 0.0,  std, Tensor @out = null)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-            });
-            var kwargs=new PyDict();
-            if (mean!=0.0) kwargs["mean"]=ToPython(mean);
-            if (std!=null) kwargs["std"]=ToPython(std);
-            if (@out!=null) kwargs["out"]=ToPython(@out);
-            dynamic py = __self__.InvokeMethod("normal", pyargs, kwargs);
-            return ToCsharp<Tensor>(py);
-        }
-        */
-        
-        /*
-        public Tensor normal( mean,  std = 1.0, Tensor @out = null)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-                mean,
-            });
-            var kwargs=new PyDict();
-            if (std!=1.0) kwargs["std"]=ToPython(std);
-            if (@out!=null) kwargs["out"]=ToPython(@out);
-            dynamic py = __self__.InvokeMethod("normal", pyargs, kwargs);
-            return ToCsharp<Tensor>(py);
-        }
-        */
-        
         /// <summary>
         /// Returns a tensor filled with random numbers from a uniform distribution
         /// on the interval \([0, 1)\)
@@ -2487,48 +2427,6 @@ namespace Torch
             dynamic py = __self__.InvokeMethod("acos", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
-        
-        /*
-        public void @add()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("add");
-        }
-        */
-        
-        /*
-        public void @add( input,  @value, Tensor @out = null)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-                input,
-                @value,
-            });
-            var kwargs=new PyDict();
-            if (@out!=null) kwargs["out"]=ToPython(@out);
-            dynamic py = __self__.InvokeMethod("add", pyargs, kwargs);
-        }
-        */
-        
-        /*
-        public void @add( input,  @value = 1,  other, Tensor @out = null)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-                input,
-            });
-            var kwargs=new PyDict();
-            if (@value!=1) kwargs["value"]=ToPython(@value);
-            if (other!=null) kwargs["other"]=ToPython(other);
-            if (@out!=null) kwargs["out"]=ToPython(@out);
-            dynamic py = __self__.InvokeMethod("add", pyargs, kwargs);
-        }
-        */
         
     }
 }

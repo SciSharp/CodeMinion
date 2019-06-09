@@ -1204,26 +1204,6 @@ namespace Torch
         public static Tensor<long> multinomial(Tensor input, int num_samples, bool? replacement = false, Tensor @out = null)
             => PyTorch.Instance.multinomial(input, num_samples, replacement:replacement, @out:@out);
         
-        /*
-        public static void normal()
-            => PyTorch.Instance.normal();
-        */
-        
-        /*
-        public static Tensor normal( mean,  std, Tensor @out = null)
-            => PyTorch.Instance.normal(mean, std, @out:@out);
-        */
-        
-        /*
-        public static Tensor normal( mean = 0.0,  std, Tensor @out = null)
-            => PyTorch.Instance.normal(mean:mean, std:std, @out:@out);
-        */
-        
-        /*
-        public static Tensor normal( mean,  std = 1.0, Tensor @out = null)
-            => PyTorch.Instance.normal(mean, std:std, @out:@out);
-        */
-        
         /// <summary>
         /// Returns a tensor filled with random numbers from a uniform distribution
         /// on the interval \([0, 1)\)
@@ -1640,21 +1620,6 @@ namespace Torch
         /// </param>
         public static Tensor acos(Tensor input, Tensor @out = null)
             => PyTorch.Instance.acos(input, @out:@out);
-        
-        /*
-        public static void @add()
-            => PyTorch.Instance.@add();
-        */
-        
-        /*
-        public static void @add( input,  @value, Tensor @out = null)
-            => PyTorch.Instance.@add(input, @value, @out:@out);
-        */
-        
-        /*
-        public static void @add( input,  @value = 1,  other, Tensor @out = null)
-            => PyTorch.Instance.@add(input, @value:@value, other:other, @out:@out);
-        */
         
         
     }

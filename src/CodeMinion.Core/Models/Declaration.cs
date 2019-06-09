@@ -26,6 +26,11 @@ namespace CodeMinion.Core.Models
         public string SharpOnlyPostfix { get; set; }
 
         /// <summary>
+        /// Do not generate if true
+        /// </summary>
+        public bool Ignore { get; set; }
+
+        /// <summary>
         /// Break into the Debugger when generating this declaration
         /// </summary>
         public bool DebuggerBreak { get; set; }

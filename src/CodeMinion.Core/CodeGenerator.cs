@@ -459,6 +459,8 @@ namespace CodeMinion.Core
                     {
                         try
                         {
+                            if (decl.Ignore)
+                                continue;
                             GenerateStaticApiRedirection(api, decl, s);
                         }
                         catch (Exception e)
@@ -504,8 +506,9 @@ namespace CodeMinion.Core
                     {
                         try
                         {
-                            if (!decl.ManualOverride)
-                                GenerateApiFunction(decl, s, prefix: true);
+                            if (decl.ManualOverride || decl.Ignore)
+                                continue;
+                            GenerateApiFunction(decl, s, prefix: true);
                         }
                         catch (Exception e)
                         {
@@ -538,7 +541,7 @@ namespace CodeMinion.Core
                     {
                         try
                         {
-                            if (decl.ManualOverride)
+                            if (decl.ManualOverride || decl.Ignore)
                                 continue;
                             GenerateApiFunction(decl, s);
                         }

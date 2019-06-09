@@ -60,6 +60,18 @@ namespace Torch
             return self.ToString();
         }
 
+        /// <summary>
+        /// Returns True if obj is a PyTorch tensor.
+        /// </summary>
+        public bool is_tensor
+            => PyTorch.Instance.is_tensor(this);
+
+        /// <summary>
+        /// Returns True if obj is a PyTorch storage object.
+        /// </summary>
+        public bool is_storage
+            => PyTorch.Instance.is_storage(this);
+
         public void Dispose()
         {
             self?.Dispose();

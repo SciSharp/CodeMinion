@@ -8,5 +8,11 @@ namespace Torch
         {
         }
 
+        public static implicit operator Device(string device)
+        {
+            if (device == null)
+                return null;
+            return torch.device(device);
+        }
     }
 }

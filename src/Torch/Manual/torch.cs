@@ -75,7 +75,7 @@ namespace Torch
         /// A torch.Tensor’s device can be accessed via the Tensor.device property.
         /// A torch.device can be constructed via a string or via a string and device ordinal
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Any of cpu, cuda, mkldnn, opengl, opencl, ideep, hip, msnpu</param>
         /// <param name="index"></param>
         /// <returns></returns>
         public static Device device(string name, int? index=null)

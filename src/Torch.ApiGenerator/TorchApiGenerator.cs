@@ -55,52 +55,30 @@ namespace Torch.ApiGenerator
 
         private HashSet<string> ManualOverride = new HashSet<string>() { "tensor" };
 
+        public HtmlDocument LoadDoc(string url)
+        {
+            HtmlDocument doc;
+
+            if (File.Exists(url))
+            {
+                doc = new HtmlDocument();
+                doc.Load(url);
+            }
+            else
+            {
+                var web = new HtmlWeb();
+                doc = web.Load(BaseUrl+url);
+                File.WriteAllText(url, doc.Text);
+            }
+            return doc;
+        }
+
+        private string BaseUrl = "https://pytorch.org/docs/stable/";
+
         public string Generate()
         {
-            var docs = LoadDocs();
-            var api = new StaticApi()
-            {
-                StaticName = "torch", // name of the static API class
-                ImplName = "PyTorch", // name of the singleton that implements the static API behind the scenes
-                PythonModule = "torch" // name of the Python module that the static api wraps 
-            };
-            _generator.StaticApis.Add(api);
-            foreach (var html in docs)
-            {
-                var testfile = new TestFile() { Name = $"{api.ImplName}_{api.PartialName}" };
-                _generator.TestFiles.Add(testfile);
-
-                var doc = new HtmlDocument();
-                doc.LoadHtml(html.Value);
-
-                var nodes = doc.DocumentNode.Descendants("dl")
-                     .Where(x => x.Attributes["class"]?.Value == "function")
-                     .ToList();
-
-                foreach (var node in nodes)
-                {
-                    var decl = new Function();
-                    ParseFunctionName(decl, node);
-                    if (decl.Name == "addcdiv")
-                        break;
-                    ParseDocString(decl, node);
-                    if (ManualOverride.Contains(decl.Name)) continue;
-                    //if (!InMigrationApiList(decl.Name)) continue;
-                    SetReturnType(decl, node);
-                    ParseArguments(decl, node);
-                    ParseDefaultValues(decl, node);
-
-                    foreach (var d in InferOverloads(decl))
-                        api.Declarations.Add(d);
-
-                    PostProcess(decl);
-
-                    // see if there are any examples which we can convert to test cases
-                    var testcase = ParseTests(decl, node);
-                    if (testcase != null)
-                        testfile.TestCases.Add(testcase);
-                }
-            }
+            ParseStaticApi("torch.html",stop_at: "addcdiv");
+            ParseDynamicApi("tensors.html", "Tensor", stop_at: "masked_scatter");
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -109,6 +87,106 @@ namespace Torch.ApiGenerator
             //_generator.GenerateIntermediateJson();
             _generator.Generate();
             return "DONE";
+        }
+
+        private void ParseStaticApi(string uri, string partial_name = null, string stop_at=null)
+        {
+            Console.WriteLine("Parsing: " + uri);
+            var doc = LoadDoc(uri);
+            var api = new StaticApi()
+            {
+                StaticName = "torch", // name of the static API class
+                ImplName = "PyTorch", // name of the singleton that implements the static API behind the scenes
+                PythonModule = "torch", // name of the Python module that the static api wraps 
+                PartialName = partial_name,
+            };
+            _generator.StaticApis.Add(api);
+            var testfile = new TestFile() { Name = $"{api.ImplName}_{api.PartialName}" };
+            _generator.TestFiles.Add(testfile);
+
+            var nodes = doc.DocumentNode.Descendants("dl")
+                .Where(x => x.Attributes["class"]?.Value == "function")
+                .ToList();
+
+            foreach (var node in nodes)
+            {
+                var decl = new Function() { ClassName = api.StaticName };
+                ParseFunctionName(decl, node);
+                if (stop_at != null && decl.Name == stop_at)
+                    break;
+                ParseDocString(decl, node);
+                if (ManualOverride.Contains(decl.Name)) continue;
+                //if (!InMigrationApiList(decl.Name)) continue;
+                ParseReturnValue(decl, node);
+                ParseArguments(decl, node);
+                ParseDefaultValues(decl, node);
+
+                foreach (var d in InferOverloads(decl))
+                    api.Declarations.Add(d);
+
+                PostProcess(decl);
+
+                // see if there are any examples which we can convert to test cases
+                var testcase = ParseTests(decl, node);
+                if (testcase != null)
+                    testfile.TestCases.Add(testcase);
+            }
+        }
+
+        private void ParseDynamicApi(string uri, string classname, string partial_name = null, string stop_at = null)
+        {
+            Console.WriteLine("Parsing: " + uri);
+            var doc = LoadDoc(uri);
+            var api = new DynamicApi()
+            {
+                ClassName = classname, // name of the class to generate
+                PartialName = partial_name,
+            };
+            _generator.DynamicApis.Add(api);
+            var testfile = new TestFile() { Name = $"{api.ClassName}_{api.PartialName}" };
+            _generator.TestFiles.Add(testfile);
+
+            HtmlNode class_node = null;
+            foreach (var node in doc.DocumentNode.Descendants("dl").Where(x => x.Attributes["class"]?.Value == "class"))
+            {
+                var code=node.Descendants("code").FirstOrDefault(y => y.Attributes["class"]?.Value == "descname");
+                if (code.InnerText.Trim() == classname)
+                {
+                    class_node = node;
+                    break;
+                }
+            }
+            var nodes = class_node.Descendants("dl")
+                .Where(x => x.Attributes["class"]?.Value == "method")
+                .ToList();
+
+            foreach (var node in nodes)
+            {
+                var dd = node.Descendants("dd").FirstOrDefault();
+                if (dd.InnerText.Contains("See torch.") || dd.InnerText.Contains("In-place version"))
+                    continue;
+                var decl = new Function() { ClassName = classname };
+                ParseFunctionName(decl, node);
+                if (stop_at != null && decl.Name == stop_at)
+                    break;
+                ParseDocString(decl, node);
+                if (ManualOverride.Contains(decl.Name)) continue;
+                //if (!InMigrationApiList(decl.Name)) continue;
+                ParseReturnValue(decl, node);
+                ParseArguments(decl, node);
+                ParseDefaultValues(decl, node);
+
+                foreach (var d in InferOverloads(decl))
+                    api.Declarations.Add(d);
+
+                PostProcess(decl);
+
+                // see if there are any examples which we can convert to test cases
+                var testcase = ParseTests(decl, node);
+                if (testcase != null)
+                    testfile.TestCases.Add(testcase);
+            }
+
         }
 
         private void ParseDefaultValues(Function decl, HtmlNode dl)
@@ -193,13 +271,13 @@ namespace Torch.ApiGenerator
             decl.Name = node.Element("dt").Descendants().First(x => x.Attributes["class"]?.Value == "descname").InnerText.Replace(".", string.Empty);
         }
 
-        private void SetReturnType(Declaration decl, HtmlNode node)
+        private void ParseReturnValue(Declaration decl, HtmlNode node)
         {
             decl.Returns = new List<Argument>();
-            if (decl.Name.StartsWith("is_"))
-            {
-                decl.Returns.Add(new Argument { Type = "bool" });
-            }
+            //if (decl.Name.StartsWith("is_"))
+            //{
+            //    decl.Returns.Add(new Argument { Type = "bool" });
+            //}
 
             var dt = node.Element("dt");
             if (dt.InnerText.Contains("&#x2192;"))
@@ -217,8 +295,8 @@ namespace Torch.ApiGenerator
             var p_nodes = node.Descendants("dd").First().Descendants("dl").FirstOrDefault();
             if (p_nodes == null) return;
 
-            var p_node = p_nodes.Descendants("dd").First();
-            if (p_node.InnerHtml == "")
+            var p_node = p_nodes.Descendants("dd").FirstOrDefault();
+            if (p_node==null || p_node.InnerHtml == "")
                 return;
 
             if (p_node.Element("ul") != null) // multiple parameters
@@ -288,6 +366,19 @@ namespace Torch.ApiGenerator
                 case "pin_memory":
                     arg.PassOnlyIfNotNull = true;
                     break;
+                case "gradient":
+                    arg.Type = "Tensor";
+                    break;
+                case "generator":
+                    arg.Type = "object";
+                    break;
+                case "tensor":
+                    if (string.IsNullOrWhiteSpace(arg.Type))
+                        arg.Type = "Tensor";
+                    break;
+                case "callable":
+                    arg.Type = "Delegate";
+                    break;
             }
             switch (arg.Type)
             {
@@ -330,6 +421,25 @@ namespace Torch.ApiGenerator
                 PostProcess(arg);
             switch (func.Name)
             {
+                // ignore
+                case "normal":
+                case "add":
+                case "apply_":
+                    func.Ignore = true;
+                    break;
+                // ignore Tensor methods
+                case "argsort":
+                case "bernoulli_":
+                case "flatten":
+                case "item":
+                    func.Ignore = (func.ClassName == "Tensor");
+                    break;
+                // ------------------
+                case "is_tensor":
+                case "is_storage":
+                case "is_floating_point":
+                    func.Returns.Add(new Argument(){Name = "retval", Type = "bool"});
+                    break;
                 case "set_printoptions":
                     func.ChangeArg("profile", Type: "string", DefaultValue: "\"default\"");
                     func.ChangeArg("sci_mode", IsNullable: true);
@@ -341,10 +451,6 @@ namespace Torch.ApiGenerator
                     break;
                 case "stack":
                     func["seq"].Type = "Tensor[]";
-                    break;
-                case "normal":
-                case "add":
-                    func.CommentOut = true;
                     break;
                 case "save":
                     func["obj"].Type = "PythonObject";
@@ -367,6 +473,65 @@ namespace Torch.ApiGenerator
                 case "set_num_threads":
                     func.Arguments[0].Name = "num";
                     func.Arguments[0].Type = "int";
+                    break;
+                case "new_full":
+                    func.Arguments.RemoveAt(func.Arguments.Count-1);
+                    func.Arguments.Insert(0, new Argument() { Type = "Shape", Name = "size"});
+                    func["fill_value"].Type = "T";
+                    func.Generics = new[] {"T"};
+                    break;
+                case "new_empty":
+                    func.Arguments.RemoveAt(func.Arguments.Count - 1);
+                    func.Arguments.Insert(0, new Argument() { Type = "Shape", Name = "size" });
+                    break;
+                case "cauchy_":
+                    func["median"].Type = "double";
+                    func["sigma"].Type = "double";
+                    func.Arguments.RemoveAt(2);
+                    //func["generator"].Type = "object";
+                    break;
+                case "expand":
+                    func.Arguments.Clear();
+                    func.Arguments.Add(new Argument() { Name = "sizes", Type = "params int[]"});
+                    break;
+                case "exponential_":
+                    func["lambd"].Type = "double";
+                    func.Arguments.RemoveAt(1);
+                    break;
+                case "fill_":
+                    func["value"].Type = "T";
+                    func.Generics = new[] {"T"};
+                    break;
+                case "geometric_":
+                    func["p"].Type = "double";
+                    func.Arguments.RemoveAt(1);
+                    break;
+                case "get_device":
+                    func.Name = "get_device_nr";
+                    func.Returns.Add(new Argument(){Name = "retval", Type = "int"});
+                    func.Arguments.Clear();
+                    break;
+                case "index_add":
+                case "index_copy":
+                    func["dim"].Type = "int";
+                    func["index"].Type = "Tensor<long>";
+                    func["tensor"].Type = "Tensor";
+                    break;
+                case "index_fill":
+                    func["dim"].Type = "int";
+                    func["index"].Type = "Tensor<long>";
+                    func["value"].Type = "float";
+                    break;
+                case "index_put_":
+                case "index_put":
+                    func["indices"].Type = "Tensor<long>[]";
+                    func["value"].Type = "Tensor";
+                    func["accumulate"].Type = "bool";
+                    break;
+                case "log_normal_":
+                    func["mean"].Type = "double";
+                    func["std"].Type = "double";
+                    func.Arguments.RemoveAt(2);
                     break;
             }
         }
@@ -489,30 +654,5 @@ namespace Torch.ApiGenerator
         }
 
 
-        public Dictionary<string, string> LoadDocs()
-        {
-            var docs = new Dictionary<string, string>();
-
-            // torch.html
-            string url = "https://pytorch.org/docs/stable/torch.html";
-
-            HtmlDocument doc;
-
-            if (File.Exists("torch.html"))
-            {
-                doc = new HtmlDocument();
-                doc.Load("torch.html");
-            }
-            else
-            {
-                var web = new HtmlWeb();
-                doc = web.Load(url);
-                File.WriteAllText("torch.html", doc.Text);
-            }
-
-            docs["torch"] = doc.Text;
-
-            return docs;
-        }
     }
 }
