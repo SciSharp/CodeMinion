@@ -7,7 +7,5 @@ namespace Torch.ApiGenerator
     public interface ICodeGenerator
     {
         string Generate();
-
-        Dictionary<string, string> LoadDocs();
     }
 }

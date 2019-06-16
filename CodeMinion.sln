@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.Core", "src\CodeMinion.Core\CodeMinion.Core.csproj", "{574D0EF6-E79F-448E-BFB3-B323DD1E30C7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch.ApiGenerator", "src\Torch.ApiGenerator\Torch.ApiGenerator.csproj", "{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy", "src\Numpy\Numpy.csproj", "{D527C885-AD64-4499-9E92-F9A543C0D14B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.ApiGenerator", "src\Numpy.ApiGenerator\Numpy.ApiGenerator.csproj", "{413C9CA7-B970-4DEB-AD48-0095F05F24F1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.Parser", "src\CodeMinion.DocsParser\CodeMinion.Parser.csproj", "{63E968F8-628A-49B4-AA99-1DC4C542F264}"
 EndProject
@@ -19,10 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch.UnitTest", "test\Torc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.UnitTest", "test\Numpy.UnitTest\Numpy.UnitTest.csproj", "{1B69F24E-8C60-421D-B11B-5306ED7A060E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowSharp", "src\PillowSharp\PillowSharp.csproj", "{1AEEF5FF-A54D-4682-8939-201650C868C0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PillowSharp.ApiGenerator", "src\PillowSharp.ApiGenerator\PillowSharp.ApiGenerator.csproj", "{E41F052F-3DF5-4F87-A2F2-D828F637F66C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Python.Included", "src\Python.Included\Python.Included.csproj", "{DC34753D-B934-4376-843C-C4721C3507E9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.Bare", "src\Numpy.Bare\Numpy.Bare.csproj", "{28BE456B-7715-4824-AF6D-A9004EC33EA9}"
@@ -30,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Numpy.Bare.UnitTest", "test\Numpy.UnitTest\Numpy.Bare.UnitTest.csproj", "{DFD075FA-DEDC-4446-BA9D-78899E1DF8FC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torch", "src\Torch\Torch.csproj", "{B8DAC728-812C-4DC0-B09C-85764C4B112B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeMinion.ApiGenerator", "src\CodeMinion.ApiGenerator\CodeMinion.ApiGenerator.csproj", "{BD03F510-ED39-4B7A-A388-C497F4396699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,18 +35,10 @@ Global
 		{574D0EF6-E79F-448E-BFB3-B323DD1E30C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{574D0EF6-E79F-448E-BFB3-B323DD1E30C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{574D0EF6-E79F-448E-BFB3-B323DD1E30C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB5CDD15-9B40-4635-B97C-98B95D5BB31F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D527C885-AD64-4499-9E92-F9A543C0D14B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{413C9CA7-B970-4DEB-AD48-0095F05F24F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{413C9CA7-B970-4DEB-AD48-0095F05F24F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{413C9CA7-B970-4DEB-AD48-0095F05F24F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{413C9CA7-B970-4DEB-AD48-0095F05F24F1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{63E968F8-628A-49B4-AA99-1DC4C542F264}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{63E968F8-628A-49B4-AA99-1DC4C542F264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63E968F8-628A-49B4-AA99-1DC4C542F264}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,14 +55,6 @@ Global
 		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B69F24E-8C60-421D-B11B-5306ED7A060E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AEEF5FF-A54D-4682-8939-201650C868C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E41F052F-3DF5-4F87-A2F2-D828F637F66C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E41F052F-3DF5-4F87-A2F2-D828F637F66C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E41F052F-3DF5-4F87-A2F2-D828F637F66C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E41F052F-3DF5-4F87-A2F2-D828F637F66C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DC34753D-B934-4376-843C-C4721C3507E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DC34753D-B934-4376-843C-C4721C3507E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC34753D-B934-4376-843C-C4721C3507E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -93,6 +71,10 @@ Global
 		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8DAC728-812C-4DC0-B09C-85764C4B112B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD03F510-ED39-4B7A-A388-C497F4396699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD03F510-ED39-4B7A-A388-C497F4396699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD03F510-ED39-4B7A-A388-C497F4396699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD03F510-ED39-4B7A-A388-C497F4396699}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,13 +10,14 @@ using CodeMinion.Core;
 using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
 using CodeMinion.Parser;
+using Torch.ApiGenerator;
 
-namespace Torch.ApiGenerator
+namespace CodeMinion.ApiGenerator.PyTorch
 {
-    public class TorchApiGenerator
+    public class ApiGenerator : ICodeGenerator
     {
         private CodeGenerator _generator;
-        public TorchApiGenerator()
+        public ApiGenerator()
         {
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";

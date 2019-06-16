@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using Torch.ApiGenerator;
 
-namespace PillowSharp.ApiGenerator
+namespace CodeMinion.ApiGenerator.Pillow
 {
-    class PillowApiGenerator : ICodeGenerator
+    class ApiGenerator : ICodeGenerator
     {
         private CodeGenerator _generator;
 
