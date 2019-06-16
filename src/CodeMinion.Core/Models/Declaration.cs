@@ -93,16 +93,31 @@ namespace CodeMinion.Core.Models
         public void SanitizeArguments()
         {
             var all_named = false;
-            foreach (var arg in Arguments)
+            foreach (var arg in Arguments.ToArray())
             {
+                if (arg.Ignore)
+                    Arguments.Remove(arg);
                 if (arg.DefaultValue != null || arg.IsNamedArg)
                     all_named = true;
                 if (all_named)
                     arg.IsNamedArg = true;
+                if (arg.Name == "self")
+                    arg.Name = "self_";
+            }
+            if (Arguments.Count == 1)
+            {
+                var arg = Arguments[0];
+                if (arg.Type.EndsWith("[]") && !arg.Type.StartsWith("params"))
+                    arg.Type = "params " + arg.Type;
             }
         }
 
         public Argument this[string name] => Arguments.FirstOrDefault(x => x.Name == name);
+
+        public void MakeGeneric(string type_param)
+        {
+            Generics = new[] {type_param};
+        }
     }
 
     public class Property : Declaration

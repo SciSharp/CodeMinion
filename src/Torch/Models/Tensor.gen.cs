@@ -39,15 +39,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default: if None, same torch.dtype as this tensor.
+        /// Default
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default: if None, same torch.device as this tensor.
+        /// Default
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default: False.
+        /// returned tensor. Default
         /// </param>
         public Tensor new_tensor(NDarray data, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -75,15 +75,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default: if None, same torch.dtype as this tensor.
+        /// Default
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default: if None, same torch.device as this tensor.
+        /// Default
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default: False.
+        /// returned tensor. Default
         /// </param>
         public Tensor new_full<T>(Shape size, T fill_value, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -109,15 +109,15 @@ namespace Torch
         /// </summary>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default: if None, same torch.dtype as this tensor.
+        /// Default
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default: if None, same torch.device as this tensor.
+        /// Default
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default: False.
+        /// returned tensor. Default
         /// </param>
         public Tensor new_empty(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -146,15 +146,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default: if None, same torch.dtype as this tensor.
+        /// Default
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default: if None, same torch.device as this tensor.
+        /// Default
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default: False.
+        /// returned tensor. Default
         /// </param>
         public Tensor new_ones(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -183,15 +183,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default: if None, same torch.dtype as this tensor.
+        /// Default
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default: if None, same torch.device as this tensor.
+        /// Default
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default: False.
+        /// returned tensor. Default
         /// </param>
         public Tensor new_zeros(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -271,7 +271,7 @@ namespace Torch
         /// 
         /// \[f(x) = \dfrac{1}{\pi} \dfrac{\sigma}{(x - \text{median})^2 + \sigma^2}\]
         /// </summary>
-        public Tensor cauchy_(double median = 0, double sigma = 1, object generator = null)
+        public Tensor cauchy_(double median = 0, double sigma = 1)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -281,7 +281,6 @@ namespace Torch
             var kwargs=new PyDict();
             if (median!=0) kwargs["median"]=ToPython(median);
             if (sigma!=1) kwargs["sigma"]=ToPython(sigma);
-            if (generator!=null) kwargs["generator"]=ToPython(generator);
             dynamic py = __self__.InvokeMethod("cauchy_", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -383,7 +382,7 @@ namespace Torch
         /// <param name="non_blocking">
         /// If True and the source is in pinned memory,
         /// the copy will be asynchronous with respect to the host.
-        /// Otherwise, the argument has no effect. Default: False.
+        /// Otherwise, the argument has no effect. Default
         /// </param>
         public Tensor cuda(Device device = null, bool non_blocking = false)
         {
@@ -559,7 +558,7 @@ namespace Torch
         /// 
         /// \[f(x) = \lambda e^{-\lambda x}\]
         /// </summary>
-        public Tensor exponential_(double lambd = 1, object generator = null)
+        public Tensor exponential_(double lambd = 1)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -568,7 +567,6 @@ namespace Torch
             });
             var kwargs=new PyDict();
             if (lambd!=1) kwargs["lambd"]=ToPython(lambd);
-            if (generator!=null) kwargs["generator"]=ToPython(generator);
             dynamic py = __self__.InvokeMethod("exponential_", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -605,7 +603,7 @@ namespace Torch
         /// 
         /// \[f(X=k) = (1 - p)^{k - 1} p\]
         /// </summary>
-        public Tensor geometric_(double p, object generator = null)
+        public Tensor geometric_(double p)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -614,7 +612,6 @@ namespace Torch
                 p,
             });
             var kwargs=new PyDict();
-            if (generator!=null) kwargs["generator"]=ToPython(generator);
             dynamic py = __self__.InvokeMethod("geometric_", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -810,7 +807,7 @@ namespace Torch
         /// <param name="indices">
         /// tensors used to index into self.
         /// </param>
-        /// <param name="@value">
+        /// <param name="value">
         /// tensor of same dtype as self.
         /// </param>
         /// <param name="accumulate">
@@ -998,7 +995,7 @@ namespace Torch
         /// 
         /// \[f(x) = \dfrac{1}{x \sigma \sqrt{2\pi}}\ e^{-\frac{(\ln x - \mu)^2}{2\sigma^2}}\]
         /// </summary>
-        public void log_normal_(double mean = 1, double std = 2, object generator = null)
+        public void log_normal_(double mean = 1, double std = 2)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1008,7 +1005,6 @@ namespace Torch
             var kwargs=new PyDict();
             if (mean!=1) kwargs["mean"]=ToPython(mean);
             if (std!=2) kwargs["std"]=ToPython(std);
-            if (generator!=null) kwargs["generator"]=ToPython(generator);
             dynamic py = __self__.InvokeMethod("log_normal_", pyargs, kwargs);
         }
         
@@ -1069,6 +1065,1119 @@ namespace Torch
             });
             var kwargs=new PyDict();
             dynamic py = __self__.InvokeMethod("masked_scatter_", pyargs, kwargs);
+        }
+        
+        /// <summary>
+        /// Out-of-place version of torch.Tensor.masked_scatter_()
+        /// </summary>
+        public Tensor masked_scatter(Tensor<byte> mask, Tensor tensor)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                mask,
+                tensor,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("masked_scatter", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Fills elements of self tensor with value where mask is
+        /// one. The shape of mask must be
+        /// broadcastable with the shape of the underlying
+        /// tensor.
+        /// </summary>
+        /// <param name="mask">
+        /// the binary mask
+        /// </param>
+        /// <param name="value">
+        /// the value to fill in with
+        /// </param>
+        public void masked_fill_(Tensor<byte> mask, double @value)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                mask,
+                @value,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("masked_fill_", pyargs, kwargs);
+        }
+        
+        /// <summary>
+        /// Out-of-place version of torch.Tensor.masked_fill_()
+        /// </summary>
+        public Tensor masked_fill(Tensor<byte> mask, double @value)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                mask,
+                @value,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("masked_fill", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Same as Tensor.narrow() except returning a copy rather
+        /// than shared storage.  This is primarily for sparse tensors, which
+        /// do not have a shared-storage narrow method.  Calling `narrow_copy
+        /// with `dimemsion &gt; self.sparse_dim()` will return a copy with the
+        /// relevant dense dimension narrowed, and `self.shape` updated accordingly.
+        /// </summary>
+        public Tensor narrow_copy(int dimension, int start, int length)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dimension,
+                start,
+                length,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("narrow_copy", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Alias for dim()
+        /// </summary>
+        public int ndimension()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("ndimension");
+            return ToCsharp<int>(py);
+        }
+        
+        /// <summary>
+        /// Alias for numel()
+        /// </summary>
+        public int nelement()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("nelement");
+            return ToCsharp<int>(py);
+        }
+        
+        /// <summary>
+        /// Fills self tensor with elements samples from the normal distribution
+        /// parameterized by mean and std.
+        /// </summary>
+        public Tensor normal_(double mean = 0, double std = 1)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+            });
+            var kwargs=new PyDict();
+            if (mean!=0) kwargs["mean"]=ToPython(mean);
+            if (std!=1) kwargs["std"]=ToPython(std);
+            dynamic py = __self__.InvokeMethod("normal_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns self tensor as a NumPy ndarray. This tensor and the
+        /// returned ndarray share the same underlying storage. Changes to
+        /// self tensor will be reflected in the ndarray and vice versa.
+        /// </summary>
+        public NDarray numpy()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("numpy");
+            return ToCsharp<NDarray>(py);
+        }
+        
+        /// <summary>
+        /// Permute the dimensions of this tensor.
+        /// </summary>
+        public Tensor permute(params int[] dims)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dims,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("permute", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Copies the tensor to pinned memory, if it’s not already pinned.
+        /// </summary>
+        public Tensor pin_memory()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("pin_memory");
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Copies the elements from tensor into the positions specified by
+        /// indices. For the purpose of indexing, the self tensor is treated as if
+        /// it were a 1-D tensor.
+        /// 
+        /// If accumulate is True, the elements in tensor are added to
+        /// self. If accumulate is False, the behavior is undefined if indices
+        /// contain duplicate elements.
+        /// </summary>
+        /// <param name="indices">
+        /// the indices into self
+        /// </param>
+        /// <param name="tensor">
+        /// the tensor containing values to copy from
+        /// </param>
+        /// <param name="accumulate">
+        /// whether to accumulate into self
+        /// </param>
+        public Tensor put_(Tensor<long> indices, Tensor tensor, bool accumulate = false)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                indices,
+                tensor,
+            });
+            var kwargs=new PyDict();
+            if (accumulate!=false) kwargs["accumulate"]=ToPython(accumulate);
+            dynamic py = __self__.InvokeMethod("put_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Quantize a float Tensor using affine quantization scheme with given scale and
+        /// zero_point.
+        /// returns the quantized Tensor.
+        /// </summary>
+        public Tensor quantize_linear(double scale, double zero_point)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                scale,
+                zero_point,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("quantize_linear", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Given a Tensor quantized by linear(affine) quantization,
+        /// returns the scale of the underlying quantizer().
+        /// </summary>
+        public float q_scale()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("q_scale");
+            return ToCsharp<float>(py);
+        }
+        
+        /// <summary>
+        /// Given a Tensor quantized by linear(affine) quantization,
+        /// returns the zero_point of the underlying quantizer().
+        /// </summary>
+        public int q_zero_point()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("q_zero_point");
+            return ToCsharp<int>(py);
+        }
+        
+        /// <summary>
+        /// Fills self tensor with numbers sampled from the discrete uniform
+        /// distribution over [from, to - 1]. If not specified, the values are usually
+        /// only bounded by self tensor’s data type. However, for floating point
+        /// types, if unspecified, range will be [0, 2^mantissa] to ensure that every
+        /// value is representable. For example, torch.tensor(1, dtype=torch.double).random_()
+        /// will be uniform in [0, 2^53].
+        /// </summary>
+        public Tensor<T> random_<T>(T @from, T to)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                @from,
+                to,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("random_", pyargs, kwargs);
+            return ToCsharp<Tensor<T>>(py);
+        }
+        
+        /// <summary>
+        /// Registers a backward hook.
+        /// 
+        /// The hook will be called every time a gradient with respect to the
+        /// Tensor is computed. The hook should have the following signature:
+        /// 
+        /// hook(grad) -&gt; Tensor or None
+        /// 
+        /// The hook should not modify its argument, but it can optionally return
+        /// a new gradient which will be used in place of grad.
+        /// 
+        /// This function returns a handle with a method handle.remove()
+        /// that removes the hook from the module.
+        /// </summary>
+        public void register_hook(Func<Tensor, Tensor> hook)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                hook,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("register_hook", pyargs, kwargs);
+        }
+        
+        /// <summary>
+        /// Repeats this tensor along the specified dimensions.
+        /// 
+        /// Unlike expand(), this function copies the tensor’s data.
+        /// 
+        /// Warning
+        /// torch.repeat() behaves differently from
+        /// numpy.repeat,
+        /// but is more similar to
+        /// numpy.tile.
+        /// For the operator similar to numpy.repeat, see torch.repeat_interleave().
+        /// </summary>
+        public Tensor repeat(Shape sizes)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                sizes,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("repeat", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Is True if gradients need to be computed for this Tensor, False otherwise.
+        /// 
+        /// Note
+        /// The fact that gradients need to be computed for a Tensor do not mean that the grad
+        /// attribute will be populated, see is_leaf for more details.
+        /// </summary>
+        public bool requires_grad()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("requires_grad");
+            return ToCsharp<bool>(py);
+        }
+        
+        /// <summary>
+        /// Change if autograd should record operations on this tensor: sets this tensor’s
+        /// requires_grad attribute in-place. Returns this tensor.
+        /// 
+        /// require_grad_()’s main use case is to tell autograd to begin recording
+        /// operations on a Tensor tensor. If tensor has requires_grad=False
+        /// (because it was obtained through a DataLoader, or required preprocessing or
+        /// initialization), tensor.requires_grad_() makes it so that autograd will
+        /// begin to record operations on tensor.
+        /// </summary>
+        public Tensor requires_grad_(bool requires_grad = true)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+            });
+            var kwargs=new PyDict();
+            if (requires_grad!=true) kwargs["requires_grad"]=ToPython(requires_grad);
+            dynamic py = __self__.InvokeMethod("requires_grad_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Resizes self tensor to the specified size. If the number of elements is
+        /// larger than the current storage size, then the underlying storage is resized
+        /// to fit the new number of elements. If the number of elements is smaller, the
+        /// underlying storage is not changed. Existing elements are preserved but any new
+        /// memory is uninitialized.
+        /// 
+        /// Warning
+        /// This is a low-level method. The storage is reinterpreted as C-contiguous,
+        /// ignoring the current strides (unless the target size equals the current
+        /// size, in which case the tensor is left unchanged). For most purposes, you
+        /// will instead want to use view(), which checks for
+        /// contiguity, or reshape(), which copies data if needed. To
+        /// change the size in-place with custom strides, see set_().
+        /// </summary>
+        public Tensor resize_(Shape sizes)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                sizes,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("resize_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Resizes the self tensor to be the same size as the specified
+        /// tensor. This is equivalent to self.resize_(tensor.size()).
+        /// </summary>
+        public Tensor resize_as_(Tensor tensor)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                tensor,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("resize_as_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Enables .grad attribute for non-leaf Tensors.
+        /// </summary>
+        public void retain_grad()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("retain_grad");
+        }
+        
+        /// <summary>
+        /// Out-of-place version of torch.Tensor.scatter_()
+        /// </summary>
+        public Tensor scatter(int dim, Tensor<long> index, Tensor source)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dim,
+                index,
+                source,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("scatter", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Writes all values from the tensor src into self at the indices
+        /// specified in the index tensor. For each value in src, its output
+        /// index is specified by its index in src for dimension != dim and by
+        /// the corresponding value in index for dimension = dim.
+        /// 
+        /// For a 3-D tensor, self is updated as:
+        /// 
+        /// self[index[i][j][k]][j][k] = src[i][j][k]  # if dim == 0
+        /// self[i][index[i][j][k]][k] = src[i][j][k]  # if dim == 1
+        /// self[i][j][index[i][j][k]] = src[i][j][k]  # if dim == 2
+        /// 
+        /// This is the reverse operation of the manner described in gather().
+        /// 
+        /// self, index and src (if it is a Tensor) should have same
+        /// number of dimensions. It is also required that index.size(d) &lt;= src.size(d)
+        /// for all dimensions d, and that index.size(d) &lt;= self.size(d) for all
+        /// dimensions d != dim.
+        /// 
+        /// Moreover, as for gather(), the values of index must be
+        /// between 0 and self.size(dim) - 1 inclusive, and all values in a row
+        /// along the specified dimension dim must be unique.
+        /// </summary>
+        /// <param name="dim">
+        /// the axis along which to index
+        /// </param>
+        /// <param name="index">
+        /// the indices of elements to scatter,
+        /// can be either empty or the same size of src.
+        /// When empty, the operation returns identity
+        /// </param>
+        /// <param name="src">
+        /// the source element(s) to scatter,
+        /// incase value is not specified
+        /// </param>
+        /// <param name="value">
+        /// the source element(s) to scatter,
+        /// incase src is not specified
+        /// </param>
+        public Tensor scatter_(int dim, Tensor<long> index, Tensor src, float @value)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dim,
+                index,
+                src,
+                @value,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("scatter_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Adds all values from the tensor other into self at the indices
+        /// specified in the index tensor in a similar fashion as
+        /// scatter_(). For each value in other, it is added to
+        /// an index in self which is specified by its index in other
+        /// for dimension != dim and by the corresponding value in index for
+        /// dimension = dim.
+        /// 
+        /// For a 3-D tensor, self is updated as:
+        /// 
+        /// self[index[i][j][k]][j][k] += other[i][j][k]  # if dim == 0
+        /// self[i][index[i][j][k]][k] += other[i][j][k]  # if dim == 1
+        /// self[i][j][index[i][j][k]] += other[i][j][k]  # if dim == 2
+        /// 
+        /// self, index and other should have same number of
+        /// dimensions. It is also required that index.size(d) &lt;= other.size(d) for all
+        /// dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions
+        /// d != dim.
+        /// 
+        /// Moreover, as for gather(), the values of index must be
+        /// between 0 and self.size(dim) - 1 inclusive, and all values in a row along
+        /// the specified dimension dim must be unique.
+        /// 
+        /// Note
+        /// When using the CUDA backend, this operation may induce nondeterministic
+        /// behaviour that is not easily switched off.
+        /// Please see the notes on Reproducibility for background.
+        /// </summary>
+        /// <param name="dim">
+        /// the axis along which to index
+        /// </param>
+        /// <param name="index">
+        /// the indices of elements to scatter and add,
+        /// can be either empty or the same size of src.
+        /// When empty, the operation returns identity.
+        /// </param>
+        /// <param name="other">
+        /// the source elements to scatter and add
+        /// </param>
+        public Tensor scatter_add_(int dim, Tensor<long> index, Tensor other)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dim,
+                index,
+                other,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("scatter_add_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Out-of-place version of torch.Tensor.scatter_add_()
+        /// </summary>
+        public Tensor scatter_add(int dim, Tensor<long> index, Tensor source)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dim,
+                index,
+                source,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("scatter_add", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Slices the self tensor along the selected dimension at the given index.
+        /// This function returns a tensor with the given dimension removed.
+        /// </summary>
+        /// <param name="dim">
+        /// the dimension to slice
+        /// </param>
+        /// <param name="index">
+        /// the index to select with
+        /// </param>
+        public Tensor @select(int dim, int index)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dim,
+                index,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("select", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Sets the underlying storage, size, and strides. If source is a tensor,
+        /// self tensor will share the same storage and have the same size and
+        /// strides as source. Changes to elements in one tensor will be reflected
+        /// in the other.
+        /// 
+        /// If source is a Storage, the method sets the underlying
+        /// storage, offset, size, and stride.
+        /// </summary>
+        /// <param name="source">
+        /// the tensor or storage to use
+        /// </param>
+        /// <param name="storage_offset">
+        /// the offset in the storage
+        /// </param>
+        /// <param name="size">
+        /// the desired size. Defaults to the size of the source.
+        /// </param>
+        /// <param name="stride">
+        /// the desired stride. Defaults to C-contiguous strides.
+        /// </param>
+        public Tensor set_(Tensor source = null, int? storage_offset = 0, Shape size = null, int[] stride = null)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+            });
+            var kwargs=new PyDict();
+            if (source!=null) kwargs["source"]=ToPython(source);
+            if (storage_offset!=null) kwargs["storage_offset"]=ToPython(storage_offset);
+            if (size!=null) kwargs["size"]=ToPython(size);
+            if (stride!=null) kwargs["stride"]=ToPython(stride);
+            dynamic py = __self__.InvokeMethod("set_", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Moves the underlying storage to shared memory.
+        /// 
+        /// This is a no-op if the underlying storage is already in shared memory
+        /// and for CUDA tensors. Tensors in shared memory cannot be resized.
+        /// </summary>
+        public void share_memory_()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("share_memory_");
+        }
+        
+        /// <summary>
+        /// self.short() is equivalent to self.to(torch.int16). See to().
+        /// </summary>
+        public Tensor @short()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("short");
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns the size of the self tensor. The returned value is a subclass of
+        /// tuple.
+        /// </summary>
+        public Shape size()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("size");
+            return ToCsharp<Shape>(py);
+        }
+        
+        /// <summary>
+        /// Returns a new SparseTensor with values from Tensor input filtered
+        /// by indices of mask and values are ignored. input and mask
+        /// must have the same shape.
+        /// </summary>
+        /// <param name="input">
+        /// an input Tensor
+        /// </param>
+        /// <param name="mask">
+        /// a SparseTensor which we filter input based on its indices
+        /// </param>
+        public Tensor sparse_mask(Tensor input, Tensor<byte> mask)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                input,
+                mask,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("sparse_mask", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// If self is a sparse COO tensor (i.e., with torch.sparse_coo layout),
+        /// this returns a the number of sparse dimensions. Otherwise, this throws an
+        /// error.
+        /// 
+        /// See also Tensor.dense_dim().
+        /// </summary>
+        public int sparse_dim()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("sparse_dim");
+            return ToCsharp<int>(py);
+        }
+        
+        /// <summary>
+        /// Returns the underlying storage.
+        /// </summary>
+        public Storage storage()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("storage");
+            return ToCsharp<Storage>(py);
+        }
+        
+        /// <summary>
+        /// Returns self tensor’s offset in the underlying storage in terms of
+        /// number of storage elements (not bytes).
+        /// </summary>
+        public int storage_offset()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("storage_offset");
+            return ToCsharp<int>(py);
+        }
+        
+        /// <summary>
+        /// Returns the type of the underlying storage.
+        /// </summary>
+        public Dtype storage_type()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("storage_type");
+            return ToCsharp<Dtype>(py);
+        }
+        
+        /// <summary>
+        /// Returns the stride of self tensor.
+        /// 
+        /// Stride is the jump necessary to go from one element to the next one in the
+        /// specified dimension dim. A tuple of all strides is returned when no
+        /// argument is passed in. Otherwise, an integer value is returned as the stride in
+        /// the particular dimension dim.
+        /// </summary>
+        public int[] stride()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("stride");
+            return ToCsharp<int[]>(py);
+        }
+        
+        /// <summary>
+        /// Returns the stride of self tensor.
+        /// 
+        /// Stride is the jump necessary to go from one element to the next one in the
+        /// specified dimension dim. A tuple of all strides is returned when no
+        /// argument is passed in. Otherwise, an integer value is returned as the stride in
+        /// the particular dimension dim.
+        /// </summary>
+        public int stride(int dim)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dim,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("stride", pyargs, kwargs);
+            return ToCsharp<int>(py);
+        }
+        
+        /// <summary>
+        /// Subtracts a scalar or tensor from self tensor. If both value and
+        /// other are specified, each element of other is scaled by
+        /// value before being used.
+        /// 
+        /// When other is a tensor, the shape of other must be
+        /// broadcastable with the shape of the underlying
+        /// tensor.
+        /// </summary>
+        public Tensor sub<T>(T @value, Tensor other = null)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                @value,
+            });
+            var kwargs=new PyDict();
+            if (other!=null) kwargs["other"]=ToPython(other);
+            dynamic py = __self__.InvokeMethod("sub", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Sum this tensor to size.
+        /// size must be broadcastable to this tensor size.
+        /// :param other: The result tensor has the same size
+        /// 
+        /// as other.
+        /// </summary>
+        public Tensor sum_to_size(Shape size, Tensor other = null)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                size,
+            });
+            var kwargs=new PyDict();
+            if (other!=null) kwargs["other"]=ToPython(other);
+            dynamic py = __self__.InvokeMethod("sum_to_size", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Performs Tensor dtype and/or device conversion. A torch.dtype and torch.device are
+        /// inferred from the arguments of self.to(*args, **kwargs).
+        /// 
+        /// Note
+        /// If the self Tensor already
+        /// has the correct torch.dtype and torch.device, then self is returned.
+        /// Otherwise, the returned tensor is a copy of self with the desired
+        /// torch.dtype and torch.device.
+        /// 
+        /// Here are the ways to call to:
+        /// </summary>
+        public Tensor to(Device device, Dtype dtype = null, bool non_blocking = false, bool copy = false)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                device,
+            });
+            var kwargs=new PyDict();
+            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
+            if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
+            if (copy!=false) kwargs["copy"]=ToPython(copy);
+            dynamic py = __self__.InvokeMethod("to", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Performs Tensor dtype and/or device conversion. A torch.dtype and torch.device are
+        /// inferred from the arguments of self.to(*args, **kwargs).
+        /// 
+        /// Note
+        /// If the self Tensor already
+        /// has the correct torch.dtype and torch.device, then self is returned.
+        /// Otherwise, the returned tensor is a copy of self with the desired
+        /// torch.dtype and torch.device.
+        /// 
+        /// Here are the ways to call to:
+        /// </summary>
+        public Tensor to(Tensor other, bool non_blocking = false, bool copy = false)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                other,
+            });
+            var kwargs=new PyDict();
+            if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
+            if (copy!=false) kwargs["copy"]=ToPython(copy);
+            dynamic py = __self__.InvokeMethod("to", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Performs Tensor dtype and/or device conversion. A torch.dtype and torch.device are
+        /// inferred from the arguments of self.to(*args, **kwargs).
+        /// 
+        /// Note
+        /// If the self Tensor already
+        /// has the correct torch.dtype and torch.device, then self is returned.
+        /// Otherwise, the returned tensor is a copy of self with the desired
+        /// torch.dtype and torch.device.
+        /// 
+        /// Here are the ways to call to:
+        /// </summary>
+        public Tensor to(Dtype dtype, bool non_blocking = false, bool copy = false)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dtype,
+            });
+            var kwargs=new PyDict();
+            if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
+            if (copy!=false) kwargs["copy"]=ToPython(copy);
+            dynamic py = __self__.InvokeMethod("to", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns a copy of the tensor in torch.mkldnn layout.
+        /// </summary>
+        public Tensor to_mkldnn()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("to_mkldnn");
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// ”
+        /// tolist() -&gt; list or number
+        /// 
+        /// Returns the tensor as a (nested) list. For scalars, a standard
+        /// Python number is returned, just like with item().
+        /// Tensors are automatically moved to the CPU first if necessary.
+        /// 
+        /// This operation is not differentiable.
+        /// </summary>
+        public void tolist()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("tolist");
+        }
+        
+        /// <summary>
+        /// Returns a sparse copy of the tensor.  PyTorch supports sparse tensors in
+        /// coordinate format.
+        /// </summary>
+        public Tensor to_sparse(int sparseDims)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                sparseDims,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("to_sparse", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns the type if dtype is not provided, else casts this object to
+        /// the specified type.
+        /// 
+        /// If this is already of the correct type, no copy is performed and the
+        /// original object is returned.
+        /// </summary>
+        /// <param name="dtype">
+        /// The desired type
+        /// </param>
+        /// <param name="non_blocking">
+        /// If True, and the source is in pinned memory
+        /// and destination is on the GPU or vice versa, the copy is performed
+        /// asynchronously with respect to the host. Otherwise, the argument
+        /// has no effect.
+        /// </param>
+        public Tensor type(Dtype dtype = null, bool non_blocking = false)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+            });
+            var kwargs=new PyDict();
+            if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
+            if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
+            dynamic py = __self__.InvokeMethod("type", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns this tensor cast to the type of the given tensor.
+        /// 
+        /// This is a no-op if the tensor is already of the correct type. This is
+        /// equivalent to self.type(tensor.type())
+        /// </summary>
+        public Tensor type_as(Tensor tensor)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                tensor,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("type_as", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns a tensor which contains all slices of size size from
+        /// self tensor in the dimension dimension.
+        /// 
+        /// Step between two slices is given by step.
+        /// 
+        /// If sizedim is the size of dimension dimension for self, the size of
+        /// dimension dimension in the returned tensor will be
+        /// (sizedim - size) / step + 1.
+        /// 
+        /// An additional dimension of size size is appended in the returned tensor.
+        /// </summary>
+        /// <param name="dimension">
+        /// dimension in which unfolding happens
+        /// </param>
+        /// <param name="size">
+        /// the size of each slice that is unfolded
+        /// </param>
+        /// <param name="step">
+        /// the step between each slice
+        /// </param>
+        public Tensor unfold(int dimension, int size, int step)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                dimension,
+                size,
+                step,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("unfold", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Fills self tensor with numbers sampled from the continuous uniform
+        /// distribution:
+        /// 
+        /// \[P(x) = \dfrac{1}{\text{to} - \text{from}}
+        /// 
+        /// \]
+        /// </summary>
+        public Tensor<T> uniform_<T>(T @from, T to)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                @from,
+                to,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("uniform_", pyargs, kwargs);
+            return ToCsharp<Tensor<T>>(py);
+        }
+        
+        /// <summary>
+        /// If self is a sparse COO tensor (i.e., with torch.sparse_coo layout),
+        /// this returns a view of the contained values tensor. Otherwise, this throws an
+        /// error.
+        /// 
+        /// See also Tensor.indices().
+        /// 
+        /// Note
+        /// This method can only be called on a coalesced sparse tensor. See
+        /// Tensor.coalesce() for details.
+        /// </summary>
+        public Tensor values()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("values");
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Returns a new tensor with the same data as the self tensor but of a
+        /// different shape.
+        /// 
+        /// The returned tensor shares the same data and must have the same number
+        /// of elements, but may have a different size. For a tensor to be viewed, the new
+        /// view size must be compatible with its original size and stride, i.e., each new
+        /// view dimension must either be a subspace of an original dimension, or only span
+        /// across original dimensions \(d, d+1, \dots, d+k\) that satisfy the following
+        /// contiguity-like condition that \(\forall i = 0, \dots, k-1\),
+        /// 
+        /// \[\text{stride}[i] = \text{stride}[i+1] \times \text{size}[i+1]\]
+        /// 
+        /// Otherwise, contiguous() needs to be called before the tensor can be
+        /// viewed. See also: reshape(), which returns a view if the shapes are
+        /// compatible, and copies (equivalent to calling contiguous()) otherwise.
+        /// </summary>
+        public Tensor view(Shape shape)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                shape,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("view", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// View this tensor as the same size as other.
+        /// self.view_as(other) is equivalent to self.view(other.size()).
+        /// 
+        /// Please see view() for more information about view.
+        /// </summary>
+        public Tensor view_as(Tensor other)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                other,
+            });
+            var kwargs=new PyDict();
+            dynamic py = __self__.InvokeMethod("view_as", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
+        
+        /// <summary>
+        /// Fills self tensor with zeros.
+        /// </summary>
+        public Tensor zero_()
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            dynamic py = __self__.InvokeMethod("zero_");
+            return ToCsharp<Tensor>(py);
         }
         
     }

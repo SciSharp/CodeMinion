@@ -304,7 +304,7 @@ namespace CodeMinion.Core
                 {
                     if (string.IsNullOrWhiteSpace(arg.Description))
                         continue;
-                    s.Out($"/// <param name=\"{EscapeName(arg.Name)}\">");
+                    s.Out($"/// <param name=\"{arg.Name}\">"); // note: docstring doesn't want parameters escaped with "@"
                     foreach (var line in Regex.Split(arg.Description, @"\r?\n"))
                         s.Out("/// " + line);
                     s.Out("/// </param>");
@@ -347,7 +347,7 @@ namespace CodeMinion.Core
 
             var class_names = (func.ClassName ?? "no_name").Split('.');
             int levels = class_names.Length - 1;
-            if (levels < 1)
+            if (levels > 1)
                 s.Out("var __self__=self;");
             else
             {

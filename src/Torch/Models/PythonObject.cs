@@ -22,6 +22,28 @@ namespace Torch
             this.self = t.PyObject;
         }
 
+        public static bool operator ==(PythonObject a, object b)
+        {
+            if (ReferenceEquals(a, b))
+                return true;
+            if (ReferenceEquals(a, null))
+                return false;
+            if (ReferenceEquals(b, null))
+                return false;
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(PythonObject a, object b)
+        {
+            if (ReferenceEquals(a, b))
+                return false;
+            if (ReferenceEquals(a, null))
+                return true;
+            if (ReferenceEquals(b, null))
+                return true;
+            return !a.Equals(b);
+        }
+
         public override bool Equals(object obj)
         {
             switch (obj)

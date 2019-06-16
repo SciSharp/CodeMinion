@@ -36,10 +36,10 @@ namespace Torch
         public Tensor<T> tensor<T>(T[] data, Dtype dtype = null, Device device = null, bool? requires_grad = false, bool? pin_memory = false)
         {
             var type = data.GetDtype();
-            if (dtype!=null && type!=dtype)
-                throw new NotImplementedException("Type of the array is different from specified dtype. Data conversion is not supported (yet)");
-            var tensor = torch.empty(new Shape(data.Length), dtype: type, device: device,
+            var tensor = torch.empty(new Shape(data.Length), dtype: dtype ?? type, device: device,
                 requires_grad: requires_grad, pin_memory: pin_memory);
+            if (data.Length==0)
+                return new Tensor<T>(tensor);
             var storage = tensor.PyObject.storage();
             long ptr = storage.data_ptr();
             switch ((object)data) {

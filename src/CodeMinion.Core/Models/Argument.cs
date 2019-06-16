@@ -28,6 +28,7 @@ namespace CodeMinion.Core.Models
         public string DefaultIfNull { get; set; }
 
         public bool PassOnlyIfNotNull { get; set; }
+        public bool Ignore { get; set; }
 
         public Argument Clone()
         {

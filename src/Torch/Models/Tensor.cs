@@ -18,6 +18,37 @@ namespace Torch
         }
 
         /// <summary>
+        /// Returns a copy of the tensor data
+        /// </summary>
+        public T[] GetData<T>()
+        {
+            // note: this implementation works only for device CPU
+            // todo: implement for GPU
+            var storage = PyObject.storage();
+            int size = storage.size();
+            if (size==0)
+                return new T[0];
+            long ptr = storage.data_ptr();
+            object array = null;
+            if (typeof(T) == typeof(byte)) array = new byte[size];
+            else if (typeof(T) == typeof(short)) array = new short[size];
+            else if (typeof(T) == typeof(int)) array = new int[size];
+            else if (typeof(T) == typeof(long)) array = new long[size];
+            else if (typeof(T) == typeof(float)) array = new float[size];
+            else if (typeof(T) == typeof(double)) array = new double[size];
+            switch (array)
+            {
+                case byte[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
+                case short[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
+                case int[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
+                case long[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
+                case float[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
+                case double[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
+            }
+            return (T[])array;
+        }
+
+        /// <summary>
         /// Element type of the tensor
         /// </summary>
         public Dtype dtype => new Dtype(self.GetAttr("dtype"));
@@ -41,9 +72,7 @@ namespace Torch
         /// </summary>
         public T item<T>() => self.InvokeMethod("item").As<T>();
 
-        public Shape stride() => new Shape(self.InvokeMethod("stride").As<int[]>());
-
-        public Shape Shape => stride();
+        public Shape Shape => size();
 
         ///// <summary>
         ///// Returns True if the data type of tensor is a floating point data type i.e.,
@@ -112,31 +141,7 @@ namespace Torch
         /// <summary>
         /// Returns a copy of the tensor data
         /// </summary>
-        public T[] GetData()
-        {
-            // note: this implementation works only for device CPU
-            // todo: implement for GPU
-            var storage = PyObject.storage();
-            long ptr = storage.data_ptr();
-            int size = storage.size();
-            object array = null;
-            if (typeof(T) == typeof(byte)) array = new byte[size];
-            else if (typeof(T) == typeof(short)) array = new short[size];
-            else if (typeof(T) == typeof(int)) array = new int[size];
-            else if (typeof(T) == typeof(long)) array = new long[size];
-            else if (typeof(T) == typeof(float)) array = new float[size];
-            else if (typeof(T) == typeof(double)) array = new double[size];
-            switch (array)
-            {
-                case byte[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
-                case short[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
-                case int[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
-                case long[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
-                case float[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
-                case double[] a: Marshal.Copy(new IntPtr(ptr), a, 0, a.Length); break;
-            }
-            return (T[])array;
-        }
+        public T[] GetData() => base.GetData<T>();
 
         public new T this[int index]
         {
@@ -146,5 +151,6 @@ namespace Torch
 
         public new Tensor<T> t() => new Tensor<T>(self.InvokeMethod("t"));
 
+   
     }
 }
