@@ -55,7 +55,7 @@ namespace Torch.UnitTest
             var expected =
                 "tensor([[3.1416, 3.1416, 3.1416, 3.1416],\n" +
                 "        [3.1416, 3.1416, 3.1416, 3.1416],\n" +
-                "        [3.1416, 3.1416, 3.1416, 3.1416]], dtype=torch.float64)";
+                "        [3.1416, 3.1416, 3.1416, 3.1416]])";
             Assert.AreEqual(expected, given.repr);
         }
 

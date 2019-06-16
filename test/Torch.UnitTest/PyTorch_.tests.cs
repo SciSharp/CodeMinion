@@ -24,41 +24,10 @@ namespace Torch.UnitTest
         [TestMethod]
         public void set_default_dtypeTest()
         {
-            // >>> torch.tensor([1.2, 3]).dtype           # initial default for floating point is torch.float32
-            // torch.float32
-            // >>> torch.set_default_dtype(torch.float64)
-            // >>> torch.tensor([1.2, 3]).dtype           # a new floating point tensor
-            // torch.float64
-            // 
-
-            var given = torch.tensor(new[] { 1.2f, 3 }).dtype; // initial default for floating point is torch.float32
-            var expected = "torch.float32";
-            Assert.AreEqual(expected, given.repr);
-            torch.set_default_dtype(torch.float64);
-            given = torch.tensor(new[] { 1.2, 3 }).dtype;          // a new floating point tensor;
-            expected =
-               "torch.float64";
-            Assert.AreEqual(expected, given.repr);
-        }
-
-
-        [TestMethod]
-        public void get_default_dtypeTest()
-        {
-            // >>> torch.get_default_dtype()  # initial default for floating point is torch.float32
-            // torch.float32
-            // >>> torch.set_default_dtype(torch.float64)
-            // >>> torch.get_default_dtype()  # default is now changed to torch.float64
-            // torch.float64
-            // >>> torch.set_default_tensor_type(torch.FloatTensor)  # setting tensor type also affects this
-            // >>> torch.get_default_dtype()  # changed to torch.float32, the dtype for torch.FloatTensor
-            // torch.float32
-            // 
-
-            var given = torch.get_default_dtype(); // initial default for floating point is torch.float32;
+            torch.set_default_dtype(torch.float32);
+            var given = torch.get_default_dtype();  // default is now changed to torch.float64;
             var expected =
                 "torch.float32";
-            Assert.AreEqual(expected, given.repr);
             torch.set_default_dtype(torch.float64);
             given = torch.get_default_dtype();  // default is now changed to torch.float64;
             expected =
@@ -69,6 +38,8 @@ namespace Torch.UnitTest
             expected =
                "torch.float32";
             Assert.AreEqual(expected, given.repr);
+            // set back to 64bit in order not to disturb other tests
+            torch.set_default_dtype(torch.float64);
         }
 
 

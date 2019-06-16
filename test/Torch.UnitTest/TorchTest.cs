@@ -149,11 +149,11 @@ namespace Torch
             //>>> x.stride()
             //(5, 1)
             var x = new Tensor(new long[,] {{1, 2, 3, 4, 5}, {6, 7, 8, 9, 10}});
-            Assert.AreEqual(new Shape(5,1), x.stride());
+            Assert.AreEqual(new Shape(5,1), new Shape( x.stride()));
 
             //>>> x.t().stride()
             //(1, 5)
-            Assert.AreEqual(new Shape(1, 5), x.t().stride());
+            Assert.AreEqual(new Shape(1, 5), new Shape(x.t().stride()));
 
         }
     }
