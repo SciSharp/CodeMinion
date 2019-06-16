@@ -220,15 +220,17 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, infers data type from values.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor sparse_coo_tensor(NDarray<int> indices, NDarray values, int? size = null, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -260,11 +262,13 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, infers data type from data.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         public Tensor as_tensor(NDarray data, Dtype dtype = null, Device device = null)
         {
@@ -314,19 +318,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor zeros(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -361,19 +367,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor zeros_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -405,19 +411,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor ones(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -452,19 +460,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor ones_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -504,19 +512,25 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor arange(double end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -550,32 +564,38 @@ namespace Torch
         /// \]
         /// </summary>
         /// <param name="start">
-        /// the starting value for the set of points. Default
+        /// the starting value for the set of points. Default: 0.
         /// </param>
         /// <param name="end">
         /// the ending value for the set of points
         /// </param>
         /// <param name="step">
-        /// the gap between each pair of adjacent points. Default
+        /// the gap between each pair of adjacent points. Default: 1.
         /// </param>
         /// <param name="out">
         /// the output tensor
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor arange(double start, double end, double step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -617,19 +637,25 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor range(float end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -662,32 +688,38 @@ namespace Torch
         /// This function is deprecated in favor of torch.arange().
         /// </summary>
         /// <param name="start">
-        /// the starting value for the set of points. Default
+        /// the starting value for the set of points. Default: 0.
         /// </param>
         /// <param name="end">
         /// the ending value for the set of points
         /// </param>
         /// <param name="step">
-        /// the gap between each pair of adjacent points. Default
+        /// the gap between each pair of adjacent points. Default: 1.
         /// </param>
         /// <param name="out">
         /// the output tensor
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). If dtype is not given, infer the data type from the other input
+        /// arguments. If any of start, end, or stop are floating-point, the
+        /// dtype is inferred to be the default dtype, see
+        /// get_default_dtype(). Otherwise, the dtype is inferred to
+        /// be torch.int64.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor range(float start, float end, float step = 1f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -723,26 +755,28 @@ namespace Torch
         /// </param>
         /// <param name="steps">
         /// number of points to sample between start
-        /// and end. Default
+        /// and end. Default: 100.
         /// </param>
         /// <param name="out">
         /// the output tensor
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor linspace(float start, float end, int steps = 100, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -779,29 +813,31 @@ namespace Torch
         /// </param>
         /// <param name="steps">
         /// number of points to sample between start
-        /// and end. Default
+        /// and end. Default: 100.
         /// </param>
         /// <param name="base">
-        /// base of the logarithm function. Default
+        /// base of the logarithm function. Default: 10.0.
         /// </param>
         /// <param name="out">
         /// the output tensor
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor logspace(float start, float end, int steps = 100, float @base = 10.0f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -838,19 +874,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor eye(int n, int? m = null, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -884,23 +922,25 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         /// <param name="pin_memory">
         /// If set, returned tensor would be allocated in
-        /// the pinned memory. Works only for CPU tensors. Default
+        /// the pinned memory. Works only for CPU tensors. Default: False.
         /// </param>
         public Tensor empty(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, bool? pin_memory = false)
         {
@@ -931,19 +971,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor empty_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -977,19 +1017,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor full(Shape size, object fill_value, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1023,19 +1065,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor full_like(Tensor input, object fill_value, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, Tensor @out = null)
         {
@@ -1325,7 +1367,7 @@ namespace Torch
         /// the tensor to be reshaped
         /// </param>
         /// <param name="shape">
-        /// ints)
+        /// ints) : the new shape
         /// </param>
         public Tensor reshape(Tensor input, Shape shape)
         {
@@ -1788,19 +1830,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor rand(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1831,19 +1875,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor rand_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1879,19 +1923,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor randint(int high, Shape size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1919,7 +1965,7 @@ namespace Torch
         /// The shape of the tensor is defined by the variable argument size.
         /// </summary>
         /// <param name="low">
-        /// Lowest integer to be drawn from the distribution. Default
+        /// Lowest integer to be drawn from the distribution. Default: 0.
         /// </param>
         /// <param name="high">
         /// One above the highest integer to be drawn from the distribution.
@@ -1932,19 +1978,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor randint(int low, int high, Shape size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1979,19 +2027,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor randint_like(Tensor input, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2020,26 +2068,26 @@ namespace Torch
         /// the size of input will determine size of the output tensor
         /// </param>
         /// <param name="low">
-        /// Lowest integer to be drawn from the distribution. Default
+        /// Lowest integer to be drawn from the distribution. Default: 0.
         /// </param>
         /// <param name="high">
         /// One above the highest integer to be drawn from the distribution.
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor randint_like(Tensor input, int low, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2080,19 +2128,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor randn(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2123,19 +2173,19 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned Tensor.
-        /// Default
+        /// Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor randn_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2165,19 +2215,21 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: torch.int64.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned Tensor.
-        /// Default
+        /// Default: torch.strided.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor<long> randperm(int n, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -3806,7 +3858,7 @@ namespace Torch
         /// <param name="dtype">
         /// the desired data type of returned tensor.
         /// If specified, the input tensor is casted to dtype before the operation
-        /// is performed. This is useful for preventing data type overflows. Default
+        /// is performed. This is useful for preventing data type overflows. Default: None.
         /// </param>
         /// <param name="out">
         /// the output tensor
@@ -3847,7 +3899,7 @@ namespace Torch
         /// <param name="dtype">
         /// the desired data type of returned tensor.
         /// If specified, the input tensor is casted to dtype before the operation
-        /// is performed. This is useful for preventing data type overflows. Default
+        /// is performed. This is useful for preventing data type overflows. Default: None.
         /// </param>
         /// <param name="out">
         /// the output tensor
@@ -3918,7 +3970,7 @@ namespace Torch
         /// the input tensor
         /// </param>
         /// <param name="dim">
-        /// ints)
+        /// ints) : the dimension or dimensions to reduce
         /// </param>
         /// <param name="keepdim">
         /// whether the output tensor has dim retained or not
@@ -4057,15 +4109,50 @@ namespace Torch
         /// the input tensor
         /// </param>
         /// <param name="p">
-        /// the order of norm. Default
+        /// the order of norm. Default: 'fro'
+        /// The following norms can be calculated:
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// 
+        /// ord
+        /// matrix norm
+        /// vector norm
+        /// 
+        /// 
+        /// 
+        /// None
+        /// Frobenius norm
+        /// 2-norm
+        /// 
+        /// ’fro’
+        /// Frobenius norm
+        /// :
+        /// 
+        /// ‘nuc’
+        /// nuclear norm
+        /// :
+        /// 
+        /// Other
+        /// as vec norm when dim is None
+        /// sum(abs(x)**ord)**(1./ord)
         /// </param>
         /// <param name="dim">
-        /// ints, 2-list of python
+        /// ints, 2-list of python:ints, optional) : If it is an int,
+        /// vector norm will be calculated, if it is 2-tuple of ints, matrix norm
+        /// will be calculated. If the value is None, matrix norm will be calculated
+        /// when the input tensor only has two dimensions, vector norm will be
+        /// calculated when the input tensor only has one dimension. If the input
+        /// tensor has more than two dimensions, the vector norm will be applied to
+        /// last dimension.
         /// </param>
         /// <param name="keepdim">
         /// whether the output tensors have dim
         /// retained or not. Ignored if dim = None and
-        /// out = None. Default
+        /// out = None. Default: False
         /// </param>
         /// <param name="out">
         /// the output tensor. Ignored if
@@ -4074,6 +4161,7 @@ namespace Torch
         /// <param name="dtype">
         /// the desired data type of
         /// returned tensor. If specified, the input tensor is casted to
+        /// :attr:’dtype’ while performing the operation. Default: None.
         /// </param>
         public void norm(Tensor input, object p = null, int[] dim = null, bool? keepdim = false, Tensor @out = null, Dtype dtype = null)
         {
@@ -4210,7 +4298,7 @@ namespace Torch
         /// </param>
         /// <param name="dim">
         /// the dimension to apply unique. If None, the unique of the
-        /// flattened input is returned. default
+        /// flattened input is returned. default: None
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -4268,7 +4356,7 @@ namespace Torch
         /// </param>
         /// <param name="dim">
         /// the dimension to apply unique. If None, the unique of the
-        /// flattened input is returned. default
+        /// flattened input is returned. default: None
         /// </param>
         public (Tensor, Tensor, Tensor) unique_consecutive(Tensor input, bool return_inverse = false, bool return_counts = false, int? dim = null)
         {
@@ -4342,13 +4430,13 @@ namespace Torch
         /// second tensor to compare
         /// </param>
         /// <param name="atol">
-        /// absolute tolerance. Default
+        /// absolute tolerance. Default: 1e-08
         /// </param>
         /// <param name="rtol">
-        /// relative tolerance. Default
+        /// relative tolerance. Default: 1e-05
         /// </param>
         /// <param name="equal_nan">
-        /// if True, then two NaN s will be compared as equal. Default
+        /// if True, then two NaN s will be compared as equal. Default: False
         /// </param>
         public bool allclose(Tensor self_, Tensor other, float? atol = 1e-08f, float? rtol = 1e-05f, bool? equal_nan = false)
         {
@@ -4940,7 +5028,7 @@ namespace Torch
         /// </param>
         /// <param name="normalized">
         /// controls whether to return normalized results.
-        /// Default
+        /// Default: False
         /// </param>
         public Tensor fft(Tensor input, int signal_ndim, bool? normalized = false)
         {
@@ -5004,7 +5092,7 @@ namespace Torch
         /// </param>
         /// <param name="normalized">
         /// controls whether to return normalized results.
-        /// Default
+        /// Default: False
         /// </param>
         public Tensor ifft(Tensor input, int signal_ndim, bool? normalized = false)
         {
@@ -5070,11 +5158,11 @@ namespace Torch
         /// </param>
         /// <param name="normalized">
         /// controls whether to return normalized results.
-        /// Default
+        /// Default: False
         /// </param>
         /// <param name="onesided">
         /// controls whether to return half of results to
-        /// avoid redundancy. Default
+        /// avoid redundancy. Default: True
         /// </param>
         public Tensor rfft(Tensor input, int signal_ndim, bool? normalized = false, bool? onesided = true)
         {
@@ -5152,15 +5240,15 @@ namespace Torch
         /// </param>
         /// <param name="normalized">
         /// controls whether to return normalized results.
-        /// Default
+        /// Default: False
         /// </param>
         /// <param name="onesided">
         /// controls whether input was halfed to avoid
-        /// redundancy, e.g., by rfft(). Default
+        /// redundancy, e.g., by rfft(). Default: True
         /// </param>
         /// <param name="signal_sizes">
         /// the size of the original
-        /// signal (without batch dimension). Default
+        /// signal (without batch dimension). Default: None
         /// </param>
         public Tensor irfft(Tensor input, int signal_ndim, bool? normalized = false, bool? onesided = true, Shape signal_sizes = null)
         {
@@ -5239,32 +5327,32 @@ namespace Torch
         /// </param>
         /// <param name="hop_length">
         /// the distance between neighboring sliding window
-        /// frames. Default
+        /// frames. Default: None (treated as equal to floor(n_fft / 4))
         /// </param>
         /// <param name="win_length">
         /// the size of window frame and STFT filter.
-        /// Default
+        /// Default: None  (treated as equal to n_fft)
         /// </param>
         /// <param name="window">
         /// the optional window function.
-        /// Default
+        /// Default: None (treated as window of all \(1\) s)
         /// </param>
         /// <param name="center">
         /// whether to pad input on both sides so
         /// that the \(t\)-th frame is centered at time \(t \times \text{hop\_length}\).
-        /// Default
+        /// Default: True
         /// </param>
         /// <param name="pad_mode">
         /// controls the padding method used when
-        /// center is True. Default
+        /// center is True. Default: &quot;reflect&quot;
         /// </param>
         /// <param name="normalized">
         /// controls whether to return the normalized STFT results
-        /// Default
+        /// Default: False
         /// </param>
         /// <param name="onesided">
         /// controls whether to return half of results to
-        /// avoid redundancy Default
+        /// avoid redundancy Default: True
         /// </param>
         public Tensor stft(Tensor input, int n_fft, int? hop_length = null, int? win_length = null, Tensor window = null, bool? center = true, string pad_mode = "reflect", bool? normalized = false, bool? onesided = true)
         {
@@ -5320,7 +5408,7 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned window tensor. Only
@@ -5328,11 +5416,13 @@ namespace Torch
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor bartlett_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -5382,7 +5472,7 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned window tensor. Only
@@ -5390,11 +5480,13 @@ namespace Torch
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor blackman_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -5447,7 +5539,7 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned window tensor. Only
@@ -5455,11 +5547,13 @@ namespace Torch
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor hamming_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, double alpha = 0.54, double beta = 0.46)
         {
@@ -5512,7 +5606,7 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, uses a global default (see torch.set_default_tensor_type()). Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         /// the desired layout of returned window tensor. Only
@@ -5520,11 +5614,13 @@ namespace Torch
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor hann_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -5748,15 +5844,16 @@ namespace Torch
         /// the input tensor. Must be at least 1-dimensional.
         /// </param>
         /// <param name="offset">
-        /// which diagonal to consider. Default
+        /// which diagonal to consider. Default: 0
+        /// (main diagonal).
         /// </param>
         /// <param name="dim1">
         /// first dimension with respect to which to
-        /// take diagonal. Default
+        /// take diagonal. Default: -2.
         /// </param>
         /// <param name="dim2">
         /// second dimension with respect to which to
-        /// take diagonal. Default
+        /// take diagonal. Default: -1.
         /// </param>
         public Tensor diag_embed(Tensor input, int? offset = 0, int? dim1 = -2, int? dim2 = -1)
         {
@@ -5790,7 +5887,8 @@ namespace Torch
         /// the input tensor
         /// </param>
         /// <param name="offset">
-        /// the diagonal to consider. Default
+        /// the diagonal to consider. Default: 0 (main
+        /// diagonal).
         /// </param>
         public Tensor diagflat(Tensor input, int? offset = 0)
         {
@@ -5826,15 +5924,16 @@ namespace Torch
         /// the input tensor. Must be at least 2-dimensional.
         /// </param>
         /// <param name="offset">
-        /// which diagonal to consider. Default
+        /// which diagonal to consider. Default: 0
+        /// (main diagonal).
         /// </param>
         /// <param name="dim1">
         /// first dimension with respect to which to
-        /// take diagonal. Default
+        /// take diagonal. Default: 0.
         /// </param>
         /// <param name="dim2">
         /// second dimension with respect to which to
-        /// take diagonal. Default
+        /// take diagonal. Default: 1.
         /// </param>
         public Tensor diagonal(Tensor input, int? offset = 0, int? dim1 = 0, int? dim2 = 1)
         {
@@ -6121,10 +6220,13 @@ namespace Torch
         /// the input tensor
         /// </param>
         /// <param name="shifts">
-        /// ints)
+        /// ints) : The number of places by which the elements
+        /// of the tensor are shifted. If shifts is a tuple, dims must be a tuple of
+        /// the same size, and each dimension will be rolled by the corresponding
+        /// value
         /// </param>
         /// <param name="dims">
-        /// ints)
+        /// ints) : Axis along which to roll
         /// </param>
         public Tensor roll(Tensor input, int[] shifts, int[] dims = null)
         {
@@ -6153,7 +6255,9 @@ namespace Torch
         /// Right tensor to contract
         /// </param>
         /// <param name="dims">
-        /// integers)
+        /// integers) : number of dimensions to
+        /// contract or explicit lists of dimensions for a and
+        /// b respectively
         /// </param>
         public void tensordot(Tensor a, Tensor b, int[] dims)
         {
@@ -6252,15 +6356,17 @@ namespace Torch
         /// </param>
         /// <param name="offset">
         /// diagonal offset from the main diagonal.
-        /// Default
+        /// Default: if not provided, 0.
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, torch.long.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="layout">
         /// currently only support torch.strided.
@@ -6350,15 +6456,17 @@ namespace Torch
         /// </param>
         /// <param name="offset">
         /// diagonal offset from the main diagonal.
-        /// Default
+        /// Default: if not provided, 0.
         /// </param>
         /// <param name="dtype">
         /// the desired data type of returned tensor.
-        /// Default
+        /// Default: if None, torch.long.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, uses the current device for the default tensor type
+        /// (see torch.set_default_tensor_type()). device will be the CPU
+        /// for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="layout">
         /// currently only support torch.strided.
@@ -6998,7 +7106,7 @@ namespace Torch
         /// </param>
         /// <param name="upper">
         /// flag that indicates whether to return a
-        /// upper or lower triangular matrix. Default
+        /// upper or lower triangular matrix. Default: False
         /// </param>
         /// <param name="out">
         /// the output matrix
@@ -7099,7 +7207,7 @@ namespace Torch
         /// </param>
         /// <param name="upper">
         /// whether to consider the Cholesky factor as a
-        /// lower or upper triangular matrix. Default
+        /// lower or upper triangular matrix. Default: False.
         /// </param>
         /// <param name="out">
         /// the output tensor for c
@@ -7416,17 +7524,17 @@ namespace Torch
         /// the tensor to factor of size \((*, m, m)\)
         /// </param>
         /// <param name="pivot">
-        /// controls whether pivoting is done. Default
+        /// controls whether pivoting is done. Default: True
         /// </param>
         /// <param name="get_infos">
         /// if set to True, returns an info IntTensor.
-        /// Default
+        /// Default: False
         /// </param>
         /// <param name="out">
         /// optional output tuple. If get_infos is True,
         /// then the elements in the tuple are Tensor, IntTensor,
         /// and IntTensor. If get_infos is False, then the
-        /// elements in the tuple are Tensor, IntTensor. Default
+        /// elements in the tuple are Tensor, IntTensor. Default: None
         /// </param>
         public (Tensor, Tensor<int>, Tensor<int>) lu(Tensor A, bool? pivot = true, bool? get_infos = false, Tensor[] @out = null)
         {
@@ -7605,11 +7713,11 @@ namespace Torch
         /// the input 2-D tensor
         /// </param>
         /// <param name="tol">
-        /// the tolerance value. Default
+        /// the tolerance value. Default: None
         /// </param>
         /// <param name="symmetric">
         /// indicates whether input is symmetric.
-        /// Default
+        /// Default: False
         /// </param>
         public Tensor matrix_rank(Tensor input, float? tol = null, bool? symmetric = false)
         {
@@ -7773,7 +7881,7 @@ namespace Torch
         /// </param>
         /// <param name="rcond">
         /// A floating point value to determine the cutoff for small singular values.
-        /// Default
+        /// Default: 1e-15
         /// </param>
         public Tensor pinverse(Tensor input, float rcond = 1e-15f)
         {
@@ -8029,16 +8137,16 @@ namespace Torch
         /// </param>
         /// <param name="upper">
         /// whether to solve the upper-triangular system
-        /// of equations (default) or the lower-triangular system of equations. Default
+        /// of equations (default) or the lower-triangular system of equations. Default: True.
         /// </param>
         /// <param name="transpose">
         /// whether \(A\) should be transposed before
-        /// being sent into the solver. Default
+        /// being sent into the solver. Default: False.
         /// </param>
         /// <param name="unitriangular">
         /// whether \(A\) is unit triangular.
         /// If True, the diagonal elements of \(A\) are assumed to be
-        /// 1 and not referenced from \(A\). Default
+        /// 1 and not referenced from \(A\). Default: False.
         /// </param>
         public (Tensor, Tensor) triangular_solve(Tensor A, Tensor b, bool? upper = true, bool? transpose = false, bool? unitriangular = false)
         {

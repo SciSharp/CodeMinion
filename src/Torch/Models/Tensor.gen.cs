@@ -39,15 +39,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default
+        /// Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor new_tensor(NDarray data, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -75,15 +75,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default
+        /// Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor new_full<T>(Shape size, T fill_value, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -109,15 +109,15 @@ namespace Torch
         /// </summary>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default
+        /// Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor new_empty(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -146,15 +146,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default
+        /// Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor new_ones(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -183,15 +183,15 @@ namespace Torch
         /// </param>
         /// <param name="dtype">
         /// the desired type of returned tensor.
-        /// Default
+        /// Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         /// the desired device of returned tensor.
-        /// Default
+        /// Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         /// If autograd should record operations on the
-        /// returned tensor. Default
+        /// returned tensor. Default: False.
         /// </param>
         public Tensor new_zeros(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -382,7 +382,7 @@ namespace Torch
         /// <param name="non_blocking">
         /// If True and the source is in pinned memory,
         /// the copy will be asynchronous with respect to the host.
-        /// Otherwise, the argument has no effect. Default
+        /// Otherwise, the argument has no effect. Default: False.
         /// </param>
         public Tensor cuda(Device device = null, bool non_blocking = false)
         {

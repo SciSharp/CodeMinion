@@ -362,7 +362,7 @@ namespace Torch.ApiGenerator
                     // precision – Number of digits of precision for floating point output(default = 4).
                     var p_desc = li.InnerText;
                     arg.Name = p_desc.Split(' ')[0].TrimStart('*', ' ');
-                    arg.Description = p_desc.Split('–', ':' )[1].Trim();
+                    arg.Description = string.Join(":", p_desc.Split('–', ':' ).Skip(1)).Trim();
 
                     var type_part = Regex.Match(p_desc, @"\((\S+(, optional)?)\)")?.Value; //(torch.dtype, optional)
                     if (!string.IsNullOrEmpty(type_part))
