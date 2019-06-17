@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <!--<ProjectReference Include="..\..\..\CodeMinion\src\CodeMinion.Core\CodeMinion.Core.csproj" />-->
-    <ProjectReference Include="..\..\..\pythonnet\src\runtime\Python.Runtime.csproj" />
     <ProjectReference Include="..\Python.Included\Python.Included.csproj" />
   </ItemGroup>
 

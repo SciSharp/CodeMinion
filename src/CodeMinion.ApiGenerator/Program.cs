@@ -23,6 +23,9 @@ namespace CodeMinion.ApiGenerator
                 case "spacy":
                     generator = new SpaCy.ApiGenerator();
                     break;
+                case "keras":
+                    generator = new Keras.ApiGenerator();
+                    break;
                 default:
                     throw new Exception("Please assign what project you're working on.");
             }
