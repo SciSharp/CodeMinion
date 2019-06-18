@@ -8,7 +8,7 @@ namespace Regen.DataTypes {
     [DebuggerDisplay("Array: {this}")]
     public class Array : Data, IList<Scalar>, ICollection<Scalar>, ICollection, IList, IEnumerable<Scalar> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private List<Scalar> Values { get; set; }
+        public List<Scalar> Values { get; set; }
 
         public Array() {
             Values = new List<Scalar>(0);

@@ -44,10 +44,10 @@ namespace Regen.Compiler {
             for (var i = 0; i < parsedVariables.Count; i++) {
                 var var = parsedVariables[i];
                 switch (var) {
+                    case Array _:
+                        break;
                     case IList list:
                         parsedVariables[i] = new Array(list.Cast<Scalar>().ToList());
-                        break;
-                    case Array _:
                         break;
                     case StringScalar ss: {
                         parsedVariables[i] = ss.ToArray();
