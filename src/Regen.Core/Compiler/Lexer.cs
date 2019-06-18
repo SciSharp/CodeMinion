@@ -12,7 +12,7 @@ namespace Regen.Compiler {
                     .Where(t => t.GetAttribute<ManuallySearchedAttribute>() == null)
                     .Select(t => (t.GetAttribute<DescriptionAttribute>().Description, t)));
 
-            var results = possabilities.Select(key => (poss: key, findings: Regex.Matches(code, key.Regex, Parser.DefaultRegexOptions)))
+            var results = possabilities.Select(key => (poss: key, findings: Regex.Matches(code, key.Regex, Regexes.DefaultRegexOptions)))
                 .SelectMany(found => found.findings.Cast<Match>().Select(m => (Token: found.poss.Token, Match: m)))
                 .OrderBy(m => {
                     var indx = m.Match.Groups.Count > 1 ? m.Match.Groups.Cast<Group>().Skip(1).Select(g => g.Length).Max() : 0;
@@ -27,7 +27,7 @@ namespace Regen.Compiler {
         public static List<Token> FindTokens(TokenID tokenId, string code) {
             var regex = tokenId.GetAttribute<DescriptionAttribute>().Description;
 
-            return Regex.Matches(code, regex, Parser.DefaultRegexOptions)
+            return Regex.Matches(code, regex, Regexes.DefaultRegexOptions)
                 .Cast<Match>().Select(m => new Token(tokenId, m))
                 .ToList();
         }

@@ -8,11 +8,11 @@ using System.Text;
 
 namespace Regen.DataTypes {
     [DebuggerDisplay("String: {" + nameof(Value) + "}")]
-    public class StringScalar : Scalar, IComparable<string>, IEnumerable<char>, IEnumerable {
-        private string _value => Value as string;
+    public class StringScalar : Scalar, IComparable<string>, IEnumerable<char>, IEnumerable, IEquatable<StringScalar> {
+        private string _value => base.Value as string;
 
         public override string Emit() {
-            return (string) Value;
+            return (string) base.Value;
         }
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace Regen.DataTypes {
         /// </summary>
         /// <returns></returns>
         public override string EmitExpressive() {
-            return $"\"{Value}\"";
+            return $"\"{Emit()}\"";
         }
 
         /// <summary>
@@ -28,13 +28,13 @@ namespace Regen.DataTypes {
         /// </summary>
         /// <returns></returns>
         public Array ToArray() {
-            return Array.Create(((string) Value).ToCharArray());
+            return Array.Create(((string) base.Value).ToCharArray());
         }
 
         public char this[int index] {
             get {
                 try {
-                    return ((string) Value)[index];
+                    return ((string) base.Value)[index];
                 } catch (IndexOutOfRangeException) {
                     return '\0';
                 }
@@ -45,10 +45,10 @@ namespace Regen.DataTypes {
         public string this[int index, int count] {
             get => Substring(index, count);
             set {
-                var str = Value as string;
+                var str = base.Value as string;
                 if (index < 0)
                     return;
-                Value = str.Remove(index, Math.Min(count, str.Length - index)).Insert(index, value);
+                base.Value = str.Remove(index, Math.Min(count, str.Length - index)).Insert(index, value);
             }
         }
 
@@ -895,7 +895,7 @@ namespace Regen.DataTypes {
             try {
                 if (startIndex < 0)
                     return "";
-                var str = Value as string;
+                var str = base.Value as string;
                 if (startIndex >= str.Length)
                     return "";
 
@@ -1114,5 +1114,56 @@ namespace Regen.DataTypes {
         }
 
         #endregion
+
+        #region Equality
+
+
+        /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
+        public bool Equals(StringScalar other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return base.Equals(other) && string.Equals(Value, other.Value as string);
+        }
+
+        /// <summary>Determines whether the specified object is equal to the current object.</summary>
+        /// <param name="obj">The object to compare with the current object. </param>
+        /// <returns>
+        /// <see langword="true" /> if the specified object  is equal to the current object; otherwise, <see langword="false" />.</returns>
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((StringScalar) obj);
+        }
+
+        /// <summary>Serves as the default hash function. </summary>
+        /// <returns>A hash code for the current object.</returns>
+        public override int GetHashCode() {
+            unchecked {
+                return (base.GetHashCode() * 397) ^ (Value != null ? Value.GetHashCode() : 0);
+            }
+        }
+
+        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.DataTypes.StringScalar" /> objects are equal.</summary>
+        /// <param name="left">The first value to compare.</param>
+        /// <param name="right">The second value to compare.</param>
+        /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
+        public static bool operator ==(StringScalar left, StringScalar right) {
+            return Equals(left, right);
+        }
+
+        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.DataTypes.StringScalar" /> objects have different values.</summary>
+        /// <param name="left">The first value to compare.</param>
+        /// <param name="right">The second value to compare.</param>
+        /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
+        public static bool operator !=(StringScalar left, StringScalar right) {
+            return !Equals(left, right);
+        }
+
+        #endregion
+
     }
 }

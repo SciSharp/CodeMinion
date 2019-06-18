@@ -1,5 +1,5 @@
 ﻿# Regen
-Regen is an external tool for readable and highly-productive template generating.
+Regen a templating engine  an external tool for readable and highly-productive template generating.
 
 Current version: 0.01 pre-alpha<br>
 
@@ -19,10 +19,11 @@ Make sure to read our [getting started](TUTORIAL.md) page!
 - [ ] Extending builtin functions by adding types. syntax: `%import namespace.type`
 - [ ] Escaped `\%` should be unescaped on output.
 - [ ] Support comments, syntax: `#// `
-- [ ] 200 Unit tests _(progress: 50)_
+- [ ] 200 Unit tests _(progress: 120)_
 - [ ] GUI version for usage without vsix installed.
 - [X] Support names that end with number
 - [ ] Support booleans
+- [ ] Support conditional emit
 
 
 ##### Beta

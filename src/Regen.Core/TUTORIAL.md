@@ -19,7 +19,7 @@ Note: The following example as of this moment will run only without any comments
 	//-----------------
 	%foreach variable% 
 	//# is used only inside loops and is similar to $1, $2 .. $n used in Regex.
-	//Only it supports indexing: '#1[i+3]' expression evaluation '#(expression)'
+	//Only it supports indexing: '#1[i+3]' and expression evaluation '#(expression)'
 	#1 + #(i) = #(1+i)
 	% //close foreach block
 	

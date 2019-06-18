@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -28,7 +29,7 @@ namespace Regen.Compiler {
 
             GlobalVariables = new Dictionary<string, Data>();
             string scriptFramed = Parser.GlobalFrameRegex;
-            foreach (Match match in Regex.Matches(entireCode, scriptFramed, Parser.DefaultRegexOptions)) {
+            foreach (Match match in Regex.Matches(entireCode, scriptFramed, Regexes.DefaultRegexOptions)) {
                 if (!match.Success) //I dont think that unsuccessful can even get here.
                     continue;
 
@@ -134,22 +135,25 @@ namespace Regen.Compiler {
         }
 
         public T Evaluate<T>(string expression, Line line = null) {
-            var evaluated = EvaluateObject(expression, line);
+            var evaluated = EvaluateUnpackedObject(expression, line);
             if (typeof(T) == typeof(string))
                 return (T) (object) ((evaluated as string) ?? evaluated.ToString());
 
             return (T) Convert.ChangeType(evaluated, typeof(T));
         }
 
+        public object EvaluateUnpackedObject(string expression, Line line = null) {
+            var evaluated = EvaluateObject(expression, line);
+            if (evaluated is Data scalar)
+                return scalar.Value;
+            return evaluated;
+        }
+
         public object EvaluateObject(string expression, Line line = null) {
             bool reattempted = false;
             _attemptReevaluate:
             try {
-                var evaluated = Context.CompileDynamic(expression).Evaluate();
-                if (evaluated is Data scalar) //unpack Data object
-                    evaluated = scalar.Value;
-
-                return evaluated;
+                return Context.CompileDynamic(expression).Evaluate();
             } catch (Flee.PublicTypes.ExpressionCompileException e) when (e.Message.Contains("ArithmeticElement") && e.Message.Contains("Null") && e.Message.Contains("Operation")) {
                 if (reattempted)
                     throw;
@@ -162,14 +166,19 @@ namespace Regen.Compiler {
         }
 
         public Dictionary<string, Data> RunGlobal(string code, Dictionary<string, Data> variables = null) {
-            return Run(code, variables).Variables;
+            return Interpret(code, variables).Variables;
         }
 
-        public InterpredCode Run(Dictionary<string, Data> variables = null) {
-            return Run(RegenCode, variables);
+        public InterpredCode Interpret(Dictionary<string, Data> variables = null) {
+            return Interpret(RegenCode, variables);
         }
 
-        public InterpredCode Run(string code, Dictionary<string, Data> variables = null) {
+        public InterpredCode Interpret(string code, Dictionary<string, Data> variables = null) {
+            const string unescapeCommentRegex = @"(\\\#\/\/)";
+            //clean code from comments
+            code = Regex.Replace(code, TokenID.Commentrow.GetAttribute<DescriptionAttribute>().Description, new MatchEvaluator(match => { return match.Value.Replace(match.Groups[1].Value, ""); }), Regexes.DefaultRegexOptions);
+            code = Regex.Replace(code, unescapeCommentRegex, @"//", Regexes.DefaultRegexOptions); //unescape escaped comments
+
             var lines = new LineBuilder(code);
             var output = lines.Clone();
             variables = variables != null ? new Dictionary<string, Data>(variables) : new Dictionary<string, Data>(); //all objects implement IData
@@ -178,10 +187,17 @@ namespace Regen.Compiler {
             // Define the context of our expression
 
             var walker = Lexer.Tokenize(code).WrapWalker();
+            if (walker.Count==0) {
+                //no tokens detected
+                var comp = output.Compile();
+                return new InterpredCode() {OriginalCode = code, Output = comp, Variables = variables};
+            }
+
             do {
                 var current = walker.Current;
                 switch (walker.Current.TokenId) {
                     case TokenID.Declaration: {
+                        const string InvalidCharacters = "[]\\/";
                         var name = walker.Current.Match.Groups[1].Value.Trim();
                         var line = output.GetLineAt(walker.Current.Match.Index);
                         line.MarkedForDeletion = true; //just because the line has declaration - regardless to whats inside.
@@ -189,22 +205,13 @@ namespace Regen.Compiler {
                             throw new UnexpectedTokenException(current, TokenID.Array);
 
                         if (walker.Current.TokenId == TokenID.Array) {
-                            const char arraySeperator = '|';
                             var arrayToken = walker.Current;
-                            var arrayStr = arrayToken.Match.Groups[1].Value;
+                            var arrayStr = arrayToken.Match.Groups[0].Value;
 
-                            var values = arrayStr
-                                .Split(new char[] {arraySeperator}, StringSplitOptions.None)
-                                .Select(v => v.Replace("\\|", "|")) //unescape
-                                .Select(v => v == string.Empty ? "\"\"" : v) //filter empty values to empty string
-                                .Select(v => EvaluateObject(v))
-                                .Select(Scalar.Create)
-                                .ToList();
-
+                            var values = Array.Parse(arrayStr, this);
                             if (variables.ContainsKey(name))
                                 Debug.WriteLine($"Warning: variable named {name} is already taken and is being overridden at TODO PRINT LINE");
-
-                            variables[name] = new Array(values);
+                            variables[name] = values;
                             Context.Variables[name] = values;
                         } else if (walker.Current.TokenId == TokenID.Scalar) {
                             //todo detect if there is an expression inside, if so - evaluate it.
@@ -219,12 +226,12 @@ namespace Regen.Compiler {
                             } else if (float.TryParse(scalarStr, out var @float)) {
                                 value = @float;
                             } else {
-                                value = EvaluateObject(scalarStr);
+                                value = EvaluateUnpackedObject(scalarStr);
                             }
 
                             if (variables.ContainsKey(name))
                                 Debug.WriteLine($"Warning: variable named {name} is already taken and is being overridden at TODO PRINT LINE");
-                            value = Scalar.Create(value);
+                            value = Data.Create(value);
                             variables[name] = (Data) value;
                             Context.Variables[name] = value;
                         }
@@ -260,7 +267,7 @@ namespace Regen.Compiler {
                     case TokenID.ForEach: {
                         var line = lines.GetLineAt(walker.Current.Match.Index);
                         output.FindLine(line).MarkedForDeletion = true;
-                        var content = line.Content.Replace("%foreach", "").Replace("%for", "").TrimStart('\t', ' ').TrimEnd('\n', '\r');
+                        var content = line.Content.Replace("%foreach", "").Replace("%for", "").TrimStart('\t', ' ').TrimEnd('\n', '\r', ' ');
                         var usesBlock = content.EndsWith("%");
                         content = content.TrimEnd('%');
 
@@ -276,7 +283,7 @@ namespace Regen.Compiler {
                                 }
                             }
 
-                            var obj = EvaluateObject(name, line);
+                            var obj = EvaluateUnpackedObject(name, line);
                             if (obj is PackedArguments args) {
                                 parsedVaraibles.AddRange(args.Objects);
                             } else

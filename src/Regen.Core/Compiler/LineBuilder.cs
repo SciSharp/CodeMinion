@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Regen.Compiler {
     public class LineBuilder : ICloneable {
@@ -53,6 +54,7 @@ namespace Regen.Compiler {
             validLines = Lines.Where(line => !line.MarkedForDeletion).ToArray();
 
             var compiled = string.Join("", validLines.Select(l => l.Content));
+            compiled = Regex.Replace(compiled, Regexes.LoneEndBlock, "", Regexes.DefaultRegexOptions);
             return compiled.Trim('\n', '\r') + Environment.NewLine;
         }
 

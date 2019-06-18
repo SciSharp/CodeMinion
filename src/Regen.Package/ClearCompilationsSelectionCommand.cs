@@ -95,7 +95,7 @@ namespace Regen {
             var index = cursor.AbsoluteCharOffset;
 
             var code = txt.GetText().Replace("\r", "");
-            var matches = Regex.Matches(code, $@"(\#if\s{Parser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)", Parser.DefaultRegexOptions);
+            var matches = Regex.Matches(code, $@"(\#if\s{Parser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)", Regexes.DefaultRegexOptions);
             var match = matches.Cast<Match>().FirstOrDefault(m => m.DoesMatchNests(index));
             if (match == null) {
                 SystemSounds.Beep.Play();

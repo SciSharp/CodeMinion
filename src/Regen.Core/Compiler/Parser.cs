@@ -8,7 +8,6 @@ namespace Regen.Compiler {
         /// <summary>
         ///     The regex options used to in parsing.
         /// </summary>
-        public const RegexOptions DefaultRegexOptions = RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace;
 
         public static string DefineMarker = "_REGEN";
 
@@ -23,14 +22,14 @@ namespace Regen.Compiler {
         }
 
         public string Consume(string code) {
-            var framed = Regex.Matches(code, FrameRegex, DefaultRegexOptions);
+            var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
             int additionalOffset = 0;
             foreach (Match frame in framed) {
                 var regenmatch = frame.Groups[1];
                 var regencode = regenmatch.Value;
                 var outputFrame = frame.Groups[2];
                 var inter = new Interperter(code, regencode);
-                var ret = inter.Run();
+                var ret = inter.Interpret();
                 code = code
                     .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
                     .Insert(outputFrame.Index + additionalOffset, ret.Output);
@@ -45,14 +44,14 @@ namespace Regen.Compiler {
         }
 
         public string Consume(string code, int specificAtIndex) {
-            var framed = Regex.Matches(code, FrameRegex, DefaultRegexOptions);
+            var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
             int additionalOffset = 0;
             foreach (Match frame in framed.Cast<Match>().Where(m=>m.DoesMatchNests(specificAtIndex))) {
                 var regenmatch = frame.Groups[1];
                 var regencode = regenmatch.Value;
                 var outputFrame = frame.Groups[2];
                 var inter = new Interperter(code, regencode);
-                var ret = inter.Run();
+                var ret = inter.Interpret();
                 code = code
                     .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
                     .Insert(outputFrame.Index + additionalOffset, ret.Output);

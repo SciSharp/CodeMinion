@@ -3,7 +3,7 @@
 namespace Regen.Compiler {
     public enum TokenID {
         [Description(@"%(\w+)(?=\s*=)")] Declaration,
-        [Description(@"(?<=[=,\s])\[  (.*)  \]")]Array,
+        [Description(@"(?<=[\s=]) \[ (.*) \]")]Array,
         [Description(@"(?<!for(?:each))(?:(?<=[=])\s+?  (?!\[)(.*) (?=$|\n|\r))")] Scalar,
         [Description(@"(?<!\\)\%\(([\s|\S]*?)[\)](?=[$\s\n\r\b])")] Expression,
         [Description(@"%for(?:each)?\s")] ForEach,
@@ -12,5 +12,6 @@ namespace Regen.Compiler {
         [Description(@"(?<!\\)\#(\d+)(?!\[)")] [ManuallySearched] EmitVariable,
         [Description(@"(?<!\\)\#(\d+)\[([\s|\S]*?)]  ")] [ManuallySearched] EmitVariableOffsetted,
         [Description(@"%[\s|\t|\n|\r]")] BlockMark,
+        [Description(@"(?<!\\) (\#\/\/(?:[\s\S])+?)[\r\n]")] [ManuallySearched] Commentrow,
     }
 }

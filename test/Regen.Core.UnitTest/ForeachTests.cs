@@ -10,7 +10,6 @@ namespace Regen.Core.Tests {
         //todo test nested foreach expressions
         //todo test removal of the expression, here and everywhere else. test that after compile they dont contain % etc..
 
-
         [TestMethod]
         public void foreach_i_multiline() {
             var @input = @"
@@ -24,6 +23,7 @@ namespace Regen.Core.Tests {
                 .Contain("1").And
                 .Contain("2");
         }
+
         [TestMethod]
         public void foreach_i() {
             var @input = @"

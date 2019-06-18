@@ -93,16 +93,16 @@ namespace Regen {
             var cursor = textSelection.ActivePoint as VirtualPoint;
             var index = cursor.AbsoluteCharOffset;
 
-            var code = txt.GetText().Replace("\r","");
+            var code = txt.GetText().Replace("\r", "");
             code = Regex.Replace(code, $@"(\#if\s{Parser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)",
-                "$1"+Environment.NewLine,Parser.DefaultRegexOptions);
+                "$1" + Environment.NewLine, Regexes.DefaultRegexOptions);
 
             try {
                 var ed = txt.CreateEditPoint(txt.StartPoint);
                 ed.Delete(txt.EndPoint);
                 ed.Insert(code);
                 var newLength = txt.EndPoint.AbsoluteCharOffset;
-                textSelection.MoveToAbsoluteOffset(Math.Min(newLength-1, index));
+                textSelection.MoveToAbsoluteOffset(Math.Min(newLength - 1, index));
             } catch (Exception e) {
                 Message($"Failed parsing file...\n" + e);
             }

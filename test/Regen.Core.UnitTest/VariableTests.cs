@@ -50,6 +50,7 @@ namespace Regen.Core.Tests {
         }
 
         [DataTestMethod]
+        [DataRow("%1aaaaaaaaa = 1")]
         [DataRow("%aaaaaa!aaa = 1")]
         [DataRow("%aaaaaaaaa! = 1")]
         [DataRow("%asdasda#sd2 = 1")]
@@ -120,7 +121,7 @@ namespace Regen.Core.Tests {
                 ";
             var variable = Variables(input).Values.First();
             variable.Should().BeOfType(typeof(Array));
-            ((Array) variable)[1].Should().BeOfType(type).And.BeEquivalentTo(value);
+            ((Array) variable)[1].Value.Should().BeOfType(type).And.BeEquivalentTo(value);
         }
 
         [TestMethod]

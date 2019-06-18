@@ -47,7 +47,7 @@ namespace Regen.Compiler {
                     case Array _:
                         break;
                     case IList list:
-                        parsedVariables[i] = new Array(list.Cast<Scalar>().ToList());
+                        parsedVariables[i] = new Array(list.Cast<Data>().ToList());
                         break;
                     case StringScalar ss: {
                         parsedVariables[i] = ss.ToArray();
@@ -55,7 +55,7 @@ namespace Regen.Compiler {
                     }
 
                     case NullScalar _:
-                        parsedVariables[i] = new Array(new List<Scalar>());
+                        parsedVariables[i] = new Array(new List<Data>());
                         break;
 
                     case NumberScalar num: {

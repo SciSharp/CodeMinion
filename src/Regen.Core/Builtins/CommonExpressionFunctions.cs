@@ -13,11 +13,11 @@ namespace Regen.Builtins {
         }
 
         public static Array range(int count) {
-            return new Array(Enumerable.Range(0, count).Select(r => new NumberScalar(r)).Cast<Scalar>().ToList());
+            return new Array(Enumerable.Range(0, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
         public static Array range(int @from, int count) {
-            return new Array(Enumerable.Range(@from, count).Select(r => new NumberScalar(r)).Cast<Scalar>().ToList());
+            return new Array(Enumerable.Range(@from, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
         /// <summary>
@@ -43,7 +43,31 @@ namespace Regen.Builtins {
         public static StringScalar str(params object[] objects) {
             return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));
         }
-        
+
+        public static bool isarray(object obj) {
+            return obj is IList; //Array implements IList.
+        }
+
+        public static bool isstr(object obj) {
+            return obj is StringScalar || obj is string;
+        }
+
+        public static bool isnumber(object obj) {
+            if (obj == null) return false;
+
+            if (obj is decimal) return true;
+            var type = obj.GetType();
+            return type.IsPrimitive;
+        }
+
+        public static bool isnull(object obj) {
+            return obj == null || obj is NullScalar;
+        }
+
+        public static Array asarray(params object[] objs) {
+            return Array.CreateParams(objs);
+        }
+
         //todo add concat(params array)
         //todo add asarray(params)
         //todo add type functions such as 'isarray', 'isnumber', 'isnull' similar to python.

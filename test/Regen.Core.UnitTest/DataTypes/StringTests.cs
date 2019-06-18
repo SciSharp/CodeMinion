@@ -29,7 +29,7 @@ namespace Regen.Core.Tests.DataTypes {
                 ";
             var variable = Variables(input).Values.Last();
             variable.Should().BeOfType(typeof(StringScalar));
-            variable.As<StringScalar>().Value.As<string>().Should().Be("h");
+            ((Scalar) variable.As<StringScalar>()).Value.As<string>().Should().Be("h");
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace Regen.Core.Tests.DataTypes {
                 ";
             var variable = Variables(input).Values.Last();
             variable.Should().BeOfType(typeof(StringScalar));
-            variable.As<StringScalar>().Value.As<string>().Should().Be("h");
+            ((Scalar) variable.As<StringScalar>()).Value.As<string>().Should().Be("h");
         }
 
         [TestMethod]
@@ -51,7 +51,7 @@ namespace Regen.Core.Tests.DataTypes {
                 ";
             var variable = Variables(input).Values.Last();
             variable.Should().BeOfType(typeof(StringScalar));
-            variable.As<StringScalar>().Value.As<string>().Should().Be("");
+            ((Scalar) variable.As<StringScalar>()).Value.As<string>().Should().Be("");
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace Regen.Core.Tests.DataTypes {
                 ";
             var variable = Variables(input).Values.Last();
             variable.Should().BeOfType(typeof(StringScalar));
-            variable.As<StringScalar>().Value.As<string>().Should().Be("hello");
+            ((Scalar) variable.As<StringScalar>()).Value.As<string>().Should().Be("hello");
         }
 
         [TestMethod]

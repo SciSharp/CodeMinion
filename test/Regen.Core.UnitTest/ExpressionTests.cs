@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using FluentAssertions;
@@ -52,24 +53,36 @@ namespace Regen.Core.Tests {
             new Action(() => { Variables("%a = 1/0"); })
                 .Should().Throw<DivideByZeroException>();
         }
+
         [TestMethod]
         public void declaration_function_array() {
             var @input = $@"
                 %a = range(0,3)
                 ";
 
-            var variables = Variables(input);
-            variables.First().As<Array>().Values.Select(v=>v.Value).Should().BeEquivalentTo(0,1,2);
-        }        
-        
+            var variables = Variables(input).Values.First();
+            variables.As<Array>().Values.Select(v => v.Value).Should().BeEquivalentTo(0, 1, 2);
+        }
+
+        [TestMethod]
+        public void declaration_new_nested_array() {
+            var @input = $@"
+                %a = [1|asarray(1,2,3)]
+                ";
+
+            var variables = Variables(input).Values.Last();
+            variables.Should().BeOfType<Array>().Which[1].Should().BeEquivalentTo(Array.CreateParams(1,2,3));
+        }
+
         [TestMethod]
         public void declaration_function_str() {
             var @input = $@"
                 %a = str(""hey"")
                 ";
 
-            var variables = Variables(input);
-            variables.First().As<StringScalar>().Value.Should().BeEquivalentTo("hey");
+            var variables = Variables(input).Values;
+            variables.Should().HaveCount(1);
+            variables.First().Should().BeOfType<StringScalar>().Which.Value.Should().BeEquivalentTo("hey");
         }
 
         [TestMethod]
@@ -129,8 +142,7 @@ namespace Regen.Core.Tests {
         [DataRow("-", 0)]
         [DataRow("/", 1)]
         [DataRow("*", 1)]
-        public void expression_access_indexer_math(string expression, object equalsTo)
-        {
+        public void expression_access_indexer_math(string expression, object equalsTo) {
             var @input = $@"
                 %a = [1|2|3]
                 %b = 1
@@ -143,8 +155,7 @@ namespace Regen.Core.Tests {
         }
 
         [TestMethod]
-        public void expression_string_accessor()
-        {
+        public void expression_string_accessor() {
             var @input = $@"
                 %a = ""hello""
                 %b = 1
@@ -157,8 +168,7 @@ namespace Regen.Core.Tests {
         }
 
         [TestMethod]
-        public void expression_string_accessor_str()
-        {
+        public void expression_string_accessor_str() {
             var @input = $@"
                 %a = ""hello""
                 %b = 1
@@ -171,8 +181,7 @@ namespace Regen.Core.Tests {
         }
 
         [TestMethod]
-        public void expression_two_same_row()
-        {
+        public void expression_two_same_row() {
             var @input = $@"
                 %a = ""hello""
                 %b = 1
@@ -182,11 +191,10 @@ namespace Regen.Core.Tests {
             var code = Interpert(input);
             code.Trim().Should()
                 .Contain(('h' + 1) + " " + ('h' + 1));
-        }        
-        
+        }
+
         [TestMethod]
-        public void expression_two_same_row_with_functions()
-        {
+        public void expression_two_same_row_with_functions() {
             var @input = $@"
                 %a = ""hello""
                 %b = 1
