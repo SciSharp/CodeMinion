@@ -38,7 +38,7 @@ Regen supports arrays, strings and numbers (any primitive number).<br>
 The arrays are not type specific, for instance it is possible to mix an array with strings and numbers
 ```C#
 %variable_name  = 123.0f
-%variable_name2 = ["str"|1.0|1|null|] //note the last empty index which will compile as null.
+%variable_name2 = ["str"|1.0|null|1|] //note the last empty index which will compile as null.
 ```
 
 ##### Expression
@@ -48,9 +48,18 @@ Syntax: &nbsp;&nbsp;&nbsp;&nbsp;%(_expression_)
 %(1+1*arr[2])
 ```
 
-##### Builtin Keywords
-Builtin Keywords are used internally and can not be used to declare variables.
-* '`i`' is used inside foreach loops and represents current index.
-
 ##### Foreach loops
 TODO
+* ###### Builtin Keywords
+  Builtin Keywords are used internally and can not be used to declare variables.
+   * '`i`' is used inside foreach loops and represents current index.
+
+---
+### Builtin Functions
+##### zipmax(params)
+* alias: `ziplongest(params)`
+##### zipmax(params)
+##### str(params)
+##### asarray(params)
+##### concat(params)
+##### isarray(..), isstr(..), isstr(..), isnumber(..), isnull(..)

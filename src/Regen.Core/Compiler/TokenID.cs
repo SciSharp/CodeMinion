@@ -5,7 +5,7 @@ namespace Regen.Compiler {
         [Description(@"%(\w+)(?=\s*=)")] Declaration,
         [Description(@"(?<=[=,\s])\[  (.*)  \]")]Array,
         [Description(@"(?<!for(?:each))(?:(?<=[=])\s+?  (?!\[)(.*) (?=$|\n|\r))")] Scalar,
-        [Description(@"(?<!\\)\%\(([\s|\S]*?)[\)]")] Expression,
+        [Description(@"(?<!\\)\%\(([\s|\S]*?)[\)](?=[$\s\n\r\b])")] Expression,
         [Description(@"%for(?:each)?\s")] ForEach,
         //dropped for loops [Description(@"(?:%for(?:each)?\s){1} ([^$\r\n%]+)")] ForExpression,
         [Description(@"(?<!\\)\#\(([\s|\S]*?)[\)]")] [ManuallySearched] EmitExpression,

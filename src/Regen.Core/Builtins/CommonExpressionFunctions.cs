@@ -40,6 +40,12 @@ namespace Regen.Builtins {
             return zipmax(objects);
         }
 
+        public static StringScalar str(params object[] objects) {
+            return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));
+        }
+        
+        //todo add concat(params array)
+        //todo add asarray(params)
         //todo add type functions such as 'isarray', 'isnumber', 'isnull' similar to python.
 
         //todo add a multi-iteration zip that will serve as alternative to nested arrays. consider: [1,2,3] and [4,5,6] togther will result: [(1,4),(1,5),(1,6),  (2,4),(2,5),(2,6) ... so on  - make sure it can be applyed to unlimited amount of arrays.

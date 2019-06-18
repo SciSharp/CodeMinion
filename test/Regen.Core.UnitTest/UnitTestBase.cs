@@ -58,7 +58,7 @@ namespace Regen.Core.Tests {
             Console.WriteLine(output.Output);
             Console.WriteLine("Variables: ---------------");
             foreach (var kv in output.Variables) {
-                Console.WriteLine($"{kv.Key}:\t\t{kv.Value}");
+                Console.WriteLine($"{kv.Key}:\t\t{kv.Value}\t\t{kv.Value.Value}");
             }
         }
     }

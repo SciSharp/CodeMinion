@@ -3,9 +3,11 @@ using System.Diagnostics;
 using System.Linq;
 
 namespace Regen.DataTypes {
-
     [DebuggerDisplay("Number: {" + nameof(Value) + "}")]
     public class NumberScalar : Scalar {
+
+        //todo add MaxValue and MinValue
+
         public override string Emit() {
             return Value.ToString();
         }
@@ -22,10 +24,10 @@ namespace Regen.DataTypes {
                     case Double @double:
                         emission += ".0d";
                         break;
-                    case Single single: 
+                    case Single single:
                         emission += ".0f";
                         break;
-                    case Decimal @decimal: 
+                    case Decimal @decimal:
                         emission += ".0M";
                         break;
                 }
@@ -34,10 +36,10 @@ namespace Regen.DataTypes {
                     case Double @double:
                         emission += "d";
                         break;
-                    case Single single: 
+                    case Single single:
                         emission += "f";
                         break;
-                    case Decimal @decimal: 
+                    case Decimal @decimal:
                         emission += "M";
                         break;
                 }
@@ -56,7 +58,7 @@ namespace Regen.DataTypes {
 
         public NumberScalar(object value) : base(value) { }
 
-        
+
         #region Operators
 
         public static object operator +(NumberScalar sc) {
@@ -200,6 +202,96 @@ namespace Regen.DataTypes {
             return lhs | rhs;
         }
 
+        #region Scalar
+
+        public static object operator +(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs + rhs;
+        }
+
+        public static object operator +(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs + rhs;
+        }
+
+
+        public static object operator -(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs - rhs;
+        }
+
+        public static object operator -(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs - rhs;
+        }
+
+
+        public static object operator /(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs / rhs;
+        }
+
+        public static object operator /(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs / rhs;
+        }
+
+
+        public static object operator %(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs % rhs;
+        }
+
+        public static object operator %(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs % rhs;
+        }
+
+        public static object operator *(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs * rhs;
+        }
+
+        public static object operator *(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs * rhs;
+        }
+
+        public static object operator &(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs & rhs;
+        }
+
+        public static object operator &(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs & rhs;
+        }
+
+        public static object operator |(NumberScalar sc, Scalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs | rhs;
+        }
+
+        public static object operator |(Scalar v, NumberScalar sc) {
+            dynamic lhs = v.Value;
+            dynamic rhs = sc.Value;
+            return lhs | rhs;
+        }
+
+        #endregion
 
         #region Null
 
@@ -270,6 +362,5 @@ namespace Regen.DataTypes {
         #endregion
 
         #endregion
-
     }
 }

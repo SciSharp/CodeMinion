@@ -32,7 +32,7 @@ namespace Regen.Core.Tests {
             variables.Keys.Should()
                 .ContainInOrder("a", "a2");
 
-            variables.Values.Select(v=>v.As<NumberScalar>().Value).Should()
+            variables.Values.Select(v => v.As<NumberScalar>().Value).Should()
                 .ContainInOrder(1, 1);
         }
 
