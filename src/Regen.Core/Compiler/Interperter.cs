@@ -17,8 +17,8 @@ namespace Regen.Compiler {
         public Dictionary<string, Data> GlobalVariables { get; }
 
         public Interperter(string entireCode, string regenCode) {
-            EntireCode = entireCode;
-            RegenCode = regenCode;
+            EntireCode = entireCode + Environment.NewLine;
+            RegenCode = regenCode + Environment.NewLine;
             ReversedRegenCode = new string(regenCode.Reverse().ToArray());
 
             Context = new ExpressionContext();
@@ -207,6 +207,7 @@ namespace Regen.Compiler {
                             variables[name] = new Array(values);
                             Context.Variables[name] = values;
                         } else if (walker.Current.TokenId == TokenID.Scalar) {
+                            //todo detect if there is an expression inside, if so - evaluate it.
                             var scalarToken = walker.Current;
                             var scalarStr = scalarToken.Match.Groups[1].Value.TrimEnd('\n', '\r');
 
@@ -230,19 +231,32 @@ namespace Regen.Compiler {
 
                         break;
                     }
-                    
+
                     case TokenID.Expression: {
-                        var groups = walker.Current.Match.Groups;
-                        var expression = groups[1].Value;
                         var line = output.GetLineAt(walker.Current.Match.Index);
+                        GroupCollection groups;
+                        bool originalToken = true;
+                        if (line.ContentWasModified) {
+                            //re-express
+                            var tokens = Lexer.FindTokens(TokenID.Expression, line.Content);
+                            if (tokens.Count == 0)
+                                break;
+                            groups = tokens[0].Match.Groups;
+                            originalToken = false;
+                        } else
+                            groups = walker.Current.Match.Groups;
+
+                        var expression = groups[1].Value;
+
+
                         var evaluation = EvaluateString(expression);
                         var lineStr = line.Content
-                            .Remove(groups[0].Index - line.StartIndex, groups[0].Length)
-                            .Insert(groups[0].Index - line.StartIndex, evaluation);
+                            .Remove(groups[0].Index - (originalToken ? line.StartIndex : 0), groups[0].Length)
+                            .Insert(groups[0].Index - (originalToken ? line.StartIndex : 0), evaluation);
                         line.Replace(lineStr);
                         break;
                     }
-                    
+
                     case TokenID.ForEach: {
                         var line = lines.GetLineAt(walker.Current.Match.Index);
                         output.FindLine(line).MarkedForDeletion = true;
@@ -279,7 +293,7 @@ namespace Regen.Compiler {
                             var nextline = lines.Lines[line.LineNumber]; //linenumber is index+1 so we dont need to +1.
                             while (loop.CanNext()) {
                                 var currentIndex = loop.Next();
-                                Context.Variables["i"] = currentIndex - 1;
+                                Context.Variables["i"] = currentIndex;
                                 var expand = ExpandVariables(nextline, currentIndex, feInstance.Stacks);
                                 var expandedLine = output.Lines[line.LineNumber]; //no need to do +1, line number is 1 based.
 
@@ -302,7 +316,7 @@ namespace Regen.Compiler {
 
                             while (loop.CanNext()) {
                                 var currentIndex = loop.Next();
-                                Context.Variables["i"] = currentIndex - 1;
+                                Context.Variables["i"] = currentIndex;
                                 foreach (var lineInBlock in block) {
                                     var expanded = ExpandVariables(lineInBlock, currentIndex, feInstance.Stacks);
                                     appender.ReplaceOrAppend(expanded);
