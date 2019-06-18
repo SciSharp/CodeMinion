@@ -14,16 +14,18 @@ Make sure to read our [getting started](TUTORIAL.md) page!
 ##### Alpha
 
 - [ ] Getting started page.
+- [ ] Real world application examples.
 - [ ] Support multiple loops. 
-- [ ] Extending builtin functions. syntax: %import namespace.type
-- [ ] escaped \% should be unescaped on output.
-- [ ] Support comments, syntax: #// 
-- [ ] 200 Unit tests
-- [ ] GUI version for usage without vsix.
-- [ ] Support names that end with number
+- [ ] Extending builtin functions by adding types. syntax: `%import namespace.type`
+- [ ] Escaped `\%` should be unescaped on output.
+- [ ] Support comments, syntax: `#// `
+- [ ] 200 Unit tests _(progress: 50)_
+- [ ] GUI version for usage without vsix installed.
+- [X] Support names that end with number
 - [ ] Support booleans
 
 
 ##### Beta
 - [ ] Intellisense for _REGEN blocks.
+- [ ] Overlay near _REGEN blocks for recompile by clicking.
 - [ ] Support nested if expressions

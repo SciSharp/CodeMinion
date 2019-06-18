@@ -8,5 +8,6 @@ namespace Regen.Core.Tests {
     public class ForeachTests : UnitTestBase {
         //todo test bad foreach expressions
         //todo test nested foreach expressions
+        //todo test removal of the expression, here and everywhere else. test that after compile they dont contain % etc..
     }
 }
