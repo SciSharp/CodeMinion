@@ -94,10 +94,11 @@
     <Compile Include="Compiler\TokenID.cs" />
     <Compile Include="Exceptions\UnexpectedTokenException.cs" />
     <None Include="packages.config" />
+    <None Include="TUTORIAL.md" />
     <None Include="testfile.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TODO.md" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
