@@ -8,9 +8,9 @@ namespace Regen.Compiler {
         [Description(@"(?<!\\)\%\(([\s|\S]*?)[\)]")] Expression,
         [Description(@"%for(?:each)?\s")] ForEach,
         //dropped for loops [Description(@"(?:%for(?:each)?\s){1} ([^$\r\n%]+)")] ForExpression,
-        [Description(@"(?<!\\)\#\((.*)\)")] [ManuallySearched] EmitExpression,
+        [Description(@"(?<!\\)\#\(([\s|\S]*?)[\)]")] [ManuallySearched] EmitExpression,
         [Description(@"(?<!\\)\#(\d+)(?!\[)")] [ManuallySearched] EmitVariable,
-        [Description(@"(?<!\\)\#(\d+)\[(.*)]")] [ManuallySearched] EmitVariableOffsetted,
+        [Description(@"(?<!\\)\#(\d+)\[([\s|\S]*?)]  ")] [ManuallySearched] EmitVariableOffsetted,
         [Description(@"%[\s|\t|\n|\r]")] BlockMark,
     }
 }
