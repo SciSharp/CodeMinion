@@ -252,7 +252,7 @@ namespace Regen.Compiler {
 
                         //find all relevant variables
                         var parsedVaraibles = new List<object>();
-                        foreach (var name in content.Split('|').Select(n => n.Trim(' ', '\r', '\n'))) {
+                        foreach (var name in content.Split('|').Select(n => n.Trim(' ', '\r', '\n').TrimEnd('%'))) {
                             //todo ignore escaped \|,
                             if (variables.ContainsKey(name)) {
                                 var var = variables[name];
