@@ -55,5 +55,221 @@ namespace Regen.DataTypes {
         }
 
         public NumberScalar(object value) : base(value) { }
+
+        
+        #region Operators
+
+        public static object operator +(NumberScalar sc) {
+            dynamic lhs = sc.Value;
+            return +lhs;
+        }
+
+        public static object operator !(NumberScalar sc) {
+            dynamic lhs = sc.Value;
+            return !lhs;
+        }
+
+        public static object operator -(NumberScalar sc) {
+            dynamic rhs = sc.Value;
+            return -rhs;
+        }
+
+        public static object operator +(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs + rhs;
+        }
+
+        public static object operator +(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs + rhs;
+        }
+
+        public static object operator +(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs + rhs;
+        }
+
+        public static object operator -(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs - rhs;
+        }
+
+        public static object operator -(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs - rhs;
+        }
+
+        public static object operator -(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs - rhs;
+        }
+
+        public static object operator /(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs / rhs;
+        }
+
+        public static object operator /(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs / rhs;
+        }
+
+        public static object operator /(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs / rhs;
+        }
+
+        public static object operator %(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs % rhs;
+        }
+
+        public static object operator %(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs % rhs;
+        }
+
+        public static object operator %(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs % rhs;
+        }
+
+        public static object operator *(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs * rhs;
+        }
+
+        public static object operator *(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs * rhs;
+        }
+
+        public static object operator *(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs * rhs;
+        }
+
+        public static object operator &(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs & rhs;
+        }
+
+        public static object operator &(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs & rhs;
+        }
+
+        public static object operator &(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs & rhs;
+        }
+
+        public static object operator |(NumberScalar sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs | rhs;
+        }
+
+        public static object operator |(object v, NumberScalar sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs | rhs;
+        }
+
+        public static object operator |(NumberScalar sc, NumberScalar v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs | rhs;
+        }
+
+
+        #region Null
+
+        public static object operator +(NumberScalar sc, NullScalar v) {
+            return sc.Value;
+        }
+
+        public static object operator +(NullScalar v, NumberScalar sc) {
+            return sc.Value;
+        }
+
+        public static object operator -(NumberScalar sc, NullScalar v) {
+            return sc.Value;
+        }
+
+        public static object operator -(NullScalar v, NumberScalar sc) {
+            return -sc;
+        }
+
+
+        public static object operator /(NumberScalar sc, NullScalar v) {
+            return 0;
+        }
+
+        public static object operator /(NullScalar v, NumberScalar sc) {
+            return 0;
+        }
+
+
+        public static object operator %(NumberScalar sc, NullScalar v) {
+            return 0;
+        }
+
+        public static object operator %(NullScalar v, NumberScalar sc) {
+            return 0;
+        }
+
+
+        public static object operator *(NumberScalar sc, NullScalar v) {
+            return 0;
+        }
+
+        public static object operator *(NullScalar v, NumberScalar sc) {
+            return 0;
+        }
+
+
+        public static object operator &(NumberScalar sc, NullScalar v) {
+            dynamic lhs = sc.Value;
+            return lhs & 0;
+        }
+
+        public static object operator &(NullScalar v, NumberScalar sc) {
+            dynamic rhs = sc.Value;
+            return 0 & rhs;
+        }
+
+        public static object operator |(NumberScalar sc, NullScalar v) {
+            dynamic lhs = sc.Value;
+            return lhs | 0;
+        }
+
+        public static object operator |(NullScalar v, NumberScalar sc) {
+            dynamic rhs = sc.Value;
+            return 0 | rhs;
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }
