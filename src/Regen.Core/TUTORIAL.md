@@ -42,7 +42,7 @@ The arrays are not type specific, for instance it is possible to mix an array wi
 ```
 
 ##### Expression
-Expressions are evaluated using Flee library and are C# compliant.<br>
+Expressions are evaluated using [Flee](https://github.com/mparlak/Flee) and are C# compliant.<br>
 Syntax: &nbsp;&nbsp;&nbsp;&nbsp;%(_expression_)
 ```C#
 %(1+1*arr[2])

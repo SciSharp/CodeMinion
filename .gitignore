@@ -331,3 +331,4 @@ ASALocalRun/
 
 #TestResults directory
 TestResults/*
+src/Regen.Core/testfile.cs

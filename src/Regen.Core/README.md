@@ -21,6 +21,9 @@ Make sure to read our [getting started](TUTORIAL.md) page!
 - [ ] 200 Unit tests
 - [ ] GUI version for usage without vsix.
 - [ ] Support names that end with number
+- [ ] Support booleans
+
 
 ##### Beta
 - [ ] Intellisense for _REGEN blocks.
+- [ ] Support nested if expressions
