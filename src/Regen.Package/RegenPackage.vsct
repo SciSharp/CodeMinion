@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidRegenPackage">
+    <Menus>
+      <Menu guid="guidRegenPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
+        <Strings>
+          <ButtonText>Regen</ButtonText>
+          <CommandName>Regen</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <Groups>
+      <Group guid="guidRegenPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+        <Parent guid="guidRegenPackageCmdSet" id="TopLevelMenu" />
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidRegenPackageCmdSet" id="CompileFile" priority="0x0100" type="Button">
+        <Parent guid="guidRegenPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Compile File</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidRegenPackageCmdSet" id="CompileSelection" priority="0x0100" type="Button">
+        <Parent guid="guidRegenPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Compile At Cursor</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidRegenPackageCmdSet" id="ClearCompilations" priority="0x0100" type="Button">
+        <Parent guid="guidRegenPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Clear</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidRegenPackageCmdSet" id="ClearCompilationsSelection" priority="0x0100" type="Button">
+        <Parent guid="guidRegenPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Clear At Cursor</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
+    <Bitmaps>
+      <Bitmap guid="guidImages" href="Resources\code_minion-16x16-trans.png" usedList="bmpPic1"/>
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <!-- This is the package guid. -->
+    <GuidSymbol name="guidRegenPackage" value="{daa62660-6c0a-4371-bee5-37015553ae21}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidRegenPackageCmdSet" value="{f2fc6ff4-8bb2-417b-950d-b5010e8ce4cb}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="Command1Id" value="0x0100" />
+
+      <IDSymbol name="EnableDisableRegenCommandId" value="0x0100" />
+      <IDSymbol name="CompileFile" value="0x0101" />
+      <IDSymbol name="CompileSelection" value="0x0102" />
+      <IDSymbol name="ClearCompilations" value="0x0103" />
+      <IDSymbol name="ClearCompilationsSelection" value="0x0104" />
+      <IDSymbol name="TopLevelMenu" value="0x1021" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{c8e37c5f-7cd1-4898-9de0-e123cac1a40a}" >
+      <IDSymbol name="bmpPic1" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

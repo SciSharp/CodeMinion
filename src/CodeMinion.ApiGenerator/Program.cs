@@ -8,7 +8,8 @@ namespace CodeMinion.ApiGenerator
         static void Main(string[] args)
         {
             ICodeGenerator generator = null;
-
+            if (args.Length==0)
+                throw new Exception("Please set the command line parameter to the project you want to generate.");
             switch (args[0].ToLower())
             {
                 case "numpy":
