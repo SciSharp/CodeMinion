@@ -1,8 +1,11 @@
 ﻿using CodeMinion.Core;
+using CodeMinion.Core.Models;
 using Python.Runtime;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Torch.ApiGenerator;
 
 namespace CodeMinion.ApiGenerator.Keras
@@ -46,8 +49,9 @@ namespace CodeMinion.ApiGenerator.Keras
         {
             string result = "";
 
+            var modules = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PyModule>>(File.ReadAllText("./keras/sig.json"));
+            modules.ForEach(x => { x.InferArg(); });
 
-           
             return result;
         }
 

@@ -11,4 +11,10 @@
     <ProjectReference Include="..\CodeMinion.DocsParser\CodeMinion.Parser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Keras\sig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
