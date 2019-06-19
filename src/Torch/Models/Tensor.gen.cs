@@ -1376,22 +1376,7 @@ namespace Torch
             dynamic py = __self__.InvokeMethod("repeat", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
-        
-        /// <summary>
-        /// Is True if gradients need to be computed for this Tensor, False otherwise.
-        /// 
-        /// Note
-        /// The fact that gradients need to be computed for a Tensor do not mean that the grad
-        /// attribute will be populated, see is_leaf for more details.
-        /// </summary>
-        public bool requires_grad()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("requires_grad");
-            return ToCsharp<bool>(py);
-        }
-        
+            
         /// <summary>
         /// Change if autograd should record operations on this tensor: sets this tensor’s
         /// requires_grad attribute in-place. Returns this tensor.
