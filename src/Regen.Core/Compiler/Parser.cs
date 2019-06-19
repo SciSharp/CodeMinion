@@ -4,6 +4,11 @@ using System.Text.RegularExpressions;
 using Regen.Helpers;
 
 namespace Regen.Compiler {
+
+    /// <summary>
+    ///     A parser finds #if <see cref="DefineMarker"/>, passes contents to an <see cref="Interperter"/> and then places the output inside the #else block.
+    /// </summary>
+    /// <remarks>If you are looking to just parse a template without regions and so on, please refer to <see cref="Interperter"/>.<see cref="Interperter.Interpret(System.Collections.Generic.Dictionary{string,Regen.DataTypes.Data})"/></remarks>
     public class Parser {
         /// <summary>
         ///     The regex options used to in parsing.

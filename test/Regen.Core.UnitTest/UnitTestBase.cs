@@ -34,6 +34,17 @@ namespace Regen.Core.Tests {
         /// </summary>
         /// <param name="code">The input code to compile</param>
         /// <param name="variables">Optional variables to be passed to the interperter</param>
+        public InterpredCode Compile(string code, Dictionary<string, Data> variables = null) {
+            var output = new Interperter(code, code).Interpret(variables);
+            Debug(output);
+            return output;
+        }
+
+        /// <summary>
+        ///     Runs the following code: return new Interperter(code, code).Run().Variables;
+        /// </summary>
+        /// <param name="code">The input code to compile</param>
+        /// <param name="variables">Optional variables to be passed to the interperter</param>
         public Dictionary<string, object> UnpackedVariables(string code, Dictionary<string, Data> variables = null) {
             var output = new Interperter(code, code).Interpret(variables);
             Debug(output);

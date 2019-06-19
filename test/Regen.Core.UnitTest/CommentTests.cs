@@ -52,14 +52,14 @@ namespace Regen.Core.Tests {
         [TestMethod]
         public void comment_escaped_swallows_entire_line() {
             var @input = @"
-                \#//%foreach range(3,3)
+                #// %foreach range(3,3)
                     Console.WriteLine(""Printed #1!"");
                 #//this should be gone % #//this should be gone
                 ";
 
             Interpert(input)
                 .Should()
-                .Contain("//%foreach range(3,3)")
+                .NotContain("//%foreach range(3,3)")
                 .And.Subject.Should().NotContainAll("Printed 3!", "Printed 4!", "Printed 5!");
         }
 

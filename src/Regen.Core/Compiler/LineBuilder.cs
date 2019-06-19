@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -39,22 +40,25 @@ namespace Regen.Compiler {
         /// <summary>
         ///     Combines all lines into a single string.
         /// </summary>
-        public string Compile() {
-            var validLines = Lines.Where(line => !line.MarkedForDeletion).ToArray();
+        public string Compile(InterpreterOptions opts = null) {
+            var validLines = Lines.Where(line => !line.MarkedForDeletion).ToList();
 
             //clean trailing lines at the beggining and end
             foreach (var line in validLines.TakeWhile(l => l.IsJustSpaces)) {
                 line.MarkedForDeletion = true;
             }
 
-            foreach (var line in validLines.Reverse().TakeWhile(l => l.IsJustSpaces)) {
+            foreach (var line in ((IList<Line>) validLines).Reverse().TakeWhile(l => l.IsJustSpaces)) {
                 line.MarkedForDeletion = true;
             }
 
-            validLines = Lines.Where(line => !line.MarkedForDeletion).ToArray();
+            validLines = Lines.Where(line => !line.MarkedForDeletion).ToList();
+            if (opts != null && opts.ClearLoneBlockmarkers) {
+                validLines.RemoveAll(l => l.Content.Trim('\n', '\r', '\t', ' ', '\0') == "%");
+            }
+            //compiled = Regex.Replace(compiled, Regexes.LoneEndBlock, match => match.Value.Trim('\n', '\r', '\t', ' ') == "%" ? "" : match.Value, Regexes.DefaultRegexOptions);
 
             var compiled = string.Join("", validLines.Select(l => l.Content));
-            compiled = Regex.Replace(compiled, Regexes.LoneEndBlock, "", Regexes.DefaultRegexOptions);
             return compiled.Trim('\n', '\r') + Environment.NewLine;
         }
 
@@ -153,6 +157,7 @@ namespace Regen.Compiler {
             } else
                 Content = line; //we use Content to also set ContentWasModified
         }
+
         /// <summary>
         ///     Replaces current Content.
         /// </summary>

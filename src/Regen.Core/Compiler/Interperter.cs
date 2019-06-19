@@ -14,8 +14,12 @@ using Array = Regen.DataTypes.Array;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
 namespace Regen.Compiler {
+    /// <summary>
+    ///     The interpreter parses, compiles and then converts given code and returns it as a string.
+    /// </summary>
     public class Interperter {
         public Dictionary<string, Data> GlobalVariables { get; }
+        public InterpreterOptions Options { get; set; } = new InterpreterOptions();
 
         public Interperter(string entireCode, string regenCode) {
             EntireCode = entireCode + Environment.NewLine;
@@ -187,9 +191,9 @@ namespace Regen.Compiler {
             // Define the context of our expression
 
             var walker = Lexer.Tokenize(code).WrapWalker();
-            if (walker.Count==0) {
+            if (walker.Count == 0) {
                 //no tokens detected
-                var comp = output.Compile();
+                var comp = output.Compile(Options);
                 return new InterpredCode() {OriginalCode = code, Output = comp, Variables = variables};
             }
 
@@ -197,12 +201,22 @@ namespace Regen.Compiler {
                 var current = walker.Current;
                 switch (walker.Current.TokenId) {
                     case TokenID.Declaration: {
-                        const string InvalidCharacters = "[]\\/";
                         var name = walker.Current.Match.Groups[1].Value.Trim();
                         var line = output.GetLineAt(walker.Current.Match.Index);
                         line.MarkedForDeletion = true; //just because the line has declaration - regardless to whats inside.
                         if (!walker.Next())
                             throw new UnexpectedTokenException(current, TokenID.Array);
+
+                        //check if name is valid (C# compliant)
+                        if (!name.All(c => char.IsDigit(c) || char.IsLetter(c) || Regexes.VariableNameValidSymbols.Any(cc => cc == c)) || name.TakeWhile(char.IsDigit).Any()) {
+                            throw new ExpressionCompileException($"Variable named '{name}' contains invalid characters. Name can only start with a letter or underscore and contain letters, numbers or underscores");
+                        }
+
+                        //check interpreter buildin keywords
+                        var matchedTakenName = InterpreterOptions.BuiltinKeywords.FirstOrDefault(w => w.Equals(name, StringComparison.Ordinal));
+                        if (matchedTakenName != null) {
+                            throw new ExpressionCompileException($"Variable named '{name}' is taken by the interpreter.");
+                        }
 
                         if (walker.Current.TokenId == TokenID.Array) {
                             var arrayToken = walker.Current;
@@ -350,7 +364,7 @@ namespace Regen.Compiler {
                 }
             } while (walker.Next());
 
-            var compiled = output.Compile();
+            var compiled = output.Compile(Options);
             return new InterpredCode() {OriginalCode = code, Output = compiled, Variables = variables};
         }
     }

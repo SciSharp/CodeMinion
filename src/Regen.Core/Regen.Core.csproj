@@ -79,6 +79,7 @@
     <Compile Include="Compiler\ForeachInstance.cs" />
     <Compile Include="Compiler\Interperter.cs" />
     <Compile Include="Compiler\InterpredCode.cs" />
+    <Compile Include="Compiler\InterpreterOptions.cs" />
     <Compile Include="Compiler\Lexer.cs" />
     <Compile Include="Compiler\PackedArguments.cs" />
     <Compile Include="Compiler\LineBuilder.cs" />

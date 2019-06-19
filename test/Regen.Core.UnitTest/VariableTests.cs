@@ -37,7 +37,7 @@ namespace Regen.Core.Tests {
         }
 
         [TestMethod]
-        public void declare_variable_withnumber_2() {
+        public void declare_variable_with_number_2() {
             var @input = @"
                 %asdasdasd1 = 1
                 %asdasdasd2 = [1|2|||||]
@@ -49,15 +49,29 @@ namespace Regen.Core.Tests {
                 .Contain("asdasdasd2");
         }
 
+        [TestMethod]
+        public void declare_variable_with_underscore() {
+            var @input = @"
+                %_asd1 = 1
+                %_1asd1 = 1
+                ";
+
+            Variables(input)
+                .Keys.Should()
+                .Contain("_asd1").And
+                .Contain("_1asd1");
+        }
+
         [DataTestMethod]
+        [DataRow("%0_aa = 1")]
         [DataRow("%1aaaaaaaaa = 1")]
         [DataRow("%aaaaaa!aaa = 1")]
         [DataRow("%aaaaaaaaa! = 1")]
-        [DataRow("%asdasda#sd2 = 1")]
-        [DataRow("%asdasdasd2# = 1")]
+        [DataRow("%a#sd2 = 1")]
+        [DataRow("%1asdasdasd2# = 1")]
         [DataRow("%asdasdasd2% = 1")]
         [DataRow("%asdasd(asd2% = 1")]
-        [DataRow("%asdasd(asd2 = 1")]
+        [DataRow("%!asdasd(asd2 = 1")]
         [DataRow("%asdasd]asd2 = 1")]
         [DataRow("%asdasd[asd2 = 1")]
         [DataRow("%asdasd*asd2 = 1")]
@@ -66,8 +80,11 @@ namespace Regen.Core.Tests {
         [DataRow("%!asdasdasd2 = 1")]
         [DataRow("%!asdasdasd2 = 1")]
         public void declare_variable_badnames(string input) {
-            new Action(() => Variables(input)).Should()
-                .Throw<RegenException>();
+            try {
+                Variables(input).Keys.Should().NotContain(input);
+            } catch (ExpressionCompileException) {
+                //swallowed exception
+            }
         }
 
         [TestMethod]
@@ -76,7 +93,18 @@ namespace Regen.Core.Tests {
                 %i = 1
                 ";
             new Action(() => Variables(input)).Should()
-                .Throw<RegenException>();
+                .Throw<ExpressionCompileException>();
+        }
+
+        [TestMethod]
+        public void declare_variable_named_after_function_from_builtin_namespace() {
+            var @input = @"
+                %asarray = 1
+                %(asarray(asarray)[0])
+                ";
+            var output = Compile(input);
+            output.Output.Should().Contain("1");
+            output.Variables.Should().ContainKey("asarray");
         }
 
         [DataTestMethod]
