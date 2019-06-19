@@ -78,13 +78,14 @@
     <Compile Include="Builtins\CommonRandom.cs" />
     <Compile Include="Builtins\CommonVariables.cs" />
     <Compile Include="Compiler\ForeachInstance.cs" />
-    <Compile Include="Compiler\Interperter.cs" />
+    <Compile Include="Compiler\Interpreter.cs" />
     <Compile Include="Compiler\InterpredCode.cs" />
     <Compile Include="Compiler\InterpreterOptions.cs" />
     <Compile Include="Compiler\Lexer.cs" />
     <Compile Include="Compiler\PackedArguments.cs" />
     <Compile Include="Compiler\LineBuilder.cs" />
     <Compile Include="Compiler\Regexes.cs" />
+    <Compile Include="Wrappers\VariableCollectionWrapper.cs" />
     <Compile Include="DataTypes\Array.Equality.cs" />
     <Compile Include="DataTypes\Array.Parsing.cs" />
     <Compile Include="Exceptions\ExpressionCompileException.cs" />

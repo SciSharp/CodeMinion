@@ -6,9 +6,9 @@ using Regen.Helpers;
 namespace Regen.Compiler {
 
     /// <summary>
-    ///     A parser finds #if <see cref="DefineMarker"/>, passes contents to an <see cref="Interperter"/> and then places the output inside the #else block.
+    ///     A parser finds #if <see cref="DefineMarker"/>, passes contents to an <see cref="Interpreter"/> and then places the output inside the #else block.
     /// </summary>
-    /// <remarks>If you are looking to just parse a template without regions and so on, please refer to <see cref="Interperter"/>.<see cref="Interperter.Interpret(System.Collections.Generic.Dictionary{string,Regen.DataTypes.Data})"/></remarks>
+    /// <remarks>If you are looking to just parse a template without regions and so on, please refer to <see cref="Interpreter"/>.<see cref="Interpreter.Interpret(System.Collections.Generic.Dictionary{string,Regen.DataTypes.Data})"/></remarks>
     public class Parser {
         /// <summary>
         ///     The regex options used to in parsing.
@@ -33,7 +33,7 @@ namespace Regen.Compiler {
                 var regenmatch = frame.Groups[1];
                 var regencode = regenmatch.Value;
                 var outputFrame = frame.Groups[2];
-                var inter = new Interperter(code, regencode);
+                var inter = new Interpreter(code, regencode);
                 var ret = inter.Interpret();
                 code = code
                     .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
@@ -55,7 +55,7 @@ namespace Regen.Compiler {
                 var regenmatch = frame.Groups[1];
                 var regencode = regenmatch.Value;
                 var outputFrame = frame.Groups[2];
-                var inter = new Interperter(code, regencode);
+                var inter = new Interpreter(code, regencode);
                 var ret = inter.Interpret();
                 code = code
                     .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)

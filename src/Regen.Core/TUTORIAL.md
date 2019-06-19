@@ -83,3 +83,13 @@ By default `System.Math` is imported making functions like `cos(1)`
 ### Builtin Modules
 #### random
 Please refer to [CommonRandom.cs](src/Regen.Core/Builtins/CommonRandom.cs)
+
+### Internal Variables
+- `__context__`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;`Flee.PublicTypes.ExpressionContext`<br>
+  Returns Flee's expression context.
+- `__vars__`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;`Flee.PublicTypes.VariableCollection`<br>
+  Returns to Flee's expression context variables storage.
+- `__interpreter__`   &nbsp;&nbsp;| &nbsp;&nbsp;`Regen.Compiler.Interpreter`<br>
+  Returns the interpreter that the expression is currently running in.
+
+

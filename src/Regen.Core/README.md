@@ -22,12 +22,13 @@ Make sure to read our [getting started](TUTORIAL.md) page!
   - [ ] Support for %import global namespace.type which parses _REGEN_GLOBAL blocks.
 - [X] Escaped `\%` should be unescaped on output.
 - [X] Support comments, syntax: `#// `
-- [ ] 200 Unit tests _(progress: 150)_
+- [ ] 200 Unit tests. _(progress: 150)_
 - [ ] GUI version for usage without vsix installed. (also to serve as playground)
-- [X] Support names that end with number
+- [X] Support names that end with number.
 
-- [ ] Add Context as a builtin variable.
-- [ ] Add a variable that contains all variables.
+- [ ] Add support for Regex.
+- [X] Add Context as a builtin variable.
+- [X] Add a variable that contains all variables.
 
 ##### Late Alpha
 - [ ] Support booleans

@@ -18,7 +18,7 @@ namespace Regen.Core.Tests {
                 %import Regen.Core.Tests.ImportMe
                 %(magic(1,2))
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("2");
         }
 
@@ -28,7 +28,7 @@ namespace Regen.Core.Tests {
                 %import Regen.Core.Tests.ImportMe as impme
                 %(impme.magic(1,2))
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("2");
         }
 
@@ -43,7 +43,7 @@ namespace Regen.Core.Tests {
                 %import Regen.Core.Tests.ImportMe as impme
                 %(impme.{str}(1,2))
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("2");
         }
 

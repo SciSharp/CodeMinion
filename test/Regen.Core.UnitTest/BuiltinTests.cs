@@ -17,7 +17,7 @@ namespace Regen.Core.Tests {
                 %
                 ";
 
-            Interpert(input)
+            Interpret(input)
                 .Should()
                 .Contain("Printed 3").And
                 .Contain("Printed 4").And
@@ -31,7 +31,7 @@ namespace Regen.Core.Tests {
                     Console.WriteLine(""Printed #1!"");
                 %
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("Printed 0").And
                 .Contain("Printed 1").And
                 .Contain("Printed 2");
@@ -46,7 +46,7 @@ namespace Regen.Core.Tests {
                     #1 #2
                 %
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("4").And
                 .Contain("5");
         }
@@ -60,7 +60,7 @@ namespace Regen.Core.Tests {
                     #1 #2
                 %
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("4").And
                 .Contain("5");
         }
@@ -74,7 +74,7 @@ namespace Regen.Core.Tests {
                     #1 #2
                 %
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("1").And
                 .Contain("2").And
                 .Contain("3").And

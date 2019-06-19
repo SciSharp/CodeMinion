@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,6 +13,7 @@ using Regen.Collections;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Regen.Helpers;
+using Regen.Wrappers;
 using Array = Regen.DataTypes.Array;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
@@ -41,20 +43,14 @@ namespace Regen.Compiler {
     /// <summary>
     ///     The interpreter parses, compiles and then converts given code and returns it as a string.
     /// </summary>
-    public class Interperter {
-        /// <summary>
-        ///     Holds all global variables that were generated during the global blocks parse.
-        /// </summary>
-        public Dictionary<string, object> GlobalVariables { get; }
-
-        public InterpreterOptions Options { get; set; } = new InterpreterOptions();
-
-        public Interperter(string entireCode, string regenCode, params RegenModule[] modules) {
+    public class Interpreter {
+        public Interpreter(string entireCode, string regenCode, params RegenModule[] modules) {
             EntireCode = entireCode + Environment.NewLine;
             RegenCode = regenCode + Environment.NewLine;
             ReversedRegenCode = new string(regenCode.Reverse().ToArray());
 
             Context = CreateContext(null, modules);
+            Context.Imports.AddInstance(this, "__interpreter__");
 
             //handle global blocks
             GlobalVariables = new Dictionary<string, object>();
@@ -68,28 +64,92 @@ namespace Regen.Compiler {
             }
         }
 
+        /// <summary>
+        ///     Holds all global variables that were generated during the global blocks parse.
+        /// </summary>
+        public Dictionary<string, object> GlobalVariables { get; }
+
+        public InterpreterOptions Options { get; set; } = new InterpreterOptions();
+
         public string EntireCode { get; }
         public string RegenCode { get; set; }
         private string ReversedRegenCode { get; set; }
         public ExpressionContext Context { get; set; }
 
-        public class ForLoop {
-            public int From { get; set; }
-            public int To { get; set; }
-            public int Index { get; set; }
+        public static ExpressionContext CreateContext(Dictionary<string, object> globalVariables = null, RegenModule[] modules = null) {
+            // Allow the expression to use all static public methods of System.Math
+            var ctx = new ExpressionContext();
+            ctx.Imports.AddType(typeof(Math));
+            ctx.Imports.AddType(typeof(CommonExpressionFunctions));
+            ctx.Imports.AddInstance(new CommonRandom(), "random");
+            ctx.Imports.AddInstance(ctx, "__context__");
+            ctx.Imports.AddInstance(new VariableCollectionWrapper(ctx.Variables), "__vars__");
 
-            public bool CanNext() => Index < To;
-
-            public int Next() {
-                if (CanNext()) {
-                    var currently = Index;
-                    Index++;
-                    return currently;
+            if (modules != null)
+                foreach (var mod in modules) {
+                    ctx.Imports.AddInstance(mod.Instance, mod.Name);
                 }
 
-                return 0;
-            }
+            if (globalVariables != null)
+                foreach (var kv in globalVariables) {
+                    ctx.Variables.Add(kv.Key, kv.Value);
+                }
+
+            return ctx;
         }
+
+        #region Modules
+
+        /// <summary>
+        ///     Adds or override a module to <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <param name="mod">The module to add</param>
+        public void AddModule(RegenModule mod) {
+            Context.Imports.AddInstance(mod.Instance, mod.Name);
+            //any changes, syncronize with CreateContext.
+        }
+
+        /// <summary>
+        ///     Adds or override a module to <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <remarks>Used as a simple accessor from a template.</remarks>
+        public void AddModule(string name, object instance) {
+            Context.Imports.AddInstance(instance, name);
+            //any changes, syncronize with CreateContext.
+        }
+
+        /// <summary>
+        ///     Attempts to remove module from <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <param name="mod">The module to remove</param>
+        /// <returns>true if successfully removed</returns>
+        public bool RemoveModule(RegenModule mod) {
+            var imprt = Context.Imports.RootImport.FirstOrDefault(ib => ib.Name.Equals(mod.Name));
+            if (imprt != null) {
+                Context.Imports.RootImport.Remove(imprt);
+                return !Context.Imports.RootImport.Contains(imprt);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        ///     Attempts to remove module from <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <param name="moduleName">The module's name to remove</param>
+        /// <returns>true if successfully removed</returns>
+        public bool RemoveModule(string moduleName) {
+            var imprt = Context.Imports.RootImport.FirstOrDefault(ib => ib.Name.Equals(moduleName));
+            if (imprt != null) {
+                Context.Imports.RootImport.Remove(imprt);
+                return !Context.Imports.RootImport.Contains(imprt);
+            }
+
+            return false;
+        }
+
+        #endregion
+
 
         #region Evaluation
 
@@ -133,68 +193,6 @@ namespace Regen.Compiler {
         }
 
         #endregion
-
-        #region Modules
-
-        /// <summary>
-        ///     Adds or override a module to <see cref="ExpressionContext.Imports"/>.
-        /// </summary>
-        /// <param name="mod">The module to add</param>
-        public void AddModule(RegenModule mod) {
-            Context.Imports.AddInstance(mod.Instance, mod.Name);
-            //any changes, syncronize with CreateContext.
-        }
-
-        /// <summary>
-        ///     Attempts to remove module from <see cref="ExpressionContext.Imports"/>.
-        /// </summary>
-        /// <param name="mod">The module to remove</param>
-        /// <returns>true if successfully removed</returns>
-        public bool RemoveModule(RegenModule mod) {
-            var imprt = Context.Imports.RootImport.FirstOrDefault(ib => ib.Name.Equals(mod.Name));
-            if (imprt != null) {
-                Context.Imports.RootImport.Remove(imprt);
-                return !Context.Imports.RootImport.Contains(imprt);
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        ///     Attempts to remove module from <see cref="ExpressionContext.Imports"/>.
-        /// </summary>
-        /// <param name="moduleName">The module's name to remove</param>
-        /// <returns>true if successfully removed</returns>
-        public bool RemoveModule(string moduleName) {
-            var imprt = Context.Imports.RootImport.FirstOrDefault(ib => ib.Name.Equals(moduleName));
-            if (imprt != null) {
-                Context.Imports.RootImport.Remove(imprt);
-                return !Context.Imports.RootImport.Contains(imprt);
-            }
-
-            return false;
-        }
-
-        #endregion
-
-        public static ExpressionContext CreateContext(Dictionary<string, object> globalVariables = null, RegenModule[] modules = null) {
-            // Allow the expression to use all static public methods of System.Math
-            var ctx = new ExpressionContext();
-            ctx.Imports.AddType(typeof(Math));
-            ctx.Imports.AddType(typeof(CommonExpressionFunctions));
-            ctx.Imports.AddInstance(new CommonRandom(), "random");
-            if (modules != null)
-                foreach (var mod in modules) {
-                    ctx.Imports.AddInstance(mod.Instance, mod.Name);
-                }
-
-            if (globalVariables != null)
-                foreach (var kv in globalVariables) {
-                    ctx.Variables.Add(kv.Key, kv.Value);
-                }
-
-            return ctx;
-        }
 
         public Dictionary<string, object> InterpretGlobal(string code, Dictionary<string, object> variables = null) {
             return Interpret(code, variables).Variables;
@@ -493,6 +491,24 @@ namespace Regen.Compiler {
             }
 
             return code;
+        }
+
+        public class ForLoop {
+            public int From { get; set; }
+            public int To { get; set; }
+            public int Index { get; set; }
+
+            public bool CanNext() => Index < To;
+
+            public int Next() {
+                if (CanNext()) {
+                    var currently = Index;
+                    Index++;
+                    return currently;
+                }
+
+                return 0;
+            }
         }
     }
 }
