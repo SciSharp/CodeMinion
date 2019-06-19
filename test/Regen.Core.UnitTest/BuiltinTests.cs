@@ -95,8 +95,8 @@ namespace Regen.Core.Tests {
             var @input = $@"
                 %a = str({emit})
                 ";
-            var variable = Variables(input).Values.First();
-            variable.Should().BeOfType(typeof(StringScalar));
+            var variable = Variables(input).Values.First()
+                .Should().BeOfType<StringScalar>().Which;
             variable.Value.As<string>().Should().BeEquivalentTo(value);
         }
 
@@ -111,8 +111,8 @@ namespace Regen.Core.Tests {
             var @input = $@"
                 %a = str({emit})
                 ";
-            var variable = Variables(input).Values.First();
-            variable.Should().BeOfType(typeof(StringScalar));
+            var variable = Variables(input).Values.First()
+                .Should().BeOfType<StringScalar>().Which;
             variable.Value.As<string>().Should().BeEquivalentTo(value);
         }
     }

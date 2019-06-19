@@ -120,8 +120,8 @@ namespace Regen.Core.Tests {
             var @input = $@"
                 %a = {emit}
                 ";
-            var variable = Variables(input).Values.First();
-            variable.Should().BeOfType(typeof(NumberScalar));
+            var variable = Variables(input).Values.First()
+                .Should().BeOfType<NumberScalar>().Which;
             variable.Value.Should().BeOfType(type).And.BeEquivalentTo(value);
         }
 
@@ -130,8 +130,8 @@ namespace Regen.Core.Tests {
             var @input = $@"
                 %a = 1.0
                 ";
-            var variable = Variables(input).Values.First();
-            variable.Should().BeOfType(typeof(NumberScalar));
+            var variable = Variables(input).Values.First().
+                Should().BeOfType<NumberScalar>().Which;
             variable.Value.Should().BeOfType(typeof(decimal)).And.BeEquivalentTo(1m);
         }
 

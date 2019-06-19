@@ -62,6 +62,7 @@
     <Compile Include="ForeachTests.cs" />
     <Compile Include="CommentTests.cs" />
     <Compile Include="ExpressionTests.cs" />
+    <Compile Include="ImportTests.cs" />
     <Compile Include="InterpreterTests.cs" />
     <Compile Include="VariableTests.cs" />
     <Compile Include="Examples\OperatorsOverloading.cs" />

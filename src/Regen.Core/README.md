@@ -16,15 +16,24 @@ Make sure to read our [getting started](TUTORIAL.md) page!
 - [ ] Getting started page.
 - [ ] Real world application examples.
 - [ ] Support multiple loops. 
-- [ ] Extending builtin functions by adding types. syntax: `%import namespace.type`
-- [ ] Escaped `\%` should be unescaped on output.
-- [ ] Support comments, syntax: `#// `
-- [ ] 200 Unit tests _(progress: 120)_
-- [ ] GUI version for usage without vsix installed.
+- [ ] ForLoops unit-tests.
+- [X] Extending builtin functions by adding types. syntax: `%import namespace.type`
+  - [X] Unit tests.
+  - [ ] Support for %import global namespace.type which parses _REGEN_GLOBAL blocks.
+- [X] Escaped `\%` should be unescaped on output.
+- [X] Support comments, syntax: `#// `
+- [ ] 200 Unit tests _(progress: 150)_
+- [ ] GUI version for usage without vsix installed. (also to serve as playground)
 - [X] Support names that end with number
+
+- [ ] Add Context as a builtin variable.
+- [ ] Add a variable that contains all variables.
+
+##### Late Alpha
 - [ ] Support booleans
 - [ ] Support conditional emit
-
+- [ ] Add support for dictionaries.
+- [ ] Add support for tuples.
 
 ##### Beta
 - [ ] Intellisense for _REGEN blocks.
