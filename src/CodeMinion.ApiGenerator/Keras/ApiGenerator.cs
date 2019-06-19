@@ -49,8 +49,9 @@ namespace CodeMinion.ApiGenerator.Keras
         {
             string result = "";
 
-            var modules = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PyModule>>(File.ReadAllText("./keras/sig.json"));
-            modules.ForEach(x => { x.InferArg(); });
+            var library = PyLibrary.LoadJson(File.ReadAllText("./keras/sig.json"));
+
+
 
             return result;
         }

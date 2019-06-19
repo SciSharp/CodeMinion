@@ -69,10 +69,9 @@ def expand_module(name, obj):
     library.append(module)
 
 def generate():
-    members = inspect.getmembers(keras)
-    for name, m in members:
-        if inspect.ismodule(m):
-            expand_module(name, m)
+    modules = inspect.getmembers(keras, predicate=inspect.ismodule)
+    for name, m in modules:
+        expand_module(m.__name__, m)
         
 
 if __name__ == "__main__":

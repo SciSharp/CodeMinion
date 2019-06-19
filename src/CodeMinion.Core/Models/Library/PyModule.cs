@@ -4,16 +4,46 @@ using System.Text;
 
 namespace CodeMinion.Core.Models
 {
+    /// <summary>
+    /// Python module information
+    /// </summary>
     public class PyModule
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the classes.
+        /// </summary>
+        /// <value>
+        /// The classes.
+        /// </value>
         public PyClass[] Classes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the functions.
+        /// </summary>
+        /// <value>
+        /// The functions.
+        /// </value>
         public PyFunction[] Functions { get; set; }
 
+        /// <summary>
+        /// Gets or sets the document string.
+        /// </summary>
+        /// <value>
+        /// The document string.
+        /// </value>
         public string DocStr { get; set; }
 
+        /// <summary>
+        /// Infers the argument.
+        /// </summary>
         public void InferArg()
         {
             for (int i = 0; i < Functions.Length; i++)
@@ -73,43 +103,5 @@ namespace CodeMinion.Core.Models
                 }
             }
         }
-    }
-
-    public class PyClass
-    {
-        public string Name { get; set; }
-
-        public PyFunction[] Functions { get; set; }
-
-        public string DocStr { get; set; }
-    }
-
-    public class PyFunction
-    {
-        public PyFunction()
-        {
-            Parameters = new List<PyFuncArg>();
-        }
-
-        public string Name { get; set; }
-
-        public string[] Args { get; set; }
-
-        public string[] Defaults { get; set; }
-
-        public string DocStr { get; set; }
-
-        public List<PyFuncArg> Parameters { get; set; }
-    }
-
-    public class PyFuncArg
-    {
-        public string Name { get; set; }
-
-        public Type DataType { get; set; }
-
-        public bool HaveDefault { get; set; }
-
-        public dynamic DefaultValue { get; set; }
     }
 }

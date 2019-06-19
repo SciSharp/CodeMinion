@@ -156,7 +156,7 @@
                 "Name": "tanh"
             }
         ],
-        "Name": "activations",
+        "Name": "keras.activations",
         "Type": "Module"
     },
     {
@@ -235,7 +235,7 @@
                 "Name": "keras_modules_injection"
             }
         ],
-        "Name": "applications",
+        "Name": "keras.applications",
         "Type": "Module"
     },
     {
@@ -1968,7 +1968,7 @@
                 "Name": "zeros_like"
             }
         ],
-        "Name": "backend",
+        "Name": "keras.backend",
         "Type": "Module"
     },
     {
@@ -2312,7 +2312,7 @@
                 "Name": "standardize_input_data"
             }
         ],
-        "Name": "callbacks",
+        "Name": "keras.callbacks",
         "Type": "Module"
     },
     {
@@ -2529,13 +2529,13 @@
                 "Name": "serialize_keras_object"
             }
         ],
-        "Name": "constraints",
+        "Name": "keras.constraints",
         "Type": "Module"
     },
     {
         "Classes": [],
         "Functions": [],
-        "Name": "datasets",
+        "Name": "keras.datasets",
         "Type": "Module"
     },
     {
@@ -2657,7 +2657,7 @@
                 "Name": "get_source_inputs"
             }
         ],
-        "Name": "engine",
+        "Name": "keras.engine",
         "Type": "Module"
     },
     {
@@ -3289,7 +3289,7 @@
                 "Name": "serialize_keras_object"
             }
         ],
-        "Name": "initializers",
+        "Name": "keras.initializers",
         "Type": "Module"
     },
     {
@@ -6078,13 +6078,13 @@
                 "Name": "transpose_shape"
             }
         ],
-        "Name": "layers",
+        "Name": "keras.layers",
         "Type": "Module"
     },
     {
         "Classes": [],
         "Functions": [],
-        "Name": "legacy",
+        "Name": "keras.legacy",
         "Type": "Module"
     },
     {
@@ -6338,7 +6338,7 @@
                 "Name": "squared_hinge"
             }
         ],
-        "Name": "losses",
+        "Name": "keras.losses",
         "Type": "Module"
     },
     {
@@ -6616,7 +6616,7 @@
                 "Name": "top_k_categorical_accuracy"
             }
         ],
-        "Name": "metrics",
+        "Name": "keras.metrics",
         "Type": "Module"
     },
     {
@@ -6827,7 +6827,7 @@
                 "Name": "to_list"
             }
         ],
-        "Name": "models",
+        "Name": "keras.models",
         "Type": "Module"
     },
     {
@@ -7346,13 +7346,13 @@
                 "Name": "serialize_keras_object"
             }
         ],
-        "Name": "optimizers",
+        "Name": "keras.optimizers",
         "Type": "Module"
     },
     {
         "Classes": [],
         "Functions": [],
-        "Name": "preprocessing",
+        "Name": "keras.preprocessing",
         "Type": "Module"
     },
     {
@@ -7481,7 +7481,7 @@
                 "Name": "serialize_keras_object"
             }
         ],
-        "Name": "regularizers",
+        "Name": "keras.regularizers",
         "Type": "Module"
     },
     {
@@ -7750,13 +7750,13 @@
                 "Name": "to_categorical"
             }
         ],
-        "Name": "utils",
+        "Name": "keras.utils",
         "Type": "Module"
     },
     {
         "Classes": [],
         "Functions": [],
-        "Name": "wrappers",
+        "Name": "keras.wrappers",
         "Type": "Module"
     }
 ]
