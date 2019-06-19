@@ -72,13 +72,15 @@ def generate():
     modules = inspect.getmembers(keras, predicate=inspect.ismodule)
     for name, m in modules:
         expand_module(m.__name__, m)
+	
+    #with open('sig.json', 'w') as f:  # writing JSON object
+    #    json.dump(library, f, indent=4, sort_keys=True)
+        
+    return json.dumps(library)
         
 
 if __name__ == "__main__":
     generate()
-    #print(json.dumps(library))
-    with open('sig.json', 'w') as f:  # writing JSON object
-        json.dump(library, f, indent=4, sort_keys=True)
-    
+
 
     

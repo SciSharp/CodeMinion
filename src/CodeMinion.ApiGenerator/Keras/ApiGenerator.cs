@@ -48,8 +48,14 @@ namespace CodeMinion.ApiGenerator.Keras
         public string Generate()
         {
             string result = "";
+            string json = "";
+            using(var gil = Py.GIL())
+            {
+                dynamic exporter = PythonEngine.ModuleFromString("exporter", File.ReadAllText("./keras/ExportSignatureToJson.py"));
+                json = exporter.generate().ToString();
+            }
 
-            var library = PyLibrary.LoadJson(File.ReadAllText("./keras/sig.json"));
+            var library = PyLibrary.LoadJson(json);
 
 
 
