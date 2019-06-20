@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using Flee.PublicTypes;
 using Regen.Builtins;
 using Regen.Collections;
+using Regen.Compiler.Digest;
+using Regen.Compiler.Helpers;
 using Regen.DataTypes;
-using Regen.Exceptions;
 using Regen.Helpers;
 using Regen.Wrappers;
-using Array = Regen.DataTypes.Array;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Expressions {
     /// <summary>
     ///     A parser finds #if <see cref="DefineMarker"/>, passes contents to an <see cref="Interpreter"/> and then places the output inside the #else block.
     /// </summary>
@@ -32,7 +29,7 @@ namespace Regen.Compiler {
 
             //handle global blocks
             GlobalVariables = new Dictionary<string, object>();
-            string scriptFramed = Parser.GlobalFrameRegex;
+            string scriptFramed = DigestParser.GlobalFrameRegex;
             foreach (Match match in Regex.Matches(entireCode, scriptFramed, Regexes.DefaultRegexOptions)) {
                 if (!match.Success) //I dont think that unsuccessful can even get here.
                     continue;

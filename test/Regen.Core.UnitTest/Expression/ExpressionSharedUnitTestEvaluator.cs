@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Regen.Compiler;
+using Regen.Compiler.Digest;
+using Regen.Compiler.Expressions;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests.Expression {

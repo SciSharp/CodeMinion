@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Expressions {
     public enum ExpressionToken {
         [Description(@"import")] Import,
         [Description(@"function")] Function,
@@ -36,15 +36,14 @@ namespace Regen.Compiler {
         [Description(@"\@")] Lambda,
 
     }
-}
 
 
-[AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
-sealed class ExpressionTokenAttribute : Attribute {
-    public string Regex { get; }
+    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+    sealed class ExpressionTokenAttribute : Attribute {
+        public string Regex { get; }
 
-    public ExpressionTokenAttribute(string regex) {
-        Regex = regex;
+        public ExpressionTokenAttribute(string regex) {
+            Regex = regex;
+        }
     }
 }
-

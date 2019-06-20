@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Expressions {
     public class ExpressionLexer {
         public static List<EToken> Tokenize(string code) {
             var possabilities = new List<(string Regex, ExpressionToken Token)>(

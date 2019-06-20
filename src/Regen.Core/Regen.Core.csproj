@@ -128,7 +128,7 @@
     <Compile Include="DataTypes\NullScalar.cs" />
     <Compile Include="Exceptions\UnexpectedEndOfScriptException.cs" />
     <Compile Include="DataTypes\NumberScalar.cs" />
-    <Compile Include="Compiler\Digest\Parser.cs" />
+    <Compile Include="Compiler\Digest\DigestParser.cs" />
     <Compile Include="Helpers\LinqExtensions.cs" />
     <Compile Include="Helpers\RegexExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />

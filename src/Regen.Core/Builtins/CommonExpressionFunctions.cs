@@ -2,6 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Regen.Compiler;
+using Regen.Compiler.Digest;
+using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Array = Regen.DataTypes.Array;
 
