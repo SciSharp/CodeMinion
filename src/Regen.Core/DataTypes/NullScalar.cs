@@ -6,7 +6,7 @@ namespace Regen.DataTypes {
     ///     A scalar that that represents null or <see cref="void"/>.
     /// </summary>
     [DebuggerDisplay("Value: null")]
-    public class NullScalar : Scalar, IEquatable<NullScalar>{
+    public class NullScalar : Scalar, IEquatable<NullScalar> {
         public override string Emit() {
             return "";
         }

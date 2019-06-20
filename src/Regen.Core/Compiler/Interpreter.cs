@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using Flee.PublicTypes;
 using Regen.Builtins;
@@ -10,125 +13,145 @@ using Regen.Collections;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Regen.Helpers;
+using Regen.Wrappers;
 using Array = Regen.DataTypes.Array;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
 namespace Regen.Compiler {
     /// <summary>
+    ///     Represents a module that is accessible inside an expression. see remarks.
+    /// </summary>
+    /// <remarks>Example usage: %(<see cref="Name"/>.<see cref="Instance"/>Method(123))</remarks>
+    public class RegenModule {
+        /// <summary>
+        ///     The module name that will later can be accessed %(name.method(123))
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        ///     The module object that will be used to import functions into <see cref="Flee"/>.
+        /// </summary>
+        /// <remarks>All public methods will be imported, including static ones.<br></br>Void methods by default return object null.</remarks>
+        public object Instance { get; set; }
+
+        public RegenModule(string name, object instance) {
+            Name = name;
+            Instance = instance;
+        }
+    }
+
+    /// <summary>
     ///     The interpreter parses, compiles and then converts given code and returns it as a string.
     /// </summary>
-    public class Interperter {
-        public Dictionary<string, Data> GlobalVariables { get; }
-        public InterpreterOptions Options { get; set; } = new InterpreterOptions();
-
-        public Interperter(string entireCode, string regenCode) {
+    public class Interpreter {
+        public Interpreter(string entireCode, string regenCode, params RegenModule[] modules) {
             EntireCode = entireCode + Environment.NewLine;
             RegenCode = regenCode + Environment.NewLine;
             ReversedRegenCode = new string(regenCode.Reverse().ToArray());
 
-            Context = new ExpressionContext();
-            // Allow the expression to use all static public methods of System.Math
-            Context.Imports.AddType(typeof(Math));
-            Context.Imports.AddType(typeof(CommonExpressionFunctions));
+            Context = CreateContext(null, modules);
+            Context.Imports.AddInstance(this, "__interpreter__");
 
-            GlobalVariables = new Dictionary<string, Data>();
+            //handle global blocks
+            GlobalVariables = new Dictionary<string, object>();
             string scriptFramed = Parser.GlobalFrameRegex;
             foreach (Match match in Regex.Matches(entireCode, scriptFramed, Regexes.DefaultRegexOptions)) {
                 if (!match.Success) //I dont think that unsuccessful can even get here.
                     continue;
 
-                var variables = RunGlobal(match.Groups[1].Value);
-                GlobalVariables.AddRange(variables);
+                //after interpretation, they are automatically inserted to the context
+                GlobalVariables.AddRange(InterpretGlobal(match.Groups[1].Value));
             }
         }
+
+        /// <summary>
+        ///     Holds all global variables that were generated during the global blocks parse.
+        /// </summary>
+        public Dictionary<string, object> GlobalVariables { get; }
+
+        public InterpreterOptions Options { get; set; } = new InterpreterOptions();
 
         public string EntireCode { get; }
         public string RegenCode { get; set; }
         private string ReversedRegenCode { get; set; }
         public ExpressionContext Context { get; set; }
 
-        public class ForLoop {
-            public int From { get; set; }
-            public int To { get; set; }
-            public int Index { get; set; }
+        public static ExpressionContext CreateContext(Dictionary<string, object> globalVariables = null, RegenModule[] modules = null) {
+            // Allow the expression to use all static public methods of System.Math
+            var ctx = new ExpressionContext();
+            ctx.Imports.AddType(typeof(Math));
+            ctx.Imports.AddType(typeof(CommonExpressionFunctions));
+            ctx.Imports.AddInstance(new CommonRandom(), "random");
+            ctx.Imports.AddInstance(ctx, "__context__");
+            ctx.Imports.AddInstance(new VariableCollectionWrapper(ctx.Variables), "__vars__");
 
-            public bool CanNext() => Index < To;
-
-            public int Next() {
-                if (CanNext()) {
-                    var currently = Index;
-                    Index++;
-                    return currently;
+            if (modules != null)
+                foreach (var mod in modules) {
+                    ctx.Imports.AddInstance(mod.Instance, mod.Name);
                 }
 
-                return 0;
-            }
+            if (globalVariables != null)
+                foreach (var kv in globalVariables) {
+                    ctx.Variables.Add(kv.Key, kv.Value);
+                }
+
+            return ctx;
         }
 
-        public string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks) {
-            var code = line.Content;
-            var basicEmits = Lexer.FindTokens(TokenID.EmitVariable, code);
-            var currentStack = stacks[stackIndex];
+        #region Modules
 
-            //get tokens with expression in them.
-            var offsetEmit = Lexer.FindTokens(TokenID.EmitVariableOffsetted, code);
-            var expressionEmits = Lexer.FindTokens(TokenID.EmitExpression, code);
-            int additionalIndex = 0;
-            foreach (var emits in basicEmits.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
-                var index = emits.Key;
-
-                foreach (var emit in emits.OrderBy(e => e.Match.Index)) {
-                    if (!currentStack.ContainsKey(index))
-                        throw new IndexOutOfRangeException($"Index #{index} at line {line.LineNumber} not found during emit at block: {code}");
-                    var isnested = offsetEmit.Any(m => m.Match.IsMatchNestedTo(emit.Match)) || expressionEmits.Any(m => m.Match.IsMatchNestedTo(emit.Match));
-                    code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
-                    var emit_text = isnested ? currentStack[index].EmitExpressive() : currentStack[index].Emit();
-                    code = code.Insert(emit.Match.Index + additionalIndex, emit_text);
-                    additionalIndex += emit_text.Length - emit.Match.Length;
-                }
-            }
-
-            offsetEmit = Lexer.FindTokens(TokenID.EmitVariableOffsetted, code); //re-lex because of expressions that might have been expanded inside.
-            additionalIndex = 0; //because we re-lexxed
-            foreach (var emits in offsetEmit.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
-                var index = emits.Key;
-
-                foreach (var emit in emits.OrderBy(e => e.Match.Index)) {
-                    if (!currentStack.ContainsKey(index))
-                        throw new IndexOutOfRangeException($"Index #{index} at line {line.LineNumber} not found during emit at block: {code}");
-
-                    var expression = emit.Match.Groups[2].Value;
-                    var accessorStackIndex = EvaluateInt32(expression, line) + 1; //during expressions for loop index is 0 based, but stack is 1.
-                    string emit_text;
-                    try {
-                        emit_text = stacks[accessorStackIndex][index].Emit();
-                    } catch (KeyNotFoundException) {
-                        code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
-                        additionalIndex -= emit.Match.Length;
-
-                        continue; //no emits now.
-                    }
-
-                    code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
-                    code = code.Insert(emit.Match.Index + additionalIndex, emit_text);
-                    additionalIndex += emit_text.Length - emit.Match.Length;
-                }
-            }
-
-            //by now everything should be expanded, so we just evaluate and replace.
-            expressionEmits = Lexer.FindTokens(TokenID.EmitExpression, code);
-            additionalIndex = 0;
-            foreach (var expressionMatch in expressionEmits) {
-                var expression = expressionMatch.Match.Groups[1].Value;
-                string emit = EvaluateString(expression, line);
-
-                code = code.Remove(expressionMatch.Match.Index + additionalIndex, expressionMatch.Match.Length);
-                code = code.Insert(expressionMatch.Match.Index + additionalIndex, emit);
-                additionalIndex += emit.Length - expressionMatch.Match.Length;
-            }
-
-            return code;
+        /// <summary>
+        ///     Adds or override a module to <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <param name="mod">The module to add</param>
+        public void AddModule(RegenModule mod) {
+            Context.Imports.AddInstance(mod.Instance, mod.Name);
+            //any changes, syncronize with CreateContext.
         }
+
+        /// <summary>
+        ///     Adds or override a module to <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <remarks>Used as a simple accessor from a template.</remarks>
+        public void AddModule(string name, object instance) {
+            Context.Imports.AddInstance(instance, name);
+            //any changes, syncronize with CreateContext.
+        }
+
+        /// <summary>
+        ///     Attempts to remove module from <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <param name="mod">The module to remove</param>
+        /// <returns>true if successfully removed</returns>
+        public bool RemoveModule(RegenModule mod) {
+            var imprt = Context.Imports.RootImport.FirstOrDefault(ib => ib.Name.Equals(mod.Name));
+            if (imprt != null) {
+                Context.Imports.RootImport.Remove(imprt);
+                return !Context.Imports.RootImport.Contains(imprt);
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        ///     Attempts to remove module from <see cref="ExpressionContext.Imports"/>.
+        /// </summary>
+        /// <param name="moduleName">The module's name to remove</param>
+        /// <returns>true if successfully removed</returns>
+        public bool RemoveModule(string moduleName) {
+            var imprt = Context.Imports.RootImport.FirstOrDefault(ib => ib.Name.Equals(moduleName));
+            if (imprt != null) {
+                Context.Imports.RootImport.Remove(imprt);
+                return !Context.Imports.RootImport.Contains(imprt);
+            }
+
+            return false;
+        }
+
+        #endregion
+
+
+        #region Evaluation
 
         public string EvaluateString(string expression, Line line = null) {
             return Evaluate<string>(expression, line);
@@ -141,7 +164,7 @@ namespace Regen.Compiler {
         public T Evaluate<T>(string expression, Line line = null) {
             var evaluated = EvaluateUnpackedObject(expression, line);
             if (typeof(T) == typeof(string))
-                return (T) (object) ((evaluated as string) ?? evaluated.ToString());
+                return (T) (object) ((evaluated as string) ?? evaluated?.ToString() ?? "");
 
             return (T) Convert.ChangeType(evaluated, typeof(T));
         }
@@ -169,32 +192,38 @@ namespace Regen.Compiler {
             }
         }
 
-        public Dictionary<string, Data> RunGlobal(string code, Dictionary<string, Data> variables = null) {
+        #endregion
+
+        public Dictionary<string, object> InterpretGlobal(string code, Dictionary<string, object> variables = null) {
             return Interpret(code, variables).Variables;
         }
 
-        public InterpredCode Interpret(Dictionary<string, Data> variables = null) {
+        public InterpredCode Interpret(Dictionary<string, object> variables = null) {
             return Interpret(RegenCode, variables);
         }
 
-        public InterpredCode Interpret(string code, Dictionary<string, Data> variables = null) {
+        public InterpredCode Interpret(string code, Dictionary<string, object> variables = null) {
             const string unescapeCommentRegex = @"(\\\#\/\/)";
             //clean code from comments
-            code = Regex.Replace(code, TokenID.Commentrow.GetAttribute<DescriptionAttribute>().Description, new MatchEvaluator(match => { return match.Value.Replace(match.Groups[1].Value, ""); }), Regexes.DefaultRegexOptions);
+            code = Regex.Replace(code, TokenID.CommentRow.GetAttribute<DescriptionAttribute>().Description, new MatchEvaluator(match => { return match.Value.Replace(match.Groups[1].Value, ""); }), Regexes.DefaultRegexOptions);
             code = Regex.Replace(code, unescapeCommentRegex, @"//", Regexes.DefaultRegexOptions); //unescape escaped comments
 
             var lines = new LineBuilder(code);
             var output = lines.Clone();
-            variables = variables != null ? new Dictionary<string, Data>(variables) : new Dictionary<string, Data>(); //all objects implement IData
-            variables.AddRange(GlobalVariables);
+
+            if (variables != null) {
+                foreach (var variable in variables) {
+                    Context.Variables.Add(variable.Key, variable.Value);
+                }
+            } else
+                variables = new Dictionary<string, object>();
 
             // Define the context of our expression
-
             var walker = Lexer.Tokenize(code).WrapWalker();
             if (walker.Count == 0) {
                 //no tokens detected
                 var comp = output.Compile(Options);
-                return new InterpredCode() {OriginalCode = code, Output = comp, Variables = variables};
+                return new InterpredCode() {OriginalCode = code, Output = comp, Variables = Context.Variables.ToDictionary(kv => kv.Key, kv => kv.Value)};
             }
 
             do {
@@ -228,7 +257,6 @@ namespace Regen.Compiler {
                             variables[name] = values;
                             Context.Variables[name] = values;
                         } else if (walker.Current.TokenId == TokenID.Scalar) {
-                            //todo detect if there is an expression inside, if so - evaluate it.
                             var scalarToken = walker.Current;
                             var scalarStr = scalarToken.Match.Groups[1].Value.TrimEnd('\n', '\r');
 
@@ -350,6 +378,38 @@ namespace Regen.Compiler {
                         break;
                     }
 
+                    case TokenID.Import: {
+                        //todo add support for %import ns.type as name
+                        var type = walker.Current.Match.Groups[1].Value.Trim();
+                        var line = output.GetLineAt(walker.Current.Match.Index);
+                        line.MarkedForDeletion = true; //just because the line has declaration - regardless to whats inside.
+
+                        if (File.Exists(type)) {
+                            Assembly.LoadFile(type);
+                            Debug.WriteLine($"{type} was loaded successfully.");
+                            break;
+                        }
+
+                        Type foundtype;
+                        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+                            foundtype = asm.GetType(type);
+                            if (foundtype == null)
+                                continue;
+
+                            goto _found;
+                        }
+
+                        throw new ExpressionCompileException($"Unable to find type: {type}");
+                        _found:
+                        Debug.WriteLine($"{type} was loaded successfully.");
+                        if (walker.Current.Match.Groups.Count >= 3) {
+                            Context.Imports.AddType(foundtype, walker.Current.Match.Groups[2].Value);
+                        } else
+                            Context.Imports.AddType(foundtype);
+
+                        break;
+                    }
+
                     case TokenID.Scalar:
                     case TokenID.Array:
                     case TokenID.EmitVariable:
@@ -366,6 +426,89 @@ namespace Regen.Compiler {
 
             var compiled = output.Compile(Options);
             return new InterpredCode() {OriginalCode = code, Output = compiled, Variables = variables};
+        }
+
+        public string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks) {
+            var code = line.Content;
+            var basicEmits = Lexer.FindTokens(TokenID.EmitVariable, code);
+            var currentStack = stacks[stackIndex];
+
+            //get tokens with expression in them.
+            var offsetEmit = Lexer.FindTokens(TokenID.EmitVariableOffsetted, code);
+            var expressionEmits = Lexer.FindTokens(TokenID.EmitExpression, code);
+            int additionalIndex = 0;
+            foreach (var emits in basicEmits.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
+                var index = emits.Key;
+
+                foreach (var emit in emits.OrderBy(e => e.Match.Index)) {
+                    if (!currentStack.ContainsKey(index))
+                        throw new IndexOutOfRangeException($"Index #{index} at line {line.LineNumber} not found during emit at block: {code}");
+                    var isnested = offsetEmit.Any(m => m.Match.IsMatchNestedTo(emit.Match)) || expressionEmits.Any(m => m.Match.IsMatchNestedTo(emit.Match));
+                    code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
+                    var emit_text = isnested ? currentStack[index].EmitExpressive() : currentStack[index].Emit();
+                    code = code.Insert(emit.Match.Index + additionalIndex, emit_text);
+                    additionalIndex += emit_text.Length - emit.Match.Length;
+                }
+            }
+
+            offsetEmit = Lexer.FindTokens(TokenID.EmitVariableOffsetted, code); //re-lex because of expressions that might have been expanded inside.
+            additionalIndex = 0; //because we re-lexxed
+            foreach (var emits in offsetEmit.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
+                var index = emits.Key;
+
+                foreach (var emit in emits.OrderBy(e => e.Match.Index)) {
+                    if (!currentStack.ContainsKey(index))
+                        throw new IndexOutOfRangeException($"Index #{index} at line {line.LineNumber} not found during emit at block: {code}");
+
+                    var expression = emit.Match.Groups[2].Value;
+                    var accessorStackIndex = EvaluateInt32(expression, line) + 1; //during expressions for loop index is 0 based, but stack is 1.
+                    string emit_text;
+                    try {
+                        emit_text = stacks[accessorStackIndex][index].Emit();
+                    } catch (KeyNotFoundException) {
+                        code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
+                        additionalIndex -= emit.Match.Length;
+
+                        continue; //no emits now.
+                    }
+
+                    code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
+                    code = code.Insert(emit.Match.Index + additionalIndex, emit_text);
+                    additionalIndex += emit_text.Length - emit.Match.Length;
+                }
+            }
+
+            //by now everything should be expanded, so we just evaluate and replace.
+            expressionEmits = Lexer.FindTokens(TokenID.EmitExpression, code);
+            additionalIndex = 0;
+            foreach (var expressionMatch in expressionEmits) {
+                var expression = expressionMatch.Match.Groups[1].Value;
+                string emit = EvaluateString(expression, line);
+
+                code = code.Remove(expressionMatch.Match.Index + additionalIndex, expressionMatch.Match.Length);
+                code = code.Insert(expressionMatch.Match.Index + additionalIndex, emit);
+                additionalIndex += emit.Length - expressionMatch.Match.Length;
+            }
+
+            return code;
+        }
+
+        public class ForLoop {
+            public int From { get; set; }
+            public int To { get; set; }
+            public int Index { get; set; }
+
+            public bool CanNext() => Index < To;
+
+            public int Next() {
+                if (CanNext()) {
+                    var currently = Index;
+                    Index++;
+                    return currently;
+                }
+
+                return 0;
+            }
         }
     }
 }

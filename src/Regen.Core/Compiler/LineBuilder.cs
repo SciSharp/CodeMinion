@@ -56,6 +56,13 @@ namespace Regen.Compiler {
             if (opts != null && opts.ClearLoneBlockmarkers) {
                 validLines.RemoveAll(l => l.Content.Trim('\n', '\r', '\t', ' ', '\0') == "%");
             }
+
+            if (opts != null && opts.UnespacePrecentages) {
+                foreach (var validLine in validLines) {
+                    if (validLine.Content.Contains("\\%"))
+                        validLine.Replace(validLine.Content.Replace("\\%", "%"));
+                }
+            }
             //compiled = Regex.Replace(compiled, Regexes.LoneEndBlock, match => match.Value.Trim('\n', '\r', '\t', ' ') == "%" ? "" : match.Value, Regexes.DefaultRegexOptions);
 
             var compiled = string.Join("", validLines.Select(l => l.Content));

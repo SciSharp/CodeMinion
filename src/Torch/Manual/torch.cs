@@ -64,6 +64,17 @@ namespace Torch
         public static Dtype LongTensor => new Dtype(PyTorch.Instance.self.GetAttr("LongTensor"));
         public static Dtype ByteTensor => new Dtype(PyTorch.Instance.self.GetAttr("ByteTensor"));
 
+        // Locally disabling gradient computation
+        public static PyObject no_grad() => autograd.no_grad();
+        public static PyObject enable_grad() => autograd.enable_grad();
+        public static PyObject set_grad_enabled(bool mode) => autograd.set_grad_enabled(mode);
+        public static partial class autograd
+        {
+            public static PyObject no_grad() => PyTorch.Instance.self.no_grad();
+            public static PyObject enable_grad() => PyTorch.Instance.self.enable_grad();
+            public static PyObject set_grad_enabled(bool mode) => PyTorch.Instance.self.enable_grad(mode);
+        }
+
         /// <summary>
         /// A torch.device is an object representing the device on which a torch.Tensor is or will be allocated.
         /// 

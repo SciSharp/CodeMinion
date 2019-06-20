@@ -24,7 +24,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>0.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -75,21 +75,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builtins\CommonExpressionFunctions.cs" />
+    <Compile Include="Builtins\CommonRandom.cs" />
     <Compile Include="Builtins\CommonVariables.cs" />
     <Compile Include="Compiler\ForeachInstance.cs" />
-    <Compile Include="Compiler\Interperter.cs" />
+    <Compile Include="Compiler\Interpreter.cs" />
     <Compile Include="Compiler\InterpredCode.cs" />
     <Compile Include="Compiler\InterpreterOptions.cs" />
     <Compile Include="Compiler\Lexer.cs" />
     <Compile Include="Compiler\PackedArguments.cs" />
     <Compile Include="Compiler\LineBuilder.cs" />
     <Compile Include="Compiler\Regexes.cs" />
+    <Compile Include="Wrappers\VariableCollectionWrapper.cs" />
     <Compile Include="DataTypes\Array.Equality.cs" />
     <Compile Include="DataTypes\Array.Parsing.cs" />
     <Compile Include="Exceptions\ExpressionCompileException.cs" />
     <Compile Include="Exceptions\RegenException.cs" />
     <Compile Include="Exceptions\UndefinedReferenceException.cs" />
     <Compile Include="Helpers\DictionaryExtensions.cs" />
+    <Compile Include="Helpers\FleeExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Compiler\StackDictionary.cs" />
     <Compile Include="DataTypes\Array.cs" />

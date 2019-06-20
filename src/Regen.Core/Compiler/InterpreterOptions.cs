@@ -11,10 +11,16 @@ namespace Regen.Compiler {
         /// </summary>
         public bool ClearLoneBlockmarkers { get; set; }
 
+        /// <summary>
+        ///     Unescapes any marks of  \% -> %  in the output code.
+        /// </summary>
+        public bool UnespacePrecentages { get; set; }
+
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
         [DebuggerNonUserCode]
         public InterpreterOptions() {
             ClearLoneBlockmarkers = true;
+            UnespacePrecentages = true;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Regen.Core.Tests {
                     #(i)
                 %
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("0").And
                 .Contain("1").And
                 .Contain("2");
@@ -31,10 +31,41 @@ namespace Regen.Core.Tests {
                 %foreach a
                     #(i)
                 ";
-            Interpert(@input).Should()
+            Interpret(@input).Should()
                 .Contain("0").And
                 .Contain("1").And
                 .Contain("2");
+        }
+
+        [TestMethod]
+        public void foreach_missing_endblock_implicit_EOF() {
+            var @input = @"
+                %a = [1|2|3]
+                %foreach a%
+                    #(i)
+                ";
+            Interpret(@input).Should()
+                .Contain("0").And
+                .Contain("1").And
+                .Contain("2");
+        }
+
+        [TestMethod]
+        public void foreach_using_builtin__vars__() {
+            var @output = @"
+                %a = [1|2|3]
+                %b = ""hey""";
+
+            var @input = $@"
+                {@output}
+                %foreach __vars__.keys()|__vars__.values()%
+                    \%#1 = #2
+                ";
+
+            Interpret(@input)
+                .Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "")
+                .Should()
+                .BeEquivalentTo(output.Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace("\"",""));
         }
     }
 }

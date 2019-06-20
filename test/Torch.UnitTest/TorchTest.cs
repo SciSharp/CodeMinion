@@ -156,5 +156,69 @@ namespace Torch
             Assert.AreEqual(new Shape(1, 5), new Shape(x.t().stride()));
 
         }
+
+
+        [TestMethod]
+        public void no_grad()
+        {
+            //>>> x = torch.tensor([1], requires_grad = True)
+            //>>> with torch.no_grad():
+            //...   y = x * 2
+            //>>> y.requires_grad
+            //False
+            //>>> @torch.no_grad()
+            //...def doubler(x):
+            //...     return x * 2
+            //>>> z = doubler(x)
+            //>>> z.requires_grad
+            //False
+
+            var x = torch.tensor(new double[] {1.0}, requires_grad: true);
+            Tensor y=null;
+            Py.With(torch.no_grad(), (ctx) => y = x * 2);
+            // now the result of every computation will have requires_grad=False, even when the inputs have requires_grad=True.
+            Assert.AreEqual(false, y.requires_grad);
+            var z = x * 2;
+            Assert.AreEqual(false, y.requires_grad);
+        }
+
+        [TestMethod]
+        public void enable_grad()
+        {
+            //>>> x = torch.tensor([1], requires_grad = True)
+            //>>> with torch.no_grad():
+            //...   with torch.enable_grad():
+            //...     y = x * 2
+            //>>> y.requires_grad
+            //True
+            //>>> y.backward()
+            //>>> x.grad
+            //>>> @torch.enable_grad()
+            //...def doubler(x):
+            //...     return x * 2
+            //>>> with torch.no_grad():
+            //...     z = doubler(x)
+            //>>> z.requires_grad
+            //True
+
+            var x = torch.tensor(new double[] { 1 }, requires_grad: true);
+            Tensor y = null;
+            Py.With(torch.no_grad(), _ =>
+            {
+                Py.With(torch.enable_grad(), __ =>
+                {
+                    y = x * 2;
+                    Assert.AreEqual(true, y.requires_grad);
+                    y.backward();
+                    var grad = x.grad;
+                    Assert.NotNull(grad);
+                });
+            });
+            Py.With(torch.no_grad(), _ =>
+            {
+                var z = x * 2;
+            });
+            Assert.AreEqual(true, y.requires_grad);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Regen.Compiler {
     }
 
     /// <summary>
-    ///     A foreach instance that is used internally in <see cref="Interperter"/>.
+    ///     A foreach instance that is used internally in <see cref="Interpreter"/>.
     /// </summary>
     public class ForeachInstance {
         protected readonly List<Array> usedVariables;
@@ -98,9 +98,9 @@ namespace Regen.Compiler {
             Stacks = stacks;
         }
 
-        public Interperter.ForLoop StartLoop() {
+        public Interpreter.ForLoop StartLoop() {
             var len = Length == StackLength.SmallestIndex ? usedVariables.Min(arr => arr.Values.Count) : Length == StackLength.LargestIndex ? usedVariables.Max(arr => arr.Values.Count) : throw new NotImplementedException();
-            return new Interperter.ForLoop() {From = 0, Index = 0, To = len};
+            return new Interpreter.ForLoop() {From = 0, Index = 0, To = len};
         }
 
         public void Merge(ForeachInstance otherInstance) {

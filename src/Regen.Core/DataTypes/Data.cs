@@ -9,6 +9,11 @@ namespace Regen.DataTypes {
     ///     Base data type, all stored data types (e.g. <see cref="StringScalar"/>, <see cref="NullScalar"/>) inherit this.
     /// </summary>
     public abstract class Data : IEquatable<Data> {
+        /// <summary>
+        ///     A singleton of <see cref="NullScalar"/>, use this or new NullScalar()
+        /// </summary>
+        public static NullScalar Null { get; } = new NullScalar();
+
         public abstract object Value { get; set; }
 
         /// <summary>

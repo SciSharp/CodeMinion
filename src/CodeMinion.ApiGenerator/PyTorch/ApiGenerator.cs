@@ -529,6 +529,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "bernoulli_":
                 case "flatten":
                 case "item":
+                case "requires_grad":
                     func.Ignore = (func.ClassName == "Tensor");
                     break;
                 // ------------------
@@ -648,9 +649,6 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     break;
                 case "register_hook":
                     func["hook"].Type = "Func<Tensor, Tensor>";
-                    break;
-                case "requires_grad":
-                    func.Returns.Add(new Argument() { Type = "bool" });
                     break;
                 case "narrow_copy":
                     func["start"].Type = "int";

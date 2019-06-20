@@ -30,7 +30,7 @@ namespace Regen.DataTypes {
             public int Length { get; set; }
         }
 
-        public static Array Parse(string @string, Interperter interperter) {
+        public static Array Parse(string @string, Interpreter interpreter) {
             const string arrayElementsSeperationRegex = @"(?<!\\)\|";
 
             const string BracketDepthPattern2 = @"\[([^\[\]]*)\]";
@@ -65,15 +65,15 @@ namespace Regen.DataTypes {
 
                     var arr = _last = ParseArray(expression); // parsed[expressionTrack.Id] =
                     var key = $"__{uniqueid}{i++}";
-                    interperter.Context.Variables.Add(key, arr);
+                    interpreter.Context.Variables.Add(key, arr);
                     expressionTrack.AssignedVariable = key; //parsedMap[expressionTrack.Match.Value] = 
                     @in = @in.Replace(expressionMatch.Value, expressionTrack.AssignedVariable);
                 }
             }
 
             //remove used variables
-            foreach (var k in interperter.Context.Variables.Keys.ToArray().Where(k => k.StartsWith($"__{uniqueid}"))) {
-                interperter.Context.Variables.Remove(k);
+            foreach (var k in interpreter.Context.Variables.Keys.ToArray().Where(k => k.StartsWith($"__{uniqueid}"))) {
+                interpreter.Context.Variables.Remove(k);
             }
 
             return _last;
@@ -90,7 +90,7 @@ namespace Regen.DataTypes {
                 var _parsed = Regex.Split(input, arrayElementsSeperationRegex, Regexes.DefaultRegexOptions)
                     .Select(v => v.Replace("\\|", "|")) //unescape
                     .Select(v => v == string.Empty ? "\"\"" : v) //filter empty values to empty string
-                    .Select(v => interperter.EvaluateObject(v))
+                    .Select(v => interpreter.EvaluateObject(v))
                     .Select(Data.Create)
                     .ToList();
 

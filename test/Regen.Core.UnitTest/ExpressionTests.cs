@@ -103,7 +103,7 @@ namespace Regen.Core.Tests {
                 %(a{expression}b)
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Should().Contain(equalsTo.ToString());
         }
 
@@ -119,7 +119,7 @@ namespace Regen.Core.Tests {
                 %c = a+b
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Trim().Should().BeEmpty();
         }
 
@@ -133,7 +133,7 @@ namespace Regen.Core.Tests {
                 %(a[0])
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Should().Contain("1");
         }
 
@@ -149,7 +149,7 @@ namespace Regen.Core.Tests {
                 %(a[0]{expression}b)
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Trim().Should()
                 .Contain(equalsTo.ToString());
         }
@@ -162,7 +162,7 @@ namespace Regen.Core.Tests {
                 %(a[0]+b)
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Trim().Should()
                 .Contain((((int) 'h') + 1).ToString());
         }
@@ -175,7 +175,7 @@ namespace Regen.Core.Tests {
                 %(str(a[0])+b)
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Trim().Should()
                 .Contain("h1");
         }
@@ -188,7 +188,7 @@ namespace Regen.Core.Tests {
                 %(a[0]+b) %(a[0]+b)
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Trim().Should()
                 .Contain(('h' + 1) + " " + ('h' + 1));
         }
@@ -201,7 +201,7 @@ namespace Regen.Core.Tests {
                 %(str(a[0])+b) %(str(a[0])+b)
                 ";
 
-            var code = Interpert(input);
+            var code = Interpret(input);
             code.Trim().Should()
                 .Contain("h1");
         }
