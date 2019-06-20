@@ -1,0 +1,7 @@
+﻿public {0} {1} {2}([ARGS])
+{
+    Dictionary<string, object> parameters = new Dictionary<string, object>();
+	[PARAMETERS]
+	var res = InvokeStaticMethod(caller, "{1}", parameters);
+	[RETURN]
+}

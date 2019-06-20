@@ -39,6 +39,14 @@ namespace CodeMinion.Core.Models
         /// <value>
         /// The default value.
         /// </value>
-        public dynamic DefaultValue { get; set; }
+        public object DefaultValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets the argument comment.
+        /// </summary>
+        /// <value>
+        /// The argument comment.
+        /// </value>
+        public string ArgComment { get; set; }
     }
 }

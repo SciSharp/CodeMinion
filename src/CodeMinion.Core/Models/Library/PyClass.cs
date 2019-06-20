@@ -9,6 +9,11 @@ namespace CodeMinion.Core.Models
     /// </summary>
     public class PyClass
     {
+        public PyClass()
+        {
+            Parameters = new List<PyFuncArg>();
+        }
+
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -32,5 +37,29 @@ namespace CodeMinion.Core.Models
         /// The document string.
         /// </value>
         public string DocStr { get; set; }
+
+        /// <summary>
+        /// Gets or sets the arguments.
+        /// </summary>
+        /// <value>
+        /// The arguments.
+        /// </value>
+        public string[] Args { get; set; }
+
+        /// <summary>
+        /// Gets or sets the defaults.
+        /// </summary>
+        /// <value>
+        /// The defaults.
+        /// </value>
+        public string[] Defaults { get; set; }
+
+        /// <summary>
+        /// Gets or sets the parameters.
+        /// </summary>
+        /// <value>
+        /// The parameters.
+        /// </value>
+        public List<PyFuncArg> Parameters { get; set; }
     }
 }

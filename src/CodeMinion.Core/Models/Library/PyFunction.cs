@@ -42,6 +42,22 @@ namespace CodeMinion.Core.Models
         public string[] Defaults { get; set; }
 
         /// <summary>
+        /// Gets or sets the type of the return.
+        /// </summary>
+        /// <value>
+        /// The type of the return.
+        /// </value>
+        public Type ReturnType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the return argument.
+        /// </summary>
+        /// <value>
+        /// The return argument.
+        /// </value>
+        public string ReturnArg { get; set; }
+
+        /// <summary>
         /// Gets or sets the document string.
         /// </summary>
         /// <value>
