@@ -11,26 +11,26 @@ namespace Regen.Compiler {
         [Description(@"foreach")] Foreach,
         [Description(@"return")] Return,
         [Description(@"   \"".*?\""   ")] StringLiteral,
-        [Description(@"[0-9]+(?:\\.[0-9]+)?")] NumberLiteral, //"[0-9][0-9]*"
+        [Description(@"[0-9]+(?:\.[0-9]+)?")] NumberLiteral, //"[0-9][0-9]*"
         [Description(@"[a-zA-Z_][a-zA-Z0-9_]*")] Identity,
-        [Description(@"[ \\t]+")] Whitespace,
-        [Description(@"\\n")] NewLine,
-        [Description(@"\\+")] Add,
-        [Description(@"\\-")] Sub,
-        [Description(@"\\*")] Mul,
-        [Description(@"\\/")] Div,
-        [Description(@"\\==")] DoubleEqual,
-        [Description(@"\\!=")] NotEqual,
-        [Description(@"\\=")] Equal,
-        [Description(@"\\(")] LeftBrace,
-        [Description(@"\\)")] RightBrace,
-        [Description(@"\\{")] LeftBrackets,
-        [Description(@"\\}")] RightBrackets,
-        [Description(@"\\,")] Comma,
-        [Description(@"\\.")] Period,
-        [Description(@"\\@")] Lambda,
+        [Description(@"[ \t]+")] Whitespace,
+        [Description(@"\n")] NewLine,
+        [Description(@"\+")] Add,
+        [Description(@"\-")] Sub,
+        [Description(@"\*")] Mul,
+        [Description(@"\/")] Div,
+        [Description(@"\==")] DoubleEqual,
+        [Description(@"\!=")] NotEqual,
+        [Description(@"\=")] Equal,
+        [Description(@"\(")] LeftBrace,
+        [Description(@"\)")] RightBrace,
+        [Description(@"\{")] LeftBrackets,
+        [Description(@"\}")] RightBrackets,
+        [Description(@"\,")] Comma,
+        [Description(@"\.")] Period,
+        [Description(@"\@")] Lambda,
         [Description(@"\%//")] CommentRow,
-        [Description(@"\\%")] Block,
+        [Description(@"\%")] Block,
     }
 }
 
@@ -45,4 +45,3 @@ sealed class ExpressionTokenAttribute : Attribute {
     }
 }
 
-}

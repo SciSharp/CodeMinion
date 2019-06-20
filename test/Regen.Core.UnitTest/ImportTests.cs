@@ -12,7 +12,7 @@ using Regen.Exceptions;
 
 namespace Regen.Core.Tests {
     [TestClass]
-    public class ImportTests : DigestUnitTestBase {
+    public class ImportTests : DigestUnitTestEvaluator {
         [TestMethod]
         public void import_static_class() {
             var @input = @"

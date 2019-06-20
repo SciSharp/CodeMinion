@@ -4,7 +4,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text.RegularExpressions;
+using System.Threading;
 using Flee.PublicTypes;
+using Regen.Compiler;
 
 namespace Regen.Helpers {
     public static class FleeExtensions {
@@ -13,7 +16,7 @@ namespace Regen.Helpers {
         public static void AddInstance(this ExpressionImports imports, object target, string @namespace, Func<MethodInfo, bool> selector = null, BindingFlags? flags = null) {
             if (target == null)
                 return;
-            
+
             imports.AddType(InstanceToStaticWrapper.Wrap(target), @namespace);
         }
     }
@@ -25,8 +28,8 @@ namespace Regen.Helpers {
         public static int Add(int a, int b) {
             return NonStatic.Add(a, b);
         }
-        public static MyNonStatic self()
-        {
+
+        public static MyNonStatic self() {
             return NonStatic;
         }
     }
@@ -42,6 +45,8 @@ namespace Regen.Helpers {
     }
 
     public static class InstanceToStaticWrapper {
+        private static volatile int _index;
+
         /// <summary>
         ///     Generates a static wrapper class to an instance class object.
         /// </summary>
@@ -50,7 +55,8 @@ namespace Regen.Helpers {
         /// <remarks>https://gist.github.com/ReubenBond/1bf2b1bf92ab02dc31242462f7bf7958</remarks>
         public static Type Wrap(object _target) {
             var type = _target.GetType();
-            string ns = type.Assembly.FullName;
+            int index = Interlocked.Increment(ref _index);
+            var ns = Regex.Replace(type.Assembly.FullName, Regexes.SelectNamespaceFromAssemblyName, $"$1.Generated{index}");
             var name = type.FullName + "_StaticRegen" + Guid.NewGuid().ToString("N");
             ModuleBuilder moduleBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(ns), AssemblyBuilderAccess.Run).DefineDynamicModule(ns);
             TypeBuilder wrapperBuilder = moduleBuilder.DefineType(name, TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.Abstract, null, new Type[0]);
@@ -61,7 +67,7 @@ namespace Regen.Helpers {
 
             //Get types except for exclusions
             var approvedTypes = methods.Where(mi => FleeExtensions.Exclusions.All(e => e.Name != mi.Name) && !mi.Name.StartsWith("_")).ToList();
-            
+
             //if theres not Self() in target, clear any invalid target that will deny compilation.
             if (!containsSelf)
                 approvedTypes.RemoveAll(mi => mi.Name.Equals("self", StringComparison.OrdinalIgnoreCase) && mi.ReturnType != type);
@@ -80,7 +86,8 @@ namespace Regen.Helpers {
             //set the target to the private field
             const string setter = "_setNonStatic";
             wrapperType.GetMethod(setter, BindingFlags.Static | BindingFlags.NonPublic)
-                .Invoke(null, new object[] { _target });
+                .Invoke(null, new object[] {_target});
+
             return wrapperType;
         }
 
@@ -91,13 +98,12 @@ namespace Regen.Helpers {
                 MethodAttributes.Static | MethodAttributes.Private,
                 CallingConventions.Standard,
                 typeof(void),
-                new[] { target.GetType() });
+                new[] {target.GetType()});
             var il = initMethod.GetILGenerator();
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Stsfld, fld);
             il.Emit(OpCodes.Ret);
 
-            
 
             return fld;
         }
@@ -116,6 +122,7 @@ namespace Regen.Helpers {
                 gen.Emit(OpCodes.Ldnull);
             gen.Emit(OpCodes.Ret);
         }
+
         private static void CreateSelfMethod(TypeBuilder wrapperBuilder, FieldBuilder target) {
             var ret = target.FieldType;
             var methodBuilder = wrapperBuilder.DefineMethod("Self", MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.HideBySig, ret, Type.EmptyTypes);

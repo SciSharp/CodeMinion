@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestCommentTests : DigestUnitTestBase {
+    public class DigestCommentTests : DigestUnitTestEvaluator {
         [TestMethod]
         public void comment_at_foreach() {
             var @input = @"

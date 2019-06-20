@@ -10,7 +10,7 @@ using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestInterpreterTests : DigestUnitTestBase {
+    public class DigestInterpreterTests : DigestUnitTestEvaluator {
         [TestMethod]
         public void import_static_random() {
             var @input = @"

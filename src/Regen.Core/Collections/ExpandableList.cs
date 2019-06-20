@@ -58,9 +58,12 @@ namespace Regen.Collections {
 
         /// <inheritdoc />
         public IEnumerator GetEnumerator() {
-            return obj.ToEnumerable().GetEnumerator();
+            return _yield(obj).GetEnumerator();
         }
 
+        private IEnumerable<object> _yield(object obj) {
+            yield return obj;
+        }
         /// <inheritdoc />
         public void CopyTo(Array array, int index) {
             array.SetValue(obj, index);

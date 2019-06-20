@@ -71,15 +71,16 @@
     <Compile Include="Digest\DigestForeachTests.cs" />
     <Compile Include="Digest\DigestCommentTests.cs" />
     <Compile Include="Digest\DigestExpressionTests.cs" />
+    <Compile Include="Expression\BuiltinTests.cs" />
     <Compile Include="ImportTests.cs" />
     <Compile Include="Digest\DigestInterpreterTests.cs" />
-    <Compile Include="SharedUnitTest.cs" />
-    <Compile Include="Expression\ExpressionUnitTestBase.cs" />
+    <Compile Include="SharedUnitTestEvaluator.cs" />
+    <Compile Include="Expression\ExpressionSharedUnitTestEvaluator.cs" />
     <Compile Include="VariableTests.cs" />
     <Compile Include="Examples\OperatorsOverloading.cs" />
-    <Compile Include="BuiltinTests.cs" />
+    <Compile Include="Digest\BuiltinTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Digest\DigestUnitTestBase.cs" />
+    <Compile Include="Digest\DigestUnitTestEvaluator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

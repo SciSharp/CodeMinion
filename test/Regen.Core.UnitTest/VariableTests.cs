@@ -10,7 +10,7 @@ using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests {
     [TestClass]
-    public class VariableTests : DigestUnitTestBase {
+    public class VariableTests : DigestUnitTestEvaluator {
         [TestMethod]
         public void declare_variable_withnumber() {
             var @input = @"

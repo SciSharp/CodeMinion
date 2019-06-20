@@ -105,6 +105,8 @@
     <Compile Include="DataTypes\DictScalar.cs" />
     <Compile Include="DataTypes\NetObject.cs" />
     <Compile Include="Dynamic\Expando.cs" />
+    <Compile Include="Helpers\DefaultConstructor.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Wrappers\VariableCollectionWrapper.cs" />
     <Compile Include="DataTypes\Array.Equality.cs" />
     <Compile Include="DataTypes\Array.Parsing.cs" />

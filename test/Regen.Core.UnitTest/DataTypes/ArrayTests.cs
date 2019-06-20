@@ -8,7 +8,7 @@ using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests.DataTypes {
     [TestClass]
-    public class ArrayTests : DigestUnitTestBase {
+    public class ArrayTests : DigestUnitTestEvaluator {
         public Array GetArray(params object[] additionals) {
             var additional = string.Join("|", additionals.Select(v => Scalar.Create(v).EmitExpressive()));
             if (!string.IsNullOrEmpty(additional))

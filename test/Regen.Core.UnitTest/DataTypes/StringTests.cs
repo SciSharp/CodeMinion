@@ -10,7 +10,7 @@ using Regen.DataTypes;
 
 namespace Regen.Core.Tests.DataTypes {
     [TestClass]
-    public class StringTests : DigestUnitTestBase {
+    public class StringTests : DigestUnitTestEvaluator {
         [TestMethod]
         public void string_indexer() {
             var @input = $@"

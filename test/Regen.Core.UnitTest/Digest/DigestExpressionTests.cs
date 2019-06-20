@@ -7,7 +7,7 @@ using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestExpressionTests : DigestUnitTestBase {
+    public class DigestExpressionTests : DigestUnitTestEvaluator {
         [DataTestMethod]
         [DataRow("1+1", 2)]
         [DataRow("1 + 1", 2)]
