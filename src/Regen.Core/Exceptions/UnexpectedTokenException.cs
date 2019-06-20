@@ -6,7 +6,7 @@ namespace Regen.Exceptions {
     public class UnexpectedTokenException : RegenException {
         public UnexpectedTokenException() { }
 
-        public UnexpectedTokenException(Token token, TokenID? expected) : base($"After this expression: '{token.Match.Value}' expected {expected}") { }
+        public UnexpectedTokenException(DToken dToken, DigestToken? expected) : base($"After this expression: '{dToken.Match.Value}' expected {expected}") { }
         public UnexpectedTokenException(string message) : base(message) { }
         public UnexpectedTokenException(string message, Exception inner) : base(message, inner) { }
     }

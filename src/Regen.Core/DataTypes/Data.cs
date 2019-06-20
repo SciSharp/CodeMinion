@@ -30,6 +30,19 @@ namespace Regen.DataTypes {
 
         public static Data Create(object obj) {
             switch (obj) {
+                case null:
+                    return new NullScalar();
+                case Data dd:
+                    return dd;
+                case string str:
+                    return new StringScalar(str);
+                case bool bl:
+                    return new BoolScalar(bl);
+                case IComparable _num:
+                    var type = _num.GetType();
+                    if (type.IsPrimitive || type == typeof(decimal))
+                        return new NumberScalar(_num);
+                    return new NetObject(_num);
                 case List<Data> sc:
                     return new Array(sc);
                 case IList<Data> sc:
@@ -37,10 +50,10 @@ namespace Regen.DataTypes {
                 case IEnumerable<Data> en:
                     return new Array(en.ToList());
                 default:
-                    return Scalar.Create(obj);
+                    return new NetObject(obj);
             }
         }
-
+         
         #region Equality
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>

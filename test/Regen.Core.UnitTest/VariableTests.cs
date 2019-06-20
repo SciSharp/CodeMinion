@@ -3,13 +3,14 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
+using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests {
     [TestClass]
-    public class VariableTests : UnitTestBase {
+    public class VariableTests : DigestUnitTestBase {
         [TestMethod]
         public void declare_variable_withnumber() {
             var @input = @"

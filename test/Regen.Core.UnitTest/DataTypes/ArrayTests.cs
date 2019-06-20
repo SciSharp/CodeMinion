@@ -2,12 +2,13 @@
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests.DataTypes {
     [TestClass]
-    public class ArrayTests : UnitTestBase {
+    public class ArrayTests : DigestUnitTestBase {
         public Array GetArray(params object[] additionals) {
             var additional = string.Join("|", additionals.Select(v => Scalar.Create(v).EmitExpressive()));
             if (!string.IsNullOrEmpty(additional))

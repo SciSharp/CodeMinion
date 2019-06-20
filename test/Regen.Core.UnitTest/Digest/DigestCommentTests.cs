@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Regen.Compiler;
 
-namespace Regen.Core.Tests {
+namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class CommentTests : UnitTestBase {
+    public class DigestCommentTests : DigestUnitTestBase {
         [TestMethod]
         public void comment_at_foreach() {
             var @input = @"

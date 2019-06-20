@@ -25,11 +25,19 @@ namespace Regen.Helpers {
         public static int Add(int a, int b) {
             return NonStatic.Add(a, b);
         }
+        public static MyNonStatic self()
+        {
+            return NonStatic;
+        }
     }
 
     public class MyNonStatic {
         public int Add(int a, int b) {
             return a + b;
+        }
+
+        public MyNonStatic self() {
+            return this;
         }
     }
 
@@ -46,44 +54,74 @@ namespace Regen.Helpers {
             var name = type.FullName + "_StaticRegen" + Guid.NewGuid().ToString("N");
             ModuleBuilder moduleBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(ns), AssemblyBuilderAccess.Run).DefineDynamicModule(ns);
             TypeBuilder wrapperBuilder = moduleBuilder.DefineType(name, TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.Abstract, null, new Type[0]);
-            const string setter = "_setNonStatic";
-            var fld = wrapperBuilder.DefineField("nonStatic", type, FieldAttributes.Private | FieldAttributes.Static);
 
+            var methods = type.GetMethods();
+            bool containsSelf = methods.Any(m => m.Name.Equals("self", StringComparison.OrdinalIgnoreCase) && m.ReturnType == type);
+            var targetField = CreateWrappedField(_target, wrapperBuilder);
+
+            //Get types except for exclusions
+            var approvedTypes = methods.Where(mi => FleeExtensions.Exclusions.All(e => e.Name != mi.Name) && !mi.Name.StartsWith("_")).ToList();
+            
+            //if theres not Self() in target, clear any invalid target that will deny compilation.
+            if (!containsSelf)
+                approvedTypes.RemoveAll(mi => mi.Name.Equals("self", StringComparison.OrdinalIgnoreCase) && mi.ReturnType != type);
+            foreach (MethodInfo method in approvedTypes) {
+                CreateProxyMethod(wrapperBuilder, method, targetField);
+            }
+
+            if (!containsSelf) {
+                CreateSelfMethod(wrapperBuilder, targetField);
+            }
+
+
+            //build the output type
+            Type wrapperType = wrapperBuilder.CreateType();
+
+            //set the target to the private field
+            const string setter = "_setNonStatic";
+            wrapperType.GetMethod(setter, BindingFlags.Static | BindingFlags.NonPublic)
+                .Invoke(null, new object[] { _target });
+            return wrapperType;
+        }
+
+        private static FieldBuilder CreateWrappedField(object target, TypeBuilder wrapperBuilder) {
+            var fld = wrapperBuilder.DefineField("nonStatic", target.GetType(), FieldAttributes.Private | FieldAttributes.Static);
             var initMethod = wrapperBuilder.DefineMethod(
                 "_setNonStatic",
                 MethodAttributes.Static | MethodAttributes.Private,
                 CallingConventions.Standard,
                 typeof(void),
-                new[] {type});
+                new[] { target.GetType() });
             var il = initMethod.GetILGenerator();
             il.Emit(OpCodes.Ldarg_0);
             il.Emit(OpCodes.Stsfld, fld);
             il.Emit(OpCodes.Ret);
 
-            foreach (MethodInfo method in type.GetMethods().Where(mi => FleeExtensions.Exclusions.All(e => e.Name != mi.Name) && !mi.Name.StartsWith("_"))) {
-                CreateProxyMethod(wrapperBuilder, method, fld);
-            }
+            
 
-            Type wrapperType = wrapperBuilder.CreateType();
-
-            wrapperType.GetMethod(setter, BindingFlags.Static | BindingFlags.NonPublic)
-                .Invoke(null, new object[] {_target});
-
-            return wrapperType;
+            return fld;
         }
 
-        private static void CreateProxyMethod(TypeBuilder wrapperBuilder, MethodInfo method, FieldBuilder fld) {
+        private static void CreateProxyMethod(TypeBuilder wrapperBuilder, MethodInfo method, FieldBuilder target) {
             var parameters = method.GetParameters();
             var ret = method.ReturnType == typeof(void) ? typeof(object) : method.ReturnType;
             var methodBuilder = wrapperBuilder.DefineMethod(method.Name, MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.HideBySig, ret, parameters.Select(p => p.ParameterType).ToArray());
             var gen = methodBuilder.GetILGenerator();
 
-            gen.Emit(OpCodes.Ldsfld, fld);
+            gen.Emit(OpCodes.Ldsfld, target);
             for (int i = 0; i < parameters.Length; i++)
                 gen.Emit(OpCodes.Ldarg, i);
             gen.Emit(OpCodes.Callvirt, method);
             if (method.ReturnType == typeof(void))
                 gen.Emit(OpCodes.Ldnull);
+            gen.Emit(OpCodes.Ret);
+        }
+        private static void CreateSelfMethod(TypeBuilder wrapperBuilder, FieldBuilder target) {
+            var ret = target.FieldType;
+            var methodBuilder = wrapperBuilder.DefineMethod("Self", MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.HideBySig, ret, Type.EmptyTypes);
+            var gen = methodBuilder.GetILGenerator();
+
+            gen.Emit(OpCodes.Ldsfld, target);
             gen.Emit(OpCodes.Ret);
         }
     }

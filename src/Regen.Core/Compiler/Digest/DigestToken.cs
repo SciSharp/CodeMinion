@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 
 namespace Regen.Compiler {
-    public enum TokenID {
+    public enum DigestToken {
         [Description(@"%(\w+)(?=\s*=)")] Declaration,
         [Description(@"(?<=[\s=]) \[ (.*) \]")]Array,
         [Description(@"(?<!for(?:each))(?:(?<=[=])\s+?  (?!\[)(.*) (?=$|\n|\r))")] Scalar,

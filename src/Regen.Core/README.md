@@ -27,6 +27,15 @@ Make sure to read our [getting started](TUTORIAL.md) page!
 - [X] Support names that end with number.
 
 - [ ] Add support for Regex.
+- [ ] Finish types:
+  - [ ] BoolScalar
+    - [ ] Unit Tets
+    - [ ] BoolScalar
+      - [ ] Unit Tets
+    - [ ] DictScalar
+      - [ ] Unit Tets
+    - [ ] NetObject
+      - [ ] Unit Tets
 - [X] Add Context as a builtin variable.
 - [X] Add a variable that contains all variables.
 

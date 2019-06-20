@@ -43,7 +43,7 @@ namespace Regen.Compiler {
     /// <summary>
     ///     The interpreter parses, compiles and then converts given code and returns it as a string.
     /// </summary>
-    public class Interpreter {
+    public class Interpreter : IEvaluator {
         public Interpreter(string entireCode, string regenCode, params RegenModule[] modules) {
             EntireCode = entireCode + Environment.NewLine;
             RegenCode = regenCode + Environment.NewLine;
@@ -84,6 +84,7 @@ namespace Regen.Compiler {
             ctx.Imports.AddInstance(new CommonRandom(), "random");
             ctx.Imports.AddInstance(ctx, "__context__");
             ctx.Imports.AddInstance(new VariableCollectionWrapper(ctx.Variables), "__vars__");
+            ctx.Imports.AddType(typeof(Regex));
 
             if (modules != null)
                 foreach (var mod in modules) {
@@ -205,7 +206,7 @@ namespace Regen.Compiler {
         public InterpredCode Interpret(string code, Dictionary<string, object> variables = null) {
             const string unescapeCommentRegex = @"(\\\#\/\/)";
             //clean code from comments
-            code = Regex.Replace(code, TokenID.CommentRow.GetAttribute<DescriptionAttribute>().Description, new MatchEvaluator(match => { return match.Value.Replace(match.Groups[1].Value, ""); }), Regexes.DefaultRegexOptions);
+            code = Regex.Replace(code, DigestToken.CommentRow.GetAttribute<DescriptionAttribute>().Description, new MatchEvaluator(match => { return match.Value.Replace(match.Groups[1].Value, ""); }), Regexes.DefaultRegexOptions);
             code = Regex.Replace(code, unescapeCommentRegex, @"//", Regexes.DefaultRegexOptions); //unescape escaped comments
 
             var lines = new LineBuilder(code);
@@ -219,7 +220,7 @@ namespace Regen.Compiler {
                 variables = new Dictionary<string, object>();
 
             // Define the context of our expression
-            var walker = Lexer.Tokenize(code).WrapWalker();
+            var walker = DigestLexer.Tokenize(code).WrapWalker();
             if (walker.Count == 0) {
                 //no tokens detected
                 var comp = output.Compile(Options);
@@ -228,13 +229,13 @@ namespace Regen.Compiler {
 
             do {
                 var current = walker.Current;
-                switch (walker.Current.TokenId) {
-                    case TokenID.Declaration: {
+                switch (walker.Current.DigestToken) {
+                    case DigestToken.Declaration: {
                         var name = walker.Current.Match.Groups[1].Value.Trim();
                         var line = output.GetLineAt(walker.Current.Match.Index);
                         line.MarkedForDeletion = true; //just because the line has declaration - regardless to whats inside.
                         if (!walker.Next())
-                            throw new UnexpectedTokenException(current, TokenID.Array);
+                            throw new UnexpectedTokenException(current, DigestToken.Array);
 
                         //check if name is valid (C# compliant)
                         if (!name.All(c => char.IsDigit(c) || char.IsLetter(c) || Regexes.VariableNameValidSymbols.Any(cc => cc == c)) || name.TakeWhile(char.IsDigit).Any()) {
@@ -247,16 +248,16 @@ namespace Regen.Compiler {
                             throw new ExpressionCompileException($"Variable named '{name}' is taken by the interpreter.");
                         }
 
-                        if (walker.Current.TokenId == TokenID.Array) {
+                        if (walker.Current.DigestToken == DigestToken.Array) {
                             var arrayToken = walker.Current;
                             var arrayStr = arrayToken.Match.Groups[0].Value;
 
-                            var values = Array.Parse(arrayStr, this);
+                            var values = Array.Parse(arrayStr, Context.Variables, this);
                             if (variables.ContainsKey(name))
                                 Debug.WriteLine($"Warning: variable named {name} is already taken and is being overridden at TODO PRINT LINE");
                             variables[name] = values;
                             Context.Variables[name] = values;
-                        } else if (walker.Current.TokenId == TokenID.Scalar) {
+                        } else if (walker.Current.DigestToken == DigestToken.Scalar) {
                             var scalarToken = walker.Current;
                             var scalarStr = scalarToken.Match.Groups[1].Value.TrimEnd('\n', '\r');
 
@@ -281,13 +282,13 @@ namespace Regen.Compiler {
                         break;
                     }
 
-                    case TokenID.Expression: {
+                    case DigestToken.Expression: {
                         var line = output.GetLineAt(walker.Current.Match.Index);
                         GroupCollection groups;
                         bool originalToken = true;
                         if (line.ContentWasModified) {
                             //re-express
-                            var tokens = Lexer.FindTokens(TokenID.Expression, line.Content);
+                            var tokens = DigestLexer.FindTokens(DigestToken.Expression, line.Content);
                             if (tokens.Count == 0)
                                 break;
                             groups = tokens[0].Match.Groups;
@@ -306,7 +307,7 @@ namespace Regen.Compiler {
                         break;
                     }
 
-                    case TokenID.ForEach: {
+                    case DigestToken.ForEach: {
                         var line = lines.GetLineAt(walker.Current.Match.Index);
                         output.FindLine(line).MarkedForDeletion = true;
                         var content = line.Content.Replace("%foreach", "").Replace("%for", "").TrimStart('\t', ' ').TrimEnd('\n', '\r', ' ');
@@ -378,7 +379,7 @@ namespace Regen.Compiler {
                         break;
                     }
 
-                    case TokenID.Import: {
+                    case DigestToken.Import: {
                         //todo add support for %import ns.type as name
                         var type = walker.Current.Match.Groups[1].Value.Trim();
                         var line = output.GetLineAt(walker.Current.Match.Index);
@@ -410,11 +411,11 @@ namespace Regen.Compiler {
                         break;
                     }
 
-                    case TokenID.Scalar:
-                    case TokenID.Array:
-                    case TokenID.EmitVariable:
-                    case TokenID.EmitVariableOffsetted:
-                    case TokenID.BlockMark:
+                    case DigestToken.Scalar:
+                    case DigestToken.Array:
+                    case DigestToken.EmitVariable:
+                    case DigestToken.EmitVariableOffsetted:
+                    case DigestToken.BlockMark:
                         //there are tokens that are handles internally by the tokens implemented above.
                         //if they are not inside, they are to be skipped
                         break;
@@ -430,12 +431,12 @@ namespace Regen.Compiler {
 
         public string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks) {
             var code = line.Content;
-            var basicEmits = Lexer.FindTokens(TokenID.EmitVariable, code);
+            var basicEmits = DigestLexer.FindTokens(DigestToken.EmitVariable, code);
             var currentStack = stacks[stackIndex];
 
             //get tokens with expression in them.
-            var offsetEmit = Lexer.FindTokens(TokenID.EmitVariableOffsetted, code);
-            var expressionEmits = Lexer.FindTokens(TokenID.EmitExpression, code);
+            var offsetEmit = DigestLexer.FindTokens(DigestToken.EmitVariableOffsetted, code);
+            var expressionEmits = DigestLexer.FindTokens(DigestToken.EmitExpression, code);
             int additionalIndex = 0;
             foreach (var emits in basicEmits.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
                 var index = emits.Key;
@@ -451,7 +452,7 @@ namespace Regen.Compiler {
                 }
             }
 
-            offsetEmit = Lexer.FindTokens(TokenID.EmitVariableOffsetted, code); //re-lex because of expressions that might have been expanded inside.
+            offsetEmit = DigestLexer.FindTokens(DigestToken.EmitVariableOffsetted, code); //re-lex because of expressions that might have been expanded inside.
             additionalIndex = 0; //because we re-lexxed
             foreach (var emits in offsetEmit.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
                 var index = emits.Key;
@@ -479,7 +480,7 @@ namespace Regen.Compiler {
             }
 
             //by now everything should be expanded, so we just evaluate and replace.
-            expressionEmits = Lexer.FindTokens(TokenID.EmitExpression, code);
+            expressionEmits = DigestLexer.FindTokens(DigestToken.EmitExpression, code);
             additionalIndex = 0;
             foreach (var expressionMatch in expressionEmits) {
                 var expression = expressionMatch.Match.Groups[1].Value;

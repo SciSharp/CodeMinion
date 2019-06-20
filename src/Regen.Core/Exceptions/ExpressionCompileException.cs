@@ -6,7 +6,7 @@ namespace Regen.Exceptions {
     public class ExpressionCompileException : RegenException {
         public ExpressionCompileException() { }
 
-        public ExpressionCompileException(Token token, TokenID? expected) : base($"After this expression: '{token.Match.Value}' expected {expected}") { }
+        public ExpressionCompileException(DToken dToken, DigestToken? expected) : base($"After this expression: '{dToken.Match.Value}' expected {expected}") { }
         public ExpressionCompileException(string message) : base(message) { }
         public ExpressionCompileException(string message, Exception inner) : base(message, inner) { }
     }

@@ -3,11 +3,12 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
+using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests {
     [TestClass]
-    public class BuiltinTests : UnitTestBase {
+    public class BuiltinTests : DigestUnitTestBase {
         [TestMethod]
         public void range_2() {
             var @input = @"

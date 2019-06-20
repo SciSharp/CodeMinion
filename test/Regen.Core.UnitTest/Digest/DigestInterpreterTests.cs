@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flee.PublicTypes;
 using FluentAssertions;
-using FluentAssertions.Equivalency;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Core.Tests {
+namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class InterpreterTests : UnitTestBase {
+    public class DigestInterpreterTests : DigestUnitTestBase {
         [TestMethod]
         public void import_static_random() {
             var @input = @"
@@ -127,8 +125,8 @@ namespace Regen.Core.Tests {
                 ";
             Interpret(input, new Dictionary<string, object>() {{"a", Scalar.Create(1)}})
                 .Should().Contain("2");
-        }        
-        
+        }
+
         [TestMethod]
         public void unescape_precentage() {
             var input = @"
@@ -164,8 +162,7 @@ namespace Regen.Core.Tests {
                 %(__vars__.get(""a""))
                 ";
 
-            var comp = Compile(@input);
-            var g = comp.Variables["a"];
+            Variables(@input).Should().ContainValue(Data.Create(5));
         }
 
         [TestMethod]
@@ -179,6 +176,14 @@ namespace Regen.Core.Tests {
                 ";
             new Action(() => Compile(@input))
                 .Should().Throw<UndefinedReferenceException>();
+        }
+
+        [TestMethod]
+        public void modlue_return_self() {
+            var @input = @"
+                %(__vars__.self())
+                ";
+            Interpret(@input).Should().Contain("VariableCollectionWrapper");
         }
     }
 }

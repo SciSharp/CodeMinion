@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
+using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 using Regen.Exceptions;
 
 namespace Regen.Core.Tests {
     [TestClass]
-    public class ImportTests : UnitTestBase {
+    public class ImportTests : DigestUnitTestBase {
         [TestMethod]
         public void import_static_class() {
             var @input = @"

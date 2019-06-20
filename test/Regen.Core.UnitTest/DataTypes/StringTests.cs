@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests.DataTypes {
     [TestClass]
-    public class StringTests : UnitTestBase {
+    public class StringTests : DigestUnitTestBase {
         [TestMethod]
         public void string_indexer() {
             var @input = $@"

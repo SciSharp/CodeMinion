@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Regen.Compiler;
 using Regen.DataTypes;
-using Regen.Exceptions;
 using Array = Regen.DataTypes.Array;
 
-namespace Regen.Core.Tests {
+namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class ExpressionTests : UnitTestBase {
+    public class DigestExpressionTests : DigestUnitTestBase {
         [DataTestMethod]
         [DataRow("1+1", 2)]
         [DataRow("1 + 1", 2)]
