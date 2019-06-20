@@ -52,5 +52,9 @@ namespace Regen.Helpers {
                 }
             }
         }
+
+        public static string StringJoin(this IEnumerable<string> strs, string seperator = "") {
+            return string.Join(seperator, strs);
+        }
     }
 }

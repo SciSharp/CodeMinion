@@ -13,7 +13,7 @@ namespace Regen.Helpers {
             if (!haystack.Success || !needle.Success)
                 return false;
             var middle = needle.Index + needle.Length / 2;
-            return haystack.Index <= middle && middle <= haystack.Index + haystack.Length;
+            return haystack.Index <= middle && middle <= haystack.Index + haystack.Length-1;
         }
 
         /// <summary>

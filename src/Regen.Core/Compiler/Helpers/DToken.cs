@@ -1,19 +1,11 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Regen.Compiler.Digest;
 
 namespace Regen.Compiler.Helpers {
-    [DebuggerDisplay("{DigestToken} - {Match}")]
-    public class DToken {
-        public DigestToken DigestToken { get; set; }
-        public Match Match { get; set; }
-
+    [DebuggerDisplay("{Token} - {Match}")]
+    public class DToken : TokenBase<DigestToken> {
         public DToken() { }
-
-        public DToken(DigestToken digestToken, Match match) {
-            DigestToken = digestToken;
-            Match = match ?? throw new ArgumentNullException(nameof(match));
-        }
+        public DToken(DigestToken token, Match match) : base(token, match) { }
     }
 }

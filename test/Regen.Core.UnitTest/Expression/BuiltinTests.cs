@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Compiler.Digest;
 using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 
@@ -11,8 +12,10 @@ namespace Regen.Core.Tests.Expression {
     public class BuiltinTests : ExpressionSharedUnitTestEvaluator {
         [TestMethod]
         public void range_2() {
-            var f = File.ReadAllText("./testfile.cs");
-            Interpret(f);
+            var file = File.ReadAllText("./testSmall.cs");
+            foreach (var frame in DigestParser.ExtractFrames(file)) {
+                Interpret(frame);
+            }
         }
 
         [TestMethod]

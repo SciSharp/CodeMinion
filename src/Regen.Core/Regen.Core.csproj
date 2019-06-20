@@ -82,11 +82,42 @@
     <Compile Include="Collections\DictInlineInitializationException.cs" />
     <Compile Include="Collections\DictMergingException.cs" />
     <Compile Include="Collections\ExpandableList.cs" />
+    <Compile Include="Collections\OList.cs" />
+    <Compile Include="Collections\TokenWalker.cs" />
     <Compile Include="Collections\Merging\IMergable.cs" />
     <Compile Include="Collections\Merging\MergePrefer.cs" />
     <Compile Include="Collections\Merging\Merger.cs" />
+    <Compile Include="Compiler\Expressions\ActionToken.cs" />
     <Compile Include="Compiler\Expressions\EToken.cs" />
     <Compile Include="Compiler\Expressions\ExpressionLexer.cs" />
+    <Compile Include="Compiler\Expressions\Attributes\ExpressionTokenAttribute.cs" />
+    <Compile Include="Compiler\Expressions\Attributes\SwallowsAttribute.cs" />
+    <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Common.cs" />
+    <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\ArgumentsExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\ArrayExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\BooleanLiteral.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\CallExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\CharLiteral.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\ExpressionWalker.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\GroupExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Import.cs" />
+    <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Variable.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\Expression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\Identity.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\IdentityExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\IndexerCallExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\NewExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\NullExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\NumberLiteral.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\OperatorExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\PropertyIdentity.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\StringIdentity.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\StringLiteral.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\ThrowExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\ParserToken.cs" />
+    <Compile Include="Exceptions\InvalidTokenException.cs" />
+    <Compile Include="Compiler\Helpers\TokenBase.cs" />
     <Compile Include="Compiler\Interfaces\IEvaluator.cs" />
     <Compile Include="Compiler\Expressions\ExpressionToken.cs" />
     <Compile Include="Compiler\Digest\ForeachInstance.cs" />
@@ -97,7 +128,7 @@
     <Compile Include="Compiler\Digest\DigestLexer.cs" />
     <Compile Include="Compiler\Helpers\PackedArguments.cs" />
     <Compile Include="Compiler\Helpers\LineBuilder.cs" />
-    <Compile Include="Compiler\Expressions\ExpressionParser.cs">
+    <Compile Include="Compiler\Expressions\Parser\ExpressionParser.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Compiler\Regexes.cs" />
@@ -107,6 +138,9 @@
     <Compile Include="Dynamic\Expando.cs" />
     <Compile Include="Helpers\DefaultConstructor.cs" />
     <Compile Include="Helpers\ReflectionHelper.cs" />
+    <None Include="testSmall.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="Wrappers\VariableCollectionWrapper.cs" />
     <Compile Include="DataTypes\Array.Equality.cs" />
     <Compile Include="DataTypes\Array.Parsing.cs" />

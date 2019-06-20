@@ -94,7 +94,7 @@ namespace Regen.Collections {
         public IList<T> Walking { get; set; }
 
         /// <summary>
-        ///     The index the walker is currently at.
+        ///     The index the walker is currently at. Note: 0 based.
         /// </summary>
         public int Cursor { get; set; }
 
@@ -330,8 +330,9 @@ namespace Regen.Collections {
             int c = 0;
 
             do {
-                if (!predict(Current))
+                if (!predict(Current)) {
                     break;
+                }
                 c++;
             } while (Next());
 

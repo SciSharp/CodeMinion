@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Flee.PublicTypes;
+using Regen.Compiler.Digest;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Array = Regen.DataTypes.Array;
@@ -27,7 +28,7 @@ namespace Regen.Wrappers {
             try {
                 return Data.Create(this[key]);
             } catch (ArgumentException e) {
-                throw new UndefinedReferenceException(e.Message, e);
+                throw new UndefinedReferenceException<DigestToken>(e.Message, e);
             }
         }
 

@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Regen.Compiler.Helpers;
 
 namespace Regen.Compiler.Expressions {
-    [DebuggerDisplay("{ExpressionToken} - {Match}")]
-    public class EToken {
-        public ExpressionToken ExpressionToken { get; set; }
-        public Match Match { get; set; }
-
+    [DebuggerDisplay("{Token} - {Match}")]
+    public class EToken : TokenBase<ExpressionToken> {
         public EToken() { }
-
-        public EToken(ExpressionToken expressionToken, Match match) {
-            ExpressionToken = expressionToken;
-            Match = match ?? throw new ArgumentNullException(nameof(match));
-        }
+        public int WhitespacesAfterMatch { get; set; }
+        public EToken(ExpressionToken token, Match match) : base(token, match) { }
     }
 }

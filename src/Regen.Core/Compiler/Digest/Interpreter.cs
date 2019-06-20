@@ -229,13 +229,13 @@ namespace Regen.Compiler.Digest {
 
             do {
                 var current = walker.Current;
-                switch (walker.Current.DigestToken) {
+                switch (walker.Current.Token) {
                     case DigestToken.Declaration: {
                         var name = walker.Current.Match.Groups[1].Value.Trim();
                         var line = output.GetLineAt(walker.Current.Match.Index);
                         line.MarkedForDeletion = true; //just because the line has declaration - regardless to whats inside.
                         if (!walker.Next())
-                            throw new UnexpectedTokenException(current, DigestToken.Array);
+                            throw new UnexpectedTokenException<DigestToken>(current, DigestToken.Array);
 
                         //check if name is valid (C# compliant)
                         if (!name.All(c => char.IsDigit(c) || char.IsLetter(c) || Regexes.VariableNameValidSymbols.Any(cc => cc == c)) || name.TakeWhile(char.IsDigit).Any()) {
@@ -248,7 +248,7 @@ namespace Regen.Compiler.Digest {
                             throw new ExpressionCompileException($"Variable named '{name}' is taken by the interpreter.");
                         }
 
-                        if (walker.Current.DigestToken == DigestToken.Array) {
+                        if (walker.Current.Token == DigestToken.Array) {
                             var arrayToken = walker.Current;
                             var arrayStr = arrayToken.Match.Groups[0].Value;
 
@@ -257,7 +257,7 @@ namespace Regen.Compiler.Digest {
                                 Debug.WriteLine($"Warning: variable named {name} is already taken and is being overridden at TODO PRINT LINE");
                             variables[name] = values;
                             Context.Variables[name] = values;
-                        } else if (walker.Current.DigestToken == DigestToken.Scalar) {
+                        } else if (walker.Current.Token == DigestToken.Scalar) {
                             var scalarToken = walker.Current;
                             var scalarStr = scalarToken.Match.Groups[1].Value.TrimEnd('\n', '\r');
 
@@ -338,7 +338,7 @@ namespace Regen.Compiler.Digest {
 
                         if (!usesBlock) {
                             if (line.LineNumber >= lines.Lines.Count)
-                                throw new UnexpectedTokenException("After non-block foreach, theres suppose to be a line that is replicated.");
+                                throw new UnexpectedTokenException<DigestToken>("After non-block foreach, theres suppose to be a line that is replicated.");
 
                             var nextline = lines.Lines[line.LineNumber]; //linenumber is index+1 so we dont need to +1.
                             while (loop.CanNext()) {

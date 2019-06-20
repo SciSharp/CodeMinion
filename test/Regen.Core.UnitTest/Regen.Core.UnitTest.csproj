@@ -65,6 +65,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\TokenWalkerTests.cs" />
     <Compile Include="DataTypes\DictTests.cs" />
     <Compile Include="DataTypes\ArrayTests.cs" />
     <Compile Include="DataTypes\StringTests.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Digest\DigestCommentTests.cs" />
     <Compile Include="Digest\DigestExpressionTests.cs" />
     <Compile Include="Expression\BuiltinTests.cs" />
+    <Compile Include="Expression\ExpressionParsingTests.cs" />
     <Compile Include="ImportTests.cs" />
     <Compile Include="Digest\DigestInterpreterTests.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />

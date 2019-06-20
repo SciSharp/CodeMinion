@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
@@ -41,6 +42,18 @@ namespace Regen.Compiler.Digest {
             }
 
             return code;
+        }
+
+        public static IEnumerable<string> ExtractFrames(string code) {
+            var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
+            int additionalOffset = 0;
+            foreach (Match frame in framed)
+            {
+                var regenmatch = frame.Groups[1];
+                var regencode = regenmatch.Value;
+                yield return regencode;
+            }
+
         }
 
         public void Consume(ref string code, int specificAtIndex) {

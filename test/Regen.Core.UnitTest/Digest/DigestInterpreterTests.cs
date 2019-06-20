@@ -176,7 +176,7 @@ namespace Regen.Core.Tests.Digest {
                 
                 ";
             new Action(() => Compile(@input))
-                .Should().Throw<UndefinedReferenceException>();
+                .Should().Throw<UndefinedReferenceException<DigestToken>>();
         }
 
         [TestMethod]
