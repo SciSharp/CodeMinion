@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -10,6 +9,7 @@ using System.Text.RegularExpressions;
 using Flee.PublicTypes;
 using Regen.Builtins;
 using Regen.Collections;
+using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Regen.Helpers;
@@ -17,7 +17,7 @@ using Regen.Wrappers;
 using Array = Regen.DataTypes.Array;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Digest {
     /// <summary>
     ///     Represents a module that is accessible inside an expression. see remarks.
     /// </summary>
@@ -54,7 +54,7 @@ namespace Regen.Compiler {
 
             //handle global blocks
             GlobalVariables = new Dictionary<string, object>();
-            string scriptFramed = Parser.GlobalFrameRegex;
+            string scriptFramed = DigestParser.GlobalFrameRegex;
             foreach (Match match in Regex.Matches(entireCode, scriptFramed, Regexes.DefaultRegexOptions)) {
                 if (!match.Success) //I dont think that unsuccessful can even get here.
                     continue;

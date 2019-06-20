@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
-using Ebby.Dynamic;
 using Regen.Collections.Merging;
+using Regen.Dynamic;
 
 namespace Regen.Collections {
     /// <summary>

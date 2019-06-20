@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Regen.Builtins;
+using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Array = Regen.DataTypes.Array;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Digest {
     public class ForeachConfig {
         public ForeachInstance.StackLength Length { get; set; }
     }

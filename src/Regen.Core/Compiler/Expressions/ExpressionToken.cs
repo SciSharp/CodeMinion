@@ -10,9 +10,12 @@ namespace Regen.Compiler {
         [Description(@"else")] Else,
         [Description(@"foreach")] Foreach,
         [Description(@"return")] Return,
+        [Description(@"var")] Declaration,
         [Description(@"   \"".*?\""   ")] StringLiteral,
         [Description(@"[0-9]+(?:\.[0-9]+)?")] NumberLiteral, //"[0-9][0-9]*"
         [Description(@"[a-zA-Z_][a-zA-Z0-9_]*")] Identity,
+        [Description(@"\//")] CommentRow,
+        [Description(@"\%")] MARKER,
         [Description(@"[ \t]+")] Whitespace,
         [Description(@"\n")] NewLine,
         [Description(@"\+")] Add,
@@ -22,18 +25,18 @@ namespace Regen.Compiler {
         [Description(@"\==")] DoubleEqual,
         [Description(@"\!=")] NotEqual,
         [Description(@"\=")] Equal,
-        [Description(@"\(")] LeftBrace,
-        [Description(@"\)")] RightBrace,
+        [Description(@"\(")] LeftParen,
+        [Description(@"\)")] RightParen,
         [Description(@"\{")] LeftBrackets,
         [Description(@"\}")] RightBrackets,
         [Description(@"\,")] Comma,
         [Description(@"\.")] Period,
+        [Description(@"\?")] QuestionMark,
+        [Description(@"\:")] Colon,
         [Description(@"\@")] Lambda,
-        [Description(@"\%//")] CommentRow,
-        [Description(@"\%")] Block,
+
     }
 }
-
 
 
 [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]

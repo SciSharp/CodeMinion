@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
+using Regen.Compiler.Digest;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Helpers {
     public class LineBuilder : ICloneable {
         public List<Line> Lines { get; set; }
 

@@ -39,13 +39,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
-using System.Linq;
 using System.Reflection;
 using ICollection = System.Collections.ICollection;
 using IEnumerable = System.Collections.IEnumerable;
 using IEnumerator = System.Collections.IEnumerator;
 
-namespace Ebby.Dynamic {
+namespace Regen.Dynamic {
     /// <summary>
     /// Class that provides extensible properties and methods to an
     /// existing object when cast to dynamic. This

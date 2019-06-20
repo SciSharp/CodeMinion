@@ -1,5 +1,7 @@
 ﻿using System;
 using Regen.Compiler;
+using Regen.Compiler.Digest;
+using Regen.Compiler.Helpers;
 
 namespace Regen.Exceptions {
     [Serializable]

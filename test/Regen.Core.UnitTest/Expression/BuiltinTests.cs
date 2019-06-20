@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,18 +11,8 @@ namespace Regen.Core.Tests.Expression {
     public class BuiltinTests : ExpressionSharedUnitTestEvaluator {
         [TestMethod]
         public void range_2() {
-            var @input = @"
-
-                %foreach range(3,3)%
-                    Console.WriteLine(""Printed #1!"");
-                %
-                ";
-
-            Interpret(input)
-                .Should()
-                .Contain("Printed 3").And
-                .Contain("Printed 4").And
-                .Contain("Printed 5");
+            var f = File.ReadAllText("./testfile.cs");
+            Interpret(f);
         }
 
         [TestMethod]

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Digest {
     public enum DigestToken {
         [Description(@"%(\w+)(?=\s*=)")] Declaration,
         [Description(@"(?<=[\s=]) \[ (.*) \]")]Array,

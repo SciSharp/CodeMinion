@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using Regen.DataTypes;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Helpers {
     public class StackDictionary : Dictionary<int, Data> {
         /// <summary>Initializes a new instance of the <see cref="T:System.Collections.Generic.Dictionary`2" /> class that is empty, has the default initial capacity, and uses the default equality comparer for the key type.</summary>
         public StackDictionary() { }

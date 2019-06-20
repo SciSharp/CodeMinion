@@ -207,64 +207,188 @@ namespace Regen.Compiler {
 
             do {
                 var current = walker.Current;
-                ;
+
+                EToken Next() {
+                    return walker.Next() ? walker.Current : null;
+                }
+
                 switch (walker.Current.ExpressionToken) {
-                    case ExpressionToken.Import:
+                    case ExpressionToken.Import: {
                         break;
-                    case ExpressionToken.Function:
+                    }
+
+                    case ExpressionToken.Function: {
                         break;
-                    case ExpressionToken.If:
+                    }
+
+                    case ExpressionToken.If: {
                         break;
-                    case ExpressionToken.ElseIf:
+                    }
+
+                    case ExpressionToken.ElseIf: {
                         break;
-                    case ExpressionToken.Else:
+                    }
+
+                    case ExpressionToken.Else: {
                         break;
-                    case ExpressionToken.Foreach:
+                    }
+
+                    case ExpressionToken.Foreach: {
                         break;
-                    case ExpressionToken.Return:
+                    }
+
+                    case ExpressionToken.Return: {
                         break;
-                    case ExpressionToken.StringLiteral:
+                    }
+
+                    case ExpressionToken.StringLiteral: {
                         break;
-                    case ExpressionToken.NumberLiteral:
+                    }
+
+                    case ExpressionToken.NumberLiteral: {
                         break;
-                    case ExpressionToken.Identity:
+                    }
+
+                    case ExpressionToken.Identity: {
                         break;
-                    case ExpressionToken.Whitespace:
+                    }
+
+                    case ExpressionToken.Whitespace: {
                         break;
-                    case ExpressionToken.NewLine:
+                    }
+
+                    case ExpressionToken.NewLine: {
                         break;
-                    case ExpressionToken.Add:
+                    }
+
+                    case ExpressionToken.Add: {
                         break;
-                    case ExpressionToken.Sub:
+                    }
+
+                    case ExpressionToken.Sub: {
                         break;
-                    case ExpressionToken.Mul:
+                    }
+
+                    case ExpressionToken.Mul: {
                         break;
-                    case ExpressionToken.Div:
+                    }
+
+                    case ExpressionToken.Div: {
                         break;
-                    case ExpressionToken.DoubleEqual:
+                    }
+
+                    case ExpressionToken.DoubleEqual: {
                         break;
-                    case ExpressionToken.NotEqual:
+                    }
+
+                    case ExpressionToken.NotEqual: {
                         break;
-                    case ExpressionToken.Equal:
+                    }
+
+                    case ExpressionToken.Equal: {
                         break;
-                    case ExpressionToken.LeftBrace:
+                    }
+
+                    case ExpressionToken.LeftParen: {
                         break;
-                    case ExpressionToken.RightBrace:
+                    }
+
+                    case ExpressionToken.RightParen: {
                         break;
-                    case ExpressionToken.LeftBrackets:
+                    }
+
+                    case ExpressionToken.LeftBrackets: {
                         break;
-                    case ExpressionToken.RightBrackets:
+                    }
+
+                    case ExpressionToken.RightBrackets: {
                         break;
-                    case ExpressionToken.Comma:
+                    }
+
+                    case ExpressionToken.Comma: {
                         break;
-                    case ExpressionToken.Period:
+                    }
+
+                    case ExpressionToken.Period: {
                         break;
-                    case ExpressionToken.Lambda:
+                    }
+
+                    case ExpressionToken.Lambda: {
                         break;
-                    case ExpressionToken.CommentRow:
+                    }
+
+                    case ExpressionToken.CommentRow: {
+
                         break;
-                    case ExpressionToken.Block:
+                    }
+                    case ExpressionToken.MARKER: {
+                        current = Next();
+                        if (current == null)
+                            break;
+                        switch (current.ExpressionToken) {
+                            case ExpressionToken.Import:
+
+                                break;
+                            case ExpressionToken.Function:
+                                break;
+                            case ExpressionToken.If:
+                                break;
+                            case ExpressionToken.ElseIf:
+                                break;
+                            case ExpressionToken.Else:
+                                break;
+                            case ExpressionToken.Foreach:
+                                break;
+                            case ExpressionToken.Return:
+                                break;
+                            case ExpressionToken.StringLiteral:
+                                break;
+                            case ExpressionToken.NumberLiteral:
+                                break;
+                            case ExpressionToken.Identity:
+                                break;
+                            case ExpressionToken.Whitespace:
+                                break;
+                            case ExpressionToken.NewLine:
+                                break;
+                            case ExpressionToken.Add:
+                                break;
+                            case ExpressionToken.Sub:
+                                break;
+                            case ExpressionToken.Mul:
+                                break;
+                            case ExpressionToken.Div:
+                                break;
+                            case ExpressionToken.DoubleEqual:
+                                break;
+                            case ExpressionToken.NotEqual:
+                                break;
+                            case ExpressionToken.Equal:
+                                break;
+                            case ExpressionToken.LeftParen:
+                                break;
+                            case ExpressionToken.RightParen:
+                                break;
+                            case ExpressionToken.LeftBrackets:
+                                break;
+                            case ExpressionToken.RightBrackets:
+                                break;
+                            case ExpressionToken.Comma:
+                                break;
+                            case ExpressionToken.Period:
+                                break;
+                            case ExpressionToken.Lambda:
+                                break;
+                            case ExpressionToken.CommentRow:
+                                break;
+                            case ExpressionToken.MARKER:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                         break;
+                    }
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

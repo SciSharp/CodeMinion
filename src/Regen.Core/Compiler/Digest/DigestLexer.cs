@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Regen.Compiler.Helpers;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Digest {
     public static class DigestLexer {
         public static List<DToken> Tokenize(string code) {
             var possabilities = new List<(string Regex, DigestToken Token)>(

@@ -1,4 +1,4 @@
-﻿namespace Regen.Compiler {
+﻿namespace Regen.Compiler.Helpers {
     /// <summary>
     ///     Represents packed arguments that are to be unpacked when value is to be used.
     /// </summary>

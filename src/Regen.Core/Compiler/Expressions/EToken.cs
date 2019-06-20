@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Expressions {
     [DebuggerDisplay("{ExpressionToken} - {Match}")]
     public class EToken {
         public ExpressionToken ExpressionToken { get; set; }

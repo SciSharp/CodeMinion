@@ -6,6 +6,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Regen.Compiler;
+using Regen.Compiler.Digest;
 using Regen.Helpers;
 using Task = System.Threading.Tasks.Task;
 
@@ -94,7 +95,7 @@ namespace Regen {
             var index = cursor.AbsoluteCharOffset;
 
             var code = txt.GetText().Replace("\r", "");
-            code = Regex.Replace(code, $@"(\#if\s{Parser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)",
+            code = Regex.Replace(code, $@"(\#if\s{DigestParser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)",
                 "$1" + Environment.NewLine, Regexes.DefaultRegexOptions);
 
             try {

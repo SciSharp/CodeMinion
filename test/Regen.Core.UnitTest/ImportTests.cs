@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
+using Regen.Compiler.Digest;
 using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 using Regen.Exceptions;

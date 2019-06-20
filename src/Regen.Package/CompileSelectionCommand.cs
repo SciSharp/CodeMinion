@@ -5,6 +5,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Regen.Compiler;
+using Regen.Compiler.Digest;
 using Regen.Helpers;
 using Task = System.Threading.Tasks.Task;
 
@@ -98,7 +99,7 @@ namespace Regen {
 
             var cursor = textSelection.ActivePoint as VirtualPoint;
             var index = cursor.AbsoluteCharOffset;
-            var parser = new Parser();
+            var parser = new DigestParser();
             try {
                 var consumed = parser.Consume(fileCode, index);
                 var ed = txt.CreateEditPoint(txt.StartPoint);

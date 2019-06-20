@@ -15,5 +15,7 @@ namespace Regen.Compiler {
         /// (Regen.Core.Generated), Version=0.0.1.3, Culture=neutral, PublicKeyToken=c27591280ed7de68
         /// </summary>
         public static string SelectNamespaceFromAssemblyName = @"^((?:[\s\S])+?[^,]+)";
+
+        public static string Parenthases = @"\((?:[^()]|(?<open>\()|(?<-open>\)))+(?(open)(?!))\)";
     }
 }

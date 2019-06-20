@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Regen.Compiler.Digest;
 
-namespace Regen.Compiler {
+namespace Regen.Compiler.Helpers {
     [DebuggerDisplay("{DigestToken} - {Match}")]
     public class DToken {
         public DigestToken DigestToken { get; set; }
