@@ -107,6 +107,7 @@
     <Compile Include="Compiler\Expressions\Parser\Expression\Identity.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\IdentityExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\IndexerCallExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\KeyValueExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\NewExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\NullExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\NumberLiteral.cs" />

@@ -280,13 +280,43 @@ of nothing
         [TestMethod]
         public void expression_variable_dictionary() {
             var input = @"
-                %a = {[yoo: 123], [yoo: 123]}";
+                %a = [yoo: 1223, ""yoo2"": 123]";
             var ret = Compile(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
             var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
-            varexpr.Right.Should().BeOfType<CharLiteral>().Which.Value.Should().Be('c');
+            var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which.Values;
+            arr[0].Should().BeOfType<KeyValueExpression>()
+                .Which.Key.Should().BeOfType<IdentityExpression>()
+                .Which.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("yoo");
+            arr[1].Should().BeOfType<KeyValueExpression>()
+                .Which.Key.Should().BeOfType<StringLiteral>().Which.Value.Should().Be("yoo2");
+            arr[0].Should().BeOfType<KeyValueExpression>()
+                .Which.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1223");
+            arr[1].Should().BeOfType<KeyValueExpression>()
+                .Which.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
+        }
+        [TestMethod]
+        public void expression_variable_dictionary_with_nestedarray() {
+            var input = @"
+                %a = [yoo: 1223, [""yoo2"": 123]]";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
+            var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which.Values;
+            arr[0].Should().BeOfType<KeyValueExpression>()
+                .Which.Key.Should().BeOfType<IdentityExpression>()
+                .Which.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("yoo");
+
+            arr[0].Should().BeOfType<KeyValueExpression>()
+                .Which.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1223");
+            var nested = arr[1].Should().BeOfType<ArrayExpression>().Which.Values[0].Should().BeOfType<KeyValueExpression>().Which;
+            nested.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
+            nested.Should().BeOfType<KeyValueExpression>()
+                .Which.Key.Should().BeOfType<StringLiteral>().Which.Value.Should().Be("yoo2");
         }
 
         [TestMethod]

@@ -27,7 +27,11 @@ namespace Regen.Compiler.Expressions {
                     continue;
                 }
 
-                exprs.Add(ew.ParseExpression());
+                var expression = ew.ParseExpression();
+                if (ew.IsCurrent(ExpressionToken.Colon)) {
+                    exprs.Add(KeyValueExpression.Parse(ew, expression));
+                } else
+                    exprs.Add(expression);
             }
 
             if (exprs.Count == 0 && !argsOptional)

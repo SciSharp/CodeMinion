@@ -15,32 +15,19 @@ Make sure to read our [getting started](TUTORIAL.md) page!
 
 - [ ] Getting started page.
 - [ ] Real world application examples.
-- [ ] Support multiple loops. 
 - [ ] ForLoops unit-tests.
 - [X] Extending builtin functions by adding types. syntax: `%import namespace.type`
   - [X] Unit tests.
   - [ ] Support for %import global namespace.type which parses _REGEN_GLOBAL blocks.
 - [X] Escaped `\%` should be unescaped on output.
 - [X] Support comments, syntax: `#// `
-- [ ] 200 Unit tests. _(progress: 150)_
+- [X] 200 Unit tests. _(progress: 200+)_
 - [ ] GUI version for usage without vsix installed. (also to serve as playground)
 - [X] Support names that end with number.
-
-- [ ] Add support for Regex.
-- [ ] Finish types:
-  - [ ] BoolScalar
-    - [ ] Unit Tets
-    - [ ] BoolScalar
-      - [ ] Unit Tets
-    - [ ] DictScalar
-      - [ ] Unit Tets
-    - [ ] NetObject
-      - [ ] Unit Tets
 - [X] Add Context as a builtin variable.
 - [X] Add a variable that contains all variables.
 
-##### Late Alpha
-- [ ] Support booleans
+- [X] Support booleans
 - [ ] Support conditional emit
 - [ ] Add support for dictionaries.
 - [ ] Add support for tuples.
