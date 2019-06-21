@@ -22,6 +22,8 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string PartialName { get; set; }
 
+        public string SubDir { get; set; }
+
     }
 
     /// <summary>

@@ -12,6 +12,7 @@ using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SliceAndDice;
 
 namespace CodeMinion.Core
 {
@@ -25,6 +26,7 @@ namespace CodeMinion.Core
         public string CopyrightNotice { get; set; }
         public List<StaticApi> StaticApis { get; set; } = new List<StaticApi>();
         public List<DynamicApi> DynamicApis { get; set; } = new List<DynamicApi>();
+        public List<ApiClass> ApiClasses { get; set; } = new List<ApiClass>();
         public bool PrintModelJson { get; set; } = false;
         public string NameSpace { get; set; } = "Numpy";
         public bool UsePythonIncluded { get; set; } = true;
@@ -329,6 +331,16 @@ namespace CodeMinion.Core
             s.Out("/// </returns>");
         }
 
+        protected virtual void GenerateDocString(ApiClass decl, CodeWriter s)
+        {
+            if (string.IsNullOrWhiteSpace(decl.DocString))
+                return;
+            s.Out("/// <summary>");
+            foreach (var line in Regex.Split(decl.DocString, @"\r?\n"))
+                s.Out("/// " + line);
+            s.Out("/// </summary>");           
+        }
+
         // generates only the body of the API function declaration
         protected virtual void GenerateFunctionBody(Function func, CodeWriter s, string prefix = "")
         {
@@ -561,6 +573,67 @@ namespace CodeMinion.Core
             });
         }
 
+        public virtual void GenerateClass(ApiClass api, CodeWriter s)
+        {
+            GenerateUsings(s);
+            s.AppendLine($"namespace {NameSpace}");
+            s.Block(() =>
+            {
+                var names = new ArraySlice<string>(api.ClassName.Split('.'));
+                var static_classes = names.GetSlice(new Slice(0, names.Length-1));
+                var class_name = names.Last();
+                int levels = names.Length - 1;
+                if (levels > 0)
+                {
+                    foreach (var name in static_classes)
+                    {
+                        s.Out($"public static partial class {EscapeName(name)} {{");
+                        s.Indent();
+                    }
+                }
+                GenerateDocString(api, s);
+                s.Out($"public partial class {EscapeName(class_name)} : PythonObject");
+                s.Block(() =>
+                {
+                    s.Out($"// auto-generated class");
+                    s.Break();
+                    s.Out($"public {EscapeName(class_name)}(PyObject pyobj) : base(pyobj) {{ }}");
+                    s.Break();
+                    // todo: constructor
+                    foreach (var decl in api.Declarations)
+                    {
+                        try
+                        {
+                            if (decl.ManualOverride || decl.Ignore)
+                                continue;
+                            GenerateApiFunction(decl, s);
+                        }
+                        catch (Exception e)
+                        {
+                            s.Out("// Error generating delaration: " + decl.Name);
+                            s.Out("// Message: " + e.Message);
+                            s.Out("/*");
+                            s.Out(e.StackTrace);
+                            s.Out("----------------------------");
+                            s.Out("Declaration JSON:");
+                            s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
+                            s.Out("*/");
+                        }
+                    }
+                });
+                if (levels > 0)
+                {
+                    foreach (var name in static_classes)
+                    {
+                        s.Outdent();
+                        s.Out("}");
+                    }
+                }
+                //if (decl.CommentOut)
+                //    s.Out("*/");
+                s.Break();
+            });
+        }
         protected void WriteFile(string path, Action<CodeWriter> generate_action)
         {
             var s = new CodeWriter();
@@ -580,6 +653,10 @@ namespace CodeMinion.Core
                 s.AppendLine(e.StackTrace);
                 s.AppendLine("*/");
             }
+
+            var dir = Path.GetDirectoryName(path);
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
             File.WriteAllText(path, s.ToString());
         }
 
@@ -609,6 +686,7 @@ namespace CodeMinion.Core
             // PythonObject functions:
             var pyobj_file = Path.Combine(DynamicApiFilesPath, $"PythonObject.gen.cs");
             WriteFile(pyobj_file, s => { GeneratePythonObjectConversions(s); });
+            // Dynamic APIs
             foreach (var api in DynamicApis)
             {
                 var outpath = api.OutputPath ?? DynamicApiFilesPath;
@@ -617,6 +695,17 @@ namespace CodeMinion.Core
                 var api_file = Path.Combine(outpath, $"{api.ClassName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateDynamicApi(api, s); });
             }
+            // Classes
+            foreach (var api in ApiClasses)
+            {
+                var outpath = api.OutputPath ?? DynamicApiFilesPath;
+                if (api.SubDir != null)
+                    outpath = Path.Combine(outpath, api.SubDir);
+                // generate dynamic apis
+                var partial = (api.PartialName == null ? "" : "." + api.PartialName);
+                var api_file = Path.Combine(outpath, $"{api.ClassName + partial}.gen.cs");
+                WriteFile(api_file, s => { GenerateClass(api, s); });
+            }            
             // generate missing tests
             GenerateAllTests();
         }

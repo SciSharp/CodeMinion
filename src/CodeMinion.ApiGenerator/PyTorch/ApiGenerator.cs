@@ -82,6 +82,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
+            ParseClasses("nn.html", subdir:"nn");
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -190,6 +191,39 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 var testcase = ParseTests(decl, node);
                 if (testcase != null)
                     testfile.TestCases.Add(testcase);
+            }
+        }
+
+        private void ParseClasses(string uri, string subdir)
+        {
+            Console.WriteLine("Parsing: " + uri);
+            var doc = LoadDoc(uri);
+            foreach (var classNode in doc.DocumentNode.Descendants("dl").Where(x => x.Attributes["class"]?.Value == "class"))
+            {
+                var fullname = classNode.Element("dt").Attributes["id"]?.Value;
+                //var classname = fullname.Split(".").Last();
+                var api = new ApiClass()
+                {
+                    ClassName = fullname, 
+                    SubDir = subdir,
+                };
+                _generator.ApiClasses.Add(api);
+                var testfile = new TestFile() { Name = $"{api.ClassName}" };
+                _generator.TestFiles.Add(testfile);
+                var dd = classNode.Element("dd");
+                api.DocString=dd.Element("p").InnerText;
+                var dl=dd.Element("dl");
+                if (dl != null)
+                {
+                    var dt = dl.Element("dt");
+                    if (dt != null && dt.InnerText == "Parameters")
+                    {
+                        var parameters_dd = dl.Element("dd");
+                        var decl=new Function() { Name="Constructor" };
+                        ParseArgumentsList(decl, parameters_dd);
+                        api.Constructors.Add(decl);
+                    }
+                }
             }
         }
 
