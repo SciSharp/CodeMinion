@@ -1,45 +1,60 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 
 namespace Regen.Compiler.Expressions {
     public partial class ExpressionWalker {
         public Expression ParseExpression(Type caller = null) {
+            Expression ret = null;
             var current = Current.Token;
             if (current == ExpressionToken.Literal) {
                 var peak = PeakNextOrThrow().Token;
                 if (peak == ExpressionToken.LeftParen) {
-                    return CallExpression.Parse(this);
+                    ret = CallExpression.Parse(this);
                 } else if (peak == ExpressionToken.Period && caller != typeof(IdentityExpression)) {
-                    return IdentityExpression.Parse(this);
+                    ret = IdentityExpression.Parse(this);
                 } else if (peak == ExpressionToken.LeftBracet) {
-                    return IndexerCallExpression.Parse(this);
+                    ret = IndexerCallExpression.Parse(this);
                 } else if (peak == ExpressionToken.New) {
-                    return NewExpression.Parse(this);
-                } else if (OperatorExpression.IsNextAnOperation(this) && caller != typeof(OperatorExpression)) {
-                    return OperatorExpression.Parse(this);
+                    ret = NewExpression.Parse(this);
+                } else if (RightOperatorExpression.IsNextAnRightUniOperation(this, caller) && caller != typeof(RightOperatorExpression)) {
+                    ret = RightOperatorExpression.Parse(this);
+                } else if (OperatorExpression.IsNextAnOperation(this) && caller != typeof(OperatorExpression) && caller != typeof(RightOperatorExpression)) {
+                    ret = OperatorExpression.Parse(this);
                 } else {
-                    return IdentityExpression.Parse(this, caller);
+                    ret = IdentityExpression.Parse(this, caller);
                 }
-            } else if (OperatorExpression.IsNextAnOperation(this) && caller != typeof(OperatorExpression)) {
-                return OperatorExpression.Parse(this);
+            } else if (LeftOperatorExpression.IsCurrentAnLeftUniOperation(this)) {
+                ret = LeftOperatorExpression.Parse(this);
             } else if (current == ExpressionToken.NumberLiteral) {
-                return NumberLiteral.Parse(this);
+                ret = NumberLiteral.Parse(this);
             } else if (current == ExpressionToken.StringLiteral) {
-                return StringLiteral.Parse(this);
+                ret = StringLiteral.Parse(this);
             } else if (current == ExpressionToken.LeftParen) {
-                return GroupExpression.Parse(this, ExpressionToken.LeftParen, ExpressionToken.RightParen);
+                ret = GroupExpression.Parse(this, ExpressionToken.LeftParen, ExpressionToken.RightParen);
             } else if (current == ExpressionToken.LeftBracet) {
-                return ArrayExpression.Parse(this);
+                ret = ArrayExpression.Parse(this);
             } else if (current == ExpressionToken.New) {
-                return NewExpression.Parse(this);
+                ret = NewExpression.Parse(this);
             } else if (current == ExpressionToken.Boolean) {
-                return BooleanLiteral.Parse(this);
+                ret = BooleanLiteral.Parse(this);
             } else if (current == ExpressionToken.CharLiteral) {
-                return CharLiteral.Parse(this);
+                ret = CharLiteral.Parse(this);
             } else if (current == ExpressionToken.Throw) {
-                return ThrowExpression.Parse(this);
+                ret = ThrowExpression.Parse(this);
+            } else {
+                throw new Exception($"Token was expected to be an expression but got {this.Current.Token}");
             }
 
-            return new Expression();
+            //here we find trailing expressions 
+            while (OperatorExpression.IsCurrentAnOperation(this)) {
+                if (RightOperatorExpression.IsCurrentAnRightUniOperation(this) && caller != typeof(OperatorExpression)) {
+                    ret = RightOperatorExpression.Parse(this, ret);
+                } else if (OperatorExpression.IsCurrentAnOperation(this)) {
+                    ret = OperatorExpression.Parse(this, ret);
+                }
+            }
+
+            return ret;
         }
     }
 }

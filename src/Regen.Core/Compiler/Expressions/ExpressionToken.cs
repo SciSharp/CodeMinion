@@ -46,6 +46,7 @@ namespace Regen.Compiler.Expressions {
         [ExpressionToken(@"\|\|", 140)] [Swallows(Or)] DoubleOr,
         [ExpressionToken(@"\|", 145)] Or,
         [ExpressionToken(@"\~", 150)] Not,
+        [ExpressionToken(@"\!", 151)] NotBoolean,
         [ExpressionToken(@"\^", 155)] Xor,
         [ExpressionToken(@"\>\>", 160)] [Swallows(BiggerOrEqualThat)] ShiftRight,
         [ExpressionToken(@"\>\=", 165)] [Swallows(BiggerThan)] BiggerOrEqualThat,

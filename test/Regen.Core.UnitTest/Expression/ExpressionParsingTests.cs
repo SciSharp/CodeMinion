@@ -297,6 +297,7 @@ of nothing
             arr[1].Should().BeOfType<KeyValueExpression>()
                 .Which.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
         }
+
         [TestMethod]
         public void expression_variable_dictionary_with_nestedarray() {
             var input = @"
@@ -313,6 +314,24 @@ of nothing
 
             arr[0].Should().BeOfType<KeyValueExpression>()
                 .Which.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1223");
+            var nested = arr[1].Should().BeOfType<ArrayExpression>().Which.Values[0].Should().BeOfType<KeyValueExpression>().Which;
+            nested.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
+            nested.Should().BeOfType<KeyValueExpression>()
+                .Which.Key.Should().BeOfType<StringLiteral>().Which.Value.Should().Be("yoo2");
+        }
+
+        [TestMethod]
+        public void expression_variable_mixed_dictionary_with_nestedarray() {
+            var input = @"
+                %a = [1223, [""yoo2"": 123]]";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
+            var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which.Values;
+            arr[0].Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1223");
+
             var nested = arr[1].Should().BeOfType<ArrayExpression>().Which.Values[0].Should().BeOfType<KeyValueExpression>().Which;
             nested.Value.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
             nested.Should().BeOfType<KeyValueExpression>()
@@ -500,6 +519,70 @@ of nothing
             constr.Should().BeOfType<CallExpression>().Which.FunctionName.Should().BeOfType<IdentityExpression>()
                 .Which.Identity.Should().BeOfType<StringIdentity>()
                 .Which.Name.Should().Be("Classy");
+        }
+
+        [TestMethod]
+        public void expression_variable_increment_left() {
+            var input = @"
+                %v = ++a
+";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
+            var op = varexpr.Right.Should().BeOfType<LeftOperatorExpression>().Which;
+
+            op.Op.Should().Be(ExpressionToken.Increment);
+            op.Right.Should().BeOfType<IdentityExpression>().Which.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
+        }
+
+        [TestMethod]
+        public void expression_variable_increment_right() {
+            var input = @"
+                %v = a++
+";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
+            var op1 = varexpr.Right.Should().BeOfType<RightOperatorExpression>().Which;
+
+            op1.Left.Should().BeOfType<IdentityExpression>().Which.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
+            op1.Op.Should().Be(ExpressionToken.Increment);
+        }
+
+        [TestMethod]
+        public void expression_variable_increment_right_add() {
+            var input = @"
+                %v = a++ + 5
+";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
+            var op1 = varexpr.Right.Should().BeOfType<OperatorExpression>().Which;
+
+            var op2 = op1.Left.Should().BeOfType<RightOperatorExpression>().Which;
+            op2.Left.Should().BeOfType<IdentityExpression>().Which.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
+            op2.Op.Should().Be(ExpressionToken.Increment);
+
+            op1.Op.Should().Be(ExpressionToken.Add);
+            op1.Right.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("5");
+        }
+
+        [TestMethod]
+        public void expression_variable_increment_grouped_right_add() {
+            var input = @"
+                %v = (a++) + 5 + a/3
+";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
         }
     }
 }
