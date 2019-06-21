@@ -1,23 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Regen.Compiler.Expressions {
     /// <summary>
     ///     An indentiy that is found by a string name.
     /// </summary>
     public class StringIdentity : Identity, IEquatable<StringIdentity>, IEquatable<string>, IEquatable<StringLiteral> {
+        private Match _match;
         public string Name { get; set; }
 
-        public StringIdentity(string name) {
+        private StringIdentity(string name) {
             Name = name;
+        }
+
+        public static StringIdentity Create(Match match) {
+            return new StringIdentity(match.Value) {_match = match};
         }
 
         public new static StringIdentity Parse(ExpressionWalker ew) {
             //types:
             //justname
             ew.IsCurrentOrThrow(ExpressionToken.Literal);
-            var ret = new StringIdentity(ew.Current.Match.Value);
+            var ret = new StringIdentity(ew.Current.Match.Value) {_match = ew.Current.Match};
             ew.Next();
             return ret;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            yield return _match;
         }
 
         #region Equality

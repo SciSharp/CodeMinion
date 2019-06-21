@@ -24,6 +24,9 @@
         ///     output#1text
         /// </summary>
         ForeachSingle,
-
+        /// <summary>
+        ///     %import namespace.type as aliasname
+        /// </summary>
+        Import
     }
 }

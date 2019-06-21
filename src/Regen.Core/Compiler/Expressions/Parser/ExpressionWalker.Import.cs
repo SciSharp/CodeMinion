@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using Regen.Collections;
 using Regen.Helpers;
 
@@ -13,6 +14,8 @@ namespace Regen.Compiler.Expressions {
         ///     Optional
         /// </summary>
         public string As { get; set; }
+
+       
     }
 
     public partial class ExpressionWalker {

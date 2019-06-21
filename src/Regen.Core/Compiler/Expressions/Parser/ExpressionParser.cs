@@ -227,7 +227,7 @@ namespace Regen.Compiler.Expressions {
             var parserTokens = new OList<ParserAction>();
             do {
                 var current = walker.Current;
-                
+
                 switch (walker.Current.Token) {
                     case ExpressionToken.MARKER: {
                         current = walker.NextToken();
@@ -235,7 +235,7 @@ namespace Regen.Compiler.Expressions {
                             break;
                         switch (current.Token) {
                             case ExpressionToken.Import:
-                                walker.ParseImport();
+                                parserTokens += new ParserAction(ParserToken.Import, walker.ParseImport());
                                 break;
                             case ExpressionToken.Literal: {
                                 var peak = walker.PeakNext.Token;
@@ -247,130 +247,13 @@ namespace Regen.Compiler.Expressions {
 
                                 break;
                             }
-                            case ExpressionToken.New:
+                            case ExpressionToken.LeftParen: { //it is an expression block
+                                parserTokens += new ParserAction(ParserToken.Declaration, walker.ParseExpression());
                                 break;
+                            }
+
                             case ExpressionToken.CommentRow:
                                 walker.SkipForwardWhile(t => t.Token != ExpressionToken.NewLine); //todo test
-                                break;
-                            case ExpressionToken.As:
-                                break;
-                            case ExpressionToken.Function:
-                                break;
-                            case ExpressionToken.Throw:
-                                break;
-                            case ExpressionToken.If:
-                                break;
-                            case ExpressionToken.ElseIf:
-                                break;
-                            case ExpressionToken.Else:
-                                break;
-                            case ExpressionToken.Foreach:
-                                break;
-                            case ExpressionToken.While:
-                                break;
-                            case ExpressionToken.Do:
-                                break;
-                            case ExpressionToken.Reset:
-                                break;
-                            case ExpressionToken.Return:
-                                break;
-                            case ExpressionToken.Case:
-                                break;
-                            case ExpressionToken.Switch:
-                                break;
-                            case ExpressionToken.Break:
-                                break;
-                            case ExpressionToken.Continue:
-                                break;
-                            case ExpressionToken.Default:
-                                break;
-                            case ExpressionToken.Declaration:
-                                break;
-                            case ExpressionToken.StringLiteral:
-                                break;
-                            case ExpressionToken.NumberLiteral:
-                                break;
-                            case ExpressionToken.Whitespace:
-                                break;
-                            case ExpressionToken.NewLine:
-                                break;
-                            case ExpressionToken.UnixNewLine:
-                                break;
-                            case ExpressionToken.MARKER:
-                                break;
-                            case ExpressionToken.Increment:
-                                break;
-                            case ExpressionToken.Decrement:
-                                break;
-                            case ExpressionToken.Add:
-                                break;
-                            case ExpressionToken.Sub:
-                                break;
-                            case ExpressionToken.Pow:
-                                break;
-                            case ExpressionToken.Mul:
-                                break;
-                            case ExpressionToken.Div:
-                                break;
-                            case ExpressionToken.DoubleEqual:
-                                break;
-                            case ExpressionToken.NotEqual:
-                                break;
-                            case ExpressionToken.Equal:
-                                break;
-                            case ExpressionToken.DoubleAnd:
-                                break;
-                            case ExpressionToken.And:
-                                break;
-                            case ExpressionToken.DoubleOr:
-                                break;
-                            case ExpressionToken.Or:
-                                break;
-                            case ExpressionToken.Not:
-                                break;
-                            case ExpressionToken.Xor:
-                                break;
-                            case ExpressionToken.ShiftRight:
-                                break;
-                            case ExpressionToken.BiggerOrEqualThat:
-                                break;
-                            case ExpressionToken.BiggerThan:
-                                break;
-                            case ExpressionToken.ShiftLeft:
-                                break;
-                            case ExpressionToken.SmallerOrEqualThat:
-                                break;
-                            case ExpressionToken.SmallerThan:
-                                break;
-                            case ExpressionToken.LeftParen:
-                                break;
-                            case ExpressionToken.RightParen:
-                                break;
-                            case ExpressionToken.LeftBrace:
-                                break;
-                            case ExpressionToken.RightBrace:
-                                break;
-                            case ExpressionToken.LeftBracet:
-                                break;
-                            case ExpressionToken.RightBracet:
-                                break;
-                            case ExpressionToken.Hashtag:
-                                break;
-                            case ExpressionToken.Comma:
-                                break;
-                            case ExpressionToken.RangeTo:
-                                break;
-                            case ExpressionToken.Period:
-                                break;
-                            case ExpressionToken.NullCoalescing:
-                                break;
-                            case ExpressionToken.QuestionMark:
-                                break;
-                            case ExpressionToken.Colon:
-                                break;
-                            case ExpressionToken.SemiColon:
-                                break;
-                            case ExpressionToken.Lambda:
                                 break;
                             default:
                                 //Console.WriteLine();
@@ -387,7 +270,7 @@ namespace Regen.Compiler.Expressions {
             } while (walker.Next());
 
             var compiled = output.Compile(Options);
-            return new InterpredCode() {OriginalCode = code, Output = compiled, Variables = variables, ETokens = (List<EToken>) walker.Walking, ParseActions = parserTokens };
+            return new InterpredCode() {OriginalCode = code, Output = compiled, Variables = variables, ETokens = (List<EToken>) walker.Walking, ParseActions = parserTokens};
         }
 
         public string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks) {

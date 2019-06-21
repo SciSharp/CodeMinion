@@ -7,6 +7,7 @@ namespace Regen.Compiler.Expressions {
             Expression ret = null;
             var current = Current.Token;
             if (current == ExpressionToken.Literal) {
+                //cases like variable(.., variable[.., variable + .., variable
                 var peak = PeakNextOrThrow().Token;
                 if (peak == ExpressionToken.LeftParen) {
                     ret = CallExpression.Parse(this);
@@ -41,11 +42,13 @@ namespace Regen.Compiler.Expressions {
                 ret = CharLiteral.Parse(this);
             } else if (current == ExpressionToken.Throw) {
                 ret = ThrowExpression.Parse(this);
+            } else if (current == ExpressionToken.Null) {
+                ret = NullIdentity.Parse(this);
             } else {
                 throw new Exception($"Token was expected to be an expression but got {this.Current.Token}");
             }
 
-            //here we find trailing expressions 
+            //here we parse chained math operations
             while (OperatorExpression.IsCurrentAnOperation(this)) {
                 if (RightOperatorExpression.IsCurrentAnRightUniOperation(this) && caller != typeof(OperatorExpression)) {
                     ret = RightOperatorExpression.Parse(this, ret);

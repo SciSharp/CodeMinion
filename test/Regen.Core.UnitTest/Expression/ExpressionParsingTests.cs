@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler.Expressions;
+using Regen.Helpers;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
@@ -502,6 +503,19 @@ of nothing
                 var prop = indexer.Right.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1");
                 throw new InvalidOperationException("Can throw a literal number.");
             }).Should().Throw<Exception>();
+        }
+
+        [TestMethod]
+        public void expression_variable_null() {
+            var input = @"
+                %a = null;
+";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Declaration);
+            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
+            var indexer = varexpr.Right.Should().BeOfType<IdentityExpression>().Which.Identity.Should().BeOfType<NullIdentity>();
         }
 
         [TestMethod]

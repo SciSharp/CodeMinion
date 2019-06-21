@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class ArgumentsExpression : Expression {
+        private static readonly Match _seperator = ",".WrapAsMatch();
         public Expression[] Arguments;
 
         public ArgumentsExpression(params Expression[] arguments) {
@@ -20,7 +23,7 @@ namespace Regen.Compiler.Expressions {
             while (ew.Current.Token != right) {
                 if (ew.Current.Token == ExpressionToken.Comma) {
                     if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Comma) {
-                        exprs.Add(NullExpression.Instance);
+                        exprs.Add(NullIdentity.Instance);
                     }
 
                     ew.NextOrThrow();
@@ -29,6 +32,7 @@ namespace Regen.Compiler.Expressions {
 
                 var expression = ew.ParseExpression();
                 if (ew.IsCurrent(ExpressionToken.Colon)) {
+                    //handle keyvalue item
                     exprs.Add(KeyValueExpression.Parse(ew, expression));
                 } else
                     exprs.Add(expression);
@@ -40,6 +44,18 @@ namespace Regen.Compiler.Expressions {
             ew.Next();
             args.Arguments = exprs.ToArray();
             return args;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            for (var i = 0; i < Arguments.Length; i++) {
+                foreach (var match in Arguments[i].Matches()) {
+                    yield return match;
+                }
+
+                if (i < Arguments.Length - 1) { //is not last
+                    yield return _seperator;
+                }
+            }
         }
     }
 }

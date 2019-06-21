@@ -1,7 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Regen.Compiler.Expressions {
+    /// <summary>
+    ///     Parses cases like: <br></br>
+    ///     justname<br></br>
+    ///     justname.accessor<br></br>
+    ///     justname.accessor[5].second<br></br>
+    ///     justname.method().someval<br></br>
+    ///     justname.method().someval[3].thatsfar
+    /// </summary>
     public class IdentityExpression : Expression {
         public Expression Identity;
 
@@ -44,23 +54,39 @@ namespace Regen.Compiler.Expressions {
 
                         if (first != null) {
                             //just a plain single word!
-                            ew.IsCurrentOrThrow(ExpressionToken.Literal);
-                            var right = new StringIdentity(ew.Current.Match.Value);
+                            var right = new IdentityExpression();
+                            if (ew.IsCurrent(ExpressionToken.Null)) {
+                                right.Identity = NullIdentity.Instance;
+                            } else {
+                                ew.IsCurrentOrThrow(ExpressionToken.Literal);
+                                right.Identity = StringIdentity.Create(ew.Current.Match);
+                            }
+
                             ew.Next();
-                            return new IdentityExpression(new PropertyIdentity(first, new IdentityExpression(right)));
+                            return new IdentityExpression(new PropertyIdentity(first, right));
                         }
+
                         goto _plain_identity;
                 }
             }
 
             _plain_identity:
             //just a plain single word!
-            ew.IsCurrentOrThrow(ExpressionToken.Literal);
-            ret.Identity = new StringIdentity(ew.Current.Match.Value);
+            if (ew.IsCurrent(ExpressionToken.Null)) {
+                ret.Identity = NullIdentity.Instance;
+            } else {
+                ew.IsCurrentOrThrow(ExpressionToken.Literal);
+                ret.Identity = StringIdentity.Create(ew.Current.Match);
+            }
+
             ew.Next();
-
-
             return ret;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            foreach (var match in Identity.Matches()) {
+                yield return match;
+            }
         }
     }
 }

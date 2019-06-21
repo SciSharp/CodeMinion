@@ -1,9 +1,37 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Text.RegularExpressions;
+using Regen.Compiler;
 
 namespace Regen.Helpers {
     public static class RegexExtensions {
+        private static readonly Regex _shimRegex = new Regex(".*", Regexes.DefaultRegexOptions);
+
+        public static Match WrapAsMatch(this string str) {
+            return _shimRegex.Match(str);
+        }
+
+        /// <summary>
+        ///     Concatenates all <see cref="Match"/><see cref="Capture.Value"/>s to a single string.
+        /// </summary>
+        /// <param name="matches"></param>
+        /// <returns></returns>
+        public static string Flatten(this IEnumerable<Match> matches) {
+            var sb = new StringBuilder();
+            foreach (var match in matches) {
+                sb.Append(match.Value);
+            }
+
+            return sb.ToString();
+        }
+
         /// <summary>
         ///     Checks if <see cref="needle"/> is nested inside <see cref="haystack"/>.
         /// </summary>
@@ -13,7 +41,7 @@ namespace Regen.Helpers {
             if (!haystack.Success || !needle.Success)
                 return false;
             var middle = needle.Index + needle.Length / 2;
-            return haystack.Index <= middle && middle <= haystack.Index + haystack.Length-1;
+            return haystack.Index <= middle && middle <= haystack.Index + haystack.Length - 1;
         }
 
         /// <summary>

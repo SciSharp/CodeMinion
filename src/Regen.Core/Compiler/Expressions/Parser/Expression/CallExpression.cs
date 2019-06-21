@@ -1,5 +1,14 @@
-﻿namespace Regen.Compiler.Expressions {
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Regen.Helpers;
+
+namespace Regen.Compiler.Expressions {
+    /// <summary>
+    ///     Parses: identity(params)
+    /// </summary>
     public class CallExpression : Expression {
+        private static readonly Match _matchLeft = "(".WrapAsMatch();
+        private static readonly Match _matchRight = ")".WrapAsMatch();
         public IdentityExpression FunctionName;
         public ArgumentsExpression Arguments;
 
@@ -19,6 +28,19 @@
             }
 
             return fc;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            foreach (var match in FunctionName.Matches()) {
+                yield return match;
+            }
+
+            yield return _matchLeft;
+            foreach (var match in Arguments.Matches()) {
+                yield return match;
+            }
+
+            yield return _matchRight;
         }
     }
 }

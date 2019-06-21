@@ -19,7 +19,7 @@ namespace Regen.Compiler.Expressions {
 
         public void NextOrThrow(ExpressionToken tkn) {
             if (!HasNext) {
-                throw new UnexpectedTokenException<ExpressionToken>(Current); //todo change to ENdOfToken
+                throw new UnexpectedEndOfScriptException();
             }
 
             if (PeakNext.Token != tkn) {

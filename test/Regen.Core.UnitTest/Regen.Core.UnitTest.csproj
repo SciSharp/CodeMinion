@@ -74,7 +74,8 @@
     <Compile Include="Digest\DigestExpressionTests.cs" />
     <Compile Include="Expression\BuiltinTests.cs" />
     <Compile Include="Expression\ExpressionParsingTests.cs" />
-    <Compile Include="ImportTests.cs" />
+    <Compile Include="Expression\ImportTests.cs" />
+    <Compile Include="Digest\ImportTests.cs" />
     <Compile Include="Digest\DigestInterpreterTests.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />
     <Compile Include="Expression\ExpressionSharedUnitTestEvaluator.cs" />

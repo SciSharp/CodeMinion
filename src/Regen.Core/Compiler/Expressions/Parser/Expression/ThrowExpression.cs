@@ -1,5 +1,10 @@
-﻿namespace Regen.Compiler.Expressions {
+﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Regen.Helpers;
+
+namespace Regen.Compiler.Expressions {
     public class ThrowExpression : Expression {
+        private static readonly Match _throwMatch = "throw".WrapAsMatch();
         public Expression Right;
 
         public ThrowExpression(Expression right) {
@@ -15,6 +20,14 @@
             var ret = new ThrowExpression();
             ret.Right = ew.ParseExpression(typeof(ThrowExpression));
             return ret;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            yield return _throwMatch;
+
+            foreach (var match in Right.Matches()) {
+                yield return match;
+            }
         }
     }
 }

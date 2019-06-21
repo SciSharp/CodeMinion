@@ -5,10 +5,11 @@ namespace Regen.Compiler.Expressions {
     public sealed class ExpressionTokenAttribute : Attribute {
         public string Regex { get; }
         public int Order { get; }
-
-        public ExpressionTokenAttribute(string regex, int order) {
+        public string Emit { get; set; }
+        public ExpressionTokenAttribute(string regex, int order, string emit) {
             Regex = regex;
             Order = order;
+            Emit = emit;
         }
     }
 }

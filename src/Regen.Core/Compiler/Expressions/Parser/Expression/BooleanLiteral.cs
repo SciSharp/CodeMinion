@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Regen.Compiler.Expressions {
     public class BooleanLiteral : Expression, IEquatable<BooleanLiteral>, IEquatable<bool> {
+        private Match _match;
         public bool Value;
 
         public BooleanLiteral(bool v) {
@@ -11,8 +14,13 @@ namespace Regen.Compiler.Expressions {
         public static BooleanLiteral Parse(ExpressionWalker ew) {
             ew.IsCurrentOrThrow(ExpressionToken.Boolean);
             var ret = new BooleanLiteral(bool.Parse(ew.Current.Match.Groups[1].Value));
+            ret._match = ew.Current.Match;
             ew.Next();
             return ret;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            yield return _match;
         }
 
         #region Equality

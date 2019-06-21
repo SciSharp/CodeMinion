@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Regen.Compiler.Expressions {
     public class NumberLiteral : Expression, IEquatable<NumberLiteral>, IEquatable<string> {
+        public Match _match;
         public string Value;
 
         public NumberLiteral(string v) {
@@ -10,9 +13,13 @@ namespace Regen.Compiler.Expressions {
 
         public static NumberLiteral Parse(ExpressionWalker ew) {
             ew.IsCurrentOrThrow(ExpressionToken.NumberLiteral);
-            var ret = new NumberLiteral(ew.Current.Match.Value);
+            var ret = new NumberLiteral(ew.Current.Match.Value) {_match = ew.Current.Match};
             ew.Next();
             return ret;
+        }
+
+        public override IEnumerable<Match> Matches() {
+            yield return _match;
         }
 
         #region Equality
