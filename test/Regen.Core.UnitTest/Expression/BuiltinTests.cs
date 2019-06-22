@@ -9,7 +9,7 @@ using Regen.DataTypes;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
-    public class BuiltinTests : ExpressionSharedUnitTestEvaluator {
+    public class BuiltinTests : ExpressionUnitTest {
         [TestMethod]
         public void range_2() {
             var file = File.ReadAllText("./testSmall.cs");

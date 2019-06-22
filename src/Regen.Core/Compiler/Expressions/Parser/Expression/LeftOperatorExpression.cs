@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Regen.Exceptions;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {

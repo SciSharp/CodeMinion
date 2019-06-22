@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using Regen.Collections;
@@ -29,9 +30,11 @@ namespace Regen.Compiler.Expressions {
                         }
 
                         var attr = t.GetAttribute<ExpressionTokenAttribute>();
+                        if (attr == null)
+                            return default;
                         var swallows = DetermineSwallows(t, null).OrderBy(tkn => tkn.GetAttribute<ExpressionTokenAttribute>().Order).ToList();
                         return (attr.Regex, t, swallows, attr.Order);
-                    }));
+                    })).Where(v => v != default);
             var allMatches = allTokens.SelectMany(
                     tkn => Regex.Matches(code.ToString(), tkn.Regex, Regexes.DefaultRegexOptions)
                         .Cast<Match>()

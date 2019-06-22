@@ -8,7 +8,7 @@ using Regen.Compiler.Expressions;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests.Expression {
-    public class ExpressionSharedUnitTestEvaluator : SharedUnitTestEvaluator
+    public class ExpressionUnitTest : SharedUnitTestEvaluator
     {
         /// <summary>
         ///     Runs the following code: return new Interperter(code, code).Run().Output;

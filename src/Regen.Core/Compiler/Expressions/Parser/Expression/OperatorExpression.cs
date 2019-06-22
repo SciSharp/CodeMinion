@@ -40,6 +40,7 @@ namespace Regen.Compiler.Expressions {
                 case ExpressionToken.Pow:
                 case ExpressionToken.Mul:
                 case ExpressionToken.Div:
+                //case ExpressionToken.Mod:
                 case ExpressionToken.DoubleEqual:
                 case ExpressionToken.NotEqual:
                 case ExpressionToken.Equal:

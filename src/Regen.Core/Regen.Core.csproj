@@ -100,6 +100,7 @@
     <Compile Include="Compiler\Expressions\Parser\Expression\CallExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\CharLiteral.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\ExpressionWalker.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\ForeachExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\GroupExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Import.cs" />
     <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Variable.cs" />
@@ -120,6 +121,10 @@
     <Compile Include="Compiler\Expressions\Parser\Expression\StringLiteral.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\ThrowExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\ParserToken.cs" />
+    <Compile Include="Compiler\Helpers\Range.cs" />
+    <Compile Include="Compiler\Helpers\StringSlice.cs" />
+    <Compile Include="Compiler\Helpers\StringSource.cs" />
+    <Compile Include="Compiler\Helpers\StringSpan.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Compiler\Helpers\TokenBase.cs" />
     <Compile Include="Compiler\Interfaces\IEvaluator.cs" />

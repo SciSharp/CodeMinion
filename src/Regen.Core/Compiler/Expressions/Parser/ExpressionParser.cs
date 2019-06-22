@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -197,11 +198,9 @@ namespace Regen.Compiler.Expressions {
         }
 
         public InterpredCode Interpret(string code, Dictionary<string, object> variables = null) {
-            //clean code from comments
-            //code = Regex.Replace(code, ExpressionToken.CommentRow.GetAttribute<ExpressionTokenAttribute>().Regex, match => string.IsNullOrEmpty(match.Groups[1].Value) == false ? match.Value.Replace(match.Groups[1].Value, "") : match.Value, Regexes.DefaultRegexOptions);
-            //code = Regex.Replace(code, unescapeCommentRegex, @"//", Regexes.DefaultRegexOptions); //unescape escaped comments
-
-            var lines = new LineBuilder(code);
+            code = code.Replace("\r", "");
+            var sb = StringSpan.Create(code);
+            var lines = new LineBuilder(sb);
             var output = lines.Clone();
 
             if (variables != null) {
@@ -212,65 +211,111 @@ namespace Regen.Compiler.Expressions {
                 variables = new Dictionary<string, object>();
 
             // Define the context of our expression
-            var walker = new ExpressionWalker(ExpressionLexer.Tokenize(code).Where(t => t.Token != ExpressionToken.UnixNewLine).ToList());
+            var ew = new ExpressionWalker(ExpressionLexer.Tokenize(code).Where(t => t.Token != ExpressionToken.UnixNewLine).ToList());
 
-            if (walker.Count == 0) {
-                //no tokens detected
+            //if no tokens detected
+            if (ew.Count == 0) {
                 var comp = output.Compile(Options);
                 return new InterpredCode() {OriginalCode = code, Output = comp, Variables = Context.Variables.ToDictionary(kv => kv.Key, kv => kv.Value)};
             }
 
-            foreach (var t in walker.Walking) {
-                //Console.WriteLine($"{t.Token}:\t\t{t.Match.Value}");
-            }
-
             var parserTokens = new OList<ParserAction>();
+            var copypastes = new List<StringSlice>();
+            int from = 0;
+            int to = 0;
             do {
-                var current = walker.Current;
+                var current = ew.Current;
 
-                switch (walker.Current.Token) {
-                    case ExpressionToken.MARKER: {
-                        current = walker.NextToken();
+                switch (ew.Current.Token) {
+                    case ExpressionToken.Mod: {
+                        copypastes.Add(sb.Substring(from, ew.Current.Match.Index + ew.Current.Match.Length - 1));
+                        current = ew.NextToken();
                         if (current == null)
                             break;
                         switch (current.Token) {
                             case ExpressionToken.Import:
-                                parserTokens += new ParserAction(ParserToken.Import, walker.ParseImport());
+                                //this is import %import namespace.type as aliasnmae
+                                parserTokens += new ParserAction(ParserToken.Import, ew.ParseImport());
                                 break;
+
                             case ExpressionToken.Literal: {
-                                var peak = walker.PeakNext.Token;
+                                //this is variable declaration %varname = expr
+                                var peak = ew.PeakNext.Token;
                                 if (peak == ExpressionToken.Equal) {
-                                    parserTokens += new ParserAction(ParserToken.Declaration, walker.ParseVariable());
+                                    parserTokens += new ParserAction(ParserToken.Declaration, ew.ParseVariable());
                                 } else {
                                     break;
                                 }
 
                                 break;
                             }
-                            case ExpressionToken.LeftParen: { //it is an expression block
-                                parserTokens += new ParserAction(ParserToken.Declaration, walker.ParseExpression());
+
+                            case ExpressionToken.LeftParen: {
+                                //it is an expression block %(expr)
+                                ew.NextOrThrow();
+                                parserTokens += new ParserAction(ParserToken.Expression, ew.ParseExpression());
+                                ew.IsCurrentOrThrow(ExpressionToken.RightParen);
+                                ew.Next();
+                                break;
+                            }
+
+                            case ExpressionToken.Foreach: {
+                                //%foreach expr%
+                                //  code $1
+                                //%
+
+                                ew.NextOrThrow();
+                                var args = ArgumentsExpression.Parse(ew, token => token.Token == ExpressionToken.NewLine || token.Token == ExpressionToken.Mod, false, typeof(ForeachExpression));
+                                StringSlice content;
+                                if (ew.PeakBack.Token == ExpressionToken.Mod) {
+                                    if (ew.IsCurrent(ExpressionToken.NewLine)) {
+                                        ew.NextOrThrow();
+                                    }
+
+                                    //the content is % to % block
+                                    var leftMod = ew.Current.Match;
+                                    var nextMod = code.IndexOf('%', leftMod.Index);
+                                    content = sb.Substring(leftMod.Index, nextMod == -1 ? code.Length - leftMod.Index : nextMod - leftMod.Index);
+                                    ew.SkipForwardWhile(token => token.Token != ExpressionToken.Mod);
+                                    ew.Next(); //skip % itself
+                                } else {
+                                    //the content is only next line
+                                    if (ew.HasNext && ew.PeakNext.Token == ExpressionToken.NewLine)
+                                        ew.NextOrThrow();
+                                    var leftMod = ew.Current.Match;
+                                    var nextMod = code.IndexOf('\n', leftMod.Index);
+                                    content = sb.Substring(leftMod.Index, nextMod == -1 ? (code.Length - leftMod.Index) : nextMod - leftMod.Index);
+                                }
+
+                                ForeachExpression expr = new ForeachExpression() {Content = content, Initialises = args};
+                                parserTokens += new ParserAction(ParserToken.ForeachLoop, expr);
                                 break;
                             }
 
                             case ExpressionToken.CommentRow:
-                                walker.SkipForwardWhile(t => t.Token != ExpressionToken.NewLine); //todo test
+                                //skip untill we hit newline
+                                ew.SkipForwardWhile(t => t.Token != ExpressionToken.NewLine); //todo test
                                 break;
+
                             default:
                                 //Console.WriteLine();
                                 throw new ArgumentOutOfRangeException($"{current.Token} ({current.Match.Value})");
                         }
 
+                        from = ew.Current.Match.Index + ew.Current.Match.Length + 1;
+                        to = from;
                         break;
                     }
 
                     default:
+                        to = ew.Current.Match.Index + ew.Current.Match.Length;
                         //Console.WriteLine($"Ignored {current.Token} ({current.Match.Value})");
                         break;
                 }
-            } while (walker.Next());
+            } while (ew.Next());
 
             var compiled = output.Compile(Options);
-            return new InterpredCode() {OriginalCode = code, Output = compiled, Variables = variables, ETokens = (List<EToken>) walker.Walking, ParseActions = parserTokens};
+            return new InterpredCode() {OriginalCode = code, Output = compiled, Variables = variables, ETokens = (List<EToken>) ew.Walking, ParseActions = parserTokens};
         }
 
         public string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks) {

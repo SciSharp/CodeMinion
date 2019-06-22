@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
@@ -18,11 +19,11 @@ namespace Regen.Compiler.Expressions {
             Value = value;
         }
 
-        public static KeyValueExpression Parse(ExpressionWalker ew, Expression left = null) {
-            var key = left ?? ew.ParseExpression(typeof(KeyValueExpression));
+        public static KeyValueExpression Parse(ExpressionWalker ew, Expression left = null, Type caller = null) {
+            var key = left ?? ew.ParseExpression(caller ?? typeof(KeyValueExpression));
             ew.IsCurrentOrThrow(ExpressionToken.Colon);
             ew.NextOrThrow();
-            var value = ew.ParseExpression(typeof(KeyValueExpression));
+            var value = ew.ParseExpression(caller ?? typeof(KeyValueExpression));
             return new KeyValueExpression(key, value);
         }
 

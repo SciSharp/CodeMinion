@@ -8,7 +8,7 @@ using Regen.Helpers;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
-    public class ExpressionParsingTests : ExpressionSharedUnitTestEvaluator {
+    public class ExpressionParsingTests : ExpressionUnitTest {
         [TestMethod]
         public void input_without_precentage() {
             var input = @"
@@ -591,12 +591,24 @@ of nothing
         public void expression_variable_increment_grouped_right_add() {
             var input = @"
                 %v = (a++) + 5 + a/3
-";
+                ";
             var ret = Compile(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
             var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
+        }
+
+        [TestMethod]
+        public void expression_basic() {
+            var input = @"
+                %(123)
+                ";
+            var ret = Compile(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Expression);
+            act.Related.First()
+                .Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
         }
     }
 }

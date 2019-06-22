@@ -208,8 +208,8 @@ namespace Regen.Compiler.Digest {
             //clean code from comments
             code = Regex.Replace(code, DigestToken.CommentRow.GetAttribute<DescriptionAttribute>().Description, new MatchEvaluator(match => { return match.Value.Replace(match.Groups[1].Value, ""); }), Regexes.DefaultRegexOptions);
             code = Regex.Replace(code, unescapeCommentRegex, @"//", Regexes.DefaultRegexOptions); //unescape escaped comments
-
-            var lines = new LineBuilder(code);
+            var sb = StringSpan.Create(code);
+            var lines = new LineBuilder(sb);
             var output = lines.Clone();
 
             if (variables != null) {

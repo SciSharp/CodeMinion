@@ -5,15 +5,20 @@ using Regen.Compiler.Digest;
 
 namespace Regen.Compiler.Helpers {
     public class LineBuilder : ICloneable {
+        private readonly StringSpan _txt;
         public List<Line> Lines { get; set; }
 
         protected LineBuilder() { }
 
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
-        public LineBuilder(string txt) {
+        public LineBuilder(StringSpan txt) {
+            _txt = txt;
             Lines = txt
-                .Split('\n')
-                .Select((str, i) => new Line(str + "\n", i + 1))
+                .Split('\n', StringSplitOptions.None)
+                .Select((span, i) => {
+                    span.Extend(1); //add swallen newline
+                    return new Line(span, i + 1);
+                })
                 .ToList();
 
             //generate indexes
@@ -89,30 +94,26 @@ namespace Regen.Compiler.Helpers {
 
 
     public class Line : ICloneable, IEquatable<Line> {
-        public Line(string content, int lineNumber, int startIndex, int endIndex) {
+        public Line(StringSpan content, int lineNumber, int startIndex, int endIndex) {
             _content = content;
             LineNumber = lineNumber;
             StartIndex = startIndex;
             EndIndex = endIndex;
         }
 
-        public Line(string content, int lineNumber) {
+        public Line(StringSpan content, int lineNumber) {
             _content = content;
             LineNumber = lineNumber;
         }
 
-        private string _content;
+        private StringSpan _content;
 
         public Guid Id { get; private set; } = Guid.NewGuid();
 
         public int LineNumber { get; set; }
 
         public string Content {
-            get => _content;
-            set {
-                _content = value;
-                ContentWasModified = true;
-            }
+            get => _content.ToString();
         }
 
         public bool ContentWasModified { get; set; }
@@ -142,14 +143,15 @@ namespace Regen.Compiler.Helpers {
         /// <summary>
         ///     Sums all whitespace and tabs before the content starts. Used for adding extra lines here.
         /// </summary>
-        public string Prepends => new string(_content.TakeWhile(c => c == ' ' || c == '\t').ToArray());
+        public string Prepends => new string(_content.Chars.TakeWhile(c => c == ' ' || c == '\t').ToArray());
 
         /// <summary>
         ///     Returns a content string from trailing spaces, newlines and tabs.
         /// </summary>
         /// <returns></returns>
         public string CleanContent() {
-            return this._content.Trim(' ', '\t', '\n', '\r');
+            this._content.Trim(' ', '\t', '\n', '\r');
+            return this._content.ToString();
         }
 
         /// <summary>
@@ -159,9 +161,11 @@ namespace Regen.Compiler.Helpers {
         /// <remarks>Make sure that every <see cref="line"/> that is added has \n\r at its end.</remarks>
         public void ReplaceOrAppend(string line) {
             if (ContentWasModified) {
-                Content += line; //we use Content to also set ContentWasModified
-            } else
-                Content = line; //we use Content to also set ContentWasModified
+                _content.Add(line); //we use Content to also set ContentWasModified
+            } else {
+                _content.ReplaceWith(line); //we use Content to also set ContentWasModified
+                ContentWasModified = true;
+            }
         }
 
         /// <summary>
@@ -169,7 +173,7 @@ namespace Regen.Compiler.Helpers {
         /// </summary>
         /// <param name="line">The new line's content.</param>
         public void Replace(string line) {
-            Content = line; //we use Content to also set ContentWasModified
+            _content.ReplaceWith(line); //we use Content to also set ContentWasModified
         }
 
         /// <summary>Returns a string that represents the current object.</summary>
@@ -181,7 +185,7 @@ namespace Regen.Compiler.Helpers {
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone() {
-            return new Line(_content, LineNumber, StartIndex, EndIndex) {Id = Id};
+            return new Line((StringSpan) _content.Clone(), LineNumber, StartIndex, EndIndex) {Id = Id};
         }
 
         #region Equality

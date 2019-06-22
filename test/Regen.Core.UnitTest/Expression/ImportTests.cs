@@ -7,7 +7,7 @@ using Regen.Exceptions;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
-    public class ImportTests : ExpressionSharedUnitTestEvaluator {
+    public class ImportTests : ExpressionUnitTest {
         [TestMethod]
         public void import_static_class() {
             var @input = @"

@@ -13,20 +13,22 @@
         /// </summary>
         Declaration,
         /// <summary>
-        ///    %foreach expr%
-        ///    output#1text
-        ///    output#1text-line2
-        ///    %
-        /// </summary>
-        ForeachLoop,
-        /// <summary>
+        ///     %foreach expr%
+        ///     output#1text
+        ///     output#1text-line2
+        ///     %
+        ///     or
         ///     %foreach expr
         ///     output#1text
         /// </summary>
-        ForeachSingle,
+        ForeachLoop,
         /// <summary>
         ///     %import namespace.type as aliasname
         /// </summary>
-        Import
+        Import,
+        /// <summary>
+        ///     Represents blocks of code that do not have any instructions in them, therefore they are copied as is.
+        /// </summary>
+        CopyPaste,
     }
 }

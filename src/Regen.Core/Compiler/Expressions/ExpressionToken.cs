@@ -2,6 +2,7 @@
 
 namespace Regen.Compiler.Expressions {
     public enum ExpressionToken {
+        None = 0,
         [ExpressionToken(@"\//", -1, "//")] [Swallows(Div)] CommentRow, //swallow will 
         [ExpressionToken(@"import", 0, "import")] [Swallows(StringLiteral)] Import,
         [ExpressionToken(@"as", 1, "as")] [Swallows(StringLiteral)] As,
@@ -24,14 +25,14 @@ namespace Regen.Compiler.Expressions {
         [ExpressionToken(@"default", 35, "default")] [Swallows(StringLiteral)] Default,
         [ExpressionToken(@"null", 36, "null")] [Swallows(StringLiteral)] Null,
         [ExpressionToken(@"var", 39, "var")] [Swallows(StringLiteral)] Declaration,
-        [ExpressionToken(@"\'(.|\\.)\'", 40, "'$1'")] [Swallows(StringLiteral)] CharLiteral,
+        [ExpressionToken(@"\'(.|\\.)\'", 40, "'$1'")] [Swallows(StringLiteral, Escape)] CharLiteral,
         [ExpressionToken(@"\""(.*?)\""", 41, "\"$1\"")] [Swallows(NumberLiteral)] StringLiteral,
         [ExpressionToken(@"([0-9]+(?:\.[0-9]+)?[fFdDmM]?)", 45, "$1")] [Swallows(Literal)] NumberLiteral,
         [ExpressionToken(@"([a-zA-Z_][a-zA-Z0-9_]*)", 50, "$1")] Literal,
         [ExpressionToken(@"[\s\t]+", 60, " ")] Whitespace,
         [ExpressionToken(@"\n", 65, "\n")] NewLine,
         [ExpressionToken(@"\r", 70, "\r")] UnixNewLine,
-        [ExpressionToken(@"\%", 75, "%")] MARKER,
+        [ExpressionToken(@"\%", 75, "%")] Mod,
         [ExpressionToken(@"\+\+", 80, "++")] [Swallows(Add)] Increment,
         [ExpressionToken(@"\-\-", 85, "--")] [Swallows(Sub)] Decrement,
         [ExpressionToken(@"\+", 90, "+")] Add,
@@ -68,6 +69,7 @@ namespace Regen.Compiler.Expressions {
         [ExpressionToken(@"\?\?", 240, "??")] [Swallows(QuestionMark)] NullCoalescing,
         [ExpressionToken(@"\?", 245, "?")] QuestionMark,
         [ExpressionToken(@"\:", 250, ":")] Colon,
+        [ExpressionToken(@"\\", 251, "\\")] Escape,
         [ExpressionToken(@"\;", 255, ";")] SemiColon,
         [ExpressionToken(@"\@", 260, "@")] Lambda,
     }

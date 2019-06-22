@@ -19,7 +19,10 @@ namespace Regen.Compiler.Expressions {
                     ret = NewExpression.Parse(this);
                 } else if (RightOperatorExpression.IsNextAnRightUniOperation(this, caller) && caller != typeof(RightOperatorExpression)) {
                     ret = RightOperatorExpression.Parse(this);
-                } else if (OperatorExpression.IsNextAnOperation(this) && caller != typeof(OperatorExpression) && caller != typeof(RightOperatorExpression)) {
+                } else if (OperatorExpression.IsNextAnOperation(this) 
+                           && caller != typeof(OperatorExpression) 
+                           && caller != typeof(RightOperatorExpression)
+                           && caller != typeof(ForeachExpression)) {
                     ret = OperatorExpression.Parse(this);
                 } else {
                     ret = IdentityExpression.Parse(this, caller);
