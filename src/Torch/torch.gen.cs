@@ -1814,36 +1814,6 @@ namespace Torch
             => PyTorch.Instance.ceil(input, @out:@out);
         
         /// <summary>
-        /// Clamp all elements in input into the range [ min, max ] and return
-        /// a resulting tensor:
-        /// 
-        /// \[y_i = \begin{cases}
-        ///     \text{min} & \text{if } x_i < \text{min} \\
-        ///     x_i & \text{if } \text{min} \leq x_i \leq \text{max} \\
-        ///     \text{max} & \text{if } x_i > \text{max}
-        /// \end{cases}
-        /// 
-        /// \]
-        /// 
-        /// If input is of type FloatTensor or DoubleTensor, args min
-        /// and max must be real numbers, otherwise they should be integers.
-        /// </summary>
-        /// <param name="input">
-        /// the input tensor
-        /// </param>
-        /// <param name="min">
-        /// lower-bound of the range to be clamped to
-        /// </param>
-        /// <param name="max">
-        /// upper-bound of the range to be clamped to
-        /// </param>
-        /// <param name="out">
-        /// the output tensor
-        /// </param>
-        public static Tensor clamp(Tensor input, double? min = null, double? max = null, Tensor @out = null)
-            => PyTorch.Instance.clamp(input, min:min, max:max, @out:@out);
-        
-        /// <summary>
         /// Returns a new tensor with the cosine  of the elements of input.
         /// 
         /// \[\text{out}_{i} = \cos(\text{input}_{i})
@@ -2408,17 +2378,11 @@ namespace Torch
         public static Tensor trunc(Tensor input, Tensor @out = null)
             => PyTorch.Instance.trunc(input, @out:@out);
         
-        public static void argmax()
-            => PyTorch.Instance.argmax();
-        
         public static Tensor<long> argmax(Tensor input)
             => PyTorch.Instance.argmax(input);
         
         public static Tensor<long> argmax(Tensor input, int dim, bool keepdim = false)
             => PyTorch.Instance.argmax(input, dim, keepdim:keepdim);
-        
-        public static void argmin()
-            => PyTorch.Instance.argmin();
         
         public static Tensor<long> argmin(Tensor input)
             => PyTorch.Instance.argmin(input);
@@ -2653,9 +2617,6 @@ namespace Torch
         public static Tensor std(Tensor input, int dim, bool keepdim = false, bool unbiased = true, Tensor @out = null)
             => PyTorch.Instance.std(input, dim, keepdim:keepdim, unbiased:unbiased, @out:@out);
         
-        public static void sum()
-            => PyTorch.Instance.sum();
-        
         public static Tensor sum(Tensor input, Dtype dtype = null)
             => PyTorch.Instance.sum(input, dtype:dtype);
         
@@ -2729,9 +2690,6 @@ namespace Torch
         /// </param>
         public static (Tensor, Tensor, Tensor) unique_consecutive(Tensor input, bool return_inverse = false, bool return_counts = false, int? dim = null)
             => PyTorch.Instance.unique_consecutive(input, return_inverse:return_inverse, return_counts:return_counts, dim:dim);
-        
-        public static void @var()
-            => PyTorch.Instance.@var();
         
         public static Tensor @var(Tensor input, bool unbiased = true)
             => PyTorch.Instance.@var(input, unbiased:unbiased);
@@ -2932,9 +2890,6 @@ namespace Torch
         public static Tensor lt(Tensor input, Tensor other, Tensor @out = null)
             => PyTorch.Instance.lt(input, other, @out:@out);
         
-        public static void max()
-            => PyTorch.Instance.max();
-        
         public static Tensor max(Tensor input)
             => PyTorch.Instance.max(input);
         
@@ -2943,9 +2898,6 @@ namespace Torch
         
         public static Tensor max(Tensor input, Tensor other, Tensor @out = null)
             => PyTorch.Instance.max(input, other, @out:@out);
-        
-        public static void min()
-            => PyTorch.Instance.min();
         
         public static Tensor min(Tensor input)
             => PyTorch.Instance.min(input);

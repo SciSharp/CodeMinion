@@ -121,5 +121,48 @@ namespace Torch
             if (@out != null) kwargs["out"] = ToPython(@out);
             dynamic py = __self__.InvokeMethod("add", pyargs, kwargs);
         }
+
+        /// <summary>
+        /// Clamp all elements in input into the range [ min, max ] and return
+        /// a resulting tensor:
+        /// 
+        /// \[y_i = \begin{cases}
+        ///     \text{min} & \text{if } x_i < \text{min} \\
+        ///     x_i & \text{if } \text{min} \leq x_i \leq \text{max} \\
+        ///     \text{max} & \text{if } x_i > \text{max}
+        /// \end{cases}
+        /// 
+        /// \]
+        /// 
+        /// If input is of type FloatTensor or DoubleTensor, args min
+        /// and max must be real numbers, otherwise they should be integers.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="min">
+        /// lower-bound of the range to be clamped to
+        /// </param>
+        /// <param name="max">
+        /// upper-bound of the range to be clamped to
+        /// </param>
+        /// <param name="out">
+        /// the output tensor
+        /// </param>
+        public Tensor clamp(Tensor input, double? min = null, double? max = null, Tensor @out = null)
+        {
+            //auto-generated code, do not change
+            var __self__ = self;
+            var pyargs = ToTuple(new object[]
+            {
+                input,
+            });
+            var kwargs = new PyDict();
+            if (min != null) kwargs["min"] = ToPython(min);
+            if (max != null) kwargs["max"] = ToPython(max);
+            if (@out != null) kwargs["out"] = ToPython(@out);
+            dynamic py = __self__.InvokeMethod("clamp", pyargs, kwargs);
+            return ToCsharp<Tensor>(py);
+        }
     }
 }

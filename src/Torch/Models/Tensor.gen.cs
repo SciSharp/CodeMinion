@@ -1795,15 +1795,15 @@ namespace Torch
         /// argument is passed in. Otherwise, an integer value is returned as the stride in
         /// the particular dimension dim.
         /// </summary>
-        public int stride(int dim)
+        public int stride(int? dim = null)
         {
             //auto-generated code, do not change
             var __self__=self;
             var pyargs=ToTuple(new object[]
             {
-                dim,
             });
             var kwargs=new PyDict();
+            if (dim!=null) kwargs["dim"]=ToPython(dim);
             dynamic py = __self__.InvokeMethod("stride", pyargs, kwargs);
             return ToCsharp<int>(py);
         }
@@ -1966,15 +1966,15 @@ namespace Torch
         /// Returns a sparse copy of the tensor.  PyTorch supports sparse tensors in
         /// coordinate format.
         /// </summary>
-        public Tensor to_sparse(int sparseDims)
+        public Tensor to_sparse(int? sparseDims = null)
         {
             //auto-generated code, do not change
             var __self__=self;
             var pyargs=ToTuple(new object[]
             {
-                sparseDims,
             });
             var kwargs=new PyDict();
+            if (sparseDims!=null) kwargs["sparseDims"]=ToPython(sparseDims);
             dynamic py = __self__.InvokeMethod("to_sparse", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }

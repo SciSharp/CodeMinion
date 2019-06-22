@@ -14,7 +14,7 @@ using Torch.ApiGenerator;
 
 namespace CodeMinion.ApiGenerator.PyTorch
 {
-    public class ApiGenerator : ICodeGenerator
+    public partial class ApiGenerator : ICodeGenerator
     {
         private CodeGenerator _generator;
         public ApiGenerator()
@@ -82,7 +82,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
-            ParseClasses("nn.html", subdir:"nn");
+            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.Sequential");
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -114,6 +114,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
             foreach (var node in nodes)
             {
+                if (node.Descendants("dl").Any(x => x.Attributes["class"]?.Value == "function")) // skip over the overview funcs that group overloads
+                    continue;
                 var decl = new Function() { ClassName = api.StaticName };
                 ParseFunctionName(decl, node);
                 if (stop_at != null && decl.Name == stop_at)
@@ -194,37 +196,86 @@ namespace CodeMinion.ApiGenerator.PyTorch
             }
         }
 
-        private void ParseClasses(string uri, string subdir)
+        private void ParseClasses(string uri, string subdir, string stop_at = null)
         {
             Console.WriteLine("Parsing: " + uri);
             var doc = LoadDoc(uri);
             foreach (var classNode in doc.DocumentNode.Descendants("dl").Where(x => x.Attributes["class"]?.Value == "class"))
             {
                 var fullname = classNode.Element("dt").Attributes["id"]?.Value;
+                if (stop_at != null && fullname == stop_at)
+                    return;
                 //var classname = fullname.Split(".").Last();
                 var api = new ApiClass()
                 {
-                    ClassName = fullname, 
+                    ClassName = fullname,
                     SubDir = subdir,
                 };
                 _generator.ApiClasses.Add(api);
-                var testfile = new TestFile() { Name = $"{api.ClassName}" };
+                var testfile = new TestFile() { Name = $"{api.ClassName.Split(".").Last()}", SubDir = subdir };
                 _generator.TestFiles.Add(testfile);
                 var dd = classNode.Element("dd");
-                api.DocString=dd.Element("p").InnerText;
-                var dl=dd.Element("dl");
+                api.DocString = string.Join("\r\n\r\n", dd.ChildNodes.TakeWhile(x => x.Name != "dl").Select(x => x.InnerText.Trim()).Where(x => !string.IsNullOrEmpty(x)));
+                // Parse constructor
+                var dl = dd.Element("dl");
                 if (dl != null)
                 {
                     var dt = dl.Element("dt");
                     if (dt != null && dt.InnerText == "Parameters")
                     {
                         var parameters_dd = dl.Element("dd");
-                        var decl=new Function() { Name=fullname };
-                        decl.Arguments=ParseArgumentsList(decl, parameters_dd);
+                        var decl = new Function() { Name = fullname };
+                        decl.Arguments = ParseArgumentsList(decl, parameters_dd);
                         api.Constructors.Add(decl);
                     }
                 }
+                // parse functions if any
+                var func_nodes = classNode.Descendants("dl")
+                    .Where(x =>
+                    {
+                        var c = x.Attributes["class"]?.Value;
+                        return c == "method" || c == "attribute";
+                    }).ToList();
+                foreach (var node in func_nodes)
+                {
+                    var c = node.Attributes["class"]?.Value;
+                    Declaration decl = null;
+                    if (c == "method")
+                    {
+                        decl = new Function() {ClassName = null};
+                        ParseFunctionName(decl, node);
+                        ParseDocString(decl, node);
+                        if (ManualOverride.Contains(decl.Name)) continue;
+                        //if (!InMigrationApiList(decl.Name)) continue;
+                        ParseReturnValue(decl as Function, node);
+                        ParseArguments(decl as Function, node);
+                        ParseDefaultValues(decl as Function, node);
+                        api.Declarations.Add(decl);
+                    }
+                    else if (c == "attribute")
+                    {
+                        var prop= new Property() { ClassName = null, HasSetter = true };
+                        decl = prop;
+                        var dt = node.Element("dt");
+                        decl.Name=dt.Attributes["id"].Value.Split(".").Last();
+                        if (dt.InnerText.Contains("="))
+                            prop.DefaultValue = dt.InnerText.Split('=').Last().Trim(' ', '¶', '\r', '\n', '\t');
+                        ParseDocString(decl, node);
+                        api.Declarations.Add(decl);
+                    }
+                    // see if there are any examples which we can convert to test cases
+                    var testcase = ParseTests(decl, node);
+                    if (testcase != null)
+                        testfile.TestCases.Add(testcase);
+                }
+                PostProcess(api);
             }
+        }
+
+        private void PostProcess(ApiClass api)
+        {
+            if (api.ClassName.StartsWith("torch.nn."))
+                PostProcessNN_Class(api);
         }
 
         private void ParseDefaultValues(Function decl, HtmlNode dl)
@@ -270,7 +321,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
             }
         }
 
-        private void ParseDocString(Function decl, HtmlNode node)
+        private void ParseDocString(Declaration decl, HtmlNode node)
         {
             var dd = node.Descendants("dd").FirstOrDefault();
             if (dd == null)
@@ -279,7 +330,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
             decl.Description = string.Join("\n\n", dd.ChildNodes.TakeWhile(x => x.Name != "dl" && !x.InnerText.StartsWith("Example")).Select(x => x.InnerText.Trim()).Distinct().Where(x => !string.IsNullOrWhiteSpace(x)));
         }
 
-        private TestCase ParseTests(Function decl, HtmlNode node)
+        private TestCase ParseTests(Declaration decl, HtmlNode node)
         {
             var testcase = new TestCase() { Name = $"{decl.Name}Test" };
             foreach (var pre in node.Descendants("pre"))
@@ -324,22 +375,45 @@ namespace CodeMinion.ApiGenerator.PyTorch
             //if (decl.Name == "lu")
             //    Debugger.Break();
             //var dts = node.Descendants("dt").ToArray();
+            var yields = node.Descendants("dt").FirstOrDefault(x => x.InnerText == "Yields");
+            if (yields != null)
+            {
+                var dd = yields.NextSibling.NextSibling;
+                if (dd.InnerText.Contains('–'))
+                {
+                    var arg = new Argument() { IsReturnValue = true, };
+                    var type = InferType(dd.InnerText.Split('–').First().Trim(), null, arg);
+                    arg.Type = $"IEnumerable<{type}>";
+                    decl.Returns.Add(arg);
+                    return;
+                }
+                //else
+                //{
+                //    foreach (var token in dd.InnerText.Trim('(', ')', ' ').Split(","))
+                //    {
+                //        var arg = new Argument() {IsReturnValue = true,};
+                //        var type = InferType(token.Replace("(optional)", "").Trim(' ', '\n', ')'), null, arg);
+                //        arg.Type = $"IEnumerable<{type}>";
+                //        decl.Returns.Add(arg);
+                //    }
+                //}
+            }
             var returntype = node.Descendants("dt").FirstOrDefault(x => x.InnerText == "Return type");
             if (returntype != null)
             {
                 var dd = returntype.NextSibling.NextSibling;
                 foreach (var token in dd.InnerText.Trim('(', ')', ' ').Split(","))
                 {
-                    var arg = new Argument() {IsReturnValue = true,};
+                    var arg = new Argument() { IsReturnValue = true, };
                     arg.Type = InferType(token.Replace("(optional)", "").Trim(' ', '\n', ')'), null, arg);
                     decl.Returns.Add(arg);
                 }
             }
-            var returns = node.Descendants("dt").FirstOrDefault(x => x.InnerText=="Returns");
+            var returns = node.Descendants("dt").FirstOrDefault(x => x.InnerText == "Returns");
             if (returns != null)
             {
                 var dd = returns.NextSibling.NextSibling;
-                if (decl.Returns.Count==0 && dd.Descendants("ul").FirstOrDefault()!=null)
+                if (decl.Returns.Count == 0 && dd.Descendants("ul").FirstOrDefault() != null)
                     decl.Returns = ParseArgumentsList(decl, dd);
             }
             if (decl.Returns.Count > 0)
@@ -369,22 +443,28 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void ParseArguments(Function decl, HtmlNode node)
         {
-            var p_nodes = node.Descendants("dd").First().Descendants("dl").FirstOrDefault();
-            if (p_nodes == null) return;
+            //var p_nodes = node.Descendants("dd").First().Descendants("dl").FirstOrDefault();
+            //if (p_nodes == null) return;
 
-            var p_node = p_nodes.Descendants("dd").FirstOrDefault();
-            if (p_node == null || p_node.InnerHtml == "")
-                return;
+            //var p_node = p_nodes.Descendants("dd").FirstOrDefault();
+            //if (p_node == null || p_node.InnerHtml == "")
+            //    return;
+
+            var dt = node.Descendants("dt").FirstOrDefault(x => x.InnerText == "Parameters");
+            if (dt == null)
+                return; // no params
+            var dd = dt.NextSibling.NextSibling;
+
 
             //if (decl.Name == "mode")
             //    Debugger.Break();
 
-            decl.Arguments= ParseArgumentsList(decl, p_node);
+            decl.Arguments = ParseArgumentsList(decl, dd);
         }
 
         private List<Argument> ParseArgumentsList(Function decl, HtmlNode dd)
         {
-            //if (decl.Name=="to_sparse")
+            //if (decl.Name=="cuda")
             //    Debugger.Break();
             var args = new List<Argument>();
             var ul = dd.Descendants("ul").FirstOrDefault();
@@ -397,7 +477,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     // precision – Number of digits of precision for floating point output(default = 4).
                     var p_desc = li.InnerText;
                     arg.Name = p_desc.Split(' ')[0].TrimStart('*', ' ');
-                    arg.Description = string.Join(":", p_desc.Split('–', ':' ).Skip(1)).Trim();
+                    arg.Description = string.Join(":", p_desc.Split('–', ':').Skip(1)).Trim();
 
                     var type_part = Regex.Match(p_desc, @"\((\S+(, optional)?)\)")?.Value; //(torch.dtype, optional)
                     if (!string.IsNullOrEmpty(type_part))
@@ -443,12 +523,21 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 // may contain type desc
                 var type_part = Regex.Match(p_desc.Split('–')[0], @"\([\S,\s]+\):")?.Value; // (list of Tensor):
                 if (!string.IsNullOrEmpty(type_part))
+                {
                     arg.Type = InferType(type_part.Replace(":", string.Empty), p_desc, arg);
+                }
                 if (string.IsNullOrEmpty(arg.Type))
-                    arg.Type = InferType(
-                        p_desc.Split('–')[0].Split(' ')[1].Trim('(', ')', ',', ' '), p_desc, arg);
-                //var desc = p_desc.Split('–')[1].Trim();
-
+                {
+                    if (p_desc.Trim() == "self")
+                        arg.Type = decl.ClassName;
+                    else
+                        arg.Type = InferType(p_desc.Split('–')[0].Split(' ')[1].Trim('(', ')', ',', ' '), p_desc, arg);
+                }
+                if (p_desc.Contains("optional"))
+                {
+                    arg.IsNullable = true;
+                    arg.IsNamedArg = true;
+                }
                 args.Add(arg);
             }
 
@@ -840,10 +929,10 @@ namespace CodeMinion.ApiGenerator.PyTorch
                         func["dim"].IsNullable = true;
                         break;
                     }
-                    if (func.Arguments.Count==1)
+                    if (func.Arguments.Count == 1)
                     {
-                        func.Arguments.Insert(0, new Argument() { Type = "Tensor", Name="input" });
-                        func.Arguments.Add(new Argument() { Type = "int", Name = "dim", IsNullable = true, IsNamedArg = true, DefaultValue = "null"});
+                        func.Arguments.Insert(0, new Argument() { Type = "Tensor", Name = "input" });
+                        func.Arguments.Add(new Argument() { Type = "int", Name = "dim", IsNullable = true, IsNamedArg = true, DefaultValue = "null" });
                         func["repeats"].Type = "Tensor";
                     }
                     break;
@@ -873,11 +962,11 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     func.Ignore = true;
                     break;
                 case "matrix_rank":
-                    func["bool symmetric"].Ignore=true;
+                    func["bool symmetric"].Ignore = true;
                     func["symmetric"].DefaultValue = "false";
                     break;
                 case "compiled_with_cxx11_abi":
-                    func.Returns.Add(new Argument(){ Type="bool"});
+                    func.Returns.Add(new Argument() { Type = "bool" });
                     break;
             }
         }
@@ -995,6 +1084,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     yield return func.Clone(clone => { clone.Arguments.RemoveAt(1); });
                     break;
                 case "stride":
+                    func["dim"].IsNullable = false;
+                    func["dim"].DefaultValue = null;
                     yield return func.Clone(clone =>
                     {
                         clone.Arguments.RemoveAt(0);
@@ -1051,7 +1142,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     func["alpha"].DefaultValue = null;
                     yield return func.Clone(clone =>
                     {
-                        clone["beta"].Ignore=true;
+                        clone["beta"].Ignore = true;
                         clone["alpha"].Ignore = true;
                     });
                     break;

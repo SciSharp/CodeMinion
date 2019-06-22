@@ -2721,49 +2721,6 @@ namespace Torch
         }
         
         /// <summary>
-        /// Clamp all elements in input into the range [ min, max ] and return
-        /// a resulting tensor:
-        /// 
-        /// \[y_i = \begin{cases}
-        ///     \text{min} & \text{if } x_i < \text{min} \\
-        ///     x_i & \text{if } \text{min} \leq x_i \leq \text{max} \\
-        ///     \text{max} & \text{if } x_i > \text{max}
-        /// \end{cases}
-        /// 
-        /// \]
-        /// 
-        /// If input is of type FloatTensor or DoubleTensor, args min
-        /// and max must be real numbers, otherwise they should be integers.
-        /// </summary>
-        /// <param name="input">
-        /// the input tensor
-        /// </param>
-        /// <param name="min">
-        /// lower-bound of the range to be clamped to
-        /// </param>
-        /// <param name="max">
-        /// upper-bound of the range to be clamped to
-        /// </param>
-        /// <param name="out">
-        /// the output tensor
-        /// </param>
-        public Tensor clamp(Tensor input, double? min = null, double? max = null, Tensor @out = null)
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            var pyargs=ToTuple(new object[]
-            {
-                input,
-            });
-            var kwargs=new PyDict();
-            if (min!=null) kwargs["min"]=ToPython(min);
-            if (max!=null) kwargs["max"]=ToPython(max);
-            if (@out!=null) kwargs["out"]=ToPython(@out);
-            dynamic py = __self__.InvokeMethod("clamp", pyargs, kwargs);
-            return ToCsharp<Tensor>(py);
-        }
-        
-        /// <summary>
         /// Returns a new tensor with the cosine  of the elements of input.
         /// 
         /// \[\text{out}_{i} = \cos(\text{input}_{i})
@@ -3767,13 +3724,6 @@ namespace Torch
             return ToCsharp<Tensor>(py);
         }
         
-        public void argmax()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("argmax");
-        }
-        
         public Tensor<long> argmax(Tensor input)
         {
             //auto-generated code, do not change
@@ -3800,13 +3750,6 @@ namespace Torch
             if (keepdim!=false) kwargs["keepdim"]=ToPython(keepdim);
             dynamic py = __self__.InvokeMethod("argmax", pyargs, kwargs);
             return ToCsharp<Tensor<long>>(py);
-        }
-        
-        public void argmin()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("argmin");
         }
         
         public Tensor<long> argmin(Tensor input)
@@ -4241,13 +4184,6 @@ namespace Torch
             return ToCsharp<Tensor>(py);
         }
         
-        public void sum()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("sum");
-        }
-        
         public Tensor sum(Tensor input, Dtype dtype = null)
         {
             //auto-generated code, do not change
@@ -4373,13 +4309,6 @@ namespace Torch
             dynamic py = __self__.InvokeMethod("unique_consecutive", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<Tensor>(t[0]), ToCsharp<Tensor>(t[1]), ToCsharp<Tensor>(t[2]));
-        }
-        
-        public void @var()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("var");
         }
         
         public Tensor @var(Tensor input, bool unbiased = true)
@@ -4749,13 +4678,6 @@ namespace Torch
             return ToCsharp<Tensor>(py);
         }
         
-        public void max()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("max");
-        }
-        
         public Tensor max(Tensor input)
         {
             //auto-generated code, do not change
@@ -4799,13 +4721,6 @@ namespace Torch
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("max", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
-        }
-        
-        public void min()
-        {
-            //auto-generated code, do not change
-            var __self__=self;
-            dynamic py = __self__.InvokeMethod("min");
         }
         
         public Tensor min(Tensor input)

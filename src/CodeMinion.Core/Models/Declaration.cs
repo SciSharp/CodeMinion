@@ -109,7 +109,7 @@ namespace CodeMinion.Core.Models
             if (Arguments.Count == 1)
             {
                 var arg = Arguments[0];
-                if (arg.Type.EndsWith("[]") && !arg.Type.StartsWith("params"))
+                if (arg.Type != null && arg.Type.EndsWith("[]") && !arg.Type.StartsWith("params"))
                     arg.Type = "params " + arg.Type;
             }
         }
@@ -125,6 +125,9 @@ namespace CodeMinion.Core.Models
     public class Property : Declaration
     {        
         public bool HasSetter { get; set; }
+
+        public string Type { get; set; }
+        public string DefaultValue { get; set; }
 
     }
 }

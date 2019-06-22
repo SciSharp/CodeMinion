@@ -338,6 +338,36 @@ namespace Torch
         public static Tensor arange(int end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
             => PyTorch.Instance.arange(0, end, 1, @out: @out, dtype: torch.int64, layout: layout, device: device, requires_grad: requires_grad);
 
+        /// <summary>
+        /// Clamp all elements in input into the range [ min, max ] and return
+        /// a resulting tensor:
+        /// 
+        /// \[y_i = \begin{cases}
+        ///     \text{min} & \text{if } x_i < \text{min} \\
+        ///     x_i & \text{if } \text{min} \leq x_i \leq \text{max} \\
+        ///     \text{max} & \text{if } x_i > \text{max}
+        /// \end{cases}
+        /// 
+        /// \]
+        /// 
+        /// If input is of type FloatTensor or DoubleTensor, args min
+        /// and max must be real numbers, otherwise they should be integers.
+        /// </summary>
+        /// <param name="input">
+        /// the input tensor
+        /// </param>
+        /// <param name="min">
+        /// lower-bound of the range to be clamped to
+        /// </param>
+        /// <param name="max">
+        /// upper-bound of the range to be clamped to
+        /// </param>
+        /// <param name="out">
+        /// the output tensor
+        /// </param>
+        public static Tensor clamp(Tensor input, double? min = null, double? max = null, Tensor @out = null)
+            => PyTorch.Instance.clamp(input, min: min, max: max, @out: @out);
+
     }
 }
 

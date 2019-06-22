@@ -81,13 +81,17 @@ namespace CodeMinion.Core
                         GenerateFunctionBody(func, s, prefix_str);
                     });
                     break;
-                case Property prop:
-                    s.Out($"public {retval} {EscapeName(decl.Name)}");
+                case Property prop:                    
+                    s.Out($"public {prop.Type} {EscapeName(prop.Name)}");
                     s.Block(() =>
                     {
                         s.Out("get", () =>
                         {
                             GeneratePropertyGetter(prop, s);
+                        });
+                        s.Out("set", () =>
+                        {
+                            GeneratePropertySetter(prop, s);
                         });
                     });
                     break;
@@ -445,24 +449,14 @@ namespace CodeMinion.Core
 
         private void GeneratePropertyGetter(Property prop, CodeWriter s)
         {
-            //if (_templates.ContainsKey(prop.Name))
-            //{
-            //    // use generator template instead
-            //    _templates[prop.Name].GenerateBody(prop, s);
-            //    return;
-            //}
-            s.Out("//auto-generated code, do not change");
-            // call proption with no arguments
             s.Out($"dynamic py = self.GetAttr(\"{prop.Name}\");");
-            // return the return value if any
-            if (prop.Returns.Count == 0)
-                return;
-            if (prop.Returns.Count == 1)
-                s.Out($"return ToCsharp<{prop.Returns[0].Type}>(py);");
-            else
-            {
-                throw new NotImplementedException("return a tuple or array of return values");
-            }
+            if (prop.Type!=null)
+                s.Out($"return ToCsharp<{prop.Type}>(py);");
+        }
+
+        private void GeneratePropertySetter(Property prop, CodeWriter s)
+        {
+            s.Out($"self.SetAttr(\"{prop.Name}\", ToPython(value));");
         }
 
         public virtual void GenerateStaticApi(StaticApi api, CodeWriter s)
@@ -759,7 +753,12 @@ namespace CodeMinion.Core
             {
                 if(file.TestCases.Count==0)
                     continue;
-                var test_file = Path.Combine(TestFilesPath, $"{file.Name}.tests.cs");
+                var path = TestFilesPath;
+                if (!string.IsNullOrWhiteSpace(file.SubDir))
+                    path = Path.Combine(path, file.SubDir);
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+                var test_file = Path.Combine(path, $"{file.Name}.tests.cs");
                 if (File.Exists(test_file))
                     continue; // never overwrite already generated files!
                 WriteFile(test_file, s => { GenerateTests(file, s); });

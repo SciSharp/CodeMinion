@@ -15,5 +15,7 @@ namespace CodeMinion.Core.Models
         /// The tests in that test file
         /// </summary>
         public List<TestCase> TestCases { get; set; } = new List<TestCase>();
+
+        public string SubDir { get; set; }
     }
 }

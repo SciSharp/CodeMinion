@@ -327,7 +327,7 @@ namespace CodeMinion.ApiGenerator.NumPy
                     continue;
                 var td = tr.Descendants("td").Skip(1).FirstOrDefault();
                 _function_count++;
-                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Returns = { new Argument() { Type = "Dtype" } } });
+                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Type = "Dtype" });
             }
         }
 
