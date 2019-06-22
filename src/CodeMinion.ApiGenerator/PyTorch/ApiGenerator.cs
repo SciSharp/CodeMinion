@@ -219,8 +219,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     if (dt != null && dt.InnerText == "Parameters")
                     {
                         var parameters_dd = dl.Element("dd");
-                        var decl=new Function() { Name="Constructor" };
-                        ParseArgumentsList(decl, parameters_dd);
+                        var decl=new Function() { Name=fullname };
+                        decl.Arguments=ParseArgumentsList(decl, parameters_dd);
                         api.Constructors.Add(decl);
                     }
                 }

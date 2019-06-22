@@ -24,6 +24,21 @@ namespace Torch
                 
                 public Parameter(PyObject pyobj) : base(pyobj) { }
                 
+                public Parameter(Tensor data, bool? requires_grad = null)
+                {
+                    //auto-generated code, do not change
+                    var nn = self.GetAttr("nn");
+                    var __self__=nn;
+                    var pyargs=ToTuple(new object[]
+                    {
+                        data,
+                    });
+                    var kwargs=new PyDict();
+                    if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+                    dynamic py = __self__.InvokeMethod("Parameter", pyargs, kwargs);
+                    self=py as PyObject;
+                }
+                
             }
         }
     }

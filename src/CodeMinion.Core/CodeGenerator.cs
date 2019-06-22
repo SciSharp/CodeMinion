@@ -338,7 +338,7 @@ namespace CodeMinion.Core
             s.Out("/// <summary>");
             foreach (var line in Regex.Split(decl.DocString, @"\r?\n"))
                 s.Out("/// " + line);
-            s.Out("/// </summary>");           
+            s.Out("/// </summary>");
         }
 
         // generates only the body of the API function declaration
@@ -360,7 +360,9 @@ namespace CodeMinion.Core
             var class_names = (func.ClassName ?? "no_name").Split('.');
             int levels = class_names.Length - 1;
             if (levels > 1)
+            {
                 s.Out("var __self__=self;");
+            }
             else
             {
                 var last = "self";
@@ -410,6 +412,12 @@ namespace CodeMinion.Core
             {
                 // call function with no arguments
                 s.Out($"dynamic py = __self__.InvokeMethod(\"{func.Name}\");");
+            }
+
+            if (func.IsConstructor)
+            {
+                s.Out("self=py as PyObject;");
+                return;
             }
             // return the return value if any
             if (func.Returns.Count == 0)
@@ -580,7 +588,7 @@ namespace CodeMinion.Core
             s.Block(() =>
             {
                 var names = new ArraySlice<string>(api.ClassName.Split('.'));
-                var static_classes = names.GetSlice(new Slice(0, names.Length-1));
+                var static_classes = names.GetSlice(new Slice(0, names.Length - 1));
                 var class_name = names.Last();
                 int levels = names.Length - 1;
                 if (levels > 0)
@@ -599,7 +607,38 @@ namespace CodeMinion.Core
                     s.Break();
                     s.Out($"public {EscapeName(class_name)}(PyObject pyobj) : base(pyobj) {{ }}");
                     s.Break();
-                    // todo: constructor
+                    // additional constructors
+                    foreach (var func in api.Constructors)
+                    {
+                        try
+                        {
+                            if (func.ManualOverride || func.Ignore)
+                                continue;
+                            func.IsConstructor = true;
+                            func.ClassName = string.Join(".", static_classes);
+                            func.Name = class_name;
+                            var arguments = GenerateArguments(func);
+                            //var passed_args = GeneratePassedArgs(func);
+                            s.Out($"public {EscapeName(class_name)}({arguments})");
+                            s.Block(() =>
+                            {
+                                GenerateFunctionBody(func, s);
+                            });
+                        }
+                        catch (Exception e)
+                        {
+                            s.Out("// Error generating constructor");
+                            s.Out("// Message: " + e.Message);
+                            s.Out("/*");
+                            s.Out(e.StackTrace);
+                            s.Out("----------------------------");
+                            s.Out("Declaration JSON:");
+                            s.Out(JObject.FromObject(func).ToString(Formatting.Indented));
+                            s.Out("*/");
+                        }
+                    }
+                    // functions
+                    s.Break();
                     foreach (var decl in api.Declarations)
                     {
                         try
@@ -705,7 +744,7 @@ namespace CodeMinion.Core
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
                 var api_file = Path.Combine(outpath, $"{api.ClassName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateClass(api, s); });
-            }            
+            }
             // generate missing tests
             GenerateAllTests();
         }
@@ -718,6 +757,8 @@ namespace CodeMinion.Core
         {
             foreach (var file in TestFiles)
             {
+                if(file.TestCases.Count==0)
+                    continue;
                 var test_file = Path.Combine(TestFilesPath, $"{file.Name}.tests.cs");
                 if (File.Exists(test_file))
                     continue; // never overwrite already generated files!

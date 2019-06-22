@@ -59,6 +59,8 @@ namespace CodeMinion.Core.Models
     {
         public List<Argument> Arguments { get; set; } = new List<Argument>();
 
+        public bool IsConstructor { get; set; }
+
         /// <summary>
         /// Generic type parameters of the function
         /// </summary>
