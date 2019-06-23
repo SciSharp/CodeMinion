@@ -7,15 +7,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="51.371189"
-   height="17.456266"
-   viewBox="0 0 51.371189 17.456266"
+   width="48"
+   height="48"
+   viewBox="0 0 48 47.999999"
    version="1.1"
    id="svg6"
-   sodipodi:docname="code_minion.svg"
-   inkscape:export-filename="code_minion.png"
-   inkscape:export-xdpi="654.43549"
-   inkscape:export-ydpi="654.43549"
+   sodipodi:docname="code_minion_icon.svg"
+   inkscape:export-filename="code_minion-128x128.png"
+   inkscape:export-xdpi="256"
+   inkscape:export-ydpi="256"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
      id="metadata12">
@@ -44,9 +44,9 @@
      inkscape:window-height="931"
      id="namedview8"
      showgrid="false"
-     inkscape:zoom="9.8333334"
-     inkscape:cx="7.5521315"
-     inkscape:cy="7.1573246"
+     inkscape:zoom="3.4766084"
+     inkscape:cx="10.348019"
+     inkscape:cy="39.288464"
      inkscape:window-x="2060"
      inkscape:window-y="13"
      inkscape:window-maximized="0"
@@ -57,14 +57,16 @@
      fit-margin-bottom="0"
      showguides="true"
      inkscape:guide-bbox="true" />
+  <rect
+     style="opacity:1;vector-effect:none;fill:#661f76;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.44785273;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect890"
+     width="48"
+     height="48"
+     x="3.0087828e-009"
+     y="-3.2339877e-009" />
   <g
      id="g888"
-     transform="translate(1.6999464,1.1505466)">
-    <path
-       id="path2-6-8-8"
-       d="M -1.6999464,-1.1505466 H 49.671243 V 16.305719 H -1.6999464 Z"
-       inkscape:connector-curvature="0"
-       style="fill:#661f76;fill-opacity:1;stroke-width:1.24774039" />
+     transform="matrix(3.3861992,0,0,3.3861992,3.6211868,-3.0686818)">
     <g
        transform="matrix(0.80268929,0,0,0.80268929,-11.262046,1.5689641)"
        id="g858">
@@ -139,16 +141,5 @@
          d="m 20.374202,6.797098 a 1.9058269,1.7507739 0 0 0 -1.856398,1.3615899 h 3.711564 A 1.9058269,1.7507739 0 0 0 20.374202,6.797098 Z"
          style="opacity:1;vector-effect:none;fill:#3fc6ee;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.19449615;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
-    <text
-       id="text1082-7-6-0-5"
-       y="11.20405"
-       x="13.12128"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:6.77738714px;line-height:1.25;font-family:Calibri;-inkscape-font-specification:'Calibri Light';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;opacity:1;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.57373798;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:6.77738714px;line-height:1.25;font-family:Calibri;-inkscape-font-specification:'Calibri Light';font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:0px;word-spacing:0px;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;vector-effect:none;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.57373798;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         y="11.20405"
-         x="13.12128"
-         id="tspan1080-0-4-4-9"
-         sodipodi:role="line">CodeMinion</tspan></text>
   </g>
 </svg>
