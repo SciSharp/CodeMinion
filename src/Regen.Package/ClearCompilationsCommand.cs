@@ -95,7 +95,7 @@ namespace Regen {
             var index = cursor.AbsoluteCharOffset;
 
             var code = txt.GetText().Replace("\r", "");
-            code = Regex.Replace(code, $@"(\#if\s{DigestParser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)",
+            code = Regex.Replace(code, $@"(\#if\s{Regexes.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)",
                 "$1" + Environment.NewLine, Regexes.DefaultRegexOptions);
 
             try {
@@ -105,7 +105,11 @@ namespace Regen {
                 var newLength = txt.EndPoint.AbsoluteCharOffset;
                 textSelection.MoveToAbsoluteOffset(Math.Min(newLength - 1, index));
             } catch (Exception e) {
+#if DEBUG
                 Message($"Failed parsing file...\n" + e);
+#else
+                Message($"Failed parsing file...\n" + e.Message);
+#endif
             }
 
             // now set the cursor to the beginning of the function

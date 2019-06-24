@@ -4,14 +4,13 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
-using Regen.Compiler.Expressions;
 using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Regen.Parser;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Core.Tests.Digest {
+namespace Regen.Core.Tests {
     [TestClass]
     public class RegenCompilerTests : ExpressionUnitTest {
         [TestMethod]
@@ -131,7 +130,7 @@ namespace Regen.Core.Tests.Digest {
                 %b = a + 1
                 %(b)
                 ";
-            Compile(input, new Dictionary<string, object>() {{"a", Scalar.Create(1)}}).Output
+            Compile(input, new Dictionary<string, object>() {{"a", Data.Create(1)}}).Output
                 .Should().Contain("2");
         }
 

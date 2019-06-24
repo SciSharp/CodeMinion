@@ -82,10 +82,14 @@ namespace Regen.Compiler {
 
         public string Compile(ParsedCode code) {
             var output = code.Output;
-            var variables = code.Variables ?? new Dictionary<string, object>();
+            if (code.Variables != null) {
+                foreach (var kv in code.Variables) {
+                    Context.Variables[kv.Key] = kv.Value;
+                }
+            }
 
             foreach (var globalVariable in GlobalVariables)
-                variables.Add(globalVariable.Key, globalVariable.Value);
+                Context.Variables[globalVariable.Key] = globalVariable.Value;
 
             foreach (var action in code.ParseActions) {
                 switch (action.Token) {
@@ -171,14 +175,12 @@ namespace Regen.Compiler {
                                 //iterate lines, one at a time 
                                 var copy = content.ToString();
                                 bool changed = false;
-                                
+
                                 //replace all emit commands
-                                copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => {
-                                    return _emit(vars[$"__{match.Groups[1].Value}__"]);
-                                });
+                                copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => { return _emit(vars[$"__{match.Groups[1].Value}__"]); });
 
                                 var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy, ExpressionToken.StringLiteral));
-                                
+
                                 if (ew.HasNext) {
                                     do {
                                         _restart:
@@ -200,7 +202,7 @@ namespace Regen.Compiler {
                                                 ew.NextOrThrow();
                                                 var expression = Expression.ParseExpression(ew);
                                                 object val = EvaluateObject(expression, ew, baseLine);
-                                                    
+
                                                 ew.IsCurrentOrThrow(ExpressionToken.RightParen);
                                                 copy = copy
                                                     .Remove(hashtag.Match.Index, ew.Current.Match.Index + 1 - hashtag.Match.Index)

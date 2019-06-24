@@ -59,6 +59,7 @@
     <Compile Include="CompileFileCommand.cs" />
     <Compile Include="CompileSelectionCommand.cs" />
     <Compile Include="EnableDisableRegenCommand.cs" />
+    <Compile Include="Engine\RegenEngine.cs" />
     <Compile Include="Helpers\DocumentHelper.cs" />
     <Compile Include="Helpers\ManualAssemblyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

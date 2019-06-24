@@ -4,7 +4,6 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler.Expressions;
-using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests.Expression {

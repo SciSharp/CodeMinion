@@ -63,6 +63,7 @@ namespace Regen.Parser.Expressions {
 
         public static Expression ParseExpression(ExpressionWalker ew, Type caller = null) {
             Expression ret = null;
+            bool isOperatorCall = caller == typeof(OperatorExpression) || caller == typeof(RightOperatorExpression) || caller == typeof(ForeachExpression);
             var current = ew.Current.Token;
             if (current == ExpressionToken.Literal) {
                 //cases like variable(.., variable[.., variable + .., variable
@@ -78,10 +79,7 @@ namespace Regen.Parser.Expressions {
                         ret = NewExpression.Parse(ew);
                     } else if (RightOperatorExpression.IsNextAnRightUniOperation(ew, caller) && caller != typeof(RightOperatorExpression)) {
                         ret = RightOperatorExpression.Parse(ew);
-                    } else if (OperatorExpression.IsNextAnOperation(ew)
-                               && caller != typeof(OperatorExpression)
-                               && caller != typeof(RightOperatorExpression)
-                               && caller != typeof(ForeachExpression)) {
+                    } else if (OperatorExpression.IsNextAnOperation(ew) && !isOperatorCall) {
                         ret = OperatorExpression.Parse(ew);
                     } else {
                         ret = IdentityExpression.Parse(ew, caller);
@@ -116,7 +114,7 @@ namespace Regen.Parser.Expressions {
             }
 
             //here we parse chained math operations
-            while (OperatorExpression.IsCurrentAnOperation(ew)) {
+            while (OperatorExpression.IsCurrentAnOperation(ew) && !isOperatorCall) {
                 if (RightOperatorExpression.IsCurrentAnRightUniOperation(ew) && caller != typeof(OperatorExpression)) {
                     ret = RightOperatorExpression.Parse(ew, ret);
                 } else if (OperatorExpression.IsCurrentAnOperation(ew)) {

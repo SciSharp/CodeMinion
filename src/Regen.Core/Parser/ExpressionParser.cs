@@ -88,18 +88,21 @@ namespace Regen.Parser {
                             }
 
                             case ExpressionToken.Foreach: {
-                                //%foreach expr%
-                                //  code $1
-                                //%
+                                //  multiline:
+                                //      %foreach expr%
+                                //        code #1
+                                //      %
+                                //  singleline:
+                                //      %foreach expr
+                                //          code #1
 
-                                //get 
+
                                 ew.IsCurrentOrThrow(ExpressionToken.Foreach);
                                 ew.NextOrThrow();
                                 //parse the arguments for the foreach
                                 var args = ArgumentsExpression.Parse(ew, token => token.Token == ExpressionToken.NewLine || token.Token == ExpressionToken.Mod, false, typeof(ForeachExpression));
-                                if (ew.IsCurrent(ExpressionToken.NewLine)) {
-                                    ew.NextOrThrow();
-                                }
+                                //ew.Back(); //agrumentsExpression skips the closer token and we need it to identify if this is a singleline or multiline
+
 
                                 StringSlice content;
                                 var relatedLines = new List<Line>();
@@ -108,6 +111,8 @@ namespace Regen.Parser {
                                     //the content is % to % block
                                     var leftMod = ew.Current.Match;
                                     var nextMod = code.IndexOf('%', leftMod.Index);
+                                    //handle implicit end block (when % is not existing)
+                                    if (nextMod == -1) nextMod = code.Length - 1;
                                     content = output_sb.Substring(leftMod.Index, nextMod == -1 ? code.Length - leftMod.Index : nextMod - leftMod.Index);
                                     ew.SkipForwardWhile(token => token.Token != ExpressionToken.Mod);
                                     ew.Next(); //skip % itself
@@ -122,6 +127,7 @@ namespace Regen.Parser {
                                     content = output_sb.Substring(leftMod.Index, nextMod == -1 ? (code.Length - leftMod.Index) : nextMod - leftMod.Index);
                                 }
 
+                                relatedLines = relatedLines.Distinct().OrderBy(l=>l.StartIndex).ToList();
                                 //all lines of the foreach are destined to deletion
                                 foreach (var line in relatedLines) {
                                     line.MarkedForDeletion = true;
