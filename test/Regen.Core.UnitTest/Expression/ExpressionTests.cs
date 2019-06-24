@@ -8,7 +8,7 @@ using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestExpressionTests : ExpressionUnitTest {
+    public class ExpressionTests : ExpressionUnitTest {
         [DataTestMethod]
         [DataRow("1+1", 2)]
         [DataRow("1 + 1", 2)]
@@ -65,7 +65,7 @@ namespace Regen.Core.Tests.Digest {
         [TestMethod]
         public void declaration_new_nested_array() {
             var @input = $@"
-                %a = [1|asarray(1,2,3)]
+                %a = [1,asarray(1,2,3)]
                 ";
 
             var variables = Variables(input).Values.Last();
@@ -127,7 +127,7 @@ namespace Regen.Core.Tests.Digest {
         [TestMethod]
         public void expression_access_indexer() {
             var @input = $@"
-                %a = [1|2|3]
+                %a = [1,2,3]
                 %(a[0])
                 ";
 
@@ -142,7 +142,7 @@ namespace Regen.Core.Tests.Digest {
         [DataRow("*", 1)]
         public void expression_access_indexer_math(string expression, object equalsTo) {
             var @input = $@"
-                %a = [1|2|3]
+                %a = [1,2,3]
                 %b = 1
                 %(a[0]{expression}b)
                 ";

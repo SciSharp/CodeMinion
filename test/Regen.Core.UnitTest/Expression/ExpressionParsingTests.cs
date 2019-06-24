@@ -254,7 +254,7 @@ of nothing
         [TestMethod]
         public void expression_variable_bool_op() {
             var input = @"
-                %a = true | true";
+                %a = true,true";
             var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);

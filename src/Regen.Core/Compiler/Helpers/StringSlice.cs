@@ -301,6 +301,8 @@ namespace Regen.Compiler.Helpers {
         /// <summary>Returns a string that represents the current object.</summary>
         /// <returns>A string that represents the current object.</returns>
         public override string ToString() {
+            if (End == -1 || Start == -1)
+                return string.Empty;
             var arr = new char[End - Start + 1]; //1 based
             _spanner.Chars.CopyTo(Start, arr, 0, arr.Length);
             return new string(arr);

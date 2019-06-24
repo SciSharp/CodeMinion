@@ -84,9 +84,8 @@
     <Compile Include="DataTypes\DictTests.cs" />
     <Compile Include="DataTypes\ArrayTests.cs" />
     <Compile Include="DataTypes\StringTests.cs" />
-    <Compile Include="Digest\DigestForeachTests.cs" />
     <Compile Include="Digest\DigestCommentTests.cs" />
-    <Compile Include="Digest\DigestExpressionTests.cs" />
+    <Compile Include="Expression\ExpressionTests.cs" />
     <Compile Include="Expression\BuiltinTests.cs" />
     <Compile Include="Expression\ExpressionForeachTests.cs" />
     <Compile Include="Expression\ExpressionParsingTests.cs" />
