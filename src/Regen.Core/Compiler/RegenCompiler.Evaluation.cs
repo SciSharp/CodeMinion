@@ -266,11 +266,11 @@ namespace Regen.Compiler {
                 }
 
                 case IdentityExpression identityExpression: {
-                    if (caller == typeof(CallExpression) || caller == typeof(IndexerCallExpression)) {
-                        if (identityExpression.Identity is StringIdentity sr) {
-                            if (!Context.Variables.ContainsKey(sr.Name)) {
-                                return new IdentityExpression(ReferenceIdentity.Wrap(sr));
-                            }
+                    //here we turn any string literal into a reference to a variable.
+                    //if theres no such variable, we assume it is for a functionname of property.
+                    if (identityExpression.Identity is StringIdentity sr) {
+                        if (Context.Variables.ContainsKey(sr.Name)) {
+                            return new IdentityExpression(ReferenceIdentity.Wrap(sr));
                         }
                     }
 

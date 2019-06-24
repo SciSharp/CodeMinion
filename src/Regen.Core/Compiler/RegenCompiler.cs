@@ -151,7 +151,7 @@ namespace Regen.Compiler {
                         var expr = (ForeachExpression) action.Related.Single();
 
                         var baseLine = action.RelatedLines.First();
-                        var contents = action.RelatedLines.Skip(1).Select(l => (Line: l.Content, ExpressionLexer.Tokenize(l.Content))).ToArray();
+                        var contents = action.RelatedLines.Skip(1).Select(l => l.Content).ToArray();
                         baseLine.MarkedForDeletion = false;
                         var iterateThose = expr.Arguments.Arguments.Select(parseExpr).ToList();
                         unpackPackedArguments();
@@ -167,14 +167,18 @@ namespace Regen.Compiler {
                             }
 
                             //todo now here we iterate contents and set all variables in it.
-                            foreach (var (line, tkns) in contents) {
+                            foreach (var content in contents) {
                                 //iterate lines, one at a time 
-                                var copy = line.ToString();
+                                var copy = content.ToString();
                                 bool changed = false;
-                                var ew = new ExpressionWalker(tkns);
+                                
+                                //replace all emit commands
+                                copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => {
+                                    return _emit(vars[$"__{match.Groups[1].Value}__"]);
+                                });
 
-                                //var byregex = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", "__$1__");
-
+                                var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy, ExpressionToken.StringLiteral));
+                                
                                 if (ew.HasNext) {
                                     do {
                                         _restart:
@@ -196,7 +200,7 @@ namespace Regen.Compiler {
                                                 ew.NextOrThrow();
                                                 var expression = Expression.ParseExpression(ew);
                                                 object val = EvaluateObject(expression, ew, baseLine);
-
+                                                    
                                                 ew.IsCurrentOrThrow(ExpressionToken.RightParen);
                                                 copy = copy
                                                     .Remove(hashtag.Match.Index, ew.Current.Match.Index + 1 - hashtag.Match.Index)
@@ -213,7 +217,7 @@ namespace Regen.Compiler {
                                                     var key = $"#{ew.Current.Match.Value}";
                                                     object val = vars[$"__{ew.Current.Match.Value}__"];
 
-                                                    copy = Regex.Replace(copy, Regex.Escape(key), val is Data d ? d.Emit() : val.ToString());
+                                                    copy = Regex.Replace(copy, Regex.Escape(key), _emit(val));
                                                     changed = true;
                                                 }
 
@@ -274,6 +278,10 @@ namespace Regen.Compiler {
             }
 
             return output.Compile(code.Options);
+
+            string _emit(object val) {
+                return val is Data d ? d.Emit() : val.ToString();
+            }
         }
 
         #region Modules
@@ -392,7 +400,7 @@ namespace Regen.Compiler {
                 throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
             }
         }
-        
+
         #endregion
     }
 }

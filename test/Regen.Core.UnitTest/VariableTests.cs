@@ -36,7 +36,7 @@ namespace Regen.Core.Tests {
                 .ContainInOrder("a", "a2");
 
             variables["a"].Should().BeOfType<NumberScalar>().Which.Value.Should().Be(1);
-            variables["a2"].Should().BeOfType<ReferenceData>().Which.Value.Should().Be("a");
+            variables["a2"].Should().BeOfType<NumberScalar>().Which.Value.Should().Be(1);
         }
 
         [TestMethod]
@@ -98,14 +98,13 @@ namespace Regen.Core.Tests {
                 .Throw<ExpressionCompileException>();
         }
 
-        [TestMethod]
+        [TestMethod, ExpectedException(typeof(ExpressionCompileException))]
         public void declare_variable_named_after_function_from_builtin_namespace() {
             var @input = @"
                 %asarray = 1
                 %(asarray(asarray)[0])
                 ";
             Compile(input).Output.Should().Contain("1");
-            Variables(input).Should().ContainKey("asarray");
         }
 
         [DataTestMethod]

@@ -47,7 +47,7 @@ of nothing
             var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var call = varexpr.Right.Should().BeOfType<CallExpression>().Which;
-            call.FunctionName.As<IdentityExpression>().Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
+            call.FunctionName.As<IdentityExpression>().Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
             call.Arguments.Arguments.Should().HaveCount(2);
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last().Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("15");
@@ -256,7 +256,7 @@ of nothing
         [TestMethod]
         public void expression_variable_bool_op() {
             var input = @"
-                %a = true,true";
+                %a = true | true";
             var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);

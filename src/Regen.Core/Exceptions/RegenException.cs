@@ -1,6 +1,9 @@
 ﻿using System;
 
 namespace Regen.Exceptions {
+    /// <summary>
+    ///     Serves as a base exception to all <see cref="Regen.Exceptions"/> namespace.
+    /// </summary>
     [Serializable]
     public class RegenException : Exception {
         public RegenException() { }

@@ -84,6 +84,7 @@
     <Compile Include="DataTypes\DictTests.cs" />
     <Compile Include="DataTypes\ArrayTests.cs" />
     <Compile Include="DataTypes\StringTests.cs" />
+    <Compile Include="DevelopmentTests.cs" />
     <Compile Include="Expression\CommentTests.cs" />
     <Compile Include="Expression\ExpressionTests.cs" />
     <Compile Include="Expression\BuiltinTests.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="StringSpanTests.cs" />
     <Compile Include="VariableTests.cs" />
     <Compile Include="Examples\OperatorsOverloading.cs" />
-    <Compile Include="Digest\BuiltinTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

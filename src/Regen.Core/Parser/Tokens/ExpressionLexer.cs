@@ -11,7 +11,7 @@ using Regen.Helpers.Collections;
 
 namespace Regen.Parser {
     public class ExpressionLexer {
-        public static List<TokenMatch> Tokenize(string codeStr) {
+        public static List<TokenMatch> Tokenize(string codeStr, params ExpressionToken[] exceptFor) {
             var code = new StringBuilder(codeStr);
             var allTokens = new List<(string Regex, ExpressionToken Token, List<ExpressionToken> Swallows, int Order)>(
                 Enum.GetValues(typeof(ExpressionToken)).Cast<ExpressionToken>()
@@ -33,7 +33,7 @@ namespace Regen.Parser {
                             return default;
                         var swallows = DetermineSwallows(t, null).OrderBy(tkn => AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(tkn).Order).ToList();
                         return (attr.Regex, t, swallows, attr.Order);
-                    })).Where(v => v != default);
+                    })).Where(v => v != default && !exceptFor.Contains(v.Token));
             var allMatches = allTokens.SelectMany(
                     tkn => Regex.Matches(code.ToString(), tkn.Regex, Regexes.DefaultRegexOptions)
                         .Cast<Match>()
