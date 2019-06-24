@@ -96,7 +96,7 @@ namespace Regen.Core.Tests.Digest {
         [TestMethod]
         public void clean_lone_blockmarks() {
             var input = @"
-                %operators = [""+""|""-""|""*""|""/""|""%""]
+                %operators = [""+"",""-"",""*"",""/"",""%""]
                 %foreach operators
                     1+1
                 %
@@ -110,7 +110,7 @@ namespace Regen.Core.Tests.Digest {
             //The regex for replacing lone % detects % operator when it is not near anything as lone.
 
             var input = @"
-                %operators = [""+""|""-""|""*""|""/""|""%""]
+                %operators = [""+"",""-"",""*"",""/"",""%""]
                 %foreach operators%
                 public static dynamic operator #1 (OperatorsOverloading lhs, int rhs) {
                     dynamic left = lhs.Value;

@@ -1,6 +1,6 @@
 ﻿namespace Regen.Core.Tests.Examples {
 #if _REGEN_GLOBAL
-%supportedTypes = ["Boolean"|"Byte"|"Int16"|"UInt16"|"Int32"|"UInt32"|"Int64"|"UInt64"|"Char"|"Double"|"Single"|"Decimal"|"String"|"Object"]
+%supportedTypes = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String","Object"]
 #endif
 
     public class OperatorsOverloading {
@@ -15,7 +15,7 @@
         %foreach range(3,3)
         //calls range(start, count) from Builtins/CommonExpressionFunctions.cs resulting in: #1
 
-        %operators = ["+"|"-"|"*"|"%"|"/"|"&"]
+        %operators = ["+","-","*","%","/","&"]
         %foreach operators%
         public static dynamic operator #1(OperatorsOverloading lhs, int rhs) {
             dynamic left = lhs.Value;

@@ -40,8 +40,8 @@ namespace Regen.Core.Tests.Digest {
         [TestMethod]
         public void zipmax() {
             var @input = @"
-                %a = [1|2|3]
-                %b = [1|2|3|4|5]
+                %a = [1,2|3]
+                %b = [1,2|3,4|5]
                 %foreach zipmax(a,b)%
                     #1 #2
                 %
@@ -54,8 +54,8 @@ namespace Regen.Core.Tests.Digest {
         [TestMethod]
         public void zipmax_overload_ziplongest() {
             var @input = @"
-                %a = [1|2|3]
-                %b = [1|2|3|4|5]
+                %a = [1,2|3]
+                %b = [1,2|3,4|5]
                 %foreach ziplongest(a,b)%
                     #1 #2
                 %
@@ -68,9 +68,9 @@ namespace Regen.Core.Tests.Digest {
         [TestMethod]
         public void without_zipmax() {
             var @input = @"
-                %a = [1|2|3]
-                %b = [1|2|3|4|5]
-                %foreach a|b%
+                %a = [1,2|3]
+                %b = [1,2|3,4|5]
+                %foreach a,b%
                     #1 #2
                 %
                 ";

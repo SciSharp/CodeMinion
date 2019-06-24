@@ -10,9 +10,9 @@ namespace Regen.Core.Tests.DataTypes {
     //[TestClass]
     //public class DictionaryTests : DigestUnitTestBase {
     //    public Dictionary GetDictionary(params object[] additionals) {
-    //        var additional = string.Join("|", additionals.Select(v => Scalar.Create(v).EmitExpressive()));
+    //        var additional = string.Join(",", additionals.Select(v => Scalar.Create(v).EmitExpressive()));
     //        if (!string.IsNullOrEmpty(additional))
-    //            additional = "|" + additional;
+    //            additional = "," + additional;
     //        var @input = $@"
     //            %a = [""hey""{additional}]
     //            ";
@@ -112,7 +112,7 @@ namespace Regen.Core.Tests.DataTypes {
     //    [DataRow(typeof(long), "1L", 1L)]
     //    public void create(Type type, string emit, object value) {
     //        var @input = $@"
-    //            %a = [{emit}|{emit}|]
+    //            %a = [{emit},{emit},]
     //            ";
     //        var variable = Variables(input).Values.First();
     //        variable.Should().BeOfType(typeof(Regen.DataTypes.Dictionary));
@@ -122,18 +122,18 @@ namespace Regen.Core.Tests.DataTypes {
     //    [TestMethod]
     //    public void Dictionary_escaped_delimiter() {
     //        var @input = $@"
-    //            %a = [""1""|""""|""\|""]
+    //            %a = [""1"","""",""\,""]
     //            ";
     //        var variable = Variables(input).Values.First();
     //        variable.Should().BeOfType(typeof(Regen.DataTypes.Dictionary));
-    //        ((Scalar) ((Dictionary) variable)[2].As<StringScalar>()).Value.Should().BeEquivalentTo("|");
+    //        ((Scalar) ((Dictionary) variable)[2].As<StringScalar>()).Value.Should().BeEquivalentTo(",");
     //    }
 
 
     //    [TestMethod]
     //    public void create_nested_Dictionary() {
     //        var @input = $@"
-    //            %a = [1|asDictionary(1,2,3)]
+    //            %a = [1,asDictionary(1,2,3)]
     //            ";
 
     //        var variables = Variables(input).Values.Last();
@@ -143,8 +143,8 @@ namespace Regen.Core.Tests.DataTypes {
     //    [TestMethod]
     //    public void create_Dictionary_with_nested_Dictionary_and_function_and_variableDictionary() {
     //        var @input = $@"
-    //            %a = [1|[1|2|3]|3]
-    //            %b = [a|asDictionary(1,2,3)|[1|2|3]]
+    //            %a = [1,[1,2,3],3]
+    //            %b = [a,asDictionary(1,2,3),[1,2,3]]
     //            ";
 
     //        var variables = Variables(input).Values;
@@ -161,8 +161,8 @@ namespace Regen.Core.Tests.DataTypes {
     //    [TestMethod]
     //    public void create_Dictionary_with_nested_Dictionary_and_function_and_variableDictionary_andanother_Dictionary() {
     //        var @input = $@"
-    //            %a = [1|[1|2|3]|3]
-    //            %b = [[1|2|3|]|a|asDictionary(1,2,3)|[1|2|3]]
+    //            %a = [1,[1,2,3],3]
+    //            %b = [[1,2,3,],a,asDictionary(1,2,3),[1,2,3]]
     //            ";
 
     //        var variables = Variables(input).Values;
@@ -178,7 +178,7 @@ namespace Regen.Core.Tests.DataTypes {
     //    [TestMethod]
     //    public void declaration_new_nested_Dictionary_and_existing() {
     //        var @input = $@"
-    //            %a = [1|asDictionary(1,2,3)|[1|2|3]]
+    //            %a = [1,asDictionary(1,2,3),[1,2,3]]
     //            ";
 
     //        var variable = Variables(input).Values.First().Should().BeOfType<Dictionary>().Which;
