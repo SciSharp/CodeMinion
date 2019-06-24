@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using Regen.Collections;
+using Regen.Helpers.Collections;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
     [DebuggerDisplay("{base.Cursor}->{Current.Token}->{Current.Match}")]
     public partial class ExpressionWalker : TokenWalker<TokenMatch> {
         public ExpressionWalker(IList<TokenMatch> list) : base(list) { }

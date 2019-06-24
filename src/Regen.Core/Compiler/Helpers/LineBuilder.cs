@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Expressions;
+using Regen.Parser;
 
 namespace Regen.Compiler.Helpers {
     public class LineBuilder : ICloneable {

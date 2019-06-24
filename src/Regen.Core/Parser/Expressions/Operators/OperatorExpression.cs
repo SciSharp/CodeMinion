@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Regen.Exceptions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     /// <summary>
     ///     Parses 1 + 1
     /// </summary>
@@ -89,7 +87,7 @@ namespace Regen.Compiler.Expressions {
                 yield return match;
             }
 
-            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult();
+            yield return AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(Op).Emit.AsResult();
 
             foreach (var match in Right.Matches()) {
                 yield return match;

@@ -1,4 +1,4 @@
-﻿namespace Regen.Collections.Merging {
+﻿namespace Regen.Helpers.Collections.Merging {
     /// <summary>
     ///     See the value documentations.
     /// </summary>

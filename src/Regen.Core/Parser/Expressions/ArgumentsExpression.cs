@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Regen.Exceptions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class ArgumentsExpression : Expression {
         private static readonly RegexResult _seperator = ",".AsResult();
         public Expression[] Arguments;

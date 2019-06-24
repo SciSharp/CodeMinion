@@ -5,7 +5,6 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Regen.Compiler;
-using Regen.Compiler.Digest;
 using Regen.Helpers;
 using Task = System.Threading.Tasks.Task;
 

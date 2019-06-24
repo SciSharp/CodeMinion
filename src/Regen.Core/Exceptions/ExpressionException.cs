@@ -1,7 +1,6 @@
 ﻿using System;
-using Regen.Exceptions;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Exceptions {
     public class ExpressionException : RegenException {
         public ExpressionException() { }
         public ExpressionException(string message) : base(message) { }

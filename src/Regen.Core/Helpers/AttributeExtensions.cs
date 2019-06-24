@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Regen {
+namespace Regen.Helpers {
     public static class AttributeExtensions {
         #region Methods
 
@@ -32,7 +32,7 @@ namespace Regen {
         // This method creates a specific call to the above method, requesting the
         // Description MetaData attribute.
         public static string ToName(this Enum value) {
-            var attribute = value.GetAttribute<DescriptionAttribute>();
+            var attribute = GetAttribute<DescriptionAttribute>(value);
             return attribute == null ? value.ToString() : attribute.Description;
         }
 

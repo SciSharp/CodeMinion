@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using Regen.Exceptions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class Expression {
         protected static RegexResult _matchWhitespace = " ".AsResult();
 

@@ -2,7 +2,6 @@
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Regen.Collections;
 using Regen.DataTypes;
 using Dictionary = Regen.DataTypes.Dictionary;
 

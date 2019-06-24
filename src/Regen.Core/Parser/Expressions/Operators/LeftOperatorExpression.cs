@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Regen.Exceptions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class LeftOperatorExpression : Expression, IOperatorExpression {
         public ExpressionToken Op;
         public Expression Right;
@@ -58,7 +57,7 @@ namespace Regen.Compiler.Expressions {
 
 
         public override IEnumerable<RegexResult> Matches() {
-            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult();
+            yield return AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(Op).Emit.AsResult();
             foreach (var match in Right.Matches()) {
                 yield return match;
             }

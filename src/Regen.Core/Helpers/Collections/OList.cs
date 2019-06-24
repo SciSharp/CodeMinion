@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     /// <summary>
     ///     A <see cref="List{T}"/> with operator capabilities.
     /// </summary>

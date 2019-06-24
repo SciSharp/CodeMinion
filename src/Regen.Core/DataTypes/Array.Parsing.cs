@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Flee.PublicTypes;
 using Regen.Compiler;
 using Regen.Helpers;
+using Regen.Parser;
 
 namespace Regen.DataTypes {
     public partial class Array {

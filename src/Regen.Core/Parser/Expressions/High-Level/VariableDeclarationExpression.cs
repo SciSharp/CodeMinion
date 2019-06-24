@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class VariableDeclarationExpression : Expression {
         private static readonly RegexResult _equalsMatch = "=".AsResult();
 

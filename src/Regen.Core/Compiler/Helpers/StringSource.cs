@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Regen.Collections;
+using Regen.Helpers.Collections;
 
 namespace Regen.Compiler.Helpers {
     /// <summary>

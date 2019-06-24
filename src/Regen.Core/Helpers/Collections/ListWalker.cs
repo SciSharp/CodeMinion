@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     public struct IndexedItem<T> {
         public T Value;
         public int Index;

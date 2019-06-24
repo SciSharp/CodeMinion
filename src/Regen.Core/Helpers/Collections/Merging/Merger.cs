@@ -2,9 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Regen.Helpers;
 
-namespace Regen.Collections.Merging {
+namespace Regen.Helpers.Collections.Merging {
     /// <summary>
     ///     A utitlity to 
     /// </summary>

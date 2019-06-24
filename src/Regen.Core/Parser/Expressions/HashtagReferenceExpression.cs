@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class HashtagReferenceExpression : Expression {
         private RegexResult _hashtagMatch;
         private RegexResult _numberMatch;

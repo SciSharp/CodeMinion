@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class BooleanLiteral : Expression, IEquatable<BooleanLiteral>, IEquatable<bool> {
         private RegexResult _match;
         public bool Value;
@@ -61,7 +60,7 @@ namespace Regen.Compiler.Expressions {
             return (Value.GetHashCode());
         }
 
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.Compiler.Expressions.StringLiteral" /> objects are equal.</summary>
+        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.Parser.Expressions.StringLiteral" /> objects are equal.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
@@ -69,7 +68,7 @@ namespace Regen.Compiler.Expressions {
             return Equals(left, right);
         }
 
-        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.Compiler.Expressions.StringLiteral" /> objects have different values.</summary>
+        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.Parser.Expressions.StringLiteral" /> objects have different values.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>

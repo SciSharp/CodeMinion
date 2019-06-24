@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Regen.Collections;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class ImportExpression : Expression {
         private static readonly RegexResult _matchImport = "import".AsResult();
         private static readonly RegexResult _matchAs = "as".AsResult();

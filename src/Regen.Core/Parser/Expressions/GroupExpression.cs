@@ -1,19 +1,16 @@
 ﻿using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Regen.Exceptions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class GroupExpression : Expression {
         private RegexResult _matchLeft;
         private RegexResult _matchRight;
         public Expression InnerExpression { get; set; }
 
         public static GroupExpression Parse(ExpressionWalker ew, ExpressionToken left, ExpressionToken right) {
-            var grp = new GroupExpression() {_matchLeft = left.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult(), _matchRight = right.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult()};
+            var grp = new GroupExpression() {_matchLeft = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(left).Emit.AsResult(), _matchRight = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(right).Emit.AsResult()};
             ew.IsCurrentOrThrow(left);
 
             ew.NextOrThrow();

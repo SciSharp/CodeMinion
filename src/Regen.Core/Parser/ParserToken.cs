@@ -1,4 +1,4 @@
-﻿namespace Regen.Compiler.Expressions {
+﻿namespace Regen.Parser {
     /// <summary>
     ///     Parser tokens are the higher level tokens (combinations of: ) <see cref="ExpressionToken"/>.<br></br>
     ///     They are the template parsing tokens that are on the parser level.

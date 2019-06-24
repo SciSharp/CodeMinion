@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Regen.Collections;
+using Regen.Helpers.Collections;
 
 namespace Regen.DataTypes {
     public class Dictionary : Data, IEquatable<Dictionary>, IEquatable<Dict> {

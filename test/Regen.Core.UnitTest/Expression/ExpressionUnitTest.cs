@@ -4,9 +4,9 @@ using System.Linq;
 using Flee.PublicTypes;
 using FluentAssertions;
 using Regen.Compiler;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Expressions;
 using Regen.DataTypes;
+using Regen.Parser;
 
 namespace Regen.Core.Tests.Expression {
     public class ExpressionUnitTest : SharedUnitTestEvaluator {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     [Serializable]
     public class DictInlineInitializationException : Exception {
         public DictInlineInitializationException() { }

@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Expressions;
 using Regen.Core.Tests.Digest;
 using Regen.DataTypes;

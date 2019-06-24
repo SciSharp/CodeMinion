@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     public class TokenWalker<T> : ListWalker<T> {
         public TokenWalker(IList<T> list) : base(list) { }
         protected TokenWalker() { }

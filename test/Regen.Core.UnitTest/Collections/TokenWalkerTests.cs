@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Regen.Collections;
+using Regen.Helpers.Collections;
 
 namespace Regen.Core.Tests.Collections {
     [TestClass]

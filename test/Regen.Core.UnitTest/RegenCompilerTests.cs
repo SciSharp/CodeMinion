@@ -4,11 +4,11 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Expressions;
 using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;
+using Regen.Parser;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
 namespace Regen.Core.Tests.Digest {

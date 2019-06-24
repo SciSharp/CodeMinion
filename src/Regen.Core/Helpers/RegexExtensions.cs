@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using Regen.Compiler;
 using Regen.Compiler.Expressions;
 using Regen.Compiler.Helpers;
+using Regen.Parser;
 
 namespace Regen.Helpers {
     public static class RegexExtensions {

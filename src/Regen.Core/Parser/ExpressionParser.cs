@@ -1,22 +1,13 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using Flee.PublicTypes;
-using Regen.Builtins;
-using Regen.Collections;
-using Regen.Compiler.Digest;
+using Regen.Compiler;
 using Regen.Compiler.Helpers;
-using Regen.DataTypes;
 using Regen.Exceptions;
-using Regen.Helpers;
-using Regen.Wrappers;
-using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
+using Regen.Helpers.Collections;
+using Regen.Parser.Expressions;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
     public class ParserAction {
         public ParserToken Token { get; set; }
 

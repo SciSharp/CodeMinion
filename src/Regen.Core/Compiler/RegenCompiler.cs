@@ -8,17 +8,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Flee.PublicTypes;
-using Microsoft.CSharp.RuntimeBinder;
 using Regen.Builtins;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
+using Regen.DataTypes.Wrappers;
 using Regen.Helpers;
-using Regen.Wrappers;
-using Array = Regen.DataTypes.Array;
+using Regen.Parser;
+using Regen.Parser.Expressions;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Compiler {
     public partial class RegenCompiler : IEvaluator {
         /// <summary>
         ///     Holds all global variables that were created during compiling by <see cref="CompileGlobal"/>.

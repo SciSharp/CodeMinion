@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class ArrayExpression : Expression {
         private static readonly RegexResult _matchLeft = "[".AsResult();
         private static readonly RegexResult _matchRight = "]".AsResult();

@@ -9,6 +9,7 @@ using System.Threading;
 using Flee.PublicTypes;
 using Regen.Compiler;
 using Regen.DataTypes;
+using Regen.Parser;
 
 namespace Regen.Helpers {
     public static class FleeExtensions {

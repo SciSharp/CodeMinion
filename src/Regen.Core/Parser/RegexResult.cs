@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
 
     /// <summary>
     ///     A wrapper around <see cref="Regex"/>'s <see cref="Match"/> since it has no public constructors.

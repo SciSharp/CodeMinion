@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public interface IOperatorExpression {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         ExpressionToken Op { get; set; }

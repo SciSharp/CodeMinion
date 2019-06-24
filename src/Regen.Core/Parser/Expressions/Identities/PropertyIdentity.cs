@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class PropertyIdentity : Identity {
         private static readonly RegexResult _matchPeriod = ".".AsResult();
         public Expression Left { get; set; }

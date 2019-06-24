@@ -44,7 +44,7 @@ using ICollection = System.Collections.ICollection;
 using IEnumerable = System.Collections.IEnumerable;
 using IEnumerator = System.Collections.IEnumerator;
 
-namespace Regen.Dynamic {
+namespace Regen.Helpers.Dynamic {
     /// <summary>
     /// Class that provides extensible properties and methods to an
     /// existing object when cast to dynamic. This

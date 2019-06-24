@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class NullIdentity : Identity {
         private static readonly RegexResult _nullMatch = "null".AsResult();
         public static NullIdentity Instance = new NullIdentity();

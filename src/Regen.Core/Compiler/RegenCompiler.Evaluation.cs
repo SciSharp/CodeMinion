@@ -1,14 +1,16 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
+using Regen.Compiler.Expressions;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Regen.Helpers;
+using Regen.Parser;
+using Regen.Parser.Expressions;
 using Array = Regen.DataTypes.Array;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Compiler {
     public partial class RegenCompiler {
         #region Evaluation
 

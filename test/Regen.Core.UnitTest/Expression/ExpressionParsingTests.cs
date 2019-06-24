@@ -5,6 +5,8 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler.Expressions;
 using Regen.Helpers;
+using Regen.Parser;
+using Regen.Parser.Expressions;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]

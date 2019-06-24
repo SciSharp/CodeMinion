@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     /// <summary>
     ///     NonGeneric - Allows traveling an array, take, skipping, checkpoint system and more.
     /// </summary>

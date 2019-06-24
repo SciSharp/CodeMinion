@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Regen.Collections.Merging {
+namespace Regen.Helpers.Collections.Merging {
     public interface IMergable {
         /// <summary>
         ///     Performs a merge with object of unknown type.

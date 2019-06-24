@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Regen.Compiler.Expressions {
+﻿namespace Regen.Parser {
     public enum ExpressionToken {
         None = 0,
         [ExpressionToken(@"\//", -1, "//")] [Swallows(Div)] CommentRow, //swallow will 

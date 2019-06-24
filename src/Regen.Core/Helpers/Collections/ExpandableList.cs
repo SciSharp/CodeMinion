@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     /// <summary>
     ///     ExpandableList is used for representing a single value that should be expanded to a expandable <see cref="List{T}"/>.
     /// </summary>

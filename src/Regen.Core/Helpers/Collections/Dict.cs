@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
-using Regen.Collections.Merging;
-using Regen.Dynamic;
+using Regen.Helpers.Collections.Merging;
+using Regen.Helpers.Dynamic;
 
-namespace Regen.Collections {
+namespace Regen.Helpers.Collections {
     /// <summary>
     ///     Alias to <see cref=" Dictionary{string,object}"/> with ability to construct inline, as dynamic, merging and cloning.
     /// </summary>

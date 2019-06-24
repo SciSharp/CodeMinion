@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class InteractableExpression : Expression {
         //todo this is not the best choice of design, IdentityExpression.Parse does the same, this is just more intuitive. both can co-exist.
         /// <summary>

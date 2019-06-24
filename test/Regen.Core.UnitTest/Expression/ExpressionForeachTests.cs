@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Compiler;
 using Regen.Compiler.Expressions;
 
 namespace Regen.Core.Tests.Expression {
@@ -80,7 +81,7 @@ namespace Regen.Core.Tests.Expression {
             return;
             @input = @"[(1+2)/3f + 0, 5, [1]]";
             var comp = new RegenCompiler();
-            var data = comp.EvaluateExpression((Compiler.Expressions.Expression) @input);
+            var data = comp.EvaluateExpression((Parser.Expressions.Expression) @input);
         }
     }
 }

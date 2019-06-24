@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
     public sealed class SwallowsAttribute : Attribute {
         public ExpressionToken[] Targets { get; }

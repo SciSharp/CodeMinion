@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Regen.Compiler.Digest {
+namespace Regen.Compiler {
     [DebuggerNonUserCode]
     public class InterpreterOptions {
         public static List<string> BuiltinKeywords = new List<string>() {"i"};

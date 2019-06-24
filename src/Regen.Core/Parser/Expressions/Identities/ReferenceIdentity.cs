@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Regen.Exceptions;
 using Regen.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser.Expressions {
     public class ReferenceIdentity : Identity {
         protected static readonly string _literalRegex;
         protected RegexResult _match;
 
         static ReferenceIdentity() {
-            _literalRegex = ExpressionToken.Literal.GetAttribute<ExpressionTokenAttribute>().Regex;
+            _literalRegex = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(ExpressionToken.Literal).Regex;
         }
 
         public string Name { get; set; }
@@ -88,7 +89,7 @@ namespace Regen.Compiler.Expressions {
             return (Name != null ? Name.GetHashCode() : 0);
         }
 
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.Compiler.Expressions.StringIdentity" /> objects are equal.</summary>
+        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.Parser.Expressions.StringIdentity" /> objects are equal.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
@@ -96,7 +97,7 @@ namespace Regen.Compiler.Expressions {
             return Equals(left, right);
         }
 
-        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.Compiler.Expressions.StringIdentity" /> objects have different values.</summary>
+        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.Parser.Expressions.StringIdentity" /> objects have different values.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>

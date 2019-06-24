@@ -2,7 +2,6 @@
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
-using Regen.Compiler.Digest;
 using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;

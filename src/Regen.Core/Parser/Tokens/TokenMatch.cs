@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
-using Regen.Compiler.Helpers;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
     [DebuggerDisplay("{Token} - {Match}")]
     public class TokenMatch {
         public int WhitespacesAfterMatch { get; set; }

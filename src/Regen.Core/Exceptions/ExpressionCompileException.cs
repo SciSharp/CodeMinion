@@ -1,8 +1,8 @@
 ﻿using System;
 using Regen.Compiler;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Expressions;
 using Regen.Compiler.Helpers;
+using Regen.Parser;
 
 namespace Regen.Exceptions {
     [Serializable]

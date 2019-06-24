@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using Flee.PublicTypes;
-using Regen.Compiler.Digest;
-using Regen.DataTypes;
 using Regen.Exceptions;
-using Array = Regen.DataTypes.Array;
 
-namespace Regen.Wrappers {
+namespace Regen.DataTypes.Wrappers {
 
     /// <summary>
     ///     Serves as a wrapper to <see cref="VariableCollection"/>.

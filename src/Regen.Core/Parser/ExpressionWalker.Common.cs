@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Regen.Exceptions;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
     public partial class ExpressionWalker {
         /// <summary>
         ///     Moves next and returns the new current token.

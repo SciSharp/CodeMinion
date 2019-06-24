@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using Regen.Collections;
 using Regen.Exceptions;
 using Regen.Helpers;
+using Regen.Helpers.Collections;
 
-namespace Regen.Compiler.Expressions {
+namespace Regen.Parser {
     public class ExpressionLexer {
         public static List<TokenMatch> Tokenize(string codeStr) {
             var code = new StringBuilder(codeStr);
             var allTokens = new List<(string Regex, ExpressionToken Token, List<ExpressionToken> Swallows, int Order)>(
                 Enum.GetValues(typeof(ExpressionToken)).Cast<ExpressionToken>()
-                    .Where(t => t.GetAttribute<ManuallySearchedAttribute>() == null)
+                    .Where(t => AttributeExtensions.GetAttribute<ManuallySearchedAttribute>(t) == null)
                     .Select(t => {
                         List<ExpressionToken> DetermineSwallows(ExpressionToken tkn, List<ExpressionToken> @return) {
                             @return = @return ?? new List<ExpressionToken>();
@@ -29,10 +28,10 @@ namespace Regen.Compiler.Expressions {
                             return @return;
                         }
 
-                        var attr = t.GetAttribute<ExpressionTokenAttribute>();
+                        var attr = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(t);
                         if (attr == null)
                             return default;
-                        var swallows = DetermineSwallows(t, null).OrderBy(tkn => tkn.GetAttribute<ExpressionTokenAttribute>().Order).ToList();
+                        var swallows = DetermineSwallows(t, null).OrderBy(tkn => AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(tkn).Order).ToList();
                         return (attr.Regex, t, swallows, attr.Order);
                     })).Where(v => v != default);
             var allMatches = allTokens.SelectMany(
@@ -118,7 +117,7 @@ namespace Regen.Compiler.Expressions {
         //}
 
         public static List<TokenMatch> FindSpecificToken(string code, ExpressionToken token) {
-            var regex = token.GetAttribute<DescriptionAttribute>().Description;
+            var regex = AttributeExtensions.GetAttribute<DescriptionAttribute>(token).Description;
 
             return Regex.Matches(code, regex, Regexes.DefaultRegexOptions)
                 .Cast<Match>().Select(m => new TokenMatch(token, m))
@@ -128,7 +127,7 @@ namespace Regen.Compiler.Expressions {
         public static List<TokenMatch> FindSpecificTokens(string codeStr, params ExpressionToken[] tokens) {
             var code = new StringBuilder(codeStr);
             var allTokens = new List<(string Regex, ExpressionToken Token, List<ExpressionToken> Swallows, int Order)>(
-                tokens.Where(t => t.GetAttribute<ManuallySearchedAttribute>() == null)
+                tokens.Where(t => AttributeExtensions.GetAttribute<ManuallySearchedAttribute>(t) == null)
                     .Select(t => {
                         List<ExpressionToken> DetermineSwallows(ExpressionToken tkn, List<ExpressionToken> @return) {
                             @return = @return ?? new List<ExpressionToken>();
@@ -141,10 +140,10 @@ namespace Regen.Compiler.Expressions {
                             return @return;
                         }
 
-                        var attr = t.GetAttribute<ExpressionTokenAttribute>();
+                        var attr = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(t);
                         if (attr == null)
                             return default;
-                        var swallows = DetermineSwallows(t, null).OrderBy(tkn => tkn.GetAttribute<ExpressionTokenAttribute>().Order).ToList();
+                        var swallows = DetermineSwallows(t, null).OrderBy(tkn => AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(tkn).Order).ToList();
                         return (attr.Regex, t, swallows, attr.Order);
                     })).Where(v => v != default);
 

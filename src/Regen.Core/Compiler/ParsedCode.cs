@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Regen.Collections;
-using Regen.Compiler.Digest;
 using Regen.Compiler.Expressions;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
+using Regen.Helpers.Collections;
+using Regen.Parser;
 
 namespace Regen.Compiler {
     public class ParsedCode {
