@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Regen.Exceptions;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
@@ -40,14 +41,14 @@ namespace Regen.Compiler.Expressions {
             }
 
             if (exprs.Count == 0 && !argsOptional)
-                throw new Exception($"Was expecting an expression between {left} and {right}");
+                throw new UnexpectedTokenException($"Was expecting an expression between {left} and {right}");
 
             ew.Next();
             args.Arguments = exprs.ToArray();
             return args;
         }
 
-        public static ArgumentsExpression Parse(ExpressionWalker ew, Func<EToken, bool> parseTill, bool argsOptional, Type caller = null) {
+        public static ArgumentsExpression Parse(ExpressionWalker ew, Func<TokenMatch, bool> parseTill, bool argsOptional, Type caller = null) {
             var args = new ArgumentsExpression();
             var exprs = new List<Expression>();
 
@@ -70,7 +71,7 @@ namespace Regen.Compiler.Expressions {
             }
 
             if (exprs.Count == 0 && !argsOptional)
-                throw new Exception($"Was expecting arguments but found none while argsOptional is false");
+                throw new UnexpectedTokenException($"Was expecting arguments but found none while argsOptional is false");
 
             ew.Next();
             args.Arguments = exprs.ToArray();

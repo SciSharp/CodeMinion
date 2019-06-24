@@ -22,25 +22,25 @@ namespace Regen.Builtins {
             return new Array(Enumerable.Range(@from, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
-        /// <summary>
-        ///     Zips all items 
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public static PackedArguments zipmax(params object[] objects) {
-            return objects.Concat(new object[] {new ForeachConfig() {Length = ForeachInstance.StackLength.LargestIndex}}).ToArray();
-        }
+        //todo redo: /// <summary>
+        //todo redo: ///     Zips all items 
+        //todo redo: /// </summary>
+        //todo redo: /// <param name="from"></param>
+        //todo redo: /// <param name="count"></param>
+        //todo redo: /// <returns></returns>
+        //todo redo: public static PackedArguments zipmax(params object[] objects) {
+        //todo redo:     return objects.Concat(new object[] {new ForeachConfig() {Length = ForeachInstance.StackLength.LargestIndex}}).ToArray();
+        //todo redo: }
 
-        /// <summary>
-        ///     Zips all items 
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
-        public static PackedArguments ziplongest(params object[] objects) {
-            return zipmax(objects);
-        }
+        //todo redo: /// <summary>
+        //todo redo: ///     Zips all items 
+        //todo redo: /// </summary>
+        //todo redo: /// <param name="from"></param>
+        //todo redo: /// <param name="count"></param>
+        //todo redo: /// <returns></returns>
+        //todo redo: public static PackedArguments ziplongest(params object[] objects) {
+        //todo redo:     return zipmax(objects);
+        //todo redo: }
 
         public static StringScalar str(params object[] objects) {
             return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));

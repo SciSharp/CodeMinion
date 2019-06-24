@@ -137,7 +137,7 @@ namespace Regen.Core.Tests.DataTypes {
                 %a = [""1"",""2"",""3"",]
                 ";
             var variable = Variables(input).Values.First();
-            var arr = variable.Should().BeOfType< Array>().Which;
+            var arr = variable.Should().BeOfType<Array>().Which;
             arr.Should().HaveCount(3);
         }
 

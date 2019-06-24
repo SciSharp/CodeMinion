@@ -24,7 +24,7 @@ namespace Regen.Core.Tests.Expression {
         }
 
         [TestMethod]
-        public void foreach_i() {
+        public void foreach_i_singleline() {
             var @input = @"
                 %a = [1,2,3]
                 %foreach a
@@ -75,12 +75,12 @@ namespace Regen.Core.Tests.Expression {
                     -#(#1 / 3)
                 %
                 ";
-            
+
             var c = Compile(@input);
             return;
             @input = @"[(1+2)/3f + 0, 5, [1]]";
             var comp = new RegenCompiler();
-            var data = comp.EvaluateExpression((Compiler.Expressions.Expression)@input);
+            var data = comp.EvaluateExpression((Compiler.Expressions.Expression) @input);
         }
     }
 }

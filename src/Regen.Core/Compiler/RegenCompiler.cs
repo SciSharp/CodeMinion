@@ -155,6 +155,8 @@ namespace Regen.Compiler.Expressions {
                         var contents = action.RelatedLines.Skip(1).Select(l => (Line: l.Content, ExpressionLexer.Tokenize(l.Content))).ToArray();
                         baseLine.MarkedForDeletion = false;
                         var iterateThose = expr.Arguments.Arguments.Select(parseExpr).ToList();
+                        unpackPackedArguments();
+                        //get smallest index and iterate it.
                         var min = iterateThose.Min(i => i.Count);
                         var vars = Context.Variables;
 
@@ -229,9 +231,11 @@ namespace Regen.Compiler.Expressions {
                             }
                         }
 
+                        Context.Variables.Remove("i");
                         for (var i = 0; i < iterateThose.Count; i++) {
                             Context.Variables.Remove($"__{i + 1}__");
                         }
+
 
                         IList parseExpr(Expression arg) {
                             var ev = EvaluateObject(arg, null, baseLine);
@@ -248,6 +252,17 @@ namespace Regen.Compiler.Expressions {
                             }
 
                             return (IList) ev;
+                        }
+
+                        void unpackPackedArguments() {
+                            //unpack PackedArguments
+                            for (var i = iterateThose.Count - 1; i >= 0; i--) {
+                                if (iterateThose[i] is PackedArguments pa) {
+                                    iterateThose.InsertRange(i, pa.Objects.Select(o => (IList) o));
+                                }
+                            }
+
+                            iterateThose.RemoveAll(it => it is PackedArguments);
                         }
 
                         break;
@@ -378,74 +393,7 @@ namespace Regen.Compiler.Expressions {
                 throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
             }
         }
-
-
-        public string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks) {
-            return null;
-            //var code = line.Content;
-            //var basicEmits = DigestLexer.FindTokens(ExpressionToken.EmitVariable, code);
-            //var currentStack = stacks[stackIndex];
-
-            ////get tokens with expression in them.
-            //var offsetEmit = DigestLexer.FindTokens(ExpressionToken.EmitVariableOffsetted, code);
-            //var expressionEmits = DigestLexer.FindTokens(ExpressionToken.EmitExpression, code);
-            //int additionalIndex = 0;
-            //foreach (var emits in basicEmits.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
-            //    var index = emits.Key;
-
-            //    foreach (var emit in emits.OrderBy(e => e.Match.Index)) {
-            //        if (!currentStack.ContainsKey(index))
-            //            throw new IndexOutOfRangeException($"Index #{index} at line {line.LineNumber} not found during emit at block: {code}");
-            //        var isnested = offsetEmit.Any(m => m.Match.IsMatchNestedTo(emit.Match)) || expressionEmits.Any(m => m.Match.IsMatchNestedTo(emit.Match));
-            //        code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
-            //        var emit_text = isnested ? currentStack[index].EmitExpressive() : currentStack[index].Emit();
-            //        code = code.Insert(emit.Match.Index + additionalIndex, emit_text);
-            //        additionalIndex += emit_text.Length - emit.Match.Length;
-            //    }
-            //}
-
-            //offsetEmit = DigestLexer.FindTokens(ExpressionToken.EmitVariableOffsetted, code); //re-lex because of expressions that might have been expanded inside.
-            //additionalIndex = 0; //because we re-lexxed
-            //foreach (var emits in offsetEmit.GroupBy(e => Convert.ToInt32(e.Match.Groups[1].Value))) {
-            //    var index = emits.Key;
-
-            //    foreach (var emit in emits.OrderBy(e => e.Match.Index)) {
-            //        if (!currentStack.ContainsKey(index))
-            //            throw new IndexOutOfRangeException($"Index #{index} at line {line.LineNumber} not found during emit at block: {code}");
-
-            //        var expression = emit.Match.Groups[2].Value;
-            //        var accessorStackIndex = EvaluateInt32(expression, line) + 1; //during expressions for loop index is 0 based, but stack is 1.
-            //        string emit_text;
-            //        try {
-            //            emit_text = stacks[accessorStackIndex][index].Emit();
-            //        } catch (KeyNotFoundException) {
-            //            code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
-            //            additionalIndex -= emit.Match.Length;
-
-            //            continue; //no emits now.
-            //        }
-
-            //        code = code.Remove(emit.Match.Index + additionalIndex, emit.Match.Length);
-            //        code = code.Insert(emit.Match.Index + additionalIndex, emit_text);
-            //        additionalIndex += emit_text.Length - emit.Match.Length;
-            //    }
-            //}
-
-            ////by now everything should be expanded, so we just evaluate and replace.
-            //expressionEmits = DigestLexer.FindTokens(ExpressionToken.EmitExpression, code);
-            //additionalIndex = 0;
-            //foreach (var expressionMatch in expressionEmits) {
-            //    var expression = expressionMatch.Match.Groups[1].Value;
-            //    string emit = EvaluateString(expression, line);
-
-            //    code = code.Remove(expressionMatch.Match.Index + additionalIndex, expressionMatch.Match.Length);
-            //    code = code.Insert(expressionMatch.Match.Index + additionalIndex, emit);
-            //    additionalIndex += emit.Length - expressionMatch.Match.Length;
-            //}
-
-            //return code;
-        }
-
+        
         #endregion
     }
 }

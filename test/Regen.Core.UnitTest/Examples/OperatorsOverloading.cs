@@ -39,68 +39,73 @@
             dynamic left = lhs.Value;
             dynamic right = rhs;
             return left + right;
-        }            
-        
+        }
+
         public static dynamic operator +(int lhs, OperatorsOverloading rhs) {
             dynamic left = lhs;
             dynamic right = rhs.Value;
             return left + right;
-        }        
+        }
+
         public static dynamic operator -(OperatorsOverloading lhs, int rhs) {
             dynamic left = lhs.Value;
             dynamic right = rhs;
             return left - right;
-        }            
-        
+        }
+
         public static dynamic operator -(int lhs, OperatorsOverloading rhs) {
             dynamic left = lhs;
             dynamic right = rhs.Value;
             return left - right;
-        }        
+        }
+
         public static dynamic operator *(OperatorsOverloading lhs, int rhs) {
             dynamic left = lhs.Value;
             dynamic right = rhs;
             return left * right;
-        }            
-        
+        }
+
         public static dynamic operator *(int lhs, OperatorsOverloading rhs) {
             dynamic left = lhs;
             dynamic right = rhs.Value;
             return left * right;
-        }        
+        }
+
         public static dynamic operator %(OperatorsOverloading lhs, int rhs) {
             dynamic left = lhs.Value;
             dynamic right = rhs;
             return left % right;
-        }            
-        
+        }
+
         public static dynamic operator %(int lhs, OperatorsOverloading rhs) {
             dynamic left = lhs;
             dynamic right = rhs.Value;
             return left % right;
-        }        
+        }
+
         public static dynamic operator /(OperatorsOverloading lhs, int rhs) {
             dynamic left = lhs.Value;
             dynamic right = rhs;
             return left / right;
-        }            
-        
+        }
+
         public static dynamic operator /(int lhs, OperatorsOverloading rhs) {
             dynamic left = lhs;
             dynamic right = rhs.Value;
             return left / right;
-        }        
+        }
+
         public static dynamic operator &(OperatorsOverloading lhs, int rhs) {
             dynamic left = lhs.Value;
             dynamic right = rhs;
             return left & right;
-        }            
-        
+        }
+
         public static dynamic operator &(int lhs, OperatorsOverloading rhs) {
             dynamic left = lhs;
             dynamic right = rhs.Value;
             return left & right;
-        }        
+        }
 #endif
     }
 }

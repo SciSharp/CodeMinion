@@ -4,20 +4,13 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler.Digest;
+using Regen.Compiler.Expressions;
 using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
     public class BuiltinTests : ExpressionUnitTest {
-        [TestMethod]
-        public void range_2() {
-            var file = File.ReadAllText("./testSmall.cs");
-            foreach (var frame in DigestParser.ExtractFrames(file)) {
-                Parse(frame);
-            }
-        }
-
         [TestMethod]
         public void range_1() {
             var @input = @"

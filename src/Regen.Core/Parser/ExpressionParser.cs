@@ -40,8 +40,8 @@ namespace Regen.Compiler.Expressions {
     ///     Parses text file that has been lexxed by <see cref="ExpressionLexer"/> into <see cref="ParserAction"/>s that ressemble a combination of tokens (<see cref="ParserToken"/>)
     /// </summary>
     public static class ExpressionParser {
-        public static ParsedCode Interpret(string code, Dictionary<string, object> variables = null, InterpreterOptions opts = null) {
-            code = code.Replace("\r", "");
+        public static ParsedCode Parse(string code, Dictionary<string, object> variables = null, InterpreterOptions opts = null) {
+            code = code.Replace("\r", ""); //todo this might cause throws in osx.
             StringSpan output_sb;
             var output = new LineBuilder(output_sb = StringSpan.Create(code));
             variables = variables ?? new Dictionary<string, object>();
@@ -76,7 +76,7 @@ namespace Regen.Compiler.Expressions {
                                 //this is variable declaration %varname = expr
                                 var peak = ew.PeakNext.Token;
                                 if (peak == ExpressionToken.Equal) {
-                                    var expr = ew.ParseVariable();
+                                    var expr = VariableDeclarationExpression.Parse(ew);
                                     parserTokens += new ParserAction(ParserToken.Declaration, output.MarkDeleteLinesRelated(expr.Matches()), expr);
                                 } else {
                                     break;
@@ -150,19 +150,15 @@ namespace Regen.Compiler.Expressions {
                             default: {
                                 var precentageLine = output.GetLineAt(ew.PeakBack.Match.Index);
                                 if (precentageLine.CleanContent() != "%")
-                                    throw new InvalidTokenException(current.Token, $"The given token was not expected at line {precentageLine.LineNumber}, offset: {current.Match.Index - precentageLine.StartIndex}");
+                                    throw new UnexpectedTokenException(current.Token, $"The given token was not expected at line {precentageLine.LineNumber}, offset: {current.Match.Index - precentageLine.StartIndex}");
                                 break;
                             }
                         }
 
-                        //from = ew.Current.Match.Index + ew.Current.Match.Length + 1;
-                        //to = from;
                         break;
                     }
 
                     default:
-                        //to = ew.Current.Match.Index + ew.Current.Match.Length;
-                        //Console.WriteLine($"Ignored {current.Token} ({current.Match.Value})");
                         break;
                 }
             } while (ew.Next());
@@ -171,7 +167,7 @@ namespace Regen.Compiler.Expressions {
                 OriginalCode = code,
                 Output = output,
                 Variables = variables,
-                ETokens = (List<EToken>) ew.Walking,
+                ETokens = (List<TokenMatch>) ew.Walking,
                 ParseActions = parserTokens,
                 Options = opts
             };

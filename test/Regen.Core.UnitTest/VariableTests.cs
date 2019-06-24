@@ -86,9 +86,7 @@ namespace Regen.Core.Tests {
                 Variables(input).Keys.Should().NotContain(input);
             } catch (ExpressionException) {
                 //swallowed exception
-            } catch (InvalidTokenException) {
-
-            }
+            } catch (UnexpectedTokenException) { }
         }
 
         [TestMethod]
@@ -133,8 +131,7 @@ namespace Regen.Core.Tests {
             var @input = $@"
                 %a = 1.0
                 ";
-            var variable = Variables(input).Values.First().
-                Should().BeOfType<NumberScalar>().Which;
+            var variable = Variables(input).Values.First().Should().BeOfType<NumberScalar>().Which;
             variable.Value.Should().BeOfType(typeof(double)).And.BeEquivalentTo(1m);
         }
 

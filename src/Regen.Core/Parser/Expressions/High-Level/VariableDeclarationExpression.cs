@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Regen.DataTypes;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
@@ -21,16 +19,15 @@ namespace Regen.Compiler.Expressions {
                 yield return match;
             }
         }
-    }
 
-    public partial class ExpressionWalker {
-        public VariableDeclarationExpression ParseVariable() {
+        public static VariableDeclarationExpression Parse(ExpressionWalker ew) {
+            // ReSharper disable once UseObjectOrCollectionInitializer
             var var = new VariableDeclarationExpression();
-            var.Name = StringIdentity.Parse(this);
-            IsCurrentOrThrow(ExpressionToken.Equal);
-            NextOrThrow();
+            var.Name = StringIdentity.Parse(ew);
+            ew.IsCurrentOrThrow(ExpressionToken.Equal);
+            ew.NextOrThrow();
 
-            var.Right = Expression.ParseExpression(this);
+            var.Right = Expression.ParseExpression(ew);
             return var;
         }
     }

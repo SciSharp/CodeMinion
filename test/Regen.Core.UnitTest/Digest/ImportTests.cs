@@ -3,12 +3,13 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
 using Regen.Compiler.Digest;
+using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class ImportTests : DigestUnitTestEvaluator {
+    public class ImportTests : ExpressionUnitTest {
         [TestMethod]
         public void import_static_class() {
             var @input = @"

@@ -17,7 +17,7 @@ namespace Regen.Core.Tests.Expression {
         /// <param name="variables">Optional variables to be passed to the interpreter</param>
         /// <param name="modules">The modules to include into the interpreter</param>
         public override ParsedCode Parse(string code, Dictionary<string, object> variables = null, params RegenModule[] modules) {
-            var parsed = ExpressionParser.Interpret(code, variables);
+            var parsed = ExpressionParser.Parse(code, variables);
             Debug(parsed);
             return parsed;
         }
@@ -29,7 +29,7 @@ namespace Regen.Core.Tests.Expression {
         /// <param name="variables">Optional variables to be passed to the interperter</param>
         /// <param name="modules">The modules to include into the interpreter</param>
         public override VariableCollection Variables(string code, Dictionary<string, object> variables = null, params RegenModule[] modules) {
-            var parsed = ExpressionParser.Interpret(code, variables);
+            var parsed = ExpressionParser.Parse(code, variables);
             var comp = new RegenCompiler(modules);
             var output = comp.Compile(parsed);
 
@@ -44,7 +44,7 @@ namespace Regen.Core.Tests.Expression {
         /// <param name="variables">Optional variables to be passed to the interperter</param>
         /// <param name="modules">The modules to include into the interpreter</param>
         public override (ParsedCode ParsedCode, string Output) Compile(string code, Dictionary<string, object> variables = null, params RegenModule[] modules) {
-            var parsed = ExpressionParser.Interpret(code, variables);
+            var parsed = ExpressionParser.Parse(code, variables);
             var comp = new RegenCompiler(modules);
             var output = comp.Compile(parsed);
 
@@ -59,7 +59,7 @@ namespace Regen.Core.Tests.Expression {
         /// <param name="variables">Optional variables to be passed to the interperter</param>
         /// <param name="modules">The modules to include into the interpreter</param>
         public override Dictionary<string, object> UnpackedVariables(string code, Dictionary<string, object> variables = null, params RegenModule[] modules) {
-            var parsed = ExpressionParser.Interpret(code, variables);
+            var parsed = ExpressionParser.Parse(code, variables);
             var comp = new RegenCompiler(modules);
             var output = comp.Compile(parsed);
 

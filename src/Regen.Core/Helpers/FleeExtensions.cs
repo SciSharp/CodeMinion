@@ -138,13 +138,6 @@ namespace Regen.Helpers {
         }
     }
 
-    public class yoho {
-        public object kek() {
-            var t = 1 + 1;
-            return null;
-        }
-    }
-
     public static class StaticToInstanceWrapper {
         /// <summary>
         ///     Generates an instance class object to an static class.

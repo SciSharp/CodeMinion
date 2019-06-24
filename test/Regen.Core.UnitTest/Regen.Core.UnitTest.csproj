@@ -92,7 +92,7 @@
     <Compile Include="Expression\ExpressionParsingTests.cs" />
     <Compile Include="Expression\ImportTests.cs" />
     <Compile Include="Digest\ImportTests.cs" />
-    <Compile Include="Digest\DigestInterpreterTests.cs" />
+    <Compile Include="RegenCompilerTests.cs" />
     <Compile Include="LineBuilderTests.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />
     <Compile Include="Expression\ExpressionUnitTest.cs" />
@@ -101,7 +101,6 @@
     <Compile Include="Examples\OperatorsOverloading.cs" />
     <Compile Include="Digest\BuiltinTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Digest\DigestUnitTestEvaluator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

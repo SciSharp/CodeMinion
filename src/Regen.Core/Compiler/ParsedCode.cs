@@ -11,7 +11,7 @@ namespace Regen.Compiler {
         public LineBuilder Output { get; set; }
         public Dictionary<string, object> Variables { get; set; }
 
-        public List<EToken> ETokens { get; set; }
+        public List<TokenMatch> ETokens { get; set; }
         public OList<ParserAction> ParseActions { get; set; }
         public InterpreterOptions Options { get; set; }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Regen.Exceptions;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
@@ -111,7 +112,7 @@ namespace Regen.Compiler.Expressions {
             } else if (current == ExpressionToken.Null) {
                 ret = NullIdentity.Parse(ew);
             } else {
-                throw new Exception($"Token was expected to be an expression but got {ew.Current.Token}");
+                throw new UnexpectedTokenException($"Token was expected to be an expression but got {ew.Current.Token}");
             }
 
             //here we parse chained math operations

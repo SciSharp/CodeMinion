@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Core.Tests.Expression;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestForeachTests : DigestUnitTestEvaluator {
+    public class DigestForeachTests : ExpressionUnitTest {
         //todo test bad foreach expressions
         //todo test nested foreach expressions
         //todo test removal of the expression, here and everywhere else. test that after compile they dont contain % etc..
@@ -63,7 +64,7 @@ namespace Regen.Core.Tests.Digest {
             Compile(@input).Output
                 .Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "")
                 .Should()
-                .BeEquivalentTo(output.Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace("\"",""));
+                .BeEquivalentTo(output.Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace("\"", ""));
         }
     }
 }

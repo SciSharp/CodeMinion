@@ -86,7 +86,7 @@ namespace Regen.DataTypes {
         ///     Creates an array with given values that are wrapped using <see cref="Scalar.Create"/>.
         /// </summary>
         /// <param name="objs">Objects that are supported by <see cref="Scalar.Create"/>.</param>
-        public static Array Create(object obj) {
+        public new static Array Create(object obj) {
             if (obj == null)
                 return Array.Create(new NullScalar());
             return new Array(new List<Data>() {Data.Create(obj)});

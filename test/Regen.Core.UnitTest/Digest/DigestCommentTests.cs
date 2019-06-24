@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Core.Tests.Expression;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestCommentTests : DigestUnitTestEvaluator {
+    public class DigestCommentTests : ExpressionUnitTest {
         [TestMethod]
         public void comment_at_foreach() {
             var @input = @"

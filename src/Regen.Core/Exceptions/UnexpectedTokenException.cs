@@ -6,10 +6,12 @@ using Regen.Compiler.Helpers;
 
 namespace Regen.Exceptions {
     [Serializable]
-    public class UnexpectedTokenException<T> : RegenException {
-        public UnexpectedTokenException(TokenBase<T> dToken, T expected) : base($"After this expression: '{dToken.Match.Value}' expected {expected}") { }
-        public UnexpectedTokenException(TokenBase<T> dToken) : base($"After this expression: '{dToken.Match.Value}'") { }
+    public class UnexpectedTokenException : RegenException {
+        public UnexpectedTokenException(TokenMatch dToken, ExpressionToken? expected) : base($"After this expression: '{dToken.Match.Value}' expected {expected}") { }
+        public UnexpectedTokenException(TokenMatch dToken) : base($"After this expression: '{dToken.Match.Value}'") { }
         public UnexpectedTokenException(string message) : base(message) { }
         public UnexpectedTokenException(string message, Exception inner) : base(message, inner) { }
+        public UnexpectedTokenException(Enum expected, Enum got, string details = null) : base($"Expected token of type {expected}, but got {got}: {details}") { }
+        public UnexpectedTokenException(Enum got, string details = null) : base($"Expected a different token, but got {got}: {details}") { }
     }
 }

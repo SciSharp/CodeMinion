@@ -515,12 +515,12 @@ namespace Regen.Core.Tests {
 
             //smaller exchange, large insert
             spanner = new StringSource("1234567890");
-            sub = spanner.Substring(new Range(3,6)); //3 to 8
+            sub = spanner.Substring(new Range(3, 6)); //3 to 8
             sub.ToString().Should().Be("4567");
-            spanner.ExchangeAt(3,6, "hello");
+            spanner.ExchangeAt(3, 6, "hello");
             sub.ToString().Should().Be("hello");
             spanner.ToString().Should().Be("123hello890")
-            ;
+                ;
             //smaller exchange after in sub, large insert
             spanner = new StringSource("1234567890");
             sub = spanner.Substring(new Range(3, 6)); //3 to 8
@@ -528,7 +528,7 @@ namespace Regen.Core.Tests {
             spanner.ExchangeAt(6, 7, "hello");
             sub.ToString().Should().Be("456h");
             spanner.ToString().Should().Be("123456hello90");
-            ;            
+            ;
             //behind sub
             spanner = new StringSource("1234567890");
             sub = spanner.Substring(new Range(3, 6)); //3 to 8
@@ -537,7 +537,7 @@ namespace Regen.Core.Tests {
             sub.ToString().Should().Be("4567");
             spanner.ToString().Should().Be("hello34567890");
 
-            ;            
+            ;
             spanner = new StringSource("1234567890");
             sub = spanner.Substring(new Range(3, 6)); //3 to 8
             sub.ToString().Should().Be("4567");

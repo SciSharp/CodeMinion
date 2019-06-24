@@ -2,12 +2,13 @@
 using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestExpressionTests : DigestUnitTestEvaluator {
+    public class DigestExpressionTests : ExpressionUnitTest {
         [DataTestMethod]
         [DataRow("1+1", 2)]
         [DataRow("1 + 1", 2)]
@@ -68,7 +69,7 @@ namespace Regen.Core.Tests.Digest {
                 ";
 
             var variables = Variables(input).Values.Last();
-            variables.Should().BeOfType<Array>().Which[1].Should().BeEquivalentTo(Array.CreateParams(1,2,3));
+            variables.Should().BeOfType<Array>().Which[1].Should().BeEquivalentTo(Array.CreateParams(1, 2, 3));
         }
 
         [TestMethod]

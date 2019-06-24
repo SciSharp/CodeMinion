@@ -5,13 +5,15 @@ using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
 using Regen.Compiler.Digest;
+using Regen.Compiler.Expressions;
+using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestInterpreterTests : DigestUnitTestEvaluator {
+    public class RegenCompilerTests : ExpressionUnitTest {
         [TestMethod]
         public void import_static_random() {
             var @input = @"
@@ -36,8 +38,10 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(mymod.add(1.0f, 2))
                 ";
-            var intr = new Interpreter(@input, @input, new RegenModule("mymod", new MyModule()));
-            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            var parsed = ExpressionParser.Parse(input);
+            var comp = new RegenCompiler(new RegenModule("mymod", new MyModule()));
+            var output = comp.Compile(parsed);
+            output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
         }
 
         [TestMethod]
@@ -45,9 +49,10 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(mymod.add(1.0f, 2))
                 ";
-            var intr = new Interpreter(@input, @input);
-            intr.AddModule(new RegenModule("mymod", new MyModule()));
-            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            var parsed = ExpressionParser.Parse(input);
+            var comp = new RegenCompiler(new RegenModule("mymod", new MyModule()));
+            var output = comp.Compile(parsed);
+            output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
         }
 
         [TestMethod]
@@ -55,13 +60,14 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(mymod.add(1.0f, 2))
                 ";
-            var intr = new Interpreter(@input, @input);
+            var parsed = ExpressionParser.Parse(input);
+            var comp = new RegenCompiler();
             var mod = new RegenModule("mymod", new MyModule());
-            intr.AddModule(mod);
-            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
-            intr.RemoveModule(mod);
-            ;
-            new Action(() => { intr.Interpret(@input); })
+            comp.AddModule(mod);
+            comp.Compile(parsed).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            comp.RemoveModule(mod);
+
+            new Action(() => { comp.Compile(parsed); })
                 .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'mymod'"));
         }
 
@@ -70,13 +76,14 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(mymod.add(1.0f, 2))
                 ";
-            var intr = new Interpreter(@input, @input);
+            var parsed = ExpressionParser.Parse(input);
+            var comp = new RegenCompiler();
             var mod = new RegenModule("mymod", new MyModule());
-            intr.AddModule(mod);
-            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
-            intr.RemoveModule("mymod");
-            ;
-            new Action(() => { intr.Interpret(@input); })
+            comp.AddModule(mod);
+            comp.Compile(parsed).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            comp.RemoveModule("mymod");
+
+            new Action(() => { comp.Compile(parsed); })
                 .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'mymod'"));
         }
 
@@ -176,7 +183,7 @@ namespace Regen.Core.Tests.Digest {
                 
                 ";
             new Action(() => Compile(@input))
-                .Should().Throw<UndefinedReferenceException<DigestToken>>();
+                .Should().Throw<UndefinedReferenceException>();
         }
 
         [TestMethod]

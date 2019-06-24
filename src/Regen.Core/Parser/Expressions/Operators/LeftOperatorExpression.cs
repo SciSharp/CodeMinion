@@ -42,7 +42,7 @@ namespace Regen.Compiler.Expressions {
 
         public static LeftOperatorExpression Parse(ExpressionWalker ew, Expression known = null) {
             if (!IsCurrentAnLeftUniOperation(ew))
-                throw new InvalidTokenException(ExpressionToken.Increment, ew.Current.Token);
+                throw new UnexpectedTokenException(ExpressionToken.Increment, ew.Current.Token);
 
             var op = ew.Current.Token;
             ew.NextOrThrow();

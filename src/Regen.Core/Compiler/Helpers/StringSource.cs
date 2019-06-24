@@ -214,10 +214,11 @@ namespace Regen.Compiler.Helpers {
             int startIndex = 0;
 
             foreach (var match in indexes) {
-                if (match.Index != 0) {
-                    var to = match.Index - 1;
-                    @return.Add(Substring(new Range(startIndex, to)));
-                }
+                var to = match.Index - 1;
+                if (to == -1)
+                    continue;
+                var sub = Substring(new Range(startIndex, to));
+                @return.Add(sub);
 
                 startIndex = match.Index + match.Length;
             }
@@ -225,7 +226,7 @@ namespace Regen.Compiler.Helpers {
             if (startIndex < value.Length)
                 @return.Add(Substring(new Range(startIndex, value.Length - 1)));
             if (options.HasFlag(StringSplitOptions.RemoveEmptyEntries)) {
-                @return.RemoveAll(sp => sp.Length == 0);
+                @return.RemoveAll(sp => sp.Length == 0 || sp.End == -1 || sp.Start == -1);
             }
 
             return @return.ToArray();

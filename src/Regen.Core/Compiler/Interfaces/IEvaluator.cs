@@ -15,6 +15,5 @@ namespace Regen.Compiler {
         T Evaluate<T>(string expression, Line line = null);
         object EvaluateUnpackedObject(string expression, Line line = null);
         object EvaluateObject(string expression, Line line = null);
-        string ExpandVariables(Line line, int stackIndex, Dictionary<int, StackDictionary> stacks);
     }
 }

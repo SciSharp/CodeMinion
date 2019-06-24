@@ -4,8 +4,8 @@ using Regen.Collections;
 
 namespace Regen.Compiler.Expressions {
     [DebuggerDisplay("{base.Cursor}->{Current.Token}->{Current.Match}")]
-    public partial class ExpressionWalker : TokenWalker<EToken> {
-        public ExpressionWalker(IList<EToken> list) : base(list) { }
+    public partial class ExpressionWalker : TokenWalker<TokenMatch> {
+        public ExpressionWalker(IList<TokenMatch> list) : base(list) { }
         protected ExpressionWalker() { }
     }
 }

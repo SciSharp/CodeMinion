@@ -13,12 +13,12 @@
         /// </summary>
         Declaration,
         /// <summary>
-        ///     %foreach expr%
-        ///     output#1text
-        ///     output#1text-line2
-        ///     %
-        ///     or
-        ///     %foreach expr
+        ///     %foreach expr%       <br></br>
+        ///     output#1text         <br></br>
+        ///     output#1text-line2   <br></br>
+        ///     %                    <br></br>
+        ///     or //////////////    <br></br>
+        ///     %foreach expr        <br></br>
         ///     output#1text
         /// </summary>
         ForeachLoop,

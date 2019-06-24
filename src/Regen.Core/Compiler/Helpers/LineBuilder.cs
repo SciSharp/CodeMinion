@@ -19,7 +19,11 @@ namespace Regen.Compiler.Helpers {
             Lines = txt
                 .Split('\n', StringSplitOptions.None)
                 .Select((span, i) => {
-                    if (span[span.Length-1] != '\n')
+                    if (span.Start == -1 || span.End == -1) {
+                        return new Line(new StringSource("\n"), i + 1);
+                    }
+
+                    if (span[span.Length - 1] != '\n')
                         span.Extend(1); //add swollen newline
                     return new Line(span, i + 1);
                 })
@@ -40,22 +44,21 @@ namespace Regen.Compiler.Helpers {
             }
         }
 
-
         public Line GetLineAt(int index) {
-            return Lines.Single(l => l.StartIndex <= index && l.EndIndex >= index);
+            return Lines.FirstOrDefault(l => l.StartIndex <= index && l.EndIndex >= index);
         }
 
         public Line GetLineByLineNumber(int lineNumber) {
-            return Lines.Single(l => l.LineNumber == lineNumber);
+            return Lines.FirstOrDefault(l => l.LineNumber == lineNumber);
         }
 
         public Line[] GetLinesAt(IEnumerable<int> indexes) {
-            return indexes.Select(GetLineAt).Distinct().ToArray();
+            return indexes.Select(GetLineAt).Where(v => v != null).Distinct().ToArray();
         }
 
         public Line[] GetLinesRelated(IEnumerable<RegexResult> matches) {
             var enumerable = matches.ToArray();
-            return this.GetLinesAt(enumerable.Where(m=>m.Index!=-1).SelectMany(m => new int[] {m.Index, m.Index + m.Length - 1}).Distinct()).ToArray();
+            return this.GetLinesAt(enumerable.Where(m => m.Index != -1).SelectMany(m => new int[] {m.Index, m.Index + m.Length - 1}).Distinct()).ToArray();
         }
 
         public Line[] MarkDeleteLinesRelated(IEnumerable<RegexResult> matches) {

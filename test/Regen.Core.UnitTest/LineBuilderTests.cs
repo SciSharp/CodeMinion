@@ -23,9 +23,9 @@ namespace Regen.Core.Tests {
             foreach (var line in lines.Zip(expected, (line, exp) => (line, exp))) {
                 var content = line.line.Content;
                 Console.WriteLine(content);
-                if (line.exp=="")
+                if (line.exp == "")
                     continue;
-                
+
                 content.Should().Contain(line.exp);
             }
         }

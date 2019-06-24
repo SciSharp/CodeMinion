@@ -18,7 +18,7 @@ namespace Regen.Compiler.Expressions {
 
             ew.NextOrThrow();
             if (ew.Current.Token == right)
-                throw new UnexpectedTokenException<ExpressionToken>($"Expected an expression, found end of group of type {right}");
+                throw new UnexpectedTokenException($"Expected an expression, found end of group of type {right}");
 
             grp.InnerExpression = ParseExpression(ew);
             ew.IsCurrentOrThrow(right);

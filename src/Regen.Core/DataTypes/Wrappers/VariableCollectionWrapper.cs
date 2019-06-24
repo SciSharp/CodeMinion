@@ -28,7 +28,7 @@ namespace Regen.Wrappers {
             try {
                 return Data.Create(this[key]);
             } catch (ArgumentException e) {
-                throw new UndefinedReferenceException<DigestToken>(e.Message, e);
+                throw new UndefinedReferenceException(e.Message, e);
             }
         }
 

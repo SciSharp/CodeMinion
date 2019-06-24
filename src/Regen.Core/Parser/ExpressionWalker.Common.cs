@@ -7,17 +7,17 @@ namespace Regen.Compiler.Expressions {
         /// <summary>
         ///     Moves next and returns the new current token.
         /// </summary>
-        public EToken NextToken() {
+        public TokenMatch NextToken() {
             var ret = Next() ? Current : null;
             if (ret == null)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
             return ret;
         }
 
         public void NextOrThrow() {
             var current = Next() ? Current : null;
             if (current == null)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
         }
 
         public void NextOrThrow(ExpressionToken tkn) {
@@ -26,41 +26,41 @@ namespace Regen.Compiler.Expressions {
             }
 
             if (PeakNext.Token != tkn) {
-                throw new UnexpectedTokenException<ExpressionToken>(PeakNext);
+                throw new UnexpectedTokenException(PeakNext);
             }
 
             var current = Next() ? Current : null;
             if (current == null)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
         }
 
 
-        public EToken PeakNextOrThrow() {
+        public TokenMatch PeakNextOrThrow() {
             var current = HasNext ? PeakNext : null;
             if (current == null)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
             return current;
         }
 
-        public EToken PeakNextOrThrow(ExpressionToken tkn) {
+        public TokenMatch PeakNextOrThrow(ExpressionToken tkn) {
             if (!HasNext) {
-                throw new UnexpectedTokenException<ExpressionToken>(Current); //todo change to ENdOfToken
+                throw new UnexpectedTokenException(Current); //todo change to ENdOfToken
             }
 
             if (PeakNext.Token != tkn) {
-                throw new UnexpectedTokenException<ExpressionToken>(PeakNext);
+                throw new UnexpectedTokenException(PeakNext);
             }
 
             var current = HasNext ? PeakNext : null;
             if (current == null)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
             return current;
         }
 
-        public bool NextOut(bool @throw, out EToken tkn) {
+        public bool NextOut(bool @throw, out TokenMatch tkn) {
             var ret = tkn = Next() ? Current : null;
             if (ret == null && @throw)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
             return ret == null;
         }
 
@@ -78,12 +78,12 @@ namespace Regen.Compiler.Expressions {
         /// </summary>
         /// <param name="tkn"></param>
         /// <returns></returns>
-        public EToken Next(ExpressionToken tkn, bool throwOnFalse = false) {
+        public TokenMatch Next(ExpressionToken tkn, bool throwOnFalse = false) {
             if (HasNext && PeakNext.Token == tkn && Next())
                 return Current;
 
             if (throwOnFalse)
-                throw new UnexpectedTokenException<ExpressionToken>(Current);
+                throw new UnexpectedTokenException(Current);
             return null;
         }
 
@@ -92,14 +92,14 @@ namespace Regen.Compiler.Expressions {
         }
 
         public bool IsCurrentOrThrow(ExpressionToken tkn) {
-            return Current.Token == tkn ? true : throw new InvalidTokenException(tkn, Current.Token);
+            return Current.Token == tkn ? true : throw new UnexpectedTokenException(tkn, Current.Token);
         }
         public bool IsCurrentAnyOf(params ExpressionToken[] tkns) {
             return tkns.Contains(Current.Token);
         }
 
         public bool IsCurrentAnyOfOrThrow(params ExpressionToken[] tkns) {
-            return tkns.Contains(Current.Token) ? true : throw new InvalidTokenException(tkns[0], Current.Token);
+            return tkns.Contains(Current.Token) ? true : throw new UnexpectedTokenException(tkns[0], Current.Token);
         }
 
 

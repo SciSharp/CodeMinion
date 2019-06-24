@@ -34,8 +34,7 @@ namespace Regen.Helpers {
     /// </summary>
     /// <typeparam name="T">The type to initialize a constructor for.</typeparam>
     public static class DefaultConstructor {
-        private static ConcurrentDictionary<Type, Func<object>> _maps = new ConcurrentDictionary<Type, Func<object>>();
-        private static Func<object> _constructor;
+        private static readonly ConcurrentDictionary<Type, Func<object>> _maps = new ConcurrentDictionary<Type, Func<object>>();
         private static readonly object _lock = new object();
 
         /// <summary>

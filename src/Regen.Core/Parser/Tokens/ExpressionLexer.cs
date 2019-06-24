@@ -12,7 +12,7 @@ using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class ExpressionLexer {
-        public static List<EToken> Tokenize(string codeStr) {
+        public static List<TokenMatch> Tokenize(string codeStr) {
             var code = new StringBuilder(codeStr);
             var allTokens = new List<(string Regex, ExpressionToken Token, List<ExpressionToken> Swallows, int Order)>(
                 Enum.GetValues(typeof(ExpressionToken)).Cast<ExpressionToken>()
@@ -74,7 +74,7 @@ namespace Regen.Compiler.Expressions {
             //    Console.WriteLine($"{t.Value.Token}: {t.Value.Match.Value}"); //\t\tSwallows: {string.Join(", ", t.Value.Swallows.Select(tk => tk.ToString()))}
             //}
 
-            var ret = allMatches.Select(t => (Token: new EToken(t.Value.Token, t.Value.Match), Data: t)).ToList();
+            var ret = allMatches.Select(t => (Token: new TokenMatch(t.Value.Token, t.Value.Match), Data: t)).ToList();
             var retwalker = ret.WrapWalker();
             do {
                 var curr = retwalker.Current;
@@ -117,15 +117,15 @@ namespace Regen.Compiler.Expressions {
         //    return results;
         //}
 
-        public static List<EToken> FindSpecificToken(string code, ExpressionToken token) {
+        public static List<TokenMatch> FindSpecificToken(string code, ExpressionToken token) {
             var regex = token.GetAttribute<DescriptionAttribute>().Description;
 
             return Regex.Matches(code, regex, Regexes.DefaultRegexOptions)
-                .Cast<Match>().Select(m => new EToken(token, m))
+                .Cast<Match>().Select(m => new TokenMatch(token, m))
                 .ToList();
         }
 
-        public static List<EToken> FindSpecificTokens(string codeStr, params ExpressionToken[] tokens) {
+        public static List<TokenMatch> FindSpecificTokens(string codeStr, params ExpressionToken[] tokens) {
             var code = new StringBuilder(codeStr);
             var allTokens = new List<(string Regex, ExpressionToken Token, List<ExpressionToken> Swallows, int Order)>(
                 tokens.Where(t => t.GetAttribute<ManuallySearchedAttribute>() == null)
@@ -187,7 +187,7 @@ namespace Regen.Compiler.Expressions {
             //    Console.WriteLine($"{t.Value.Token}: {t.Value.Match.Value}"); //\t\tSwallows: {string.Join(", ", t.Value.Swallows.Select(tk => tk.ToString()))}
             //}
 
-            var ret = allMatches.Select(t => (Token: new EToken(t.Value.Token, t.Value.Match), Data: t)).ToList();
+            var ret = allMatches.Select(t => (Token: new TokenMatch(t.Value.Token, t.Value.Match), Data: t)).ToList();
             var retwalker = ret.WrapWalker();
             do {
                 var curr = retwalker.Current;
@@ -202,7 +202,7 @@ namespace Regen.Compiler.Expressions {
             return ret.Where(r => !r.Data.Delete).Select(r => r.Token).ToList();
         }
 
-        public static List<EToken> FindRegex(string codeStr, string regex) {
+        public static List<TokenMatch> FindRegex(string codeStr, string regex) {
             var code = new StringBuilder(codeStr);
             var allTokens = new List<(string Regex, ExpressionToken Token, List<ExpressionToken> Swallows, int Order)>() {(regex, ExpressionToken.None, new List<ExpressionToken>(), 0)};
 
@@ -241,7 +241,7 @@ namespace Regen.Compiler.Expressions {
             } while (walker.Next());
 
 
-            var ret = allMatches.Select(t => (Token: new EToken(t.Value.Token, t.Value.Match), Data: t)).ToList();
+            var ret = allMatches.Select(t => (Token: new TokenMatch(t.Value.Token, t.Value.Match), Data: t)).ToList();
             var retwalker = ret.WrapWalker();
             do {
                 var curr = retwalker.Current;
