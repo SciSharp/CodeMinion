@@ -6,7 +6,7 @@ using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class ArgumentsExpression : Expression {
-        private static readonly Match _seperator = ",".WrapAsMatch();
+        private static readonly RegexResult _seperator = ",".AsResult();
         public Expression[] Arguments;
 
         public ArgumentsExpression(params Expression[] arguments) {
@@ -31,7 +31,7 @@ namespace Regen.Compiler.Expressions {
                     continue;
                 }
 
-                var expression = ew.ParseExpression(caller);
+                var expression = ParseExpression(ew, caller);
                 if (ew.IsCurrent(ExpressionToken.Colon)) {
                     //handle keyvalue item
                     exprs.Add(KeyValueExpression.Parse(ew, expression, caller));
@@ -61,7 +61,7 @@ namespace Regen.Compiler.Expressions {
                     continue;
                 }
 
-                var expression = ew.ParseExpression(caller);
+                var expression = ParseExpression(ew, caller);
                 if (ew.IsCurrent(ExpressionToken.Colon)) {
                     //handle keyvalue item
                     exprs.Add(KeyValueExpression.Parse(ew, expression));
@@ -77,7 +77,7 @@ namespace Regen.Compiler.Expressions {
             return args;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             for (var i = 0; i < Arguments.Length; i++) {
                 foreach (var match in Arguments[i].Matches()) {
                     yield return match;
@@ -87,6 +87,10 @@ namespace Regen.Compiler.Expressions {
                     yield return _seperator;
                 }
             }
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Arguments.SelectMany(e => e.Iterate()));
         }
     }
 }

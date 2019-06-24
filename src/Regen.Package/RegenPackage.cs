@@ -78,14 +78,14 @@ namespace Regen {
                 {
                     AppDomain.CurrentDomain.Load(f);
                 }
-                catch (Exception exc) { }
+                catch (Exception) { }
             }
 
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
-                if (args.Name.Contains("Flee") || args.Name.Contains("Regen"))
-                    ;
-                return null;
-            };
+            //AppDomain.CurrentDomain.AssemblyResolve += (sender, args) => {
+            //    if (args.Name.Contains("Flee") || args.Name.Contains("Regen"))
+            //        ;
+            //    return null;
+            //};
             //await Regen.VSIX.EnableDisableRegenCommand.InitializeAsync(this);
 
             await CompileFileCommand.InitializeAsync(this);

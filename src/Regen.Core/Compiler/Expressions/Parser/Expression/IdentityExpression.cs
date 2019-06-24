@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     /// <summary>
@@ -32,8 +33,8 @@ namespace Regen.Compiler.Expressions {
 
             if (left == null)
                 ew.IsCurrentOrThrow(ExpressionToken.Literal);
-            if (ew.PeakNext.WhitespacesAfterMatch == 0 && ew.PeakNext.Token == ExpressionToken.Period && caller != typeof(IdentityExpression) || left != null) {
-                var first = left ?? ew.ParseExpression(typeof(IdentityExpression));
+            if (ew.HasNext && ew.PeakNext.WhitespacesAfterMatch == 0 && ew.PeakNext.Token == ExpressionToken.Period && caller != typeof(IdentityExpression) || left != null) {
+                var first = left ?? ParseExpression(ew, typeof(IdentityExpression));
                 ew.NextOrThrow(); //skip the predicted period.
                 var next = ew.PeakNext;
                 switch (next.Token) {
@@ -83,10 +84,23 @@ namespace Regen.Compiler.Expressions {
             return ret;
         }
 
-        public override IEnumerable<Match> Matches() {
+        /// <summary>
+        /// Wraps a variable name in an <see cref="IdentityExpression"/>
+        /// </summary>
+        /// <param name="name">The name of the variable stored in <see cref="VariableCollection"/></param>
+        public static IdentityExpression WrapVariable(string name) {
+            return new IdentityExpression(new StringIdentity(name, name.AsResult()));
+        }
+
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in Identity.Matches()) {
                 yield return match;
             }
+        }
+
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Identity.Iterate());
         }
     }
 }

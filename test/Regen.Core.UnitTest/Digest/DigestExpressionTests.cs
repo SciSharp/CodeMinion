@@ -37,7 +37,8 @@ namespace Regen.Core.Tests.Digest {
                 %c = a{expression}b
                 ";
 
-            var variables = UnpackedVariables(input, typeof(NumberScalar));
+            var variables = UnpackedVariables(input);
+            variables.Values.Should().AllBeOfType<NumberScalar>();
             variables.Keys.Last().Should()
                 .Be("c");
             variables.Values.Last().Should()
@@ -99,7 +100,7 @@ namespace Regen.Core.Tests.Digest {
                 %(a{expression}b)
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Should().Contain(equalsTo.ToString());
         }
 
@@ -115,7 +116,7 @@ namespace Regen.Core.Tests.Digest {
                 %c = a+b
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Trim().Should().BeEmpty();
         }
 
@@ -129,7 +130,7 @@ namespace Regen.Core.Tests.Digest {
                 %(a[0])
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Should().Contain("1");
         }
 
@@ -145,7 +146,7 @@ namespace Regen.Core.Tests.Digest {
                 %(a[0]{expression}b)
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Trim().Should()
                 .Contain(equalsTo.ToString());
         }
@@ -158,7 +159,7 @@ namespace Regen.Core.Tests.Digest {
                 %(a[0]+b)
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Trim().Should()
                 .Contain((((int) 'h') + 1).ToString());
         }
@@ -171,7 +172,7 @@ namespace Regen.Core.Tests.Digest {
                 %(str(a[0])+b)
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Trim().Should()
                 .Contain("h1");
         }
@@ -184,7 +185,7 @@ namespace Regen.Core.Tests.Digest {
                 %(a[0]+b) %(a[0]+b)
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Trim().Should()
                 .Contain(('h' + 1) + " " + ('h' + 1));
         }
@@ -197,7 +198,7 @@ namespace Regen.Core.Tests.Digest {
                 %(str(a[0])+b) %(str(a[0])+b)
                 ";
 
-            var code = Interpret(input);
+            var code = Compile(input).Output;
             code.Trim().Should()
                 .Contain("h1");
         }

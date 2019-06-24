@@ -1,23 +1,27 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace Regen.DataTypes {
-    /// <summary>
-    ///     A simple wrapper that is compatible with Regen's type system.
-    /// </summary>
-    [DebuggerDisplay("NetObject: {" + nameof(Value) + "}")]
-    public class NetObject : Data, IEquatable<NetObject> {
-        public NetObject(object obj) {
-            Value = obj;
-        }
 
+    /// <summary>
+    ///     This represents a reference to an other variable. <see cref="Value"/> is most likely a string with the variable name.
+    /// </summary>
+    public class ReferenceData : Data, IEquatable<ReferenceData> {
         public override object Value { get; set; }
+
+
+        public ReferenceData(object value) {
+            Value = value;
+        }
 
         /// <summary>
         ///     Emit the <see cref="Data.Value"/> for generation purposes.
         /// </summary>
         /// <returns></returns>
         public override string Emit() {
+            if (Value is Data d) {
+                return d.Emit();
+            }
+
             return Value.ToString();
         }
 
@@ -26,22 +30,24 @@ namespace Regen.DataTypes {
         /// </summary>
         /// <returns></returns>
         public override string EmitExpressive() {
-            return Emit();
+            if (Value is Data d) {
+                return d.EmitExpressive();
+            }
+
+            return Value.ToString();
         }
 
-        #region Operators
-
-        
-
-        #endregion
-
-        #region Equality
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() {
+            return Emit();
+        }
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
         /// <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
-        public bool Equals(NetObject other) {
+        public bool Equals(ReferenceData other) {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
             return base.Equals(other) && Equals(Value, other.Value);
@@ -55,7 +61,7 @@ namespace Regen.DataTypes {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((NetObject) obj);
+            return Equals((ReferenceData) obj);
         }
 
         /// <summary>Serves as the default hash function. </summary>
@@ -66,22 +72,20 @@ namespace Regen.DataTypes {
             }
         }
 
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.DataTypes.NetObject" /> objects are equal.</summary>
+        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.DataTypes.ReferenceData" /> objects are equal.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
-        public static bool operator ==(NetObject left, NetObject right) {
+        public static bool operator ==(ReferenceData left, ReferenceData right) {
             return Equals(left, right);
         }
 
-        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.DataTypes.NetObject" /> objects have different values.</summary>
+        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.DataTypes.ReferenceData" /> objects have different values.</summary>
         /// <param name="left">The first value to compare.</param>
         /// <param name="right">The second value to compare.</param>
         /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
-        public static bool operator !=(NetObject left, NetObject right) {
+        public static bool operator !=(ReferenceData left, ReferenceData right) {
             return !Equals(left, right);
         }
-
-        #endregion
     }
 }

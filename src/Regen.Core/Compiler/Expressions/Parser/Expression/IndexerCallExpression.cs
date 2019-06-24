@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
@@ -7,25 +8,22 @@ namespace Regen.Compiler.Expressions {
     ///     Parses identity[params]
     /// </summary>
     public class IndexerCallExpression : Expression {
-        private static readonly Match _matchLeft = "[".WrapAsMatch();
-        private static readonly Match _matchRight = "]".WrapAsMatch();
-        public IdentityExpression Left;
+        private static readonly RegexResult _matchLeft = "[".AsResult();
+        private static readonly RegexResult _matchRight = "]".AsResult();
+        public Expression Left;
         public ArgumentsExpression Arguments;
 
-        public IndexerCallExpression(IdentityExpression left, ArgumentsExpression arguments) {
+        public IndexerCallExpression(Expression left, ArgumentsExpression arguments) {
             Left = left;
             Arguments = arguments;
         }
 
-        public static Expression Parse(ExpressionWalker ew) {
-            var ret = new IndexerCallExpression(IdentityExpression.Parse(ew), ArgumentsExpression.Parse(ew, ExpressionToken.LeftBracet, ExpressionToken.RightBracet, false));
-            if (ew.Current.Token == ExpressionToken.Period) {
-                return IdentityExpression.Parse(ew, typeof(IndexerCallExpression), ret);
-            }
-            return ret;
+        public static Expression Parse(ExpressionWalker ew, Expression left = null) {
+            var ret = new IndexerCallExpression(left ?? IdentityExpression.Parse(ew), ArgumentsExpression.Parse(ew, ExpressionToken.LeftBracet, ExpressionToken.RightBracet, false));
+            return InteractableExpression.TryExpand(ret, ew);
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in Left.Matches()) {
                 yield return match;
             }
@@ -34,7 +32,12 @@ namespace Regen.Compiler.Expressions {
             foreach (var match in Arguments.Matches()) {
                 yield return match;
             }
+
             yield return _matchRight;
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Arguments.Iterate());
         }
     }
 }

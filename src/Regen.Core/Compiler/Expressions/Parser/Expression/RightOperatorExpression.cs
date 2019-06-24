@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
@@ -36,7 +37,7 @@ namespace Regen.Compiler.Expressions {
         }
 
         public static Expression Parse(ExpressionWalker ew, Expression known = null) {
-            var left = known ?? ew.ParseExpression(typeof(RightOperatorExpression));
+            var left = known ?? ParseExpression(ew, typeof(RightOperatorExpression));
 
             if (!IsCurrentAnRightUniOperation(ew))
                 return left;
@@ -52,12 +53,16 @@ namespace Regen.Compiler.Expressions {
             set => Op = value;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in Left.Matches()) {
                 yield return match;
             }
 
-            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.WrapAsMatch();
+            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult();
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Left.Iterate());
         }
     }
 }

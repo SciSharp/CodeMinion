@@ -55,6 +55,16 @@ namespace Regen.Compiler.Helpers {
         public abstract char this[int index] { get; set; }
 
         /// <summary>
+        ///     The index the string span begins (inclusive)
+        /// </summary>
+        public abstract int Start { get; }
+
+        /// <summary>
+        ///     The index the string span ends (inclusive)
+        /// </summary>
+        public abstract int End { get; }
+
+        /// <summary>
         ///     The characters this string holds.
         /// </summary>
         public abstract List<char> Chars { get; protected set; }
@@ -73,14 +83,17 @@ namespace Regen.Compiler.Helpers {
         /// <summary>
         ///     Sequence of removing and then placing without making slices to turn deleted.
         /// </summary>
-        public abstract void RemovePlaceAt(int index, int endindex, string place);
+        public abstract void ExchangeAt(int index, int endindex, string place);
 
         /// <summary>
         ///     Sequence of removing and then placing without making slices to turn deleted.
         /// </summary>
-        /// <param name="index"></param>
-        /// <param name="chars"></param>
-        public abstract void RemovePlaceAt(int index, int endindex, IEnumerable<char> chars);
+        public abstract void ExchangeAt(int index, int endindex, IEnumerable<char> chars);
+
+        /// <summary>
+        ///     Sequence of removing and then placing without making slices to turn deleted.
+        /// </summary>
+        public abstract void ExchangeAt(int index, string place);
 
         public abstract int TrimEnd(params char[] chars);
         public abstract int TrimStart(params char[] chars);
@@ -95,6 +108,14 @@ namespace Regen.Compiler.Helpers {
         public abstract void ReplaceWith(string place);
 
         public abstract void ReplaceWith(IEnumerable<char> chars);
+
+        /// <summary>
+        ///     Tests if given <see cref="index"/> is a valid index to access this <see cref="StringSpan"/>.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public abstract bool IsIndexInside(int index);
+
         /// <summary>
         ///     Add more characters to the end of this string
         /// </summary>

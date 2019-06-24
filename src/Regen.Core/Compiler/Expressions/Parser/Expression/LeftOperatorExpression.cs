@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Exceptions;
 using Regen.Helpers;
@@ -45,7 +46,7 @@ namespace Regen.Compiler.Expressions {
 
             var op = ew.Current.Token;
             ew.NextOrThrow();
-            var right = ew.ParseExpression(typeof(LeftOperatorExpression));
+            var right = ParseExpression(ew, typeof(LeftOperatorExpression));
             return new LeftOperatorExpression(op, right);
         }
 
@@ -56,11 +57,15 @@ namespace Regen.Compiler.Expressions {
         }
 
 
-        public override IEnumerable<Match> Matches() {
-            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.WrapAsMatch();
+        public override IEnumerable<RegexResult> Matches() {
+            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult();
             foreach (var match in Right.Matches()) {
                 yield return match;
             }
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Right.Iterate());
         }
     }
 }

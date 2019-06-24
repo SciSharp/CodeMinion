@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class CharLiteral : Expression, IEquatable<CharLiteral>, IEquatable<char> {
-        private Match _match;
+        private RegexResult _match;
         public char Value;
 
         public CharLiteral(char v) {
@@ -13,12 +14,12 @@ namespace Regen.Compiler.Expressions {
 
         public static CharLiteral Parse(ExpressionWalker ew) {
             ew.IsCurrentOrThrow(ExpressionToken.CharLiteral);
-            var ret = new CharLiteral(char.Parse(ew.Current.Match.Groups[1].Value)) {_match = ew.Current.Match};
+            var ret = new CharLiteral(char.Parse(ew.Current.Match.Groups[1].Value)) {_match = ew.Current.Match.AsResult()};
             ew.Next();
             return ret;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _match;
         }
 
@@ -56,7 +57,7 @@ namespace Regen.Compiler.Expressions {
         /// <summary>Serves as the default hash function. </summary>
         /// <returns>A hash code for the current object.</returns>
         public override int GetHashCode() {
-            return (Value != null ? Value.GetHashCode() : 0);
+            return (Value.GetHashCode());
         }
 
         /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.Compiler.Expressions.StringLiteral" /> objects are equal.</summary>

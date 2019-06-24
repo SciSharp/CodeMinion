@@ -13,7 +13,7 @@ namespace Regen.Core.Tests.Digest {
                 %
                 ";
 
-            Interpret(input)
+            Compile(input).Output
                 .Should()
                 .NotContain("#//this should be gone").And
                 .NotContain("%");
@@ -27,7 +27,7 @@ namespace Regen.Core.Tests.Digest {
                 % #//this should be gone
                 ";
 
-            Interpret(input)
+            Compile(input).Output
                 .Should()
                 .NotContain("#//this should be gone");
         }
@@ -40,7 +40,7 @@ namespace Regen.Core.Tests.Digest {
                 #//this should be gone % #//this should be gone
                 ";
 
-            Interpret(input)
+            Compile(input).Output
                 .Should()
                 .NotContain("#//this should be gone").And
                 .NotContain("foreach");
@@ -54,7 +54,7 @@ namespace Regen.Core.Tests.Digest {
                 #//this should be gone % #//this should be gone
                 ";
 
-            Interpret(input)
+            Compile(input).Output
                 .Should()
                 .NotContain("//%foreach range(3,3)")
                 .And.Subject.Should().NotContainAll("Printed 3!", "Printed 4!", "Printed 5!");
@@ -66,7 +66,7 @@ namespace Regen.Core.Tests.Digest {
                 #//this should be gone
                 ";
 
-            Interpret(input)
+            Compile(input).Output
                 .Should()
                 .NotContain("#//this should be gone");
         }
@@ -77,7 +77,7 @@ namespace Regen.Core.Tests.Digest {
                 \#//the # should be gone
                 ";
 
-            Interpret(input)
+            Compile(input).Output
                 .Should()
                 .Contain("//the # should be gone");
         }

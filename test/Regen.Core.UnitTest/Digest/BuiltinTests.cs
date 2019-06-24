@@ -16,7 +16,7 @@ namespace Regen.Core.Tests.Digest {
                 %
                 ";
 
-            Interpret(input)
+            Compile(@input).Output
                 .Should()
                 .Contain("Printed 3").And
                 .Contain("Printed 4").And
@@ -30,7 +30,7 @@ namespace Regen.Core.Tests.Digest {
                     Console.WriteLine(""Printed #1!"");
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("Printed 0").And
                 .Contain("Printed 1").And
                 .Contain("Printed 2");
@@ -45,7 +45,7 @@ namespace Regen.Core.Tests.Digest {
                     #1 #2
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("4").And
                 .Contain("5");
         }
@@ -59,7 +59,7 @@ namespace Regen.Core.Tests.Digest {
                     #1 #2
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("4").And
                 .Contain("5");
         }
@@ -73,7 +73,7 @@ namespace Regen.Core.Tests.Digest {
                     #1 #2
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("1").And
                 .Contain("2").And
                 .Contain("3").And

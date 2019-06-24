@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class ArrayExpression : Expression {
-        private static readonly Match _matchLeft = "[".WrapAsMatch();
-        private static readonly Match _matchRight = "]".WrapAsMatch();
-        private static readonly Match _seperator = ",".WrapAsMatch();
+        private static readonly RegexResult _matchLeft = "[".AsResult();
+        private static readonly RegexResult _matchRight = "]".AsResult();
+        private static readonly RegexResult _seperator = ",".AsResult();
         public Expression[] Values;
 
         public ArrayExpression(Expression[] values) {
@@ -20,7 +21,7 @@ namespace Regen.Compiler.Expressions {
         }
 
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _matchLeft;
             for (var i = 0; i < Values.Length; i++) {
                 foreach (var match in Values[i].Matches()) {
@@ -33,6 +34,10 @@ namespace Regen.Compiler.Expressions {
             }
 
             yield return _matchRight;
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Values.SelectMany(e => e.Iterate()));
         }
     }
 }

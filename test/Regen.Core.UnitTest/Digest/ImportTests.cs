@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Regen.Compiler;
 using Regen.Compiler.Digest;
 using Regen.DataTypes;
 using Regen.Exceptions;
@@ -14,7 +15,7 @@ namespace Regen.Core.Tests.Digest {
                 %import Regen.Core.Tests.ImportMe
                 %(magic(1,2))
                 ";
-            Interpret(@input).Should()
+            Compile(input).Output.Should()
                 .Contain("2");
         }
 
@@ -24,7 +25,7 @@ namespace Regen.Core.Tests.Digest {
                 %import Regen.Core.Tests.ImportMe as impme
                 %(impme.magic(1,2))
                 ";
-            Interpret(@input).Should()
+            Compile(input).Output.Should()
                 .Contain("2");
         }
 
@@ -39,7 +40,7 @@ namespace Regen.Core.Tests.Digest {
                 %import Regen.Core.Tests.ImportMe as impme
                 %(impme.{str}(1,2))
                 ";
-            Interpret(@input).Should()
+            Compile(input).Output.Should()
                 .Contain("2");
         }
 

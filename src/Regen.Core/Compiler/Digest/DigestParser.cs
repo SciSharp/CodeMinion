@@ -27,21 +27,22 @@ namespace Regen.Compiler.Digest {
         }
 
         public string Consume(string code) {
-            var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
-            int additionalOffset = 0;
-            foreach (Match frame in framed) {
-                var regenmatch = frame.Groups[1];
-                var regencode = regenmatch.Value;
-                var outputFrame = frame.Groups[2];
-                var inter = new Interpreter(code, regencode);
-                var ret = inter.Interpret();
-                code = code
-                    .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
-                    .Insert(outputFrame.Index + additionalOffset, ret.Output);
-                additionalOffset += ret.Output.Length - outputFrame.Length;
-            }
-
-            return code;
+            return null;
+            //var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
+            //int additionalOffset = 0;
+            //foreach (Match frame in framed) {
+            //    var regenmatch = frame.Groups[1];
+            //    var regencode = regenmatch.Value;
+            //    var outputFrame = frame.Groups[2];
+            //    var inter = new Interpreter(code, regencode);
+            //    var ret = inter.Interpret();
+            //    code = code
+            //        .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
+            //        .Insert(outputFrame.Index + additionalOffset, ret.Output);
+            //    additionalOffset += ret.Output.Length - outputFrame.Length;
+            //}
+            //
+            //return code;
         }
 
         public static IEnumerable<string> ExtractFrames(string code) {
@@ -61,19 +62,20 @@ namespace Regen.Compiler.Digest {
         }
 
         public string Consume(string code, int specificAtIndex) {
-            var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
-            int additionalOffset = 0;
-            foreach (Match frame in framed.Cast<Match>().Where(m=>m.DoesMatchNests(specificAtIndex))) {
-                var regenmatch = frame.Groups[1];
-                var regencode = regenmatch.Value;
-                var outputFrame = frame.Groups[2];
-                var inter = new Interpreter(code, regencode);
-                var ret = inter.Interpret();
-                code = code
-                    .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
-                    .Insert(outputFrame.Index + additionalOffset, ret.Output);
-                additionalOffset += ret.Output.Length - outputFrame.Length;
-            }
+            return null;
+            //var framed = Regex.Matches(code, FrameRegex, Regexes.DefaultRegexOptions);
+            //int additionalOffset = 0;
+            //foreach (Match frame in framed.Cast<Match>().Where(m=>m.DoesMatchNests(specificAtIndex))) {
+            //    var regenmatch = frame.Groups[1];
+            //    var regencode = regenmatch.Value;
+            //    var outputFrame = frame.Groups[2];
+            //    var inter = new Interpreter(code, regencode);
+            //    var ret = inter.Interpret();
+            //    code = code
+            //        .Remove(outputFrame.Index + additionalOffset, outputFrame.Length)
+            //        .Insert(outputFrame.Index + additionalOffset, ret.Output);
+            //    additionalOffset += ret.Output.Length - outputFrame.Length;
+            //}
 
             return code;
         }

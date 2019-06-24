@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class ThrowExpression : Expression {
-        private static readonly Match _throwMatch = "throw".WrapAsMatch();
+        private static readonly RegexResult _throwMatch = "throw".AsResult();
         public Expression Right;
 
         public ThrowExpression(Expression right) {
@@ -18,16 +19,20 @@ namespace Regen.Compiler.Expressions {
             ew.NextOrThrow();
             // ReSharper disable once UseObjectOrCollectionInitializer
             var ret = new ThrowExpression();
-            ret.Right = ew.ParseExpression(typeof(ThrowExpression));
+            ret.Right = Expression.ParseExpression(ew, typeof(ThrowExpression));
             return ret;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _throwMatch;
 
             foreach (var match in Right.Matches()) {
                 yield return match;
             }
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Right.Iterate()).Concat(Right.Iterate());
         }
     }
 }

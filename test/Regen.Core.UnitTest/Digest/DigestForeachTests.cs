@@ -16,7 +16,7 @@ namespace Regen.Core.Tests.Digest {
                     #(i)
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
                 .Contain("2");
@@ -29,7 +29,7 @@ namespace Regen.Core.Tests.Digest {
                 %foreach a
                     #(i)
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
                 .Contain("2");
@@ -42,7 +42,7 @@ namespace Regen.Core.Tests.Digest {
                 %foreach a%
                     #(i)
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
                 .Contain("2");
@@ -60,7 +60,7 @@ namespace Regen.Core.Tests.Digest {
                     \%#1 = #2
                 ";
 
-            Interpret(@input)
+            Compile(@input).Output
                 .Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "")
                 .Should()
                 .BeEquivalentTo(output.Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", "").Replace("\"",""));

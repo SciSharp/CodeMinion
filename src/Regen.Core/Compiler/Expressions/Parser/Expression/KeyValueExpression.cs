@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
@@ -9,7 +10,7 @@ namespace Regen.Compiler.Expressions {
     ///     example: var a = ["hey": 33, 5: 33]
     /// </summary>
     public class KeyValueExpression : Expression {
-        private static readonly Match _match = ":".WrapAsMatch();
+        private static readonly RegexResult _match = ":".AsResult();
 
         public Expression Key;
         public Expression Value;
@@ -20,14 +21,14 @@ namespace Regen.Compiler.Expressions {
         }
 
         public static KeyValueExpression Parse(ExpressionWalker ew, Expression left = null, Type caller = null) {
-            var key = left ?? ew.ParseExpression(caller ?? typeof(KeyValueExpression));
+            var key = left ?? ParseExpression(ew, caller ?? typeof(KeyValueExpression));
             ew.IsCurrentOrThrow(ExpressionToken.Colon);
             ew.NextOrThrow();
-            var value = ew.ParseExpression(caller ?? typeof(KeyValueExpression));
+            var value = ParseExpression(ew, caller ?? typeof(KeyValueExpression));
             return new KeyValueExpression(key, value);
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in Key.Matches()) {
                 yield return match;
             }
@@ -36,6 +37,10 @@ namespace Regen.Compiler.Expressions {
             foreach (var match in Value.Matches()) {
                 yield return match;
             }
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Key.Iterate()).Concat(Value.Iterate());
         }
     }
 }

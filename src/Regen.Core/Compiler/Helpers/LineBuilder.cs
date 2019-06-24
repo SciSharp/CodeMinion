@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Regen.Compiler.Digest;
+using Regen.Compiler.Expressions;
 
 namespace Regen.Compiler.Helpers {
     public class LineBuilder : ICloneable {
@@ -10,13 +12,15 @@ namespace Regen.Compiler.Helpers {
 
         protected LineBuilder() { }
 
-        /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
+        public LineBuilder(string txt) : this(StringSpan.Create(txt)) { }
+
         public LineBuilder(StringSpan txt) {
             _txt = txt;
             Lines = txt
                 .Split('\n', StringSplitOptions.None)
                 .Select((span, i) => {
-                    span.Extend(1); //add swallen newline
+                    if (span[span.Length-1] != '\n')
+                        span.Extend(1); //add swollen newline
                     return new Line(span, i + 1);
                 })
                 .ToList();
@@ -24,21 +28,43 @@ namespace Regen.Compiler.Helpers {
             //generate indexes
             Line curr = Lines[0];
             curr.StartIndex = 0;
-            curr.EndIndex = curr.Content.Length - 1;
-            curr.EndIndex = curr.IsEmpty ? 0 : curr.Content.Length - 1;
+            curr.EndIndex = curr.Length - 1;
+            curr.EndIndex = curr.IsEmpty ? 0 : curr.Length - 1;
             Line prev;
 
             for (int i = 1; i < Lines.Count; i++) {
                 prev = Lines[i - 1];
                 curr = Lines[i];
                 curr.StartIndex = prev.EndIndex + 1;
-                curr.EndIndex = curr.StartIndex + (curr.IsEmpty ? 0 : curr.Content.Length - 1);
+                curr.EndIndex = curr.StartIndex + (curr.IsEmpty ? 0 : curr.Length - 1);
             }
         }
 
 
         public Line GetLineAt(int index) {
             return Lines.Single(l => l.StartIndex <= index && l.EndIndex >= index);
+        }
+
+        public Line GetLineByLineNumber(int lineNumber) {
+            return Lines.Single(l => l.LineNumber == lineNumber);
+        }
+
+        public Line[] GetLinesAt(IEnumerable<int> indexes) {
+            return indexes.Select(GetLineAt).Distinct().ToArray();
+        }
+
+        public Line[] GetLinesRelated(IEnumerable<RegexResult> matches) {
+            var enumerable = matches.ToArray();
+            return this.GetLinesAt(enumerable.Where(m=>m.Index!=-1).SelectMany(m => new int[] {m.Index, m.Index + m.Length - 1}).Distinct()).ToArray();
+        }
+
+        public Line[] MarkDeleteLinesRelated(IEnumerable<RegexResult> matches) {
+            var lines = GetLinesRelated(matches);
+            foreach (var affectedLine in lines) {
+                affectedLine.MarkedForDeletion = true;
+            }
+
+            return lines;
         }
 
         /// <summary>
@@ -56,19 +82,23 @@ namespace Regen.Compiler.Helpers {
                 line.MarkedForDeletion = true;
             }
 
+            //delete again
             validLines = Lines.Where(line => !line.MarkedForDeletion).ToList();
+
+            //handle ClearLoneBlockmarkers
             if (opts != null && opts.ClearLoneBlockmarkers) {
                 validLines.RemoveAll(l => l.Content.Trim('\n', '\r', '\t', ' ', '\0') == "%");
             }
 
+            //handle UnespacePrecentages
             if (opts != null && opts.UnespacePrecentages) {
                 foreach (var validLine in validLines) {
                     if (validLine.Content.Contains("\\%"))
                         validLine.Replace(validLine.Content.Replace("\\%", "%"));
                 }
             }
-            //compiled = Regex.Replace(compiled, Regexes.LoneEndBlock, match => match.Value.Trim('\n', '\r', '\t', ' ') == "%" ? "" : match.Value, Regexes.DefaultRegexOptions);
 
+            //todo this might fail, we might need to add \n at the end of each validLine
             var compiled = string.Join("", validLines.Select(l => l.Content));
             return compiled.Trim('\n', '\r') + Environment.NewLine;
         }
@@ -90,150 +120,5 @@ namespace Regen.Compiler.Helpers {
         public Line FindLine(Line line) {
             return Lines.SingleOrDefault(l => l == line);
         }
-    }
-
-
-    public class Line : ICloneable, IEquatable<Line> {
-        public Line(StringSpan content, int lineNumber, int startIndex, int endIndex) {
-            _content = content;
-            LineNumber = lineNumber;
-            StartIndex = startIndex;
-            EndIndex = endIndex;
-        }
-
-        public Line(StringSpan content, int lineNumber) {
-            _content = content;
-            LineNumber = lineNumber;
-        }
-
-        private StringSpan _content;
-
-        public Guid Id { get; private set; } = Guid.NewGuid();
-
-        public int LineNumber { get; set; }
-
-        public string Content {
-            get => _content.ToString();
-        }
-
-        public bool ContentWasModified { get; set; }
-
-        public int StartIndex { get; set; }
-
-        /// <summary>
-        ///     The original end index, doesn't change after modification - to get the newest index, use <see cref="ComputeEndIndex"/>
-        /// </summary>
-        public int EndIndex { get; set; }
-
-        /// <summary>
-        ///     Compute the end index of this line. start index + content length.
-        /// </summary>
-        public int ComputeEndIndex => StartIndex + _content.Length;
-
-        /// <summary>
-        ///     If this is true, this line will be removed during <see cref="LineBuilder.Compile"/>
-        /// </summary>
-        public bool MarkedForDeletion { get; set; }
-
-        public bool IsEmpty => string.IsNullOrEmpty(this.Content);
-
-        public bool IsJustSpaces => string.IsNullOrEmpty(CleanContent());
-
-
-        /// <summary>
-        ///     Sums all whitespace and tabs before the content starts. Used for adding extra lines here.
-        /// </summary>
-        public string Prepends => new string(_content.Chars.TakeWhile(c => c == ' ' || c == '\t').ToArray());
-
-        /// <summary>
-        ///     Returns a content string from trailing spaces, newlines and tabs.
-        /// </summary>
-        /// <returns></returns>
-        public string CleanContent() {
-            this._content.Trim(' ', '\t', '\n', '\r');
-            return this._content.ToString();
-        }
-
-        /// <summary>
-        ///     Replaces current Content if it wasn't modified, otherwise appends.
-        /// </summary>
-        /// <param name="line"></param>
-        /// <remarks>Make sure that every <see cref="line"/> that is added has \n\r at its end.</remarks>
-        public void ReplaceOrAppend(string line) {
-            if (ContentWasModified) {
-                _content.Add(line); //we use Content to also set ContentWasModified
-            } else {
-                _content.ReplaceWith(line); //we use Content to also set ContentWasModified
-                ContentWasModified = true;
-            }
-        }
-
-        /// <summary>
-        ///     Replaces current Content.
-        /// </summary>
-        /// <param name="line">The new line's content.</param>
-        public void Replace(string line) {
-            _content.ReplaceWith(line); //we use Content to also set ContentWasModified
-        }
-
-        /// <summary>Returns a string that represents the current object.</summary>
-        /// <returns>A string that represents the current object.</returns>
-        public override string ToString() {
-            return $"{StartIndex}-{EndIndex} | {Content}";
-        }
-
-        /// <summary>Creates a new object that is a copy of the current instance.</summary>
-        /// <returns>A new object that is a copy of this instance.</returns>
-        public object Clone() {
-            return new Line((StringSpan) _content.Clone(), LineNumber, StartIndex, EndIndex) {Id = Id};
-        }
-
-        #region Equality
-
-        /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
-        public bool Equals(Line other) {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Id.Equals(other.Id);
-        }
-
-        /// <summary>Determines whether the specified object is equal to the current object.</summary>
-        /// <param name="obj">The object to compare with the current object. </param>
-        /// <returns>
-        /// <see langword="true" /> if the specified object  is equal to the current object; otherwise, <see langword="false" />.</returns>
-        public override bool Equals(object obj) {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Line) obj);
-        }
-
-        /// <summary>Serves as the default hash function. </summary>
-        /// <returns>A hash code for the current object.</returns>
-        public override int GetHashCode() {
-            // ReSharper disable once NonReadonlyMemberInGetHashCode
-            return Id.GetHashCode();
-        }
-
-        /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.Parser.Interperter.LineBuilder.Line" /> objects are equal.</summary>
-        /// <param name="left">The first value to compare.</param>
-        /// <param name="right">The second value to compare.</param>
-        /// <returns>true if the <paramref name="left" /> and <paramref name="right" /> parameters have the same value; otherwise, false.</returns>
-        public static bool operator ==(Line left, Line right) {
-            return Equals(left, right);
-        }
-
-        /// <summary>Returns a value that indicates whether two <see cref="T:Regen.Parser.Interperter.LineBuilder.Line" /> objects have different values.</summary>
-        /// <param name="left">The first value to compare.</param>
-        /// <param name="right">The second value to compare.</param>
-        /// <returns>true if <paramref name="left" /> and <paramref name="right" /> are not equal; otherwise, false.</returns>
-        public static bool operator !=(Line left, Line right) {
-            return !Equals(left, right);
-        }
-
-        #endregion
     }
 }

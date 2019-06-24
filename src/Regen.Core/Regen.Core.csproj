@@ -87,6 +87,14 @@
     <Compile Include="Collections\Merging\IMergable.cs" />
     <Compile Include="Collections\Merging\MergePrefer.cs" />
     <Compile Include="Collections\Merging\Merger.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\HashtagReferenceExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\InteractableExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\RegexResult.cs" />
+    <Compile Include="Compiler\Expressions\RegenCompiler.Evaluation.cs" />
+    <Compile Include="Compiler\Expressions\TemporaryVariable.cs" />
+    <Compile Include="DataTypes\ReferenceData.cs" />
+    <Compile Include="Exceptions\ExpressionException.cs" />
+    <Compile Include="Compiler\RegenModule.cs" />
     <Compile Include="Compiler\Expressions\ActionToken.cs" />
     <Compile Include="Compiler\Expressions\EToken.cs" />
     <Compile Include="Compiler\Expressions\ExpressionLexer.cs" />
@@ -99,10 +107,9 @@
     <Compile Include="Compiler\Expressions\Parser\Expression\BooleanLiteral.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\CallExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\CharLiteral.cs" />
-    <Compile Include="Compiler\Expressions\Parser\Expression\ExpressionWalker.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\ForeachExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\GroupExpression.cs" />
-    <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Import.cs" />
+    <Compile Include="Compiler\Expressions\Parser\Expression\ImportExpression.cs" />
     <Compile Include="Compiler\Expressions\Parser\ExpressionWalker.Variable.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\Expression.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\Identity.cs" />
@@ -120,7 +127,10 @@
     <Compile Include="Compiler\Expressions\Parser\Expression\StringIdentity.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\StringLiteral.cs" />
     <Compile Include="Compiler\Expressions\Parser\Expression\ThrowExpression.cs" />
+    <Compile Include="Compiler\Expressions\Parser\ForLoop.cs" />
     <Compile Include="Compiler\Expressions\Parser\ParserToken.cs" />
+    <Compile Include="Compiler\Expressions\RegenCompiler.cs" />
+    <Compile Include="Compiler\Helpers\Line.cs" />
     <Compile Include="Compiler\Helpers\Range.cs" />
     <Compile Include="Compiler\Helpers\StringSlice.cs" />
     <Compile Include="Compiler\Helpers\StringSource.cs" />
@@ -131,7 +141,7 @@
     <Compile Include="Compiler\Expressions\ExpressionToken.cs" />
     <Compile Include="Compiler\Digest\ForeachInstance.cs" />
     <Compile Include="Compiler\Digest\Interpreter.cs" />
-    <Compile Include="Compiler\InterpredCode.cs" />
+    <Compile Include="Compiler\ParsedCode.cs" />
     <Compile Include="Compiler\Digest\InterpreterOptions.cs" />
     <Compile Include="Compiler\Interfaces\IRegenModule.cs" />
     <Compile Include="Compiler\Digest\DigestLexer.cs" />

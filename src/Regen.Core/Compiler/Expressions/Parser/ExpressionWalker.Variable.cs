@@ -4,13 +4,13 @@ using Regen.DataTypes;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
-    public class VariableExpression : Expression {
-        private static readonly Match _equalsMatch = "=".WrapAsMatch();
+    public class VariableDeclarationExpression : Expression {
+        private static readonly RegexResult _equalsMatch = "=".AsResult();
 
         public Identity Name { get; set; }
         public Expression Right { get; set; }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in Name.Matches()) {
                 yield return match;
             }
@@ -24,13 +24,13 @@ namespace Regen.Compiler.Expressions {
     }
 
     public partial class ExpressionWalker {
-        public VariableExpression ParseVariable() {
-            var var = new VariableExpression();
+        public VariableDeclarationExpression ParseVariable() {
+            var var = new VariableDeclarationExpression();
             var.Name = StringIdentity.Parse(this);
             IsCurrentOrThrow(ExpressionToken.Equal);
             NextOrThrow();
 
-            var.Right = ParseExpression();
+            var.Right = Expression.ParseExpression(this);
             return var;
         }
     }

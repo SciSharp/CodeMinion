@@ -1,33 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     /// <summary>
     ///     An indentiy that is found by a string name.
     /// </summary>
     public class StringIdentity : Identity, IEquatable<StringIdentity>, IEquatable<string>, IEquatable<StringLiteral> {
-        private Match _match;
+        protected static readonly string _literalRegex;
+        protected RegexResult _match;
+
+        static StringIdentity() {
+            _literalRegex = ExpressionToken.Literal.GetAttribute<ExpressionTokenAttribute>().Regex;
+        }
+
         public string Name { get; set; }
 
-        private StringIdentity(string name) {
+        protected StringIdentity(string name) {
             Name = name;
         }
 
-        public static StringIdentity Create(Match match) {
-            return new StringIdentity(match.Value) {_match = match};
+        public StringIdentity(string name, RegexResult res) {
+            Name = name;
+            _match = res;
         }
 
-        public new static StringIdentity Parse(ExpressionWalker ew) {
+        public static StringIdentity Create(Match match) {
+            var name = match.Value;
+            if (!Regex.IsMatch(name, _literalRegex, Regexes.DefaultRegexOptions))
+                throw new ExpressionException($"The name '{name}' contains invalid symbols. Regex Pattern: {_literalRegex}");
+            return new StringIdentity(name) {_match = match.AsResult()};
+        }
+
+        public static StringIdentity Parse(ExpressionWalker ew) {
             //types:
             //justname
             ew.IsCurrentOrThrow(ExpressionToken.Literal);
-            var ret = new StringIdentity(ew.Current.Match.Value) {_match = ew.Current.Match};
+            var ret = new StringIdentity(ew.Current.Match.Value) {_match = ew.Current.Match.AsResult()};
             ew.Next();
             return ret;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _match;
         }
 

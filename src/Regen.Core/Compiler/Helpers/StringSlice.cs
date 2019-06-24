@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 namespace Regen.Compiler.Helpers {
     public class StringSlice : StringSpan, IDisposable, IEnumerable {
         private StringSource _spanner;
+        private Range _range;
         public StringSlice(int start, int end, StringSource spanner) : this(new Range(start, end), spanner) { }
 
         public StringSlice(Range range, StringSource spanner) {
@@ -19,13 +20,16 @@ namespace Regen.Compiler.Helpers {
         /// </summary>
         public bool Deleted => End <= -1;
 
-        public int Start => Range.Start;
-        public int End => Range.End;
+        public override int Start => Range.Start;
+        public override int End => Range.End;
 
         /// <summary>
         ///     The range this slice represents
         /// </summary>
-        public Range Range { get; internal set; }
+        public Range Range {
+            get => _range;
+            internal set => _range = value.End < value.Start ? Range.Empty : value;
+        }
 
         /// <summary>
         ///     The length of this slice.
@@ -98,20 +102,36 @@ namespace Regen.Compiler.Helpers {
             _spanner.Insert(Start + index, chars);
         }
 
-        public override void RemovePlaceAt(int index, int endindex, string place) {
-            _spanner.RemovePlaceAt(Start + index, Start + endindex, place);
+        public override void ExchangeAt(int index, int endindex, string place) {
+            _spanner.ExchangeAt(Start + index, Start + endindex, place);
         }
 
-        public override void RemovePlaceAt(int index, int endindex, IEnumerable<char> chars) {
-            _spanner.RemovePlaceAt(Start, End, chars);
+        public override void ExchangeAt(int index, int endindex, IEnumerable<char> chars) {
+            _spanner.ExchangeAt(Start, End, chars);
+        }
+
+        /// <summary>
+        ///     Sequence of removing and then placing without making slices to turn deleted.
+        /// </summary>
+        public override void ExchangeAt(int index, string place) {
+            ExchangeAt(index, place.Length + index, place);
         }
 
         public override void ReplaceWith(string place) {
-            _spanner.RemovePlaceAt(Start, End, place);
+            _spanner.ExchangeAt(Start, End, place);
         }
 
         public override void ReplaceWith(IEnumerable<char> chars) {
-            _spanner.RemovePlaceAt(Start, End, chars);
+            _spanner.ExchangeAt(Start, End, chars);
+        }
+
+        /// <summary>
+        ///     Tests if given <see cref="index"/> is a valid index to access this <see cref="StringSpan"/>.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public override bool IsIndexInside(int index) {
+            return index >= 0 && index <= End - Start;
         }
 
         public override char this[int index] {
@@ -259,7 +279,10 @@ namespace Regen.Compiler.Helpers {
         /// <param name="chars">Number of characters (1 based) to add</param>
         /// <param name="fill">If it is the end of the string, <paramref name="fill"/> will be used as value.</param>
         public override void Extend(int chars, char fill = '\0') {
-            Range = new Range(Range.Start, Range.End + chars);
+            var end = Range.End + chars;
+            while (!_spanner.IsIndexInside(end))
+                end--;
+            Range = new Range(Range.Start, end);
         }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>

@@ -3,14 +3,16 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
+using Regen.Compiler.Expressions;
 using Regen.Core.Tests.Digest;
+using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests {
     [TestClass]
-    public class VariableTests : DigestUnitTestEvaluator {
+    public class VariableTests : ExpressionUnitTest {
         [TestMethod]
         public void declare_variable_withnumber() {
             var @input = @"
@@ -33,15 +35,15 @@ namespace Regen.Core.Tests {
             variables.Keys.Should()
                 .ContainInOrder("a", "a2");
 
-            variables.Values.Select(v => v.As<NumberScalar>().Value).Should()
-                .ContainInOrder(1, 1);
+            variables["a"].Should().BeOfType<NumberScalar>().Which.Value.Should().Be(1);
+            variables["a2"].Should().BeOfType<ReferenceData>().Which.Value.Should().Be("a");
         }
 
         [TestMethod]
         public void declare_variable_with_number_2() {
             var @input = @"
                 %asdasdasd1 = 1
-                %asdasdasd2 = [1|2|||||]
+                %asdasdasd2 = [1,2,,,,,]
                 ";
 
             Variables(input)
@@ -79,12 +81,13 @@ namespace Regen.Core.Tests {
         [DataRow("%/asdasdasd2 = 1")]
         [DataRow("%#asdasdasd2 = 1")]
         [DataRow("%!asdasdasd2 = 1")]
-        [DataRow("%!asdasdasd2 = 1")]
         public void declare_variable_badnames(string input) {
             try {
                 Variables(input).Keys.Should().NotContain(input);
-            } catch (ExpressionCompileException) {
+            } catch (ExpressionException) {
                 //swallowed exception
+            } catch (InvalidTokenException) {
+
             }
         }
 
@@ -103,9 +106,8 @@ namespace Regen.Core.Tests {
                 %asarray = 1
                 %(asarray(asarray)[0])
                 ";
-            var output = Compile(input);
-            output.Output.Should().Contain("1");
-            output.Variables.Should().ContainKey("asarray");
+            Compile(input).Output.Should().Contain("1");
+            Variables(input).Should().ContainKey("asarray");
         }
 
         [DataTestMethod]
@@ -133,7 +135,7 @@ namespace Regen.Core.Tests {
                 ";
             var variable = Variables(input).Values.First().
                 Should().BeOfType<NumberScalar>().Which;
-            variable.Value.Should().BeOfType(typeof(decimal)).And.BeEquivalentTo(1m);
+            variable.Value.Should().BeOfType(typeof(double)).And.BeEquivalentTo(1m);
         }
 
         [DataTestMethod]
@@ -146,7 +148,7 @@ namespace Regen.Core.Tests {
         [DataRow(typeof(long), "1L", 1L)]
         public void declare_variable_specific_type_inarray(Type type, string emit, object value) {
             var @input = $@"
-                %a = [{emit}|{emit}|]
+                %a = [{emit},{emit}]
                 ";
             var variable = Variables(input).Values.First();
             variable.Should().BeOfType(typeof(Array));

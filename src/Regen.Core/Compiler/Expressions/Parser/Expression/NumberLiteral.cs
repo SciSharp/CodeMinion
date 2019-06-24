@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class NumberLiteral : Expression, IEquatable<NumberLiteral>, IEquatable<string> {
-        public Match _match;
+        public RegexResult _match;
         public string Value;
 
         public NumberLiteral(string v) {
@@ -13,12 +14,12 @@ namespace Regen.Compiler.Expressions {
 
         public static NumberLiteral Parse(ExpressionWalker ew) {
             ew.IsCurrentOrThrow(ExpressionToken.NumberLiteral);
-            var ret = new NumberLiteral(ew.Current.Match.Value) {_match = ew.Current.Match};
+            var ret = new NumberLiteral(ew.Current.Match.Value) {_match = ew.Current.Match.AsResult()};
             ew.Next();
             return ret;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _match;
         }
 

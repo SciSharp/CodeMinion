@@ -15,40 +15,40 @@ namespace Regen.Core.Tests {
             //contained
             left = new Range(0, 9);
             right = new Range(3, 6);
-            result = left - right;
+            result = Range.Subtract(left, right);
             result.Start.Should().Be(0);
             result.End.Should().Be(5);
 
             left = new Range(10, 19);
             right = new Range(13, 16);
-            result = left - right;
+            result = Range.Subtract(left, right);
             result.Start.Should().Be(10);
             result.End.Should().Be(15);
 
             //above equals
             left = new Range(10, 19);
             right = new Range(19, 29);
-            result = left - right;
+            result = Range.Subtract(left, right);
             result.Start.Should().Be(10);
             result.End.Should().Be(18);
 
             //above
             left = new Range(10, 19);
             right = new Range(20, 29);
-            result = left - right;
+            result = Range.Subtract(left, right);
             result.Should().BeEquivalentTo(left);
 
             //above partial
             left = new Range(10, 19);
             right = new Range(15, 29);
-            result = left - right;
+            result = Range.Subtract(left, right);
             result.Start.Should().Be(10);
             result.End.Should().Be(14);
 
             //below partial
             left = new Range(10, 19);
             right = new Range(5, 15);
-            result = left - right;
+            result = Range.Subtract(left, right);
             result.Start.Should().Be(5);
             result.End.Should().Be(9);
         }
@@ -131,14 +131,14 @@ namespace Regen.Core.Tests {
             //above
             spanner = new StringSource("hey there");
             sub = spanner.Substring(new Range(0, 2));
-            spanner.RemovePlaceAt(4, 8, "dad");
+            spanner.ExchangeAt(4, 8, "dad");
             sub.ToString().Should().Be("hey");
             spanner.ToString().Should().Be("hey dad");
 
             //exact
             spanner = new StringSource("hey there");
             sub = spanner.Substring(new Range(0, 2));
-            spanner.RemovePlaceAt(0, 2, "bye");
+            spanner.ExchangeAt(0, 2, "bye");
             sub.Deleted.Should().BeFalse();
             sub.ToString().Should().Be("bye");
             spanner.ToString().Should().Be("bye there");
@@ -146,7 +146,7 @@ namespace Regen.Core.Tests {
             //exact
             spanner = new StringSource("hey there");
             sub = spanner.Substring(new Range(1, 2));
-            spanner.RemovePlaceAt(0, 2, "bye");
+            spanner.ExchangeAt(0, 2, "bye");
             sub.Deleted.Should().BeFalse();
             sub.ToString().Should().Be("ye");
             spanner.ToString().Should().Be("bye there");
@@ -154,7 +154,7 @@ namespace Regen.Core.Tests {
             //exact
             spanner = new StringSource("hey there");
             sub = spanner.Substring(new Range(1, 2));
-            spanner.RemovePlaceAt(0, 2, "bye");
+            spanner.ExchangeAt(0, 2, "bye");
             sub.Deleted.Should().BeFalse();
             sub.ToString().Should().Be("ye");
             spanner.ToString().Should().Be("bye there");
@@ -162,14 +162,14 @@ namespace Regen.Core.Tests {
             //exact
             spanner = new StringSource("hey there");
             sub = spanner.Substring(new Range(4, 8));
-            spanner.RemovePlaceAt(0, 3, "bye");
+            spanner.ExchangeAt(0, 3, "bye");
             sub.Deleted.Should().BeFalse();
             sub.ToString().Should().Be("there");
             spanner.ToString().Should().Be("byethere");
 
             spanner = new StringSource("hey there");
             sub = spanner.Substring(new Range(4, 8));
-            spanner.RemovePlaceAt(4, 8, "cowboy");
+            spanner.ExchangeAt(4, 8, "cowboy");
             sub.Deleted.Should().BeFalse();
             sub.ToString().Should().Be("cowboy");
             spanner.ToString().Should().Be("hey cowboy");
@@ -413,6 +413,7 @@ namespace Regen.Core.Tests {
             subsub[0].ToString().Should().Be("h");
             subsub[1].ToString().Should().Be("r");
         }
+
         [TestMethod]
         public void Slice_Split_Beggining() {
             var spanner = new StringSource("hey there");
@@ -459,6 +460,98 @@ namespace Regen.Core.Tests {
             sub = spanner.Substring(new Range(4, 8));
             spanner.ReplaceWith("yooooooo");
             sub.ToString().Should().Be("ooooo"); //still 5, it expends because the replacement contains this sub
+        }
+
+        [TestMethod]
+        public void Spanner_IsIndexInside() {
+            StringSource spanner;
+
+            spanner = new StringSource("12345");
+            spanner.IsIndexInside(-1).Should().BeFalse();
+            spanner.IsIndexInside(0).Should().BeTrue();
+            spanner.IsIndexInside(4).Should().BeTrue();
+            spanner.IsIndexInside(5).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Slice_IsIndexInside() {
+            StringSource spanner;
+            StringSlice sub;
+
+            spanner = new StringSource("12345");
+            sub = spanner.Substring(1, 3);
+            sub.IsIndexInside(-1).Should().BeFalse();
+            sub.IsIndexInside(0).Should().BeTrue();
+            sub.IsIndexInside(1).Should().BeTrue();
+            sub.IsIndexInside(2).Should().BeTrue();
+            sub.IsIndexInside(3).Should().BeFalse();
+            sub.IsIndexInside(5).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Slice_IsIndexInside_NestedSlices() {
+            StringSource spanner;
+            StringSlice sub;
+            StringSlice subsub;
+
+            spanner = new StringSource("1234567890");
+            sub = spanner.Substring(2, 6); //3 to 8
+            sub.ToString().Should().Be("345678");
+            subsub = sub.Substring(1, 4); //4 to 7
+            subsub.ToString().Should().Be("4567");
+
+            subsub.IsIndexInside(-1).Should().BeFalse();
+            subsub.IsIndexInside(0).Should().BeTrue();
+            subsub.IsIndexInside(1).Should().BeTrue();
+            subsub.IsIndexInside(2).Should().BeTrue();
+            subsub.IsIndexInside(3).Should().BeTrue();
+            subsub.IsIndexInside(5).Should().BeFalse();
+        }
+
+        [TestMethod]
+        public void Source_ExchangeAt() {
+            StringSource spanner;
+            StringSlice sub;
+
+            //smaller exchange, large insert
+            spanner = new StringSource("1234567890");
+            sub = spanner.Substring(new Range(3,6)); //3 to 8
+            sub.ToString().Should().Be("4567");
+            spanner.ExchangeAt(3,6, "hello");
+            sub.ToString().Should().Be("hello");
+            spanner.ToString().Should().Be("123hello890")
+            ;
+            //smaller exchange after in sub, large insert
+            spanner = new StringSource("1234567890");
+            sub = spanner.Substring(new Range(3, 6)); //3 to 8
+            sub.ToString().Should().Be("4567");
+            spanner.ExchangeAt(6, 7, "hello");
+            sub.ToString().Should().Be("456h");
+            spanner.ToString().Should().Be("123456hello90");
+            ;            
+            //behind sub
+            spanner = new StringSource("1234567890");
+            sub = spanner.Substring(new Range(3, 6)); //3 to 8
+            sub.ToString().Should().Be("4567");
+            spanner.ExchangeAt(0, 1, "hello");
+            sub.ToString().Should().Be("4567");
+            spanner.ToString().Should().Be("hello34567890");
+
+            ;            
+            spanner = new StringSource("1234567890");
+            sub = spanner.Substring(new Range(3, 6)); //3 to 8
+            sub.ToString().Should().Be("4567");
+            spanner.ExchangeAt(0, 5, "hell");
+            sub.ToString().Should().Be("l7");
+            spanner.ToString().Should().Be("hell7890");
+            ;
+            spanner = new StringSource("1234567890");
+            sub = spanner.Substring(new Range(3, 6)); //3 to 8
+            sub.ToString().Should().Be("4567");
+            spanner.ExchangeAt(0, 0, "9876");
+            sub.ToString().Should().Be("4567");
+            spanner.ToString().Should().Be("9876234567890");
+            ;
         }
     }
 }

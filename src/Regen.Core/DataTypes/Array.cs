@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Flee.PublicTypes;
+using Regen.Helpers;
 
 namespace Regen.DataTypes {
     [DebuggerDisplay("Array: {this}")]
@@ -32,6 +34,11 @@ namespace Regen.DataTypes {
             set => Values[index] = Data.Create(value);
         }
 
+        public object this[VariableCollection vars, int index] {
+            get => Values[index].UnpackReference(vars);
+            set => Values[index] = Data.Create(value);
+        }
+
         object IList.this[int index] {
             get => Values[index];
             set => Values[index] = Data.Create(value);
@@ -48,7 +55,7 @@ namespace Regen.DataTypes {
         bool IList.IsFixedSize => ((IList) Values).IsFixedSize;
 
         public override string Emit() {
-            return $"[{string.Join("|", Values.Select(v => v.Emit()))}]";
+            return $"[{string.Join(", ", Values.Select(v => v.Emit()))}]";
         }
 
         /// <summary>

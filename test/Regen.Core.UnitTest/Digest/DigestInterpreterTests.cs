@@ -17,7 +17,7 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(random.NextInt())
                 ";
-            Interpret(@input).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            Compile(@input).Output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
         }
 
         [TestMethod]
@@ -37,7 +37,7 @@ namespace Regen.Core.Tests.Digest {
                 %(mymod.add(1.0f, 2))
                 ";
             var intr = new Interpreter(@input, @input, new RegenModule("mymod", new MyModule()));
-            intr.Interpret(@input).Output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
         }
 
         [TestMethod]
@@ -47,7 +47,7 @@ namespace Regen.Core.Tests.Digest {
                 ";
             var intr = new Interpreter(@input, @input);
             intr.AddModule(new RegenModule("mymod", new MyModule()));
-            intr.Interpret(@input).Output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace Regen.Core.Tests.Digest {
             var intr = new Interpreter(@input, @input);
             var mod = new RegenModule("mymod", new MyModule());
             intr.AddModule(mod);
-            intr.Interpret(@input).Output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
             intr.RemoveModule(mod);
             ;
             new Action(() => { intr.Interpret(@input); })
@@ -73,7 +73,7 @@ namespace Regen.Core.Tests.Digest {
             var intr = new Interpreter(@input, @input);
             var mod = new RegenModule("mymod", new MyModule());
             intr.AddModule(mod);
-            intr.Interpret(@input).Output.Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            intr.Interpret(@input).Output.Compile().Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
             intr.RemoveModule("mymod");
             ;
             new Action(() => { intr.Interpret(@input); })
@@ -94,7 +94,7 @@ namespace Regen.Core.Tests.Digest {
                     1+1
                 %
                 ";
-            Interpret(input)
+            Compile(@input).Output
                 .Should().NotContain("%");
         }
 
@@ -113,7 +113,7 @@ namespace Regen.Core.Tests.Digest {
                 %
                 ";
 
-            Interpret(input).Should()
+            Compile(@input).Output.Should()
                 .Contain("dynamic operator % (OperatorsOverloading lhs").And
                 .Contain("left % right");
         }
@@ -124,7 +124,7 @@ namespace Regen.Core.Tests.Digest {
                 %b = a + 1
                 %(b)
                 ";
-            Interpret(input, new Dictionary<string, object>() {{"a", Scalar.Create(1)}})
+            Compile(input, new Dictionary<string, object>() {{"a", Scalar.Create(1)}}).Output
                 .Should().Contain("2");
         }
 
@@ -133,7 +133,7 @@ namespace Regen.Core.Tests.Digest {
             var input = @"
                 \%(b)
                 ";
-            Interpret(input)
+            Compile(@input).Output
                 .Should().Contain("%(b)");
         }
 
@@ -143,7 +143,7 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(__interpreter__.removemodule(""random""))
                 ";
-            Interpret(@input).Should().Contain("True");
+            Compile(@input).Output.Should().Contain("True");
         }
 
         [TestMethod]
@@ -152,7 +152,7 @@ namespace Regen.Core.Tests.Digest {
                 %(__interpreter__.removemodule(""random""))
                 %(random.NextInt())
                 ";
-            new Action(() => { Interpret(@input); })
+            new Action(() => { Compile(@input); })
                 .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'random'"));
         }
 
@@ -184,7 +184,7 @@ namespace Regen.Core.Tests.Digest {
             var @input = @"
                 %(__vars__.self())
                 ";
-            Interpret(@input).Should().Contain("VariableCollectionWrapper");
+            Compile(@input).Output.Should().Contain("VariableCollectionWrapper");
         }
     }
 }

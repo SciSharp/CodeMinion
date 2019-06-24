@@ -1,27 +1,66 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
 using Regen.Compiler;
+using Regen.Compiler.Expressions;
 using Regen.Compiler.Helpers;
 
 namespace Regen.Helpers {
     public static class RegexExtensions {
         private static readonly Regex _shimRegex = new Regex("(.*)", Regexes.DefaultRegexOptions);
 
+        //private static Func<string, Match> _matchCreator = CreateInstanceFunc();
         /// <summary>
         ///     Wraps current text with a match with 2 group (which both captures entire expression)
         /// </summary>
         /// <param name="str"></param>
         /// <returns></returns>
-        public static Match WrapAsMatch(this string str) {
+        public static Match WrapAsMatch(this string str, int? index = null) {
             return _shimRegex.Match(str);
+        }
+
+        /// <summary>
+        ///     Wraps current text with a match with 2 group (which both captures entire expression)
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static RegexResult AsResult(this string str, int? index = null) {
+            return new RegexResult() {Groups = null, Index = index ?? -1, Length = str.Length, Value = str};
+        }
+
+        /// <summary>
+        ///     Wraps current text with a match with 2 group (which both captures entire expression)
+        /// </summary>
+        public static RegexResult AsResult(this Match match) {
+            return new RegexResult() {Groups = match.Groups, Index = match.Index, Length = match.Length, Value = match.Value};
+        }
+
+        /// <summary>
+        ///     Wraps current text with a match with 2 group (which both captures entire expression)
+        /// </summary>
+        public static RegexResult AsResult(this Match match, int group) {
+            var grp = match.Groups[group];
+            return new RegexResult() {Groups = match.Groups, Index = grp.Index, Length = grp.Length, Value = grp.Value};
+        }
+
+        //Match(Regex regex, int capcount, string text, int begpos, int len, int startpos)
+        private static Func<object[], T> CreateInstanceFunc<T>() {
+            //var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+            //var ctor = typeof(Match).GetConstructors().Single(info => match(info));
+            //return objects => (T) ctor.Invoke(objects);
+            return @params => (T) typeof(T).Assembly.CreateInstance(
+                typeof(T).FullName, false,
+                BindingFlags.Instance | BindingFlags.NonPublic,
+                null, @params, null, null);
         }
 
         /// <summary>
@@ -106,6 +145,10 @@ namespace Regen.Helpers {
 
                 groupNo++;
             }
+        }
+
+        public static string GetRegex(this ExpressionToken tkn) {
+            return tkn.GetAttribute<ExpressionTokenAttribute>().Regex;
         }
     }
 }

@@ -17,5 +17,14 @@ namespace Regen.Compiler {
         public static string SelectNamespaceFromAssemblyName = @"^((?:[\s\S])+?[^,]+)";
 
         public static string Parenthases = @"\((?:[^()]|(?<open>\()|(?<-open>\)))+(?(open)(?!))\)";
+
+        public static string DefineMarker = "_REGEN";
+
+        public static string DefineGlobalsMarker = "_REGEN_GLOBAL[S]*";
+
+        public static string FrameRegex = $@"(?<=\#if\s{DefineMarker})[\n\r]{{1,2}}    ([\s|\S]*?)    \#else[\n\r]{{1,2}}     ([\s|\S]*?)   (?=\#endif)";
+
+        public static string GlobalFrameRegex = $@"\#if\s{DefineGlobalsMarker}[\n\r]{{1,2}}     ([\s|\S]*?)    \#endif";
+
     }
 }

@@ -14,7 +14,7 @@ namespace Regen.Core.Tests.Expression {
         public void range_2() {
             var file = File.ReadAllText("./testSmall.cs");
             foreach (var frame in DigestParser.ExtractFrames(file)) {
-                Interpret(frame);
+                Parse(frame);
             }
         }
 
@@ -25,7 +25,7 @@ namespace Regen.Core.Tests.Expression {
                     Console.WriteLine(""Printed #1!"");
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("Printed 0").And
                 .Contain("Printed 1").And
                 .Contain("Printed 2");
@@ -40,7 +40,7 @@ namespace Regen.Core.Tests.Expression {
                     #1 #2
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("4").And
                 .Contain("5");
         }
@@ -54,7 +54,7 @@ namespace Regen.Core.Tests.Expression {
                     #1 #2
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("4").And
                 .Contain("5");
         }
@@ -68,7 +68,7 @@ namespace Regen.Core.Tests.Expression {
                     #1 #2
                 %
                 ";
-            Interpret(@input).Should()
+            Compile(@input).Output.Should()
                 .Contain("1").And
                 .Contain("2").And
                 .Contain("3").And

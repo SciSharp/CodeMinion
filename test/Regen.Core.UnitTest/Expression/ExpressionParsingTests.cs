@@ -17,7 +17,7 @@ namespace Regen.Core.Tests.Expression {
     of the most
 of nothing
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             ret.ETokens.Should().OnlyContain(e => e.Token == ExpressionToken.NewLine || e.Token == ExpressionToken.Literal);
         }
 
@@ -26,10 +26,10 @@ of nothing
             var input = @"
                 %a = ""hi""
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             varexpr.Right.Should().BeOfType<StringLiteral>().Which.Value.Should().Be("hi");
         }
@@ -39,13 +39,13 @@ of nothing
             var input = @"
                 %a = gibson(""Args1"", 15)
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var call = varexpr.Right.Should().BeOfType<CallExpression>().Which;
-            call.FunctionName.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
+            call.FunctionName.As<IdentityExpression>().Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
             call.Arguments.Arguments.Should().HaveCount(2);
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last().Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("15");
@@ -56,13 +56,13 @@ of nothing
             var input = @"
                 %a = gibson(""Args1"", (1))
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var call = varexpr.Right.Should().BeOfType<CallExpression>().Which;
-            call.FunctionName.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
+            call.FunctionName.As<IdentityExpression>().Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
             call.Arguments.Arguments.Should().HaveCount(2);
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last().Should().BeOfType<GroupExpression>()
@@ -74,13 +74,13 @@ of nothing
             var input = @"
                 %a = gibson(""Args1"", (1+3))
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var call = varexpr.Right.Should().BeOfType<CallExpression>().Which;
-            call.FunctionName.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
+            call.FunctionName.As<IdentityExpression>().Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
             call.Arguments.Arguments.Should().HaveCount(2);
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last().Should().BeOfType<GroupExpression>()
@@ -95,13 +95,13 @@ of nothing
             var input = @"
                 %a = gibson(""Args1"", (1+2+3))
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var call = varexpr.Right.Should().BeOfType<CallExpression>().Which;
-            call.FunctionName.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
+            call.FunctionName.As<IdentityExpression>().Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
             call.Arguments.Arguments.Should().HaveCount(2);
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last().Should().BeOfType<GroupExpression>()
@@ -117,13 +117,13 @@ of nothing
             var input = @"
                 %a = gibson(""Args1"", (1+(2+3)))
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var call = varexpr.Right.Should().BeOfType<CallExpression>().Which;
-            call.FunctionName.Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
+            call.FunctionName.As<IdentityExpression>().Identity.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("gibson");
             call.Arguments.Arguments.Should().HaveCount(2);
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last()
@@ -140,10 +140,10 @@ of nothing
             var input = @"
                 %a = [1,2,3]
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which;
             arr.Values.Should().HaveCount(3).And.ContainInOrder(new NumberLiteral("1"), new NumberLiteral("2"), new NumberLiteral("3"));
@@ -153,10 +153,10 @@ of nothing
         public void expression_variable_array_3nests() {
             var input = @"
                 %a = [[[[(3)]]]]";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which;
             for (int i = 0; i < 3; i++) {
@@ -183,10 +183,10 @@ of nothing
             var input = $@"
                 %a = [{decl}]
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which;
             arr.Values.Should().HaveCount(3);
@@ -198,10 +198,10 @@ of nothing
             var input = @"
                 %a = [1,[""1"", 5], 3 ]
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which;
             arr.Values.Should().HaveCount(3).And.ContainInOrder(new NumberLiteral("1"), new NumberLiteral("3"));
@@ -213,10 +213,10 @@ of nothing
             var input = @"
                 %a = imsomevariable[5]
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var indexer = varexpr.Right.Should().BeOfType<IndexerCallExpression>().Which;
             indexer.Left.Should().BeOfType<IdentityExpression>().Which.Identity
@@ -228,10 +228,10 @@ of nothing
         public void expression_variable_accessor_multiple() {
             var input = @"
                 %a = imsomevariable[5, 6]";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var indexer = varexpr.Right.Should().BeOfType<IndexerCallExpression>().Which;
             indexer.Left.Should().BeOfType<IdentityExpression>().Which.Identity
@@ -243,10 +243,10 @@ of nothing
         public void expression_variable_bool() {
             var input = @"
                 %a = true";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             varexpr.Right.Should().BeOfType<BooleanLiteral>().Which.Value.Should().Be(true);
         }
@@ -255,10 +255,10 @@ of nothing
         public void expression_variable_bool_op() {
             var input = @"
                 %a = true | true";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var op = varexpr.Right.Should().BeOfType<OperatorExpression>().Which;
             op.Op.Should().Be(ExpressionToken.Or);
@@ -270,10 +270,10 @@ of nothing
         public void expression_variable_char() {
             var input = @"
                 %a = 'c'";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             varexpr.Right.Should().BeOfType<CharLiteral>().Which.Value.Should().Be('c');
         }
@@ -282,10 +282,10 @@ of nothing
         public void expression_variable_dictionary() {
             var input = @"
                 %a = [yoo: 1223, ""yoo2"": 123]";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which.Values;
             arr[0].Should().BeOfType<KeyValueExpression>()
@@ -303,10 +303,10 @@ of nothing
         public void expression_variable_dictionary_with_nestedarray() {
             var input = @"
                 %a = [yoo: 1223, [""yoo2"": 123]]";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which.Values;
             arr[0].Should().BeOfType<KeyValueExpression>()
@@ -325,10 +325,10 @@ of nothing
         public void expression_variable_mixed_dictionary_with_nestedarray() {
             var input = @"
                 %a = [1223, [""yoo2"": 123]]";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var arr = varexpr.Right.Should().BeOfType<ArrayExpression>().Which.Values;
             arr[0].Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1223");
@@ -344,10 +344,10 @@ of nothing
             var input = @"
                 %a = name1.name2[5]
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var iden = varexpr.Right.Should().BeOfType<IdentityExpression>().Which;
             var prop = iden.Identity.Should().BeOfType<PropertyIdentity>().Which;
@@ -363,10 +363,10 @@ of nothing
             var input = @"
                 %a = name1.name2[5].josh
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var iden = varexpr.Right.Should().BeOfType<IdentityExpression>().Which;
             var prop = iden.Identity.Should().BeOfType<PropertyIdentity>().Which;
@@ -384,10 +384,10 @@ of nothing
             var input = @"
                 %a = name1.name2(5).josh
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var iden = varexpr.Right.Should().BeOfType<IdentityExpression>().Which;
             var prop = iden.Identity.Should().BeOfType<PropertyIdentity>().Which;
@@ -406,10 +406,10 @@ of nothing
                 %a = name1.name2(5).josh.istheman
 ";
 
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var iden = varexpr.Right.Should().BeOfType<IdentityExpression>().Which;
             var prop = iden.Identity.Should().BeOfType<PropertyIdentity>().Which;
@@ -430,10 +430,10 @@ of nothing
                 %a = name1.name2(5).josh.istheman[""i think not""]
 ";
 
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var iden = varexpr.Right.Should().BeOfType<IdentityExpression>().Which;
             var prop = iden.Identity.Should().BeOfType<PropertyIdentity>().Which;
@@ -453,10 +453,10 @@ of nothing
             var input = @"
                 %a = name1.name2
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var prop = varexpr.Right.Should().BeOfType<IdentityExpression>().Which.Identity
                 .Should().BeOfType<PropertyIdentity>().Which;
@@ -471,10 +471,10 @@ of nothing
             var input = @"
                 %a =  name1.name2(  3  ).aftercall
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var prop1 = varexpr.Right.Should().BeOfType<IdentityExpression>().Which.Identity
                 .Should().BeOfType<PropertyIdentity>().Which;
@@ -494,10 +494,10 @@ of nothing
                 %a = throw 1;
 ";
             new Action(() => {
-                var ret = Compile(input);
+                var ret = Parse(input);
                 var act = ret.ParseActions.First();
                 act.Token.Should().Be(ParserToken.Declaration);
-                var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+                var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
                 varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
                 var indexer = varexpr.Right.Should().BeOfType<ThrowExpression>().Which;
                 var prop = indexer.Right.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1");
@@ -510,10 +510,10 @@ of nothing
             var input = @"
                 %a = null;
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var indexer = varexpr.Right.Should().BeOfType<IdentityExpression>().Which.Identity.Should().BeOfType<NullIdentity>();
         }
@@ -523,10 +523,10 @@ of nothing
             var input = @"
                 %a = throw new Classy();
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var indexer = varexpr.Right.Should().BeOfType<ThrowExpression>().Which;
             var constr = indexer.Right.Should().BeOfType<NewExpression>().Which.Constructor;
@@ -540,10 +540,10 @@ of nothing
             var input = @"
                 %v = ++a
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
             var op = varexpr.Right.Should().BeOfType<LeftOperatorExpression>().Which;
 
@@ -556,10 +556,10 @@ of nothing
             var input = @"
                 %v = a++
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
             var op1 = varexpr.Right.Should().BeOfType<RightOperatorExpression>().Which;
 
@@ -572,10 +572,10 @@ of nothing
             var input = @"
                 %v = a++ + 5
 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
             var op1 = varexpr.Right.Should().BeOfType<OperatorExpression>().Which;
 
@@ -592,10 +592,10 @@ of nothing
             var input = @"
                 %v = (a++) + 5 + a/3
                 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
-            var varexpr = act.Related.First().Should().BeOfType<VariableExpression>().Which;
+            var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("v");
         }
 
@@ -604,7 +604,7 @@ of nothing
             var input = @"
                 %(123)
                 ";
-            var ret = Compile(input);
+            var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Expression);
             act.Related.First()

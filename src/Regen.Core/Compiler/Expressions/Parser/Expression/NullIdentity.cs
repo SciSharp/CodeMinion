@@ -4,7 +4,7 @@ using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class NullIdentity : Identity {
-        private static readonly Match _nullMatch = "null".WrapAsMatch();
+        private static readonly RegexResult _nullMatch = "null".AsResult();
         public static NullIdentity Instance = new NullIdentity();
 
         public static Expression Parse(ExpressionWalker ew) {
@@ -13,7 +13,7 @@ namespace Regen.Compiler.Expressions {
             return new IdentityExpression(Instance);
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _nullMatch;
         }
     }

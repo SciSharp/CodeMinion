@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Flee.PublicTypes;
 using Regen.Compiler;
+using Regen.DataTypes;
 
 namespace Regen.Helpers {
     public static class FleeExtensions {
@@ -19,30 +20,34 @@ namespace Regen.Helpers {
 
             imports.AddType(InstanceToStaticWrapper.Wrap(target), @namespace);
         }
+
+        public static object UnpackReference(this VariableCollection vars, Data reference) {
+            return _unpack(vars, reference);
+        }
+
+        public static object UnpackReference(this Data reference, VariableCollection vars) {
+            return _unpack(vars, reference);
+        }
+
+        public static object UnpackReference(this ExpressionContext ctx, Data reference) {
+            return _unpack(ctx.Variables, reference);
+        }
+
+        public static object UnpackReference(this Data reference, ExpressionContext ctx) {
+            return _unpack(ctx.Variables, reference);
+        }
+
+        private static object _unpack(VariableCollection vars, object reference) {
+            object ret = reference;
+            while (ret is ReferenceData e)
+            {
+                ret = vars[e.EmitExpressive()];
+            }
+
+            return ret;
+        }
     }
 
-
-    public static class MyStatic {
-        private static MyNonStatic NonStatic;
-
-        public static int Add(int a, int b) {
-            return NonStatic.Add(a, b);
-        }
-
-        public static MyNonStatic self() {
-            return NonStatic;
-        }
-    }
-
-    public class MyNonStatic {
-        public int Add(int a, int b) {
-            return a + b;
-        }
-
-        public MyNonStatic self() {
-            return this;
-        }
-    }
 
     public static class InstanceToStaticWrapper {
         private static volatile int _index;

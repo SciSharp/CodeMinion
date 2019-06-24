@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
 namespace Regen.Compiler.Expressions {
     public class NewExpression : Expression {
-        private static readonly Match _newMatch = "new".WrapAsMatch();
+        private static readonly RegexResult _newMatch = "new".AsResult();
 
         public Expression Constructor;
 
@@ -22,11 +23,15 @@ namespace Regen.Compiler.Expressions {
             return new NewExpression(CallExpression.Parse(ew));
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             yield return _newMatch;
             foreach (var match in Constructor.Matches()) {
                 yield return match;
             }
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Constructor.Iterate());
         }
     }
 }

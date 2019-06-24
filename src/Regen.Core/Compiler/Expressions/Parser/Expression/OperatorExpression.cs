@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Exceptions;
 using Regen.Helpers;
@@ -68,12 +69,12 @@ namespace Regen.Compiler.Expressions {
         public static Expression Parse(ExpressionWalker ew, Expression left = null) {
             // ReSharper disable once UseObjectOrCollectionInitializer
             var ret = new OperatorExpression();
-            ret.Left = left ?? ew.ParseExpression(typeof(OperatorExpression));
+            ret.Left = left ?? ParseExpression(ew, typeof(OperatorExpression));
             if (!IsCurrentAnOperation(ew))
                 return left;
             ret.Op = ew.Current.Token;
             ew.NextOrThrow();
-            ret.Right = ew.ParseExpression(typeof(OperatorExpression));
+            ret.Right = ParseExpression(ew, typeof(OperatorExpression));
             return ret;
         }
 
@@ -83,16 +84,20 @@ namespace Regen.Compiler.Expressions {
             set => Op = value;
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in Left.Matches()) {
                 yield return match;
             }
 
-            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.WrapAsMatch();
+            yield return Op.GetAttribute<ExpressionTokenAttribute>().Emit.AsResult();
 
             foreach (var match in Right.Matches()) {
                 yield return match;
             }
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(Left.Iterate()).Concat(Right.Iterate());
         }
     }
 }

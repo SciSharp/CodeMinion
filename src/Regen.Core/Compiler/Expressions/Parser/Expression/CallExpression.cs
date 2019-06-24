@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Helpers;
 
@@ -7,30 +8,27 @@ namespace Regen.Compiler.Expressions {
     ///     Parses: identity(params)
     /// </summary>
     public class CallExpression : Expression {
-        private static readonly Match _matchLeft = "(".WrapAsMatch();
-        private static readonly Match _matchRight = ")".WrapAsMatch();
-        public IdentityExpression FunctionName;
+        private static readonly RegexResult _matchLeft = "(".AsResult();
+        private static readonly RegexResult _matchRight = ")".AsResult();
+        public Expression FunctionName;
         public ArgumentsExpression Arguments;
 
-        public CallExpression(IdentityExpression functionName, ArgumentsExpression args) {
+        public CallExpression(Expression functionName, ArgumentsExpression args) {
             FunctionName = functionName;
             Arguments = args;
         }
 
         private CallExpression() { }
 
-        public static Expression Parse(ExpressionWalker ew) {
+        public static Expression Parse(ExpressionWalker ew, Expression left = null) {
             var fc = new CallExpression();
-            fc.FunctionName = IdentityExpression.Parse(ew);
+            fc.FunctionName = left ?? IdentityExpression.Parse(ew);
             fc.Arguments = ArgumentsExpression.Parse(ew, ExpressionToken.LeftParen, ExpressionToken.RightParen, true);
-            if (ew.Current.Token == ExpressionToken.Period) {
-                return IdentityExpression.Parse(ew, typeof(CallExpression), fc);
-            }
 
-            return fc;
+            return InteractableExpression.TryExpand(fc, ew);
         }
 
-        public override IEnumerable<Match> Matches() {
+        public override IEnumerable<RegexResult> Matches() {
             foreach (var match in FunctionName.Matches()) {
                 yield return match;
             }
@@ -41,6 +39,10 @@ namespace Regen.Compiler.Expressions {
             }
 
             yield return _matchRight;
+        }
+
+        public override IEnumerable<Expression> Iterate() {
+            return this.Yield().Concat(FunctionName.Iterate()).Concat(Arguments.Iterate());
         }
     }
 }

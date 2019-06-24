@@ -29,31 +29,42 @@ namespace Regen.Compiler.Helpers {
         }
 
         /// <summary>
+        ///     The index the string span begins (inclusive)
+        /// </summary>
+        public override int Start => 0;
+
+        /// <summary>
+        ///     The index the string span ends (inclusive)
+        /// </summary>
+        public override int End => Chars.Count - 1;
+
+        /// <summary>
         ///     The characters this string holds.
         /// </summary>
         public sealed override List<char> Chars { get; protected set; }
 
 
         public override void Add(string str) {
+            var currentRange = new Range(0, Chars.Count - 1);
             var addedRange = new Range(Chars.Count, Chars.Count + str.Length - 1);
             Chars.AddRange(str.ToCharArray());
             for (var i = 0; i < Slices.Count; i++) {
                 var slice = Slices[i];
                 if (slice.Deleted)
                     continue;
-                slice.Range += addedRange;
+                slice.Range = Range.Add(slice.Range, currentRange, str.Length);
             }
         }
 
         public override void Add(IEnumerable<char> chars) {
+            var currentRange = new Range(0, Chars.Count - 1);
             var arr = (chars as char[] ?? chars).ToArray();
-            var addedRange = new Range(Chars.Count, Chars.Count + arr.Length - 1);
             Chars.AddRange(arr);
             for (var i = 0; i < Slices.Count; i++) {
                 var slice = Slices[i];
                 if (slice.Deleted)
                     continue;
-                slice.Range += addedRange;
+                slice.Range = Range.Add(slice.Range, currentRange, arr.Length);
             }
         }
 
@@ -90,7 +101,7 @@ namespace Regen.Compiler.Helpers {
                 var slice = Slices[i];
                 if (slice.Deleted)
                     continue;
-                slice.Range -= range;
+                slice.Range = Range.Subtract(slice.Range, range);
             }
 
             return length;
@@ -103,7 +114,7 @@ namespace Regen.Compiler.Helpers {
                 var slice = Slices[i];
                 if (slice.Deleted)
                     continue;
-                slice.Range += range;
+                slice.Range = Range.Insert(slice.Range, range);
             }
         }
 
@@ -118,19 +129,33 @@ namespace Regen.Compiler.Helpers {
         /// <summary>
         ///     Sequence of removing and then placing without making slices to turn deleted.
         /// </summary>
-        public override void RemovePlaceAt(int index, int endindex, string place) {
-            var removal = new Range(index, endindex);
-            var adds = new Range(index, index + place.Length);
-            var addon = adds >= removal ? adds - removal : removal - adds;
+        public override void ExchangeAt(int index, int endindex, string place) {
+            //3456
+            //hello
+            var addon = place.Length - (endindex - index + 1);
+            var right = new Range(index, endindex);
             Chars.RemoveRange(index, endindex - index + 1);
             Chars.InsertRange(index, place.ToCharArray());
 
-            for (var i = 0; i < Slices.Count; i++) {
-                var slice = Slices[i];
-                if (slice.Deleted)
-                    continue;
-                slice.Range += addon;
-            }
+            //todo fix this mess.
+            if (addon != 0)
+                for (var i = 0; i < Slices.Count; i++) {
+                    var slice = Slices[i];
+                    if (slice.Deleted)
+                        continue;
+                    if (addon > 0)
+                        slice.Range = Range.Add(slice.Range, right, addon);
+                    else
+                        slice.Range = Range.Subtract(slice.Range, new Range(endindex - (Math.Abs(addon) - 1), endindex)); //addon is negative
+                    //todo it is possible that when addon is negative, this might fail.
+                }
+        }
+
+        /// <summary>
+        ///     Sequence of removing and then placing without making slices to turn deleted.
+        /// </summary>
+        public override void ExchangeAt(int index, string place) {
+            ExchangeAt(index, index + place.Length, place);
         }
 
         /// <summary>
@@ -139,26 +164,13 @@ namespace Regen.Compiler.Helpers {
         /// <param name="index"></param>
         /// <param name="endindex"></param>
         /// <param name="chars"></param>
-        public override void RemovePlaceAt(int index, int endindex, IEnumerable<char> chars) {
-            var place = (chars as char[] ?? chars).ToArray();
-            var removal = new Range(index, endindex);
-            var adds = new Range(index, index + place.Length);
-            var addon = adds - removal;
-            Chars.RemoveRange(index, endindex - index + 1);
-            Chars.InsertRange(index, place);
-
-            for (var i = 0; i < Slices.Count; i++) {
-                var slice = Slices[i];
-                if (slice.Deleted)
-                    continue;
-                slice.Range += addon;
-            }
+        public override void ExchangeAt(int index, int endindex, IEnumerable<char> chars) {
+            ExchangeAt(index, endindex, new string(chars as char[] ?? chars.ToArray()));
         }
 
         public override int TrimEnd(params char[] chars) {
             int items = 0;
-            for (var i = Length - 1; i >= 0; i--)
-            {
+            for (var i = Length - 1; i >= 0; i--) {
                 var @this = this[i];
                 if (chars.All(oc => oc != @this))
                     break;
@@ -172,8 +184,7 @@ namespace Regen.Compiler.Helpers {
 
         public override int TrimStart(params char[] chars) {
             int items = 0;
-            for (int i = 0; i < Length; i++)
-            {
+            for (int i = 0; i < Length; i++) {
                 var @this = this[i];
                 if (chars.All(oc => oc != @this))
                     break;
@@ -226,11 +237,20 @@ namespace Regen.Compiler.Helpers {
         }
 
         public override void ReplaceWith(string place) {
-            RemovePlaceAt(0, Length - 1, place);
+            ExchangeAt(0, Length - 1, place);
         }
 
         public override void ReplaceWith(IEnumerable<char> chars) {
-            RemovePlaceAt(0, Length - 1, chars);
+            ExchangeAt(0, Length - 1, chars);
+        }
+
+        /// <summary>
+        ///     Tests if given <see cref="index"/> is a valid index to access this <see cref="StringSpan"/>.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public override bool IsIndexInside(int index) {
+            return index >= 0 && index <= Chars.Count - 1;
         }
 
         /// <summary>

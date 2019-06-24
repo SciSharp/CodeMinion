@@ -4,6 +4,9 @@ using Regen.Exceptions;
 
 namespace Regen.Compiler.Expressions {
     public partial class ExpressionWalker {
+        /// <summary>
+        ///     Moves next and returns the new current token.
+        /// </summary>
         public EToken NextToken() {
             var ret = Next() ? Current : null;
             if (ret == null)
