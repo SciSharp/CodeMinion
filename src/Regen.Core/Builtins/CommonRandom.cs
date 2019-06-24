@@ -1,7 +1,9 @@
 ﻿using System;
+using Regen.Compiler;
+using Regen.DataTypes;
 
 namespace Regen.Builtins {
-    public class CommonRandom {
+    public class CommonRandom : IRegenModule {
         private Random _random = new Random();
         private int? _seed = null;
 
@@ -58,6 +60,14 @@ namespace Regen.Builtins {
         /// <returns>A double-precision floating point number that is greater than or equal to 0.0, and less than 1.0.</returns>
         public double NextDouble(double from, double to) {
             return _random.NextDouble() * to - from;
+        }
+
+        /// <summary>
+        ///     Simply implement as return this
+        /// </summary>
+        /// <remarks>Because <see cref="Flee"/> implements external modules as a namespace and not an actual type, returns self </remarks>
+        public Data Self() {
+            return null; //TODO add ObjectScalar.
         }
     }
 }

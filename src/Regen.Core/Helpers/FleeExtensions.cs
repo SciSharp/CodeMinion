@@ -4,7 +4,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Text.RegularExpressions;
+using System.Threading;
 using Flee.PublicTypes;
+using Regen.Compiler;
+using Regen.DataTypes;
+using Regen.Parser;
 
 namespace Regen.Helpers {
     public static class FleeExtensions {
@@ -13,27 +18,41 @@ namespace Regen.Helpers {
         public static void AddInstance(this ExpressionImports imports, object target, string @namespace, Func<MethodInfo, bool> selector = null, BindingFlags? flags = null) {
             if (target == null)
                 return;
-            
+
             imports.AddType(InstanceToStaticWrapper.Wrap(target), @namespace);
         }
-    }
 
+        public static object UnpackReference(this VariableCollection vars, Data reference) {
+            return _unpack(vars, reference);
+        }
 
-    public static class MyStatic {
-        private static MyNonStatic NonStatic;
+        public static object UnpackReference(this Data reference, VariableCollection vars) {
+            return _unpack(vars, reference);
+        }
 
-        public static int Add(int a, int b) {
-            return NonStatic.Add(a, b);
+        public static object UnpackReference(this ExpressionContext ctx, Data reference) {
+            return _unpack(ctx.Variables, reference);
+        }
+
+        public static object UnpackReference(this Data reference, ExpressionContext ctx) {
+            return _unpack(ctx.Variables, reference);
+        }
+
+        private static object _unpack(VariableCollection vars, object reference) {
+            object ret = reference;
+            while (ret is ReferenceData e)
+            {
+                ret = vars[e.EmitExpressive()];
+            }
+
+            return ret;
         }
     }
 
-    public class MyNonStatic {
-        public int Add(int a, int b) {
-            return a + b;
-        }
-    }
 
     public static class InstanceToStaticWrapper {
+        private static volatile int _index;
+
         /// <summary>
         ///     Generates a static wrapper class to an instance class object.
         /// </summary>
@@ -42,43 +61,66 @@ namespace Regen.Helpers {
         /// <remarks>https://gist.github.com/ReubenBond/1bf2b1bf92ab02dc31242462f7bf7958</remarks>
         public static Type Wrap(object _target) {
             var type = _target.GetType();
-            string ns = type.Assembly.FullName;
+            int index = Interlocked.Increment(ref _index);
+            var ns = Regex.Replace(type.Assembly.FullName, Regexes.SelectNamespaceFromAssemblyName, $"$1.Generated{index}");
             var name = type.FullName + "_StaticRegen" + Guid.NewGuid().ToString("N");
             ModuleBuilder moduleBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName(ns), AssemblyBuilderAccess.Run).DefineDynamicModule(ns);
             TypeBuilder wrapperBuilder = moduleBuilder.DefineType(name, TypeAttributes.Public | TypeAttributes.Class | TypeAttributes.Sealed | TypeAttributes.Abstract, null, new Type[0]);
-            const string setter = "_setNonStatic";
-            var fld = wrapperBuilder.DefineField("nonStatic", type, FieldAttributes.Private | FieldAttributes.Static);
 
-            var initMethod = wrapperBuilder.DefineMethod(
-                "_setNonStatic",
-                MethodAttributes.Static | MethodAttributes.Private,
-                CallingConventions.Standard,
-                typeof(void),
-                new[] {type});
-            var il = initMethod.GetILGenerator();
-            il.Emit(OpCodes.Ldarg_0);
-            il.Emit(OpCodes.Stsfld, fld);
-            il.Emit(OpCodes.Ret);
+            var methods = type.GetMethods();
+            bool containsSelf = methods.Any(m => m.Name.Equals("self", StringComparison.OrdinalIgnoreCase) && m.ReturnType == type);
+            var targetField = CreateWrappedField(_target, wrapperBuilder);
 
-            foreach (MethodInfo method in type.GetMethods().Where(mi => FleeExtensions.Exclusions.All(e => e.Name != mi.Name) && !mi.Name.StartsWith("_"))) {
-                CreateProxyMethod(wrapperBuilder, method, fld);
+            //Get types except for exclusions
+            var approvedTypes = methods.Where(mi => FleeExtensions.Exclusions.All(e => e.Name != mi.Name) && !mi.Name.StartsWith("_")).ToList();
+
+            //if theres not Self() in target, clear any invalid target that will deny compilation.
+            if (!containsSelf)
+                approvedTypes.RemoveAll(mi => mi.Name.Equals("self", StringComparison.OrdinalIgnoreCase) && mi.ReturnType != type);
+            foreach (MethodInfo method in approvedTypes) {
+                CreateProxyMethod(wrapperBuilder, method, targetField);
             }
 
+            if (!containsSelf) {
+                CreateSelfMethod(wrapperBuilder, targetField);
+            }
+
+
+            //build the output type
             Type wrapperType = wrapperBuilder.CreateType();
 
+            //set the target to the private field
+            const string setter = "_setNonStatic";
             wrapperType.GetMethod(setter, BindingFlags.Static | BindingFlags.NonPublic)
                 .Invoke(null, new object[] {_target});
 
             return wrapperType;
         }
 
-        private static void CreateProxyMethod(TypeBuilder wrapperBuilder, MethodInfo method, FieldBuilder fld) {
+        private static FieldBuilder CreateWrappedField(object target, TypeBuilder wrapperBuilder) {
+            var fld = wrapperBuilder.DefineField("nonStatic", target.GetType(), FieldAttributes.Private | FieldAttributes.Static);
+            var initMethod = wrapperBuilder.DefineMethod(
+                "_setNonStatic",
+                MethodAttributes.Static | MethodAttributes.Private,
+                CallingConventions.Standard,
+                typeof(void),
+                new[] {target.GetType()});
+            var il = initMethod.GetILGenerator();
+            il.Emit(OpCodes.Ldarg_0);
+            il.Emit(OpCodes.Stsfld, fld);
+            il.Emit(OpCodes.Ret);
+
+
+            return fld;
+        }
+
+        private static void CreateProxyMethod(TypeBuilder wrapperBuilder, MethodInfo method, FieldBuilder target) {
             var parameters = method.GetParameters();
             var ret = method.ReturnType == typeof(void) ? typeof(object) : method.ReturnType;
             var methodBuilder = wrapperBuilder.DefineMethod(method.Name, MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.HideBySig, ret, parameters.Select(p => p.ParameterType).ToArray());
             var gen = methodBuilder.GetILGenerator();
 
-            gen.Emit(OpCodes.Ldsfld, fld);
+            gen.Emit(OpCodes.Ldsfld, target);
             for (int i = 0; i < parameters.Length; i++)
                 gen.Emit(OpCodes.Ldarg, i);
             gen.Emit(OpCodes.Callvirt, method);
@@ -86,12 +128,14 @@ namespace Regen.Helpers {
                 gen.Emit(OpCodes.Ldnull);
             gen.Emit(OpCodes.Ret);
         }
-    }
 
-    public class yoho {
-        public object kek() {
-            var t = 1 + 1;
-            return null;
+        private static void CreateSelfMethod(TypeBuilder wrapperBuilder, FieldBuilder target) {
+            var ret = target.FieldType;
+            var methodBuilder = wrapperBuilder.DefineMethod("Self", MethodAttributes.Public | MethodAttributes.Static | MethodAttributes.SpecialName | MethodAttributes.HideBySig, ret, Type.EmptyTypes);
+            var gen = methodBuilder.GetILGenerator();
+
+            gen.Emit(OpCodes.Ldsfld, target);
+            gen.Emit(OpCodes.Ret);
         }
     }
 
