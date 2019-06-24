@@ -10,7 +10,7 @@ using Regen.Parser.Expressions;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
-    public class ExpressionParsingTests : ExpressionUnitTest {
+    public class ParsingTests : ExpressionUnitTest {
         [TestMethod]
         public void input_without_precentage() {
             var input = @"

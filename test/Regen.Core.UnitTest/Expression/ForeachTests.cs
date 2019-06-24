@@ -5,7 +5,7 @@ using Regen.Compiler.Expressions;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
-    public class ExpressionForeachTests : ExpressionUnitTest {
+    public class ForeachTests : ExpressionUnitTest {
         //todo test bad foreach expressions
         //todo test nested foreach expressions
         //todo test removal of the expression, here and everywhere else. test that after compile they dont contain % etc..

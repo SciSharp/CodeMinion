@@ -4,7 +4,7 @@ using Regen.Core.Tests.Expression;
 
 namespace Regen.Core.Tests.Digest {
     [TestClass]
-    public class DigestCommentTests : ExpressionUnitTest {
+    public class CommentTests : ExpressionUnitTest {
         [TestMethod]
         public void comment_at_foreach() {
             var @input = @"
