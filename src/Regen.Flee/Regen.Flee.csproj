@@ -145,6 +145,7 @@
     <Compile Include="PublicTypes\ExpressionOptions.cs" />
     <Compile Include="PublicTypes\ExpressionParserOptions.cs" />
     <Compile Include="PublicTypes\ImportTypes.cs" />
+    <Compile Include="PublicTypes\IVariableReference.cs" />
     <Compile Include="PublicTypes\Miscellaneous.cs" />
     <Compile Include="PublicTypes\VariableCollection.cs" />
     <Compile Include="Resources\CompileErrors.Designer.cs" />

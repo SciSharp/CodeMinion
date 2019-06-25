@@ -11,7 +11,11 @@ namespace Regen.Builtins {
     public class CommonExpressionFunctions {
         public static int len(ICollection arr) {
             return arr.Count;
-        }
+        }        
+        
+        public static int len(Array arr) {
+            return arr.Count;
+        }        
 
         public static Array range(int count) {
             return new Array(Enumerable.Range(0, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
@@ -21,25 +25,25 @@ namespace Regen.Builtins {
             return new Array(Enumerable.Range(@from, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
-        //todo redo: /// <summary>
-        //todo redo: ///     Zips all items 
-        //todo redo: /// </summary>
-        //todo redo: /// <param name="from"></param>
-        //todo redo: /// <param name="count"></param>
-        //todo redo: /// <returns></returns>
-        //todo redo: public static PackedArguments zipmax(params object[] objects) {
-        //todo redo:     return objects.Concat(new object[] {new ForeachConfig() {Length = ForeachInstance.StackLength.LargestIndex}}).ToArray();
-        //todo redo: }
+        /// <summary>
+        ///     Zips all items 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static PackedArguments zipmax(params object[] objects) {
+            return new PackedArguments(objects.Cast<IList>().ToArray());
+        }
 
-        //todo redo: /// <summary>
-        //todo redo: ///     Zips all items 
-        //todo redo: /// </summary>
-        //todo redo: /// <param name="from"></param>
-        //todo redo: /// <param name="count"></param>
-        //todo redo: /// <returns></returns>
-        //todo redo: public static PackedArguments ziplongest(params object[] objects) {
-        //todo redo:     return zipmax(objects);
-        //todo redo: }
+        /// <summary>
+        ///     Zips all items 
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        public static PackedArguments ziplongest(params object[] objects) {
+            return zipmax(objects);
+        }
 
         public static StringScalar str(params object[] objects) {
             return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));

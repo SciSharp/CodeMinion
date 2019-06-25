@@ -100,5 +100,14 @@ namespace Regen.Core.Tests.Expression {
                 .Should().BeOfType<StringScalar>().Which;
             variable.Value.As<string>().Should().BeEquivalentTo(value);
         }
+
+        [TestMethod]
+        public void len() {
+            var @input = $@"
+                %a = [1,2,3,4]
+                %(len(a)+5)
+                ";
+            Compile(@input).Output.Should().Contain("9");
+        }
     }
 }

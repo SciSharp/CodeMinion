@@ -184,6 +184,7 @@ namespace Regen.Compiler {
                             if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
                         }
 
+                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
                         return Data.Create(_evaluate(leftOperatorExpression.AsString()));
                     }
 
@@ -191,6 +192,8 @@ namespace Regen.Compiler {
                         foreach (var e in operatorExpression.Iterate()) {
                             if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
                         }
+
+                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
 
                         return Data.Create(_evaluate(operatorExpression.AsString()));
                     }
@@ -200,6 +203,7 @@ namespace Regen.Compiler {
                             if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
                         }
 
+                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
                         return Data.Create(_evaluate(rightOperatorExpression.AsString()));
                     }
 
@@ -315,11 +319,8 @@ namespace Regen.Compiler {
                     throwExpression.Right = Expand(throwExpression.Right, temps, typeof(ThrowExpression));
                     return throwExpression;
                 case ForeachExpression foreachExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case ImportExpression importExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case InteractableExpression interactableExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case VariableDeclarationExpression variableExpression:
                     throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case Identity identity: //this is an abstract class.

@@ -7,11 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Flee.PublicTypes;
 using Regen.Builtins;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Regen.DataTypes.Wrappers;
+using Regen.Flee.PublicTypes;
 using Regen.Helpers;
 using Regen.Parser;
 using Regen.Parser.Expressions;
@@ -41,7 +41,9 @@ namespace Regen.Compiler {
             ctx.Imports.AddInstance(ctx, "__context__");
             ctx.Imports.AddInstance(new VariableCollectionWrapper(ctx.Variables), "__vars__");
             ctx.Imports.AddType(typeof(Regex));
-
+            ctx.Variables.ResolveFunction += (sender, args) => { ; };
+            ctx.Variables.ResolveVariableType += (sender, args) => { ; };
+            ctx.Variables.ResolveVariableValue += (sender, args) => { ; };
             if (modules != null)
                 foreach (var mod in modules) {
                     ctx.Imports.AddInstance(mod.Instance, mod.Name);
@@ -214,6 +216,7 @@ namespace Regen.Compiler {
                                             case ExpressionToken.NumberLiteral: {
                                                 if (ew.HasNext && ew.PeakNext.Token == ExpressionToken.LeftBracet) {
                                                     //it is an indexer call.
+                                                    //todo indexer
                                                 } else {
                                                     //it is a simple emit
                                                     var key = $"#{ew.Current.Match.Value}";

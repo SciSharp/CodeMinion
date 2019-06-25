@@ -3,6 +3,7 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.DataTypes;
+using Regen.Helpers;
 using Array = Regen.DataTypes.Array;
 
 namespace Regen.Core.Tests.Expression {
@@ -38,7 +39,7 @@ namespace Regen.Core.Tests.Expression {
                 ";
 
             var variables = UnpackedVariables(input);
-            variables.Values.Should().AllBeOfType<NumberScalar>();
+            variables.Values.Should().AllBeOfType<int>();
             variables.Keys.Last().Should()
                 .Be("c");
             variables.Values.Last().Should()
@@ -66,9 +67,9 @@ namespace Regen.Core.Tests.Expression {
             var @input = $@"
                 %a = [1,asarray(1,2,3)]
                 ";
-
-            var variables = Variables(input).Values.Last();
-            variables.Should().BeOfType<Array>().Which[1].Should().BeEquivalentTo(Array.CreateParams(1, 2, 3));
+            var vars = Variables(input);
+            vars.Values.Last().Should().BeOfType<ReferenceData>().Which.UnpackReference(vars)
+                .Should().BeOfType<Array>().Which[1].Should().BeEquivalentTo(Array.CreateParams(1, 2, 3));
         }
 
         [TestMethod]

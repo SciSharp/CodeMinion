@@ -108,10 +108,10 @@ of nothing
             call.Arguments.Arguments.First().Should().BeOfType<StringLiteral>().Which.Value.Should().Be("Args1");
             var operator1 = call.Arguments.Arguments.Last().Should().BeOfType<GroupExpression>()
                 .Which.InnerExpression.Should().BeOfType<OperatorExpression>().Which;
-            operator1.Left.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1");
-            var operator2 = operator1.Right.Should().BeOfType<OperatorExpression>().Which;
-            operator2.Left.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("2");
-            operator2.Right.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("3");
+            var operator2 = operator1.Left.Should().BeOfType<OperatorExpression>().Which;
+            operator2.Left.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("1");
+            operator2.Right.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("2");
+            operator1.Right.Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("3");
         }
 
         [TestMethod]

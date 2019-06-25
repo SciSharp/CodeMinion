@@ -68,6 +68,11 @@ namespace Regen.Flee.PublicTypes {
             bool success = _myVariables.TryGetValue(name, out value);
 
             if (success == true) {
+                if (typeof(IVariableReference).IsAssignableFrom(value.VariableType)) {
+                    var val = (IVariableReference) value.ValueAsObject;
+                    return GetVariableTypeInternal(val.Target);
+                }
+
                 return value.VariableType;
             }
 
@@ -85,6 +90,12 @@ namespace Regen.Flee.PublicTypes {
                 string msg = Utility.GetGeneralErrorMessage(GeneralErrorResourceKeys.UndefinedVariable, name);
                 throw new ArgumentException(msg);
             } else {
+                // ReSharper disable once PossibleNullReferenceException
+                if (typeof(IVariableReference).IsAssignableFrom(value.VariableType)) {
+                    var val = (IVariableReference) value.ValueAsObject;
+                    return GetVariable(val.Target, throwOnNotFound);
+                }
+
                 return value;
             }
         }
@@ -192,6 +203,10 @@ namespace Regen.Flee.PublicTypes {
 
         public T GetVariableValueInternal<T>(string name) {
             if (_myVariables.TryGetValue(name, out IVariable variable)) {
+                if (typeof(IVariableReference).IsAssignableFrom(variable.VariableType)) {
+                    var val = (IVariableReference)variable.ValueAsObject;
+                    return GetVariableValueInternal<T>(val.Target);
+                }
                 if (variable is IGenericVariable<T> generic) {
                     return (T) generic.GetValue();
                 }
