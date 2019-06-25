@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text.RegularExpressions;
-using Flee.PublicTypes;
 using Regen.Compiler;
+using Regen.Flee.PublicTypes;
 using Regen.Helpers;
 using Regen.Parser;
 

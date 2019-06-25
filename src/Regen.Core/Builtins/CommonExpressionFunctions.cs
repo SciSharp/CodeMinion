@@ -11,35 +11,35 @@ namespace Regen.Builtins {
     public class CommonExpressionFunctions {
         public static int len(ICollection arr) {
             return arr.Count;
+        }        
+        
+        public static int len(Array arr) {
+            return arr.Count;
+        }        
+
+        public static Array range(int length) {
+            return new Array(Enumerable.Range(0, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
-        public static Array range(int count) {
-            return new Array(Enumerable.Range(0, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
+        public static Array range(int startFrom, int length) {
+            return new Array(Enumerable.Range(startFrom, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
-        public static Array range(int @from, int count) {
-            return new Array(Enumerable.Range(@from, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
+        /// <summary>
+        ///     Zips all items 
+        /// </summary>
+        /// <returns></returns>
+        public static PackedArguments zipmax(params object[] objects) {
+            return new PackedArguments(objects.Cast<IList>().ToArray());
         }
 
-        //todo redo: /// <summary>
-        //todo redo: ///     Zips all items 
-        //todo redo: /// </summary>
-        //todo redo: /// <param name="from"></param>
-        //todo redo: /// <param name="count"></param>
-        //todo redo: /// <returns></returns>
-        //todo redo: public static PackedArguments zipmax(params object[] objects) {
-        //todo redo:     return objects.Concat(new object[] {new ForeachConfig() {Length = ForeachInstance.StackLength.LargestIndex}}).ToArray();
-        //todo redo: }
-
-        //todo redo: /// <summary>
-        //todo redo: ///     Zips all items 
-        //todo redo: /// </summary>
-        //todo redo: /// <param name="from"></param>
-        //todo redo: /// <param name="count"></param>
-        //todo redo: /// <returns></returns>
-        //todo redo: public static PackedArguments ziplongest(params object[] objects) {
-        //todo redo:     return zipmax(objects);
-        //todo redo: }
+        /// <summary>
+        ///     Zips all items 
+        /// </summary>
+        /// <returns></returns>
+        public static PackedArguments ziplongest(params object[] objects) {
+            return zipmax(objects);
+        }
 
         public static StringScalar str(params object[] objects) {
             return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));
@@ -56,7 +56,7 @@ namespace Regen.Builtins {
         public static bool isnumber(object obj) {
             if (obj == null) return false;
 
-            if (obj is decimal) return true;
+            if (obj is decimal || obj is NumberScalar) return true;
             var type = obj.GetType();
             return type.IsPrimitive;
         }

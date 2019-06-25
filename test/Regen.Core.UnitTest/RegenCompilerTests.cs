@@ -4,14 +4,13 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
-using Regen.Compiler.Expressions;
 using Regen.Core.Tests.Expression;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Regen.Parser;
 using ExpressionCompileException = Regen.Exceptions.ExpressionCompileException;
 
-namespace Regen.Core.Tests.Digest {
+namespace Regen.Core.Tests {
     [TestClass]
     public class RegenCompilerTests : ExpressionUnitTest {
         [TestMethod]
@@ -65,14 +64,30 @@ namespace Regen.Core.Tests.Digest {
             var mod = new RegenModule("mymod", new MyModule());
             comp.AddModule(mod);
             comp.Compile(parsed).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
-            comp.RemoveModule(mod);
+            comp.RemoveModule(mod).Should().BeTrue();
 
-            new Action(() => { comp.Compile(parsed); })
+            new Action(() => { comp.Compile(ExpressionParser.Parse(input)); })
                 .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'mymod'"));
         }
 
         [TestMethod]
         public void import_module_remove_by_name() {
+            var @input = @"
+                %(mymod.add(1.0f, 2))
+                ";
+            var parsed = ExpressionParser.Parse(input);
+            var comp = new RegenCompiler();
+            var mod = new RegenModule("mymod", new MyModule());
+            comp.AddModule(mod);
+            comp.Compile(parsed).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            comp.RemoveModule("mymod");
+
+            new Action(() => { comp.Compile(ExpressionParser.Parse(input)); })
+                .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'mymod'"));
+        }
+
+        [TestMethod]
+        public void reuse_parsedCode() {
             var @input = @"
                 %(mymod.add(1.0f, 2))
                 ";
@@ -131,7 +146,7 @@ namespace Regen.Core.Tests.Digest {
                 %b = a + 1
                 %(b)
                 ";
-            Compile(input, new Dictionary<string, object>() {{"a", Scalar.Create(1)}}).Output
+            Compile(input, new Dictionary<string, object>() {{"a", Data.Create(1)}}).Output
                 .Should().Contain("2");
         }
 
@@ -187,11 +202,47 @@ namespace Regen.Core.Tests.Digest {
         }
 
         [TestMethod]
-        public void modlue_return_self() {
+        public void module_return_self() {
             var @input = @"
                 %(__vars__.self())
                 ";
             Compile(@input).Output.Should().Contain("VariableCollectionWrapper");
+        }
+
+        [TestMethod]
+        public void complex_expression_1() {
+            var @input = @"
+                    %a = [1,2,3,4]
+                    %b = [null,""gig"",""yo"",""hi"",]
+                    %c = 123 - 412
+                    
+                    %d1 = 123.0f + 123.0d
+                    %d2 = 123f
+                    %d4 = 123
+                    %d5 = 123.0M
+                    
+                    %e1 = ""hey there pretty!%@%$%#\""@%Ifdscvxcv #!@#!""
+                    %e2 = len(a) + 1
+                    %e3 = a[len(a) - 2]
+                    %e3 = a[len(a) - 2]+3
+                ";
+
+            new Action(()=>Compile(@input)).Should().NotThrow();
+        }
+        [TestMethod]
+        public void trailing_precentage() {
+            var @input = @"
+                 %a = [""NDArray"",""Double"",""Single"",""Decimal"",""Int32"",""Byte"",""Int16"",""UInt16"",""UInt32"",""Int64"",""UInt64"",""Char"",""Complex"",""String"",""Boolean"",""Object""]
+                %indexes = [""i"",""j"",""k"",""m"",""n"",""g"",""h"",""e"",""f""]
+                switch (DType.Name) 
+                {
+                %foreach a%
+                    case ""#1"": 123123
+                        return _array#1;
+                %
+                ";
+
+            Compile(@input).Output.Should().NotContain("%");
         }
     }
 }

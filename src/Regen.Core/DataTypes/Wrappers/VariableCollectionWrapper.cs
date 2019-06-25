@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flee.PublicTypes;
 using Regen.Exceptions;
+using Regen.Flee.PublicTypes;
 
 namespace Regen.DataTypes.Wrappers {
 

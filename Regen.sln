@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regen.Core.UnitTest", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regen.Package", "src\Regen.Package\Regen.Package.csproj", "{226FD7FC-99AC-498B-990F-8DECF9F30733}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Regen.Flee", "src\Regen.Flee\Regen.Flee.csproj", "{658C0ED4-404A-48EC-96FF-D22C3C12AC39}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{226FD7FC-99AC-498B-990F-8DECF9F30733}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226FD7FC-99AC-498B-990F-8DECF9F30733}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{226FD7FC-99AC-498B-990F-8DECF9F30733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{658C0ED4-404A-48EC-96FF-D22C3C12AC39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{658C0ED4-404A-48EC-96FF-D22C3C12AC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{658C0ED4-404A-48EC-96FF-D22C3C12AC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{658C0ED4-404A-48EC-96FF-D22C3C12AC39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

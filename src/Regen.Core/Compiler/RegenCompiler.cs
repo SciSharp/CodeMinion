@@ -7,11 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Flee.PublicTypes;
 using Regen.Builtins;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Regen.DataTypes.Wrappers;
+using Regen.Flee.PublicTypes;
 using Regen.Helpers;
 using Regen.Parser;
 using Regen.Parser.Expressions;
@@ -28,7 +28,7 @@ namespace Regen.Compiler {
 
         public RegenCompiler(params RegenModule[] modules) {
             Context = CreateContext(null, modules);
-            Context.Imports.AddInstance(this, "__interpreter__");
+            Context.Imports.AddInstance(this, "__compiler__");
         }
 
         public static ExpressionContext CreateContext(Dictionary<string, object> globalVariables = null, RegenModule[] modules = null) {
@@ -37,11 +37,14 @@ namespace Regen.Compiler {
             ctx.Options.ParseCulture = CultureInfo.InvariantCulture;
             ctx.Imports.AddType(typeof(Math));
             ctx.Imports.AddType(typeof(CommonExpressionFunctions));
+            ctx.Imports.AddType(typeof(CommonLinq));
             ctx.Imports.AddInstance(new CommonRandom(), "random");
             ctx.Imports.AddInstance(ctx, "__context__");
             ctx.Imports.AddInstance(new VariableCollectionWrapper(ctx.Variables), "__vars__");
             ctx.Imports.AddType(typeof(Regex));
-
+            ctx.Variables.ResolveFunction += (sender, args) => { ; };
+            ctx.Variables.ResolveVariableType += (sender, args) => { ; };
+            ctx.Variables.ResolveVariableValue += (sender, args) => { ; };
             if (modules != null)
                 foreach (var mod in modules) {
                     ctx.Imports.AddInstance(mod.Instance, mod.Name);
@@ -61,31 +64,20 @@ namespace Regen.Compiler {
         /// <param name="code"></param>
         public void CompileGlobal(string code) {
             //handle global blocks
-            //todo compile only variables and expressions (they might affect variables)
-        }
-
-        /// <summary>
-        ///     Pulls out text from #if _REGEN_GLOBAL blocks
-        /// </summary>
-        /// <param name="fileText"></param>
-        /// <returns></returns>
-        public IEnumerable<string> ExtractGlobals(string fileText) {
-            //handle global blocks
-            string scriptFramed = Regexes.GlobalFrameRegex;
-            foreach (Match match in Regex.Matches(fileText, scriptFramed, Regexes.DefaultRegexOptions | RegexOptions.IgnoreCase)) {
-                if (!match.Success) //I dont think that unsuccessful can even get here.
-                    continue;
-                yield return match.Groups[1].Value;
-                //after interpretation, they are automatically inserted to the context
-            }
+            var parsed = ExpressionParser.Parse(code);
+            Compile(parsed); //and we just ignore outputs, leaving all variables inside the context.
         }
 
         public string Compile(ParsedCode code) {
-            var output = code.Output;
-            var variables = code.Variables ?? new Dictionary<string, object>();
+            var output = code.Output; //we cannot clone
+            if (code.Variables != null) {
+                foreach (var kv in code.Variables) {
+                    Context.Variables[kv.Key] = kv.Value;
+                }
+            }
 
             foreach (var globalVariable in GlobalVariables)
-                variables.Add(globalVariable.Key, globalVariable.Value);
+                Context.Variables[globalVariable.Key] = globalVariable.Value;
 
             foreach (var action in code.ParseActions) {
                 switch (action.Token) {
@@ -93,7 +85,7 @@ namespace Regen.Compiler {
                         var expr = (ImportExpression) action.Related.Single();
                         var type = expr.Type;
                         var alias = expr.As;
-
+                        
                         if (File.Exists(type)) {
                             Assembly.LoadFile(type);
                             Debug.WriteLine($"{type} was loaded successfully.");
@@ -136,16 +128,65 @@ namespace Regen.Compiler {
                         Context.Variables[name] = Data.Create(evaluation);
                         break;
                     }
-
+                    
                     case ParserToken.Expression: {
-                        var expr = (Expression) action.Related.Single();
                         var line = action.RelatedLines.Single();
-                        var evaluated = EvaluateString(expr.AsString(), line);
+                        if (line.Metadata.Contains("ParserToken.Expression")) {
+                            break;
+                        }
 
+                        line.Metadata.Add("ParserToken.Expression");
                         line.MarkedForDeletion = false; //they are all true by default, well all lines that were found relevant to ParserAction
-                        line.Replace(line.Prepends + evaluated ?? "");
+                        var copy = line.Content;
+                        var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy));
+                        var vars = Context.Variables;
+                        bool changed = false;
+                        int last_access_index = 0;
+                        //we reparse the line and handle all expressions.
+
+                        if (ew.HasNext) {
+                            do {
+                                _restart:
+                                if (changed) {
+                                    changed = false;
+                                    var cleanedCopy = new string(' ', last_access_index) + copy.Substring(last_access_index);
+                                    ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy));
+                                }
+
+                                var current = ew.Current;
+                                //iterate all tokens of that line
+                                if (current.Token != ExpressionToken.Mod || !ew.HasNext)
+                                    continue;
+                                var mod = ew.Current;
+                                current = ew.NextToken();
+                                switch (current.Token) {
+                                    case ExpressionToken.LeftParen: {
+                                        //it is an expression.
+
+                                        ew.NextOrThrow();
+                                        var expression = Expression.ParseExpression(ew);
+                                        object val = EvaluateObject(expression, ew, line);
+                                        if (val is ReferenceData rd) //make sure references are unpacked
+                                            val = rd.UnpackReference(Context);
+                                        ew.IsCurrentOrThrow(ExpressionToken.RightParen);
+                                        var emit = val is Data d ? d.Emit() : val.ToString();
+                                        copy = copy
+                                            .Remove(mod.Match.Index, ew.Current.Match.Index + 1 - mod.Match.Index)
+                                            .Insert(mod.Match.Index, emit);
+                                        last_access_index = mod.Match.Index + emit.Length;
+                                        changed = true;
+                                        goto _restart;
+                                    }
+                                    default:
+                                        continue;
+                                }
+                            } while (ew.Next());
+                        }
+
+                        line.Replace(copy + (copy.EndsWith("\n") ? "" : "\n"));
                         break;
                     }
+
 
                     case ParserToken.ForeachLoop: {
                         var expr = (ForeachExpression) action.Related.Single();
@@ -166,25 +207,25 @@ namespace Regen.Compiler {
                                 vars[$"__{j + 1}__"] = iterateThose[j][i];
                             }
 
-                            //todo now here we iterate contents and set all variables in it.
+                            //now here we iterate contents and set all variables in it.
                             foreach (var content in contents) {
                                 //iterate lines, one at a time 
                                 var copy = content.ToString();
                                 bool changed = false;
-                                
+                                int last_access_index = 0;
+
                                 //replace all emit commands
-                                copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => {
-                                    return _emit(vars[$"__{match.Groups[1].Value}__"]);
-                                });
+                                copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => { return _emit(vars[$"__{match.Groups[1].Value}__"]); });
 
                                 var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy, ExpressionToken.StringLiteral));
-                                
+
                                 if (ew.HasNext) {
                                     do {
                                         _restart:
                                         if (changed) {
                                             changed = false;
-                                            ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy));
+                                            var cleanedCopy = new string(' ', last_access_index) + copy.Substring(last_access_index);
+                                            ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy));
                                         }
 
                                         var current = ew.Current;
@@ -200,11 +241,14 @@ namespace Regen.Compiler {
                                                 ew.NextOrThrow();
                                                 var expression = Expression.ParseExpression(ew);
                                                 object val = EvaluateObject(expression, ew, baseLine);
-                                                    
+                                                if (val is ReferenceData rd) //make sure references are unpacked
+                                                    val = rd.UnpackReference(Context);
                                                 ew.IsCurrentOrThrow(ExpressionToken.RightParen);
+                                                var emit = val is Data d ? d.Emit() : val.ToString();
                                                 copy = copy
                                                     .Remove(hashtag.Match.Index, ew.Current.Match.Index + 1 - hashtag.Match.Index)
-                                                    .Insert(hashtag.Match.Index, val is Data d ? d.Emit() : val.ToString());
+                                                    .Insert(hashtag.Match.Index, emit);
+                                                last_access_index = hashtag.Match.Index + emit.Length;
                                                 changed = true;
                                                 goto _restart;
                                             }
@@ -212,6 +256,7 @@ namespace Regen.Compiler {
                                             case ExpressionToken.NumberLiteral: {
                                                 if (ew.HasNext && ew.PeakNext.Token == ExpressionToken.LeftBracet) {
                                                     //it is an indexer call.
+                                                    //todo indexer
                                                 } else {
                                                     //it is a simple emit
                                                     var key = $"#{ew.Current.Match.Value}";
@@ -395,7 +440,7 @@ namespace Regen.Compiler {
         public object EvaluateObject(Expression expression, ExpressionWalker ew, Line line = null) {
             //Core evaluation method.
             try {
-                return EvaluateExpression(expression); //todo here we need to assess wth is going on by ourselves first. like expandvariable  
+                return EvaluateExpression(expression);
             } catch (Flee.PublicTypes.ExpressionCompileException e) {
                 throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
             }

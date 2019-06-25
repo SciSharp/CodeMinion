@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Regen.Core.Tests.Expression;
 
-namespace Regen.Core.Tests.Digest {
+namespace Regen.Core.Tests.Expression {
     [TestClass]
     public class CommentTests : ExpressionUnitTest {
         [TestMethod]

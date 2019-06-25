@@ -21,7 +21,8 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
-                .Contain("2");
+                .Contain("2").And
+                .NotContain("%");
         }
 
         [TestMethod]
@@ -34,7 +35,8 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
-                .Contain("2");
+                .Contain("2").And
+                .NotContain("%");
         }
 
         [TestMethod]
@@ -47,7 +49,8 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
-                .Contain("2");
+                .Contain("2").And
+                .NotContain("%");
         }
 
         [TestMethod]
@@ -71,6 +74,56 @@ namespace Regen.Core.Tests.Expression {
 
         [TestMethod]
         public void foreach_hashtags_inside_stringliterals() {
+            var @input = @"
+                %foreach range(3)%
+                    Console.WriteLine(""#(#1*10)""+""Printed #1!"");
+                %
+                ";
+            Compile(@input).Output.Should()
+                .Contain("\"0\"+\"Printed 0").And
+                .Contain("\"10\"+\"Printed 1").And
+                .Contain("\"20\"+\"Printed 2");
+        }
+
+        [TestMethod]
+        public void foreach_multiline_emittion() {
+            var @input = @"
+                %a = [1,2,3,4,5]
+                %foreach a%
+                    case ""#1"": 123123
+                        return _array#1;
+                %
+                ";
+            Compile(@input).Output.Should()
+                .Contain("_array1").And
+                .Contain("_array2").And
+                .Contain("_array3").And
+                .Contain("_array4").And
+                .Contain("_array5").And
+                .Contain(@"""1"": 123123").And
+                .Contain(@"""2"": 123123").And
+                .Contain(@"""3"": 123123").And
+                .Contain(@"""4"": 123123").And
+                .Contain(@"""5"": 123123");
+        }
+
+
+        [TestMethod]
+        public void foreach_longest() {
+            var @input = @"
+                %a = [1,2,3]
+                %b = [1,2,3,4,5]
+                %foreach longest a,b%
+                    #1 #2
+                %
+                ";
+            Compile(@input).Output.Should()
+                .Contain("4").And
+                .Contain("5");
+        }
+
+        [TestMethod]
+        public void foreach_nested_expression() {
             var @input = @"
                 %foreach range(3)%
                     Console.WriteLine(""#(#1*10)""+""Printed #1!"");

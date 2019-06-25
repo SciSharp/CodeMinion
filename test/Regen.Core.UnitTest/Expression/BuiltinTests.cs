@@ -4,7 +4,6 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler.Expressions;
-using Regen.Core.Tests.Digest;
 using Regen.DataTypes;
 
 namespace Regen.Core.Tests.Expression {
@@ -100,6 +99,15 @@ namespace Regen.Core.Tests.Expression {
             var variable = Variables(input).Values.First()
                 .Should().BeOfType<StringScalar>().Which;
             variable.Value.As<string>().Should().BeEquivalentTo(value);
+        }
+
+        [TestMethod]
+        public void len() {
+            var @input = $@"
+                %a = [1,2,3,4]
+                %(len(a)+5)
+                ";
+            Compile(@input).Output.Should().Contain("9");
         }
     }
 }

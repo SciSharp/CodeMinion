@@ -1,13 +1,12 @@
 ﻿using System;
+using Regen.Flee.PublicTypes;
 
 namespace Regen.DataTypes {
-
     /// <summary>
     ///     This represents a reference to an other variable. <see cref="Value"/> is most likely a string with the variable name.
     /// </summary>
-    public class ReferenceData : Data, IEquatable<ReferenceData> {
+    public class ReferenceData : Data, IVariableReference, IEquatable<ReferenceData> {
         public override object Value { get; set; }
-
 
         public ReferenceData(object value) {
             Value = value;
@@ -42,6 +41,10 @@ namespace Regen.DataTypes {
         public override string ToString() {
             return Emit();
         }
+
+        string IVariableReference.Target => (string) Value;
+
+        #region Equality
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
         /// <param name="other">An object to compare with this object.</param>
@@ -87,5 +90,7 @@ namespace Regen.DataTypes {
         public static bool operator !=(ReferenceData left, ReferenceData right) {
             return !Equals(left, right);
         }
+
+        #endregion
     }
 }

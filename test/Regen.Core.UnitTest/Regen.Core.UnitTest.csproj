@@ -42,9 +42,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Flee.Net45, Version=1.0.0.0, Culture=neutral, PublicKeyToken=951a102ce2413032, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Flee.1.2.2\lib\net45\Flee.Net45.dll</HintPath>
-    </Reference>
     <Reference Include="FluentAssertions, Version=5.7.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentAssertions.5.7.0\lib\net47\FluentAssertions.dll</HintPath>
     </Reference>
@@ -94,7 +91,8 @@
     <Compile Include="RegenCompilerTests.cs" />
     <Compile Include="LineBuilderTests.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />
-    <Compile Include="Expression\ExpressionUnitTest.cs" />
+    <Compile Include="ExpressionUnitTest.cs" />
+    <Compile Include="StringExpanderTests.cs" />
     <Compile Include="StringSpanTests.cs" />
     <Compile Include="VariableTests.cs" />
     <Compile Include="Examples\OperatorsOverloading.cs" />
@@ -107,6 +105,10 @@
     <ProjectReference Include="..\..\src\Regen.Core\Regen.Core.csproj">
       <Project>{9f431023-745f-4671-91e3-69fe7582f01f}</Project>
       <Name>Regen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Regen.Flee\Regen.Flee.csproj">
+      <Project>{658c0ed4-404a-48ec-96ff-d22c3c12ac39}</Project>
+      <Name>Regen.Flee</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

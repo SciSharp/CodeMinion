@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Flee.PublicTypes;
 using Regen.Compiler;
 using Regen.DataTypes;
+using Regen.Flee.PublicTypes;
 using Regen.Parser;
 
 namespace Regen.Helpers {

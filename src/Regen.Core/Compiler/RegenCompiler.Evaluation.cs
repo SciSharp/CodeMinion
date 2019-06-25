@@ -17,9 +17,9 @@ namespace Regen.Compiler {
         public object _evaluate(string expression, Line line = null) {
             //Core evaluation method.
             try {
-                return Context.CompileDynamic(expression).Evaluate();
+              return Context.CompileDynamic(expression).Evaluate();
             } catch (Flee.PublicTypes.ExpressionCompileException e) {
-                throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
+                throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}{(line != null ? ($" \tAt line ({line?.LineNumber}): {line?.Content}") : "")}", e);
             }
         }
 
@@ -103,7 +103,16 @@ namespace Regen.Compiler {
                     case ReferenceIdentity referenceIdentity: {
                         if (!Context.Variables.ContainsKey(referenceIdentity.Name))
                             return new ReferenceData(referenceIdentity.Name);
-                        return Data.Create(Context.Variables[referenceIdentity.Name]);
+
+                        if (!Context.Variables.TryGetValue(referenceIdentity.Name, out var value, true))
+                            throw new Exception("This should never occur.");
+
+                        //if it is not a reference, make one.
+                        if (!(value is ReferenceData)) {
+                            return new ReferenceData(referenceIdentity.Name);
+                        }
+
+                        return (ReferenceData) value;
                     }
 
                     case PropertyIdentity propertyIdentity: {
@@ -141,9 +150,12 @@ namespace Regen.Compiler {
 
                         if (left is NetObject || left is Array || left is Dictionary) goto _storing;
                         //try regular parsing:
+
                         try {
                             var parsed = $"{left.Emit()}({args.Select(arg => arg.EmitExpressive()).StringJoin(", ")})";
                             return Data.Create(_evaluate(parsed));
+                        } catch (ExpressionCompileException e) when (e.InnerException?.Message.Contains("FunctionCallElement: Could find not function") ?? false) {
+                            throw;
                         } catch (ExpressionCompileException) { }
 
                         _storing: //try storing left as variable
@@ -181,6 +193,7 @@ namespace Regen.Compiler {
                             if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
                         }
 
+                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
                         return Data.Create(_evaluate(leftOperatorExpression.AsString()));
                     }
 
@@ -188,6 +201,8 @@ namespace Regen.Compiler {
                         foreach (var e in operatorExpression.Iterate()) {
                             if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
                         }
+
+                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
 
                         return Data.Create(_evaluate(operatorExpression.AsString()));
                     }
@@ -197,6 +212,7 @@ namespace Regen.Compiler {
                             if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
                         }
 
+                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
                         return Data.Create(_evaluate(rightOperatorExpression.AsString()));
                     }
 
@@ -312,11 +328,8 @@ namespace Regen.Compiler {
                     throwExpression.Right = Expand(throwExpression.Right, temps, typeof(ThrowExpression));
                     return throwExpression;
                 case ForeachExpression foreachExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case ImportExpression importExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case InteractableExpression interactableExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case VariableDeclarationExpression variableExpression:
                     throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
                 case Identity identity: //this is an abstract class.

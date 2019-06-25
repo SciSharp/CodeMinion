@@ -11,7 +11,7 @@ namespace Regen.Core.Tests.Expression {
         [TestMethod]
         public void import_static_class() {
             var @input = @"
-                %import Regen.Core.Tests.ImportMe
+                %import Regen.Core.Tests.Expression.ImportMe
                 %(magic(1,2))
                 ";
             Compile(@input).Output.Should()
@@ -21,7 +21,7 @@ namespace Regen.Core.Tests.Expression {
         [TestMethod]
         public void import_static_class_as() {
             var @input = @"
-                %import Regen.Core.Tests.ImportMe as impme
+                %import Regen.Core.Tests.Expression.ImportMe as impme
                 %(impme.magic(1,2))
                 ";
             Compile(@input).Output.Should()
@@ -36,7 +36,7 @@ namespace Regen.Core.Tests.Expression {
         [DataRow("mAgiC")]
         public void imported_object_methods_are_caseinsensitive(string str) {
             var @input = $@"
-                %import Regen.Core.Tests.ImportMe as impme
+                %import Regen.Core.Tests.Expression.ImportMe as impme
                 %(impme.{str}(1,2))
                 ";
             Compile(@input).Output.Should()
@@ -99,9 +99,7 @@ namespace Regen.Core.Tests.Expression {
             }
         }
     }
-}
 
-namespace Regen.Core.Tests {
     public static class ImportMe {
         public static int Magic(int a, int b) {
             return a * b;

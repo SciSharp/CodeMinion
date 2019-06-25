@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Media;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Regen.Compiler;
+using Regen.Engine;
 using Regen.Helpers;
 using Task = System.Threading.Tasks.Task;
 
@@ -92,15 +94,21 @@ namespace Regen {
             var cursor = textSelection.ActivePoint as VirtualPoint;
             var index = cursor.AbsoluteCharOffset;
 
-            var parser = new DigestParser();
             try {
-                var consumed = parser.Consume(txt.GetText().Replace("\r", ""));
+                var text = txt.GetText().Replace("\r", "");
+                foreach (var frame in RegenEngine.Parse(text).Reverse()) 
+                    frame.ApplyChanges(ref text);
+
                 var ed = txt.CreateEditPoint(txt.StartPoint);
                 ed.Delete(txt.EndPoint);
-                ed.Insert(consumed);
+                ed.Insert(text);
                 textSelection.MoveToAbsoluteOffset(index);
             } catch (Exception e) {
+#if DEBUG
                 Message($"Failed parsing file...\n" + e);
+#else
+                Message($"Failed parsing file...\n" + e.Message + "\n" + e.InnerException?.Message);
+#endif
             }
 
             // now set the cursor to the beginning of the function
