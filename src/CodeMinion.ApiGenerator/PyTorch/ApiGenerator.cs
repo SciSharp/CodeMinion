@@ -82,7 +82,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
-            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.ModuleList");
+            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.ModuleDict");
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -594,6 +594,9 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "out":
                     if (arg.Type == "tuple")
                         arg.Type = "Tensor[]";
+                    break;
+                case "modules":
+                    arg.Type = "Module[]";
                     break;
             }
             switch (arg.Type)

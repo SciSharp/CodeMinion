@@ -15,10 +15,12 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             switch (api.ClassName)
             {
-                case "Sequential":
+                case "torch.nn.Sequential":
                     api.Ignore = true;
                     break;
             }
+            foreach(var constructor in api.Constructors)
+                PostProcessConstructor(api, constructor);
             var decls = api.Declarations.ToArray();
             api.Declarations = new List<Declaration>();
             foreach (var func in decls)
@@ -36,6 +38,27 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 }
             }
 
+        }
+
+        private void PostProcessConstructor(ApiClass c, Function f)
+        {
+            foreach (var arg in f.Arguments)
+            {
+                switch (arg.Name)
+                {
+                    case "modules":
+                        arg.Type = "params Module[]";
+                        arg.DefaultValue = null;
+                        arg.IsNullable = false;
+                        break;
+                }
+            }
+
+            switch (c.ClassName)
+            {
+                //case "torch.nn.ModuleList":
+                //    break;
+            }
         }
 
         private void PostProcess_NN_Func(ApiClass api, Function func)

@@ -343,7 +343,7 @@ namespace Torch
                 /// and all submodules. Otherwise, yields only parameters that
                 /// are direct members of this module.
                 /// </param>
-                public IEnumerable<string, Parameter> named_parameters(string prefix = "", bool recurse = true)
+                public IEnumerable<KeyValuePair<string, Tensor>> named_parameters(string prefix = "", bool recurse = true)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -354,7 +354,7 @@ namespace Torch
                     if (prefix!="") kwargs["prefix"]=ToPython(prefix);
                     if (recurse!=true) kwargs["recurse"]=ToPython(recurse);
                     dynamic py = __self__.InvokeMethod("named_parameters", pyargs, kwargs);
-                    return ToCsharp<IEnumerable<string, Parameter>>(py);
+                    return ToCsharp<IEnumerable<KeyValuePair<string, Tensor>>>(py);
                 }
                 
                 /// <summary>
