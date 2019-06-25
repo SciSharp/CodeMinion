@@ -737,6 +737,8 @@ namespace CodeMinion.Core
             // Classes
             foreach (var api in ApiClasses)
             {
+                if (api.Ignore)
+                    continue;
                 var outpath = api.OutputPath ?? DynamicApiFilesPath;
                 if (api.SubDir != null)
                     outpath = Path.Combine(outpath, api.SubDir);

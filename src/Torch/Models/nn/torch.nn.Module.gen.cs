@@ -222,31 +222,6 @@ namespace Torch
                     dynamic py = __self__.InvokeMethod("float");
                     return ToCsharp<Module>(py);
                 }
-#if false
-                
-
-                /// <summary>
-                /// Defines the computation performed at every call.
-                /// 
-                /// Should be overridden by all subclasses.
-                /// 
-                /// Note
-                /// Although the recipe for forward pass needs to be defined within
-                /// this function, one should call the Module instance afterwards
-                /// instead of this since the former takes care of running the
-                /// registered hooks while the latter silently ignores them.
-                /// </summary>
-                public void forward( input)
-                {
-                    //auto-generated code, do not change
-                    var __self__=self;
-                    var pyargs=ToTuple(new object[]
-                    {
-                        input,
-                    });
-                    var kwargs=new PyDict();
-                    dynamic py = __self__.InvokeMethod("forward", pyargs, kwargs);
-                }
                 
                 /// <summary>
                 /// Casts all floating point parameters and buffers to half datatype.
@@ -274,7 +249,7 @@ namespace Torch
                 /// in state_dict match the keys returned by this module’s
                 /// state_dict() function. Default: True
                 /// </param>
-                public NamedTuple with missing_keys and unexpected_keys fields load_state_dict(dict state_dict, bool? strict = true)
+                public (string[], string[]) load_state_dict(Hashtable state_dict, bool? strict = true)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -285,7 +260,8 @@ namespace Torch
                     var kwargs=new PyDict();
                     if (strict!=true) kwargs["strict"]=ToPython(strict);
                     dynamic py = __self__.InvokeMethod("load_state_dict", pyargs, kwargs);
-                    return ToCsharp<NamedTuple with missing_keys and unexpected_keys fields>(py);
+                    var t = py as PyTuple;
+                    return (ToCsharp<string[]>(t[0]), ToCsharp<string[]>(t[1]));
                 }
                 
                 /// <summary>
@@ -311,7 +287,7 @@ namespace Torch
                 /// and all submodules. Otherwise, yields only buffers that
                 /// are direct members of this module.
                 /// </param>
-                public IEnumerable<string, Tensor> named_buffers(str prefix = "", bool recurse = true)
+                public IEnumerable<KeyValuePair<string, Tensor>> named_buffers(string prefix = "", bool recurse = true)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -322,26 +298,26 @@ namespace Torch
                     if (prefix!="") kwargs["prefix"]=ToPython(prefix);
                     if (recurse!=true) kwargs["recurse"]=ToPython(recurse);
                     dynamic py = __self__.InvokeMethod("named_buffers", pyargs, kwargs);
-                    return ToCsharp<IEnumerable<string, Tensor>>(py);
+                    return ToCsharp<IEnumerable<KeyValuePair<string, Tensor>>>(py);
                 }
                 
                 /// <summary>
                 /// Returns an iterator over immediate children modules, yielding both
                 /// the name of the module as well as the module itself.
                 /// </summary>
-                public IEnumerable<string, Module> named_children()
+                public IEnumerable<KeyValuePair<string, Tensor>> named_children()
                 {
                     //auto-generated code, do not change
                     var __self__=self;
                     dynamic py = __self__.InvokeMethod("named_children");
-                    return ToCsharp<IEnumerable<string, Module>>(py);
+                    return ToCsharp<IEnumerable<KeyValuePair<string, Tensor>>>(py);
                 }
                 
                 /// <summary>
                 /// Returns an iterator over all modules in the network, yielding
                 /// both the name of the module as well as the module itself.
                 /// </summary>
-                public IEnumerable<string, Module> named_modules( memo = null,  prefix = "")
+                public IEnumerable<KeyValuePair<string, Tensor>> named_modules(HashSet<object> memo = null, string prefix = "")
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -352,7 +328,7 @@ namespace Torch
                     if (memo!=null) kwargs["memo"]=ToPython(memo);
                     if (prefix!="") kwargs["prefix"]=ToPython(prefix);
                     dynamic py = __self__.InvokeMethod("named_modules", pyargs, kwargs);
-                    return ToCsharp<IEnumerable<string, Module>>(py);
+                    return ToCsharp<IEnumerable<KeyValuePair<string, Tensor>>>(py);
                 }
                 
                 /// <summary>
@@ -367,7 +343,7 @@ namespace Torch
                 /// and all submodules. Otherwise, yields only parameters that
                 /// are direct members of this module.
                 /// </param>
-                public IEnumerable<string, Parameter> named_parameters(str prefix = "", bool recurse = true)
+                public IEnumerable<string, Parameter> named_parameters(string prefix = "", bool recurse = true)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -413,7 +389,7 @@ namespace Torch
                 /// input that will be used in place of grad_input in subsequent
                 /// computations.
                 /// </summary>
-                public utils.hooks.RemovableHandle register_backward_hook( hook)
+                public utils.hooks.RemovableHandle register_backward_hook(Func<Module, Tensor[], Tensor[], Tensor> hook)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -465,7 +441,7 @@ namespace Torch
                 /// 
                 /// The hook should not modify the input or output.
                 /// </summary>
-                public utils.hooks.RemovableHandle register_forward_hook( hook)
+                public utils.hooks.RemovableHandle register_forward_hook(Action<Module, Tensor[], Tensor[]> hook)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -488,7 +464,7 @@ namespace Torch
                 /// 
                 /// The hook should not modify the input.
                 /// </summary>
-                public utils.hooks.RemovableHandle register_forward_pre_hook( hook)
+                public utils.hooks.RemovableHandle register_forward_pre_hook(Action<Module, Tensor[]> hook)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -532,7 +508,7 @@ namespace Torch
                 /// Both parameters and persistent buffers (e.g. running averages) are
                 /// included. Keys are corresponding parameter and buffer names.
                 /// </summary>
-                public dict state_dict( destination = null,  prefix = "", bool keep_vars = false)
+                public Hashtable state_dict(Hashtable destination = null, string prefix = "", bool keep_vars = false)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -544,27 +520,10 @@ namespace Torch
                     if (prefix!="") kwargs["prefix"]=ToPython(prefix);
                     if (keep_vars!=false) kwargs["keep_vars"]=ToPython(keep_vars);
                     dynamic py = __self__.InvokeMethod("state_dict", pyargs, kwargs);
-                    return ToCsharp<dict>(py);
+                    return ToCsharp<Hashtable>(py);
                 }
                 
-                /// <summary>
-                /// Moves and/or casts the parameters and buffers.
-                /// 
-                /// This can be called as
-                /// </summary>
-                /// <param name="device">
-                /// the desired device of the parameters
-                /// and buffers in this module
-                /// </param>
-                /// <param name="dtype">
-                /// the desired floating point type of
-                /// the floating point parameters and buffers in this module
-                /// </param>
-                /// <param name="tensor">
-                /// Tensor whose dtype and device are the desired
-                /// dtype and device for all parameters and buffers in this module
-                /// </param>
-                public Module to(Device device, Dtype dtype, Tensor tensor,  args,  kwargs)
+                public Module to(Device device, Dtype dtype, bool non_blocking = false)
                 {
                     //auto-generated code, do not change
                     var __self__=self;
@@ -572,11 +531,37 @@ namespace Torch
                     {
                         device,
                         dtype,
-                        tensor,
-                        args,
-                        kwargs,
                     });
                     var kwargs=new PyDict();
+                    if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
+                    dynamic py = __self__.InvokeMethod("to", pyargs, kwargs);
+                    return ToCsharp<Module>(py);
+                }
+                
+                public Module to(Dtype dtype, bool non_blocking = false)
+                {
+                    //auto-generated code, do not change
+                    var __self__=self;
+                    var pyargs=ToTuple(new object[]
+                    {
+                        dtype,
+                    });
+                    var kwargs=new PyDict();
+                    if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
+                    dynamic py = __self__.InvokeMethod("to", pyargs, kwargs);
+                    return ToCsharp<Module>(py);
+                }
+                
+                public Module to(Tensor tensor, bool non_blocking = false)
+                {
+                    //auto-generated code, do not change
+                    var __self__=self;
+                    var pyargs=ToTuple(new object[]
+                    {
+                        tensor,
+                    });
+                    var kwargs=new PyDict();
+                    if (non_blocking!=false) kwargs["non_blocking"]=ToPython(non_blocking);
                     dynamic py = __self__.InvokeMethod("to", pyargs, kwargs);
                     return ToCsharp<Module>(py);
                 }
@@ -627,7 +612,7 @@ namespace Torch
                     var __self__=self;
                     dynamic py = __self__.InvokeMethod("zero_grad");
                 }
-#endif
+                
             }
         }
     }

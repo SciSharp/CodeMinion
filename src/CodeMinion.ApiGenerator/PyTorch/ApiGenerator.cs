@@ -82,7 +82,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
-            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.Sequential");
+            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.ModuleList");
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -1030,6 +1030,10 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     return "Layout";
                 case "device":
                     return "Device";
+                case "dict":
+                    return "Hashtable";
+                case "str":
+                    return "string";
                 default:
                     return value;
             }
@@ -1054,7 +1058,11 @@ namespace CodeMinion.ApiGenerator.PyTorch
             if (arg.Type == "float" && defaultValue != "null")
                 return defaultValue + "f";
             if (defaultValue != null && defaultValue.StartsWith('\''))
+            {
+                if (string.IsNullOrWhiteSpace(arg.Type))
+                    arg.Type = "string";
                 return "\"" + defaultValue.Trim('\'') + "\"";
+            }
             return defaultValue;
         }
 

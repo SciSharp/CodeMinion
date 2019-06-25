@@ -31,6 +31,11 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string ClassName { get; set; }
 
+        /// <summary>
+        /// Do not generate this class
+        /// </summary>
+        public bool Ignore { get; set; }
+
         public List<Function> Constructors = new List<Function>();
     }
 }

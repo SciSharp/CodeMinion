@@ -13,6 +13,12 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void PostProcessNN_Class(ApiClass api)
         {
+            switch (api.ClassName)
+            {
+                case "Sequential":
+                    api.Ignore = true;
+                    break;
+            }
             var decls = api.Declarations.ToArray();
             api.Declarations = new List<Declaration>();
             foreach (var func in decls)
@@ -34,20 +40,43 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void PostProcess_NN_Func(ApiClass api, Function func)
         {
+            foreach(var arg in func.Arguments)
+                PostProcess(arg);
             var name = $"{api.ClassName.Split(".").Last()}.{func.Name}";
             switch (name)
             {
                 case "Module.apply":
                     func["fn"].Type = "Action<Module>";
                     break;
-                //case "Module.buffers":
-                //    func.Returns.Add(new Argument(){ Type = "IEnumerable<Tensor>"});
-                //    break;
-                //case "Module.children":
-                //    func.Arguments.Clear();
-                //    func.Returns.Add(new Argument() { Type = "IEnumerable<Module>" });
-                //    break;
-
+                case "Module.forward":
+                    func.Ignore = true;
+                    break;
+                case "Module.load_state_dict":
+                    func.Returns[0].Type="string[]";
+                    func.Returns.Add(new Argument() { Type = "string[]" });
+                    break;
+                case "Module.named_buffers":
+                case "Module.named_children":
+                case "Module.named_modules":
+                case "Module.named_parameters":
+                    func.Returns[0].Type = "IEnumerable<KeyValuePair<string, Tensor>>";
+                    if (name == "Module.named_modules")
+                    {
+                        func["memo"].Type = "HashSet<object>";
+                    }
+                    break;
+                case "Module.register_backward_hook":
+                    func["hook"].Type = "Func<Module, Tensor[], Tensor[], Tensor>";
+                    break;
+                case "Module.register_forward_hook":
+                    func["hook"].Type = "Action<Module, Tensor[], Tensor[]>";
+                    break;
+                case "Module.register_forward_pre_hook":
+                    func["hook"].Type = "Action<Module, Tensor[]>";
+                    break;
+                case "Module.state_dict":
+                    func["destination"].Type = "Hashtable";
+                    break;
             }
         }
 
@@ -70,6 +99,33 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private IEnumerable<Declaration> InferOverloads_NN(ApiClass api, Declaration func)
         {
+            switch (func.Name)
+            {
+                case "to":
+                    yield return new Function() { Name = "to", Arguments =
+                        {
+                            new Argument() { Name = "device", Type = "Device", },
+                            new Argument() { Name = "dtype", Type = "Dtype", },
+                            new Argument() { Name = "non_blocking", Type = "bool", DefaultValue = "false"},
+                        },
+                        Returns = { new Argument() {  Type = "Module" } }
+                    };
+                    yield return new Function() { Name = "to", Arguments =
+                        {
+                            new Argument() { Name = "dtype", Type = "Dtype", },
+                            new Argument() { Name = "non_blocking", Type = "bool", DefaultValue = "false"},
+                        },
+                        Returns = { new Argument() { Type = "Module" } }
+                    };
+                    yield return new Function() { Name = "to", Arguments =
+                        {
+                            new Argument() { Name = "tensor", Type = "Tensor", },
+                            new Argument() { Name = "non_blocking", Type = "bool", DefaultValue = "false"},
+                        },
+                        Returns = { new Argument() { Type = "Module" } }
+                    };
+                    yield break;
+            }
             yield return func;
         }
 
