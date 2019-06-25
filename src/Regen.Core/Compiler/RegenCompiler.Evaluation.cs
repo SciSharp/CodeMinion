@@ -16,11 +16,11 @@ namespace Regen.Compiler {
 
         public object _evaluate(string expression, Line line = null) {
             //Core evaluation method.
-            //try {
-                return Context.CompileDynamic(expression).Evaluate();
-            //} catch (Flee.PublicTypes.ExpressionCompileException e) {
-            //    throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}{(line != null ? ($" \tAt line ({line?.LineNumber}): {line?.Content}") : "")}", e);
-            //}
+            try {
+              return Context.CompileDynamic(expression).Evaluate();
+            } catch (Flee.PublicTypes.ExpressionCompileException e) {
+                throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}{(line != null ? ($" \tAt line ({line?.LineNumber}): {line?.Content}") : "")}", e);
+            }
         }
 
         protected object _evaluate(Expression expression, Line line = null) {
