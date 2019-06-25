@@ -1,4 +1,4 @@
-﻿- Fix unit test Builtins.len
+﻿- [X] Fix unit test Builtins.len
 - Getting started page. (side by side comparison: https://stackoverflow.com/questions/30514408/two-columns-code-in-markdown)
 - Indexer inside foreach loops: #[i-1]
 - Real world application examples.

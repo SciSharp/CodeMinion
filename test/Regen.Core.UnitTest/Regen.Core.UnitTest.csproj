@@ -91,7 +91,7 @@
     <Compile Include="RegenCompilerTests.cs" />
     <Compile Include="LineBuilderTests.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />
-    <Compile Include="Expression\ExpressionUnitTest.cs" />
+    <Compile Include="ExpressionUnitTest.cs" />
     <Compile Include="StringSpanTests.cs" />
     <Compile Include="VariableTests.cs" />
     <Compile Include="Examples\OperatorsOverloading.cs" />

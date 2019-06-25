@@ -133,7 +133,7 @@ namespace Regen.Parser {
                                     line.MarkedForDeletion = true;
                                 }
 
-                                Console.WriteLine(content.ToString());
+                                 Console.WriteLine(content.ToString());
                                 ForeachExpression expr = new ForeachExpression() {Content = content, Arguments = args};
                                 parserTokens += new ParserAction(ParserToken.ForeachLoop, relatedLines, expr);
                                 break;

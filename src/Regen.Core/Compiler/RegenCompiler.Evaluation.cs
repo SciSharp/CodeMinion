@@ -103,7 +103,16 @@ namespace Regen.Compiler {
                     case ReferenceIdentity referenceIdentity: {
                         if (!Context.Variables.ContainsKey(referenceIdentity.Name))
                             return new ReferenceData(referenceIdentity.Name);
-                        return Data.Create(Context.Variables[referenceIdentity.Name]);
+
+                        if (!Context.Variables.TryGetValue(referenceIdentity.Name, out var value, true))
+                            throw new Exception("This should never occur.");
+
+                        //if it is not a reference, make one.
+                        if (!(value is ReferenceData)) {
+                            return new ReferenceData(referenceIdentity.Name);
+                        }
+
+                        return (ReferenceData) value;
                     }
 
                     case PropertyIdentity propertyIdentity: {
@@ -155,7 +164,7 @@ namespace Regen.Compiler {
                             return Data.Create(_evaluate(parsed));
                         }
                     }
-
+                    
                     case IndexerCallExpression indexerCallExpression: {
                         var left = Data.Create(_eval(indexerCallExpression.Left, typeof(IndexerCallExpression)));
                         var args = (Array) _eval(indexerCallExpression.Arguments);

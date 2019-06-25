@@ -172,7 +172,7 @@ namespace Regen.Compiler {
                                 vars[$"__{j + 1}__"] = iterateThose[j][i];
                             }
 
-                            //todo now here we iterate contents and set all variables in it.
+                            //now here we iterate contents and set all variables in it.
                             foreach (var content in contents) {
                                 //iterate lines, one at a time 
                                 var copy = content.ToString();
@@ -400,7 +400,7 @@ namespace Regen.Compiler {
         public object EvaluateObject(Expression expression, ExpressionWalker ew, Line line = null) {
             //Core evaluation method.
             try {
-                return EvaluateExpression(expression); //todo here we need to assess wth is going on by ourselves first. like expandvariable  
+                return EvaluateExpression(expression);
             } catch (Flee.PublicTypes.ExpressionCompileException e) {
                 throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
             }

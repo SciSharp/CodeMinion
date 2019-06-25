@@ -204,6 +204,19 @@ namespace Regen.Core.Tests.Expression {
                 .Contain("h1");
         }
 
+        [TestMethod]
+        public void expression_properr_array_reference_handling() {
+            var @input = $@"
+                %a = [1,2,3]
+                %b = 1
+                %(a[0]+b)
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("2");
+        }
+
         //todo add more tests of %() expression!
     }
 }

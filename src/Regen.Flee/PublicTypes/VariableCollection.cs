@@ -82,7 +82,7 @@ namespace Regen.Flee.PublicTypes {
             return args.VariableType;
         }
 
-        private IVariable GetVariable(string name, bool throwOnNotFound) {
+        private IVariable GetVariable(string name, bool throwOnNotFound, bool disableReferenceHandling = false) {
             IVariable value = null;
             bool success = _myVariables.TryGetValue(name, out value);
 
@@ -91,7 +91,7 @@ namespace Regen.Flee.PublicTypes {
                 throw new ArgumentException(msg);
             } else {
                 // ReSharper disable once PossibleNullReferenceException
-                if (typeof(IVariableReference).IsAssignableFrom(value.VariableType)) {
+                if (!disableReferenceHandling && typeof(IVariableReference).IsAssignableFrom(value.VariableType)) {
                     var val = (IVariableReference) value.ValueAsObject;
                     return GetVariable(val.Target, throwOnNotFound);
                 }
@@ -204,9 +204,10 @@ namespace Regen.Flee.PublicTypes {
         public T GetVariableValueInternal<T>(string name) {
             if (_myVariables.TryGetValue(name, out IVariable variable)) {
                 if (typeof(IVariableReference).IsAssignableFrom(variable.VariableType)) {
-                    var val = (IVariableReference)variable.ValueAsObject;
+                    var val = (IVariableReference) variable.ValueAsObject;
                     return GetVariableValueInternal<T>(val.Target);
                 }
+
                 if (variable is IGenericVariable<T> generic) {
                     return (T) generic.GetValue();
                 }
@@ -296,8 +297,12 @@ namespace Regen.Flee.PublicTypes {
             return _myVariables.Remove(name);
         }
 
-        public bool TryGetValue(string key, out object value) {
-            IVariable v = this.GetVariable(key, false);
+        bool IDictionary<string, object>.TryGetValue(string key, out object value) {
+            return TryGetValue(key, out value, false);
+        }
+
+        public bool TryGetValue(string key, out object value, bool disableReferenceHandling = false) {
+            IVariable v = this.GetVariable(key, false, disableReferenceHandling);
             value = v?.ValueAsObject;
             return v != null;
         }
