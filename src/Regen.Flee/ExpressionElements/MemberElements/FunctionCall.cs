@@ -10,7 +10,9 @@ using Regen.Flee.PublicTypes;
 using Regen.Flee.Resources;
 
 namespace Regen.Flee.ExpressionElements.MemberElements {
-    [Obsolete("Represents a function call")]
+    /// <summary>
+    ///     Represents a function call
+    /// </summary>
     internal class FunctionCallElement : MemberElement {
         private readonly ArgumentList _myArguments;
         private readonly ICollection<MethodInfo> _myMethods;

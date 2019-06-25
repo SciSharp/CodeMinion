@@ -127,7 +127,9 @@ namespace Regen.Flee.InternalTypes {
         public static object Instance => OurInstance;
     }
 
-    [Obsolete("Helper class to resolve overloads")]
+    /// <summary>
+    ///    Helper class to resolve overloads
+    ///</summary>
     internal class CustomMethodInfo : IComparable<CustomMethodInfo>, IEquatable<CustomMethodInfo> {
         /// <summary>
         /// Method we are wrapping
@@ -344,7 +346,9 @@ namespace Regen.Flee.InternalTypes {
         }
     }
 
-    [Obsolete("Wraps an expression element so that it is loaded from a local slot")]
+    /// <summary>
+    ///	Wraps an expression element so that it is loaded from a local slot
+    ///</summary>
     internal class LocalBasedElement : ExpressionElement {
         private readonly int _myIndex;
 
@@ -362,7 +366,9 @@ namespace Regen.Flee.InternalTypes {
         public override System.Type ResultType => _myTarget.ResultType;
     }
 
-    [Obsolete("Helper class for storing strongly-typed properties")]
+    /// <summary>
+    ///     Helper class for storing strongly-typed properties
+    /// </summary>
     internal class PropertyDictionary {
         private readonly Dictionary<string, object> _myProperties;
 

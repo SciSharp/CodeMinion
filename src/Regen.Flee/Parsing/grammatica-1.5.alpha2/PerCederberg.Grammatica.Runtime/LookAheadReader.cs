@@ -138,7 +138,7 @@ namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
             // Read characters 
             try {
                 readSize = _input.Read(_buffer, _length, size);
-            } catch (IOException e) {
+            } catch (IOException) {
                 _input = null;
                 throw;
             }

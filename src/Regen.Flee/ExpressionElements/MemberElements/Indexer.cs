@@ -8,7 +8,9 @@ using Regen.Flee.PublicTypes;
 using Regen.Flee.Resources;
 
 namespace Regen.Flee.ExpressionElements.MemberElements {
-    [Obsolete("Element representing an array index")]
+    /// <summary>
+    ///     Element representing an array index
+    /// </summary>
     internal class IndexerElement : MemberElement {
         private ExpressionElement _myIndexerElement;
 

@@ -5,7 +5,9 @@ using Regen.Flee.ExpressionElements.Base;
 using Regen.Flee.InternalTypes;
 
 namespace Regen.Flee.ExpressionElements.MemberElements {
-    [Obsolete("Encapsulates an argument list")]
+    /// <summary>
+    ///     Encapsulates an argument list
+    /// </summary>
     internal class ArgumentList {
         private readonly IList<ExpressionElement> _myElements;
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 
 namespace Regen.Flee.InternalTypes {
-    [Obsolete("Manages branch information and allows us to determine if we should emit a short or long branch")]
+    /// <summary>
+    ///    Manages branch information and allows us to determine if we should emit a short or long branch
+    ///</summary>
     internal class BranchManager {
         private IList<BranchInfo> MyBranchInfos;
 
@@ -174,7 +176,9 @@ namespace Regen.Flee.InternalTypes {
         }
     }
 
-    [Obsolete("Represents a location in an IL stream")]
+    /// <summary>
+    ///    Represents a location in an IL stream
+    ///</summary>
     internal class ILLocation : IEquatable<ILLocation>, IComparable<ILLocation> {
         private int _myPosition;
 
@@ -235,7 +239,9 @@ namespace Regen.Flee.InternalTypes {
         }
     }
 
-    [Obsolete("Represents a branch from a start location to an end location")]
+    /// <summary>
+    ///    Represents a branch from a start location to an end location
+    ///</summary>
     internal class BranchInfo : IEquatable<BranchInfo> {
         private readonly ILLocation _myStart;
         private readonly ILLocation _myEnd;

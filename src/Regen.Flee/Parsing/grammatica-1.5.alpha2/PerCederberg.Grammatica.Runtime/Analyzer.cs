@@ -2,7 +2,9 @@
 using System.Collections;
 
 namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
-    [Obsolete("Creates a new parse tree analyzer.")]
+    /// <summary>
+    ///    Creates a new parse tree analyzer.
+    ///</summary>
     internal class Analyzer {
         public Analyzer() { }
 

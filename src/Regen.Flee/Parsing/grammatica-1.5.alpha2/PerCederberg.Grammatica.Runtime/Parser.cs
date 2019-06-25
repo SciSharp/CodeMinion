@@ -4,7 +4,9 @@ using System.IO;
 using System.Text;
 
 namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
-    [Obsolete(" A base parser class. This class provides the standard parser interface, as well as token handling.")]
+    /// <summary>
+    ///     A base parser class. This class provides the standard parser interface, as well as token handling.
+    /// </summary>
     internal abstract class Parser {
         private bool _initialized;
         private readonly Tokenizer _tokenizer;

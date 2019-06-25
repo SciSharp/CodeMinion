@@ -9,7 +9,7 @@ namespace Regen.Flee.ExpressionElements.Literals.Integral {
         public UInt64LiteralElement(string image, System.Globalization.NumberStyles ns) {
             try {
                 _myValue = UInt64.Parse(image, ns);
-            } catch (OverflowException ex) {
+            } catch (OverflowException) {
                 base.OnParseOverflow(image);
             }
         }

@@ -14,7 +14,9 @@ using Regen.Flee.PublicTypes;
 using Regen.Flee.Resources;
 
 namespace Regen.Flee.ExpressionElements.MemberElements {
-    [Obsolete("Represents an identifier")]
+    /// <summary>
+    ///     Represents an identifier
+    /// </summary>
     internal class IdentifierElement : MemberElement {
         private FieldInfo _myField;
         private PropertyInfo _myProperty;

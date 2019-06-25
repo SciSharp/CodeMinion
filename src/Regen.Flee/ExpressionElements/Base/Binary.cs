@@ -8,7 +8,9 @@ using Regen.Flee.PublicTypes;
 using Regen.Flee.Resources;
 
 namespace Regen.Flee.ExpressionElements.Base {
-    [Obsolete("Base class for expression elements that operate on two child elements")]
+    /// <summary>
+    ///    Base class for expression elements that operate on two child elements
+    ///</summary>
     internal abstract class BinaryExpressionElement : ExpressionElement {
         protected ExpressionElement MyLeftChild;
         protected ExpressionElement MyRightChild;
