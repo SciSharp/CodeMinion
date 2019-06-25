@@ -83,7 +83,8 @@ namespace Regen.Core.Tests.Expression {
                 .Contain("\"0\"+\"Printed 0").And
                 .Contain("\"10\"+\"Printed 1").And
                 .Contain("\"20\"+\"Printed 2");
-        }        
+        }
+
         [TestMethod]
         public void foreach_multiline_emittion() {
             var @input = @"
@@ -108,8 +109,7 @@ namespace Regen.Core.Tests.Expression {
 
 
         [TestMethod]
-        public void foreach_longest()
-        {
+        public void foreach_longest() {
             var @input = @"
                 %a = [1,2,3]
                 %b = [1,2,3,4,5]
@@ -120,6 +120,19 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("4").And
                 .Contain("5");
+        }
+
+        [TestMethod]
+        public void foreach_nested_expression() {
+            var @input = @"
+                %foreach range(3)%
+                    Console.WriteLine(""#(#1*10)""+""Printed #1!"");
+                %
+                ";
+            Compile(@input).Output.Should()
+                .Contain("\"0\"+\"Printed 0").And
+                .Contain("\"10\"+\"Printed 1").And
+                .Contain("\"20\"+\"Printed 2");
         }
     }
 }

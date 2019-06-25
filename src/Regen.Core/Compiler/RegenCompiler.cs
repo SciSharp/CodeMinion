@@ -28,7 +28,7 @@ namespace Regen.Compiler {
 
         public RegenCompiler(params RegenModule[] modules) {
             Context = CreateContext(null, modules);
-            Context.Imports.AddInstance(this, "__interpreter__");
+            Context.Imports.AddInstance(this, "__compiler__");
         }
 
         public static ExpressionContext CreateContext(Dictionary<string, object> globalVariables = null, RegenModule[] modules = null) {

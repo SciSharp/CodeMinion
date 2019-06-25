@@ -17,12 +17,12 @@ namespace Regen.Builtins {
             return arr.Count;
         }        
 
-        public static Array range(int count) {
-            return new Array(Enumerable.Range(0, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
+        public static Array range(int length) {
+            return new Array(Enumerable.Range(0, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
-        public static Array range(int @from, int count) {
-            return new Array(Enumerable.Range(@from, count).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
+        public static Array range(int startFrom, int length) {
+            return new Array(Enumerable.Range(startFrom, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Regen.Builtins {
         public static bool isnumber(object obj) {
             if (obj == null) return false;
 
-            if (obj is decimal) return true;
+            if (obj is decimal || obj is NumberScalar) return true;
             var type = obj.GetType();
             return type.IsPrimitive;
         }
