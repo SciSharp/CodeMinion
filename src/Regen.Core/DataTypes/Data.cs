@@ -53,7 +53,152 @@ namespace Regen.DataTypes {
                     return new NetObject(obj);
             }
         }
-         
+
+        #region Operators
+
+        public static object operator +(Data sc) {
+            dynamic lhs = sc.Value;
+            return +lhs;
+        }
+
+        public static object operator !(Data sc) {
+            dynamic lhs = sc.Value;
+            return !lhs;
+        }
+
+        public static object operator -(Data sc) {
+            dynamic rhs = sc.Value;
+            return -rhs;
+        }
+
+        public static object operator +(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs + rhs;
+        }
+
+        public static object operator +(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs + rhs;
+        }
+
+        public static object operator +(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs + rhs;
+        }
+
+        public static object operator -(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs - rhs;
+        }
+
+        public static object operator -(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs - rhs;
+        }
+
+        public static object operator -(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs - rhs;
+        }
+
+        public static object operator /(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs / rhs;
+        }
+
+        public static object operator /(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs / rhs;
+        }
+
+        public static object operator /(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs / rhs;
+        }
+
+        public static object operator %(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs % rhs;
+        }
+
+        public static object operator %(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs % rhs;
+        }
+
+        public static object operator %(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs % rhs;
+        }
+
+        public static object operator *(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs * rhs;
+        }
+
+        public static object operator *(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs * rhs;
+        }
+
+        public static object operator *(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs * rhs;
+        }
+
+        public static object operator &(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs & rhs;
+        }
+
+        public static object operator &(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs & rhs;
+        }
+
+        public static object operator &(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs & rhs;
+        }
+
+        public static object operator |(Data sc, object v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v;
+            return lhs | rhs;
+        }
+
+        public static object operator |(object v, Data sc) {
+            dynamic lhs = v;
+            dynamic rhs = sc.Value;
+            return lhs | rhs;
+        }
+
+        public static object operator |(Data sc, Data v) {
+            dynamic lhs = sc.Value;
+            dynamic rhs = v.Value;
+            return lhs | rhs;
+        }
+
+        #endregion
+
         #region Equality
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>

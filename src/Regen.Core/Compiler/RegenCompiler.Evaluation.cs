@@ -16,11 +16,11 @@ namespace Regen.Compiler {
 
         public object _evaluate(string expression, Line line = null) {
             //Core evaluation method.
-            try {
+            //try {
                 return Context.CompileDynamic(expression).Evaluate();
-            } catch (Flee.PublicTypes.ExpressionCompileException e) {
-                throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
-            }
+            //} catch (Flee.PublicTypes.ExpressionCompileException e) {
+            //    throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}{(line != null ? ($" \tAt line ({line?.LineNumber}): {line?.Content}") : "")}", e);
+            //}
         }
 
         protected object _evaluate(Expression expression, Line line = null) {
@@ -164,7 +164,7 @@ namespace Regen.Compiler {
                             return Data.Create(_evaluate(parsed));
                         }
                     }
-                    
+
                     case IndexerCallExpression indexerCallExpression: {
                         var left = Data.Create(_eval(indexerCallExpression.Left, typeof(IndexerCallExpression)));
                         var args = (Array) _eval(indexerCallExpression.Arguments);

@@ -208,5 +208,26 @@ namespace Regen.Core.Tests {
                 ";
             Compile(@input).Output.Should().Contain("VariableCollectionWrapper");
         }
+
+        [TestMethod]
+        public void complex_expression_1() {
+            var @input = @"
+                    %a = [1,2,3,4]
+                    %b = [null,""gig"",""yo"",""hi"",]
+                    %c = 123 - 412
+                    
+                    %d1 = 123.0f + 123.0d
+                    %d2 = 123f
+                    %d4 = 123
+                    %d5 = 123.0M
+                    
+                    %e1 = ""hey there pretty!%@%$%#\""@%Ifdscvxcv #!@#!""
+                    %e2 = len(a) + 1
+                    %e3 = a[len(a) - 2]
+                    %e3 = a[len(a) - 2]+3
+                ";
+
+            Compile(@input);
+        }
     }
 }
