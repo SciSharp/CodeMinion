@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace Flee.Resources
-{
+﻿namespace Regen.Flee.Resources {
     /// <summary>
     /// Resource keys for compile error messages
     /// </summary>
     /// <remarks></remarks>
-    internal class CompileErrorResourceKeys
-    {
-
+    internal class CompileErrorResourceKeys {
         public const string CouldNotResolveType = "CouldNotResolveType";
         public const string CannotConvertType = "CannotConvertType";
         public const string FirstArgNotBoolean = "FirstArgNotBoolean";
@@ -44,6 +36,7 @@ namespace Flee.Resources
         public const string CannotParseType = "CannotParseType";
 
         public const string MultiArrayIndexNotSupported = "MultiArrayIndexNotSupported";
+
         // Grammatica
         public const string UnexpectedToken = "UNEXPECTED_TOKEN";
         public const string IO = "IO";
@@ -56,14 +49,10 @@ namespace Flee.Resources
 
         public const string SyntaxError = "SyntaxError";
 
-        private CompileErrorResourceKeys()
-        {
-        }
+        private CompileErrorResourceKeys() { }
     }
 
-    internal class GeneralErrorResourceKeys
-    {
-
+    internal class GeneralErrorResourceKeys {
         public const string TypeNotAccessibleToExpression = "TypeNotAccessibleToExpression";
         public const string VariableWithNameAlreadyDefined = "VariableWithNameAlreadyDefined";
         public const string UndefinedVariable = "UndefinedVariable";
@@ -76,8 +65,6 @@ namespace Flee.Resources
 
         public const string NewOwnerTypeNotAssignableToCurrentOwner = "NewOwnerTypeNotAssignableToCurrentOwner";
 
-        private GeneralErrorResourceKeys()
-        {
-        }
+        private GeneralErrorResourceKeys() { }
     }
 }

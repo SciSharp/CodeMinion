@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection.Emit;
 
-namespace Flee.InternalTypes
-{
+namespace Regen.Flee.InternalTypes {
     [Obsolete("Manages branch information and allows us to determine if we should emit a short or long branch")]
-    internal class BranchManager
-    {
+    internal class BranchManager {
         private IList<BranchInfo> MyBranchInfos;
 
         private IDictionary<object, Label> MyKeyLabelMap;
-        public BranchManager()
-        {
+
+        public BranchManager() {
             MyBranchInfos = new List<BranchInfo>();
             MyKeyLabelMap = new Dictionary<object, Label>();
         }
@@ -22,12 +18,10 @@ namespace Flee.InternalTypes
         /// Determine whether to use short or long branches
         /// </summary>
         /// <remarks></remarks>
-        public void ComputeBranches()
-        {
+        public void ComputeBranches() {
             List<BranchInfo> betweenBranches = new List<BranchInfo>();
 
-            foreach (BranchInfo bi in MyBranchInfos)
-            {
+            foreach (BranchInfo bi in MyBranchInfos) {
                 betweenBranches.Clear();
 
                 // Find any branches between the start and end locations of this branch
@@ -43,8 +37,7 @@ namespace Flee.InternalTypes
             int longBranchCount = 0;
 
             // Adjust the start location of each branch
-            foreach (BranchInfo bi in MyBranchInfos)
-            {
+            foreach (BranchInfo bi in MyBranchInfos) {
                 // Save the short/long branch type
                 bi.BakeIsLongBranch();
 
@@ -62,12 +55,10 @@ namespace Flee.InternalTypes
         /// <param name="dest"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        private int CountLongBranches(ICollection<BranchInfo> dest)
-        {
+        private int CountLongBranches(ICollection<BranchInfo> dest) {
             int count = 0;
 
-            foreach (BranchInfo bi in dest)
-            {
+            foreach (BranchInfo bi in dest) {
                 count += Convert.ToInt32(bi.ComputeIsLongBranch());
             }
 
@@ -80,12 +71,9 @@ namespace Flee.InternalTypes
         /// <param name="target"></param>
         /// <param name="dest"></param>
         /// <remarks></remarks>
-        private void FindBetweenBranches(BranchInfo target, ICollection<BranchInfo> dest)
-        {
-            foreach (BranchInfo bi in MyBranchInfos)
-            {
-                if (bi.IsBetween(target) == true)
-                {
+        private void FindBetweenBranches(BranchInfo target, ICollection<BranchInfo> dest) {
+            foreach (BranchInfo bi in MyBranchInfos) {
+                if (bi.IsBetween(target) == true) {
                     dest.Add(bi);
                 }
             }
@@ -98,17 +86,15 @@ namespace Flee.InternalTypes
         /// <param name="target"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool IsLongBranch(FleeILGenerator ilg, Label target)
-        {
-			//return true;
+        public bool IsLongBranch(FleeILGenerator ilg, Label target) {
+            //return true;
             ILLocation startLoc = new ILLocation(ilg.Length);
             BranchInfo bi = new BranchInfo(startLoc, target);
 
             int index = MyBranchInfos.IndexOf(bi);
-			if (index > -1 && index < MyBranchInfos.Count)
-			{
-				bi = MyBranchInfos[index];
-			}
+            if (index > -1 && index < MyBranchInfos.Count) {
+                bi = MyBranchInfos[index];
+            }
 
             return bi.IsLongBranch;
         }
@@ -119,8 +105,7 @@ namespace Flee.InternalTypes
         /// <param name="ilg"></param>
         /// <param name="target"></param>
         /// <remarks></remarks>
-        public void AddBranch(FleeILGenerator ilg, Label target)
-        {
+        public void AddBranch(FleeILGenerator ilg, Label target) {
             ILLocation startLoc = new ILLocation(ilg.Length);
 
             BranchInfo bi = new BranchInfo(startLoc, target);
@@ -133,8 +118,7 @@ namespace Flee.InternalTypes
         /// <param name="key"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public Label FindLabel(object key)
-        {
+        public Label FindLabel(object key) {
             return MyKeyLabelMap[key];
         }
 
@@ -145,14 +129,13 @@ namespace Flee.InternalTypes
         /// <param name="ilg"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public Label GetLabel(object key, FleeILGenerator ilg)
-        {
+        public Label GetLabel(object key, FleeILGenerator ilg) {
             Label lbl;
-            if (MyKeyLabelMap.TryGetValue(key, out lbl) == false)
-            {
+            if (MyKeyLabelMap.TryGetValue(key, out lbl) == false) {
                 lbl = ilg.DefineLabel();
                 MyKeyLabelMap.Add(key, lbl);
             }
+
             return lbl;
         }
 
@@ -162,8 +145,7 @@ namespace Flee.InternalTypes
         /// <param name="key"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool HasLabel(object key)
-        {
+        public bool HasLabel(object key) {
             return MyKeyLabelMap.ContainsKey(key);
         }
 
@@ -173,22 +155,18 @@ namespace Flee.InternalTypes
         /// <param name="ilg"></param>
         /// <param name="target"></param>
         /// <remarks></remarks>
-        public void MarkLabel(FleeILGenerator ilg, Label target)
-        {
+        public void MarkLabel(FleeILGenerator ilg, Label target) {
             int pos = ilg.Length;
 
-            foreach (BranchInfo bi in MyBranchInfos)
-            {
+            foreach (BranchInfo bi in MyBranchInfos) {
                 bi.Mark(target, pos);
             }
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             string[] arr = new string[MyBranchInfos.Count];
 
-            for (int i = 0; i <= MyBranchInfos.Count - 1; i++)
-            {
+            for (int i = 0; i <= MyBranchInfos.Count - 1; i++) {
                 arr[i] = MyBranchInfos[i].ToString();
             }
 
@@ -197,8 +175,7 @@ namespace Flee.InternalTypes
     }
 
     [Obsolete("Represents a location in an IL stream")]
-    internal class ILLocation : IEquatable<ILLocation>, IComparable<ILLocation>
-    {
+    internal class ILLocation : IEquatable<ILLocation>, IComparable<ILLocation> {
         private int _myPosition;
 
         /// <summary>
@@ -211,17 +188,13 @@ namespace Flee.InternalTypes
         /// </summary>
         private const int BrSLength = 2;
 
-        public ILLocation()
-        {
-        }
+        public ILLocation() { }
 
-        public ILLocation(int position)
-        {
+        public ILLocation(int position) {
             _myPosition = position;
         }
 
-        public void SetPosition(int position)
-        {
+        public void SetPosition(int position) {
             _myPosition = position;
         }
 
@@ -230,8 +203,7 @@ namespace Flee.InternalTypes
         /// </summary>
         /// <param name="longBranchCount"></param>
         /// <remarks></remarks>
-        public void AdjustForLongBranch(int longBranchCount)
-        {
+        public void AdjustForLongBranch(int longBranchCount) {
             _myPosition += longBranchCount * LongBranchAdjust;
         }
 
@@ -241,90 +213,76 @@ namespace Flee.InternalTypes
         /// <param name="target"></param>
         /// <returns></returns>
         /// <remarks></remarks>
-        public bool IsLongBranch(ILLocation target)
-        {
+        public bool IsLongBranch(ILLocation target) {
             // The branch offset is relative to the instruction *after* the branch so we add 2 (length of a br_s) to our position
             return Utility.IsLongBranch(_myPosition + BrSLength, target._myPosition);
         }
 
-        public bool Equals1(ILLocation other)
-        {
+        public bool Equals1(ILLocation other) {
             return _myPosition == other._myPosition;
         }
-        bool System.IEquatable<ILLocation>.Equals(ILLocation other)
-        {
+
+        bool System.IEquatable<ILLocation>.Equals(ILLocation other) {
             return Equals1(other);
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return _myPosition.ToString("x");
         }
 
-        public int CompareTo(ILLocation other)
-        {
+        public int CompareTo(ILLocation other) {
             return _myPosition.CompareTo(other._myPosition);
         }
     }
 
     [Obsolete("Represents a branch from a start location to an end location")]
-    internal class BranchInfo : IEquatable<BranchInfo>
-    {
+    internal class BranchInfo : IEquatable<BranchInfo> {
         private readonly ILLocation _myStart;
         private readonly ILLocation _myEnd;
         private Label _myLabel;
         private bool _myIsLongBranch;
-        public BranchInfo(ILLocation startLocation, Label endLabel)
-        {
+
+        public BranchInfo(ILLocation startLocation, Label endLabel) {
             _myStart = startLocation;
             _myLabel = endLabel;
             _myEnd = new ILLocation();
         }
 
-        public void AdjustForLongBranches(int longBranchCount)
-        {
+        public void AdjustForLongBranches(int longBranchCount) {
             _myStart.AdjustForLongBranch(longBranchCount);
         }
 
-        public void BakeIsLongBranch()
-        {
+        public void BakeIsLongBranch() {
             _myIsLongBranch = this.ComputeIsLongBranch();
         }
 
-        public void AdjustForLongBranchesBetween(int betweenLongBranchCount)
-        {
+        public void AdjustForLongBranchesBetween(int betweenLongBranchCount) {
             _myEnd.AdjustForLongBranch(betweenLongBranchCount);
         }
 
-        public bool IsBetween(BranchInfo other)
-        {
+        public bool IsBetween(BranchInfo other) {
             return _myStart.CompareTo(other._myStart) > 0 && _myStart.CompareTo(other._myEnd) < 0;
         }
 
-        public bool ComputeIsLongBranch()
-        {
+        public bool ComputeIsLongBranch() {
             return _myStart.IsLongBranch(_myEnd);
         }
 
-        public void Mark(Label target, int position)
-        {
-            if (_myLabel.Equals(target) == true)
-            {
+        public void Mark(Label target, int position) {
+            if (_myLabel.Equals(target) == true) {
                 _myEnd.SetPosition(position);
             }
         }
 
-        public bool Equals1(BranchInfo other)
-        {
+        public bool Equals1(BranchInfo other) {
             return _myStart.Equals1(other._myStart) && _myLabel.Equals(other._myLabel);
         }
-        bool System.IEquatable<BranchInfo>.Equals(BranchInfo other)
-        {
+
+        bool System.IEquatable<BranchInfo>.Equals(BranchInfo other) {
             return Equals1(other);
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return $"{_myStart} -> {_myEnd} (L={_myStart.IsLongBranch(_myEnd)})";
         }
 

@@ -1,35 +1,25 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using Flee.Parsing;
-using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
-using Flee.PublicTypes;
+using Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime;
+using Regen.Flee.PublicTypes;
 
-
-namespace Flee.Parsing
-{
+namespace Regen.Flee.Parsing {
     /// <summary>
     /// A character stream tokenizer.
     /// </summary>
-    internal class ExpressionTokenizer : Tokenizer
-    {
+    internal class ExpressionTokenizer : Tokenizer {
         private readonly ExpressionContext _myContext;
-        
-        public ExpressionTokenizer(TextReader input, ExpressionContext context) : base(input, true)
-        {
+
+        public ExpressionTokenizer(TextReader input, ExpressionContext context) : base(input, true) {
             _myContext = context;
             CreatePatterns();
         }
 
-        public ExpressionTokenizer(TextReader input) : base(input, true)
-        {
+        public ExpressionTokenizer(TextReader input) : base(input, true) {
             CreatePatterns();
         }
 
-        private void CreatePatterns()
-        {
+        private void CreatePatterns() {
             TokenPattern pattern = default(TokenPattern);
             CustomTokenPattern customPattern = default(CustomTokenPattern);
 

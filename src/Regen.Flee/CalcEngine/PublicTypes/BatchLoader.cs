@@ -1,29 +1,21 @@
-﻿
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using Flee.CalcEngine.InternalTypes;
-using Flee.InternalTypes;
-using Flee.PublicTypes;
+using Regen.Flee.CalcEngine.InternalTypes;
+using Regen.Flee.InternalTypes;
+using Regen.Flee.PublicTypes;
 
-namespace Flee.CalcEngine.PublicTypes
-{
-    public sealed class BatchLoader
-    {
-
+namespace Regen.Flee.CalcEngine.PublicTypes {
+    public sealed class BatchLoader {
         private readonly IDictionary<string, BatchLoadInfo> _myNameInfoMap;
 
         private readonly DependencyManager<string> _myDependencies;
-        internal BatchLoader()
-        {
+
+        internal BatchLoader() {
             _myNameInfoMap = new Dictionary<string, BatchLoadInfo>(StringComparer.OrdinalIgnoreCase);
             _myDependencies = new DependencyManager<string>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public void Add(string atomName, string expression, ExpressionContext context)
-        {
+        public void Add(string atomName, string expression, ExpressionContext context) {
             Utility.AssertNotNull(atomName, "atomName");
             Utility.AssertNotNull(expression, "expression");
             Utility.AssertNotNull(context, "context");
@@ -34,20 +26,17 @@ namespace Flee.CalcEngine.PublicTypes
 
             ICollection<string> references = this.GetReferences(expression, context);
 
-            foreach (string reference in references)
-            {
+            foreach (string reference in references) {
                 _myDependencies.AddTail(reference);
                 _myDependencies.AddDepedency(reference, atomName);
             }
         }
 
-        public bool Contains(string atomName)
-        {
+        public bool Contains(string atomName) {
             return _myNameInfoMap.ContainsKey(atomName);
         }
 
-        internal BatchLoadInfo[] GetBachInfos()
-        {
+        internal BatchLoadInfo[] GetBachInfos() {
             string[] tails = _myDependencies.GetTails();
             Queue<string> sources = _myDependencies.GetSources(tails);
 
@@ -55,21 +44,17 @@ namespace Flee.CalcEngine.PublicTypes
 
             BatchLoadInfo[] infos = new BatchLoadInfo[result.Count];
 
-            for (int i = 0; i <= result.Count - 1; i++)
-            {
+            for (int i = 0; i <= result.Count - 1; i++) {
                 infos[i] = _myNameInfoMap[result[i]];
             }
 
             return infos;
         }
 
-        private ICollection<string> GetReferences(string expression, ExpressionContext context)
-        {
+        private ICollection<string> GetReferences(string expression, ExpressionContext context) {
             IdentifierAnalyzer analyzer = context.ParseIdentifiers(expression);
 
             return analyzer.GetIdentifiers(context);
         }
     }
-
 }
-

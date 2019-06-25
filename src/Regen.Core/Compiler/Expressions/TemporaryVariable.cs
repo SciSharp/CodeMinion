@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Flee.PublicTypes;
+using Regen.Flee.PublicTypes;
 
 namespace Regen.Compiler.Expressions {
     public class TemporaryVariable : IDisposable {

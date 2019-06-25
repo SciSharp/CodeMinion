@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
+﻿using System.Collections;
 
-namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
-{
-
+namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
     /**
     * A production node. This class represents a grammar production
     * (i.e. a list of child nodes) in a parse tree. The productions
     * are created by a parser, that adds children a according to a
     * set of production patterns (i.e. grammar rules).
     */
-    internal class Production : Node
-    {
+    internal class Production : Node {
         private readonly ProductionPattern _pattern;
         private readonly ArrayList _children;
 
-        public Production(ProductionPattern pattern)
-        {
+        public Production(ProductionPattern pattern) {
             this._pattern = pattern;
             this._children = new ArrayList();
         }
@@ -30,25 +22,18 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
 
         public override int Count => _children.Count;
 
-        public override Node this[int index]
-        {
-            get
-            {
-                if (index < 0 || index >= _children.Count)
-                {
+        public override Node this[int index] {
+            get {
+                if (index < 0 || index >= _children.Count) {
                     return null;
-                }
-                else
-                {
-                    return (Node)_children[index];
+                } else {
+                    return (Node) _children[index];
                 }
             }
         }
 
-        public void AddChild(Node child)
-        {
-            if (child != null)
-            {
+        public void AddChild(Node child) {
+            if (child != null) {
                 child.SetParent(this);
                 _children.Add(child);
             }
@@ -56,18 +41,15 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
 
         public ProductionPattern Pattern => _pattern;
 
-        public ProductionPattern GetPattern()
-        {
+        public ProductionPattern GetPattern() {
             return Pattern;
         }
 
-        internal override bool IsHidden()
-        {
+        internal override bool IsHidden() {
             return _pattern.Synthetic;
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             return _pattern.Name + '(' + _pattern.Id + ')';
         }
     }

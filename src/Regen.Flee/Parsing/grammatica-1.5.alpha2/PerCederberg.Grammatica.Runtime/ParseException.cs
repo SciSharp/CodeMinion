@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
-using Flee.Resources;
 
-namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
-{
+namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
     /**
      * A parse exception.
      */
-    public class ParseException : Exception
-    {
-        public enum ErrorType
-        {
-
+    public class ParseException : Exception {
+        public enum ErrorType {
             /**
              * The internal error type is only used to signal an error
              * that is a result of a bug in the parser or tokenizer
@@ -77,12 +70,10 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
         /// <param name="line"></param>
         /// <param name="column"></param>
         public ParseException(ErrorType type,
-                              string info,
-                              int line,
-                              int column)
-            : this(type, info, null, line, column)
-        {
-        }
+            string info,
+            int line,
+            int column)
+            : this(type, info, null, line, column) { }
 
         /// <summary>
         /// Creates a new parse exception. This constructor is only
@@ -96,12 +87,10 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
         /// <param name="line"></param>
         /// <param name="column"></param>
         public ParseException(ErrorType type,
-                              string info,
-                              ArrayList details,
-                              int line,
-                              int column)
-        {
-
+            string info,
+            ArrayList details,
+            int line,
+            int column) {
             this._type = type;
             this._info = info;
             this._details = details;
@@ -109,54 +98,46 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
             this._column = column;
         }
 
-        
+
         public ErrorType Type => _type;
 
-        public ErrorType GetErrorType()
-        {
+        public ErrorType GetErrorType() {
             return Type;
         }
 
         public string Info => _info;
 
-        public string GetInfo()
-        {
+        public string GetInfo() {
             return Info;
         }
 
         public ArrayList Details => new ArrayList(_details);
 
-        public ArrayList GetDetails()
-        {
+        public ArrayList GetDetails() {
             return Details;
         }
 
         public int Line => _line;
 
-        public int GetLine()
-        {
+        public int GetLine() {
             return Line;
         }
 
         public int Column => _column;
 
-        public int GetColumn()
-        {
+        public int GetColumn() {
             return _column;
         }
 
-        public override string Message
-        {
-            get
-            {
+        public override string Message {
+            get {
                 StringBuilder buffer = new StringBuilder();
 
                 // Add error description
                 buffer.Append(ErrorMessage);
 
                 // Add line and column
-                if (_line > 0 && _column > 0)
-                {
+                if (_line > 0 && _column > 0) {
                     buffer.Append(", on line: ");
                     buffer.Append(_line);
                     buffer.Append(" column: ");
@@ -167,20 +148,16 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
             }
         }
 
-        public string GetMessage()
-        {
+        public string GetMessage() {
             return Message;
         }
 
-        public string ErrorMessage
-        {
-            get
-            {
+        public string ErrorMessage {
+            get {
                 StringBuilder buffer = new StringBuilder();
 
                 // Add type and info
-                switch (_type)
-                {
+                switch (_type) {
                     case ErrorType.IO:
                         buffer.Append("I/O error: ");
                         buffer.Append(_info);
@@ -196,15 +173,15 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
                     case ErrorType.UNEXPECTED_TOKEN:
                         buffer.Append("unexpected token ");
                         buffer.Append(_info);
-                        if (_details != null)
-                        {
+                        if (_details != null) {
                             buffer.Append(", expected ");
-                            if (_details.Count > 1)
-                            {
+                            if (_details.Count > 1) {
                                 buffer.Append("one of ");
                             }
+
                             buffer.Append(GetMessageDetails());
                         }
+
                         break;
                     case ErrorType.INVALID_TOKEN:
                         buffer.Append(_info);
@@ -214,11 +191,11 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
                         break;
                     default:
                         buffer.Append("internal error");
-                        if (_info != null)
-                        {
+                        if (_info != null) {
                             buffer.Append(": ");
                             buffer.Append(_info);
                         }
+
                         break;
                 }
 
@@ -226,25 +203,21 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
             }
         }
 
-        public string GetErrorMessage()
-        {
+        public string GetErrorMessage() {
             return ErrorMessage;
         }
 
-        private string GetMessageDetails()
-        {
+        private string GetMessageDetails() {
             StringBuilder buffer = new StringBuilder();
 
-            for (int i = 0; i < _details.Count; i++)
-            {
-                if (i > 0)
-                {
+            for (int i = 0; i < _details.Count; i++) {
+                if (i > 0) {
                     buffer.Append(", ");
-                    if (i + 1 == _details.Count)
-                    {
+                    if (i + 1 == _details.Count) {
                         buffer.Append("or ");
                     }
                 }
+
                 buffer.Append(_details[i]);
             }
 

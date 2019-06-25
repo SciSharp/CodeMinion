@@ -7,8 +7,8 @@
     <ProjectGuid>{658C0ED4-404A-48EC-96FF-D22C3C12AC39}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Flee</RootNamespace>
-    <AssemblyName>Flee.Net45</AssemblyName>
+    <RootNamespace>Regen.Flee</RootNamespace>
+    <AssemblyName>Regen.Flee</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -34,7 +34,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>flee.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <DelaySign>false</DelaySign>
@@ -154,7 +154,7 @@
     <Compile Include="Resources\ResourceKeys.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="flee.pfx" />
+    <None Include="key.snk" />
     <None Include="Parsing\Expression.grammar" />
   </ItemGroup>
   <ItemGroup>

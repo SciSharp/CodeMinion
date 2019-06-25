@@ -1,36 +1,25 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection.Emit;
-using Flee.ExpressionElements.Base.Literals;
-using Flee.InternalTypes;
+using Regen.Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.InternalTypes;
 
-namespace Flee.ExpressionElements.Literals.Integral
-{
-    internal class UInt32LiteralElement : IntegralLiteralElement
-    {
+namespace Regen.Flee.ExpressionElements.Literals.Integral {
+    internal class UInt32LiteralElement : IntegralLiteralElement {
         private readonly UInt32 _myValue;
-        public UInt32LiteralElement(UInt32 value)
-        {
+
+        public UInt32LiteralElement(UInt32 value) {
             _myValue = value;
         }
 
-        public static UInt32LiteralElement TryCreate(string image, System.Globalization.NumberStyles ns)
-        {
+        public static UInt32LiteralElement TryCreate(string image, System.Globalization.NumberStyles ns) {
             UInt32 value = default(UInt32);
-            if (UInt32.TryParse(image, ns, null, out value) == true)
-            {
+            if (UInt32.TryParse(image, ns, null, out value) == true) {
                 return new UInt32LiteralElement(value);
-            }
-            else
-            {
+            } else {
                 return null;
             }
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             EmitLoad(Convert.ToInt32(_myValue), ilg);
         }
 

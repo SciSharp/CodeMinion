@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flee.PublicTypes;
 using FluentAssertions;
 using Regen.Compiler;
 using Regen.Compiler.Expressions;
 using Regen.DataTypes;
+using Regen.Flee.PublicTypes;
 using Regen.Parser;
 
 namespace Regen.Core.Tests.Expression {

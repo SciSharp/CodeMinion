@@ -1,47 +1,33 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection.Emit;
-using Flee.ExpressionElements.Base.Literals;
-using Flee.InternalTypes;
-using Flee.PublicTypes;
+using Regen.Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.InternalTypes;
+using Regen.Flee.PublicTypes;
 
-
-namespace Flee.ExpressionElements.Literals.Real
-{
-    internal class DoubleLiteralElement : RealLiteralElement
-    {
+namespace Regen.Flee.ExpressionElements.Literals.Real {
+    internal class DoubleLiteralElement : RealLiteralElement {
         private readonly double _myValue;
 
-        private DoubleLiteralElement()
-        {
-        }
+        private DoubleLiteralElement() { }
 
-        public DoubleLiteralElement(double value)
-        {
+        public DoubleLiteralElement(double value) {
             _myValue = value;
         }
 
-        public static DoubleLiteralElement Parse(string image, IServiceProvider services)
-        {
-            ExpressionParserOptions options = (ExpressionParserOptions)services.GetService(typeof(ExpressionParserOptions));
+        public static DoubleLiteralElement Parse(string image, IServiceProvider services) {
+            ExpressionParserOptions options = (ExpressionParserOptions) services.GetService(typeof(ExpressionParserOptions));
             DoubleLiteralElement element = new DoubleLiteralElement();
 
-            try
-            {
+            try {
                 double value = options.ParseDouble(image);
                 return new DoubleLiteralElement(value);
-            }
-            catch (OverflowException ex)
-            {
+            } catch (OverflowException ex) {
                 element.OnParseOverflow(image);
                 return null;
             }
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             ilg.Emit(OpCodes.Ldc_R8, _myValue);
         }
 

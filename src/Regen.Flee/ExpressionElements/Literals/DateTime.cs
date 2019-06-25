@@ -1,40 +1,32 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+using System.Globalization;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Globalization;
-using Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.InternalTypes;
+using Regen.Flee.PublicTypes;
+using Regen.Flee.Resources;
 
-using Flee.InternalTypes;
-using Flee.PublicTypes;
-using Flee.Resources;
-
-namespace Flee.ExpressionElements.Literals
-{
-    internal class DateTimeLiteralElement : LiteralElement
-    {
+namespace Regen.Flee.ExpressionElements.Literals {
+    internal class DateTimeLiteralElement : LiteralElement {
         private DateTime _myValue;
-        public DateTimeLiteralElement(string image, ExpressionContext context)
-        {
+
+        public DateTimeLiteralElement(string image, ExpressionContext context) {
             ExpressionParserOptions options = context.ParserOptions;
 
-            if (DateTime.TryParseExact(image, options.DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _myValue) == false)
-            {
+            if (DateTime.TryParseExact(image, options.DateTimeFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _myValue) == false) {
                 base.ThrowCompileException(CompileErrorResourceKeys.CannotParseType, CompileExceptionReason.InvalidFormat, typeof(DateTime).Name);
             }
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             int index = ilg.GetTempLocalIndex(typeof(DateTime));
 
             Utility.EmitLoadLocalAddress(ilg, index);
 
             LiteralElement.EmitLoad(_myValue.Ticks, ilg);
 
-            ConstructorInfo ci = typeof(DateTime).GetConstructor(new Type[] { typeof(long) });
+            ConstructorInfo ci = typeof(DateTime).GetConstructor(new Type[] {typeof(long)});
 
             ilg.Emit(OpCodes.Call, ci);
 

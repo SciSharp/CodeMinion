@@ -1,36 +1,23 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection.Emit;
-using Flee.ExpressionElements.Base;
-using Flee.InternalTypes;
+using Regen.Flee.ExpressionElements.Base;
+using Regen.Flee.InternalTypes;
 
-
-namespace Flee.ExpressionElements.LogicalBitwise
-{
-    internal class XorElement : BinaryExpressionElement
-    {
-        protected override System.Type GetResultType(System.Type leftType, System.Type rightType)
-        {
+namespace Regen.Flee.ExpressionElements.LogicalBitwise {
+    internal class XorElement : BinaryExpressionElement {
+        protected override System.Type GetResultType(System.Type leftType, System.Type rightType) {
             Type bitwiseType = Utility.GetBitwiseOpType(leftType, rightType);
 
-            if ((bitwiseType != null))
-            {
+            if ((bitwiseType != null)) {
                 return bitwiseType;
-            }
-            else if (this.AreBothChildrenOfType(typeof(bool)) == true)
-            {
+            } else if (this.AreBothChildrenOfType(typeof(bool)) == true) {
                 return typeof(bool);
-            }
-            else
-            {
+            } else {
                 return null;
             }
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             Type resultType = this.ResultType;
 
             MyLeftChild.Emit(ilg, services);
@@ -41,8 +28,6 @@ namespace Flee.ExpressionElements.LogicalBitwise
         }
 
 
-        protected override void GetOperation(object operation)
-        {
-        }
+        protected override void GetOperation(object operation) { }
     }
 }

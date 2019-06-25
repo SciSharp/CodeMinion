@@ -1,74 +1,50 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Emit;
-using Flee.InternalTypes;
-using Flee.PublicTypes;
-using Flee.Resources;
+using Regen.Flee.InternalTypes;
+using Regen.Flee.PublicTypes;
+using Regen.Flee.Resources;
 
-
-namespace Flee.ExpressionElements.Base.Literals
-{
-    internal abstract class LiteralElement : ExpressionElement
-    {
-        protected void OnParseOverflow(string image)
-        {
+namespace Regen.Flee.ExpressionElements.Base.Literals {
+    internal abstract class LiteralElement : ExpressionElement {
+        protected void OnParseOverflow(string image) {
             base.ThrowCompileException(CompileErrorResourceKeys.ValueNotRepresentableInType, CompileExceptionReason.ConstantOverflow, image, this.ResultType.Name);
         }
 
-        public static void EmitLoad(Int32 value, FleeILGenerator ilg)
-        {
-            if (value >= -1 & value <= 8)
-            {
+        public static void EmitLoad(Int32 value, FleeILGenerator ilg) {
+            if (value >= -1 & value <= 8) {
                 EmitSuperShort(value, ilg);
-            }
-            else if (value >= sbyte.MinValue & value <= sbyte.MaxValue)
-            {
+            } else if (value >= sbyte.MinValue & value <= sbyte.MaxValue) {
                 ilg.Emit(OpCodes.Ldc_I4_S, Convert.ToSByte(value));
-            }
-            else
-            {
+            } else {
                 ilg.Emit(OpCodes.Ldc_I4, value);
             }
         }
 
-        protected static void EmitLoad(Int64 value, FleeILGenerator ilg)
-        {
-            if (value >= Int32.MinValue & value <= Int32.MaxValue)
-            {
+        protected static void EmitLoad(Int64 value, FleeILGenerator ilg) {
+            if (value >= Int32.MinValue & value <= Int32.MaxValue) {
                 EmitLoad(Convert.ToInt32(value), ilg);
                 ilg.Emit(OpCodes.Conv_I8);
-            }
-            else if (value >= 0 & value <= UInt32.MaxValue)
-            {
+            } else if (value >= 0 & value <= UInt32.MaxValue) {
                 EmitLoad(Convert.ToInt32(value), ilg);
                 ilg.Emit(OpCodes.Conv_U8);
-            }
-            else
-            {
+            } else {
                 ilg.Emit(OpCodes.Ldc_I8, value);
             }
         }
 
-        protected static void EmitLoad(bool value, FleeILGenerator ilg)
-        {
-            if (value == true)
-            {
+        protected static void EmitLoad(bool value, FleeILGenerator ilg) {
+            if (value == true) {
                 ilg.Emit(OpCodes.Ldc_I4_1);
-            }
-            else
-            {
+            } else {
                 ilg.Emit(OpCodes.Ldc_I4_0);
             }
         }
 
-        private static void EmitSuperShort(Int32 value, FleeILGenerator ilg)
-        {
+        private static void EmitSuperShort(Int32 value, FleeILGenerator ilg) {
             OpCode ldcOpcode = default(OpCode);
 
-            switch (value)
-            {
+            switch (value) {
                 case 0:
                     ldcOpcode = OpCodes.Ldc_I4_0;
                     break;

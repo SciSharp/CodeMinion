@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
 
-
-namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
-{
+namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime.RE {
     /**
      * A regular expression. This class creates and holds an internal
      * data structure representing a regular expression. It also
@@ -16,26 +12,21 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
      * matchers may operate simultanously on the same regular
      * expression.
      */
-    internal class RegExp
-    {
+    internal class RegExp {
         private readonly Element _element;
         private readonly string _pattern;
         private readonly bool _ignoreCase;
         private int _pos;
 
         public RegExp(string pattern)
-            : this(pattern, false)
-        {
-        }
+            : this(pattern, false) { }
 
-        public RegExp(string pattern, bool ignoreCase)
-        {
+        public RegExp(string pattern, bool ignoreCase) {
             this._pattern = pattern;
             this._ignoreCase = ignoreCase;
             this._pos = 0;
             this._element = ParseExpr();
-            if (_pos < pattern.Length)
-            {
+            if (_pos < pattern.Length) {
                 throw new RegExpException(
                     RegExpException.ErrorType.UNEXPECTED_CHARACTER,
                     _pos,
@@ -43,56 +34,46 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             }
         }
 
-        public Matcher Matcher(string str)
-        {
+        public Matcher Matcher(string str) {
             return Matcher(new ReaderBuffer(new StringReader(str)));
         }
 
-        public Matcher Matcher(ReaderBuffer buffer)
-        {
-            return new Matcher((Element)_element.Clone(), buffer, _ignoreCase);
+        public Matcher Matcher(ReaderBuffer buffer) {
+            return new Matcher((Element) _element.Clone(), buffer, _ignoreCase);
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             var str = new StringWriter();
             str.WriteLine("Regular Expression");
             str.WriteLine("  Pattern: " + _pattern);
             str.Write("  Flags:");
-            if (_ignoreCase)
-            {
+            if (_ignoreCase) {
                 str.Write(" caseignore");
             }
+
             str.WriteLine();
             str.WriteLine("  Compiled:");
             _element.PrintTo(str, "    ");
             return str.ToString();
         }
 
-        private Element ParseExpr()
-        {
+        private Element ParseExpr() {
             var first = ParseTerm();
-            if (PeekChar(0) != '|')
-            {
+            if (PeekChar(0) != '|') {
                 return first;
-            }
-            else
-            {
+            } else {
                 ReadChar('|');
                 var second = ParseExpr();
                 return new AlternativeElement(first, second);
             }
         }
 
-        private Element ParseTerm()
-        {
+        private Element ParseTerm() {
             ArrayList list = new ArrayList();
 
             list.Add(ParseFact());
-            while (true)
-            {
-                switch (PeekChar(0))
-                {
+            while (true) {
+                switch (PeekChar(0)) {
                     case -1:
                     case ')':
                     case ']':
@@ -109,11 +90,9 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             }
         }
 
-        private Element ParseFact()
-        {
+        private Element ParseFact() {
             var elem = ParseAtom();
-            switch (PeekChar(0))
-            {
+            switch (PeekChar(0)) {
                 case '?':
                 case '*':
                 case '+':
@@ -124,12 +103,10 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             }
         }
 
-        private Element ParseAtom()
-        {
+        private Element ParseAtom() {
             Element elem;
 
-            switch (PeekChar(0))
-            {
+            switch (PeekChar(0)) {
                 case '.':
                     ReadChar('.');
                     return CharacterSetElement.Dot;
@@ -161,8 +138,7 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             }
         }
 
-        private Element ParseAtomModifier(Element elem)
-        {
+        private Element ParseAtomModifier(Element elem) {
             int min = 0;
             int max = -1;
             RepeatElement.RepeatType type;
@@ -170,8 +146,7 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
 
             // Read min and max
             type = RepeatElement.RepeatType.GREEDY;
-            switch (ReadChar())
-            {
+            switch (ReadChar()) {
                 case '?':
                     min = 0;
                     max = 1;
@@ -188,23 +163,22 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
                     firstPos = _pos - 1;
                     min = ReadNumber();
                     max = min;
-                    if (PeekChar(0) == ',')
-                    {
+                    if (PeekChar(0) == ',') {
                         ReadChar(',');
                         max = -1;
-                        if (PeekChar(0) != '}')
-                        {
+                        if (PeekChar(0) != '}') {
                             max = ReadNumber();
                         }
                     }
+
                     ReadChar('}');
-                    if (max == 0 || (max > 0 && min > max))
-                    {
+                    if (max == 0 || (max > 0 && min > max)) {
                         throw new RegExpException(
                             RegExpException.ErrorType.INVALID_REPEAT_COUNT,
                             firstPos,
                             _pattern);
                     }
+
                     break;
                 default:
                     throw new RegExpException(
@@ -214,13 +188,10 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             }
 
             // Read operator mode
-            if (PeekChar(0) == '?')
-            {
+            if (PeekChar(0) == '?') {
                 ReadChar('?');
                 type = RepeatElement.RepeatType.RELUCTANT;
-            }
-            else if (PeekChar(0) == '+')
-            {
+            } else if (PeekChar(0) == '+') {
                 ReadChar('+');
                 type = RepeatElement.RepeatType.POSSESSIVE;
             }
@@ -228,55 +199,44 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             return new RepeatElement(elem, min, max, type);
         }
 
-        private Element ParseCharSet()
-        {
+        private Element ParseCharSet() {
             CharacterSetElement charset;
             bool repeat = true;
 
-            if (PeekChar(0) == '^')
-            {
+            if (PeekChar(0) == '^') {
                 ReadChar('^');
                 charset = new CharacterSetElement(true);
-            }
-            else
-            {
+            } else {
                 charset = new CharacterSetElement(false);
             }
 
-            while (PeekChar(0) > 0 && repeat)
-            {
-                var start = (char)PeekChar(0);
-                switch (start)
-                {
+            while (PeekChar(0) > 0 && repeat) {
+                var start = (char) PeekChar(0);
+                switch (start) {
                     case ']':
                         repeat = false;
                         break;
                     case '\\':
                         var elem = ParseEscapeChar();
-                        if (elem is StringElement)
-                        {
-                            charset.AddCharacters((StringElement)elem);
+                        if (elem is StringElement) {
+                            charset.AddCharacters((StringElement) elem);
+                        } else {
+                            charset.AddCharacterSet((CharacterSetElement) elem);
                         }
-                        else
-                        {
-                            charset.AddCharacterSet((CharacterSetElement)elem);
-                        }
+
                         break;
                     default:
                         ReadChar(start);
                         if (PeekChar(0) == '-'
                             && PeekChar(1) > 0
-                            && PeekChar(1) != ']')
-                        {
-
+                            && PeekChar(1) != ']') {
                             ReadChar('-');
                             var end = ReadChar();
                             charset.AddRange(FixChar(start), FixChar(end));
-                        }
-                        else
-                        {
+                        } else {
                             charset.AddCharacter(FixChar(start));
                         }
+
                         break;
                 }
             }
@@ -284,10 +244,8 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             return charset;
         }
 
-        private Element ParseChar()
-        {
-            switch (PeekChar(0))
-            {
+        private Element ParseChar() {
+            switch (PeekChar(0)) {
                 case '\\':
                     return ParseEscapeChar();
                 case '^':
@@ -301,73 +259,66 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
             }
         }
 
-        private Element ParseEscapeChar()
-        {
+        private Element ParseEscapeChar() {
             char c;
             string str;
             int value;
 
             ReadChar('\\');
             c = ReadChar();
-            switch (c)
-            {
+            switch (c) {
                 case '0':
                     c = ReadChar();
-                    if (c < '0' || c > '3')
-                    {
+                    if (c < '0' || c > '3') {
                         throw new RegExpException(
                             RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
                             _pos - 3,
                             _pattern);
                     }
+
                     value = c - '0';
-                    c = (char)PeekChar(0);
-                    if ('0' <= c && c <= '7')
-                    {
+                    c = (char) PeekChar(0);
+                    if ('0' <= c && c <= '7') {
                         value *= 8;
                         value += ReadChar() - '0';
-                        c = (char)PeekChar(0);
-                        if ('0' <= c && c <= '7')
-                        {
+                        c = (char) PeekChar(0);
+                        if ('0' <= c && c <= '7') {
                             value *= 8;
                             value += ReadChar() - '0';
                         }
                     }
-                    return new StringElement(FixChar((char)value));
+
+                    return new StringElement(FixChar((char) value));
                 case 'x':
                     str = ReadChar().ToString() +
                           ReadChar().ToString();
-                    try
-                    {
+                    try {
                         value = Int32.Parse(str,
-                                            NumberStyles.AllowHexSpecifier);
-                        return new StringElement(FixChar((char)value));
-                    }
-                    catch (FormatException)
-                    {
+                            NumberStyles.AllowHexSpecifier);
+                        return new StringElement(FixChar((char) value));
+                    } catch (FormatException) {
                         throw new RegExpException(
                             RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
                             _pos - str.Length - 2,
                             _pattern);
                     }
+
                 case 'u':
                     str = ReadChar().ToString() +
                           ReadChar().ToString() +
                           ReadChar().ToString() +
                           ReadChar().ToString();
-                    try
-                    {
+                    try {
                         value = Int32.Parse(str,
-                                            NumberStyles.AllowHexSpecifier);
-                        return new StringElement(FixChar((char)value));
-                    }
-                    catch (FormatException)
-                    {
+                            NumberStyles.AllowHexSpecifier);
+                        return new StringElement(FixChar((char) value));
+                    } catch (FormatException) {
                         throw new RegExpException(
                             RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
                             _pos - str.Length - 2,
                             _pattern);
                     }
+
                 case 't':
                     return new StringElement('\t');
                 case 'n':
@@ -393,113 +344,98 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
                 case 'W':
                     return CharacterSetElement.NonWord;
                 default:
-                    if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z'))
-                    {
+                    if (('A' <= c && c <= 'Z') || ('a' <= c && c <= 'z')) {
                         throw new RegExpException(
                             RegExpException.ErrorType.UNSUPPORTED_ESCAPE_CHARACTER,
                             _pos - 2,
                             _pattern);
                     }
+
                     return new StringElement(FixChar(c));
             }
         }
 
-        private char FixChar(char c)
-        {
+        private char FixChar(char c) {
             return _ignoreCase ? Char.ToLower(c) : c;
         }
 
-        private int ReadNumber()
-        {
+        private int ReadNumber() {
             StringBuilder buf = new StringBuilder();
             int c;
 
             c = PeekChar(0);
-            while ('0' <= c && c <= '9')
-            {
+            while ('0' <= c && c <= '9') {
                 buf.Append(ReadChar());
                 c = PeekChar(0);
             }
-            if (buf.Length <= 0)
-            {
+
+            if (buf.Length <= 0) {
                 throw new RegExpException(
                     RegExpException.ErrorType.UNEXPECTED_CHARACTER,
                     _pos,
                     _pattern);
             }
+
             return Int32.Parse(buf.ToString());
         }
 
-        private char ReadChar()
-        {
+        private char ReadChar() {
             int c = PeekChar(0);
 
-            if (c < 0)
-            {
+            if (c < 0) {
                 throw new RegExpException(
                     RegExpException.ErrorType.UNTERMINATED_PATTERN,
                     _pos,
                     _pattern);
-            }
-            else
-            {
+            } else {
                 _pos++;
-                return (char)c;
+                return (char) c;
             }
         }
 
-        private char ReadChar(char c)
-        {
-            if (c != ReadChar())
-            {
+        private char ReadChar(char c) {
+            if (c != ReadChar()) {
                 throw new RegExpException(
                     RegExpException.ErrorType.UNEXPECTED_CHARACTER,
                     _pos - 1,
                     _pattern);
             }
+
             return c;
         }
 
-        private int PeekChar(int count)
-        {
-            if (_pos + count < _pattern.Length)
-            {
+        private int PeekChar(int count) {
+            if (_pos + count < _pattern.Length) {
                 return _pattern[_pos + count];
-            }
-            else
-            {
+            } else {
                 return -1;
             }
         }
 
-        private Element CombineElements(ArrayList list)
-        {
+        private Element CombineElements(ArrayList list) {
             Element elem;
             int i;
             // Concatenate string elements
-            var prev = (Element)list[0];
-            for (i = 1; i < list.Count; i++)
-            {
-                elem = (Element)list[i];
+            var prev = (Element) list[0];
+            for (i = 1; i < list.Count; i++) {
+                elem = (Element) list[i];
                 if (prev is StringElement
-                 && elem is StringElement)
-                {
-
-                    var str = ((StringElement)prev).GetString() +
-                                 ((StringElement)elem).GetString();
+                    && elem is StringElement) {
+                    var str = ((StringElement) prev).GetString() +
+                              ((StringElement) elem).GetString();
                     elem = new StringElement(str);
                     list.RemoveAt(i);
                     list[i - 1] = elem;
                     i--;
                 }
+
                 prev = elem;
             }
 
             // Combine all remaining elements
-            elem = (Element)list[list.Count - 1];
-            for (i = list.Count - 2; i >= 0; i--)
-            {
-                prev = (Element)list[i];
+            elem = (Element) list[list.Count - 1];
+            for (i = list.Count - 2; i >= 0; i--) {
+                prev = (Element) list[i];
                 elem = new CombineElement(prev, elem);
             }
 

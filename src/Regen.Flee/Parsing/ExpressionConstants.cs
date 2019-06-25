@@ -1,10 +1,8 @@
-﻿namespace Flee.Parsing
-{
+﻿namespace Regen.Flee.Parsing {
     ///<remarks>
     /// An enumeration with token and production node
     ///constants.</remarks>
-    internal enum ExpressionConstants
-    {
+    internal enum ExpressionConstants {
         ADD = 1001,
         SUB = 1002,
         MUL = 1003,

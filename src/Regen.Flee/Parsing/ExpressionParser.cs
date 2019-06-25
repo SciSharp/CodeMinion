@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using Flee.Parsing;
-using Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime;
-using Flee.PublicTypes;
+using Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime;
+using Regen.Flee.PublicTypes;
 
-namespace Flee.Parsing
-{
+namespace Regen.Flee.Parsing {
     /// <summary>
     /// A token stream parser.
     /// </summary>
-    internal class ExpressionParser : RecursiveDescentParser
-    {
-        private enum SynteticPatterns
-        {
+    internal class ExpressionParser : RecursiveDescentParser {
+        private enum SynteticPatterns {
             SUBPRODUCTION_1 = 3001,
             SUBPRODUCTION_2 = 3002,
             SUBPRODUCTION_3 = 3003,
@@ -34,23 +27,19 @@ namespace Flee.Parsing
             SUBPRODUCTION_16 = 3016
         }
 
-        public ExpressionParser(TextReader input, Analyzer analyzer, ExpressionContext context) : base(new ExpressionTokenizer(input, context), analyzer)
-        {
+        public ExpressionParser(TextReader input, Analyzer analyzer, ExpressionContext context) : base(new ExpressionTokenizer(input, context), analyzer) {
             CreatePatterns();
         }
 
-        public ExpressionParser(TextReader input) : base(new ExpressionTokenizer(input))
-        {
+        public ExpressionParser(TextReader input) : base(new ExpressionTokenizer(input)) {
             CreatePatterns();
         }
 
-        public ExpressionParser(TextReader input, Analyzer analyzer) : base(new ExpressionTokenizer(input), analyzer)
-        {
+        public ExpressionParser(TextReader input, Analyzer analyzer) : base(new ExpressionTokenizer(input), analyzer) {
             CreatePatterns();
         }
 
-        private void CreatePatterns()
-        {
+        private void CreatePatterns() {
             ProductionPattern pattern = default(ProductionPattern);
             ProductionPatternAlternative alt = default(ProductionPatternAlternative);
 

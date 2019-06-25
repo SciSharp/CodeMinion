@@ -1,24 +1,16 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection.Emit;
-using Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.InternalTypes;
 
-using Flee.InternalTypes;
-
-namespace Flee.ExpressionElements.Literals
-{
-    internal class BooleanLiteralElement : LiteralElement
-    {
+namespace Regen.Flee.ExpressionElements.Literals {
+    internal class BooleanLiteralElement : LiteralElement {
         private readonly bool _myValue;
-        public BooleanLiteralElement(bool value)
-        {
+
+        public BooleanLiteralElement(bool value) {
             _myValue = value;
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             EmitLoad(_myValue, ilg);
         }
 

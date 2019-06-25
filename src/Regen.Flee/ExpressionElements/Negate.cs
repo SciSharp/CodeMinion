@@ -1,32 +1,22 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection.Emit;
 using System.Reflection;
-using Flee.ExpressionElements.Base;
-using Flee.InternalTypes;
+using System.Reflection.Emit;
+using Regen.Flee.ExpressionElements.Base;
+using Regen.Flee.InternalTypes;
 
-namespace Flee.ExpressionElements
-{
-    internal class NegateElement : UnaryElement
-    {
-        public NegateElement()
-        {
-        }
+namespace Regen.Flee.ExpressionElements {
+    internal class NegateElement : UnaryElement {
+        public NegateElement() { }
 
-        protected override System.Type GetResultType(System.Type childType)
-        {
+        protected override System.Type GetResultType(System.Type childType) {
             TypeCode tc = Type.GetTypeCode(childType);
 
             MethodInfo mi = Utility.GetSimpleOverloadedOperator("UnaryNegation", childType, childType);
-            if ((mi != null))
-            {
+            if ((mi != null)) {
                 return mi.ReturnType;
             }
 
-            switch (tc)
-            {
+            switch (tc) {
                 case TypeCode.Single:
                 case TypeCode.Double:
                 case TypeCode.Int32:
@@ -39,20 +29,16 @@ namespace Flee.ExpressionElements
             }
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             Type resultType = this.ResultType;
             MyChild.Emit(ilg, services);
             ImplicitConverter.EmitImplicitConvert(MyChild.ResultType, resultType, ilg);
 
             MethodInfo mi = Utility.GetSimpleOverloadedOperator("UnaryNegation", resultType, resultType);
 
-            if (mi == null)
-            {
+            if (mi == null) {
                 ilg.Emit(OpCodes.Neg);
-            }
-            else
-            {
+            } else {
                 ilg.Emit(OpCodes.Call, mi);
             }
         }

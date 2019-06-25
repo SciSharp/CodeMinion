@@ -1,81 +1,56 @@
 ﻿using System;
 using System.Globalization;
-using System.Reflection.Emit;
-using Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.ExpressionElements.Base.Literals;
+using Regen.Flee.InternalTypes;
 
-using Flee.InternalTypes;
-
-
-namespace Flee.ExpressionElements.Literals.Integral
-{
-    internal class Int32LiteralElement : IntegralLiteralElement
-    {
+namespace Regen.Flee.ExpressionElements.Literals.Integral {
+    internal class Int32LiteralElement : IntegralLiteralElement {
         private Int32 _myValue;
         private const string MinValue = "2147483648";
         private readonly bool _myIsMinValue;
-        public Int32LiteralElement(Int32 value)
-        {
+
+        public Int32LiteralElement(Int32 value) {
             _myValue = value;
         }
 
-        private Int32LiteralElement()
-        {
+        private Int32LiteralElement() {
             _myIsMinValue = true;
         }
 
-        public static Int32LiteralElement TryCreate(string image, bool isHex, bool negated)
-        {
-            if (negated == true & image == MinValue)
-            {
+        public static Int32LiteralElement TryCreate(string image, bool isHex, bool negated) {
+            if (negated == true & image == MinValue) {
                 return new Int32LiteralElement();
-            }
-            else if (isHex == true)
-            {
+            } else if (isHex == true) {
                 Int32 value = default(Int32);
 
                 // Since Int32.TryParse will succeed for a string like 0xFFFFFFFF we have to do some special handling
-                if (Int32.TryParse(image, NumberStyles.AllowHexSpecifier, null, out value) == false)
-                {
+                if (Int32.TryParse(image, NumberStyles.AllowHexSpecifier, null, out value) == false) {
                     return null;
-                }
-                else if (value >= 0 & value <= Int32.MaxValue)
-                {
+                } else if (value >= 0 & value <= Int32.MaxValue) {
                     return new Int32LiteralElement(value);
-                }
-                else
-                {
+                } else {
                     return null;
                 }
-            }
-            else
-            {
+            } else {
                 Int32 value = default(Int32);
 
-                if (Int32.TryParse(image,out value) == true)
-                {
+                if (Int32.TryParse(image, out value) == true) {
                     return new Int32LiteralElement(value);
-                }
-                else
-                {
+                } else {
                     return null;
                 }
             }
         }
 
-        public void Negate()
-        {
-            if (_myIsMinValue == true)
-            {
+        public void Negate() {
+            if (_myIsMinValue == true) {
                 _myValue = Int32.MinValue;
-            }
-            else
-            {
+            } else {
                 _myValue = -_myValue;
             }
         }
 
-        public override void Emit(FleeILGenerator ilg, IServiceProvider services)
-        {
+        public override void Emit(FleeILGenerator ilg, IServiceProvider services) {
             EmitLoad(_myValue, ilg);
         }
 

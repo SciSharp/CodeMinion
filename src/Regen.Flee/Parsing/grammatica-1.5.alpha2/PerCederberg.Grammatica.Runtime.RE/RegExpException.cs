@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
-
-namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
-{
+namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime.RE {
     /**
      * A regular expression exception. This exception is thrown if a
      * regular expression couldn't be processed (or "compiled")
      * properly.
      */
-    internal class RegExpException : Exception
-    {
-        public enum ErrorType
-        {
-
+    internal class RegExpException : Exception {
+        public enum ErrorType {
             /**
              * The unexpected character error constant. This error is
              * used when a character was read that didn't match the
@@ -58,8 +50,7 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
         private readonly int _position;
         private readonly string _pattern;
 
-        public RegExpException(ErrorType type, int pos, string pattern)
-        {
+        public RegExpException(ErrorType type, int pos, string pattern) {
             this._type = type;
             this._position = pos;
             this._pattern = pattern;
@@ -67,13 +58,11 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
 
         public override string Message => GetMessage();
 
-        public string GetMessage()
-        {
+        public string GetMessage() {
             StringBuilder buffer = new StringBuilder();
 
             // Append error type name
-            switch (_type)
-            {
+            switch (_type) {
                 case ErrorType.UNEXPECTED_CHARACTER:
                     buffer.Append("unexpected character");
                     break;
@@ -96,14 +85,11 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime.RE
 
             // Append erroneous character
             buffer.Append(": ");
-            if (_position < _pattern.Length)
-            {
+            if (_position < _pattern.Length) {
                 buffer.Append('\'');
                 buffer.Append(_pattern.Substring(_position));
                 buffer.Append('\'');
-            }
-            else
-            {
+            } else {
                 buffer.Append("<end of pattern>");
             }
 

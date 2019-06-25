@@ -1,41 +1,31 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Diagnostics;
-using Flee.PublicTypes;
+using Regen.Flee.PublicTypes;
 
-namespace Flee.InternalTypes
-{
-    internal interface IVariable
-    {
+namespace Regen.Flee.InternalTypes {
+    internal interface IVariable {
         IVariable Clone();
         Type VariableType { get; }
         object ValueAsObject { get; set; }
     }
 
-    internal interface IGenericVariable<T>
-    {
+    internal interface IGenericVariable<T> {
         object GetValue();
     }
 
-    internal class DynamicExpressionVariable<T> : IVariable, IGenericVariable<T>
-    {
+    internal class DynamicExpressionVariable<T> : IVariable, IGenericVariable<T> {
         private IDynamicExpression _myExpression;
-        public IVariable Clone()
-        {
+
+        public IVariable Clone() {
             DynamicExpressionVariable<T> copy = new DynamicExpressionVariable<T>();
             copy._myExpression = _myExpression;
             return copy;
         }
 
-        public object GetValue()
-        {
-            return (T)_myExpression.Evaluate();
+        public object GetValue() {
+            return (T) _myExpression.Evaluate();
         }
 
-        public object ValueAsObject
-        {
+        public object ValueAsObject {
             get { return _myExpression; }
             set { _myExpression = value as IDynamicExpression; }
         }
@@ -43,63 +33,50 @@ namespace Flee.InternalTypes
         public System.Type VariableType => _myExpression.Context.Options.ResultType;
     }
 
-    internal class GenericExpressionVariable<T> : IVariable, IGenericVariable<T>
-    {
+    internal class GenericExpressionVariable<T> : IVariable, IGenericVariable<T> {
         private IGenericExpression<T> _myExpression;
-        public IVariable Clone()
-        {
+
+        public IVariable Clone() {
             GenericExpressionVariable<T> copy = new GenericExpressionVariable<T>();
             copy._myExpression = _myExpression;
             return copy;
         }
 
-        public object GetValue()
-        {
+        public object GetValue() {
             return _myExpression.Evaluate();
         }
 
-        public object ValueAsObject
-        {
+        public object ValueAsObject {
             get { return _myExpression; }
-            set { _myExpression = (IGenericExpression<T>)value; }
+            set { _myExpression = (IGenericExpression<T>) value; }
         }
 
         public System.Type VariableType => _myExpression.Context.Options.ResultType;
     }
 
-    internal class GenericVariable<T> : IVariable, IGenericVariable<T>
-    {
-
-
+    internal class GenericVariable<T> : IVariable, IGenericVariable<T> {
         public object MyValue;
-        public IVariable Clone()
-        {
-            GenericVariable<T> copy = new GenericVariable<T> { MyValue = MyValue };
+
+        public IVariable Clone() {
+            GenericVariable<T> copy = new GenericVariable<T> {MyValue = MyValue};
             return copy;
         }
 
-        public object GetValue()
-        {
+        public object GetValue() {
             return MyValue;
         }
 
         public System.Type VariableType => typeof(T);
 
-        public object ValueAsObject
-        {
+        public object ValueAsObject {
             get { return MyValue; }
-            set
-            {
-                if (value == null)
-                {
+            set {
+                if (value == null) {
                     MyValue = default(T);
-                }
-                else
-                {
+                } else {
                     MyValue = value;
                 }
             }
         }
     }
-
 }

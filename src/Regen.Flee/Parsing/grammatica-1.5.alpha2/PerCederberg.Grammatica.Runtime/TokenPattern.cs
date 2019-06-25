@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
 
-namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
-{
+namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
     /**
      * A token pattern. This class contains the definition of a token
      * (i.e. it's pattern), and allows testing a string against this
@@ -14,11 +9,8 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
      *
     
      */
-    internal class TokenPattern
-    {
-        public enum PatternType
-        {
-
+    internal class TokenPattern {
+        public enum PatternType {
             /**
              * The string pattern type is used for tokens that only
              * match an exact string.
@@ -43,191 +35,129 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
         private string _debugInfo;
 
         public TokenPattern(int id,
-                            string name,
-                            PatternType type,
-                            string pattern)
-        {
-
+            string name,
+            PatternType type,
+            string pattern) {
             this._id = id;
             this._name = name;
             this._type = type;
             this._pattern = pattern;
         }
 
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
+        public int Id {
+            get { return _id; }
             set { _id = value; }
         }
 
-        public int GetId()
-        {
+        public int GetId() {
             return _id;
         }
 
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
+        public string Name {
+            get { return _name; }
             set { _name = value; }
         }
 
-        public string GetName()
-        {
+        public string GetName() {
             return _name;
         }
 
-        public PatternType Type
-        {
-            get
-            {
-                return _type;
-            }
+        public PatternType Type {
+            get { return _type; }
             set { _type = value; }
         }
 
-        public PatternType GetPatternType()
-        {
+        public PatternType GetPatternType() {
             return _type;
         }
 
-        public string Pattern
-        {
-            get
-            {
-                return _pattern;
-            }
+        public string Pattern {
+            get { return _pattern; }
             set { _pattern = value; }
         }
 
-        public string GetPattern()
-        {
+        public string GetPattern() {
             return _pattern;
         }
 
-        public bool Error
-        {
-            get
-            {
-                return _error;
-            }
-            set
-            {
+        public bool Error {
+            get { return _error; }
+            set {
                 _error = value;
-                if (_error && _errorMessage == null)
-                {
+                if (_error && _errorMessage == null) {
                     _errorMessage = "unrecognized token found";
                 }
             }
         }
 
-        public string ErrorMessage
-        {
-            get
-            {
-                return _errorMessage;
-            }
-            set
-            {
+        public string ErrorMessage {
+            get { return _errorMessage; }
+            set {
                 _error = true;
                 _errorMessage = value;
             }
         }
 
-        public bool IsError()
-        {
+        public bool IsError() {
             return Error;
         }
 
-        public string GetErrorMessage()
-        {
+        public string GetErrorMessage() {
             return ErrorMessage;
         }
 
-        public void SetError()
-        {
+        public void SetError() {
             Error = true;
         }
 
-        public void SetError(string message)
-        {
+        public void SetError(string message) {
             ErrorMessage = message;
         }
 
-        public bool Ignore
-        {
-            get
-            {
-                return _ignore;
-            }
-            set
-            {
-                _ignore = value;
-            }
+        public bool Ignore {
+            get { return _ignore; }
+            set { _ignore = value; }
         }
 
-        public string IgnoreMessage
-        {
-            get
-            {
-                return _ignoreMessage;
-            }
-            set
-            {
+        public string IgnoreMessage {
+            get { return _ignoreMessage; }
+            set {
                 _ignore = true;
                 _ignoreMessage = value;
             }
         }
 
-        public bool IsIgnore()
-        {
+        public bool IsIgnore() {
             return Ignore;
         }
 
-        public string GetIgnoreMessage()
-        {
+        public string GetIgnoreMessage() {
             return IgnoreMessage;
         }
 
-       
-        public void SetIgnore()
-        {
+
+        public void SetIgnore() {
             Ignore = true;
         }
 
-        
-        public void SetIgnore(string message)
-        {
+
+        public void SetIgnore(string message) {
             IgnoreMessage = message;
         }
 
-        public string DebugInfo
-        {
-            get
-            {
-                return _debugInfo;
-            }
-            set
-            {
-                _debugInfo = value;
-            }
+        public string DebugInfo {
+            get { return _debugInfo; }
+            set { _debugInfo = value; }
         }
 
-        public override string ToString()
-        {
+        public override string ToString() {
             StringBuilder buffer = new StringBuilder();
 
             buffer.Append(_name);
             buffer.Append(" (");
             buffer.Append(_id);
             buffer.Append("): ");
-            switch (_type)
-            {
+            switch (_type) {
                 case PatternType.STRING:
                     buffer.Append("\"");
                     buffer.Append(_pattern);
@@ -239,55 +169,49 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
                     buffer.Append(">>");
                     break;
             }
-            if (_error)
-            {
+
+            if (_error) {
                 buffer.Append(" ERROR: \"");
                 buffer.Append(_errorMessage);
                 buffer.Append("\"");
             }
-            if (_ignore)
-            {
+
+            if (_ignore) {
                 buffer.Append(" IGNORE");
-                if (_ignoreMessage != null)
-                {
+                if (_ignoreMessage != null) {
                     buffer.Append(": \"");
                     buffer.Append(_ignoreMessage);
                     buffer.Append("\"");
                 }
             }
-            if (_debugInfo != null)
-            {
+
+            if (_debugInfo != null) {
                 buffer.Append("\n  ");
                 buffer.Append(_debugInfo);
             }
+
             return buffer.ToString();
         }
 
-        public string ToShortString()
-        {
+        public string ToShortString() {
             StringBuilder buffer = new StringBuilder();
             int newline = _pattern.IndexOf('\n');
 
-            if (_type == PatternType.STRING)
-            {
+            if (_type == PatternType.STRING) {
                 buffer.Append("\"");
-                if (newline >= 0)
-                {
-                    if (newline > 0 && _pattern[newline - 1] == '\r')
-                    {
+                if (newline >= 0) {
+                    if (newline > 0 && _pattern[newline - 1] == '\r') {
                         newline--;
                     }
+
                     buffer.Append(_pattern.Substring(0, newline));
                     buffer.Append("(...)");
-                }
-                else
-                {
+                } else {
                     buffer.Append(_pattern);
                 }
+
                 buffer.Append("\"");
-            }
-            else
-            {
+            } else {
                 buffer.Append("<");
                 buffer.Append(_name);
                 buffer.Append(">");
@@ -296,8 +220,7 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
             return buffer.ToString();
         }
 
-        public void SetData(int id, string name, PatternType type, string pattern)
-        {
+        public void SetData(int id, string name, PatternType type, string pattern) {
             Id = id;
             Name = name;
             Type = type;

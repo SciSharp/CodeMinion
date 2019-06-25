@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Flee.PublicTypes;
 using Regen.Compiler.Helpers;
+using Regen.Flee.PublicTypes;
 
 namespace Regen.Compiler {
 

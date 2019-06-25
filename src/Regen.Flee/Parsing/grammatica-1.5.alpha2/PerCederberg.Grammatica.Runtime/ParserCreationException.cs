@@ -1,25 +1,18 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Text;
 
-namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
-{
+namespace Regen.Flee.Parsing._5.alpha2.PerCederberg.Grammatica.Runtime {
     /**
      * A parser creation exception. This exception is used for signalling
      * an error in the token or production patterns, making it impossible
      * to create a working parser or tokenizer.
      */
-    internal class ParserCreationException : Exception
-    {
-
+    internal class ParserCreationException : Exception {
         /**
          * The error type enumeration.
          */
-        public enum ErrorType
-        {
-
+        public enum ErrorType {
             /**
              * The internal error type is only used to signal an
              * error that is a result of a bug in the parser or
@@ -71,24 +64,18 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
         private readonly ArrayList _details;
 
         public ParserCreationException(ErrorType type,
-                                       String info)
-            : this(type, null, info)
-        {
-        }
+            String info)
+            : this(type, null, info) { }
 
         public ParserCreationException(ErrorType type,
-                                       String name,
-                                       String info)
-            : this(type, name, info, null)
-        {
-        }
+            String name,
+            String info)
+            : this(type, name, info, null) { }
 
         public ParserCreationException(ErrorType type,
-                                       String name,
-                                       String info,
-                                       ArrayList details)
-        {
-
+            String name,
+            String info,
+            ArrayList details) {
             this._type = type;
             this._name = name;
             this._info = info;
@@ -97,45 +84,38 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
 
         public ErrorType Type => _type;
 
-        public ErrorType GetErrorType()
-        {
+        public ErrorType GetErrorType() {
             return Type;
         }
 
         public string Name => _name;
 
-        public string GetName()
-        {
+        public string GetName() {
             return Name;
         }
 
         public string Info => _info;
 
-        public string GetInfo()
-        {
+        public string GetInfo() {
             return Info;
         }
 
-        public string Details
-        {
-            get
-            {
+        public string Details {
+            get {
                 StringBuilder buffer = new StringBuilder();
 
-                if (_details == null)
-                {
+                if (_details == null) {
                     return null;
                 }
-                for (int i = 0; i < _details.Count; i++)
-                {
-                    if (i > 0)
-                    {
+
+                for (int i = 0; i < _details.Count; i++) {
+                    if (i > 0) {
                         buffer.Append(", ");
-                        if (i + 1 == _details.Count)
-                        {
+                        if (i + 1 == _details.Count) {
                             buffer.Append("and ");
                         }
                     }
+
                     buffer.Append(_details[i]);
                 }
 
@@ -143,19 +123,15 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
             }
         }
 
-        public string GetDetails()
-        {
+        public string GetDetails() {
             return Details;
         }
 
-        public override string Message
-        {
-            get
-            {
+        public override string Message {
+            get {
                 StringBuilder buffer = new StringBuilder();
 
-                switch (_type)
-                {
+                switch (_type) {
                     case ErrorType.INVALID_PARSER:
                         buffer.Append("parser is invalid, as ");
                         buffer.Append(_info);
@@ -181,35 +157,33 @@ namespace Flee.Parsing.grammatica_1._5.alpha2.PerCederberg.Grammatica.Runtime
                         buffer.Append("inherent ambiguity in production '");
                         buffer.Append(_name);
                         buffer.Append("'");
-                        if (_info != null)
-                        {
+                        if (_info != null) {
                             buffer.Append(" ");
                             buffer.Append(_info);
                         }
-                        if (_details != null)
-                        {
+
+                        if (_details != null) {
                             buffer.Append(" starting with ");
-                            if (_details.Count > 1)
-                            {
+                            if (_details.Count > 1) {
                                 buffer.Append("tokens ");
-                            }
-                            else
-                            {
+                            } else {
                                 buffer.Append("token ");
                             }
+
                             buffer.Append(Details);
                         }
+
                         break;
                     default:
                         buffer.Append("internal error");
                         break;
                 }
+
                 return buffer.ToString();
             }
         }
 
-        public string GetMessage()
-        {
+        public string GetMessage() {
             return Message;
         }
     }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Flee.PublicTypes;
+using Regen.Flee.PublicTypes;
 using Regen.Helpers;
 
 namespace Regen.DataTypes {

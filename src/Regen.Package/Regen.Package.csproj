@@ -103,9 +103,6 @@
     <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Flee.Net45, Version=1.0.0.0, Culture=neutral, PublicKeyToken=951a102ce2413032, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Flee.1.2.2\lib\net45\Flee.Net45.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -196,6 +193,10 @@
     <ProjectReference Include="..\Regen.Core\Regen.Core.csproj">
       <Project>{9f431023-745f-4671-91e3-69fe7582f01f}</Project>
       <Name>Regen.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Regen.Flee\Regen.Flee.csproj">
+      <Project>{658c0ed4-404a-48ec-96ff-d22c3c12ac39}</Project>
+      <Name>Regen.Flee</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
