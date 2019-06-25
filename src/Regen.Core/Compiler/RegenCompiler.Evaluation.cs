@@ -141,9 +141,12 @@ namespace Regen.Compiler {
 
                         if (left is NetObject || left is Array || left is Dictionary) goto _storing;
                         //try regular parsing:
+
                         try {
                             var parsed = $"{left.Emit()}({args.Select(arg => arg.EmitExpressive()).StringJoin(", ")})";
                             return Data.Create(_evaluate(parsed));
+                        } catch (ExpressionCompileException e) when (e.InnerException?.Message.Contains("FunctionCallElement: Could find not function") ?? false) {
+                            throw;
                         } catch (ExpressionCompileException) { }
 
                         _storing: //try storing left as variable
