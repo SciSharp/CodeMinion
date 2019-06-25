@@ -227,7 +227,22 @@ namespace Regen.Core.Tests {
                     %e3 = a[len(a) - 2]+3
                 ";
 
-            Compile(@input);
+            new Action(()=>Compile(@input)).Should().NotThrow();
+        }
+        [TestMethod]
+        public void trailing_precentage() {
+            var @input = @"
+                 %a = [""NDArray"",""Double"",""Single"",""Decimal"",""Int32"",""Byte"",""Int16"",""UInt16"",""UInt32"",""Int64"",""UInt64"",""Char"",""Complex"",""String"",""Boolean"",""Object""]
+                %indexes = [""i"",""j"",""k"",""m"",""n"",""g"",""h"",""e"",""f""]
+                switch (DType.Name) 
+                {
+                %foreach a%
+                    case ""#1"": 123123
+                        return _array#1;
+                %
+                ";
+
+            Compile(@input).Output.Should().NotContain("%");
         }
     }
 }

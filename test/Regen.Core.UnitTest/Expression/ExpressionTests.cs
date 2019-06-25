@@ -181,14 +181,13 @@ namespace Regen.Core.Tests.Expression {
         [TestMethod]
         public void expression_two_same_row() {
             var @input = $@"
-                %a = ""hello""
                 %b = 1
-                %(a[0]+b) %(a[0]+b)
+                %(b)%(b)
                 ";
 
             var code = Compile(input).Output;
             code.Trim().Should()
-                .Contain(('h' + 1) + " " + ('h' + 1));
+                .Contain("11");
         }
 
         [TestMethod]
@@ -217,6 +216,5 @@ namespace Regen.Core.Tests.Expression {
                 .Contain("2");
         }
 
-        //todo add more tests of %() expression!
     }
 }

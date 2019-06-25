@@ -12,7 +12,7 @@ namespace Regen.Core.Tests.Expression {
     [TestClass]
     public class ParsingTests : ExpressionUnitTest {
         [TestMethod]
-        public void input_without_precentage() {
+        public void input_without_template() {
             var input = @"
                 
                 nothing 

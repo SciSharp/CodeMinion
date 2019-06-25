@@ -21,7 +21,8 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
-                .Contain("2");
+                .Contain("2").And
+                .NotContain("%");
         }
 
         [TestMethod]
@@ -34,7 +35,8 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
-                .Contain("2");
+                .Contain("2").And
+                .NotContain("%");
         }
 
         [TestMethod]
@@ -47,7 +49,8 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("0").And
                 .Contain("1").And
-                .Contain("2");
+                .Contain("2").And
+                .NotContain("%");
         }
 
         [TestMethod]

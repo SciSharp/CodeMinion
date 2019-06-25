@@ -96,7 +96,6 @@ namespace Regen.Parser {
                                 //      %foreach expr
                                 //          code #1
 
-
                                 ew.IsCurrentOrThrow(ExpressionToken.Foreach);
                                 ew.NextOrThrow();
                                 //parse the arguments for the foreach
@@ -109,15 +108,15 @@ namespace Regen.Parser {
                                 relatedLines.AddRange(output.GetLinesRelated(args.Matches()));
                                 if (ew.PeakBack.Token == ExpressionToken.Mod) {
                                     //the content is % to % block
-                                    var leftMod = ew.Current.Match;
-                                    var nextMod = code.IndexOf('%', leftMod.Index);
+                                    var leftBorder = ew.Current.Match;
+                                    var nextMod = code.IndexOf('%', leftBorder.Index);
                                     //handle implicit end block (when % is not existing)
                                     if (nextMod == -1) nextMod = code.Length - 1;
-                                    content = output_sb.Substring(leftMod.Index, nextMod == -1 ? code.Length - leftMod.Index : nextMod - leftMod.Index);
+                                    content = output_sb.Substring(leftBorder.Index, nextMod == -1 ? code.Length - leftBorder.Index : nextMod - leftBorder.Index);
                                     ew.SkipForwardWhile(token => token.Token != ExpressionToken.Mod);
                                     ew.Next(); //skip % itself
 
-                                    relatedLines.AddRange(new Range(output.GetLineAt(leftMod.Index).LineNumber, output.GetLineAt(nextMod).LineNumber)
+                                    relatedLines.AddRange(new Range(output.GetLineAt(leftBorder.Index).LineNumber, output.GetLineAt(nextMod).LineNumber)
                                         .EnumerateIndexes().Select(i => output.GetLineByLineNumber(i)));
                                 } else {
                                     //the content is only next line
@@ -128,6 +127,10 @@ namespace Regen.Parser {
                                 }
 
                                 relatedLines = relatedLines.Distinct().OrderBy(l=>l.StartIndex).ToList();
+                                
+                                //make sure to clean out % at the end
+                                if (relatedLines.Last().CleanContent() == "%")
+                                    relatedLines.RemoveAt(relatedLines.Count-1);
                                 //all lines of the foreach are destined to deletion
                                 foreach (var line in relatedLines) {
                                     line.MarkedForDeletion = true;
