@@ -356,7 +356,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (size!=null) kwargs["size"]=ToPython(size);
-            if (replace!=null) kwargs["replace"]=ToPython(replace);
+            if (replace!=true) kwargs["replace"]=ToPython(replace);
             if (p!=null) kwargs["p"]=ToPython(p);
             dynamic py = __self__.InvokeMethod("choice", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -396,7 +396,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (size!=null) kwargs["size"]=ToPython(size);
-            if (replace!=null) kwargs["replace"]=ToPython(replace);
+            if (replace!=true) kwargs["replace"]=ToPython(replace);
             if (p!=null) kwargs["p"]=ToPython(p);
             dynamic py = __self__.InvokeMethod("choice", pyargs, kwargs);
             return ToCsharp<NDarray>(py);

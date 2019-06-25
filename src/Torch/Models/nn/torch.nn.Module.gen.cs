@@ -222,7 +222,9 @@ namespace Torch
                     dynamic py = __self__.InvokeMethod("float");
                     return ToCsharp<Module>(py);
                 }
+#if false
                 
+
                 /// <summary>
                 /// Defines the computation performed at every call.
                 /// 
@@ -281,7 +283,7 @@ namespace Torch
                         state_dict,
                     });
                     var kwargs=new PyDict();
-                    if (strict!=null) kwargs["strict"]=ToPython(strict);
+                    if (strict!=true) kwargs["strict"]=ToPython(strict);
                     dynamic py = __self__.InvokeMethod("load_state_dict", pyargs, kwargs);
                     return ToCsharp<NamedTuple with missing_keys and unexpected_keys fields>(py);
                 }
@@ -625,7 +627,7 @@ namespace Torch
                     var __self__=self;
                     dynamic py = __self__.InvokeMethod("zero_grad");
                 }
-                
+#endif
             }
         }
     }

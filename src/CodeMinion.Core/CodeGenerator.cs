@@ -398,17 +398,18 @@ namespace CodeMinion.Core
                 foreach (var arg in func.Arguments.Where(a => a.IsNamedArg == true))
                 {
                     var name = EscapeName(arg.Name);
-                    if (string.IsNullOrWhiteSpace(arg.DefaultValue))
+                    if (!string.IsNullOrWhiteSpace(arg.DefaultValue))
+                        s.Out($"if ({name}!={arg.DefaultValue}) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                    else if (string.IsNullOrWhiteSpace(arg.DefaultValue))
                     {
                         if (string.IsNullOrWhiteSpace(arg.DefaultIfNull) || arg.DefaultValue == "null")
                             s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
                         else
                             s.Out($"kwargs[\"{arg.Name}\"]=ToPython({name} ?? {arg.DefaultIfNull});");
                     }
-                    else if (arg.IsNullable)
+                    else //if (arg.IsNullable)
                         s.Out($"if ({name}!=null) kwargs[\"{arg.Name}\"]=ToPython({name});");
-                    else
-                        s.Out($"if ({name}!={arg.DefaultValue}) kwargs[\"{arg.Name}\"]=ToPython({name});");
+                        
                 }
                 // then call the function
                 s.Out($"dynamic py = __self__.InvokeMethod(\"{func.Name}\", pyargs, kwargs);");

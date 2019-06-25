@@ -167,10 +167,10 @@ namespace Torch
             {
             });
             var kwargs=new PyDict();
-            if (precision!=null) kwargs["precision"]=ToPython(precision);
-            if (threshold!=null) kwargs["threshold"]=ToPython(threshold);
-            if (edgeitems!=null) kwargs["edgeitems"]=ToPython(edgeitems);
-            if (linewidth!=null) kwargs["linewidth"]=ToPython(linewidth);
+            if (precision!=4) kwargs["precision"]=ToPython(precision);
+            if (threshold!=1000) kwargs["threshold"]=ToPython(threshold);
+            if (edgeitems!=3) kwargs["edgeitems"]=ToPython(edgeitems);
+            if (linewidth!=80) kwargs["linewidth"]=ToPython(linewidth);
             if (profile!="default") kwargs["profile"]=ToPython(profile);
             if (sci_mode!=null) kwargs["sci_mode"]=ToPython(sci_mode);
             dynamic py = __self__.InvokeMethod("set_printoptions", pyargs, kwargs);
@@ -245,7 +245,7 @@ namespace Torch
             if (size!=null) kwargs["size"]=ToPython(size);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("sparse_coo_tensor", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -347,7 +347,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("zeros", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -393,7 +393,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("zeros_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -440,7 +440,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("ones", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -486,7 +486,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("ones_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -545,7 +545,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("arange", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -612,7 +612,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("arange", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -670,7 +670,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("range", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -736,7 +736,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("range", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -793,7 +793,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("linspace", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -855,7 +855,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("logspace", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -904,7 +904,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("eye", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -955,8 +955,8 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
-            if (pin_memory!=null) kwargs["pin_memory"]=ToPython(pin_memory);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (pin_memory!=false) kwargs["pin_memory"]=ToPython(pin_memory);
             dynamic py = __self__.InvokeMethod("empty", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -997,7 +997,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("empty_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -1047,7 +1047,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("full", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -1092,7 +1092,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("full_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -1128,7 +1128,7 @@ namespace Torch
                 tensors,
             });
             var kwargs=new PyDict();
-            if (dim!=null) kwargs["dim"]=ToPython(dim);
+            if (dim!=0) kwargs["dim"]=ToPython(dim);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("cat", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -1206,7 +1206,7 @@ namespace Torch
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (sparse_grad!=null) kwargs["sparse_grad"]=ToPython(sparse_grad);
+            if (sparse_grad!=false) kwargs["sparse_grad"]=ToPython(sparse_grad);
             dynamic py = __self__.InvokeMethod("gather", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -1809,7 +1809,7 @@ namespace Torch
                 num_samples,
             });
             var kwargs=new PyDict();
-            if (replacement!=null) kwargs["replacement"]=ToPython(replacement);
+            if (replacement!=false) kwargs["replacement"]=ToPython(replacement);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("multinomial", pyargs, kwargs);
             return ToCsharp<Tensor<long>>(py);
@@ -1859,7 +1859,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("rand", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -1901,7 +1901,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("rand_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -1953,7 +1953,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randint", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -2009,7 +2009,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randint", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -2054,7 +2054,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randint_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -2103,7 +2103,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randint_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -2157,7 +2157,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randn", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -2199,7 +2199,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randn_like", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -2244,7 +2244,7 @@ namespace Torch
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("randperm", pyargs, kwargs);
             return ToCsharp<Tensor<long>>(py);
         }
@@ -3888,7 +3888,7 @@ namespace Torch
                 other,
             });
             var kwargs=new PyDict();
-            if (p!=null) kwargs["p"]=ToPython(p);
+            if (p!=2f) kwargs["p"]=ToPython(p);
             dynamic py = __self__.InvokeMethod("dist", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -4117,7 +4117,7 @@ namespace Torch
             var kwargs=new PyDict();
             if (p!=null) kwargs["p"]=ToPython(p);
             if (dim!=null) kwargs["dim"]=ToPython(dim);
-            if (keepdim!=null) kwargs["keepdim"]=ToPython(keepdim);
+            if (keepdim!=false) kwargs["keepdim"]=ToPython(keepdim);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             dynamic py = __self__.InvokeMethod("norm", pyargs, kwargs);
@@ -4377,9 +4377,9 @@ namespace Torch
                 other,
             });
             var kwargs=new PyDict();
-            if (atol!=null) kwargs["atol"]=ToPython(atol);
-            if (rtol!=null) kwargs["rtol"]=ToPython(rtol);
-            if (equal_nan!=null) kwargs["equal_nan"]=ToPython(equal_nan);
+            if (atol!=1e-08f) kwargs["atol"]=ToPython(atol);
+            if (rtol!=1e-05f) kwargs["rtol"]=ToPython(rtol);
+            if (equal_nan!=false) kwargs["equal_nan"]=ToPython(equal_nan);
             dynamic py = __self__.InvokeMethod("allclose", pyargs, kwargs);
             return ToCsharp<bool>(py);
         }
@@ -4409,8 +4409,8 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (dim!=null) kwargs["dim"]=ToPython(dim);
-            if (@descending!=null) kwargs["descending"]=ToPython(@descending);
+            if (dim!=-1) kwargs["dim"]=ToPython(dim);
+            if (@descending!=false) kwargs["descending"]=ToPython(@descending);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("argsort", pyargs, kwargs);
             return ToCsharp<Tensor<long>>(py);
@@ -4833,8 +4833,8 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (dim!=null) kwargs["dim"]=ToPython(dim);
-            if (@descending!=null) kwargs["descending"]=ToPython(@descending);
+            if (dim!=-1) kwargs["dim"]=ToPython(dim);
+            if (@descending!=false) kwargs["descending"]=ToPython(@descending);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("sort", pyargs, kwargs);
             var t = py as PyTuple;
@@ -4887,8 +4887,8 @@ namespace Torch
             });
             var kwargs=new PyDict();
             if (dim!=null) kwargs["dim"]=ToPython(dim);
-            if (largest!=null) kwargs["largest"]=ToPython(largest);
-            if (sorted!=null) kwargs["sorted"]=ToPython(sorted);
+            if (largest!=true) kwargs["largest"]=ToPython(largest);
+            if (sorted!=true) kwargs["sorted"]=ToPython(sorted);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("topk", pyargs, kwargs);
             var t = py as PyTuple;
@@ -4955,7 +4955,7 @@ namespace Torch
                 signal_ndim,
             });
             var kwargs=new PyDict();
-            if (normalized!=null) kwargs["normalized"]=ToPython(normalized);
+            if (normalized!=false) kwargs["normalized"]=ToPython(normalized);
             dynamic py = __self__.InvokeMethod("fft", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5019,7 +5019,7 @@ namespace Torch
                 signal_ndim,
             });
             var kwargs=new PyDict();
-            if (normalized!=null) kwargs["normalized"]=ToPython(normalized);
+            if (normalized!=false) kwargs["normalized"]=ToPython(normalized);
             dynamic py = __self__.InvokeMethod("ifft", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5089,8 +5089,8 @@ namespace Torch
                 signal_ndim,
             });
             var kwargs=new PyDict();
-            if (normalized!=null) kwargs["normalized"]=ToPython(normalized);
-            if (onesided!=null) kwargs["onesided"]=ToPython(onesided);
+            if (normalized!=false) kwargs["normalized"]=ToPython(normalized);
+            if (onesided!=true) kwargs["onesided"]=ToPython(onesided);
             dynamic py = __self__.InvokeMethod("rfft", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5175,8 +5175,8 @@ namespace Torch
                 signal_ndim,
             });
             var kwargs=new PyDict();
-            if (normalized!=null) kwargs["normalized"]=ToPython(normalized);
-            if (onesided!=null) kwargs["onesided"]=ToPython(onesided);
+            if (normalized!=false) kwargs["normalized"]=ToPython(normalized);
+            if (onesided!=true) kwargs["onesided"]=ToPython(onesided);
             if (signal_sizes!=null) kwargs["signal_sizes"]=ToPython(signal_sizes);
             dynamic py = __self__.InvokeMethod("irfft", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -5282,10 +5282,10 @@ namespace Torch
             if (hop_length!=null) kwargs["hop_length"]=ToPython(hop_length);
             if (win_length!=null) kwargs["win_length"]=ToPython(win_length);
             if (window!=null) kwargs["window"]=ToPython(window);
-            if (center!=null) kwargs["center"]=ToPython(center);
-            if (pad_mode!=null) kwargs["pad_mode"]=ToPython(pad_mode);
-            if (normalized!=null) kwargs["normalized"]=ToPython(normalized);
-            if (onesided!=null) kwargs["onesided"]=ToPython(onesided);
+            if (center!=true) kwargs["center"]=ToPython(center);
+            if (pad_mode!="reflect") kwargs["pad_mode"]=ToPython(pad_mode);
+            if (normalized!=false) kwargs["normalized"]=ToPython(normalized);
+            if (onesided!=true) kwargs["onesided"]=ToPython(onesided);
             dynamic py = __self__.InvokeMethod("stft", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5348,11 +5348,11 @@ namespace Torch
                 window_length,
             });
             var kwargs=new PyDict();
-            if (periodic!=null) kwargs["periodic"]=ToPython(periodic);
+            if (periodic!=true) kwargs["periodic"]=ToPython(periodic);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("bartlett_window", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5412,11 +5412,11 @@ namespace Torch
                 window_length,
             });
             var kwargs=new PyDict();
-            if (periodic!=null) kwargs["periodic"]=ToPython(periodic);
+            if (periodic!=true) kwargs["periodic"]=ToPython(periodic);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("blackman_window", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5479,11 +5479,11 @@ namespace Torch
                 window_length,
             });
             var kwargs=new PyDict();
-            if (periodic!=null) kwargs["periodic"]=ToPython(periodic);
+            if (periodic!=true) kwargs["periodic"]=ToPython(periodic);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             if (alpha!=0.54) kwargs["alpha"]=ToPython(alpha);
             if (beta!=0.46) kwargs["beta"]=ToPython(beta);
             dynamic py = __self__.InvokeMethod("hamming_window", pyargs, kwargs);
@@ -5546,11 +5546,11 @@ namespace Torch
                 window_length,
             });
             var kwargs=new PyDict();
-            if (periodic!=null) kwargs["periodic"]=ToPython(periodic);
+            if (periodic!=true) kwargs["periodic"]=ToPython(periodic);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (layout!=null) kwargs["layout"]=ToPython(layout);
             if (device!=null) kwargs["device"]=ToPython(device);
-            if (requires_grad!=null) kwargs["requires_grad"]=ToPython(requires_grad);
+            if (requires_grad!=false) kwargs["requires_grad"]=ToPython(requires_grad);
             dynamic py = __self__.InvokeMethod("hann_window", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5591,7 +5591,7 @@ namespace Torch
             });
             var kwargs=new PyDict();
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (minlength!=null) kwargs["minlength"]=ToPython(minlength);
+            if (minlength!=0) kwargs["minlength"]=ToPython(minlength);
             dynamic py = __self__.InvokeMethod("bincount", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5652,8 +5652,8 @@ namespace Torch
                 tensor,
             });
             var kwargs=new PyDict();
-            if (r!=null) kwargs["r"]=ToPython(r);
-            if (with_replacement!=null) kwargs["with_replacement"]=ToPython(with_replacement);
+            if (r!=2) kwargs["r"]=ToPython(r);
+            if (with_replacement!=false) kwargs["with_replacement"]=ToPython(with_replacement);
             dynamic py = __self__.InvokeMethod("combinations", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5690,7 +5690,7 @@ namespace Torch
                 other,
             });
             var kwargs=new PyDict();
-            if (dim!=null) kwargs["dim"]=ToPython(dim);
+            if (dim!=-1) kwargs["dim"]=ToPython(dim);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("cross", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -5726,7 +5726,7 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (diagonal!=null) kwargs["diagonal"]=ToPython(diagonal);
+            if (diagonal!=0) kwargs["diagonal"]=ToPython(diagonal);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("diag", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -5779,9 +5779,9 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
-            if (dim1!=null) kwargs["dim1"]=ToPython(dim1);
-            if (dim2!=null) kwargs["dim2"]=ToPython(dim2);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
+            if (dim1!=-2) kwargs["dim1"]=ToPython(dim1);
+            if (dim2!=-1) kwargs["dim2"]=ToPython(dim2);
             dynamic py = __self__.InvokeMethod("diag_embed", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5814,7 +5814,7 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
             dynamic py = __self__.InvokeMethod("diagflat", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -5859,9 +5859,9 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
-            if (dim1!=null) kwargs["dim1"]=ToPython(dim1);
-            if (dim2!=null) kwargs["dim2"]=ToPython(dim2);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
+            if (dim1!=0) kwargs["dim1"]=ToPython(dim1);
+            if (dim2!=1) kwargs["dim2"]=ToPython(dim2);
             dynamic py = __self__.InvokeMethod("diagonal", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -6237,7 +6237,7 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (diagonal!=null) kwargs["diagonal"]=ToPython(diagonal);
+            if (diagonal!=0) kwargs["diagonal"]=ToPython(diagonal);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("tril", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -6337,7 +6337,7 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (diagonal!=null) kwargs["diagonal"]=ToPython(diagonal);
+            if (diagonal!=0) kwargs["diagonal"]=ToPython(diagonal);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("triu", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -7035,7 +7035,7 @@ namespace Torch
                 a,
             });
             var kwargs=new PyDict();
-            if (upper!=null) kwargs["upper"]=ToPython(upper);
+            if (upper!=false) kwargs["upper"]=ToPython(upper);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("cholesky", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -7079,7 +7079,7 @@ namespace Torch
                 u,
             });
             var kwargs=new PyDict();
-            if (upper!=null) kwargs["upper"]=ToPython(upper);
+            if (upper!=false) kwargs["upper"]=ToPython(upper);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("cholesky_inverse", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -7137,7 +7137,7 @@ namespace Torch
                 u,
             });
             var kwargs=new PyDict();
-            if (upper!=null) kwargs["upper"]=ToPython(upper);
+            if (upper!=false) kwargs["upper"]=ToPython(upper);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("cholesky_solve", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
@@ -7460,8 +7460,8 @@ namespace Torch
                 A,
             });
             var kwargs=new PyDict();
-            if (pivot!=null) kwargs["pivot"]=ToPython(pivot);
-            if (get_infos!=null) kwargs["get_infos"]=ToPython(get_infos);
+            if (pivot!=true) kwargs["pivot"]=ToPython(pivot);
+            if (get_infos!=false) kwargs["get_infos"]=ToPython(get_infos);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("lu", pyargs, kwargs);
             var t = py as PyTuple;
@@ -7644,7 +7644,7 @@ namespace Torch
             });
             var kwargs=new PyDict();
             if (tol!=null) kwargs["tol"]=ToPython(tol);
-            if (symmetric!=null) kwargs["symmetric"]=ToPython(symmetric);
+            if (symmetric!=false) kwargs["symmetric"]=ToPython(symmetric);
             dynamic py = __self__.InvokeMethod("matrix_rank", pyargs, kwargs);
             return ToCsharp<Tensor>(py);
         }
@@ -7959,7 +7959,7 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (some!=null) kwargs["some"]=ToPython(some);
+            if (some!=true) kwargs["some"]=ToPython(some);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             if (compute_uv!=true) kwargs["compute_uv"]=ToPython(compute_uv);
             dynamic py = __self__.InvokeMethod("svd", pyargs, kwargs);
@@ -8019,8 +8019,8 @@ namespace Torch
                 input,
             });
             var kwargs=new PyDict();
-            if (eigenvectors!=null) kwargs["eigenvectors"]=ToPython(eigenvectors);
-            if (upper!=null) kwargs["upper"]=ToPython(upper);
+            if (eigenvectors!=false) kwargs["eigenvectors"]=ToPython(eigenvectors);
+            if (upper!=true) kwargs["upper"]=ToPython(upper);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("symeig", pyargs, kwargs);
             var t = py as PyTuple;
@@ -8073,9 +8073,9 @@ namespace Torch
                 b,
             });
             var kwargs=new PyDict();
-            if (upper!=null) kwargs["upper"]=ToPython(upper);
-            if (transpose!=null) kwargs["transpose"]=ToPython(transpose);
-            if (unitriangular!=null) kwargs["unitriangular"]=ToPython(unitriangular);
+            if (upper!=true) kwargs["upper"]=ToPython(upper);
+            if (transpose!=false) kwargs["transpose"]=ToPython(transpose);
+            if (unitriangular!=false) kwargs["unitriangular"]=ToPython(unitriangular);
             dynamic py = __self__.InvokeMethod("triangular_solve", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<Tensor>(t[0]), ToCsharp<Tensor>(t[1]));

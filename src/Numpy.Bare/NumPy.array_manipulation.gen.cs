@@ -46,7 +46,7 @@ namespace Numpy
                 src,
             });
             var kwargs=new PyDict();
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
             if (@where!=null) kwargs["where"]=ToPython(@where);
             dynamic py = __self__.InvokeMethod("copyto", pyargs, kwargs);
         }
@@ -81,7 +81,7 @@ namespace Numpy
                 src,
             });
             var kwargs=new PyDict();
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
             if (@where!=null) kwargs["where"]=ToPython(@where);
             dynamic py = __self__.InvokeMethod("copyto", pyargs, kwargs);
         }
@@ -302,7 +302,7 @@ namespace Numpy
                 axis,
             });
             var kwargs=new PyDict();
-            if (start!=null) kwargs["start"]=ToPython(start);
+            if (start!=0) kwargs["start"]=ToPython(start);
             dynamic py = __self__.InvokeMethod("rollaxis", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -514,7 +514,7 @@ namespace Numpy
                 shape,
             });
             var kwargs=new PyDict();
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=false) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("broadcast_to", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -771,7 +771,7 @@ namespace Numpy
                 arys,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("concatenate", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -807,7 +807,7 @@ namespace Numpy
                 arrays,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("stack", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1034,7 +1034,7 @@ namespace Numpy
                 indices_or_sections,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("split", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
         }
@@ -1266,7 +1266,7 @@ namespace Numpy
                 filt,
             });
             var kwargs=new PyDict();
-            if (trim!=null) kwargs["trim"]=ToPython(trim);
+            if (trim!="fb") kwargs["trim"]=ToPython(trim);
             dynamic py = __self__.InvokeMethod("trim_zeros", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

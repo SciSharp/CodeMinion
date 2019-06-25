@@ -149,7 +149,7 @@ namespace Numpy
                 width,
             });
             var kwargs=new PyDict();
-            if (fillchar!=null) kwargs["fillchar"]=ToPython(fillchar);
+            if (fillchar!=" ") kwargs["fillchar"]=ToPython(fillchar);
             dynamic py = __self__.InvokeMethod("center", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -266,7 +266,7 @@ namespace Numpy
                 width,
             });
             var kwargs=new PyDict();
-            if (fillchar!=null) kwargs["fillchar"]=ToPython(fillchar);
+            if (fillchar!=" ") kwargs["fillchar"]=ToPython(fillchar);
             dynamic py = __self__.InvokeMethod("ljust", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -420,7 +420,7 @@ namespace Numpy
                 width,
             });
             var kwargs=new PyDict();
-            if (fillchar!=null) kwargs["fillchar"]=ToPython(fillchar);
+            if (fillchar!=" ") kwargs["fillchar"]=ToPython(fillchar);
             dynamic py = __self__.InvokeMethod("rjust", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

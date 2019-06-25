@@ -448,7 +448,7 @@ namespace Numpy
             if (@out!=null) kwargs["out"]=ToPython(@out);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="safe") kwargs["casting"]=ToPython(casting);
             if (optimize!=null) kwargs["optimize"]=ToPython(optimize);
             dynamic py = __self__.InvokeMethod("einsum", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -642,7 +642,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="reduced") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("qr", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<NDarray>(t[2]));
@@ -763,7 +763,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (tol!=null) kwargs["tol"]=ToPython(tol);
-            if (hermitian!=null) kwargs["hermitian"]=ToPython(hermitian);
+            if (hermitian!=false) kwargs["hermitian"]=ToPython(hermitian);
             dynamic py = __self__.InvokeMethod("matrix_rank", pyargs, kwargs);
             return ToCsharp<int>(py);
         }
@@ -863,7 +863,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
             if (axis2!=null) kwargs["axis2"]=ToPython(axis2);
             if (axis1!=null) kwargs["axis1"]=ToPython(axis1);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
@@ -938,7 +938,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (ind!=null) kwargs["ind"]=ToPython(ind);
+            if (ind!=2) kwargs["ind"]=ToPython(ind);
             dynamic py = __self__.InvokeMethod("tensorinv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

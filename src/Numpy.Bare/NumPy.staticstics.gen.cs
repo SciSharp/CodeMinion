@@ -386,9 +386,9 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
-            if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
+            if (keepdims!=false) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("percentile", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -452,7 +452,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("percentile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -536,7 +536,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanpercentile", pyargs, kwargs);
@@ -604,7 +604,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("nanpercentile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -679,9 +679,9 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
-            if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
+            if (keepdims!=false) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("quantile", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -744,7 +744,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("quantile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -817,7 +817,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanquantile", pyargs, kwargs);
@@ -874,7 +874,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("nanquantile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -937,8 +937,8 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
-            if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (keepdims!=false) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("median", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -989,7 +989,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             dynamic py = __self__.InvokeMethod("median", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1047,7 +1047,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (returned!=null) kwargs["returned"]=ToPython(returned);
+            if (returned!=false) kwargs["returned"]=ToPython(returned);
             dynamic py = __self__.InvokeMethod("average", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -1095,7 +1095,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (returned!=null) kwargs["returned"]=ToPython(returned);
+            if (returned!=false) kwargs["returned"]=ToPython(returned);
             dynamic py = __self__.InvokeMethod("average", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1313,7 +1313,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("std", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1383,7 +1383,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("std", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1469,7 +1469,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("var", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1537,7 +1537,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("var", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1605,7 +1605,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanmedian", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1657,7 +1657,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
             dynamic py = __self__.InvokeMethod("nanmedian", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1874,7 +1874,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanstd", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1951,7 +1951,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("nanstd", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -2036,7 +2036,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanvar", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -2112,7 +2112,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("nanvar", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -2167,7 +2167,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (y!=null) kwargs["y"]=ToPython(y);
-            if (rowvar!=null) kwargs["rowvar"]=ToPython(rowvar);
+            if (rowvar!=true) kwargs["rowvar"]=ToPython(rowvar);
             dynamic py = __self__.InvokeMethod("corrcoef", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -2211,7 +2211,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="valid") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("correlate", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -2288,8 +2288,8 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (y!=null) kwargs["y"]=ToPython(y);
-            if (rowvar!=null) kwargs["rowvar"]=ToPython(rowvar);
-            if (bias!=null) kwargs["bias"]=ToPython(bias);
+            if (rowvar!=true) kwargs["rowvar"]=ToPython(rowvar);
+            if (bias!=false) kwargs["bias"]=ToPython(bias);
             if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             if (fweights!=null) kwargs["fweights"]=ToPython(fweights);
             if (aweights!=null) kwargs["aweights"]=ToPython(aweights);
@@ -3004,7 +3004,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (minlength!=null) kwargs["minlength"]=ToPython(minlength);
+            if (minlength!=0) kwargs["minlength"]=ToPython(minlength);
             dynamic py = __self__.InvokeMethod("bincount", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3266,7 +3266,7 @@ namespace Numpy
                 bins,
             });
             var kwargs=new PyDict();
-            if (right!=null) kwargs["right"]=ToPython(right);
+            if (right!=false) kwargs["right"]=ToPython(right);
             dynamic py = __self__.InvokeMethod("digitize", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

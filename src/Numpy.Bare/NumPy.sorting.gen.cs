@@ -82,8 +82,8 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            if (kind!=null) kwargs["kind"]=ToPython(kind);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (kind!="quicksort") kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("sort", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -120,7 +120,7 @@ namespace Numpy
                 keys,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("lexsort", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -171,8 +171,8 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            if (kind!=null) kwargs["kind"]=ToPython(kind);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (kind!="quicksort") kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("argsort", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -207,7 +207,7 @@ namespace Numpy
             {
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             if (kind!=null) kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("sort", pyargs, kwargs);
@@ -327,8 +327,8 @@ namespace Numpy
                 kth,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            if (kind!=null) kwargs["kind"]=ToPython(kind);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (kind!="introselect") kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("partition", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -385,8 +385,8 @@ namespace Numpy
                 kth,
             });
             var kwargs=new PyDict();
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
-            if (kind!=null) kwargs["kind"]=ToPython(kind);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (kind!="introselect") kwargs["kind"]=ToPython(kind);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("argpartition", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -628,7 +628,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (side!=null) kwargs["side"]=ToPython(side);
+            if (side!="left") kwargs["side"]=ToPython(side);
             if (sorter!=null) kwargs["sorter"]=ToPython(sorter);
             dynamic py = __self__.InvokeMethod("searchsorted", pyargs, kwargs);
             return ToCsharp<NDarray<int>>(py);

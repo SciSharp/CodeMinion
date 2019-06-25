@@ -276,7 +276,7 @@ namespace Numpy
                 dims,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="raise") kwargs["mode"]=ToPython(mode);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("ravel_multi_index", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -345,7 +345,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (ndim!=null) kwargs["ndim"]=ToPython(ndim);
+            if (ndim!=2) kwargs["ndim"]=ToPython(ndim);
             dynamic py = __self__.InvokeMethod("diag_indices", pyargs, kwargs);
         }
         
@@ -441,7 +441,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             if (m!=null) kwargs["m"]=ToPython(m);
             dynamic py = __self__.InvokeMethod("tril_indices", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
@@ -470,7 +470,7 @@ namespace Numpy
                 arr,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("tril_indices_from", pyargs, kwargs);
         }
         
@@ -505,7 +505,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             if (m!=null) kwargs["m"]=ToPython(m);
             dynamic py = __self__.InvokeMethod("triu_indices", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
@@ -536,7 +536,7 @@ namespace Numpy
                 arr,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("triu_indices_from", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
         }
@@ -601,7 +601,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="raise") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("take", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -708,7 +708,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="raise") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("choose", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -823,9 +823,9 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
-            if (axis1!=null) kwargs["axis1"]=ToPython(axis1);
-            if (axis2!=null) kwargs["axis2"]=ToPython(axis2);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
+            if (axis1!=0) kwargs["axis1"]=ToPython(axis1);
+            if (axis2!=1) kwargs["axis2"]=ToPython(axis2);
             dynamic py = __self__.InvokeMethod("diagonal", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -918,8 +918,8 @@ namespace Numpy
             var kwargs=new PyDict();
             if (shape!=null) kwargs["shape"]=ToPython(shape);
             if (strides!=null) kwargs["strides"]=ToPython(strides);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
-            if (writeable!=null) kwargs["writeable"]=ToPython(writeable);
+            if (subok!=false) kwargs["subok"]=ToPython(subok);
+            if (writeable!=true) kwargs["writeable"]=ToPython(writeable);
             dynamic py = __self__.InvokeMethod("as_strided", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -994,7 +994,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="raise") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("put", pyargs, kwargs);
         }
         

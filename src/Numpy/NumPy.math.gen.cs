@@ -544,8 +544,8 @@ namespace Numpy
                 p,
             });
             var kwargs=new PyDict();
-            if (discont!=null) kwargs["discont"]=ToPython(discont);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (discont!=3.141592653589793f) kwargs["discont"]=ToPython(discont);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("unwrap", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -959,7 +959,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (decimals!=null) kwargs["decimals"]=ToPython(decimals);
+            if (decimals!=0) kwargs["decimals"]=ToPython(decimals);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("around", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1674,8 +1674,8 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (n!=1) kwargs["n"]=ToPython(n);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             if (append!=null) kwargs["append"]=ToPython(append);
             if (prepend!=null) kwargs["prepend"]=ToPython(prepend);
             dynamic py = __self__.InvokeMethod("diff", pyargs, kwargs);
@@ -1837,9 +1837,9 @@ namespace Numpy
                 b,
             });
             var kwargs=new PyDict();
-            if (axisa!=null) kwargs["axisa"]=ToPython(axisa);
-            if (axisb!=null) kwargs["axisb"]=ToPython(axisb);
-            if (axisc!=null) kwargs["axisc"]=ToPython(axisc);
+            if (axisa!=-1) kwargs["axisa"]=ToPython(axisa);
+            if (axisb!=-1) kwargs["axisb"]=ToPython(axisb);
+            if (axisc!=-1) kwargs["axisc"]=ToPython(axisc);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("cross", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1887,8 +1887,8 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (x!=null) kwargs["x"]=ToPython(x);
-            if (dx!=null) kwargs["dx"]=ToPython(dx);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (dx!=1.0f) kwargs["dx"]=ToPython(dx);
+            if (axis!=-1) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("trapz", pyargs, kwargs);
             return ToCsharp<float>(py);
         }
@@ -3436,7 +3436,7 @@ namespace Numpy
                 z,
             });
             var kwargs=new PyDict();
-            if (deg!=null) kwargs["deg"]=ToPython(deg);
+            if (deg!=false) kwargs["deg"]=ToPython(deg);
             dynamic py = __self__.InvokeMethod("angle", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3570,7 +3570,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (mode!=null) kwargs["mode"]=ToPython(mode);
+            if (mode!="full") kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("convolve", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -4170,7 +4170,7 @@ namespace Numpy
                 x,
             });
             var kwargs=new PyDict();
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
+            if (copy!=true) kwargs["copy"]=ToPython(copy);
             dynamic py = __self__.InvokeMethod("nan_to_num", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

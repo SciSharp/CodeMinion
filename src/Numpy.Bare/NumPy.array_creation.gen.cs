@@ -99,7 +99,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("empty_like", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -146,7 +146,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("empty_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -193,7 +193,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("empty_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -233,7 +233,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (M!=null) kwargs["M"]=ToPython(M);
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("eye", pyargs, kwargs);
@@ -338,7 +338,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("ones_like", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -378,7 +378,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("ones_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -418,7 +418,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("ones_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -491,7 +491,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("zeros_like", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -531,7 +531,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("zeros_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -571,7 +571,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("zeros_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -647,7 +647,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("full_like", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -691,7 +691,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("full_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -735,7 +735,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (order!=null) kwargs["order"]=ToPython(order);
-            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (subok!=true) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("full_like", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -1257,8 +1257,8 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (count!=null) kwargs["count"]=ToPython(count);
-            if (offset!=null) kwargs["offset"]=ToPython(offset);
+            if (count!=-1) kwargs["count"]=ToPython(count);
+            if (offset!=0) kwargs["offset"]=ToPython(offset);
             dynamic py = __self__.InvokeMethod("frombuffer", pyargs, kwargs);
         }
         */
@@ -1389,7 +1389,7 @@ namespace Numpy
                 dtype,
             });
             var kwargs=new PyDict();
-            if (count!=null) kwargs["count"]=ToPython(count);
+            if (count!=-1) kwargs["count"]=ToPython(count);
             dynamic py = __self__.InvokeMethod("fromiter", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -1426,8 +1426,8 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (count!=null) kwargs["count"]=ToPython(count);
-            if (sep!=null) kwargs["sep"]=ToPython(sep);
+            if (count!=-1) kwargs["count"]=ToPython(count);
+            if (sep!="") kwargs["sep"]=ToPython(sep);
             dynamic py = __self__.InvokeMethod("fromstring", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -1521,11 +1521,11 @@ namespace Numpy
             if (comments!=null) kwargs["comments"]=ToPython(comments);
             if (delimiter!=null) kwargs["delimiter"]=ToPython(delimiter);
             if (converters!=null) kwargs["converters"]=ToPython(converters);
-            if (skiprows!=null) kwargs["skiprows"]=ToPython(skiprows);
+            if (skiprows!=0) kwargs["skiprows"]=ToPython(skiprows);
             if (usecols!=null) kwargs["usecols"]=ToPython(usecols);
-            if (unpack!=null) kwargs["unpack"]=ToPython(unpack);
-            if (ndmin!=null) kwargs["ndmin"]=ToPython(ndmin);
-            if (encoding!=null) kwargs["encoding"]=ToPython(encoding);
+            if (unpack!=false) kwargs["unpack"]=ToPython(unpack);
+            if (ndmin!=0) kwargs["ndmin"]=ToPython(ndmin);
+            if (encoding!="bytes") kwargs["encoding"]=ToPython(encoding);
             if (max_rows!=null) kwargs["max_rows"]=ToPython(max_rows);
             dynamic py = __self__.InvokeMethod("loadtxt", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1578,7 +1578,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (itemsize!=null) kwargs["itemsize"]=ToPython(itemsize);
-            if (copy!=null) kwargs["copy"]=ToPython(copy);
+            if (copy!=true) kwargs["copy"]=ToPython(copy);
             if (unicode!=null) kwargs["unicode"]=ToPython(unicode);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("array", pyargs, kwargs);
@@ -2365,11 +2365,11 @@ namespace Numpy
                 stop,
             });
             var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (retstep!=null) kwargs["retstep"]=ToPython(retstep);
+            if (num!=50) kwargs["num"]=ToPython(num);
+            if (endpoint!=true) kwargs["endpoint"]=ToPython(endpoint);
+            if (retstep!=false) kwargs["retstep"]=ToPython(retstep);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("linspace", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<float>(t[1]));
@@ -2429,11 +2429,11 @@ namespace Numpy
                 stop,
             });
             var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
-            if (@base!=null) kwargs["base"]=ToPython(@base);
+            if (num!=50) kwargs["num"]=ToPython(num);
+            if (endpoint!=true) kwargs["endpoint"]=ToPython(endpoint);
+            if (@base!=10.0f) kwargs["base"]=ToPython(@base);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("logspace", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -2488,10 +2488,10 @@ namespace Numpy
                 stop,
             });
             var kwargs=new PyDict();
-            if (num!=null) kwargs["num"]=ToPython(num);
-            if (endpoint!=null) kwargs["endpoint"]=ToPython(endpoint);
+            if (num!=50) kwargs["num"]=ToPython(num);
+            if (endpoint!=true) kwargs["endpoint"]=ToPython(endpoint);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
-            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            if (axis!=0) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("geomspace", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3187,7 +3187,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("diag", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3222,7 +3222,7 @@ namespace Numpy
                 SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("diag", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3257,7 +3257,7 @@ namespace Numpy
                 SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("diag", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3286,7 +3286,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("diagflat", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3315,7 +3315,7 @@ namespace Numpy
                 SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("diagflat", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3344,7 +3344,7 @@ namespace Numpy
                 SharpToSharp<NDarray>(v),
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("diagflat", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3381,7 +3381,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (M!=null) kwargs["M"]=ToPython(M);
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             dynamic py = __self__.InvokeMethod("tri", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -3411,7 +3411,7 @@ namespace Numpy
                 m,
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("tril", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3440,7 +3440,7 @@ namespace Numpy
                 SharpToSharp<NDarray>(m),
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("tril", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3469,7 +3469,7 @@ namespace Numpy
                 SharpToSharp<NDarray>(m),
             });
             var kwargs=new PyDict();
-            if (k!=null) kwargs["k"]=ToPython(k);
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("tril", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3510,7 +3510,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (N!=null) kwargs["N"]=ToPython(N);
-            if (increasing!=null) kwargs["increasing"]=ToPython(increasing);
+            if (increasing!=false) kwargs["increasing"]=ToPython(increasing);
             dynamic py = __self__.InvokeMethod("vander", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3551,7 +3551,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (N!=null) kwargs["N"]=ToPython(N);
-            if (increasing!=null) kwargs["increasing"]=ToPython(increasing);
+            if (increasing!=false) kwargs["increasing"]=ToPython(increasing);
             dynamic py = __self__.InvokeMethod("vander", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }
@@ -3592,7 +3592,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (N!=null) kwargs["N"]=ToPython(N);
-            if (increasing!=null) kwargs["increasing"]=ToPython(increasing);
+            if (increasing!=false) kwargs["increasing"]=ToPython(increasing);
             dynamic py = __self__.InvokeMethod("vander", pyargs, kwargs);
             return ToCsharp<NDarray<T>>(py);
         }

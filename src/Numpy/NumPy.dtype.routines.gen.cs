@@ -53,7 +53,7 @@ namespace Numpy
                 to,
             });
             var kwargs=new PyDict();
-            if (casting!=null) kwargs["casting"]=ToPython(casting);
+            if (casting!="safe") kwargs["casting"]=ToPython(casting);
             dynamic py = __self__.InvokeMethod("can_cast", pyargs, kwargs);
             return ToCsharp<bool>(py);
         }
@@ -623,7 +623,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (typeset!=null) kwargs["typeset"]=ToPython(typeset);
-            if (@default!=null) kwargs["default"]=ToPython(@default);
+            if (@default!="d") kwargs["default"]=ToPython(@default);
             dynamic py = __self__.InvokeMethod("mintypecode", pyargs, kwargs);
             return ToCsharp<string>(py);
         }

@@ -61,7 +61,7 @@ namespace Numpy
                 pv,
             });
             var kwargs=new PyDict();
-            if (@when!=null) kwargs["when"]=ToPython(@when);
+            if (@when!="end") kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("fv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -109,7 +109,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fv!=null) kwargs["fv"]=ToPython(fv);
-            if (@when!=null) kwargs["when"]=ToPython(@when);
+            if (@when!="end") kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("pv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -298,7 +298,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fv!=null) kwargs["fv"]=ToPython(fv);
-            if (@when!=null) kwargs["when"]=ToPython(@when);
+            if (@when!="end") kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("ipmt", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -420,7 +420,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fv!=null) kwargs["fv"]=ToPython(fv);
-            if (@when!=null) kwargs["when"]=ToPython(@when);
+            if (@when!="end") kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("nper", pyargs, kwargs);
         }
         
@@ -480,10 +480,10 @@ namespace Numpy
                 fv,
             });
             var kwargs=new PyDict();
-            if (@when!=null) kwargs["when"]=ToPython(@when);
+            if (@when!="end") kwargs["when"]=ToPython(@when);
             if (guess!=null) kwargs["guess"]=ToPython(guess);
             if (tol!=null) kwargs["tol"]=ToPython(tol);
-            if (maxiter!=null) kwargs["maxiter"]=ToPython(maxiter);
+            if (maxiter!=100) kwargs["maxiter"]=ToPython(maxiter);
             dynamic py = __self__.InvokeMethod("rate", pyargs, kwargs);
         }
         

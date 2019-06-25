@@ -64,8 +64,8 @@ namespace Numpy
                 ar2,
             });
             var kwargs=new PyDict();
-            if (assume_unique!=null) kwargs["assume_unique"]=ToPython(assume_unique);
-            if (invert!=null) kwargs["invert"]=ToPython(invert);
+            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
+            if (invert!=false) kwargs["invert"]=ToPython(invert);
             dynamic py = __self__.InvokeMethod("in1d", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -168,8 +168,8 @@ namespace Numpy
                 test_elements,
             });
             var kwargs=new PyDict();
-            if (assume_unique!=null) kwargs["assume_unique"]=ToPython(assume_unique);
-            if (invert!=null) kwargs["invert"]=ToPython(invert);
+            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
+            if (invert!=false) kwargs["invert"]=ToPython(invert);
             dynamic py = __self__.InvokeMethod("isin", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
