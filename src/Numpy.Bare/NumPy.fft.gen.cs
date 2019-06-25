@@ -76,7 +76,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
             dynamic py = __self__.InvokeMethod("rfft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -143,7 +143,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
             dynamic py = __self__.InvokeMethod("irfft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -411,7 +411,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
             dynamic py = __self__.InvokeMethod("hfft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -460,7 +460,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
             dynamic py = __self__.InvokeMethod("ihfft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -494,7 +494,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (d!=1.0f) kwargs["d"]=ToPython(d);
+            if (d!=null) kwargs["d"]=ToPython(d);
             dynamic py = __self__.InvokeMethod("fftfreq", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -531,7 +531,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (d!=1.0f) kwargs["d"]=ToPython(d);
+            if (d!=null) kwargs["d"]=ToPython(d);
             dynamic py = __self__.InvokeMethod("rfftfreq", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

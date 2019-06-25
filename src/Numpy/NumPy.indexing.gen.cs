@@ -224,7 +224,7 @@ namespace Numpy
         /// N arrays with N dimensions each, with N the number of input
         /// sequences. Together these arrays form an open mesh.
         /// </returns>
-        public NDarray[] ix_(NDarray[] args)
+        public NDarray[] ix_(params NDarray[] args)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -276,7 +276,7 @@ namespace Numpy
                 dims,
             });
             var kwargs=new PyDict();
-            if (mode!="raise") kwargs["mode"]=ToPython(mode);
+            if (mode!=null) kwargs["mode"]=ToPython(mode);
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("ravel_multi_index", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -345,7 +345,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (ndim!=2) kwargs["ndim"]=ToPython(ndim);
+            if (ndim!=null) kwargs["ndim"]=ToPython(ndim);
             dynamic py = __self__.InvokeMethod("diag_indices", pyargs, kwargs);
         }
         
@@ -404,9 +404,9 @@ namespace Numpy
             {
                 n,
                 mask_func,
-                k,
             });
             var kwargs=new PyDict();
+            if (k!=0) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("mask_indices", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
         }
@@ -441,7 +441,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (k!=0) kwargs["k"]=ToPython(k);
+            if (k!=null) kwargs["k"]=ToPython(k);
             if (m!=null) kwargs["m"]=ToPython(m);
             dynamic py = __self__.InvokeMethod("tril_indices", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
@@ -470,7 +470,7 @@ namespace Numpy
                 arr,
             });
             var kwargs=new PyDict();
-            if (k!=0) kwargs["k"]=ToPython(k);
+            if (k!=null) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("tril_indices_from", pyargs, kwargs);
         }
         
@@ -505,7 +505,7 @@ namespace Numpy
                 n,
             });
             var kwargs=new PyDict();
-            if (k!=0) kwargs["k"]=ToPython(k);
+            if (k!=null) kwargs["k"]=ToPython(k);
             if (m!=null) kwargs["m"]=ToPython(m);
             dynamic py = __self__.InvokeMethod("triu_indices", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
@@ -536,7 +536,7 @@ namespace Numpy
                 arr,
             });
             var kwargs=new PyDict();
-            if (k!=0) kwargs["k"]=ToPython(k);
+            if (k!=null) kwargs["k"]=ToPython(k);
             dynamic py = __self__.InvokeMethod("triu_indices_from", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
         }
@@ -575,7 +575,7 @@ namespace Numpy
         /// The axis over which to select values. By default, the flattened
         /// input array is used.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, the result will be placed in this array. It should
         /// be of the appropriate shape and dtype.
         /// </param>
@@ -601,7 +601,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (mode!="raise") kwargs["mode"]=ToPython(mode);
+            if (mode!=null) kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("take", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -687,7 +687,7 @@ namespace Numpy
         /// its outermost dimension (i.e., the one corresponding to
         /// choices.shape[0]) is taken as defining the “sequence”.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, the result will be inserted into this array. It should
         /// be of the appropriate shape and dtype.
         /// </param>
@@ -708,7 +708,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (mode!="raise") kwargs["mode"]=ToPython(mode);
+            if (mode!=null) kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("choose", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -732,7 +732,7 @@ namespace Numpy
         /// Axis along which to take slices. If None (default), work on the
         /// flattened array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Output array.  Its type is preserved and it must be of the right
         /// shape to hold the output.
         /// </param>
@@ -823,9 +823,9 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (offset!=0) kwargs["offset"]=ToPython(offset);
-            if (axis1!=0) kwargs["axis1"]=ToPython(axis1);
-            if (axis2!=1) kwargs["axis2"]=ToPython(axis2);
+            if (offset!=null) kwargs["offset"]=ToPython(offset);
+            if (axis1!=null) kwargs["axis1"]=ToPython(axis1);
+            if (axis2!=null) kwargs["axis2"]=ToPython(axis2);
             dynamic py = __self__.InvokeMethod("diagonal", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -842,7 +842,7 @@ namespace Numpy
         /// The list of arrays from which the output elements are taken. It has
         /// to be of the same length as condlist.
         /// </param>
-        /// <param name="@default">
+        /// <param name="default">
         /// The element inserted in output when all conditions evaluate to False.
         /// </param>
         /// <returns>
@@ -910,9 +910,7 @@ namespace Numpy
         public NDarray lib_stride_tricks_as_strided(NDarray x, Shape shape = null, int[] strides = null, bool? subok = false, bool? writeable = true)
         {
             //auto-generated code, do not change
-            var lib = self.GetAttr("lib");
-            var stride_tricks = lib.GetAttr("stride_tricks");
-            var __self__=stride_tricks;
+            var __self__=self;
             var pyargs=ToTuple(new object[]
             {
                 x,
@@ -920,8 +918,8 @@ namespace Numpy
             var kwargs=new PyDict();
             if (shape!=null) kwargs["shape"]=ToPython(shape);
             if (strides!=null) kwargs["strides"]=ToPython(strides);
-            if (subok!=false) kwargs["subok"]=ToPython(subok);
-            if (writeable!=true) kwargs["writeable"]=ToPython(writeable);
+            if (subok!=null) kwargs["subok"]=ToPython(subok);
+            if (writeable!=null) kwargs["writeable"]=ToPython(writeable);
             dynamic py = __self__.InvokeMethod("as_strided", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -996,7 +994,7 @@ namespace Numpy
                 v,
             });
             var kwargs=new PyDict();
-            if (mode!="raise") kwargs["mode"]=ToPython(mode);
+            if (mode!=null) kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("put", pyargs, kwargs);
         }
         
@@ -1113,9 +1111,9 @@ namespace Numpy
             {
                 a,
                 val,
-                wrap,
             });
             var kwargs=new PyDict();
+            if (wrap!=false) kwargs["wrap"]=ToPython(wrap);
             dynamic py = __self__.InvokeMethod("fill_diagonal", pyargs, kwargs);
         }
         
@@ -1231,7 +1229,7 @@ namespace Numpy
         /// <param name="args">
         /// The size of each dimension of the array.
         /// </param>
-        public void ndindex(int[] args)
+        public void ndindex(params int[] args)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1268,9 +1266,9 @@ namespace Numpy
             var pyargs=ToTuple(new object[]
             {
                 op,
-                axes,
             });
             var kwargs=new PyDict();
+            if (axes!=null) kwargs["axes"]=ToPython(axes);
             dynamic py = __self__.InvokeMethod("nested_iters", pyargs, kwargs);
             return ToCsharp<tuple of nditer>(py);
         }
@@ -1322,7 +1320,7 @@ namespace Numpy
         /// returned the process continues from the next dimension, until all
         /// elements have been read.
         /// </summary>
-        /// <param name="@var">
+        /// <param name="var">
         /// The object to iterate over.
         /// </param>
         /// <param name="buf_size">

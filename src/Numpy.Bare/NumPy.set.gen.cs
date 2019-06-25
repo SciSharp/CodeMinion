@@ -63,8 +63,8 @@ namespace Numpy
                 ar2,
             });
             var kwargs=new PyDict();
-            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
-            if (invert!=false) kwargs["invert"]=ToPython(invert);
+            if (assume_unique!=null) kwargs["assume_unique"]=ToPython(assume_unique);
+            if (invert!=null) kwargs["invert"]=ToPython(invert);
             dynamic py = __self__.InvokeMethod("in1d", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -108,10 +108,10 @@ namespace Numpy
             {
                 ar2,
                 ar1,
-                assume_unique,
-                return_indices,
             });
             var kwargs=new PyDict();
+            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
+            if (return_indices!=false) kwargs["return_indices"]=ToPython(return_indices);
             dynamic py = __self__.InvokeMethod("intersect1d", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<NDarray>(t[2]));
@@ -167,8 +167,8 @@ namespace Numpy
                 test_elements,
             });
             var kwargs=new PyDict();
-            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
-            if (invert!=false) kwargs["invert"]=ToPython(invert);
+            if (assume_unique!=null) kwargs["assume_unique"]=ToPython(assume_unique);
+            if (invert!=null) kwargs["invert"]=ToPython(invert);
             dynamic py = __self__.InvokeMethod("isin", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -201,9 +201,9 @@ namespace Numpy
             {
                 ar1,
                 ar2,
-                assume_unique,
             });
             var kwargs=new PyDict();
+            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
             dynamic py = __self__.InvokeMethod("setdiff1d", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -236,9 +236,9 @@ namespace Numpy
             {
                 ar2,
                 ar1,
-                assume_unique,
             });
             var kwargs=new PyDict();
+            if (assume_unique!=false) kwargs["assume_unique"]=ToPython(assume_unique);
             dynamic py = __self__.InvokeMethod("setxor1d", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

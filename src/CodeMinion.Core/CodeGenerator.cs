@@ -43,6 +43,7 @@ namespace CodeMinion.Core
         };
         public string StaticApiFilesPath { get; set; }
         public string DynamicApiFilesPath { get; set; }
+        public string ModelsPath { get; set; }
         public string TestFilesPath { get; set; }
         public List<TestFile> TestFiles { get; set; } = new List<TestFile>();
         protected Dictionary<string, FunctionBodyTemplate> _templates;
@@ -450,8 +451,12 @@ namespace CodeMinion.Core
         private void GeneratePropertyGetter(Property prop, CodeWriter s)
         {
             s.Out($"dynamic py = self.GetAttr(\"{prop.Name}\");");
-            if (prop.Type!=null)
+            if (prop.Returns.Count==1 && prop.Type!=null)
                 s.Out($"return ToCsharp<{prop.Type}>(py);");
+            else
+            {
+                throw new NotImplementedException("TODO: Property returns a tuple");
+            }
         }
 
         private void GeneratePropertySetter(Property prop, CodeWriter s)
@@ -717,7 +722,7 @@ namespace CodeMinion.Core
                 WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
             // PythonObject functions:
-            var pyobj_file = Path.Combine(DynamicApiFilesPath, $"PythonObject.gen.cs");
+            var pyobj_file = Path.Combine(ModelsPath ?? DynamicApiFilesPath, $"PythonObject.gen.cs");
             WriteFile(pyobj_file, s => { GeneratePythonObjectConversions(s); });
             // Dynamic APIs
             foreach (var api in DynamicApis)
@@ -954,7 +959,14 @@ namespace CodeMinion.Core
                     {
                         s.Out(@case);
                     }
-                    s.Out("default: return (T)pyobj;");
+                    s.Out("default:");
+                    s.Out("try", () => s.Out("return pyobj.As<T>();"));
+                    s.Out("catch (Exception e)", () =>
+                    {
+                        s.Out(
+                            "throw new NotImplementedException($\"conversion from {typeof(T).Name} to {pyobj.__class__} not implemented\", e);");
+                        s.Out("return default(T);");
+                    });
                 });
             });
         }

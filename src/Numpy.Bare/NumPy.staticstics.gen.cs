@@ -39,7 +39,7 @@ namespace Numpy
         /// If this is a tuple of ints, the minimum is selected over multiple axes,
         /// instead of a single axis or all the axes as before.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result.  Must
         /// be of the same shape and buffer length as the expected output.
         /// See doc.ufuncs (Section “Output arguments”) for more details.
@@ -104,7 +104,7 @@ namespace Numpy
         /// If this is a tuple of ints, the maximum is selected over multiple axes,
         /// instead of a single axis or all the axes as before.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result.  Must
         /// be of the same shape and buffer length as the expected output.
         /// See doc.ufuncs (Section “Output arguments”) for more details.
@@ -168,7 +168,7 @@ namespace Numpy
         /// Axis or axes along which the minimum is computed. The default is to compute
         /// the minimum of the flattened array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  The default
         /// is None; if provided, it must have the same shape as the
         /// expected output, but the type will be cast if necessary.  See
@@ -227,7 +227,7 @@ namespace Numpy
         /// Axis or axes along which the maximum is computed. The default is to compute
         /// the maximum of the flattened array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  The default
         /// is None; if provided, it must have the same shape as the
         /// expected output, but the type will be cast if necessary.  See
@@ -280,7 +280,7 @@ namespace Numpy
         /// If this is a tuple of ints, a reduction is performed on multiple
         /// axes, instead of a single axis or all the axes as before.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type of the output values will be cast if necessary.
@@ -344,7 +344,7 @@ namespace Numpy
         /// default is to compute the percentile(s) along a flattened
         /// version of the array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -386,9 +386,9 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
-            if (keepdims!=false) kwargs["keepdims"]=ToPython(keepdims);
+            if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("percentile", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -416,7 +416,7 @@ namespace Numpy
         /// Percentile or sequence of percentiles to compute, which must be between
         /// 0 and 100 inclusive.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -452,7 +452,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("percentile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -488,7 +488,7 @@ namespace Numpy
         /// default is to compute the percentile(s) along a flattened
         /// version of the array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -536,7 +536,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanpercentile", pyargs, kwargs);
@@ -568,7 +568,7 @@ namespace Numpy
         /// Percentile or sequence of percentiles to compute, which must be between
         /// 0 and 100 inclusive.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -604,7 +604,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("nanpercentile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -637,7 +637,7 @@ namespace Numpy
         /// default is to compute the quantile(s) along a flattened
         /// version of the array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -679,9 +679,9 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
-            if (keepdims!=false) kwargs["keepdims"]=ToPython(keepdims);
+            if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("quantile", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -708,7 +708,7 @@ namespace Numpy
         /// Quantile or sequence of quantiles to compute, which must be between
         /// 0 and 1 inclusive.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -744,7 +744,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("quantile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -769,7 +769,7 @@ namespace Numpy
         /// default is to compute the quantile(s) along a flattened
         /// version of the array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -817,7 +817,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanquantile", pyargs, kwargs);
@@ -838,7 +838,7 @@ namespace Numpy
         /// Quantile or sequence of quantiles to compute, which must be between
         /// 0 and 1 inclusive.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -874,7 +874,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (interpolation!="linear") kwargs["interpolation"]=ToPython(interpolation);
             dynamic py = __self__.InvokeMethod("nanquantile", pyargs, kwargs);
             return ToCsharp<double>(py);
@@ -900,7 +900,7 @@ namespace Numpy
         /// is to compute the median along a flattened version of the array.
         /// A sequence of axes is supported since version 1.9.0.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -937,8 +937,8 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
-            if (keepdims!=false) kwargs["keepdims"]=ToPython(keepdims);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("median", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -958,7 +958,7 @@ namespace Numpy
         /// <param name="a">
         /// Input array or object that can be converted to an array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -989,7 +989,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             dynamic py = __self__.InvokeMethod("median", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1047,7 +1047,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (returned!=false) kwargs["returned"]=ToPython(returned);
+            if (returned!=null) kwargs["returned"]=ToPython(returned);
             dynamic py = __self__.InvokeMethod("average", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
         }
@@ -1095,7 +1095,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (returned!=false) kwargs["returned"]=ToPython(returned);
+            if (returned!=null) kwargs["returned"]=ToPython(returned);
             dynamic py = __self__.InvokeMethod("average", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1137,7 +1137,7 @@ namespace Numpy
         /// is float64; for floating point inputs, it is the same as the
         /// input dtype.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  The default
         /// is None; if provided, it must have the same shape as the
         /// expected output, but the type will be cast if necessary.
@@ -1205,7 +1205,7 @@ namespace Numpy
         /// is float64; for floating point inputs, it is the same as the
         /// input dtype.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  The default
         /// is None; if provided, it must have the same shape as the
         /// expected output, but the type will be cast if necessary.
@@ -1276,7 +1276,7 @@ namespace Numpy
         /// integer type the default is float64, for arrays of float types it is
         /// the same as the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must have
         /// the same shape as the expected output but the type (of the calculated
         /// values) will be cast if necessary.
@@ -1313,7 +1313,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("std", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1358,7 +1358,7 @@ namespace Numpy
         /// integer type the default is float64, for arrays of float types it is
         /// the same as the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must have
         /// the same shape as the expected output but the type (of the calculated
         /// values) will be cast if necessary.
@@ -1383,7 +1383,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("std", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1432,7 +1432,7 @@ namespace Numpy
         /// the default is float32; for arrays of float types it is the same as
         /// the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  It must have
         /// the same shape as the expected output, but the type is cast if
         /// necessary.
@@ -1469,7 +1469,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("var", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1512,7 +1512,7 @@ namespace Numpy
         /// the default is float32; for arrays of float types it is the same as
         /// the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  It must have
         /// the same shape as the expected output, but the type is cast if
         /// necessary.
@@ -1537,7 +1537,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("var", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1562,7 +1562,7 @@ namespace Numpy
         /// is to compute the median along a flattened version of the array.
         /// A sequence of axes is supported since version 1.9.0.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -1605,7 +1605,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanmedian", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1626,7 +1626,7 @@ namespace Numpy
         /// <param name="a">
         /// Input array or object that can be converted to an array.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must
         /// have the same shape and buffer length as the expected output,
         /// but the type (of the output) will be cast if necessary.
@@ -1657,7 +1657,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (overwrite_input!=false) kwargs["overwrite_input"]=ToPython(overwrite_input);
+            if (overwrite_input!=null) kwargs["overwrite_input"]=ToPython(overwrite_input);
             dynamic py = __self__.InvokeMethod("nanmedian", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -1695,7 +1695,7 @@ namespace Numpy
         /// is float64; for inexact inputs, it is the same as the input
         /// dtype.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  The default
         /// is None; if provided, it must have the same shape as the
         /// expected output, but the type will be cast if necessary.  See
@@ -1762,7 +1762,7 @@ namespace Numpy
         /// is float64; for inexact inputs, it is the same as the input
         /// dtype.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  The default
         /// is None; if provided, it must have the same shape as the
         /// expected output, but the type will be cast if necessary.  See
@@ -1836,7 +1836,7 @@ namespace Numpy
         /// integer type the default is float64, for arrays of float types it
         /// is the same as the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must have
         /// the same shape as the expected output but the type (of the
         /// calculated values) will be cast if necessary.
@@ -1874,7 +1874,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanstd", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -1924,7 +1924,7 @@ namespace Numpy
         /// integer type the default is float64, for arrays of float types it
         /// is the same as the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternative output array in which to place the result. It must have
         /// the same shape as the expected output but the type (of the
         /// calculated values) will be cast if necessary.
@@ -1951,7 +1951,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("nanstd", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -2003,7 +2003,7 @@ namespace Numpy
         /// the default is float32; for arrays of float types it is the same as
         /// the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  It must have
         /// the same shape as the expected output, but the type is cast if
         /// necessary.
@@ -2036,7 +2036,7 @@ namespace Numpy
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             if (keepdims!=null) kwargs["keepdims"]=ToPython(keepdims);
             dynamic py = __self__.InvokeMethod("nanvar", pyargs, kwargs);
             return ToCsharp<NDarray<double>>(py);
@@ -2085,7 +2085,7 @@ namespace Numpy
         /// the default is float32; for arrays of float types it is the same as
         /// the array type.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// Alternate output array in which to place the result.  It must have
         /// the same shape as the expected output, but the type is cast if
         /// necessary.
@@ -2112,7 +2112,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (dtype!=null) kwargs["dtype"]=ToPython(dtype);
             if (@out!=null) kwargs["out"]=ToPython(@out);
-            if (ddof!=0) kwargs["ddof"]=ToPython(ddof);
+            if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             dynamic py = __self__.InvokeMethod("nanvar", pyargs, kwargs);
             return ToCsharp<double>(py);
         }
@@ -2167,7 +2167,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (y!=null) kwargs["y"]=ToPython(y);
-            if (rowvar!=true) kwargs["rowvar"]=ToPython(rowvar);
+            if (rowvar!=null) kwargs["rowvar"]=ToPython(rowvar);
             dynamic py = __self__.InvokeMethod("corrcoef", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -2211,7 +2211,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (mode!="valid") kwargs["mode"]=ToPython(mode);
+            if (mode!=null) kwargs["mode"]=ToPython(mode);
             dynamic py = __self__.InvokeMethod("correlate", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -2288,8 +2288,8 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (y!=null) kwargs["y"]=ToPython(y);
-            if (rowvar!=true) kwargs["rowvar"]=ToPython(rowvar);
-            if (bias!=false) kwargs["bias"]=ToPython(bias);
+            if (rowvar!=null) kwargs["rowvar"]=ToPython(rowvar);
+            if (bias!=null) kwargs["bias"]=ToPython(bias);
             if (ddof!=null) kwargs["ddof"]=ToPython(ddof);
             if (fweights!=null) kwargs["fweights"]=ToPython(fweights);
             if (aweights!=null) kwargs["aweights"]=ToPython(aweights);
@@ -3004,7 +3004,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (weights!=null) kwargs["weights"]=ToPython(weights);
-            if (minlength!=0) kwargs["minlength"]=ToPython(minlength);
+            if (minlength!=null) kwargs["minlength"]=ToPython(minlength);
             dynamic py = __self__.InvokeMethod("bincount", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -3266,7 +3266,7 @@ namespace Numpy
                 bins,
             });
             var kwargs=new PyDict();
-            if (right!=false) kwargs["right"]=ToPython(right);
+            if (right!=null) kwargs["right"]=ToPython(right);
             dynamic py = __self__.InvokeMethod("digitize", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }

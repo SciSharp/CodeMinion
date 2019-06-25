@@ -69,9 +69,9 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (mmap_mode!=null) kwargs["mmap_mode"]=ToPython(mmap_mode);
-            if (allow_pickle!=true) kwargs["allow_pickle"]=ToPython(allow_pickle);
-            if (fix_imports!=true) kwargs["fix_imports"]=ToPython(fix_imports);
-            if (encoding!="ASCII") kwargs["encoding"]=ToPython(encoding);
+            if (allow_pickle!=null) kwargs["allow_pickle"]=ToPython(allow_pickle);
+            if (fix_imports!=null) kwargs["fix_imports"]=ToPython(fix_imports);
+            if (encoding!=null) kwargs["encoding"]=ToPython(encoding);
             dynamic py = __self__.InvokeMethod("load", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -117,8 +117,8 @@ namespace Numpy
                 arr,
             });
             var kwargs=new PyDict();
-            if (allow_pickle!=true) kwargs["allow_pickle"]=ToPython(allow_pickle);
-            if (fix_imports!=true) kwargs["fix_imports"]=ToPython(fix_imports);
+            if (allow_pickle!=null) kwargs["allow_pickle"]=ToPython(allow_pickle);
+            if (fix_imports!=null) kwargs["fix_imports"]=ToPython(fix_imports);
             dynamic py = __self__.InvokeMethod("save", pyargs, kwargs);
         }
         
@@ -283,10 +283,10 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fmt!=null) kwargs["fmt"]=ToPython(fmt);
-            if (delimiter!=" ") kwargs["delimiter"]=ToPython(delimiter);
-            if (newline!="\n") kwargs["newline"]=ToPython(newline);
-            if (header!="") kwargs["header"]=ToPython(header);
-            if (footer!="") kwargs["footer"]=ToPython(footer);
+            if (delimiter!=null) kwargs["delimiter"]=ToPython(delimiter);
+            if (newline!=null) kwargs["newline"]=ToPython(newline);
+            if (header!=null) kwargs["header"]=ToPython(header);
+            if (footer!=null) kwargs["footer"]=ToPython(footer);
             if (comments!=null) kwargs["comments"]=ToPython(comments);
             if (encoding!=null) kwargs["encoding"]=ToPython(encoding);
             dynamic py = __self__.InvokeMethod("savetxt", pyargs, kwargs);
@@ -429,8 +429,8 @@ namespace Numpy
             if (comments!=null) kwargs["comments"]=ToPython(comments);
             if (delimiter!=null) kwargs["delimiter"]=ToPython(delimiter);
             if (skiprows!=null) kwargs["skiprows"]=ToPython(skiprows);
-            if (skip_header!=0) kwargs["skip_header"]=ToPython(skip_header);
-            if (skip_footer!=0) kwargs["skip_footer"]=ToPython(skip_footer);
+            if (skip_header!=null) kwargs["skip_header"]=ToPython(skip_header);
+            if (skip_footer!=null) kwargs["skip_footer"]=ToPython(skip_footer);
             if (converters!=null) kwargs["converters"]=ToPython(converters);
             if (missing!=null) kwargs["missing"]=ToPython(missing);
             if (missing_values!=null) kwargs["missing_values"]=ToPython(missing_values);
@@ -439,16 +439,16 @@ namespace Numpy
             if (names!=null) kwargs["names"]=ToPython(names);
             if (excludelist!=null) kwargs["excludelist"]=ToPython(excludelist);
             if (deletechars!=null) kwargs["deletechars"]=ToPython(deletechars);
-            if (defaultfmt!="f%i") kwargs["defaultfmt"]=ToPython(defaultfmt);
-            if (autostrip!=false) kwargs["autostrip"]=ToPython(autostrip);
-            if (replace_space!="_") kwargs["replace_space"]=ToPython(replace_space);
-            if (case_sensitive!=true) kwargs["case_sensitive"]=ToPython(case_sensitive);
+            if (defaultfmt!=null) kwargs["defaultfmt"]=ToPython(defaultfmt);
+            if (autostrip!=null) kwargs["autostrip"]=ToPython(autostrip);
+            if (replace_space!=null) kwargs["replace_space"]=ToPython(replace_space);
+            if (case_sensitive!=null) kwargs["case_sensitive"]=ToPython(case_sensitive);
             if (unpack!=null) kwargs["unpack"]=ToPython(unpack);
-            if (usemask!=false) kwargs["usemask"]=ToPython(usemask);
-            if (loose!=true) kwargs["loose"]=ToPython(loose);
-            if (invalid_raise!=true) kwargs["invalid_raise"]=ToPython(invalid_raise);
+            if (usemask!=null) kwargs["usemask"]=ToPython(usemask);
+            if (loose!=null) kwargs["loose"]=ToPython(loose);
+            if (invalid_raise!=null) kwargs["invalid_raise"]=ToPython(invalid_raise);
             if (max_rows!=null) kwargs["max_rows"]=ToPython(max_rows);
-            if (encoding!="bytes") kwargs["encoding"]=ToPython(encoding);
+            if (encoding!=null) kwargs["encoding"]=ToPython(encoding);
             dynamic py = __self__.InvokeMethod("genfromtxt", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -660,9 +660,9 @@ namespace Numpy
             if (max_line_width!=null) kwargs["max_line_width"]=ToPython(max_line_width);
             if (precision!=null) kwargs["precision"]=ToPython(precision);
             if (suppress_small!=null) kwargs["suppress_small"]=ToPython(suppress_small);
-            if (separator!=" ") kwargs["separator"]=ToPython(separator);
-            if (prefix!="") kwargs["prefix"]=ToPython(prefix);
-            if (suffix!="") kwargs["suffix"]=ToPython(suffix);
+            if (separator!=null) kwargs["separator"]=ToPython(separator);
+            if (prefix!=null) kwargs["prefix"]=ToPython(prefix);
+            if (suffix!=null) kwargs["suffix"]=ToPython(suffix);
             if (formatter!=null) kwargs["formatter"]=ToPython(formatter);
             if (threshold!=null) kwargs["threshold"]=ToPython(threshold);
             if (edgeitems!=null) kwargs["edgeitems"]=ToPython(edgeitems);
@@ -808,10 +808,10 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (precision!=null) kwargs["precision"]=ToPython(precision);
-            if (unique!=true) kwargs["unique"]=ToPython(unique);
-            if (fractional!=true) kwargs["fractional"]=ToPython(fractional);
-            if (trim!="k") kwargs["trim"]=ToPython(trim);
-            if (sign!=false) kwargs["sign"]=ToPython(sign);
+            if (unique!=null) kwargs["unique"]=ToPython(unique);
+            if (fractional!=null) kwargs["fractional"]=ToPython(fractional);
+            if (trim!=null) kwargs["trim"]=ToPython(trim);
+            if (sign!=null) kwargs["sign"]=ToPython(sign);
             if (pad_left!=null) kwargs["pad_left"]=ToPython(pad_left);
             if (pad_right!=null) kwargs["pad_right"]=ToPython(pad_right);
             dynamic py = __self__.InvokeMethod("format_float_positional", pyargs, kwargs);
@@ -870,9 +870,9 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (precision!=null) kwargs["precision"]=ToPython(precision);
-            if (unique!=true) kwargs["unique"]=ToPython(unique);
-            if (trim!="k") kwargs["trim"]=ToPython(trim);
-            if (sign!=false) kwargs["sign"]=ToPython(sign);
+            if (unique!=null) kwargs["unique"]=ToPython(unique);
+            if (trim!=null) kwargs["trim"]=ToPython(trim);
+            if (sign!=null) kwargs["sign"]=ToPython(sign);
             if (pad_left!=null) kwargs["pad_left"]=ToPython(pad_left);
             if (exp_digits!=null) kwargs["exp_digits"]=ToPython(exp_digits);
             dynamic py = __self__.InvokeMethod("format_float_scientific", pyargs, kwargs);
@@ -1103,7 +1103,7 @@ namespace Numpy
                 f,
             });
             var kwargs=new PyDict();
-            if (repr!=true) kwargs["repr"]=ToPython(repr);
+            if (repr!=null) kwargs["repr"]=ToPython(repr);
             dynamic py = __self__.InvokeMethod("set_string_function", pyargs, kwargs);
         }
         */
@@ -1114,7 +1114,7 @@ namespace Numpy
         /// <param name="number">
         /// The value to convert. Positive and negative values are handled.
         /// </param>
-        /// <param name="@base">
+        /// <param name="base">
         /// Convert number to the base number system. The valid range is 2-36,
         /// the default value is 2.
         /// </param>
@@ -1133,8 +1133,8 @@ namespace Numpy
                 number,
             });
             var kwargs=new PyDict();
-            if (@base!=2) kwargs["base"]=ToPython(@base);
-            if (padding!=0) kwargs["padding"]=ToPython(padding);
+            if (@base!=null) kwargs["base"]=ToPython(@base);
+            if (padding!=null) kwargs["padding"]=ToPython(padding);
             dynamic py = __self__.InvokeMethod("base_repr", pyargs, kwargs);
             return ToCsharp<string>(py);
         }

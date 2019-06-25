@@ -45,10 +45,10 @@ namespace Numpy
             {
                 arr,
                 unit,
-                timezone,
-                casting,
             });
             var kwargs=new PyDict();
+            if (timezone!="naive") kwargs["timezone"]=ToPython(timezone);
+            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
             dynamic py = __self__.InvokeMethod("datetime_as_string", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -156,7 +156,7 @@ namespace Numpy
         /// parameter is provided, neither weekmask nor holidays may be
         /// provided.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, this array is filled with the result.
         /// </param>
         /// <returns>
@@ -172,7 +172,7 @@ namespace Numpy
                 dates,
             });
             var kwargs=new PyDict();
-            if (weekmask!="1111100") kwargs["weekmask"]=ToPython(weekmask);
+            if (weekmask!=null) kwargs["weekmask"]=ToPython(weekmask);
             if (holidays!=null) kwargs["holidays"]=ToPython(holidays);
             if (busdaycal!=null) kwargs["busdaycal"]=ToPython(busdaycal);
             if (@out!=null) kwargs["out"]=ToPython(@out);
@@ -216,7 +216,7 @@ namespace Numpy
         /// parameter is provided, neither weekmask nor holidays may be
         /// provided.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, this array is filled with the result.
         /// </param>
         /// <returns>
@@ -233,8 +233,8 @@ namespace Numpy
                 offsets,
             });
             var kwargs=new PyDict();
-            if (roll!="raise") kwargs["roll"]=ToPython(roll);
-            if (weekmask!="1111100") kwargs["weekmask"]=ToPython(weekmask);
+            if (roll!=null) kwargs["roll"]=ToPython(roll);
+            if (weekmask!=null) kwargs["weekmask"]=ToPython(weekmask);
             if (holidays!=null) kwargs["holidays"]=ToPython(holidays);
             if (busdaycal!=null) kwargs["busdaycal"]=ToPython(busdaycal);
             if (@out!=null) kwargs["out"]=ToPython(@out);
@@ -277,7 +277,7 @@ namespace Numpy
         /// parameter is provided, neither weekmask nor holidays may be
         /// provided.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, this array is filled with the result.
         /// </param>
         /// <returns>
@@ -295,8 +295,8 @@ namespace Numpy
                 enddates,
             });
             var kwargs=new PyDict();
-            if (weekmask!="1111100") kwargs["weekmask"]=ToPython(weekmask);
-            if (holidays!=[]) kwargs["holidays"]=ToPython(holidays);
+            if (weekmask!=null) kwargs["weekmask"]=ToPython(weekmask);
+            if (holidays!=null) kwargs["holidays"]=ToPython(holidays);
             if (busdaycal!=null) kwargs["busdaycal"]=ToPython(busdaycal);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("busday_count", pyargs, kwargs);

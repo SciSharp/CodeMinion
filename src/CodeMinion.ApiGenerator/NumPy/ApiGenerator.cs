@@ -81,6 +81,13 @@ namespace CodeMinion.ApiGenerator.NumPy
                     "   default: throw new NotImplementedException($\"Type NDarray<{typeof(T).GenericTypeArguments[0].Name}> missing. Add it to 'ToCsharpConversions'\");",
                     "}",
                     "break;",
+                    "case \"NDarray[]\":",
+                    "   var po = pyobj as PyObject;",
+                    "   var len = po.Length();",
+                    "   var rv = new NDarray[len];",
+                    "   for (int i = 0; i < len; i++)",
+                    "       rv[i] = ToCsharp<NDarray>(po[i]);",
+                    "   return (T) (object) rv;",
                     "case \"Matrix\": return (T)(object)new Matrix(pyobj);",
                 },
                 SpecialConversionGenerators = { SpecialGenerators.ConvertArrayToNDarray },
@@ -247,6 +254,7 @@ namespace CodeMinion.ApiGenerator.NumPy
             // it is based on Python.Included and packs the Numpy wheel
             // ----------------------------------------------------
             ndarray_api.OutputPath = Path.Combine(src_dir, "Numpy/Models");
+            _generator.ModelsPath = Path.Combine(src_dir, "Numpy/Models");
             _generator.StaticApiFilesPath = Path.Combine(src_dir, "Numpy");
             _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Numpy");
             _generator.Generate();
@@ -259,6 +267,7 @@ namespace CodeMinion.ApiGenerator.NumPy
             // ----------------------------------------------------
             array_creation_api.InitializationGenerators = new List<Action<CodeWriter>>(); // <--- do not install wheel in numpy bare
             ndarray_api.OutputPath = Path.Combine(src_dir, "Numpy.Bare/Models");
+            _generator.ModelsPath = Path.Combine(src_dir, "Numpy.Bare/Models");
             _generator.StaticApiFilesPath = Path.Combine(src_dir, "Numpy.Bare");
             _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Numpy.Bare");
             _generator.UsePythonIncluded = false;
@@ -327,7 +336,7 @@ namespace CodeMinion.ApiGenerator.NumPy
                     continue;
                 var td = tr.Descendants("td").Skip(1).FirstOrDefault();
                 _function_count++;
-                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Type = "Dtype" });
+                api.Declarations.Add(new Property() { Name = span.InnerText, Description = td?.InnerText, Type = "Dtype", HasSetter = false });
             }
         }
 
@@ -979,6 +988,32 @@ namespace CodeMinion.ApiGenerator.NumPy
                         yield break;
                     }
                     break;
+                case "unique":
+                    {
+                        decl["ar"].Type = "NDarray";
+                        decl.Arguments.ForEach(a=>
+                        {
+                            if (a.Name != "axis")
+                            {
+                                a.IsNullable = false;
+                                a.DefaultValue = null;
+                            }
+                        });
+                        decl.Returns.RemoveAt(3);
+                        decl.Returns.RemoveAt(2);
+                        decl.Returns.RemoveAt(1);
+                        // without return_index, return_inverse and return_counts we return just an NDarray
+                        yield return decl.Clone(f =>
+                        {
+                            f.Arguments.RemoveAt(3);
+                            f.Arguments.RemoveAt(2);
+                            f.Arguments.RemoveAt(1);
+                        });
+                        // if all parameters are specified we return NDarray[]
+                        decl.Returns[0].Type = "NDarray[]";
+                        yield return decl;
+                    }
+                    yield break;
             }
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)

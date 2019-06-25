@@ -39,7 +39,7 @@ namespace Numpy
         /// <param name="pv">
         /// Present value
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0)).
         /// Defaults to {‘end’, 0}.
         /// </param>
@@ -60,7 +60,7 @@ namespace Numpy
                 pv,
             });
             var kwargs=new PyDict();
-            if (@when!="end") kwargs["when"]=ToPython(@when);
+            if (@when!=null) kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("fv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -90,7 +90,7 @@ namespace Numpy
         /// <param name="fv">
         /// Future value
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0))
         /// </param>
         /// <returns>
@@ -108,7 +108,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fv!=null) kwargs["fv"]=ToPython(fv);
-            if (@when!="end") kwargs["when"]=ToPython(@when);
+            if (@when!=null) kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("pv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -184,7 +184,7 @@ namespace Numpy
         /// <param name="fv">
         /// Future value (default = 0)
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0))
         /// </param>
         /// <returns>
@@ -229,7 +229,7 @@ namespace Numpy
         /// <param name="fv">
         /// Future value
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0))
         /// </param>
         public void ppmt(NDarray rate, NDarray per, NDarray nper, NDarray pv, NDarray fv = null, string @when = "end")
@@ -274,7 +274,7 @@ namespace Numpy
         /// <param name="fv">
         /// Future value
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0)).
         /// Defaults to {‘end’, 0}.
         /// </param>
@@ -297,7 +297,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fv!=null) kwargs["fv"]=ToPython(fv);
-            if (@when!="end") kwargs["when"]=ToPython(@when);
+            if (@when!=null) kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("ipmt", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -404,7 +404,7 @@ namespace Numpy
         /// <param name="fv">
         /// Future value
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0))
         /// </param>
         public void nper(NDarray rate, NDarray pmt, NDarray pv, NDarray fv = null, string @when = "end")
@@ -419,7 +419,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (fv!=null) kwargs["fv"]=ToPython(fv);
-            if (@when!="end") kwargs["when"]=ToPython(@when);
+            if (@when!=null) kwargs["when"]=ToPython(@when);
             dynamic py = __self__.InvokeMethod("nper", pyargs, kwargs);
         }
         
@@ -455,7 +455,7 @@ namespace Numpy
         /// <param name="fv">
         /// Future value
         /// </param>
-        /// <param name="@when">
+        /// <param name="when">
         /// When payments are due (‘begin’ (1) or ‘end’ (0))
         /// </param>
         /// <param name="guess">
@@ -479,10 +479,10 @@ namespace Numpy
                 fv,
             });
             var kwargs=new PyDict();
-            if (@when!="end") kwargs["when"]=ToPython(@when);
+            if (@when!=null) kwargs["when"]=ToPython(@when);
             if (guess!=null) kwargs["guess"]=ToPython(guess);
             if (tol!=null) kwargs["tol"]=ToPython(tol);
-            if (maxiter!=100) kwargs["maxiter"]=ToPython(maxiter);
+            if (maxiter!=null) kwargs["maxiter"]=ToPython(maxiter);
             dynamic py = __self__.InvokeMethod("rate", pyargs, kwargs);
         }
         

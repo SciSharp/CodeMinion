@@ -40,6 +40,7 @@ namespace Numpy
             long ptr = ndarray.PyObject.ctypes.data;
             switch ((object)@object)
             {
+                case char[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case byte[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case short[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case int[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
@@ -64,6 +65,7 @@ namespace Numpy
             long ptr = ndarray.PyObject.ctypes.data;
             switch ((object)d1_array)
             {
+                case char[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case byte[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case short[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case int[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
@@ -88,6 +90,7 @@ namespace Numpy
             long ptr = ndarray.PyObject.ctypes.data;
             switch ((object)d1_array)
             {
+                case char[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case byte[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case short[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;
                 case int[] a: Marshal.Copy(a, 0, new IntPtr(ptr), a.Length); break;

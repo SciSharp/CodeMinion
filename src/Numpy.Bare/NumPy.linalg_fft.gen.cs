@@ -215,7 +215,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (UPLO!="L") kwargs["UPLO"]=ToPython(UPLO);
+            if (UPLO!=null) kwargs["UPLO"]=ToPython(UPLO);
             dynamic py = __self__.InvokeMethod("eigh", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]));
@@ -295,7 +295,7 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (UPLO!="L") kwargs["UPLO"]=ToPython(UPLO);
+            if (UPLO!=null) kwargs["UPLO"]=ToPython(UPLO);
             dynamic py = __self__.InvokeMethod("eigvalsh", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -439,9 +439,9 @@ namespace Numpy
             var pyargs=ToTuple(new object[]
             {
                 a,
-                rcond,
             });
             var kwargs=new PyDict();
+            if (rcond!=1e-15f) kwargs["rcond"]=ToPython(rcond);
             dynamic py = __self__.InvokeMethod("pinv", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -563,8 +563,8 @@ namespace Numpy
                 a,
             });
             var kwargs=new PyDict();
-            if (full_matrices!=true) kwargs["full_matrices"]=ToPython(full_matrices);
-            if (compute_uv!=true) kwargs["compute_uv"]=ToPython(compute_uv);
+            if (full_matrices!=null) kwargs["full_matrices"]=ToPython(full_matrices);
+            if (compute_uv!=null) kwargs["compute_uv"]=ToPython(compute_uv);
             dynamic py = __self__.InvokeMethod("svd", pyargs, kwargs);
             var t = py as PyTuple;
             return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<NDarray>(t[2]));
@@ -620,7 +620,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
             dynamic py = __self__.InvokeMethod("fft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -804,7 +804,7 @@ namespace Numpy
             });
             var kwargs=new PyDict();
             if (n!=null) kwargs["n"]=ToPython(n);
-            if (axis!=-1) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (norm!=null) kwargs["norm"]=ToPython(norm);
             dynamic py = __self__.InvokeMethod("ifft", pyargs, kwargs);
             return ToCsharp<NDarray>(py);

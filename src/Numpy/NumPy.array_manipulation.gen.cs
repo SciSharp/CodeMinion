@@ -32,7 +32,7 @@ namespace Numpy
         /// <param name="casting">
         /// Controls what kind of data casting may occur when copying.
         /// </param>
-        /// <param name="@where">
+        /// <param name="where">
         /// A boolean array which is broadcasted to match the dimensions
         /// of dst, and selects elements to copy from src to dst
         /// wherever it contains the value True.
@@ -47,7 +47,7 @@ namespace Numpy
                 src,
             });
             var kwargs=new PyDict();
-            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
+            if (casting!=null) kwargs["casting"]=ToPython(casting);
             if (@where!=null) kwargs["where"]=ToPython(@where);
             dynamic py = __self__.InvokeMethod("copyto", pyargs, kwargs);
         }
@@ -67,7 +67,7 @@ namespace Numpy
         /// <param name="casting">
         /// Controls what kind of data casting may occur when copying.
         /// </param>
-        /// <param name="@where">
+        /// <param name="where">
         /// A boolean array which is broadcasted to match the dimensions
         /// of dst, and selects elements to copy from src to dst
         /// wherever it contains the value True.
@@ -82,7 +82,7 @@ namespace Numpy
                 src,
             });
             var kwargs=new PyDict();
-            if (casting!="same_kind") kwargs["casting"]=ToPython(casting);
+            if (casting!=null) kwargs["casting"]=ToPython(casting);
             if (@where!=null) kwargs["where"]=ToPython(@where);
             dynamic py = __self__.InvokeMethod("copyto", pyargs, kwargs);
         }
@@ -303,7 +303,7 @@ namespace Numpy
                 axis,
             });
             var kwargs=new PyDict();
-            if (start!=0) kwargs["start"]=ToPython(start);
+            if (start!=null) kwargs["start"]=ToPython(start);
             dynamic py = __self__.InvokeMethod("rollaxis", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -515,7 +515,7 @@ namespace Numpy
                 shape,
             });
             var kwargs=new PyDict();
-            if (subok!=false) kwargs["subok"]=ToPython(subok);
+            if (subok!=null) kwargs["subok"]=ToPython(subok);
             dynamic py = __self__.InvokeMethod("broadcast_to", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -729,9 +729,9 @@ namespace Numpy
             {
                 a,
                 dtype,
-                requirements,
             });
             var kwargs=new PyDict();
+            if (requirements!=null) kwargs["requirements"]=ToPython(requirements);
             dynamic py = __self__.InvokeMethod("require", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
@@ -755,7 +755,7 @@ namespace Numpy
         /// The axis along which the arrays will be joined.  If axis is None,
         /// arrays are flattened before use.  Default is 0.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, the destination to place the result. The shape must be
         /// correct, matching that of what concatenate would have returned if no
         /// out argument were specified.
@@ -772,7 +772,7 @@ namespace Numpy
                 arys,
             });
             var kwargs=new PyDict();
-            if (axis!=0) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("concatenate", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -791,7 +791,7 @@ namespace Numpy
         /// <param name="axis">
         /// The axis in the result array along which the input arrays are stacked.
         /// </param>
-        /// <param name="@out">
+        /// <param name="out">
         /// If provided, the destination to place the result. The shape must be
         /// correct, matching that of what stack would have returned if no
         /// out argument were specified.
@@ -808,7 +808,7 @@ namespace Numpy
                 arrays,
             });
             var kwargs=new PyDict();
-            if (axis!=0) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             if (@out!=null) kwargs["out"]=ToPython(@out);
             dynamic py = __self__.InvokeMethod("stack", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -828,7 +828,7 @@ namespace Numpy
         /// <returns>
         /// The array formed by stacking the given arrays.
         /// </returns>
-        public NDarray column_stack(NDarray[] tup)
+        public NDarray column_stack(params NDarray[] tup)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -861,7 +861,7 @@ namespace Numpy
         /// <returns>
         /// The array formed by stacking the given arrays, will be at least 3-D.
         /// </returns>
-        public NDarray dstack(NDarray[] tup)
+        public NDarray dstack(params NDarray[] tup)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -893,7 +893,7 @@ namespace Numpy
         /// <returns>
         /// The array formed by stacking the given arrays.
         /// </returns>
-        public NDarray hstack(NDarray[] tup)
+        public NDarray hstack(params NDarray[] tup)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -925,7 +925,7 @@ namespace Numpy
         /// <returns>
         /// The array formed by stacking the given arrays, will be at least 2-D.
         /// </returns>
-        public NDarray vstack(NDarray[] tup)
+        public NDarray vstack(params NDarray[] tup)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1035,7 +1035,7 @@ namespace Numpy
                 indices_or_sections,
             });
             var kwargs=new PyDict();
-            if (axis!=0) kwargs["axis"]=ToPython(axis);
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("split", pyargs, kwargs);
             return ToCsharp<NDarray[]>(py);
         }
@@ -1199,10 +1199,10 @@ namespace Numpy
             var pyargs=ToTuple(new object[]
             {
                 arr,
-                obj,
-                values,
             });
             var kwargs=new PyDict();
+            if (obj!=0) kwargs["obj"]=ToPython(obj);
+            if (values!=null) kwargs["values"]=ToPython(values);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("insert", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
@@ -1267,8 +1267,54 @@ namespace Numpy
                 filt,
             });
             var kwargs=new PyDict();
-            if (trim!="fb") kwargs["trim"]=ToPython(trim);
+            if (trim!=null) kwargs["trim"]=ToPython(trim);
             dynamic py = __self__.InvokeMethod("trim_zeros", pyargs, kwargs);
+            return ToCsharp<NDarray>(py);
+        }
+        
+        /// <summary>
+        /// Find the unique elements of an array.
+        /// 
+        /// Returns the sorted unique elements of an array. There are three optional
+        /// outputs in addition to the unique elements:
+        /// 
+        /// Notes
+        /// 
+        /// When an axis is specified the subarrays indexed by the axis are sorted.
+        /// This is done by making the specified axis the first dimension of the array
+        /// and then flattening the subarrays in C order. The flattened subarrays are
+        /// then viewed as a structured type with each element given a label, with the
+        /// effect that we end up with a 1-D array of structured types that can be
+        /// treated in the same way as any other 1-D array. The result is that the
+        /// flattened subarrays are sorted in lexicographic order starting with the
+        /// first element.
+        /// </summary>
+        /// <param name="ar">
+        /// Input array. Unless axis is specified, this will be flattened if it
+        /// is not already 1-D.
+        /// </param>
+        /// <param name="axis">
+        /// The axis to operate on. If None, ar will be flattened. If an integer,
+        /// the subarrays indexed by the given axis will be flattened and treated
+        /// as the elements of a 1-D array with the dimension of the given axis,
+        /// see the notes for more details.  Object arrays or structured arrays
+        /// that contain objects are not supported if the axis kwarg is used. The
+        /// default is None.
+        /// </param>
+        /// <returns>
+        /// The sorted unique values.
+        /// </returns>
+        public NDarray unique(NDarray ar, int? axis = null)
+        {
+            //auto-generated code, do not change
+            var __self__=self;
+            var pyargs=ToTuple(new object[]
+            {
+                ar,
+            });
+            var kwargs=new PyDict();
+            if (axis!=null) kwargs["axis"]=ToPython(axis);
+            dynamic py = __self__.InvokeMethod("unique", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
         
@@ -1314,20 +1360,9 @@ namespace Numpy
         /// default is None.
         /// </param>
         /// <returns>
-        /// A tuple of:
-        /// unique
         /// The sorted unique values.
-        /// unique_indices
-        /// The indices of the first occurrences of the unique values in the
-        /// original array. Only provided if return_index is True.
-        /// unique_inverse
-        /// The indices to reconstruct the original array from the
-        /// unique array. Only provided if return_inverse is True.
-        /// unique_counts
-        /// The number of times each of the unique values comes up in the
-        /// original array. Only provided if return_counts is True.
         /// </returns>
-        public (NDarray, NDarray, NDarray, NDarray) unique(NDarray ar, bool? return_index = false, bool? return_inverse = false, bool? return_counts = false, int? axis = null)
+        public NDarray[] unique(NDarray ar, bool return_index, bool return_inverse, bool return_counts, int? axis = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -1336,13 +1371,12 @@ namespace Numpy
                 ar,
             });
             var kwargs=new PyDict();
-            if (return_index!=false) kwargs["return_index"]=ToPython(return_index);
-            if (return_inverse!=false) kwargs["return_inverse"]=ToPython(return_inverse);
-            if (return_counts!=false) kwargs["return_counts"]=ToPython(return_counts);
+            if (return_index!=null) kwargs["return_index"]=ToPython(return_index);
+            if (return_inverse!=null) kwargs["return_inverse"]=ToPython(return_inverse);
+            if (return_counts!=null) kwargs["return_counts"]=ToPython(return_counts);
             if (axis!=null) kwargs["axis"]=ToPython(axis);
             dynamic py = __self__.InvokeMethod("unique", pyargs, kwargs);
-            var t = py as PyTuple;
-            return (ToCsharp<NDarray>(t[0]), ToCsharp<NDarray>(t[1]), ToCsharp<NDarray>(t[2]), ToCsharp<NDarray>(t[3]));
+            return ToCsharp<NDarray[]>(py);
         }
         
         /// <summary>
@@ -1527,10 +1561,10 @@ namespace Numpy
             var pyargs=ToTuple(new object[]
             {
                 m,
-                k,
-                axes,
             });
             var kwargs=new PyDict();
+            if (k!=1) kwargs["k"]=ToPython(k);
+            if (axes!=null) kwargs["axes"]=ToPython(axes);
             dynamic py = __self__.InvokeMethod("rot90", pyargs, kwargs);
             return ToCsharp<NDarray>(py);
         }
