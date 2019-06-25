@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Regen.Compiler.Helpers {
     public class Line : ICloneable, IEquatable<Line> {
+        public List<string> Metadata { get; protected set; } = new List<string>();
+
         public Line(StringSpan content, int lineNumber, int startIndex, int endIndex) {
             _content = content;
             LineNumber = lineNumber;
@@ -41,7 +44,7 @@ namespace Regen.Compiler.Helpers {
         /// </summary>
         public bool MarkedForDeletion { get; set; }
 
-        public bool IsEmpty => (_content as StringSlice)?.Deleted ?? false || _content.Length==0;
+        public bool IsEmpty => (_content as StringSlice)?.Deleted ?? false || _content.Length == 0;
 
         public bool IsJustSpaces => string.IsNullOrEmpty(CleanContent(false));
 
@@ -98,7 +101,7 @@ namespace Regen.Compiler.Helpers {
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
         /// <returns>A new object that is a copy of this instance.</returns>
         public object Clone() {
-            return new Line((StringSpan) _content.Clone(), LineNumber, StartIndex, EndIndex) {Id = Id};
+            return new Line((StringSpan) _content.Clone(), LineNumber, StartIndex, EndIndex) {Id = Id, Metadata = Metadata, MarkedForDeletion = MarkedForDeletion, ContentWasModified = ContentWasModified};
         }
 
         #region Equality

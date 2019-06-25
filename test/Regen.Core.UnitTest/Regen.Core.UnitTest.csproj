@@ -92,6 +92,7 @@
     <Compile Include="LineBuilderTests.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />
     <Compile Include="ExpressionUnitTest.cs" />
+    <Compile Include="StringExpanderTests.cs" />
     <Compile Include="StringSpanTests.cs" />
     <Compile Include="VariableTests.cs" />
     <Compile Include="Examples\OperatorsOverloading.cs" />

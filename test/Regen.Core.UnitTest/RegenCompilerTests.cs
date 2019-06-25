@@ -64,14 +64,30 @@ namespace Regen.Core.Tests {
             var mod = new RegenModule("mymod", new MyModule());
             comp.AddModule(mod);
             comp.Compile(parsed).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
-            comp.RemoveModule(mod);
+            comp.RemoveModule(mod).Should().BeTrue();
 
-            new Action(() => { comp.Compile(parsed); })
+            new Action(() => { comp.Compile(ExpressionParser.Parse(input)); })
                 .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'mymod'"));
         }
 
         [TestMethod]
         public void import_module_remove_by_name() {
+            var @input = @"
+                %(mymod.add(1.0f, 2))
+                ";
+            var parsed = ExpressionParser.Parse(input);
+            var comp = new RegenCompiler();
+            var mod = new RegenModule("mymod", new MyModule());
+            comp.AddModule(mod);
+            comp.Compile(parsed).Trim('\n', '\r', ' ', '\t', '\0').All(char.IsDigit).Should().BeTrue();
+            comp.RemoveModule("mymod");
+
+            new Action(() => { comp.Compile(ExpressionParser.Parse(input)); })
+                .Should().Throw<ExpressionCompileException>().Where(e => e.InnerException.Message.Contains("variable with the name 'mymod'"));
+        }
+
+        [TestMethod]
+        public void reuse_parsedCode() {
             var @input = @"
                 %(mymod.add(1.0f, 2))
                 ";
@@ -186,7 +202,7 @@ namespace Regen.Core.Tests {
         }
 
         [TestMethod]
-        public void modlue_return_self() {
+        public void module_return_self() {
             var @input = @"
                 %(__vars__.self())
                 ";

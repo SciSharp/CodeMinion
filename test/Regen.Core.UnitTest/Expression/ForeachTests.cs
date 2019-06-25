@@ -102,5 +102,21 @@ namespace Regen.Core.Tests.Expression {
                 .Contain(@"""4"": 123123").And
                 .Contain(@"""5"": 123123");
         }
+
+
+        [TestMethod]
+        public void foreach_longest()
+        {
+            var @input = @"
+                %a = [1,2,3]
+                %b = [1,2,3,4,5]
+                %foreach longest a,b%
+                    #1 #2
+                %
+                ";
+            Compile(@input).Output.Should()
+                .Contain("4").And
+                .Contain("5");
+        }
     }
 }

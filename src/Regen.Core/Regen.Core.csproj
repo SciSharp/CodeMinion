@@ -72,9 +72,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builtins\CommonExpressionFunctions.cs" />
+    <Compile Include="Builtins\CommonLinq.cs" />
     <Compile Include="Builtins\CommonRandom.cs" />
     <Compile Include="Builtins\CommonRegex.cs" />
     <Compile Include="Builtins\CommonVariables.cs" />
+    <Compile Include="Compiler\Helpers\StringExpander.cs" />
     <Compile Include="Parser\Expressions\Identities\ReferenceIdentity.cs" />
     <Compile Include="Helpers\Collections\Dict.cs" />
     <Compile Include="Helpers\Collections\DictInlineInitializationException.cs" />
