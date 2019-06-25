@@ -28,8 +28,6 @@ namespace Regen.Builtins {
         /// <summary>
         ///     Zips all items 
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="count"></param>
         /// <returns></returns>
         public static PackedArguments zipmax(params object[] objects) {
             return new PackedArguments(objects.Cast<IList>().ToArray());
@@ -38,8 +36,6 @@ namespace Regen.Builtins {
         /// <summary>
         ///     Zips all items 
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="count"></param>
         /// <returns></returns>
         public static PackedArguments ziplongest(params object[] objects) {
             return zipmax(objects);

@@ -108,7 +108,7 @@ namespace Regen {
 #if DEBUG
                 Message($"Failed parsing file...\n" + e);
 #else
-                Message($"Failed parsing file...\n" + e.Message);
+                Message($"Failed parsing file...\n" + e.Message + "\n" + e.InnerException?.Message);
 #endif
             }
 
@@ -118,7 +118,7 @@ namespace Regen {
                 // Show a message box to prove we were here
                 VsShellUtilities.ShowMessageBox(
                     this.package,
-                    msg, //$"index: {pt.AbsoluteCharOffset}, path: {doc.FullName}\n+{textSelection.Text.Length}",
+                    msg, 
                     "Regen",
                     OLEMSGICON.OLEMSGICON_INFO,
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,

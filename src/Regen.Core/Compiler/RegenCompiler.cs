@@ -64,23 +64,8 @@ namespace Regen.Compiler {
         /// <param name="code"></param>
         public void CompileGlobal(string code) {
             //handle global blocks
-            //todo compile only variables and expressions (they might affect variables)
-        }
-
-        /// <summary>
-        ///     Pulls out text from #if _REGEN_GLOBAL blocks
-        /// </summary>
-        /// <param name="fileText"></param>
-        /// <returns></returns>
-        public IEnumerable<string> ExtractGlobals(string fileText) {
-            //handle global blocks
-            string scriptFramed = Regexes.GlobalFrameRegex;
-            foreach (Match match in Regex.Matches(fileText, scriptFramed, Regexes.DefaultRegexOptions | RegexOptions.IgnoreCase)) {
-                if (!match.Success) //I dont think that unsuccessful can even get here.
-                    continue;
-                yield return match.Groups[1].Value;
-                //after interpretation, they are automatically inserted to the context
-            }
+            var parsed = ExpressionParser.Parse(code);
+            Compile(parsed); //and we just ignore outputs, leaving all variables inside the context.
         }
 
         public string Compile(ParsedCode code) {

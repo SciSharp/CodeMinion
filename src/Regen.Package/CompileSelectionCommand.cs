@@ -109,7 +109,7 @@ namespace Regen {
 #if DEBUG
                 Message($"Failed parsing file...\n" + e);
 #else
-                Message($"Failed parsing file...\n" + e.Message);
+                Message($"Failed parsing file...\n" + e.Message + "\n" + e.InnerException?.Message);
 #endif
             }
 

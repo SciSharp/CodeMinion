@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using System.Media;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
@@ -95,7 +96,7 @@ namespace Regen {
 
             try {
                 var text = txt.GetText().Replace("\r", "");
-                foreach (var frame in RegenEngine.Parse(text)) 
+                foreach (var frame in RegenEngine.Parse(text).Reverse()) 
                     frame.ApplyChanges(ref text);
 
                 var ed = txt.CreateEditPoint(txt.StartPoint);
@@ -106,7 +107,7 @@ namespace Regen {
 #if DEBUG
                 Message($"Failed parsing file...\n" + e);
 #else
-                Message($"Failed parsing file...\n" + e.Message);
+                Message($"Failed parsing file...\n" + e.Message + "\n" + e.InnerException?.Message);
 #endif
             }
 

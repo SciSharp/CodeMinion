@@ -188,6 +188,18 @@ namespace Regen.Core.Tests.Expression {
             var code = Compile(input).Output;
             code.Trim().Should()
                 .Contain("11");
+        }        
+        
+        [TestMethod]
+        public void expression_two_same_row2() {
+            var @input = $@"
+                %b = 1
+                %(b) %(b)
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("1 1");
         }
 
         [TestMethod]
@@ -216,5 +228,95 @@ namespace Regen.Core.Tests.Expression {
                 .Contain("2");
         }
 
+
+        [TestMethod]
+        public void expression_tutorial_add() {
+            var @input = $@"
+                %(1 + 1)
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("2");
+        }
+
+        [TestMethod]
+        public void expression_tutorial_add_float() {
+            var @input = $@"
+                %(1+1.1f)
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("2.1");
+        }
+
+
+        [TestMethod]
+        public void expression_tutorial_trailing_array() {
+            var @input = $@"
+                %arr = [1,2,]
+                ";
+
+            var var = Variables(input).Values.First();
+            var.Should().BeOfType<Array>().Which.Should().HaveCount(2).And.ContainInOrder(new NumberScalar(1), new NumberScalar(2));
+        }
+
+
+        [TestMethod]
+        public void expression_tutorial_array_indexing() {
+            var @input = $@"
+                %arr = [1,2,]
+                %([1,2][0] + arr[0])
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("2");
+        }
+
+
+        [TestMethod]
+        public void expression_tutorial_str_concat() {
+            var @input = $@"
+                %str = ""there""
+                %(""hi"" + "" "" + str) 
+                %(""hi"" + "" "" + str + str[2])
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("hi there").And.Contain("hi theree");
+        }
+
+        [TestMethod]
+        public void expression_tutorial_array_expr_foreach() {
+            var @input = $@"
+                %foreach [1,2,3,4]
+                    #1
+                ";
+
+            var code = Compile(input).Output;
+            code.Trim().Should()
+                .Contain("1").And.Contain("2").And.Contain("3").And.Contain("4");
+        }
+
+        [TestMethod]
+        public void expression_tutorial_array_expr_foreach2() {
+            var @input = $@"
+                %foreach [1,2,3,4]
+                    #(i)
+                ";
+
+            var code = Compile(input).Output.Should().NotContain("i");
+        }
+
+        [TestMethod]
+        public void expression_basic_output() {
+            var input = @"
+                %(123)
+                ";
+            var ret = Compile(input).Output.Should().Contain("123").And.NotContain("%(");
+        }
     }
 }

@@ -12,29 +12,36 @@ namespace Regen.Engine {
     public static class RegenEngine {
         public static CodeFrame[] Parse(string code) {
             return CodeFrame.Create(code)
-                .Select(Parse)
+                .Select(frame => Parse(frame, code))
                 .OrderBy(f => f.Match.Index)
                 .ToArray();
         }
 
         public static CodeFrame ParseAt(string code, int index) {
-            return Parse(CodeFrame.Create(code, index));
+            return Parse(CodeFrame.Create(code, index), code);
         }
 
-        public static CodeFrame Parse(CodeFrame frame) {
+        public static CodeFrame Parse(CodeFrame frame, string code) {
             var compiler = new RegenCompiler(); //todo modules here?
             var parsedCode = ExpressionParser.Parse(frame.Input);
+
+            //handle globals
+            var globals = CodeFrame.CreateGlobal(code);
+            foreach (var globalFrame in globals) {
+                compiler.CompileGlobal(globalFrame.Input);
+            }
+
             frame.Output = compiler.Compile(parsedCode);
             return frame;
-        }
+        }        
     }
 
     /// <summary>
     ///     A "frame" that contains the input code in <see cref="Input"/> and Output
     /// </summary>
     public class CodeFrame {
-        public const string FrameRegex = @"\#if\s_REGEN[\n\r]{1,2}    ([\s|\S]*?)    [\n\r]{1,2} \#else[\n\r]{1,2}   ([\s|\S]*?)   \#endif";
-        public const string LoneFrameRegex = @"\#if\s_REGEN[\n\r]{1,2}    ([\s|\S]*?)    [\n\r]{1,2} (?:\#endif)+?";
+        public const string FrameRegex = @"\#if\s_REGEN(?:\s)*[\n\r]{1,2}    ([\s|\S]*?)    [\n\r]{1,2} \#else(?:\s)* [\n\r]{1,2}   ([\s|\S]*?)?   \#endif";
+        public const string LoneFrameRegex = @"\#if\s_REGEN_GLOBAL(?:\s)*[\n\r]{1,2}    ([\s|\S]*?)    [\n\r]{1,2} (?:\#endif)+?";
 
         /// <summary>
         ///     The match that was used to create this frame.
@@ -71,6 +78,19 @@ namespace Regen.Engine {
 
         public static CodeFrame[] Create(string fileContents) {
             var matches = Regex.Matches(fileContents, FrameRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
+            if (matches.Length == 0) {
+                //fallback to lone
+                matches = Regex.Matches(fileContents, LoneFrameRegex, Regexes.DefaultRegexOptions).Cast<Match>().Where(m => !m.Groups[1].Value.Contains("#else")).ToArray();
+                if (matches.Length == 0) {
+                    return Array.Empty<CodeFrame>();
+                }
+            }
+
+            return matches.Select(m => new CodeFrame(m)).ToArray();
+        }
+
+        public static CodeFrame[] CreateGlobal(string fileContents) {
+            var matches = Regex.Matches(fileContents, LoneFrameRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
             if (matches.Length == 0) {
                 //fallback to lone
                 matches = Regex.Matches(fileContents, LoneFrameRegex, Regexes.DefaultRegexOptions).Cast<Match>().Where(m => !m.Groups[1].Value.Contains("#else")).ToArray();

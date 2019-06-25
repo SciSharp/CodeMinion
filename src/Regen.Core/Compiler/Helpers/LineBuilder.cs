@@ -103,7 +103,7 @@ namespace Regen.Compiler.Helpers {
 
             //todo this might fail, we might need to add \n at the end of each validLine
             var compiled = string.Join("", validLines.Select(l => l.Content));
-            return compiled.Trim('\n', '\r') + Environment.NewLine;
+            return Environment.NewLine + compiled.Trim('\n', '\r') + Environment.NewLine;
         }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>
