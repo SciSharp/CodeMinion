@@ -656,6 +656,11 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     func.Ignore = (func.ClassName == "Tensor");
                     break;
                 // ------------------
+                case "empty":
+                case "tensor":
+                    func["requires_grad"].IsNullable = false;
+                    func["pin_memory"].IsNullable = false;
+                    break;
                 case "is_tensor":
                 case "is_storage":
                 case "is_floating_point":

@@ -942,7 +942,7 @@ namespace Torch
         /// If set, returned tensor would be allocated in
         /// the pinned memory. Works only for CPU tensors. Default: False.
         /// </param>
-        public Tensor empty(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, bool? pin_memory = false)
+        public Tensor empty(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool requires_grad = false, bool pin_memory = false)
         {
             //auto-generated code, do not change
             var __self__=self;

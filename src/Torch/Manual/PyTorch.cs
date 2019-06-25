@@ -16,7 +16,7 @@ namespace Torch
     public partial class PyTorch
     {
 
-        public Tensor tensor(NDarray data, Dtype dtype = null, Device device = null, bool? requires_grad = false, bool? pin_memory = false)
+        public Tensor tensor(NDarray data, Dtype dtype = null, Device device = null, bool requires_grad = false, bool pin_memory = false)
         {
             var __self__ = self;
             var pyargs = ToTuple(new object[]
@@ -33,7 +33,7 @@ namespace Torch
             return ToCsharp<Tensor>(py);
         }
 
-        public Tensor<T> tensor<T>(T[] data, Dtype dtype = null, Device device = null, bool? requires_grad = false, bool? pin_memory = false)
+        public Tensor<T> tensor<T>(T[] data, Dtype dtype = null, Device device = null, bool requires_grad = false, bool pin_memory = false)
         {
             var type = data.GetDtype();
             var tensor = torch.empty(new Shape(data.Length), dtype: dtype ?? type, device: device,
