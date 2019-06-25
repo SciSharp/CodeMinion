@@ -163,7 +163,7 @@ namespace Regen.Core.Tests {
         [TestMethod]
         public void builtin_variable_context() {
             var @input = @"
-                %(__interpreter__.removemodule(""random""))
+                %(__compiler__.removemodule(""random""))
                 ";
             Compile(@input).Output.Should().Contain("True");
         }
@@ -171,7 +171,7 @@ namespace Regen.Core.Tests {
         [TestMethod]
         public void builtin_variable_context_try_access() {
             var @input = @"
-                %(__interpreter__.removemodule(""random""))
+                %(__compiler__.removemodule(""random""))
                 %(random.NextInt())
                 ";
             new Action(() => { Compile(@input); })
@@ -227,8 +227,9 @@ namespace Regen.Core.Tests {
                     %e3 = a[len(a) - 2]+3
                 ";
 
-            new Action(()=>Compile(@input)).Should().NotThrow();
+            new Action(() => Compile(@input)).Should().NotThrow();
         }
+
         [TestMethod]
         public void trailing_precentage() {
             var @input = @"
@@ -243,6 +244,41 @@ namespace Regen.Core.Tests {
                 ";
 
             Compile(@input).Output.Should().NotContain("%");
+        }
+
+        [TestMethod]
+        public void foreach_hashtag_inside_hashtag_expression() {
+            var @input = @"
+                %supportedTypeCodes = [""Boolean"",""Byte""]
+                %foreach supportedTypeCodes%
+                case TypeCode.#1:
+                {
+                    newValues = new #(#1)[arrayVar.Length];
+                    for (int idx = 0; idx < arrayVar.Length; idx++)
+                        newValues.SetValue(Convert.To#1(arrayVar.GetValue(idx)), idx);
+                    break;
+                }
+                %
+
+                ";
+
+            Compile(@input).Output.Should().Contain("new Boolean[");
+        }
+
+        [TestMethod]
+        public void foreach_hashtag_inside_hashtag_expression_2() {
+            var @input = @"
+                %supportedTypeCodes = [""Boolean"",""Byte""]
+                %foreach supportedTypeCodes%
+                    newValues = new #(str(#1).tolower())[arrayVar.Length];
+                    for (int idx = 0; idx < arrayVar.Length; idx++)
+                        newValues.SetValue(Convert.To#1(arrayVar.GetValue(idx)), idx);
+                    break;
+                %
+
+                ";
+
+            Compile(@input).Output.Should().Contain("new boolean[");
         }
     }
 }

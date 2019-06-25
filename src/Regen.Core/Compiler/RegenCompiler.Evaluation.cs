@@ -14,31 +14,150 @@ namespace Regen.Compiler {
     public partial class RegenCompiler {
         #region Evaluation
 
-        public object _evaluate(string expression, Line line = null) {
-            //Core evaluation method.
-            try {
-              return Context.CompileDynamic(expression).Evaluate();
-            } catch (Flee.PublicTypes.ExpressionCompileException e) {
-                throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}{(line != null ? ($" \tAt line ({line?.LineNumber}): {line?.Content}") : "")}", e);
-            }
-        }
-
-        protected object _evaluate(Expression expression, Line line = null) {
-            return _evaluate(expression.AsString(), line);
-        }
-
+        /// <summary>
+        ///     Evaluate an expression, returning its return value.
+        /// </summary>
+        /// <param name="expression">The expression to compile and evaluate</param>
+        /// <param name="_caller">Internal use.</param>
+        /// <returns></returns>
         public Data EvaluateExpression(Expression expression, Type _caller = null) {
-            //todo make private
             var temps = new List<TemporaryVariable>();
-            expression = Expand(expression, temps, typeof(RegenCompiler));
             try {
-                return Eval(expression, temps, _caller);
+                expression = HandleUnsupported(expression, temps, typeof(RegenCompiler));
+                return Compute(expression, temps, _caller);
             } finally {
                 temps.ForEach(t => t.Dispose());
             }
         }
 
-        private Data Eval(Expression expression, List<TemporaryVariable> temps, Type _caller = null) {
+        public object _evaluate(string expression, Line line = null) {
+            //Core evaluation method, used inside all methods below.
+            try {
+                return Context.CompileDynamic(expression).Evaluate();
+            } catch (Flee.PublicTypes.ExpressionCompileException e) {
+                throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}{(line != null ? ($" \tAt line ({line?.LineNumber}): {line?.Content}") : "")}", e);
+            }
+        }
+
+
+        /// <summary>
+        ///     This function handles unsupported features by <see cref="Regen.Flee"/> evaluator by creating temporary
+        ///     variables or even changing the type of expression.
+        /// </summary>
+        /// <remarks>
+        /// Because flee does not support arrays, we temporarly store any parsed array
+        /// into a variable and then just pass the variable name, letting Regen just fetch it
+        /// and pass it around.
+        ///</remarks>
+        public Expression HandleUnsupported(Expression expr, List<TemporaryVariable> temps, Type caller = null) {
+            //todo after we support dictionaries, add support here
+            switch (expr) {
+                case NullIdentity nullIdentity:
+                case CharLiteral charLiteral:
+                case NumberLiteral numberLiteral:
+                case StringLiteral stringLiteral:
+                case BooleanLiteral booleanLiteral:
+                case StringIdentity stringIdentity:
+                case ReferenceIdentity functionIdentity:
+                case EmptyExpression emptyExpression:
+                    return expr;
+                case ArgumentsExpression argumentsExpression: {
+                    for (var i = 0; i < argumentsExpression.Arguments.Length; i++) {
+                        argumentsExpression.Arguments[i] = HandleUnsupported(argumentsExpression.Arguments[i], temps, typeof(ArgumentsExpression));
+                    }
+
+                    return argumentsExpression;
+                }
+
+                case ArrayExpression arrayExpression: {
+                    for (var i = 0; i < arrayExpression.Values.Length; i++) {
+                        arrayExpression.Values[i] = HandleUnsupported(arrayExpression.Values[i], temps, typeof(ArrayExpression));
+                    }
+
+                    var parsedArray = Compute(arrayExpression, temps, typeof(ArrayExpression));
+                    var temp = new TemporaryVariable(Context, parsedArray);
+                    //todo this might lead to memory leaks!
+                    //temps.Add(temp);
+                    //if (caller == typeof(RegenCompiler)) { //if this is the first expression that is being parsed
+                    //    temp.MarkPermanent(); 
+                    //}
+                    return IdentityExpression.WrapVariable(temp.Name);
+                }
+
+                case IndexerCallExpression indexerCallExpression: {
+                    indexerCallExpression.Left = HandleUnsupported(indexerCallExpression.Left, temps, typeof(IndexerCallExpression));
+                    indexerCallExpression.Arguments = (ArgumentsExpression) HandleUnsupported(indexerCallExpression.Arguments, temps, typeof(IndexerCallExpression));
+                    return indexerCallExpression;
+                }
+
+                case CallExpression callExpression: {
+                    callExpression.FunctionName = HandleUnsupported(callExpression.FunctionName, temps, typeof(CallExpression));
+                    callExpression.Arguments = (ArgumentsExpression) HandleUnsupported(callExpression.Arguments, temps, typeof(CallExpression));
+                    return callExpression;
+                }
+
+                case IdentityExpression identityExpression: {
+                    //here we turn any string literal into a reference to a variable.
+                    //if theres no such variable, we assume it is for a functionname of property.
+                    if (identityExpression.Identity is StringIdentity sr) {
+                        if (Context.Variables.ContainsKey(sr.Name)) {
+                            return new IdentityExpression(ReferenceIdentity.Wrap(sr));
+                        }
+                    }
+
+                    identityExpression.Identity = HandleUnsupported(identityExpression.Identity, temps, caller ?? typeof(IdentityExpression));
+                    return identityExpression;
+                }
+
+                case HashtagReferenceExpression hashtagReference: {
+                    var key = $"__{hashtagReference.Number}__";
+                    return new IdentityExpression(new ReferenceIdentity(key, new RegexResult() {Value = key, Index = hashtagReference.Matches().First().Index, Length = 1 + hashtagReference.Number.Length}));
+                }
+
+                case GroupExpression groupExpression:
+                    groupExpression.InnerExpression = HandleUnsupported(groupExpression.InnerExpression, temps, caller ?? typeof(GroupExpression));
+                    return groupExpression;
+                case PropertyIdentity propertyIdentity:
+                    //todo maybe here we parse Left, store and push? but first invalidate that it is not just a name.
+                    propertyIdentity.Left = HandleUnsupported(propertyIdentity.Left, temps, caller ?? typeof(PropertyIdentity));
+                    propertyIdentity.Right = HandleUnsupported(propertyIdentity.Right, temps, caller ?? typeof(PropertyIdentity));
+                    return propertyIdentity;
+                case KeyValueExpression keyValueExpression:
+                    keyValueExpression.Key = HandleUnsupported(keyValueExpression.Key, temps, typeof(KeyValueExpression));
+                    keyValueExpression.Value = HandleUnsupported(keyValueExpression.Value, temps, typeof(KeyValueExpression));
+                    return keyValueExpression;
+                case NewExpression newExpression:
+                    newExpression.Constructor = HandleUnsupported(newExpression.Constructor, temps, typeof(NewExpression));
+                    return newExpression;
+                case LeftOperatorExpression leftOperatorExpression:
+                    leftOperatorExpression.Right = HandleUnsupported(leftOperatorExpression.Right, temps, typeof(LeftOperatorExpression));
+                    return leftOperatorExpression;
+                case OperatorExpression operatorExpression:
+                    operatorExpression.Left = HandleUnsupported(operatorExpression.Left, temps, typeof(OperatorExpression));
+                    operatorExpression.Right = HandleUnsupported(operatorExpression.Right, temps, typeof(OperatorExpression));
+                    return operatorExpression;
+                case RightOperatorExpression rightOperatorExpression:
+                    rightOperatorExpression.Left = HandleUnsupported(rightOperatorExpression.Left, temps, typeof(RightOperatorExpression));
+                    return rightOperatorExpression;
+                case ThrowExpression throwExpression:
+                    throwExpression.Right = HandleUnsupported(throwExpression.Right, temps, typeof(ThrowExpression));
+                    return throwExpression;
+                case ForeachExpression foreachExpression:
+                case ImportExpression importExpression:
+                case InteractableExpression interactableExpression:
+                case VariableDeclarationExpression variableExpression:
+                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
+                case Identity identity: //this is an abstract class.
+                    throw new NotSupportedException();
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+        /// <summary>
+        ///     Perform the evaluation or translate <see cref="Expression"/> into a variable for later use in computation.
+        /// </summary>
+        /// <returns></returns>
+        private Data Compute(Expression expression, List<TemporaryVariable> temps, Type _caller = null) {
             return _eval(expression, _caller);
 
             Data _eval(Expression express, Type caller = null) {
@@ -116,12 +235,19 @@ namespace Regen.Compiler {
                     }
 
                     case PropertyIdentity propertyIdentity: {
+                        TemporaryVariable tmp = null;
                         var left = _eval(propertyIdentity.Left);
-                        if (left is StringScalar sc) return Data.Create(_evaluate($"{sc.Value}.{propertyIdentity.Right.AsString()}"));
+
                         if (left is ReferenceData rf) {
                             var right = new PropertyIdentity(IdentityExpression.WrapVariable(rf.EmitExpressive()), propertyIdentity.Right).AsString();
 
                             return Data.Create(_evaluate(right));
+                        }
+
+
+                        //not reference
+                        using (tmp = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
+                            return Data.Create(_evaluate($"{tmp.Name}.{propertyIdentity.Right.AsString()}"));
                         }
 
                         using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
@@ -230,112 +356,6 @@ namespace Regen.Compiler {
                 }
 
                 return Data.Null;
-            }
-        }
-
-
-        public Expression Expand(Expression expr, List<TemporaryVariable> temps, Type caller = null) {
-            //todo after we support dictionaries, add support here
-            switch (expr) {
-                case NullIdentity nullIdentity:
-                case CharLiteral charLiteral:
-                case NumberLiteral numberLiteral:
-                case StringLiteral stringLiteral:
-                case BooleanLiteral booleanLiteral:
-                case StringIdentity stringIdentity:
-                case ReferenceIdentity functionIdentity:
-                case EmptyExpression emptyExpression:
-                    return expr;
-                case ArgumentsExpression argumentsExpression: {
-                    for (var i = 0; i < argumentsExpression.Arguments.Length; i++) {
-                        argumentsExpression.Arguments[i] = Expand(argumentsExpression.Arguments[i], temps, typeof(ArgumentsExpression));
-                    }
-
-                    return argumentsExpression;
-                }
-
-                case ArrayExpression arrayExpression: {
-                    for (var i = 0; i < arrayExpression.Values.Length; i++) {
-                        arrayExpression.Values[i] = Expand(arrayExpression.Values[i], temps, typeof(ArrayExpression));
-                    }
-
-                    var parsedArray = Eval(arrayExpression, temps, typeof(ArrayExpression));
-                    var temp = new TemporaryVariable(Context, parsedArray);
-                    //todo this might lead to memory leaks!
-                    //temps.Add(temp);
-                    //if (caller == typeof(RegenCompiler)) { //if this is the first expression that is being parsed
-                    //    temp.MarkPermanent(); 
-                    //}
-                    return IdentityExpression.WrapVariable(temp.Name);
-                }
-
-                case IndexerCallExpression indexerCallExpression: {
-                    indexerCallExpression.Left = Expand(indexerCallExpression.Left, temps, typeof(IndexerCallExpression));
-                    indexerCallExpression.Arguments = (ArgumentsExpression) Expand(indexerCallExpression.Arguments, temps, typeof(IndexerCallExpression));
-                    return indexerCallExpression;
-                }
-
-                case CallExpression callExpression: {
-                    callExpression.FunctionName = Expand(callExpression.FunctionName, temps, typeof(CallExpression));
-                    callExpression.Arguments = (ArgumentsExpression) Expand(callExpression.Arguments, temps, typeof(CallExpression));
-                    return callExpression;
-                }
-
-                case IdentityExpression identityExpression: {
-                    //here we turn any string literal into a reference to a variable.
-                    //if theres no such variable, we assume it is for a functionname of property.
-                    if (identityExpression.Identity is StringIdentity sr) {
-                        if (Context.Variables.ContainsKey(sr.Name)) {
-                            return new IdentityExpression(ReferenceIdentity.Wrap(sr));
-                        }
-                    }
-
-                    identityExpression.Identity = Expand(identityExpression.Identity, temps, caller ?? typeof(IdentityExpression));
-                    return identityExpression;
-                }
-
-                case HashtagReferenceExpression hashtagReference: {
-                    var key = $"__{hashtagReference.Number}__";
-                    return new IdentityExpression(new ReferenceIdentity(key, new RegexResult() {Value = key, Index = hashtagReference.Matches().First().Index, Length = 1 + hashtagReference.Number.Length}));
-                }
-
-                case GroupExpression groupExpression:
-                    groupExpression.InnerExpression = Expand(groupExpression.InnerExpression, temps, caller ?? typeof(GroupExpression));
-                    return groupExpression;
-                case PropertyIdentity propertyIdentity:
-                    //todo maybe here we parse Left, store and push? but first invalidate that it is not just a name.
-                    propertyIdentity.Left = Expand(propertyIdentity.Left, temps, caller ?? typeof(PropertyIdentity));
-                    propertyIdentity.Right = Expand(propertyIdentity.Right, temps, caller ?? typeof(PropertyIdentity));
-                    return propertyIdentity;
-                case KeyValueExpression keyValueExpression:
-                    keyValueExpression.Key = Expand(keyValueExpression.Key, temps, typeof(KeyValueExpression));
-                    keyValueExpression.Value = Expand(keyValueExpression.Value, temps, typeof(KeyValueExpression));
-                    return keyValueExpression;
-                case NewExpression newExpression:
-                    newExpression.Constructor = Expand(newExpression.Constructor, temps, typeof(NewExpression));
-                    return newExpression;
-                case LeftOperatorExpression leftOperatorExpression:
-                    leftOperatorExpression.Right = Expand(leftOperatorExpression.Right, temps, typeof(LeftOperatorExpression));
-                    return leftOperatorExpression;
-                case OperatorExpression operatorExpression:
-                    operatorExpression.Left = Expand(operatorExpression.Left, temps, typeof(OperatorExpression));
-                    operatorExpression.Right = Expand(operatorExpression.Right, temps, typeof(OperatorExpression));
-                    return operatorExpression;
-                case RightOperatorExpression rightOperatorExpression:
-                    rightOperatorExpression.Left = Expand(rightOperatorExpression.Left, temps, typeof(RightOperatorExpression));
-                    return rightOperatorExpression;
-                case ThrowExpression throwExpression:
-                    throwExpression.Right = Expand(throwExpression.Right, temps, typeof(ThrowExpression));
-                    return throwExpression;
-                case ForeachExpression foreachExpression:
-                case ImportExpression importExpression:
-                case InteractableExpression interactableExpression:
-                case VariableDeclarationExpression variableExpression:
-                    throw new NotSupportedException(); //todo support? this should be found in an expression. it is a higher level expression
-                case Identity identity: //this is an abstract class.
-                    throw new NotSupportedException();
-                default:
-                    throw new NotImplementedException();
             }
         }
 
