@@ -204,7 +204,8 @@ namespace Regen.Compiler {
                                                 ew.NextOrThrow();
                                                 var expression = Expression.ParseExpression(ew);
                                                 object val = EvaluateObject(expression, ew, baseLine);
-
+                                                if (val is ReferenceData rd) //make sure references are unpacked
+                                                    val = rd.UnpackReference(Context);
                                                 ew.IsCurrentOrThrow(ExpressionToken.RightParen);
                                                 copy = copy
                                                     .Remove(hashtag.Match.Index, ew.Current.Match.Index + 1 - hashtag.Match.Index)
