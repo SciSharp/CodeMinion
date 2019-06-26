@@ -110,7 +110,7 @@ namespace Regen.Parser.Expressions {
             } else if (current == ExpressionToken.Null) {
                 ret = NullIdentity.Parse(ew);
             } else {
-                throw new UnexpectedTokenException($"Token was expected to be an expression but got {ew.Current.Token}");
+                throw new UnexpectedTokenException($"Token was not expected to be a {ew.Current.Token}");
             }
 
             //here we parse chained math operations

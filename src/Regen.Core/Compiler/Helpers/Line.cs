@@ -40,7 +40,7 @@ namespace Regen.Compiler.Helpers {
         public int ComputeEndIndex => StartIndex + _content.Length;
 
         /// <summary>
-        ///     If this is true, this line will be removed during <see cref="LineBuilder.Compile"/>
+        ///     If this is true, this line will be removed during <see cref="LineBuilder.Combine"/>
         /// </summary>
         public bool MarkedForDeletion { get; set; }
 

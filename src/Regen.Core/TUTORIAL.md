@@ -222,6 +222,10 @@ One of them is `System.Math` so using `Math.Cos(...)` will be in `regen-lang`: `
   * `except(list, params objs)` - returns `list` except for items passed via `objs`
   * `concat(list, params objs)` - Concatenate all `objs` with `list` and returns a new array
 * `Regen.Builtins.CommonExpressionFunctions`
+  *  `forevery(IList, IList, bool exclude)` - Combine the two lists to mimic a nested for loop
+     *  Example: forevery([1,2,3], [3,4], false) - will return: [1,1,2,2,3,3], [3,4,3,4,3,4].
+     *  exclude will compare the items of current iteration and if they match, it'll skip it.
+        *  Example: forevery([1,2,3], [3,4], true) - will return: [1,1,2,2,3], [3,4,3,4,4]. (notice the missing element)
   * `len(ICollection)` - Returns the lenght of given collection (`IList` implements `ICollection`)
   * `range(length)` -  - Returns an array of integer numbers (similar to Enumerable.Range)
   * `range(startFrom, length)` - Returns an array of integer numbers (similar to Enumerable.Range)

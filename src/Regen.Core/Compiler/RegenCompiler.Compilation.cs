@@ -288,7 +288,7 @@ namespace Regen.Compiler {
                 }
             }
 
-            return output.Compile(code.Options);
+            return output.Combine(code.Options);
 
             string _emit(object val) {
                 return val is Data d ? d.Emit() : val.ToString();

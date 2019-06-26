@@ -11,7 +11,7 @@
 - First parse all expressions %(expr) in a foreach block and then proceed with the post-replacement code.
 - A ParsedCode should be usable for multiple compiler.compile calls.
 - Support nested foreach.
-    - Create a temporary workaround, add a function feach(array, array) which returns a single array
+    - [X] Create a temporary workaround, add a function `forevery(array, array, bool)` which returns a single array
     that is populated as if they were nested foreaches.
 
 ##### Beta
