@@ -52,14 +52,14 @@ namespace Regen.Compiler {
         public Expression HandleUnsupported(Expression expr, List<TemporaryVariable> temps, Type caller = null) {
             //todo after we support dictionaries, add support here
             switch (expr) {
-                case NullIdentity nullIdentity:
-                case CharLiteral charLiteral:
-                case NumberLiteral numberLiteral:
-                case StringLiteral stringLiteral:
-                case BooleanLiteral booleanLiteral:
-                case StringIdentity stringIdentity:
-                case ReferenceIdentity functionIdentity:
-                case EmptyExpression emptyExpression:
+                case NullIdentity _:
+                case CharLiteral _:
+                case NumberLiteral _:
+                case StringLiteral _:
+                case BooleanLiteral _:
+                case StringIdentity _:
+                case ReferenceIdentity _:
+                case EmptyExpression _:
                     return expr;
                 case ArgumentsExpression argumentsExpression: {
                     for (var i = 0; i < argumentsExpression.Arguments.Length; i++) {

@@ -280,5 +280,39 @@ namespace Regen.Core.Tests {
 
             Compile(@input).Output.Should().Contain("new boolean[");
         }
+
+        [TestMethod]
+        public void foreach_hashtag_inside_hashtag_expression_3()
+        {
+            var @input = @"
+                %supportedTypeCodes = [""Boolean"",""Byte""]
+                %foreach supportedTypeCodes%
+                case TypeCode.#1:
+                {
+                    newValues = new #(#1)[arrayVar.Length];
+                    for (int idx = 0; idx < arrayVar.Length; idx++)
+                        newValues.SetValue(Convert.To#1(arrayVar.GetValue(idx)), idx);
+                    break;
+                }
+                %
+
+                ";
+
+            Compile(@input).Output.Should().Contain("new Boolean[");
+        }
+
+        [TestMethod]
+        public void foreach_hashtag_inside_hashtag_expression_two_in_a_row()
+        {
+            var @input = @"
+                    %types = [""short"",""int"",""long""]
+                    %foreach types%
+                        var #(#1.substring(0,2)+"" "")= ""#(#1.toupper())""
+                    %
+                ";
+
+            Compile(@input).Output.Should().Contain("var sh = \"SHORT\"");
+
+        }
     }
 }

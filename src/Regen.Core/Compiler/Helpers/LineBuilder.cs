@@ -7,7 +7,6 @@ using Regen.Parser;
 
 namespace Regen.Compiler.Helpers {
     public class LineBuilder : ICloneable {
-        private readonly StringSpan _txt;
         public List<Line> Lines { get; set; }
 
         protected LineBuilder() { }
@@ -15,7 +14,6 @@ namespace Regen.Compiler.Helpers {
         public LineBuilder(string txt) : this(StringSpan.Create(txt)) { }
 
         public LineBuilder(StringSpan txt) {
-            _txt = txt;
             Lines = txt
                 .Split('\n', StringSplitOptions.None)
                 .Select((span, i) => {
@@ -73,7 +71,7 @@ namespace Regen.Compiler.Helpers {
         /// <summary>
         ///     Combines all lines into a single string.
         /// </summary>
-        public string Compile(InterpreterOptions opts = null) {
+        public string Combine(InterpreterOptions opts = null) {
             var validLines = Lines.Where(line => !line.MarkedForDeletion).ToList();
 
             //clean trailing lines at the beggining and end
@@ -103,7 +101,7 @@ namespace Regen.Compiler.Helpers {
 
             //todo this might fail, we might need to add \n at the end of each validLine
             var compiled = string.Join("", validLines.Select(l => l.Content));
-            return Environment.NewLine + compiled.Trim('\n', '\r') + Environment.NewLine;
+            return compiled.Trim('\n', '\r') + Environment.NewLine;
         }
 
         /// <summary>Creates a new object that is a copy of the current instance.</summary>

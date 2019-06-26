@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Regen.Compiler;
@@ -11,11 +12,11 @@ namespace Regen.Builtins {
     public class CommonExpressionFunctions {
         public static int len(ICollection arr) {
             return arr.Count;
-        }        
-        
+        }
+
         public static int len(Array arr) {
             return arr.Count;
-        }        
+        }
 
         public static Array range(int length) {
             return new Array(Enumerable.Range(0, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
@@ -74,5 +75,58 @@ namespace Regen.Builtins {
         //todo add type functions such as 'isarray', 'isnumber', 'isnull' similar to python.
 
         //todo add a multi-iteration zip that will serve as alternative to nested arrays. consider: [1,2,3] and [4,5,6] togther will result: [(1,4),(1,5),(1,6),  (2,4),(2,5),(2,6) ... so on  - make sure it can be applyed to unlimited amount of arrays.
+
+
+        /// <summary>
+        ///     Passing [1,2] , [3,4] will result in [1,1,2,2] [3,4,3,4]
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="excludeEquals"></param>
+        /// <returns></returns>
+        public static PackedArguments forevery(IList first, IList second, bool excludeEquals) {
+            var retFirst = new List<object>();
+            var retSecond = new List<object>();
+            foreach (var f in first) {
+                foreach (var s in second) {
+                    if (excludeEquals && Equals(f, s)) {
+                        continue;
+                    }
+
+                    retFirst.Add(f);
+                    retSecond.Add(s);
+                }
+            }
+
+            return new PackedArguments(Array.Create(retFirst), Array.Create(retSecond));
+        }
+
+        /// <summary>
+        ///     Passing [1,2] , [3,4] will result in [1,1,2,2] [3,4,3,4]
+        /// </summary>
+        /// <param name="first"></param>
+        /// <param name="second"></param>
+        /// <param name="excludeEquals"></param>
+        /// <returns></returns>
+        public static PackedArguments forevery(IList first, IList second, IList third, bool excludeEquals) {
+            var retFirst = new List<object>();
+            var retSecond = new List<object>();
+            var retThird = new List<object>();
+            foreach (var f in first) {
+                foreach (var s in second) {
+                    foreach (var t in third) {
+                        if (excludeEquals && (Equals(f, s) || Equals(f, t) || Equals(s, t))) {
+                            continue;
+                        }
+
+                        retFirst.Add(f);
+                        retSecond.Add(s);
+                        retThird.Add(t);
+                    }
+                }
+            }
+
+            return new PackedArguments(Array.Create(retFirst), Array.Create(retSecond), Array.Create(retThird));
+        }
     }
 }

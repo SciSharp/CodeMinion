@@ -109,5 +109,42 @@ namespace Regen.Core.Tests.Expression {
                 ";
             Compile(@input).Output.Should().Contain("9");
         }
+
+        [TestMethod]
+        public void forevery() {
+            var @input = $@"
+                %foreach forevery([1,2,3],[4,5,6],false)%
+                    #1=#2
+                %
+                ";
+            Compile(@input).Output.Should().Contain(
+                @"1=4
+                    1=5
+                    1=6
+                    2=4
+                    2=5
+                    2=6
+                    3=4
+                    3=5
+                    3=6");
+        }
+
+        [TestMethod]
+        public void forevery_with_exclusion() {
+            var @input = $@"
+                %foreach forevery([1,2,3],[3,4,5],true)%
+                    #1=#2
+                %
+                ";
+            Compile(@input).Output.Should().Contain(
+                @"1=3
+                    1=4
+                    1=5
+                    2=3
+                    2=4
+                    2=5
+                    3=4
+                    3=5");
+        }
     }
 }

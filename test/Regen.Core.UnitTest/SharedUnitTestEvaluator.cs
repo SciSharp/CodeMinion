@@ -54,7 +54,7 @@ namespace Regen.Core.Tests {
 
         public static void Debug(ParsedCode parsed) {
             Console.WriteLine("ParsedCode Output:  -----------------");
-            Console.WriteLine(parsed.Output.Compile(parsed.Options));
+            Console.WriteLine(parsed.Output.Combine(parsed.Options));
             Console.WriteLine("ParsedCode Variables: ---------------");
             foreach (var kv in parsed.ParseActions.Where(act => act.Token == ParserToken.Declaration)) {
                 var expr = (VariableDeclarationExpression) kv.Related.First();
