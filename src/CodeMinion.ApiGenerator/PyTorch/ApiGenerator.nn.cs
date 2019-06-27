@@ -13,13 +13,22 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void PostProcessNN_Class(ApiClass api)
         {
+            api.BaseClass = "Module";
             switch (api.ClassName)
             {
+                case "torch.nn.Module":
                 case "torch.nn.Sequential":
+                case "torch.nn.ModuleDict":
+                case "torch.nn.ParameterList":
+                case "torch.nn.ParameterDict":
                     api.Ignore = true;
                     break;
+                case "torch.nn.Parameter":
+                case "torch.nn.ModuleList":
+                    api.BaseClass = "PythonObject";
+                    break;
             }
-            foreach(var constructor in api.Constructors)
+            foreach (var constructor in api.Constructors)
                 PostProcessConstructor(api, constructor);
             var decls = api.Declarations.ToArray();
             api.Declarations = new List<Declaration>();

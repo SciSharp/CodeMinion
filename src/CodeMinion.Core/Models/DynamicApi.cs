@@ -36,6 +36,8 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public bool Ignore { get; set; }
 
+        public string BaseClass { get; set; } = "PythonObject";
+
         public List<Function> Constructors = new List<Function>();
     }
 }

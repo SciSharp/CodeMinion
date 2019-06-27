@@ -36,11 +36,11 @@ namespace Torch
             ///           (&#39;relu2&#39;, nn.ReLU())
             ///         ]))
             /// </summary>
-            public partial class Sequential : PythonObject
+            public partial class Sequential : Module
             {
                 public Sequential(PyObject pyobj) : base(pyobj) { }
 
-                public Sequential(params PythonObject[] modules)
+                public Sequential(params PythonObject[] modules) : base()
                 {
                     var nn = self.GetAttr("nn");
                     var __self__ = nn;
@@ -49,7 +49,7 @@ namespace Torch
                     self = py as PyObject;
                 }
 
-                public Sequential(params KeyValuePair<string, PythonObject>[] modules)
+                public Sequential(params KeyValuePair<string, PythonObject>[] modules) : base()
                 {
                     var nn = self.GetAttr("nn");
                     var __self__ = nn;

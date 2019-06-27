@@ -82,7 +82,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
-            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.ModuleDict");
+            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.Conv2d");
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -464,7 +464,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private List<Argument> ParseArgumentsList(Function decl, HtmlNode dd)
         {
-            //if (decl.Name=="cuda")
+            //if (decl.Name=="torch.nn.Conv1d")
             //    Debugger.Break();
             var args = new List<Argument>();
             var ul = dd.Descendants("ul").FirstOrDefault();
@@ -479,7 +479,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     arg.Name = p_desc.Split(' ')[0].TrimStart('*', ' ');
                     arg.Description = string.Join(":", p_desc.Split('–', ':').Skip(1)).Trim();
 
-                    var type_part = Regex.Match(p_desc, @"\((\S+(, optional)?)\)")?.Value; //(torch.dtype, optional)
+                    var type_part = Regex.Match(p_desc, @"\((.+?)\)")?.Value; //(torch.dtype, optional)
                     if (!string.IsNullOrEmpty(type_part))
                     {
                         if (p_desc.Contains("optional"))
@@ -568,6 +568,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "callable":
                     arg.Type = "Delegate";
                     break;
+                case "shape":
                 case "sizes":
                     arg.Type = "Shape";
                     break;
@@ -996,7 +997,10 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "list of Tensor":
                 case "Tensors...":
                 case "Tensors":
+                case "sequence of Tensors":
                     return "Tensor[]";
+                case "int or tuple":
+                    return "int[]";
                 case "IntArrayRef":
                     if (arg.Name == "size")
                         return "Shape"; // <-- int[] size usually means Shape of the tensor. 
@@ -1020,6 +1024,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "1-D":
                 case "2-D":
                 case "3-D":
+                case "Tensor or float":
                     return "Tensor";
                 case "LongTensor": return "Tensor<long>";
                 case "IntTensor": return "Tensor<int>";

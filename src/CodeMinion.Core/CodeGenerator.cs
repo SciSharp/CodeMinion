@@ -600,7 +600,7 @@ namespace CodeMinion.Core
                     }
                 }
                 GenerateDocString(api, s);
-                s.Out($"public partial class {EscapeName(class_name)} : PythonObject");
+                s.Out($"public partial class {EscapeName(class_name)} : {EscapeName(api.BaseClass)}");
                 s.Block(() =>
                 {
                     s.Out($"// auto-generated class");
