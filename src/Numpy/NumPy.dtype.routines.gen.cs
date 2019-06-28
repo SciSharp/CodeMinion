@@ -18,30 +18,38 @@ namespace Numpy
     {
         
         /// <summary>
-        /// Returns True if cast between data types can occur according to the
-        /// casting rule.  If from is a scalar or array scalar, also returns
-        /// True if the scalar value can be cast without overflow or truncation
-        /// to an integer.
-        /// 
-        /// Notes
-        /// 
-        /// Starting in NumPy 1.9, can_cast function now returns False in ‘safe’
-        /// casting mode for integer/float dtype and string dtype if the string dtype
-        /// length is not long enough to store the max integer/float value converted
-        /// to a string. Previously can_cast in ‘safe’ mode returned True for
-        /// integer/float dtype and a string dtype of any length.
+        ///	Returns True if cast between data types can occur according to the
+        ///	casting rule.<br></br>
+        ///	  If from is a scalar or array scalar, also returns
+        ///	True if the scalar value can be cast without overflow or truncation
+        ///	to an integer.<br></br>
+        ///	
+        ///	
+        ///	Notes
+        ///	
+        ///	Starting in NumPy 1.9, can_cast function now returns False in ‘safe’
+        ///	casting mode for integer/float dtype and string dtype if the string dtype
+        ///	length is not long enough to store the max integer/float value converted
+        ///	to a string.<br></br>
+        ///	 Previously can_cast in ‘safe’ mode returned True for
+        ///	integer/float dtype and a string dtype of any length.<br></br>
+        ///	
         /// </summary>
         /// <param name="from_">
-        /// Data type, scalar, or array to cast from.
+        ///	Data type, scalar, or array to cast from.<br></br>
+        ///	
         /// </param>
         /// <param name="to">
-        /// Data type to cast to.
+        ///	Data type to cast to.<br></br>
+        ///	
         /// </param>
         /// <param name="casting">
-        /// Controls what kind of data casting may occur.
+        ///	Controls what kind of data casting may occur.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// True if cast can occur according to the casting rule.
+        ///	True if cast can occur according to the casting rule.<br></br>
+        ///	
         /// </returns>
         public bool can_cast(Dtype from_, Dtype to, string casting = "safe")
         {
@@ -59,28 +67,36 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Returns the data type with the smallest size and smallest scalar
-        /// kind to which both type1 and type2 may be safely cast.
-        /// The returned data type is always in native byte order.
-        /// 
-        /// This function is symmetric, but rarely associative.
-        /// 
-        /// Notes
-        /// 
-        /// Starting in NumPy 1.9, promote_types function now returns a valid string
-        /// length when given an integer or float dtype as one argument and a string
-        /// dtype as another argument. Previously it always returned the input string
-        /// dtype, even if it wasn’t long enough to store the max integer/float value
-        /// converted to a string.
+        ///	Returns the data type with the smallest size and smallest scalar
+        ///	kind to which both type1 and type2 may be safely cast.<br></br>
+        ///	
+        ///	The returned data type is always in native byte order.<br></br>
+        ///	
+        ///	
+        ///	This function is symmetric, but rarely associative.<br></br>
+        ///	
+        ///	
+        ///	Notes
+        ///	
+        ///	Starting in NumPy 1.9, promote_types function now returns a valid string
+        ///	length when given an integer or float dtype as one argument and a string
+        ///	dtype as another argument.<br></br>
+        ///	 Previously it always returned the input string
+        ///	dtype, even if it wasn’t long enough to store the max integer/float value
+        ///	converted to a string.<br></br>
+        ///	
         /// </summary>
         /// <param name="type1">
-        /// First data type.
+        ///	First data type.<br></br>
+        ///	
         /// </param>
         /// <param name="type2">
-        /// Second data type.
+        ///	Second data type.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The promoted data type.
+        ///	The promoted data type.<br></br>
+        ///	
         /// </returns>
         public Dtype promote_types(Dtype type1, Dtype type2)
         {
@@ -97,20 +113,25 @@ namespace Numpy
         }
         
         /// <summary>
-        /// For scalar a, returns the data type with the smallest size
-        /// and smallest scalar kind which can hold its value.  For non-scalar
-        /// array a, returns the vector’s dtype unmodified.
-        /// 
-        /// Floating point values are not demoted to integers,
-        /// and complex values are not demoted to floats.
-        /// 
-        /// Notes
+        ///	For scalar a, returns the data type with the smallest size
+        ///	and smallest scalar kind which can hold its value.<br></br>
+        ///	  For non-scalar
+        ///	array a, returns the vector’s dtype unmodified.<br></br>
+        ///	
+        ///	
+        ///	Floating point values are not demoted to integers,
+        ///	and complex values are not demoted to floats.<br></br>
+        ///	
+        ///	
+        ///	Notes
         /// </summary>
         /// <param name="a">
-        /// The value whose minimal data type is to be found.
+        ///	The value whose minimal data type is to be found.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The minimal data type.
+        ///	The minimal data type.<br></br>
+        ///	
         /// </returns>
         public Dtype min_scalar_type(NDarray a)
         {
@@ -127,47 +148,60 @@ namespace Numpy
         
         /*
         /// <summary>
-        /// Returns the type that results from applying the NumPy
-        /// type promotion rules to the arguments.
-        /// 
-        /// Type promotion in NumPy works similarly to the rules in languages
-        /// like C++, with some slight differences.  When both scalars and
-        /// arrays are used, the array’s type takes precedence and the actual value
-        /// of the scalar is taken into account.
-        /// 
-        /// For example, calculating 3*a, where a is an array of 32-bit floats,
-        /// intuitively should result in a 32-bit float output.  If the 3 is a
-        /// 32-bit integer, the NumPy rules indicate it can’t convert losslessly
-        /// into a 32-bit float, so a 64-bit float should be the result type.
-        /// By examining the value of the constant, ‘3’, we see that it fits in
-        /// an 8-bit integer, which can be cast losslessly into the 32-bit float.
-        /// 
-        /// Notes
-        /// 
-        /// The specific algorithm used is as follows.
-        /// 
-        /// Categories are determined by first checking which of boolean,
-        /// integer (int/uint), or floating point (float/complex) the maximum
-        /// kind of all the arrays and the scalars are.
-        /// 
-        /// If there are only scalars or the maximum category of the scalars
-        /// is higher than the maximum category of the arrays,
-        /// the data types are combined with promote_types
-        /// to produce the return value.
-        /// 
-        /// Otherwise, min_scalar_type is called on each array, and
-        /// the resulting data types are all combined with promote_types
-        /// to produce the return value.
-        /// 
-        /// The set of int values is not a subset of the uint values for types
-        /// with the same number of bits, something not reflected in
-        /// min_scalar_type, but handled as a special case in result_type.
+        ///	Returns the type that results from applying the NumPy
+        ///	type promotion rules to the arguments.<br></br>
+        ///	
+        ///	
+        ///	Type promotion in NumPy works similarly to the rules in languages
+        ///	like C++, with some slight differences.<br></br>
+        ///	  When both scalars and
+        ///	arrays are used, the array’s type takes precedence and the actual value
+        ///	of the scalar is taken into account.<br></br>
+        ///	
+        ///	
+        ///	For example, calculating 3*a, where a is an array of 32-bit floats,
+        ///	intuitively should result in a 32-bit float output.<br></br>
+        ///	  If the 3 is a
+        ///	32-bit integer, the NumPy rules indicate it can’t convert losslessly
+        ///	into a 32-bit float, so a 64-bit float should be the result type.<br></br>
+        ///	
+        ///	By examining the value of the constant, ‘3’, we see that it fits in
+        ///	an 8-bit integer, which can be cast losslessly into the 32-bit float.<br></br>
+        ///	
+        ///	
+        ///	Notes
+        ///	
+        ///	The specific algorithm used is as follows.<br></br>
+        ///	
+        ///	
+        ///	Categories are determined by first checking which of boolean,
+        ///	integer (int/uint), or floating point (float/complex) the maximum
+        ///	kind of all the arrays and the scalars are.<br></br>
+        ///	
+        ///	
+        ///	If there are only scalars or the maximum category of the scalars
+        ///	is higher than the maximum category of the arrays,
+        ///	the data types are combined with promote_types
+        ///	to produce the return value.<br></br>
+        ///	
+        ///	
+        ///	Otherwise, min_scalar_type is called on each array, and
+        ///	the resulting data types are all combined with promote_types
+        ///	to produce the return value.<br></br>
+        ///	
+        ///	
+        ///	The set of int values is not a subset of the uint values for types
+        ///	with the same number of bits, something not reflected in
+        ///	min_scalar_type, but handled as a special case in result_type.<br></br>
+        ///	
         /// </summary>
         /// <param name="arrays_and_dtypes">
-        /// The operands of some operation whose result type is needed.
+        ///	The operands of some operation whose result type is needed.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The result type.
+        ///	The result type.<br></br>
+        ///	
         /// </returns>
         public Dtype result_type(list of arrays and dtypes arrays_and_dtypes)
         {
@@ -184,24 +218,32 @@ namespace Numpy
         */
         
         /// <summary>
-        /// Return a scalar type which is common to the input arrays.
-        /// 
-        /// The return type will always be an inexact (i.e. floating point) scalar
-        /// type, even if all the arrays are integer arrays. If one of the inputs is
-        /// an integer array, the minimum precision type that is returned is a
-        /// 64-bit floating point dtype.
-        /// 
-        /// All input arrays except int64 and uint64 can be safely cast to the
-        /// returned dtype without loss of information.
+        ///	Return a scalar type which is common to the input arrays.<br></br>
+        ///	
+        ///	
+        ///	The return type will always be an inexact (i.e.<br></br>
+        ///	 floating point) scalar
+        ///	type, even if all the arrays are integer arrays.<br></br>
+        ///	 If one of the inputs is
+        ///	an integer array, the minimum precision type that is returned is a
+        ///	64-bit floating point dtype.<br></br>
+        ///	
+        ///	
+        ///	All input arrays except int64 and uint64 can be safely cast to the
+        ///	returned dtype without loss of information.<br></br>
+        ///	
         /// </summary>
         /// <param name="array2">
-        /// Input arrays.
+        ///	Input arrays.<br></br>
+        ///	
         /// </param>
         /// <param name="array1">
-        /// Input arrays.
+        ///	Input arrays.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// Data type code.
+        ///	Data type code.<br></br>
+        ///	
         /// </returns>
         public Dtype common_type(NDarray array2, NDarray array1)
         {
@@ -218,17 +260,22 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Return the scalar dtype or NumPy equivalent of Python type of an object.
+        ///	Return the scalar dtype or NumPy equivalent of Python type of an object.<br></br>
+        ///	
         /// </summary>
         /// <param name="rep">
-        /// The object of which the type is returned.
+        ///	The object of which the type is returned.<br></br>
+        ///	
         /// </param>
         /// <param name="default">
-        /// If given, this is returned for objects whose types can not be
-        /// determined. If not given, None is returned for those objects.
+        ///	If given, this is returned for objects whose types can not be
+        ///	determined.<br></br>
+        ///	 If not given, None is returned for those objects.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The data type of rep.
+        ///	The data type of rep.<br></br>
+        ///	
         /// </returns>
         public Dtype obj2sctype(object rep, object @default = null)
         {
@@ -245,21 +292,29 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Create a data type object.
-        /// 
-        /// A numpy array is homogeneous, and contains elements described by a
-        /// dtype object. A dtype object can be constructed from different
-        /// combinations of fundamental numeric types.
+        ///	Create a data type object.<br></br>
+        ///	
+        ///	
+        ///	A numpy array is homogeneous, and contains elements described by a
+        ///	dtype object.<br></br>
+        ///	 A dtype object can be constructed from different
+        ///	combinations of fundamental numeric types.<br></br>
+        ///	
         /// </summary>
         /// <param name="align">
-        /// Add padding to the fields to match what a C compiler would output
-        /// for a similar C-struct. Can be True only if obj is a dictionary
-        /// or a comma-separated string. If a struct dtype is being created,
-        /// this also sets a sticky alignment flag isalignedstruct.
+        ///	Add padding to the fields to match what a C compiler would output
+        ///	for a similar C-struct.<br></br>
+        ///	 Can be True only if obj is a dictionary
+        ///	or a comma-separated string.<br></br>
+        ///	 If a struct dtype is being created,
+        ///	this also sets a sticky alignment flag isalignedstruct.<br></br>
+        ///	
         /// </param>
         /// <param name="copy">
-        /// Make a new copy of the data-type object. If False, the result
-        /// may just be a reference to a built-in data-type object.
+        ///	Make a new copy of the data-type object.<br></br>
+        ///	 If False, the result
+        ///	may just be a reference to a built-in data-type object.<br></br>
+        ///	
         /// </param>
         public void dtype(bool? align = null, bool? copy = null)
         {
@@ -275,37 +330,48 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Class to convert formats, names, titles description to a dtype.
-        /// 
-        /// After constructing the format_parser object, the dtype attribute is
-        /// the converted data-type:
-        /// dtype = format_parser(formats, names, titles).dtype
+        ///	Class to convert formats, names, titles description to a dtype.<br></br>
+        ///	
+        ///	
+        ///	After constructing the format_parser object, the dtype attribute is
+        ///	the converted data-type:
+        ///	dtype = format_parser(formats, names, titles).dtype
         /// </summary>
         /// <param name="formats">
-        /// The format description, either specified as a string with
-        /// comma-separated format descriptions in the form 'f8, i4, a5', or
-        /// a list of format description strings  in the form
-        /// ['f8', 'i4', 'a5'].
+        ///	The format description, either specified as a string with
+        ///	comma-separated format descriptions in the form 'f8, i4, a5', or
+        ///	a list of format description strings  in the form
+        ///	['f8', 'i4', 'a5'].<br></br>
+        ///	
         /// </param>
         /// <param name="names">
-        /// The field names, either specified as a comma-separated string in the
-        /// form 'col1, col2, col3', or as a list or tuple of strings in the
-        /// form ['col1', 'col2', 'col3'].
-        /// An empty list can be used, in that case default field names
-        /// (‘f0’, ‘f1’, …) are used.
+        ///	The field names, either specified as a comma-separated string in the
+        ///	form 'col1, col2, col3', or as a list or tuple of strings in the
+        ///	form ['col1', 'col2', 'col3'].<br></br>
+        ///	
+        ///	An empty list can be used, in that case default field names
+        ///	(‘f0’, ‘f1’, …) are used.<br></br>
+        ///	
         /// </param>
         /// <param name="titles">
-        /// Sequence of title strings. An empty list can be used to leave titles
-        /// out.
+        ///	Sequence of title strings.<br></br>
+        ///	 An empty list can be used to leave titles
+        ///	out.<br></br>
+        ///	
         /// </param>
         /// <param name="aligned">
-        /// If True, align the fields by padding as the C-compiler would.
-        /// Default is False.
+        ///	If True, align the fields by padding as the C-compiler would.<br></br>
+        ///	
+        ///	Default is False.<br></br>
+        ///	
         /// </param>
         /// <param name="byteorder">
-        /// If specified, all the fields will be changed to the
-        /// provided byte-order.  Otherwise, the default byte-order is
-        /// used. For all available string specifiers, see dtype.newbyteorder.
+        ///	If specified, all the fields will be changed to the
+        ///	provided byte-order.<br></br>
+        ///	  Otherwise, the default byte-order is
+        ///	used.<br></br>
+        ///	 For all available string specifiers, see dtype.newbyteorder.<br></br>
+        ///	
         /// </param>
         public void format_parser(string[] formats, string[] names, string[] titles, bool? aligned = null, string byteorder = null)
         {
@@ -324,17 +390,22 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Machine limits for floating point types.
-        /// 
-        /// Notes
-        /// 
-        /// For developers of NumPy: do not instantiate this at the module level.
-        /// The initial calculation of these parameters is expensive and negatively
-        /// impacts import times.  These objects are cached, so calling finfo()
-        /// repeatedly inside your functions is not a problem.
+        ///	Machine limits for floating point types.<br></br>
+        ///	
+        ///	
+        ///	Notes
+        ///	
+        ///	For developers of NumPy: do not instantiate this at the module level.<br></br>
+        ///	
+        ///	The initial calculation of these parameters is expensive and negatively
+        ///	impacts import times.<br></br>
+        ///	  These objects are cached, so calling finfo()
+        ///	repeatedly inside your functions is not a problem.<br></br>
+        ///	
         /// </summary>
         /// <param name="dtype">
-        /// Kind of floating point data-type about which to get information.
+        ///	Kind of floating point data-type about which to get information.<br></br>
+        ///	
         /// </param>
         public void finfo(Dtype dtype)
         {
@@ -349,10 +420,12 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Machine limits for integer types.
+        ///	Machine limits for integer types.<br></br>
+        ///	
         /// </summary>
         /// <param name="int_type">
-        /// The kind of integer data type to get information about.
+        ///	The kind of integer data type to get information about.<br></br>
+        ///	
         /// </param>
         public void iinfo(Dtype int_type)
         {
@@ -367,29 +440,40 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Diagnosing machine parameters.
-        /// 
-        /// References
+        ///	Diagnosing machine parameters.<br></br>
+        ///	
+        ///	
+        ///	References
         /// </summary>
         /// <param name="float_conv">
-        /// Function that converts an integer or integer array to a float
-        /// or float array. Default is float.
+        ///	Function that converts an integer or integer array to a float
+        ///	or float array.<br></br>
+        ///	 Default is float.<br></br>
+        ///	
         /// </param>
         /// <param name="int_conv">
-        /// Function that converts a float or float array to an integer or
-        /// integer array. Default is int.
+        ///	Function that converts a float or float array to an integer or
+        ///	integer array.<br></br>
+        ///	 Default is int.<br></br>
+        ///	
         /// </param>
         /// <param name="float_to_float">
-        /// Function that converts a float array to float. Default is float.
-        /// Note that this does not seem to do anything useful in the current
-        /// implementation.
+        ///	Function that converts a float array to float.<br></br>
+        ///	 Default is float.<br></br>
+        ///	
+        ///	Note that this does not seem to do anything useful in the current
+        ///	implementation.<br></br>
+        ///	
         /// </param>
         /// <param name="float_to_str">
-        /// Function that converts a single float to a string. Default is
-        /// lambda v:'%24.16e' %v.
+        ///	Function that converts a single float to a string.<br></br>
+        ///	 Default is
+        ///	lambda v:'%24.16e' %v.<br></br>
+        ///	
         /// </param>
         /// <param name="title">
-        /// Title that is printed in the string representation of MachAr.
+        ///	Title that is printed in the string representation of MachAr.<br></br>
+        ///	
         /// </param>
         public void MachAr(Delegate float_conv = null, Delegate int_conv = null, Delegate float_to_float = null, Delegate float_to_str = null, string title = null)
         {
@@ -408,14 +492,18 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Determines whether the given object represents a scalar data-type.
+        ///	Determines whether the given object represents a scalar data-type.<br></br>
+        ///	
         /// </summary>
         /// <param name="rep">
-        /// If rep is an instance of a scalar dtype, True is returned. If not,
-        /// False is returned.
+        ///	If rep is an instance of a scalar dtype, True is returned.<br></br>
+        ///	 If not,
+        ///	False is returned.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// Boolean result of check whether rep is a scalar dtype.
+        ///	Boolean result of check whether rep is a scalar dtype.<br></br>
+        ///	
         /// </returns>
         public bool issctype(object rep)
         {
@@ -431,13 +519,16 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Returns True if first argument is a typecode lower/equal in type hierarchy.
+        ///	Returns True if first argument is a typecode lower/equal in type hierarchy.<br></br>
+        ///	
         /// </summary>
         /// <param name="arg2">
-        /// dtype or string representing a typecode.
+        ///	dtype or string representing a typecode.<br></br>
+        ///	
         /// </param>
         /// <param name="arg1">
-        /// dtype or string representing a typecode.
+        ///	dtype or string representing a typecode.<br></br>
+        ///	
         /// </param>
         public bool issubdtype(Dtype arg2, Dtype arg1)
         {
@@ -454,16 +545,20 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Determine if the first argument is a subclass of the second argument.
+        ///	Determine if the first argument is a subclass of the second argument.<br></br>
+        ///	
         /// </summary>
         /// <param name="arg2">
-        /// Data-types.
+        ///	Data-types.<br></br>
+        ///	
         /// </param>
         /// <param name="arg1">
-        /// Data-types.
+        ///	Data-types.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The result.
+        ///	The result.<br></br>
+        ///	
         /// </returns>
         public bool issubsctype(Dtype arg2, Dtype arg1)
         {
@@ -481,21 +576,27 @@ namespace Numpy
         
         /*
         /// <summary>
-        /// Determine if a class is a subclass of a second class.
-        /// 
-        /// issubclass_ is equivalent to the Python built-in issubclass,
-        /// except that it returns False instead of raising a TypeError if one
-        /// of the arguments is not a class.
+        ///	Determine if a class is a subclass of a second class.<br></br>
+        ///	
+        ///	
+        ///	issubclass_ is equivalent to the Python built-in issubclass,
+        ///	except that it returns False instead of raising a TypeError if one
+        ///	of the arguments is not a class.<br></br>
+        ///	
         /// </summary>
         /// <param name="arg1">
-        /// Input class. True is returned if arg1 is a subclass of arg2.
+        ///	Input class.<br></br>
+        ///	 True is returned if arg1 is a subclass of arg2.
         /// </param>
         /// <param name="arg2">
-        /// Input class. If a tuple of classes, True is returned if arg1 is a
-        /// subclass of any of the tuple elements.
+        ///	Input class.<br></br>
+        ///	 If a tuple of classes, True is returned if arg1 is a
+        ///	subclass of any of the tuple elements.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// Whether arg1 is a subclass of arg2 or not.
+        ///	Whether arg1 is a subclass of arg2 or not.<br></br>
+        ///	
         /// </returns>
         public bool issubclass_(class arg1, class or tuple of classes. arg2)
         {
@@ -514,19 +615,24 @@ namespace Numpy
         
         /*
         /// <summary>
-        /// Determine common type following standard coercion rules.
+        ///	Determine common type following standard coercion rules.<br></br>
+        ///	
         /// </summary>
         /// <param name="array_types">
-        /// A list of dtypes or dtype convertible objects representing arrays.
+        ///	A list of dtypes or dtype convertible objects representing arrays.<br></br>
+        ///	
         /// </param>
         /// <param name="scalar_types">
-        /// A list of dtypes or dtype convertible objects representing scalars.
+        ///	A list of dtypes or dtype convertible objects representing scalars.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The common data type, which is the maximum of array_types ignoring
-        /// scalar_types, unless the maximum of scalar_types is of a
-        /// different kind (dtype.kind). If the kind is not understood, then
-        /// None is returned.
+        ///	The common data type, which is the maximum of array_types ignoring
+        ///	scalar_types, unless the maximum of scalar_types is of a
+        ///	different kind (dtype.kind).<br></br>
+        ///	 If the kind is not understood, then
+        ///	None is returned.<br></br>
+        ///	
         /// </returns>
         public Dtype find_common_type(sequence array_types, sequence scalar_types)
         {
@@ -544,13 +650,16 @@ namespace Numpy
         */
         
         /// <summary>
-        /// Return a description for the given data type code.
+        ///	Return a description for the given data type code.<br></br>
+        ///	
         /// </summary>
         /// <param name="char">
-        /// Data type code.
+        ///	Data type code.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// Description of the input data type code.
+        ///	Description of the input data type code.<br></br>
+        ///	
         /// </returns>
         public string typename(string @char)
         {
@@ -566,15 +675,19 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Return the string representation of a scalar dtype.
+        ///	Return the string representation of a scalar dtype.<br></br>
+        ///	
         /// </summary>
         /// <param name="sctype">
-        /// If a scalar dtype, the corresponding string character is
-        /// returned. If an object, sctype2char tries to infer its scalar type
-        /// and then return the corresponding string character.
+        ///	If a scalar dtype, the corresponding string character is
+        ///	returned.<br></br>
+        ///	 If an object, sctype2char tries to infer its scalar type
+        ///	and then return the corresponding string character.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The string character corresponding to the scalar type.
+        ///	The string character corresponding to the scalar type.<br></br>
+        ///	
         /// </returns>
         public string sctype2char(object sctype)
         {
@@ -590,28 +703,35 @@ namespace Numpy
         }
         
         /// <summary>
-        /// Return the character for the minimum-size type to which given types can
-        /// be safely cast.
-        /// 
-        /// The returned type character must represent the smallest size dtype such
-        /// that an array of the returned type can handle the data from an array of
-        /// all types in typechars (or if typechars is an array, then its
-        /// dtype.char).
+        ///	Return the character for the minimum-size type to which given types can
+        ///	be safely cast.<br></br>
+        ///	
+        ///	
+        ///	The returned type character must represent the smallest size dtype such
+        ///	that an array of the returned type can handle the data from an array of
+        ///	all types in typechars (or if typechars is an array, then its
+        ///	dtype.char).<br></br>
+        ///	
         /// </summary>
         /// <param name="typechars">
-        /// If a list of strings, each string should represent a dtype.
-        /// If array_like, the character representation of the array dtype is used.
+        ///	If a list of strings, each string should represent a dtype.<br></br>
+        ///	
+        ///	If array_like, the character representation of the array dtype is used.<br></br>
+        ///	
         /// </param>
         /// <param name="typeset">
-        /// The set of characters that the returned character is chosen from.
-        /// The default set is ‘GDFgdf’.
+        ///	The set of characters that the returned character is chosen from.<br></br>
+        ///	
+        ///	The default set is ‘GDFgdf’.
         /// </param>
         /// <param name="default">
-        /// The default character, this is returned if none of the characters in
-        /// typechars matches a character in typeset.
+        ///	The default character, this is returned if none of the characters in
+        ///	typechars matches a character in typeset.<br></br>
+        ///	
         /// </param>
         /// <returns>
-        /// The character representing the minimum-size type that was found.
+        ///	The character representing the minimum-size type that was found.<br></br>
+        ///	
         /// </returns>
         public string mintypecode(string[] typechars, string[] typeset = null, string @default = "d")
         {
