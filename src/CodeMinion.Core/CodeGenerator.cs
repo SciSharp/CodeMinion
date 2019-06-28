@@ -618,6 +618,9 @@ namespace CodeMinion.Core
                     s.Break();
                     s.Out($"public {EscapeName(class_name)}(PyObject pyobj) : base(pyobj) {{ }}");
                     s.Break();
+                    s.Out($"public {EscapeName(class_name)}({EscapeName(api.BaseClass)} other) : base(other.PyObject as PyObject) {{ }}");
+                    s.Break();
+
                     // additional constructors
                     foreach (var func in api.Constructors)
                     {

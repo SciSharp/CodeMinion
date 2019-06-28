@@ -59,9 +59,8 @@ namespace Torch
                 {
                     var __self__=self;
                     PyObject py = __self__.InvokeMethod("items");
-                    PyObject keys=py.InvokeMethod("keys");
-                    foreach (PyObject key in keys)
-                        yield return (key.As<string>(), new Module(py.GetItem(key)));
+                    foreach (PyObject pair in py)
+                        yield return (pair[0].As<string>(), new Module(pair[1]));
                 }
                 
                 /// <summary>
@@ -71,7 +70,8 @@ namespace Torch
                 {
                     var __self__=self;
                     dynamic py = __self__.InvokeMethod("keys");
-                    return py.As<string[]>();
+                    foreach(var key in py)
+                        yield return key.As<string>();
                 }
                 
                 /// <summary>
@@ -106,7 +106,7 @@ namespace Torch
                         {
                             new PyString(pair.Item1), 
                             pair.Item2.PyObject as PyObject, 
-                        })),
+                        })).ToArray(),
                     });
 
                     dynamic py = __self__.InvokeMethod("update", pyargs);
@@ -120,11 +120,8 @@ namespace Torch
                     //auto-generated code, do not change
                     var __self__=self;
                     PyObject py = __self__.InvokeMethod("values");
-                    var len = py.Length();
-                    var modules = new Module[len];
-                    for (int i = 0; i < len; i++)
-                        modules[i] = new Module(py.GetItem(i));
-                    return modules;
+                    foreach(var m in py)
+                        yield return new Module(m as PyObject);
                 }
 
                 public IEnumerator<(string, Module)> GetEnumerator()
@@ -137,10 +134,15 @@ namespace Torch
                     return GetEnumerator();
                 }
 
-                public T Get<T>(string key) where T : Module, new()
+                public Module this[string key]
                 {
-                    return new T(self.GetItem(key) as PyObject);
+                    get { return new Module(self.GetItem(key)); }
                 }
+
+                //public T Get<T>(string key) where T : Module, new()
+                //{
+                //    return T.Create(self.GetItem(key) as PyObject);
+                //}
             }
         }
     }

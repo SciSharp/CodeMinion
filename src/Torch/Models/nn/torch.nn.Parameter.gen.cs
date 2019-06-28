@@ -16,22 +16,30 @@ namespace Torch
     public static partial class torch {
         public static partial class nn {
             /// <summary>
-            /// A kind of Tensor that is to be considered a module parameter.
-            /// 
-            /// Parameters are Tensor subclasses, that have a
-            /// very special property when used with Module s - when they’re
-            /// assigned as Module attributes they are automatically added to the list of
-            /// its parameters, and will appear e.g. in parameters() iterator.
-            /// Assigning a Tensor doesn’t have such effect. This is because one might
-            /// want to cache some temporary state, like last hidden state of the RNN, in
-            /// the model. If there was no such class as Parameter, these
-            /// temporaries would get registered too.
+            ///	A kind of Tensor that is to be considered a module parameter.<br></br>
+            ///	
+            ///	
+            ///	Parameters are Tensor subclasses, that have a
+            ///	very special property when used with Module s - when they’re
+            ///	assigned as Module attributes they are automatically added to the list of
+            ///	its parameters, and will appear e.g.<br></br>
+            ///	 in parameters() iterator.<br></br>
+            ///	
+            ///	Assigning a Tensor doesn’t have such effect.<br></br>
+            ///	 This is because one might
+            ///	want to cache some temporary state, like last hidden state of the RNN, in
+            ///	the model.<br></br>
+            ///	 If there was no such class as Parameter, these
+            ///	temporaries would get registered too.<br></br>
+            ///	
             /// </summary>
             public partial class Parameter : PythonObject
             {
                 // auto-generated class
                 
                 public Parameter(PyObject pyobj) : base(pyobj) { }
+                
+                public Parameter(PythonObject other) : base(other.PyObject as PyObject) { }
                 
                 public Parameter(Tensor data, bool? requires_grad = null)
                 {

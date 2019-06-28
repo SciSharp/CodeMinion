@@ -19,12 +19,12 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "torch.nn.Module":
                 case "torch.nn.Sequential":
                 case "torch.nn.ModuleDict":
+                case "torch.nn.ModuleList":
                 case "torch.nn.ParameterList":
                 case "torch.nn.ParameterDict":
                     api.Ignore = true;
                     break;
                 case "torch.nn.Parameter":
-                case "torch.nn.ModuleList":
                     api.BaseClass = "PythonObject";
                     break;
             }

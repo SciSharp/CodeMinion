@@ -16,72 +16,92 @@ namespace Torch
     public static partial class torch {
         public static partial class nn {
             /// <summary>
-            /// Applies a 1D convolution over an input signal composed of several input
-            /// planes.
-            /// 
-            /// In the simplest case, the output value of the layer with input size
-            /// \((N, C_{\text{in}}, L)\) and output \((N, C_{\text{out}}, L_{\text{out}})\) can be
-            /// precisely described as:
-            /// 
-            /// \[\text{out}(N_i, C_{\text{out}_j}) = \text{bias}(C_{\text{out}_j}) +
-            /// \sum_{k = 0}^{C_{in} - 1} \text{weight}(C_{\text{out}_j}, k)
-            /// \star \text{input}(N_i, k)
-            /// 
-            /// \]
-            /// 
-            /// where \(\star\) is the valid cross-correlation operator,
-            /// \(N\) is a batch size, \(C\) denotes a number of channels,
-            /// \(L\) is a length of signal sequence.
-            /// 
-            /// stride controls the stride for the cross-correlation, a single
-            /// number or a one-element tuple.
-            /// padding controls the amount of implicit zero-paddings on both sides
-            /// for padding number of points.
-            /// dilation controls the spacing between the kernel points; also
-            /// known as the à trous algorithm. It is harder to describe, but this link
-            /// has a nice visualization of what dilation does.
-            /// groups controls the connections between inputs and outputs.
-            /// in_channels and out_channels must both be divisible by
-            /// groups. For example,
-            /// 
-            /// 
-            /// At groups=1, all inputs are convolved to all outputs.
-            /// At groups=2, the operation becomes equivalent to having two conv
-            /// layers side by side, each seeing half the input channels,
-            /// and producing half the output channels, and both subsequently
-            /// concatenated.
-            /// At groups= in_channels, each input channel is convolved with
-            /// its own set of filters,
-            /// of size
-            /// \(\left\lfloor\frac{out\_channels}{in\_channels}\right\rfloor\).
-            /// 
-            /// Note
-            /// Depending of the size of your kernel, several (of the last)
-            /// columns of the input might be lost, because it is a valid
-            /// cross-correlation, and not a full cross-correlation.
-            /// It is up to the user to add proper padding.
-            /// 
-            /// Note
-            /// When groups == in_channels and out_channels == K * in_channels,
-            /// where K is a positive integer, this operation is also termed in
-            /// literature as depthwise convolution.
-            /// In other words, for an input of size \((N, C_{in}, L_{in})\),
-            /// a depthwise convolution with a depthwise multiplier K, can be constructed by arguments
-            /// \((C_\text{in}=C_{in}, C_\text{out}=C_{in} \times K, ..., \text{groups}=C_{in})\).
-            /// 
-            /// Note
-            /// In some circumstances when using the CUDA backend with CuDNN, this operator
-            /// may select a nondeterministic algorithm to increase performance. If this is
-            /// undesirable, you can try to make the operation deterministic (potentially at
-            /// a performance cost) by setting torch.backends.cudnn.deterministic =
-            /// True.
-            /// Please see the notes on Reproducibility for background.
+            ///	Applies a 1D convolution over an input signal composed of several input
+            ///	planes.<br></br>
+            ///	
+            ///	
+            ///	In the simplest case, the output value of the layer with input size
+            ///	\((N, C_{\text{in}}, L)\) and output \((N, C_{\text{out}}, L_{\text{out}})\) can be
+            ///	precisely described as:
+            ///	
+            ///	\[\text{out}(N_i, C_{\text{out}_j}) = \text{bias}(C_{\text{out}_j}) +
+            ///	\sum_{k = 0}^{C_{in} - 1} \text{weight}(C_{\text{out}_j}, k)
+            ///	\star \text{input}(N_i, k)
+            ///	
+            ///	\]
+            ///	
+            ///	where \(\star\) is the valid cross-correlation operator,
+            ///	\(N\) is a batch size, \(C\) denotes a number of channels,
+            ///	\(L\) is a length of signal sequence.<br></br>
+            ///	
+            ///	
+            ///	stride controls the stride for the cross-correlation, a single
+            ///	number or a one-element tuple.<br></br>
+            ///	
+            ///	padding controls the amount of implicit zero-paddings on both sides
+            ///	for padding number of points.<br></br>
+            ///	
+            ///	dilation controls the spacing between the kernel points; also
+            ///	known as the à trous algorithm.<br></br>
+            ///	 It is harder to describe, but this link
+            ///	has a nice visualization of what dilation does.<br></br>
+            ///	
+            ///	groups controls the connections between inputs and outputs.<br></br>
+            ///	
+            ///	in_channels and out_channels must both be divisible by
+            ///	groups.<br></br>
+            ///	 For example,
+            ///	
+            ///	
+            ///	At groups=1, all inputs are convolved to all outputs.<br></br>
+            ///	
+            ///	At groups=2, the operation becomes equivalent to having two conv
+            ///	layers side by side, each seeing half the input channels,
+            ///	and producing half the output channels, and both subsequently
+            ///	concatenated.<br></br>
+            ///	
+            ///	At groups= in_channels, each input channel is convolved with
+            ///	its own set of filters,
+            ///	of size
+            ///	\(\left\lfloor\frac{out\_channels}{in\_channels}\right\rfloor\).<br></br>
+            ///	
+            ///	
+            ///	Note
+            ///	Depending of the size of your kernel, several (of the last)
+            ///	columns of the input might be lost, because it is a valid
+            ///	cross-correlation, and not a full cross-correlation.<br></br>
+            ///	
+            ///	It is up to the user to add proper padding.<br></br>
+            ///	
+            ///	
+            ///	Note
+            ///	When groups == in_channels and out_channels == K * in_channels,
+            ///	where K is a positive integer, this operation is also termed in
+            ///	literature as depthwise convolution.<br></br>
+            ///	
+            ///	In other words, for an input of size \((N, C_{in}, L_{in})\),
+            ///	a depthwise convolution with a depthwise multiplier K, can be constructed by arguments
+            ///	\((C_\text{in}=C_{in}, C_\text{out}=C_{in} \times K, ..., \text{groups}=C_{in})\).<br></br>
+            ///	
+            ///	
+            ///	Note
+            ///	In some circumstances when using the CUDA backend with CuDNN, this operator
+            ///	may select a nondeterministic algorithm to increase performance.<br></br>
+            ///	 If this is
+            ///	undesirable, you can try to make the operation deterministic (potentially at
+            ///	a performance cost) by setting torch.backends.cudnn.deterministic =
+            ///	True.<br></br>
+            ///	
+            ///	Please see the notes on Reproducibility for background.<br></br>
+            ///	
             /// </summary>
             public partial class Conv1d : Module
             {
                 // auto-generated class
                 
                 public Conv1d(PyObject pyobj) : base(pyobj) { }
+                
+                public Conv1d(Module other) : base(other.PyObject as PyObject) { }
                 
                 public Conv1d(int in_channels, int out_channels, int[] kernel_size, int[] stride = null, int[] padding = null, string padding_mode = null, int[] dilation = null, int? groups = null, bool? bias = null)
                 {
