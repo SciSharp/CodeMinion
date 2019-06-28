@@ -301,8 +301,9 @@ namespace CodeMinion.Core
             if (string.IsNullOrWhiteSpace(decl.Description))
                 return;
             s.Out("/// <summary>");
-            foreach (var line in Regex.Split(decl.Description, @"\r?\n"))
-                s.Out("/// " + line);
+            var docstring = ProcessDocString(decl.Description);
+            foreach (var line in Regex.Split(docstring, @"\r?\n"))
+                s.Out("///\t" + line);
             s.Out("/// </summary>");
             if (decl is Function)
             {
@@ -312,8 +313,9 @@ namespace CodeMinion.Core
                     if (string.IsNullOrWhiteSpace(arg.Description))
                         continue;
                     s.Out($"/// <param name=\"{arg.Name}\">"); // note: docstring doesn't want parameters escaped with "@"
-                    foreach (var line in Regex.Split(arg.Description, @"\r?\n"))
-                        s.Out("/// " + line);
+                    docstring = ProcessDocString(arg.Description);
+                    foreach (var line in Regex.Split(docstring, @"\r?\n"))
+                        s.Out("///\t" + line);
                     s.Out("/// </param>");
                 }
             }
@@ -321,8 +323,8 @@ namespace CodeMinion.Core
                 return;
             s.Out("/// <returns>");
             if (decl.Returns.Count == 1)
-                foreach (var line in Regex.Split(decl.Returns[0].Description, @"\r?\n"))
-                    s.Out("/// " + line);
+                foreach (var line in Regex.Split(ProcessDocString(decl.Returns[0].Description), @"\r?\n"))
+                    s.Out("///\t" + line);
             else
             {
                 s.Out("/// A tuple of:");
@@ -330,7 +332,7 @@ namespace CodeMinion.Core
                 {
                     s.Out("/// " + rv.Name);
                     foreach (var line in Regex.Split(rv.Description, @"\r?\n"))
-                        s.Out("/// " + line);
+                        s.Out("///\t" + line);
                 }
             }
             s.Out("/// </returns>");
@@ -340,10 +342,19 @@ namespace CodeMinion.Core
         {
             if (string.IsNullOrWhiteSpace(decl.DocString))
                 return;
+            var docstring= ProcessDocString(decl.DocString);
             s.Out("/// <summary>");
-            foreach (var line in Regex.Split(decl.DocString, @"\r?\n"))
-                s.Out("/// " + line);
+            foreach (var line in Regex.Split(docstring, @"\r?\n"))
+                s.Out("///\t" + line);
             s.Out("/// </summary>");
+        }
+
+        protected string ProcessDocString(string docstring)
+        {
+            if (string.IsNullOrWhiteSpace(docstring))
+                return docstring;
+            // insert linebreak after each sentence
+            return Regex.Replace(docstring, @"(?:(?<=\w|\)|\])(?<!\d)|(?<=\s\d))\.(?=(?:\s|$))", ".<br></br>\n", RegexOptions.Multiline);
         }
 
         // generates only the body of the API function declaration
