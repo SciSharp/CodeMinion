@@ -30,18 +30,17 @@ namespace Torch
             /// types (e.g., Python’s plain dict) does not preserve the order of the
             /// merged mapping.
             /// </summary>
-            public partial class ModuleDict : PythonObject, IEnumerable<KeyValuePair<string, Module>>
+            public partial class ModuleDict : PythonObject, IEnumerable<(string, Module)>
             {
                 public ModuleDict(PyObject pyobj) : base(pyobj) { }
                 
-                public ModuleDict(params KeyValuePair<string, Module>[] modules)
+                public ModuleDict(params (string, Module)[] modules)
                 {
                     var nn = self.GetAttr("nn");
                     var __self__=nn;
                     dynamic py = __self__.InvokeMethod("ModuleDict");
                     self=py as PyObject;
-                    foreach(var pair in modules)
-                        self.SetItem(pair.Key, pair.Value.PyObject);
+                        update(modules);
                 }
                 
                 /// <summary>
@@ -56,13 +55,13 @@ namespace Torch
                 /// <summary>
                 /// Return an iterable of the ModuleDict key/value pairs.
                 /// </summary>
-                public IEnumerable<KeyValuePair<string, Module>> items()
+                public IEnumerable<(string, Module)> items()
                 {
                     var __self__=self;
                     PyObject py = __self__.InvokeMethod("items");
                     PyObject keys=py.InvokeMethod("keys");
                     foreach (PyObject key in keys)
-                        yield return new KeyValuePair<string, Module>(key.As<string>(), new Module(py.GetItem(key)));
+                        yield return (key.As<string>(), new Module(py.GetItem(key)));
                 }
                 
                 /// <summary>
@@ -98,15 +97,15 @@ namespace Torch
                 /// If modules is an OrderedDict, a ModuleDict, or
                 /// an iterable of key-value pairs, the order of new elements in it is preserved.
                 /// </summary>
-                public void update(params KeyValuePair<string, Module>[] modules)
+                public void update(params (string, Module)[] modules)
                 {
                     var __self__=self;
                     var pyargs=ToTuple(new object[]
                     {
                         modules.Select(pair=>new PyTuple(new []
                         {
-                            new PyString(pair.Key), 
-                            pair.Value.PyObject as PyObject, 
+                            new PyString(pair.Item1), 
+                            pair.Item2.PyObject as PyObject, 
                         })),
                     });
 
@@ -128,7 +127,7 @@ namespace Torch
                     return modules;
                 }
 
-                public IEnumerator<KeyValuePair<string, Module>> GetEnumerator()
+                public IEnumerator<(string, Module)> GetEnumerator()
                 {
                     return items().GetEnumerator();
                 }
@@ -136,6 +135,11 @@ namespace Torch
                 IEnumerator IEnumerable.GetEnumerator()
                 {
                     return GetEnumerator();
+                }
+
+                public T Get<T>(string key) where T : Module, new()
+                {
+                    return new T(self.GetItem(key) as PyObject);
                 }
             }
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Numpy.Models;
 using NUnit.Framework;
 using Python.Runtime;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
@@ -29,7 +30,14 @@ namespace Torch.nn
         [TestMethod]
         public void ModuleDict()
         {
-            var dict = new torch.nn.ModuleDict();
+            var a = new torch.nn.Conv1d(2, 2, new[] {5});
+            var b = new torch.nn.Conv1d(1, 1, new[] {3});
+            var dict = new torch.nn.ModuleDict(
+                ("a", a),
+                ("b", b)
+            );
+            var a1=dict.Get<torch.nn.Conv1d>("a");
+            Assert.AreEqual(a, a1);
         }
     }
 }
