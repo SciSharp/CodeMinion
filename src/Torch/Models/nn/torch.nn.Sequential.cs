@@ -40,6 +40,8 @@ namespace Torch
             {
                 public Sequential(PyObject pyobj) : base(pyobj) { }
 
+                public Sequential(PythonObject other) : base(other.PyObject as PyObject) { }
+
                 public Sequential(params PythonObject[] modules) : base()
                 {
                     var nn = self.GetAttr("nn");

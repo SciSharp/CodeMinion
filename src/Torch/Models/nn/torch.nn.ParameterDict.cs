@@ -13,8 +13,10 @@ using Numpy.Models;
 
 namespace Torch
 {
-    public static partial class torch {
-        public static partial class nn {
+    public static partial class torch
+    {
+        public static partial class nn
+        {
             /// <summary>
             /// Holds parameters in a dictionary.
             /// 
@@ -32,75 +34,71 @@ namespace Torch
             /// types (e.g., Python’s plain dict) does not preserve the order of the
             /// merged mapping.
             /// </summary>
-            public partial class ParameterDict : Module
+            public partial class ParameterDict : Module, IEnumerable<(string, Parameter)>
             {
-                // auto-generated class
-                
+
                 public ParameterDict(PyObject pyobj) : base(pyobj) { }
-                
-                public ParameterDict(params (string,Parameter)[] parameters)
+                public ParameterDict(PythonObject other) : base(other.PyObject as PyObject) { }
+
+                public ParameterDict(params (string, Parameter)[] parameters)
                 {
                     var nn = self.GetAttr("nn");
-                    var __self__=nn;
+                    var __self__ = nn;
                     dynamic py = __self__.InvokeMethod("ParameterDict");
-                    self=py as PyObject;
+                    self = py as PyObject;
                     update(parameters);
                 }
-                
+
                 /// <summary>
                 /// Remove all items from the ParameterDict.
                 /// </summary>
                 public void clear()
                 {
-                    //auto-generated code, do not change
-                    var __self__=self;
+                    var __self__ = self;
                     dynamic py = __self__.InvokeMethod("clear");
                 }
-                
+
                 /// <summary>
                 /// Return an iterable of the ParameterDict key/value pairs.
                 /// </summary>
                 public IEnumerable<(string, Parameter)> items()
                 {
-                    //auto-generated code, do not change
-                    var __self__=self;
+                    var __self__ = self;
                     dynamic py = __self__.InvokeMethod("items");
                     foreach (PyObject pair in py)
                     {
                         yield return (pair[0].As<string>(), new Parameter(pair[1]));
                     }
                 }
-                
+
                 /// <summary>
                 /// Return an iterable of the ParameterDict keys.
                 /// </summary>
                 public IEnumerable<string> keys()
                 {
-                    //auto-generated code, do not change
-                    var __self__=self;
+                    var __self__ = self;
                     dynamic py = __self__.InvokeMethod("keys");
-                    foreach(PyObject key in py)
+                    foreach (PyObject key in py)
                     {
                         yield return key.As<string>();
                     }
                 }
-                
+
                 /// <summary>
                 /// Remove key from the ParameterDict and return its parameter.
                 /// </summary>
                 public Parameter pop(string key)
                 {
-                    //auto-generated code, do not change
-                    var __self__=self;
-                    var pyargs=ToTuple(new object[]
+                    var __self__ = self;
+                    var pyargs = ToTuple(new object[]
                     {
                         key,
                     });
-                    var kwargs=new PyDict();
+                    var kwargs = new PyDict();
                     dynamic py = __self__.InvokeMethod("pop", pyargs, kwargs);
                     return new Parameter(py as PyObject);
                 }
-                
+
                 /// <summary>
                 /// Update the ParameterDict with the key-value pairs from a
                 /// mapping or an iterable, overwriting existing keys.
@@ -111,33 +109,49 @@ namespace Torch
                 /// </summary>
                 public void update(params (string, Parameter)[] parameters)
                 {
-                    //auto-generated code, do not change
-                    var __self__=self;
-                    var pyargs=ToTuple(parameters.Select(pair =>
-                    {
-                        return ToTuple(new[]
+                    var __self__ = self;
+                    var pyargs = ToTuple(new object[] {
+                        parameters.Select(pair =>
                         {
-                            new PyString(pair.Item1), pair.Item2.PyObject as PyObject
-                        });
-                    }).ToArray());
-                    var kwargs=new PyDict();
-                    dynamic py = __self__.InvokeMethod("update", pyargs, kwargs);
+                            return ToTuple(new[] { new PyString(pair.Item1), pair.Item2.PyObject as PyObject });
+                        }).ToArray()
+                    });
+                    dynamic py = __self__.InvokeMethod("update", pyargs);
                 }
-                
+
                 /// <summary>
                 /// Return an iterable of the ParameterDict values.
                 /// </summary>
                 public IEnumerable<Parameter> values()
                 {
-                    //auto-generated code, do not change
-                    var __self__=self;
+                    var __self__ = self;
                     dynamic py = __self__.InvokeMethod("values");
-                    foreach(var p in py)
+                    foreach (var p in py)
                         yield return new Parameter(p);
                 }
-                
+
+                public int len()
+                {
+                    return self.InvokeMethod("__len__").As<int>();
+                }
+
+                public IEnumerator<(string, Parameter)> GetEnumerator()
+                {
+                    return items().GetEnumerator();
+                }
+
+                IEnumerator IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                public Parameter this[string key]
+                {
+                    get { return new Parameter(self.GetItem(key)); }
+                }
+
             }
         }
     }
-    
+
 }

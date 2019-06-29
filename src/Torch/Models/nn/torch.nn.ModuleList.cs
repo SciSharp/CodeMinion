@@ -97,6 +97,11 @@ namespace Torch
                     dynamic py = __self__.InvokeMethod("insert", pyargs, kwargs);
                 }
 
+                public int len()
+                {
+                    return self.InvokeMethod("__len__").As<int>();
+                }
+
                 public Module this[int index]
                 {
                     get { return new Module(self.GetItem(index)); }

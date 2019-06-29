@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -22,20 +23,22 @@ namespace Torch
             /// list, but parameters it contains are properly registered, and will be
             /// visible by all Module methods.
             /// </summary>
-            public class ParameterList : Module
+            public class ParameterList : Module, IEnumerable<Parameter>
             {
                 // auto-generated class
                 
                 public ParameterList(PyObject pyobj) : base(pyobj) { }
-                
+
+                public ParameterList(PythonObject other) : base(other.PyObject as PyObject) { }
+
                 public ParameterList(params Parameter[] parameters)
                 {
                     //auto-generated code, do not change
                     var nn = self.GetAttr("nn");
                     var __self__=nn;
-                    var pyargs=ToTuple(parameters);
-                    dynamic py = __self__.InvokeMethod("ParameterList", pyargs);
+                    dynamic py = __self__.InvokeMethod("ParameterList");
                     self=py as PyObject;
+                    extend(parameters);
                 }
                 
                 /// <summary>
@@ -47,8 +50,7 @@ namespace Torch
                     {
                         parameter,
                     });
-                    var kwargs=new PyDict();
-                    self.InvokeMethod("append", pyargs, kwargs);
+                    self.InvokeMethod("append", pyargs);
                 }
                 
                 /// <summary>
@@ -56,11 +58,30 @@ namespace Torch
                 /// </summary>
                 public void extend(params Parameter[] parameters)
                 {
-                    var pyargs=ToTuple(parameters);
-                    var kwargs=new PyDict();
-                    self.InvokeMethod("extend", pyargs, kwargs);
+                    var pyargs= ToTuple(new[]{ToTuple(parameters)});
+                    self.InvokeMethod("extend", pyargs);
                 }
-                
+
+                public int len()
+                {
+                    return self.InvokeMethod("__len__").As<int>();
+                }
+
+                public Parameter this[int index]
+                {
+                    get { return new Parameter(self.GetItem(index)); }
+                }
+
+                public IEnumerator<Parameter> GetEnumerator()
+                {
+                    foreach (PyObject m in self)
+                        yield return new Parameter(m);
+                }
+
+                IEnumerator IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
             }
         }
     }

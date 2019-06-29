@@ -124,6 +124,11 @@ namespace Torch
                         yield return new Module(m as PyObject);
                 }
 
+                public int len()
+                {
+                    return self.InvokeMethod("__len__").As<int>();
+                }
+
                 public IEnumerator<(string, Module)> GetEnumerator()
                 {
                     return items().GetEnumerator();
@@ -139,10 +144,6 @@ namespace Torch
                     get { return new Module(self.GetItem(key)); }
                 }
 
-                //public T Get<T>(string key) where T : Module, new()
-                //{
-                //    return T.Create(self.GetItem(key) as PyObject);
-                //}
             }
         }
     }
