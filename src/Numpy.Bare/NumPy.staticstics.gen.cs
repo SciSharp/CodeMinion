@@ -30,60 +30,51 @@ namespace Numpy
         ///	
         ///	Don’t use amin for element-wise comparison of 2 arrays; when
         ///	a.shape[0] is 2, minimum(a[0], a[1]) is faster than
-        ///	amin(a, axis=0).<br></br>
-        ///	
+        ///	amin(a, axis=0).
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which to operate.<br></br>
-        ///	  By default, flattened input is
+        ///	By default, flattened input is
         ///	used.<br></br>
         ///	
         ///	
         ///	If this is a tuple of ints, the minimum is selected over multiple axes,
-        ///	instead of a single axis or all the axes as before.<br></br>
-        ///	
+        ///	instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	  Must
+        ///	Must
         ///	be of the same shape and buffer length as the expected output.<br></br>
-        ///	
-        ///	See doc.ufuncs (Section “Output arguments”) for more details.<br></br>
-        ///	
+        ///	See doc.ufuncs (Section “Output arguments”) for more details.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the amin method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <param name="initial">
         ///	The maximum value of an output element.<br></br>
-        ///	 Must be present to allow
+        ///	Must be present to allow
         ///	computation on empty slice.<br></br>
-        ///	 See reduce for details.<br></br>
-        ///	
+        ///	See reduce for details.
         /// </param>
         /// <returns>
         ///	Minimum of a.<br></br>
         ///	 If axis is None, the result is a scalar value.<br></br>
-        ///	
         ///	If axis is given, the result is an array of dimension
-        ///	a.ndim - 1.<br></br>
-        ///	
+        ///	a.ndim - 1.
         /// </returns>
         public NDarray amin(NDarray a, int[] axis = null, NDarray @out = null, bool? keepdims = null, ValueType initial = null)
         {
@@ -116,60 +107,51 @@ namespace Numpy
         ///	
         ///	Don’t use amax for element-wise comparison of 2 arrays; when
         ///	a.shape[0] is 2, maximum(a[0], a[1]) is faster than
-        ///	amax(a, axis=0).<br></br>
-        ///	
+        ///	amax(a, axis=0).
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which to operate.<br></br>
-        ///	  By default, flattened input is
+        ///	By default, flattened input is
         ///	used.<br></br>
         ///	
         ///	
         ///	If this is a tuple of ints, the maximum is selected over multiple axes,
-        ///	instead of a single axis or all the axes as before.<br></br>
-        ///	
+        ///	instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	  Must
+        ///	Must
         ///	be of the same shape and buffer length as the expected output.<br></br>
-        ///	
-        ///	See doc.ufuncs (Section “Output arguments”) for more details.<br></br>
-        ///	
+        ///	See doc.ufuncs (Section “Output arguments”) for more details.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the amax method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <param name="initial">
         ///	The minimum value of an output element.<br></br>
-        ///	 Must be present to allow
+        ///	Must be present to allow
         ///	computation on empty slice.<br></br>
-        ///	 See reduce for details.<br></br>
-        ///	
+        ///	See reduce for details.
         /// </param>
         /// <returns>
         ///	Maximum of a.<br></br>
         ///	 If axis is None, the result is a scalar value.<br></br>
-        ///	
         ///	If axis is given, the result is an array of dimension
-        ///	a.ndim - 1.<br></br>
-        ///	
+        ///	a.ndim - 1.
         /// </returns>
         public NDarray amax(NDarray a, int[] axis = null, NDarray @out = null, bool? keepdims = null, ValueType initial = null)
         {
@@ -190,7 +172,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return minimum of an array or minimum along an axis, ignoring any NaNs.<br></br>
-        ///	
         ///	When all-NaN slices are encountered a RuntimeWarning is raised and
         ///	Nan is returned for that slice.<br></br>
         ///	
@@ -200,57 +181,50 @@ namespace Numpy
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
         ///	 This means that Not a Number is not equivalent to infinity.<br></br>
-        ///	
         ///	Positive infinity is treated as a very large number and negative
         ///	infinity is treated as a very small (i.e.<br></br>
         ///	 negative) number.<br></br>
         ///	
         ///	
-        ///	If the input has a integer type the function is equivalent to np.min.<br></br>
-        ///	
+        ///	If the input has a integer type the function is equivalent to np.min.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose minimum is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the minimum is computed.<br></br>
-        ///	 The default is to compute
-        ///	the minimum of the flattened array.<br></br>
-        ///	
+        ///	The default is to compute
+        ///	the minimum of the flattened array.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None; if provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	  See
-        ///	doc.ufuncs for details.<br></br>
-        ///	
+        ///	See
+        ///	doc.ufuncs for details.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
         ///	
         ///	If the value is anything but the default, then
         ///	keepdims will be passed through to the min method
         ///	of sub-classes of ndarray.<br></br>
-        ///	  If the sub-classes methods
-        ///	does not implement keepdims any exceptions will be raised.<br></br>
-        ///	
+        ///	If the sub-classes methods
+        ///	does not implement keepdims any exceptions will be raised.
         /// </param>
         /// <returns>
         ///	An array with the same shape as a, with the specified axis
         ///	removed.<br></br>
         ///	  If a is a 0-d array, or if axis is None, an ndarray
         ///	scalar is returned.<br></br>
-        ///	  The same dtype as a is returned.<br></br>
-        ///	
+        ///	  The same dtype as a is returned.
         /// </returns>
         public NDarray nanmin(NDarray a, int[] axis = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -280,57 +254,49 @@ namespace Numpy
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
         ///	 This means that Not a Number is not equivalent to infinity.<br></br>
-        ///	
         ///	Positive infinity is treated as a very large number and negative
         ///	infinity is treated as a very small (i.e.<br></br>
         ///	 negative) number.<br></br>
         ///	
         ///	
-        ///	If the input has a integer type the function is equivalent to np.max.<br></br>
-        ///	
+        ///	If the input has a integer type the function is equivalent to np.max.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose maximum is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the maximum is computed.<br></br>
-        ///	 The default is to compute
-        ///	the maximum of the flattened array.<br></br>
-        ///	
+        ///	The default is to compute
+        ///	the maximum of the flattened array.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None; if provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	  See
-        ///	doc.ufuncs for details.<br></br>
-        ///	
+        ///	See
+        ///	doc.ufuncs for details.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
         ///	
         ///	If the value is anything but the default, then
         ///	keepdims will be passed through to the max method
         ///	of sub-classes of ndarray.<br></br>
-        ///	  If the sub-classes methods
-        ///	does not implement keepdims any exceptions will be raised.<br></br>
-        ///	
+        ///	If the sub-classes methods
+        ///	does not implement keepdims any exceptions will be raised.
         /// </param>
         /// <returns>
         ///	An array with the same shape as a, with the specified axis removed.<br></br>
-        ///	
         ///	If a is a 0-d array, or if axis is None, an ndarray scalar is
         ///	returned.<br></br>
-        ///	  The same dtype as a is returned.<br></br>
-        ///	
+        ///	  The same dtype as a is returned.
         /// </returns>
         public NDarray nanmax(NDarray a, int[] axis = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -355,47 +321,42 @@ namespace Numpy
         ///	The name of the function comes from the acronym for ‘peak to peak’.
         /// </summary>
         /// <param name="a">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to find the peaks.<br></br>
-        ///	  By default, flatten the
+        ///	By default, flatten the
         ///	array.<br></br>
-        ///	  axis may be negative, in
+        ///	axis may be negative, in
         ///	which case it counts from the last to the first axis.<br></br>
         ///	
         ///	
         ///	If this is a tuple of ints, a reduction is performed on multiple
-        ///	axes, instead of a single axis or all the axes as before.<br></br>
-        ///	
+        ///	axes, instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type of the output values will be cast if necessary.<br></br>
-        ///	
+        ///	but the type of the output values will be cast if necessary.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the ptp method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <returns>
         ///	A new array holding the result, unless out was
-        ///	specified, in which case a reference to out is returned.<br></br>
-        ///	
+        ///	specified, in which case a reference to out is returned.
         /// </returns>
         public NDarray ptp(NDarray a, int[] axis = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -434,34 +395,29 @@ namespace Numpy
         ///	same as the maximum if q=100.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="q">
         ///	Percentile or sequence of percentiles to compute, which must be between
-        ///	0 and 100 inclusive.<br></br>
-        ///	
+        ///	0 and 100 inclusive.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the percentiles are computed.<br></br>
-        ///	 The
+        ///	The
         ///	default is to compute the percentile(s) along a flattened
-        ///	version of the array.<br></br>
-        ///	
+        ///	version of the array.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -471,9 +427,8 @@ namespace Numpy
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left in
         ///	the result as dimensions with size one.<br></br>
-        ///	 With this option, the
-        ///	result will broadcast correctly against the original array a.<br></br>
-        ///	
+        ///	With this option, the
+        ///	result will broadcast correctly against the original array a.
         /// </param>
         /// <returns>
         ///	If q is a single percentile and axis=None, then the result
@@ -487,8 +442,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public NDarray<double> percentile(NDarray a, NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = false)
         {
@@ -530,27 +484,23 @@ namespace Numpy
         ///	same as the maximum if q=100.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="q">
         ///	Percentile or sequence of percentiles to compute, which must be between
-        ///	0 and 100 inclusive.<br></br>
-        ///	
+        ///	0 and 100 inclusive.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -569,8 +519,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public double percentile(NDarray a, NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
@@ -612,34 +561,29 @@ namespace Numpy
         /// </summary>
         /// <param name="a">
         ///	Input array or object that can be converted to an array, containing
-        ///	nan values to be ignored.<br></br>
-        ///	
+        ///	nan values to be ignored.
         /// </param>
         /// <param name="q">
         ///	Percentile or sequence of percentiles to compute, which must be between
-        ///	0 and 100 inclusive.<br></br>
-        ///	
+        ///	0 and 100 inclusive.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the percentiles are computed.<br></br>
-        ///	 The
+        ///	The
         ///	default is to compute the percentile(s) along a flattened
-        ///	version of the array.<br></br>
-        ///	
+        ///	version of the array.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -649,17 +593,16 @@ namespace Numpy
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left in
         ///	the result as dimensions with size one.<br></br>
-        ///	 With this option, the
+        ///	With this option, the
         ///	result will broadcast correctly against the original array a.<br></br>
         ///	
         ///	
         ///	If this is anything but the default value it will be passed
         ///	through (in the special case of an empty array) to the
         ///	mean function of the underlying array.<br></br>
-        ///	  If the array is
+        ///	If the array is
         ///	a sub-class and mean does not have the kwarg keepdims this
-        ///	will raise a RuntimeError.<br></br>
-        ///	
+        ///	will raise a RuntimeError.
         /// </param>
         /// <returns>
         ///	If q is a single percentile and axis=None, then the result
@@ -673,8 +616,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public NDarray<double> nanpercentile(NDarray a, NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = null)
         {
@@ -718,27 +660,23 @@ namespace Numpy
         /// </summary>
         /// <param name="a">
         ///	Input array or object that can be converted to an array, containing
-        ///	nan values to be ignored.<br></br>
-        ///	
+        ///	nan values to be ignored.
         /// </param>
         /// <param name="q">
         ///	Percentile or sequence of percentiles to compute, which must be between
-        ///	0 and 100 inclusive.<br></br>
-        ///	
+        ///	0 and 100 inclusive.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -757,8 +695,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public double nanpercentile(NDarray a, NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
@@ -779,7 +716,6 @@ namespace Numpy
         
         /// <summary>
         ///	Compute the q-th quantile of the data along the specified axis.<br></br>
-        ///	
         ///	..versionadded:: 1.15.0
         ///	
         ///	Notes
@@ -796,34 +732,29 @@ namespace Numpy
         ///	same as the maximum if q=1.0.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="q">
         ///	Quantile or sequence of quantiles to compute, which must be between
-        ///	0 and 1 inclusive.<br></br>
-        ///	
+        ///	0 and 1 inclusive.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the quantiles are computed.<br></br>
-        ///	 The
+        ///	The
         ///	default is to compute the quantile(s) along a flattened
-        ///	version of the array.<br></br>
-        ///	
+        ///	version of the array.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -833,9 +764,8 @@ namespace Numpy
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left in
         ///	the result as dimensions with size one.<br></br>
-        ///	 With this option, the
-        ///	result will broadcast correctly against the original array a.<br></br>
-        ///	
+        ///	With this option, the
+        ///	result will broadcast correctly against the original array a.
         /// </param>
         /// <returns>
         ///	If q is a single quantile and axis=None, then the result
@@ -849,8 +779,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public NDarray<double> quantile(NDarray a, NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = false)
         {
@@ -873,7 +802,6 @@ namespace Numpy
         
         /// <summary>
         ///	Compute the q-th quantile of the data along the specified axis.<br></br>
-        ///	
         ///	..versionadded:: 1.15.0
         ///	
         ///	Notes
@@ -890,27 +818,23 @@ namespace Numpy
         ///	same as the maximum if q=1.0.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="q">
         ///	Quantile or sequence of quantiles to compute, which must be between
-        ///	0 and 1 inclusive.<br></br>
-        ///	
+        ///	0 and 1 inclusive.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -929,8 +853,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public double quantile(NDarray a, NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
@@ -952,9 +875,7 @@ namespace Numpy
         /// <summary>
         ///	Compute the qth quantile of the data along the specified axis,
         ///	while ignoring nan values.<br></br>
-        ///	
         ///	Returns the qth quantile(s) of the array elements.<br></br>
-        ///	
         ///	.. versionadded:: 1.15.0
         /// </summary>
         /// <param name="a">
@@ -963,29 +884,25 @@ namespace Numpy
         /// </param>
         /// <param name="q">
         ///	Quantile or sequence of quantiles to compute, which must be between
-        ///	0 and 1 inclusive.<br></br>
-        ///	
+        ///	0 and 1 inclusive.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the quantiles are computed.<br></br>
-        ///	 The
+        ///	The
         ///	default is to compute the quantile(s) along a flattened
-        ///	version of the array.<br></br>
-        ///	
+        ///	version of the array.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -995,17 +912,16 @@ namespace Numpy
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left in
         ///	the result as dimensions with size one.<br></br>
-        ///	 With this option, the
+        ///	With this option, the
         ///	result will broadcast correctly against the original array a.<br></br>
         ///	
         ///	
         ///	If this is anything but the default value it will be passed
         ///	through (in the special case of an empty array) to the
         ///	mean function of the underlying array.<br></br>
-        ///	  If the array is
+        ///	If the array is
         ///	a sub-class and mean does not have the kwarg keepdims this
-        ///	will raise a RuntimeError.<br></br>
-        ///	
+        ///	will raise a RuntimeError.
         /// </param>
         /// <returns>
         ///	If q is a single percentile and axis=None, then the result
@@ -1019,8 +935,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public NDarray<double> nanquantile(NDarray a, NDarray<float> q, int[] axis, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear", bool? keepdims = null)
         {
@@ -1044,9 +959,7 @@ namespace Numpy
         /// <summary>
         ///	Compute the qth quantile of the data along the specified axis,
         ///	while ignoring nan values.<br></br>
-        ///	
         ///	Returns the qth quantile(s) of the array elements.<br></br>
-        ///	
         ///	.. versionadded:: 1.15.0
         /// </summary>
         /// <param name="a">
@@ -1055,22 +968,19 @@ namespace Numpy
         /// </param>
         /// <param name="q">
         ///	Quantile or sequence of quantiles to compute, which must be between
-        ///	0 and 1 inclusive.<br></br>
-        ///	
+        ///	0 and 1 inclusive.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow the input array a to be modified by intermediate
         ///	calculations, to save memory.<br></br>
-        ///	 In this case, the contents of the input
-        ///	a after this function completes is undefined.<br></br>
-        ///	
+        ///	In this case, the contents of the input
+        ///	a after this function completes is undefined.
         /// </param>
         /// <param name="interpolation">
         ///	This optional parameter specifies the interpolation method to
@@ -1089,8 +999,7 @@ namespace Numpy
         ///	data-type is float64. Otherwise, the output data-type is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public double nanquantile(NDarray a, NDarray<float> q, NDarray @out = null, bool? overwrite_input = false, string interpolation = "linear")
         {
@@ -1121,48 +1030,42 @@ namespace Numpy
         ///	Given a vector V of length N, the median of V is the
         ///	middle value of a sorted copy of V, V_sorted - i
         ///	e., V_sorted[(N-1)/2], when N is odd, and the average of the
-        ///	two middle values of V_sorted when N is even.<br></br>
-        ///	
+        ///	two middle values of V_sorted when N is even.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the medians are computed.<br></br>
-        ///	 The default
+        ///	The default
         ///	is to compute the median along a flattened version of the array.<br></br>
-        ///	
         ///	A sequence of axes is supported since version 1.9.0.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow use of memory of input array a for
         ///	calculations.<br></br>
-        ///	 The input array will be modified by the call to
+        ///	The input array will be modified by the call to
         ///	median.<br></br>
-        ///	 This will save memory when you do not need to preserve
+        ///	This will save memory when you do not need to preserve
         ///	the contents of the input array.<br></br>
-        ///	 Treat the input as undefined,
+        ///	Treat the input as undefined,
         ///	but it will probably be fully or partially sorted.<br></br>
-        ///	 Default is
+        ///	Default is
         ///	False.<br></br>
-        ///	 If overwrite_input is True and a is not already an
-        ///	ndarray, an error will be raised.<br></br>
-        ///	
+        ///	If overwrite_input is True and a is not already an
+        ///	ndarray, an error will be raised.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
-        ///	the result will broadcast correctly against the original arr.<br></br>
-        ///	
+        ///	With this option,
+        ///	the result will broadcast correctly against the original arr.
         /// </param>
         /// <returns>
         ///	A new array holding the result.<br></br>
@@ -1171,8 +1074,7 @@ namespace Numpy
         ///	np.float64.  Otherwise, the data-type of the output is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public NDarray<double> median(NDarray a, int[] axis, NDarray @out = null, bool? overwrite_input = false, bool? keepdims = false)
         {
@@ -1203,34 +1105,30 @@ namespace Numpy
         ///	Given a vector V of length N, the median of V is the
         ///	middle value of a sorted copy of V, V_sorted - i
         ///	e., V_sorted[(N-1)/2], when N is odd, and the average of the
-        ///	two middle values of V_sorted when N is even.<br></br>
-        ///	
+        ///	two middle values of V_sorted when N is even.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow use of memory of input array a for
         ///	calculations.<br></br>
-        ///	 The input array will be modified by the call to
+        ///	The input array will be modified by the call to
         ///	median.<br></br>
-        ///	 This will save memory when you do not need to preserve
+        ///	This will save memory when you do not need to preserve
         ///	the contents of the input array.<br></br>
-        ///	 Treat the input as undefined,
+        ///	Treat the input as undefined,
         ///	but it will probably be fully or partially sorted.<br></br>
-        ///	 Default is
+        ///	Default is
         ///	False.<br></br>
-        ///	 If overwrite_input is True and a is not already an
-        ///	ndarray, an error will be raised.<br></br>
-        ///	
+        ///	If overwrite_input is True and a is not already an
+        ///	ndarray, an error will be raised.
         /// </param>
         /// <returns>
         ///	A new array holding the result.<br></br>
@@ -1239,8 +1137,7 @@ namespace Numpy
         ///	np.float64.  Otherwise, the data-type of the output is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public double median(NDarray a, NDarray @out = null, bool? overwrite_input = false)
         {
@@ -1258,48 +1155,39 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Compute the weighted average along the specified axis.<br></br>
-        ///	
+        ///	Compute the weighted average along the specified axis.
         /// </summary>
         /// <param name="a">
         ///	Array containing data to be averaged.<br></br>
-        ///	 If a is not an array, a
-        ///	conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an array, a
+        ///	conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which to average a.<br></br>
-        ///	  The default,
+        ///	The default,
         ///	axis=None, will average over all of the elements of the input array.<br></br>
-        ///	
         ///	If axis is negative it counts from the last to the first axis.<br></br>
         ///	
         ///	
         ///	If axis is a tuple of ints, averaging is performed on all of the axes
         ///	specified in the tuple instead of a single axis or all the axes as
-        ///	before.<br></br>
-        ///	
+        ///	before.
         /// </param>
         /// <param name="weights">
         ///	An array of weights associated with the values in a.<br></br>
-        ///	 Each value in
+        ///	Each value in
         ///	a contributes to the average according to its associated weight.<br></br>
-        ///	
         ///	The weights array can either be 1-D (in which case its length must be
         ///	the size of a along the given axis) or of the same shape as a.<br></br>
-        ///	
         ///	If weights=None, then all data in a are assumed to have a
-        ///	weight equal to one.<br></br>
-        ///	
+        ///	weight equal to one.
         /// </param>
         /// <param name="returned">
         ///	Default is False.<br></br>
-        ///	 If True, the tuple (average, sum_of_weights)
+        ///	If True, the tuple (average, sum_of_weights)
         ///	is returned, otherwise only the average is returned.<br></br>
-        ///	
         ///	If weights=None, sum_of_weights is equivalent to the number of
-        ///	elements over which the average is taken.<br></br>
-        ///	
+        ///	elements over which the average is taken.
         /// </param>
         /// <returns>
         ///	Return the average along the specified axis.<br></br>
@@ -1309,7 +1197,6 @@ namespace Numpy
         ///	 sum_of_weights is of the
         ///	same type as retval.<br></br>
         ///	 The result dtype follows a genereal pattern.<br></br>
-        ///	
         ///	If weights is None, the result dtype will be that of a , or float64
         ///	if a is integral.<br></br>
         ///	 Otherwise, if weights is not None and a is non-
@@ -1336,35 +1223,28 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Compute the weighted average along the specified axis.<br></br>
-        ///	
+        ///	Compute the weighted average along the specified axis.
         /// </summary>
         /// <param name="a">
         ///	Array containing data to be averaged.<br></br>
-        ///	 If a is not an array, a
-        ///	conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an array, a
+        ///	conversion is attempted.
         /// </param>
         /// <param name="weights">
         ///	An array of weights associated with the values in a.<br></br>
-        ///	 Each value in
+        ///	Each value in
         ///	a contributes to the average according to its associated weight.<br></br>
-        ///	
         ///	The weights array can either be 1-D (in which case its length must be
         ///	the size of a along the given axis) or of the same shape as a.<br></br>
-        ///	
         ///	If weights=None, then all data in a are assumed to have a
-        ///	weight equal to one.<br></br>
-        ///	
+        ///	weight equal to one.
         /// </param>
         /// <param name="returned">
         ///	Default is False.<br></br>
-        ///	 If True, the tuple (average, sum_of_weights)
+        ///	If True, the tuple (average, sum_of_weights)
         ///	is returned, otherwise only the average is returned.<br></br>
-        ///	
         ///	If weights=None, sum_of_weights is equivalent to the number of
-        ///	elements over which the average is taken.<br></br>
-        ///	
+        ///	elements over which the average is taken.
         /// </param>
         /// <returns>
         ///	Return the average along the specified axis.<br></br>
@@ -1374,7 +1254,6 @@ namespace Numpy
         ///	 sum_of_weights is of the
         ///	same type as retval.<br></br>
         ///	 The result dtype follows a genereal pattern.<br></br>
-        ///	
         ///	If weights is None, the result dtype will be that of a , or float64
         ///	if a is integral.<br></br>
         ///	 Otherwise, if weights is not None and a is non-
@@ -1406,7 +1285,6 @@ namespace Numpy
         ///	Returns the average of the array elements.<br></br>
         ///	  The average is taken over
         ///	the flattened array by default, otherwise over the specified axis.<br></br>
-        ///	
         ///	float64 intermediate and return values are used for integer inputs.<br></br>
         ///	
         ///	
@@ -1426,60 +1304,52 @@ namespace Numpy
         ///	
         ///	
         ///	By default, float16 results are computed using float32 intermediates
-        ///	for extra precision.<br></br>
-        ///	
+        ///	for extra precision.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose mean is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the means are computed.<br></br>
-        ///	 The default is to
+        ///	The default is to
         ///	compute the mean of the flattened array.<br></br>
         ///	
         ///	
         ///	If this is a tuple of ints, a mean is performed over multiple axes,
-        ///	instead of a single axis or all the axes as before.<br></br>
-        ///	
+        ///	instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the mean.<br></br>
-        ///	  For integer inputs, the default
+        ///	For integer inputs, the default
         ///	is float64; for floating point inputs, it is the same as the
-        ///	input dtype.<br></br>
-        ///	
+        ///	input dtype.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None; if provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	
-        ///	See doc.ufuncs for details.<br></br>
-        ///	
+        ///	See doc.ufuncs for details.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the mean method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <returns>
         ///	If out=None, returns a new array containing the mean values,
-        ///	otherwise a reference to the output array is returned.<br></br>
-        ///	
+        ///	otherwise a reference to the output array is returned.
         /// </returns>
         public NDarray<double> mean(NDarray a, int[] axis, Dtype dtype = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -1505,7 +1375,6 @@ namespace Numpy
         ///	Returns the average of the array elements.<br></br>
         ///	  The average is taken over
         ///	the flattened array by default, otherwise over the specified axis.<br></br>
-        ///	
         ///	float64 intermediate and return values are used for integer inputs.<br></br>
         ///	
         ///	
@@ -1525,35 +1394,29 @@ namespace Numpy
         ///	
         ///	
         ///	By default, float16 results are computed using float32 intermediates
-        ///	for extra precision.<br></br>
-        ///	
+        ///	for extra precision.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose mean is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the mean.<br></br>
-        ///	  For integer inputs, the default
+        ///	For integer inputs, the default
         ///	is float64; for floating point inputs, it is the same as the
-        ///	input dtype.<br></br>
-        ///	
+        ///	input dtype.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None; if provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	
-        ///	See doc.ufuncs for details.<br></br>
-        ///	
+        ///	See doc.ufuncs for details.
         /// </param>
         /// <returns>
         ///	If out=None, returns a new array containing the mean values,
-        ///	otherwise a reference to the output array is returned.<br></br>
-        ///	
+        ///	otherwise a reference to the output array is returned.
         /// </returns>
         public double mean(NDarray a, Dtype dtype = null, NDarray @out = null)
         {
@@ -1609,66 +1472,56 @@ namespace Numpy
         ///	precision the input has.<br></br>
         ///	 Depending on the input data, this can cause
         ///	the results to be inaccurate, especially for float32 (see example below).<br></br>
-        ///	
         ///	Specifying a higher-accuracy accumulator using the dtype keyword can
-        ///	alleviate this issue.<br></br>
-        ///	
+        ///	alleviate this issue.
         /// </summary>
         /// <param name="a">
-        ///	Calculate the standard deviation of these values.<br></br>
-        ///	
+        ///	Calculate the standard deviation of these values.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the standard deviation is computed.<br></br>
-        ///	 The
+        ///	The
         ///	default is to compute the standard deviation of the flattened array.<br></br>
         ///	
         ///	
         ///	If this is a tuple of ints, a standard deviation is performed over
-        ///	multiple axes, instead of a single axis or all the axes as before.<br></br>
-        ///	
+        ///	multiple axes, instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the standard deviation.<br></br>
-        ///	 For arrays of
+        ///	For arrays of
         ///	integer type the default is float64, for arrays of float types it is
-        ///	the same as the array type.<br></br>
-        ///	
+        ///	the same as the array type.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output but the type (of the calculated
-        ///	values) will be cast if necessary.<br></br>
-        ///	
+        ///	values) will be cast if necessary.
         /// </param>
         /// <param name="ddof">
         ///	Means Delta Degrees of Freedom.<br></br>
-        ///	  The divisor used in calculations
+        ///	The divisor used in calculations
         ///	is N - ddof, where N represents the number of elements.<br></br>
-        ///	
-        ///	By default ddof is zero.<br></br>
-        ///	
+        ///	By default ddof is zero.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the std method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <returns>
         ///	If out is None, return a new array containing the standard deviation,
-        ///	otherwise return a reference to the output array.<br></br>
-        ///	
+        ///	otherwise return a reference to the output array.
         /// </returns>
         public NDarray<double> std(NDarray a, int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
@@ -1727,41 +1580,33 @@ namespace Numpy
         ///	precision the input has.<br></br>
         ///	 Depending on the input data, this can cause
         ///	the results to be inaccurate, especially for float32 (see example below).<br></br>
-        ///	
         ///	Specifying a higher-accuracy accumulator using the dtype keyword can
-        ///	alleviate this issue.<br></br>
-        ///	
+        ///	alleviate this issue.
         /// </summary>
         /// <param name="a">
-        ///	Calculate the standard deviation of these values.<br></br>
-        ///	
+        ///	Calculate the standard deviation of these values.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the standard deviation.<br></br>
-        ///	 For arrays of
+        ///	For arrays of
         ///	integer type the default is float64, for arrays of float types it is
-        ///	the same as the array type.<br></br>
-        ///	
+        ///	the same as the array type.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output but the type (of the calculated
-        ///	values) will be cast if necessary.<br></br>
-        ///	
+        ///	values) will be cast if necessary.
         /// </param>
         /// <param name="ddof">
         ///	Means Delta Degrees of Freedom.<br></br>
-        ///	  The divisor used in calculations
+        ///	The divisor used in calculations
         ///	is N - ddof, where N represents the number of elements.<br></br>
-        ///	
-        ///	By default ddof is zero.<br></br>
-        ///	
+        ///	By default ddof is zero.
         /// </param>
         /// <returns>
         ///	If out is None, return a new array containing the standard deviation,
-        ///	otherwise return a reference to the output array.<br></br>
-        ///	
+        ///	otherwise return a reference to the output array.
         /// </returns>
         public double std(NDarray a, Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
@@ -1796,12 +1641,10 @@ namespace Numpy
         ///	
         ///	
         ///	The mean is normally calculated as x.sum() / N, where N = len(x).<br></br>
-        ///	
         ///	If, however, ddof is specified, the divisor N - ddof is used
         ///	instead.<br></br>
         ///	  In standard statistical practice, ddof=1 provides an
         ///	unbiased estimator of the variance of a hypothetical infinite population.<br></br>
-        ///	
         ///	ddof=0 provides a maximum likelihood estimate of the variance for
         ///	normally distributed variables.<br></br>
         ///	
@@ -1816,65 +1659,57 @@ namespace Numpy
         ///	the results to be inaccurate, especially for float32 (see example
         ///	below).<br></br>
         ///	  Specifying a higher-accuracy accumulator using the dtype
-        ///	keyword can alleviate this issue.<br></br>
-        ///	
+        ///	keyword can alleviate this issue.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose variance is desired.<br></br>
-        ///	  If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the variance is computed.<br></br>
-        ///	  The default is to
+        ///	The default is to
         ///	compute the variance of the flattened array.<br></br>
         ///	
         ///	
         ///	If this is a tuple of ints, a variance is performed over multiple axes,
-        ///	instead of a single axis or all the axes as before.<br></br>
-        ///	
+        ///	instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the variance.<br></br>
-        ///	  For arrays of integer type
+        ///	For arrays of integer type
         ///	the default is float32; for arrays of float types it is the same as
-        ///	the array type.<br></br>
-        ///	
+        ///	the array type.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type is cast if
-        ///	necessary.<br></br>
-        ///	
+        ///	necessary.
         /// </param>
         /// <param name="ddof">
         ///	“Delta Degrees of Freedom”: the divisor used in the calculation is
         ///	N - ddof, where N represents the number of elements.<br></br>
-        ///	 By
-        ///	default ddof is zero.<br></br>
-        ///	
+        ///	By
+        ///	default ddof is zero.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the var method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <returns>
         ///	If out=None, returns a new array containing the variance;
-        ///	otherwise, a reference to the output array is returned.<br></br>
-        ///	
+        ///	otherwise, a reference to the output array is returned.
         /// </returns>
         public NDarray<double> @var(NDarray a, int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
@@ -1911,12 +1746,10 @@ namespace Numpy
         ///	
         ///	
         ///	The mean is normally calculated as x.sum() / N, where N = len(x).<br></br>
-        ///	
         ///	If, however, ddof is specified, the divisor N - ddof is used
         ///	instead.<br></br>
         ///	  In standard statistical practice, ddof=1 provides an
         ///	unbiased estimator of the variance of a hypothetical infinite population.<br></br>
-        ///	
         ///	ddof=0 provides a maximum likelihood estimate of the variance for
         ///	normally distributed variables.<br></br>
         ///	
@@ -1931,40 +1764,34 @@ namespace Numpy
         ///	the results to be inaccurate, especially for float32 (see example
         ///	below).<br></br>
         ///	  Specifying a higher-accuracy accumulator using the dtype
-        ///	keyword can alleviate this issue.<br></br>
-        ///	
+        ///	keyword can alleviate this issue.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose variance is desired.<br></br>
-        ///	  If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the variance.<br></br>
-        ///	  For arrays of integer type
+        ///	For arrays of integer type
         ///	the default is float32; for arrays of float types it is the same as
-        ///	the array type.<br></br>
-        ///	
+        ///	the array type.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type is cast if
-        ///	necessary.<br></br>
-        ///	
+        ///	necessary.
         /// </param>
         /// <param name="ddof">
         ///	“Delta Degrees of Freedom”: the divisor used in the calculation is
         ///	N - ddof, where N represents the number of elements.<br></br>
-        ///	 By
-        ///	default ddof is zero.<br></br>
-        ///	
+        ///	By
+        ///	default ddof is zero.
         /// </param>
         /// <returns>
         ///	If out=None, returns a new array containing the variance;
-        ///	otherwise, a reference to the output array is returned.<br></br>
-        ///	
+        ///	otherwise, a reference to the output array is returned.
         /// </returns>
         public double @var(NDarray a, Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
@@ -1994,56 +1821,50 @@ namespace Numpy
         ///	Given a vector V of length N, the median of V is the
         ///	middle value of a sorted copy of V, V_sorted - i.e.,
         ///	V_sorted[(N-1)/2], when N is odd and the average of the two
-        ///	middle values of V_sorted when N is even.<br></br>
-        ///	
+        ///	middle values of V_sorted when N is even.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the medians are computed.<br></br>
-        ///	 The default
+        ///	The default
         ///	is to compute the median along a flattened version of the array.<br></br>
-        ///	
         ///	A sequence of axes is supported since version 1.9.0.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow use of memory of input array a for
         ///	calculations.<br></br>
-        ///	 The input array will be modified by the call to
+        ///	The input array will be modified by the call to
         ///	median.<br></br>
-        ///	 This will save memory when you do not need to preserve
+        ///	This will save memory when you do not need to preserve
         ///	the contents of the input array.<br></br>
-        ///	 Treat the input as undefined,
+        ///	Treat the input as undefined,
         ///	but it will probably be fully or partially sorted.<br></br>
-        ///	 Default is
+        ///	Default is
         ///	False.<br></br>
-        ///	 If overwrite_input is True and a is not already an
-        ///	ndarray, an error will be raised.<br></br>
-        ///	
+        ///	If overwrite_input is True and a is not already an
+        ///	ndarray, an error will be raised.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
         ///	
         ///	If this is anything but the default value it will be passed
         ///	through (in the special case of an empty array) to the
         ///	mean function of the underlying array.<br></br>
-        ///	  If the array is
+        ///	If the array is
         ///	a sub-class and mean does not have the kwarg keepdims this
-        ///	will raise a RuntimeError.<br></br>
-        ///	
+        ///	will raise a RuntimeError.
         /// </param>
         /// <returns>
         ///	A new array holding the result.<br></br>
@@ -2052,8 +1873,7 @@ namespace Numpy
         ///	np.float64.  Otherwise, the data-type of the output is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public NDarray<double> nanmedian(NDarray a, int[] axis, NDarray @out = null, bool? overwrite_input = false, bool? keepdims = null)
         {
@@ -2084,34 +1904,30 @@ namespace Numpy
         ///	Given a vector V of length N, the median of V is the
         ///	middle value of a sorted copy of V, V_sorted - i.e.,
         ///	V_sorted[(N-1)/2], when N is odd and the average of the two
-        ///	middle values of V_sorted when N is even.<br></br>
-        ///	
+        ///	middle values of V_sorted when N is even.
         /// </summary>
         /// <param name="a">
-        ///	Input array or object that can be converted to an array.<br></br>
-        ///	
+        ///	Input array or object that can be converted to an array.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output,
-        ///	but the type (of the output) will be cast if necessary.<br></br>
-        ///	
+        ///	but the type (of the output) will be cast if necessary.
         /// </param>
         /// <param name="overwrite_input">
         ///	If True, then allow use of memory of input array a for
         ///	calculations.<br></br>
-        ///	 The input array will be modified by the call to
+        ///	The input array will be modified by the call to
         ///	median.<br></br>
-        ///	 This will save memory when you do not need to preserve
+        ///	This will save memory when you do not need to preserve
         ///	the contents of the input array.<br></br>
-        ///	 Treat the input as undefined,
+        ///	Treat the input as undefined,
         ///	but it will probably be fully or partially sorted.<br></br>
-        ///	 Default is
+        ///	Default is
         ///	False.<br></br>
-        ///	 If overwrite_input is True and a is not already an
-        ///	ndarray, an error will be raised.<br></br>
-        ///	
+        ///	If overwrite_input is True and a is not already an
+        ///	ndarray, an error will be raised.
         /// </param>
         /// <returns>
         ///	A new array holding the result.<br></br>
@@ -2120,8 +1936,7 @@ namespace Numpy
         ///	np.float64.  Otherwise, the data-type of the output is the
         ///	same as that of the input.<br></br>
         ///	 If out is specified, that array is
-        ///	returned instead.<br></br>
-        ///	
+        ///	returned instead.
         /// </returns>
         public double nanmedian(NDarray a, NDarray @out = null, bool? overwrite_input = false)
         {
@@ -2145,7 +1960,6 @@ namespace Numpy
         ///	Returns the average of the array elements.<br></br>
         ///	  The average is taken over
         ///	the flattened array by default, otherwise over the specified axis.<br></br>
-        ///	
         ///	float64 intermediate and return values are used for integer inputs.<br></br>
         ///	
         ///	
@@ -2163,57 +1977,50 @@ namespace Numpy
         ///	  Depending on the input data, this can cause
         ///	the results to be inaccurate, especially for float32.  Specifying a
         ///	higher-precision accumulator using the dtype keyword can alleviate
-        ///	this issue.<br></br>
-        ///	
+        ///	this issue.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose mean is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the means are computed.<br></br>
-        ///	 The default is to compute
-        ///	the mean of the flattened array.<br></br>
-        ///	
+        ///	The default is to compute
+        ///	the mean of the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the mean.<br></br>
-        ///	  For integer inputs, the default
+        ///	For integer inputs, the default
         ///	is float64; for inexact inputs, it is the same as the input
-        ///	dtype.<br></br>
-        ///	
+        ///	dtype.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None; if provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	  See
-        ///	doc.ufuncs for details.<br></br>
-        ///	
+        ///	See
+        ///	doc.ufuncs for details.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
         ///	
         ///	If the value is anything but the default, then
         ///	keepdims will be passed through to the mean or sum methods
         ///	of sub-classes of ndarray.<br></br>
-        ///	  If the sub-classes methods
-        ///	does not implement keepdims any exceptions will be raised.<br></br>
-        ///	
+        ///	If the sub-classes methods
+        ///	does not implement keepdims any exceptions will be raised.
         /// </param>
         /// <returns>
         ///	If out=None, returns a new array containing the mean values,
         ///	otherwise a reference to the output array is returned.<br></br>
         ///	 Nan is
-        ///	returned for slices that contain only NaNs.<br></br>
-        ///	
+        ///	returned for slices that contain only NaNs.
         /// </returns>
         public NDarray<double> nanmean(NDarray a, int[] axis, Dtype dtype = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -2239,7 +2046,6 @@ namespace Numpy
         ///	Returns the average of the array elements.<br></br>
         ///	  The average is taken over
         ///	the flattened array by default, otherwise over the specified axis.<br></br>
-        ///	
         ///	float64 intermediate and return values are used for integer inputs.<br></br>
         ///	
         ///	
@@ -2257,37 +2063,32 @@ namespace Numpy
         ///	  Depending on the input data, this can cause
         ///	the results to be inaccurate, especially for float32.  Specifying a
         ///	higher-precision accumulator using the dtype keyword can alleviate
-        ///	this issue.<br></br>
-        ///	
+        ///	this issue.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose mean is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the mean.<br></br>
-        ///	  For integer inputs, the default
+        ///	For integer inputs, the default
         ///	is float64; for inexact inputs, it is the same as the input
-        ///	dtype.<br></br>
-        ///	
+        ///	dtype.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None; if provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	  See
-        ///	doc.ufuncs for details.<br></br>
-        ///	
+        ///	See
+        ///	doc.ufuncs for details.
         /// </param>
         /// <returns>
         ///	If out=None, returns a new array containing the mean values,
         ///	otherwise a reference to the output array is returned.<br></br>
         ///	 Nan is
-        ///	returned for slices that contain only NaNs.<br></br>
-        ///	
+        ///	returned for slices that contain only NaNs.
         /// </returns>
         public double nanmean(NDarray a, Dtype dtype = null, NDarray @out = null)
         {
@@ -2335,7 +2136,6 @@ namespace Numpy
         ///	variance of the infinite population.<br></br>
         ///	 ddof=0 provides a maximum
         ///	likelihood estimate of the variance for normally distributed variables.<br></br>
-        ///	
         ///	The standard deviation computed in this function is the square root of
         ///	the estimated variance, so even with ddof=1, it will not be an
         ///	unbiased estimate of the standard deviation per se.<br></br>
@@ -2351,62 +2151,54 @@ namespace Numpy
         ///	the results to be inaccurate, especially for float32 (see example
         ///	below).<br></br>
         ///	  Specifying a higher-accuracy accumulator using the dtype
-        ///	keyword can alleviate this issue.<br></br>
-        ///	
+        ///	keyword can alleviate this issue.
         /// </summary>
         /// <param name="a">
-        ///	Calculate the standard deviation of the non-NaN values.<br></br>
-        ///	
+        ///	Calculate the standard deviation of the non-NaN values.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the standard deviation is computed.<br></br>
-        ///	 The default is
-        ///	to compute the standard deviation of the flattened array.<br></br>
-        ///	
+        ///	The default is
+        ///	to compute the standard deviation of the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the standard deviation.<br></br>
-        ///	 For arrays of
+        ///	For arrays of
         ///	integer type the default is float64, for arrays of float types it
-        ///	is the same as the array type.<br></br>
-        ///	
+        ///	is the same as the array type.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output but the type (of the
-        ///	calculated values) will be cast if necessary.<br></br>
-        ///	
+        ///	calculated values) will be cast if necessary.
         /// </param>
         /// <param name="ddof">
         ///	Means Delta Degrees of Freedom.<br></br>
-        ///	  The divisor used in calculations
+        ///	The divisor used in calculations
         ///	is N - ddof, where N represents the number of non-NaN
         ///	elements.<br></br>
-        ///	  By default ddof is zero.<br></br>
-        ///	
+        ///	By default ddof is zero.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
         ///	
         ///	If this value is anything but the default it is passed through
         ///	as-is to the relevant functions of the sub-classes.<br></br>
-        ///	  If these
+        ///	If these
         ///	functions do not have a keepdims kwarg, a RuntimeError will
-        ///	be raised.<br></br>
-        ///	
+        ///	be raised.
         /// </param>
         /// <returns>
         ///	If out is None, return a new array containing the standard
         ///	deviation, otherwise return a reference to the output array.<br></br>
         ///	 If
         ///	ddof is &gt;= the number of non-NaN elements in a slice or the slice
-        ///	contains only NaNs, then the result for that slice is NaN.<br></br>
-        ///	
+        ///	contains only NaNs, then the result for that slice is NaN.
         /// </returns>
         public NDarray<double> nanstd(NDarray a, int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
@@ -2457,7 +2249,6 @@ namespace Numpy
         ///	variance of the infinite population.<br></br>
         ///	 ddof=0 provides a maximum
         ///	likelihood estimate of the variance for normally distributed variables.<br></br>
-        ///	
         ///	The standard deviation computed in this function is the square root of
         ///	the estimated variance, so even with ddof=1, it will not be an
         ///	unbiased estimate of the standard deviation per se.<br></br>
@@ -2473,42 +2264,36 @@ namespace Numpy
         ///	the results to be inaccurate, especially for float32 (see example
         ///	below).<br></br>
         ///	  Specifying a higher-accuracy accumulator using the dtype
-        ///	keyword can alleviate this issue.<br></br>
-        ///	
+        ///	keyword can alleviate this issue.
         /// </summary>
         /// <param name="a">
-        ///	Calculate the standard deviation of the non-NaN values.<br></br>
-        ///	
+        ///	Calculate the standard deviation of the non-NaN values.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the standard deviation.<br></br>
-        ///	 For arrays of
+        ///	For arrays of
         ///	integer type the default is float64, for arrays of float types it
-        ///	is the same as the array type.<br></br>
-        ///	
+        ///	is the same as the array type.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output but the type (of the
-        ///	calculated values) will be cast if necessary.<br></br>
-        ///	
+        ///	calculated values) will be cast if necessary.
         /// </param>
         /// <param name="ddof">
         ///	Means Delta Degrees of Freedom.<br></br>
-        ///	  The divisor used in calculations
+        ///	The divisor used in calculations
         ///	is N - ddof, where N represents the number of non-NaN
         ///	elements.<br></br>
-        ///	  By default ddof is zero.<br></br>
-        ///	
+        ///	By default ddof is zero.
         /// </param>
         /// <returns>
         ///	If out is None, return a new array containing the standard
         ///	deviation, otherwise return a reference to the output array.<br></br>
         ///	 If
         ///	ddof is &gt;= the number of non-NaN elements in a slice or the slice
-        ///	contains only NaNs, then the result for that slice is NaN.<br></br>
-        ///	
+        ///	contains only NaNs, then the result for that slice is NaN.
         /// </returns>
         public double nanstd(NDarray a, Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
@@ -2547,7 +2332,6 @@ namespace Numpy
         ///	
         ///	
         ///	The mean is normally calculated as x.sum() / N, where N = len(x).<br></br>
-        ///	
         ///	If, however, ddof is specified, the divisor N - ddof is used
         ///	instead.<br></br>
         ///	  In standard statistical practice, ddof=1 provides an
@@ -2575,51 +2359,44 @@ namespace Numpy
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose variance is desired.<br></br>
-        ///	  If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the variance is computed.<br></br>
-        ///	  The default is to compute
-        ///	the variance of the flattened array.<br></br>
-        ///	
+        ///	The default is to compute
+        ///	the variance of the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the variance.<br></br>
-        ///	  For arrays of integer type
+        ///	For arrays of integer type
         ///	the default is float32; for arrays of float types it is the same as
-        ///	the array type.<br></br>
-        ///	
+        ///	the array type.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type is cast if
-        ///	necessary.<br></br>
-        ///	
+        ///	necessary.
         /// </param>
         /// <param name="ddof">
         ///	“Delta Degrees of Freedom”: the divisor used in the calculation is
         ///	N - ddof, where N represents the number of non-NaN
         ///	elements.<br></br>
-        ///	 By default ddof is zero.<br></br>
-        ///	
+        ///	By default ddof is zero.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
-        ///	the result will broadcast correctly against the original a.<br></br>
-        ///	
+        ///	With this option,
+        ///	the result will broadcast correctly against the original a.
         /// </param>
         /// <returns>
         ///	If out is None, return a new array containing the variance,
         ///	otherwise return a reference to the output array.<br></br>
         ///	 If ddof is &gt;= the
         ///	number of non-NaN elements in a slice or the slice contains only
-        ///	NaNs, then the result for that slice is NaN.<br></br>
-        ///	
+        ///	NaNs, then the result for that slice is NaN.
         /// </returns>
         public NDarray<double> nanvar(NDarray a, int[] axis, Dtype dtype = null, NDarray @out = null, int? ddof = 0, bool? keepdims = null)
         {
@@ -2660,7 +2437,6 @@ namespace Numpy
         ///	
         ///	
         ///	The mean is normally calculated as x.sum() / N, where N = len(x).<br></br>
-        ///	
         ///	If, however, ddof is specified, the divisor N - ddof is used
         ///	instead.<br></br>
         ///	  In standard statistical practice, ddof=1 provides an
@@ -2688,38 +2464,33 @@ namespace Numpy
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose variance is desired.<br></br>
-        ///	  If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="dtype">
         ///	Type to use in computing the variance.<br></br>
-        ///	  For arrays of integer type
+        ///	For arrays of integer type
         ///	the default is float32; for arrays of float types it is the same as
-        ///	the array type.<br></br>
-        ///	
+        ///	the array type.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type is cast if
-        ///	necessary.<br></br>
-        ///	
+        ///	necessary.
         /// </param>
         /// <param name="ddof">
         ///	“Delta Degrees of Freedom”: the divisor used in the calculation is
         ///	N - ddof, where N represents the number of non-NaN
         ///	elements.<br></br>
-        ///	 By default ddof is zero.<br></br>
-        ///	
+        ///	By default ddof is zero.
         /// </param>
         /// <returns>
         ///	If out is None, return a new array containing the variance,
         ///	otherwise return a reference to the output array.<br></br>
         ///	 If ddof is &gt;= the
         ///	number of non-NaN elements in a slice or the slice contains only
-        ///	NaNs, then the result for that slice is NaN.<br></br>
-        ///	
+        ///	NaNs, then the result for that slice is NaN.
         /// </returns>
         public double nanvar(NDarray a, Dtype dtype = null, NDarray @out = null, int? ddof = 0)
         {
@@ -2764,34 +2535,28 @@ namespace Numpy
         ///	for backwards compatibility with previous versions of this function.<br></br>
         ///	  These
         ///	arguments had no effect on the return values of the function and can be
-        ///	safely ignored in this and previous versions of numpy.<br></br>
-        ///	
+        ///	safely ignored in this and previous versions of numpy.
         /// </summary>
         /// <param name="x">
         ///	A 1-D or 2-D array containing multiple variables and observations.<br></br>
-        ///	
         ///	Each row of x represents a variable, and each column a single
         ///	observation of all those variables.<br></br>
-        ///	 Also see rowvar below.<br></br>
-        ///	
+        ///	Also see rowvar below.
         /// </param>
         /// <param name="y">
         ///	An additional set of variables and observations.<br></br>
-        ///	 y has the same
-        ///	shape as x.<br></br>
-        ///	
+        ///	y has the same
+        ///	shape as x.
         /// </param>
         /// <param name="rowvar">
         ///	If rowvar is True (default), then each row represents a
         ///	variable, with observations in the columns.<br></br>
-        ///	 Otherwise, the relationship
+        ///	Otherwise, the relationship
         ///	is transposed: each column represents a variable, while the rows
-        ///	contain observations.<br></br>
-        ///	
+        ///	contain observations.
         /// </param>
         /// <returns>
-        ///	The correlation coefficient matrix of the variables.<br></br>
-        ///	
+        ///	The correlation coefficient matrix of the variables.
         /// </returns>
         public NDarray corrcoef(NDarray x, NDarray y = null, bool? rowvar = true)
         {
@@ -2825,25 +2590,21 @@ namespace Numpy
         ///	may be defined differently.<br></br>
         ///	 Another common definition is:
         ///	
-        ///	which is related to c_{av}[k] by c'_{av}[k] = c_{av}[-k].<br></br>
-        ///	
+        ///	which is related to c_{av}[k] by c'_{av}[k] = c_{av}[-k].
         /// </summary>
         /// <param name="v">
-        ///	Input sequences.<br></br>
-        ///	
+        ///	Input sequences.
         /// </param>
         /// <param name="a">
-        ///	Input sequences.<br></br>
-        ///	
+        ///	Input sequences.
         /// </param>
         /// <param name="mode">
         ///	Refer to the convolve docstring.<br></br>
-        ///	  Note that the default
+        ///	Note that the default
         ///	is ‘valid’, unlike convolve, which uses ‘full’.
         /// </param>
         /// <returns>
-        ///	Discrete cross-correlation of a and v.<br></br>
-        ///	
+        ///	Discrete cross-correlation of a and v.
         /// </returns>
         public NDarray correlate(NDarray v, NDarray a, string mode = "valid")
         {
@@ -2865,7 +2626,6 @@ namespace Numpy
         ///	
         ///	
         ///	Covariance indicates the level to which two variables vary together.<br></br>
-        ///	
         ///	If we examine N-dimensional samples, ,
         ///	then the covariance matrix element  is the covariance of
         ///	 and . The element  is the variance
@@ -2883,66 +2643,56 @@ namespace Numpy
         ///	
         ///	Note that when a == 1, the normalization factor
         ///	v1 / (v1**2 - ddof * v2) goes over to 1 / (np.sum(f) - ddof)
-        ///	as it should.<br></br>
-        ///	
+        ///	as it should.
         /// </summary>
         /// <param name="m">
         ///	A 1-D or 2-D array containing multiple variables and observations.<br></br>
-        ///	
         ///	Each row of m represents a variable, and each column a single
         ///	observation of all those variables.<br></br>
-        ///	 Also see rowvar below.<br></br>
-        ///	
+        ///	Also see rowvar below.
         /// </param>
         /// <param name="y">
         ///	An additional set of variables and observations.<br></br>
-        ///	 y has the same form
-        ///	as that of m.<br></br>
-        ///	
+        ///	y has the same form
+        ///	as that of m.
         /// </param>
         /// <param name="rowvar">
         ///	If rowvar is True (default), then each row represents a
         ///	variable, with observations in the columns.<br></br>
-        ///	 Otherwise, the relationship
+        ///	Otherwise, the relationship
         ///	is transposed: each column represents a variable, while the rows
-        ///	contain observations.<br></br>
-        ///	
+        ///	contain observations.
         /// </param>
         /// <param name="bias">
         ///	Default normalization (False) is by (N - 1), where N is the
         ///	number of observations given (unbiased estimate).<br></br>
-        ///	 If bias is True,
+        ///	If bias is True,
         ///	then normalization is by N.<br></br>
-        ///	 These values can be overridden by using
+        ///	These values can be overridden by using
         ///	the keyword ddof in numpy versions &gt;= 1.5.
         /// </param>
         /// <param name="ddof">
         ///	If not None the default value implied by bias is overridden.<br></br>
-        ///	
         ///	Note that ddof=1 will return the unbiased estimate, even if both
         ///	fweights and aweights are specified, and ddof=0 will return
         ///	the simple average.<br></br>
-        ///	 See the notes for the details.<br></br>
-        ///	 The default value
-        ///	is None.<br></br>
-        ///	
+        ///	See the notes for the details.<br></br>
+        ///	The default value
+        ///	is None.
         /// </param>
         /// <param name="fweights">
         ///	1-D array of integer frequency weights; the number of times each
-        ///	observation vector should be repeated.<br></br>
-        ///	
+        ///	observation vector should be repeated.
         /// </param>
         /// <param name="aweights">
         ///	1-D array of observation vector weights.<br></br>
-        ///	 These relative weights are
+        ///	These relative weights are
         ///	typically large for observations considered “important” and smaller for
         ///	observations considered less “important”. If ddof=0 the array of
-        ///	weights can be used to assign probabilities to observation vectors.<br></br>
-        ///	
+        ///	weights can be used to assign probabilities to observation vectors.
         /// </param>
         /// <returns>
-        ///	The covariance matrix of the variables.<br></br>
-        ///	
+        ///	The covariance matrix of the variables.
         /// </returns>
         public NDarray cov(NDarray m, NDarray y = null, bool? rowvar = true, bool? bias = false, int? ddof = null, NDarray fweights = null, NDarray aweights = null)
         {
@@ -2976,70 +2726,63 @@ namespace Numpy
         ///	then the first bin is [1, 2) (including 1, but excluding 2) and
         ///	the second [2, 3).<br></br>
         ///	  The last bin, however, is [3, 4], which
-        ///	includes 4.<br></br>
-        ///	
+        ///	includes 4.
         /// </summary>
         /// <param name="a">
         ///	Input data.<br></br>
-        ///	 The histogram is computed over the flattened array.<br></br>
-        ///	
+        ///	The histogram is computed over the flattened array.
         /// </param>
         /// <param name="bins">
         ///	If bins is an int, it defines the number of equal-width
         ///	bins in the given range (10, by default).<br></br>
-        ///	 If bins is a
+        ///	If bins is a
         ///	sequence, it defines a monotonically increasing array of bin edges,
         ///	including the rightmost edge, allowing for non-uniform bin widths.<br></br>
         ///	
         ///	
         ///	If bins is a string, it defines the method used to calculate the
-        ///	optimal bin width, as defined by histogram_bin_edges.<br></br>
-        ///	
+        ///	optimal bin width, as defined by histogram_bin_edges.
         /// </param>
         /// <param name="range">
         ///	The lower and upper range of the bins.<br></br>
-        ///	  If not provided, range
+        ///	If not provided, range
         ///	is simply (a.min(), a.max()).<br></br>
-        ///	  Values outside the range are
+        ///	Values outside the range are
         ///	ignored.<br></br>
-        ///	 The first element of the range must be less than or
+        ///	The first element of the range must be less than or
         ///	equal to the second.<br></br>
-        ///	 range affects the automatic bin
+        ///	range affects the automatic bin
         ///	computation as well.<br></br>
-        ///	 While bin width is computed to be optimal
+        ///	While bin width is computed to be optimal
         ///	based on the actual data within range, the bin count will fill
-        ///	the entire range including portions containing no data.<br></br>
-        ///	
+        ///	the entire range including portions containing no data.
         /// </param>
         /// <param name="normed">
         ///	This is equivalent to the density argument, but produces incorrect
         ///	results for unequal bin widths.<br></br>
-        ///	 It should not be used.<br></br>
-        ///	
+        ///	It should not be used.
         /// </param>
         /// <param name="weights">
         ///	An array of weights, of the same shape as a.<br></br>
-        ///	  Each value in
+        ///	Each value in
         ///	a only contributes its associated weight towards the bin count
         ///	(instead of 1).<br></br>
-        ///	 If density is True, the weights are
+        ///	If density is True, the weights are
         ///	normalized, so that the integral of the density over the range
-        ///	remains 1.<br></br>
-        ///	
+        ///	remains 1.
         /// </param>
         /// <param name="density">
         ///	If False, the result will contain the number of samples in
         ///	each bin.<br></br>
-        ///	 If True, the result is the value of the
+        ///	If True, the result is the value of the
         ///	probability density function at the bin, normalized such that
         ///	the integral over the range is 1.<br></br>
-        ///	 Note that the sum of the
+        ///	Note that the sum of the
         ///	histogram values will not be equal to 1 unless bins of unity
         ///	width are chosen; it is not a probability mass function.<br></br>
         ///	
         ///	
-        ///	Overrides the normed keyword if given.<br></br>
-        ///	
+        ///	Overrides the normed keyword if given.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3081,70 +2824,63 @@ namespace Numpy
         ///	then the first bin is [1, 2) (including 1, but excluding 2) and
         ///	the second [2, 3).<br></br>
         ///	  The last bin, however, is [3, 4], which
-        ///	includes 4.<br></br>
-        ///	
+        ///	includes 4.
         /// </summary>
         /// <param name="a">
         ///	Input data.<br></br>
-        ///	 The histogram is computed over the flattened array.<br></br>
-        ///	
+        ///	The histogram is computed over the flattened array.
         /// </param>
         /// <param name="bins">
         ///	If bins is an int, it defines the number of equal-width
         ///	bins in the given range (10, by default).<br></br>
-        ///	 If bins is a
+        ///	If bins is a
         ///	sequence, it defines a monotonically increasing array of bin edges,
         ///	including the rightmost edge, allowing for non-uniform bin widths.<br></br>
         ///	
         ///	
         ///	If bins is a string, it defines the method used to calculate the
-        ///	optimal bin width, as defined by histogram_bin_edges.<br></br>
-        ///	
+        ///	optimal bin width, as defined by histogram_bin_edges.
         /// </param>
         /// <param name="range">
         ///	The lower and upper range of the bins.<br></br>
-        ///	  If not provided, range
+        ///	If not provided, range
         ///	is simply (a.min(), a.max()).<br></br>
-        ///	  Values outside the range are
+        ///	Values outside the range are
         ///	ignored.<br></br>
-        ///	 The first element of the range must be less than or
+        ///	The first element of the range must be less than or
         ///	equal to the second.<br></br>
-        ///	 range affects the automatic bin
+        ///	range affects the automatic bin
         ///	computation as well.<br></br>
-        ///	 While bin width is computed to be optimal
+        ///	While bin width is computed to be optimal
         ///	based on the actual data within range, the bin count will fill
-        ///	the entire range including portions containing no data.<br></br>
-        ///	
+        ///	the entire range including portions containing no data.
         /// </param>
         /// <param name="normed">
         ///	This is equivalent to the density argument, but produces incorrect
         ///	results for unequal bin widths.<br></br>
-        ///	 It should not be used.<br></br>
-        ///	
+        ///	It should not be used.
         /// </param>
         /// <param name="weights">
         ///	An array of weights, of the same shape as a.<br></br>
-        ///	  Each value in
+        ///	Each value in
         ///	a only contributes its associated weight towards the bin count
         ///	(instead of 1).<br></br>
-        ///	 If density is True, the weights are
+        ///	If density is True, the weights are
         ///	normalized, so that the integral of the density over the range
-        ///	remains 1.<br></br>
-        ///	
+        ///	remains 1.
         /// </param>
         /// <param name="density">
         ///	If False, the result will contain the number of samples in
         ///	each bin.<br></br>
-        ///	 If True, the result is the value of the
+        ///	If True, the result is the value of the
         ///	probability density function at the bin, normalized such that
         ///	the integral over the range is 1.<br></br>
-        ///	 Note that the sum of the
+        ///	Note that the sum of the
         ///	histogram values will not be equal to 1 unless bins of unity
         ///	width are chosen; it is not a probability mass function.<br></br>
         ///	
         ///	
-        ///	Overrides the normed keyword if given.<br></br>
-        ///	
+        ///	Overrides the normed keyword if given.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3186,70 +2922,63 @@ namespace Numpy
         ///	then the first bin is [1, 2) (including 1, but excluding 2) and
         ///	the second [2, 3).<br></br>
         ///	  The last bin, however, is [3, 4], which
-        ///	includes 4.<br></br>
-        ///	
+        ///	includes 4.
         /// </summary>
         /// <param name="a">
         ///	Input data.<br></br>
-        ///	 The histogram is computed over the flattened array.<br></br>
-        ///	
+        ///	The histogram is computed over the flattened array.
         /// </param>
         /// <param name="bins">
         ///	If bins is an int, it defines the number of equal-width
         ///	bins in the given range (10, by default).<br></br>
-        ///	 If bins is a
+        ///	If bins is a
         ///	sequence, it defines a monotonically increasing array of bin edges,
         ///	including the rightmost edge, allowing for non-uniform bin widths.<br></br>
         ///	
         ///	
         ///	If bins is a string, it defines the method used to calculate the
-        ///	optimal bin width, as defined by histogram_bin_edges.<br></br>
-        ///	
+        ///	optimal bin width, as defined by histogram_bin_edges.
         /// </param>
         /// <param name="range">
         ///	The lower and upper range of the bins.<br></br>
-        ///	  If not provided, range
+        ///	If not provided, range
         ///	is simply (a.min(), a.max()).<br></br>
-        ///	  Values outside the range are
+        ///	Values outside the range are
         ///	ignored.<br></br>
-        ///	 The first element of the range must be less than or
+        ///	The first element of the range must be less than or
         ///	equal to the second.<br></br>
-        ///	 range affects the automatic bin
+        ///	range affects the automatic bin
         ///	computation as well.<br></br>
-        ///	 While bin width is computed to be optimal
+        ///	While bin width is computed to be optimal
         ///	based on the actual data within range, the bin count will fill
-        ///	the entire range including portions containing no data.<br></br>
-        ///	
+        ///	the entire range including portions containing no data.
         /// </param>
         /// <param name="normed">
         ///	This is equivalent to the density argument, but produces incorrect
         ///	results for unequal bin widths.<br></br>
-        ///	 It should not be used.<br></br>
-        ///	
+        ///	It should not be used.
         /// </param>
         /// <param name="weights">
         ///	An array of weights, of the same shape as a.<br></br>
-        ///	  Each value in
+        ///	Each value in
         ///	a only contributes its associated weight towards the bin count
         ///	(instead of 1).<br></br>
-        ///	 If density is True, the weights are
+        ///	If density is True, the weights are
         ///	normalized, so that the integral of the density over the range
-        ///	remains 1.<br></br>
-        ///	
+        ///	remains 1.
         /// </param>
         /// <param name="density">
         ///	If False, the result will contain the number of samples in
         ///	each bin.<br></br>
-        ///	 If True, the result is the value of the
+        ///	If True, the result is the value of the
         ///	probability density function at the bin, normalized such that
         ///	the integral over the range is 1.<br></br>
-        ///	 Note that the sum of the
+        ///	Note that the sum of the
         ///	histogram values will not be equal to 1 unless bins of unity
         ///	width are chosen; it is not a probability mass function.<br></br>
         ///	
         ///	
-        ///	Overrides the normed keyword if given.<br></br>
-        ///	
+        ///	Overrides the normed keyword if given.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3295,18 +3024,15 @@ namespace Numpy
         ///	  Rather, x is histogrammed along the first dimension of the
         ///	array (vertical), and y along the second dimension of the array
         ///	(horizontal).<br></br>
-        ///	  This ensures compatibility with histogramdd.<br></br>
-        ///	
+        ///	  This ensures compatibility with histogramdd.
         /// </summary>
         /// <param name="x">
         ///	An array containing the x coordinates of the points to be
-        ///	histogrammed.<br></br>
-        ///	
+        ///	histogrammed.
         /// </param>
         /// <param name="y">
         ///	An array containing the y coordinates of the points to be
-        ///	histogrammed.<br></br>
-        ///	
+        ///	histogrammed.
         /// </param>
         /// <param name="bins">
         ///	The bin specification:
@@ -3315,32 +3041,26 @@ namespace Numpy
         ///	The leftmost and rightmost edges of the bins along each dimension
         ///	(if not specified explicitly in the bins parameters):
         ///	[[xmin, xmax], [ymin, ymax]].<br></br>
-        ///	 All values outside of this range
-        ///	will be considered outliers and not tallied in the histogram.<br></br>
-        ///	
+        ///	All values outside of this range
+        ///	will be considered outliers and not tallied in the histogram.
         /// </param>
         /// <param name="density">
         ///	If False, the default, returns the number of samples in each bin.<br></br>
-        ///	
         ///	If True, returns the probability density function at the bin,
-        ///	bin_count / sample_count / bin_area.<br></br>
-        ///	
+        ///	bin_count / sample_count / bin_area.
         /// </param>
         /// <param name="normed">
         ///	An alias for the density argument that behaves identically.<br></br>
-        ///	 To avoid
+        ///	To avoid
         ///	confusion with the broken normed argument to histogram, density
-        ///	should be preferred.<br></br>
-        ///	
+        ///	should be preferred.
         /// </param>
         /// <param name="weights">
         ///	An array of values w_i weighing each sample (x_i, y_i).<br></br>
-        ///	
         ///	Weights are normalized to 1 if normed is True.<br></br>
-        ///	 If normed is
+        ///	If normed is
         ///	False, the values of the returned histogram are equal to the sum of
-        ///	the weights belonging to the samples falling into each bin.<br></br>
-        ///	
+        ///	the weights belonging to the samples falling into each bin.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3390,18 +3110,15 @@ namespace Numpy
         ///	  Rather, x is histogrammed along the first dimension of the
         ///	array (vertical), and y along the second dimension of the array
         ///	(horizontal).<br></br>
-        ///	  This ensures compatibility with histogramdd.<br></br>
-        ///	
+        ///	  This ensures compatibility with histogramdd.
         /// </summary>
         /// <param name="x">
         ///	An array containing the x coordinates of the points to be
-        ///	histogrammed.<br></br>
-        ///	
+        ///	histogrammed.
         /// </param>
         /// <param name="y">
         ///	An array containing the y coordinates of the points to be
-        ///	histogrammed.<br></br>
-        ///	
+        ///	histogrammed.
         /// </param>
         /// <param name="bins">
         ///	The bin specification:
@@ -3410,32 +3127,26 @@ namespace Numpy
         ///	The leftmost and rightmost edges of the bins along each dimension
         ///	(if not specified explicitly in the bins parameters):
         ///	[[xmin, xmax], [ymin, ymax]].<br></br>
-        ///	 All values outside of this range
-        ///	will be considered outliers and not tallied in the histogram.<br></br>
-        ///	
+        ///	All values outside of this range
+        ///	will be considered outliers and not tallied in the histogram.
         /// </param>
         /// <param name="density">
         ///	If False, the default, returns the number of samples in each bin.<br></br>
-        ///	
         ///	If True, returns the probability density function at the bin,
-        ///	bin_count / sample_count / bin_area.<br></br>
-        ///	
+        ///	bin_count / sample_count / bin_area.
         /// </param>
         /// <param name="normed">
         ///	An alias for the density argument that behaves identically.<br></br>
-        ///	 To avoid
+        ///	To avoid
         ///	confusion with the broken normed argument to histogram, density
-        ///	should be preferred.<br></br>
-        ///	
+        ///	should be preferred.
         /// </param>
         /// <param name="weights">
         ///	An array of values w_i weighing each sample (x_i, y_i).<br></br>
-        ///	
         ///	Weights are normalized to 1 if normed is True.<br></br>
-        ///	 If normed is
+        ///	If normed is
         ///	False, the values of the returned histogram are equal to the sum of
-        ///	the weights belonging to the samples falling into each bin.<br></br>
-        ///	
+        ///	the weights belonging to the samples falling into each bin.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3485,18 +3196,15 @@ namespace Numpy
         ///	  Rather, x is histogrammed along the first dimension of the
         ///	array (vertical), and y along the second dimension of the array
         ///	(horizontal).<br></br>
-        ///	  This ensures compatibility with histogramdd.<br></br>
-        ///	
+        ///	  This ensures compatibility with histogramdd.
         /// </summary>
         /// <param name="x">
         ///	An array containing the x coordinates of the points to be
-        ///	histogrammed.<br></br>
-        ///	
+        ///	histogrammed.
         /// </param>
         /// <param name="y">
         ///	An array containing the y coordinates of the points to be
-        ///	histogrammed.<br></br>
-        ///	
+        ///	histogrammed.
         /// </param>
         /// <param name="bins">
         ///	The bin specification:
@@ -3505,32 +3213,26 @@ namespace Numpy
         ///	The leftmost and rightmost edges of the bins along each dimension
         ///	(if not specified explicitly in the bins parameters):
         ///	[[xmin, xmax], [ymin, ymax]].<br></br>
-        ///	 All values outside of this range
-        ///	will be considered outliers and not tallied in the histogram.<br></br>
-        ///	
+        ///	All values outside of this range
+        ///	will be considered outliers and not tallied in the histogram.
         /// </param>
         /// <param name="density">
         ///	If False, the default, returns the number of samples in each bin.<br></br>
-        ///	
         ///	If True, returns the probability density function at the bin,
-        ///	bin_count / sample_count / bin_area.<br></br>
-        ///	
+        ///	bin_count / sample_count / bin_area.
         /// </param>
         /// <param name="normed">
         ///	An alias for the density argument that behaves identically.<br></br>
-        ///	 To avoid
+        ///	To avoid
         ///	confusion with the broken normed argument to histogram, density
-        ///	should be preferred.<br></br>
-        ///	
+        ///	should be preferred.
         /// </param>
         /// <param name="weights">
         ///	An array of values w_i weighing each sample (x_i, y_i).<br></br>
-        ///	
         ///	Weights are normalized to 1 if normed is True.<br></br>
-        ///	 If normed is
+        ///	If normed is
         ///	False, the values of the returned histogram are equal to the sum of
-        ///	the weights belonging to the samples falling into each bin.<br></br>
-        ///	
+        ///	the weights belonging to the samples falling into each bin.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3564,8 +3266,7 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Compute the multidimensional histogram of some data.<br></br>
-        ///	
+        ///	Compute the multidimensional histogram of some data.
         /// </summary>
         /// <param name="sample">
         ///	The data to be histogrammed.<br></br>
@@ -3573,8 +3274,7 @@ namespace Numpy
         ///	
         ///	Note the unusual interpretation of sample when an array_like:
         ///	
-        ///	The first form should be preferred.<br></br>
-        ///	
+        ///	The first form should be preferred.
         /// </param>
         /// <param name="bins">
         ///	The bin specification:
@@ -3583,35 +3283,27 @@ namespace Numpy
         ///	A sequence of length D, each an optional (lower, upper) tuple giving
         ///	the outer bin edges to be used if the edges are not given explicitly in
         ///	bins.<br></br>
-        ///	
         ///	An entry of None in the sequence results in the minimum and maximum
         ///	values being used for the corresponding dimension.<br></br>
-        ///	
-        ///	The default, None, is equivalent to passing a tuple of D None values.<br></br>
-        ///	
+        ///	The default, None, is equivalent to passing a tuple of D None values.
         /// </param>
         /// <param name="density">
         ///	If False, the default, returns the number of samples in each bin.<br></br>
-        ///	
         ///	If True, returns the probability density function at the bin,
-        ///	bin_count / sample_count / bin_volume.<br></br>
-        ///	
+        ///	bin_count / sample_count / bin_volume.
         /// </param>
         /// <param name="normed">
         ///	An alias for the density argument that behaves identically.<br></br>
-        ///	 To avoid
+        ///	To avoid
         ///	confusion with the broken normed argument to histogram, density
-        ///	should be preferred.<br></br>
-        ///	
+        ///	should be preferred.
         /// </param>
         /// <param name="weights">
         ///	An array of values w_i weighing each sample (x_i, y_i, z_i, …).<br></br>
-        ///	
         ///	Weights are normalized to 1 if normed is True.<br></br>
-        ///	 If normed is False,
+        ///	If normed is False,
         ///	the values of the returned histogram are equal to the sum of the
-        ///	weights belonging to the samples falling into each bin.<br></br>
-        ///	
+        ///	weights belonging to the samples falling into each bin.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3641,8 +3333,7 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Compute the multidimensional histogram of some data.<br></br>
-        ///	
+        ///	Compute the multidimensional histogram of some data.
         /// </summary>
         /// <param name="sample">
         ///	The data to be histogrammed.<br></br>
@@ -3650,8 +3341,7 @@ namespace Numpy
         ///	
         ///	Note the unusual interpretation of sample when an array_like:
         ///	
-        ///	The first form should be preferred.<br></br>
-        ///	
+        ///	The first form should be preferred.
         /// </param>
         /// <param name="bins">
         ///	The bin specification:
@@ -3660,35 +3350,27 @@ namespace Numpy
         ///	A sequence of length D, each an optional (lower, upper) tuple giving
         ///	the outer bin edges to be used if the edges are not given explicitly in
         ///	bins.<br></br>
-        ///	
         ///	An entry of None in the sequence results in the minimum and maximum
         ///	values being used for the corresponding dimension.<br></br>
-        ///	
-        ///	The default, None, is equivalent to passing a tuple of D None values.<br></br>
-        ///	
+        ///	The default, None, is equivalent to passing a tuple of D None values.
         /// </param>
         /// <param name="density">
         ///	If False, the default, returns the number of samples in each bin.<br></br>
-        ///	
         ///	If True, returns the probability density function at the bin,
-        ///	bin_count / sample_count / bin_volume.<br></br>
-        ///	
+        ///	bin_count / sample_count / bin_volume.
         /// </param>
         /// <param name="normed">
         ///	An alias for the density argument that behaves identically.<br></br>
-        ///	 To avoid
+        ///	To avoid
         ///	confusion with the broken normed argument to histogram, density
-        ///	should be preferred.<br></br>
-        ///	
+        ///	should be preferred.
         /// </param>
         /// <param name="weights">
         ///	An array of values w_i weighing each sample (x_i, y_i, z_i, …).<br></br>
-        ///	
         ///	Weights are normalized to 1 if normed is True.<br></br>
-        ///	 If normed is False,
+        ///	If normed is False,
         ///	the values of the returned histogram are equal to the sum of the
-        ///	weights belonging to the samples falling into each bin.<br></br>
-        ///	
+        ///	weights belonging to the samples falling into each bin.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3718,8 +3400,7 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Compute the multidimensional histogram of some data.<br></br>
-        ///	
+        ///	Compute the multidimensional histogram of some data.
         /// </summary>
         /// <param name="sample">
         ///	The data to be histogrammed.<br></br>
@@ -3727,8 +3408,7 @@ namespace Numpy
         ///	
         ///	Note the unusual interpretation of sample when an array_like:
         ///	
-        ///	The first form should be preferred.<br></br>
-        ///	
+        ///	The first form should be preferred.
         /// </param>
         /// <param name="bins">
         ///	The bin specification:
@@ -3737,35 +3417,27 @@ namespace Numpy
         ///	A sequence of length D, each an optional (lower, upper) tuple giving
         ///	the outer bin edges to be used if the edges are not given explicitly in
         ///	bins.<br></br>
-        ///	
         ///	An entry of None in the sequence results in the minimum and maximum
         ///	values being used for the corresponding dimension.<br></br>
-        ///	
-        ///	The default, None, is equivalent to passing a tuple of D None values.<br></br>
-        ///	
+        ///	The default, None, is equivalent to passing a tuple of D None values.
         /// </param>
         /// <param name="density">
         ///	If False, the default, returns the number of samples in each bin.<br></br>
-        ///	
         ///	If True, returns the probability density function at the bin,
-        ///	bin_count / sample_count / bin_volume.<br></br>
-        ///	
+        ///	bin_count / sample_count / bin_volume.
         /// </param>
         /// <param name="normed">
         ///	An alias for the density argument that behaves identically.<br></br>
-        ///	 To avoid
+        ///	To avoid
         ///	confusion with the broken normed argument to histogram, density
-        ///	should be preferred.<br></br>
-        ///	
+        ///	should be preferred.
         /// </param>
         /// <param name="weights">
         ///	An array of values w_i weighing each sample (x_i, y_i, z_i, …).<br></br>
-        ///	
         ///	Weights are normalized to 1 if normed is True.<br></br>
-        ///	 If normed is False,
+        ///	If normed is False,
         ///	the values of the returned histogram are equal to the sum of the
-        ///	weights belonging to the samples falling into each bin.<br></br>
-        ///	
+        ///	weights belonging to the samples falling into each bin.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3803,30 +3475,23 @@ namespace Numpy
         ///	 If minlength is specified, there will be at least this number
         ///	of bins in the output array (though it will be longer if necessary,
         ///	depending on the contents of x).<br></br>
-        ///	
         ///	Each bin gives the number of occurrences of its index value in x.<br></br>
-        ///	
         ///	If weights is specified the input array is weighted by it, i.e.<br></br>
         ///	 if a
         ///	value n is found at position i, out[n] += weight[i] instead
-        ///	of out[n] += 1.<br></br>
-        ///	
+        ///	of out[n] += 1.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="weights">
-        ///	Weights, array of the same shape as x.<br></br>
-        ///	
+        ///	Weights, array of the same shape as x.
         /// </param>
         /// <param name="minlength">
-        ///	A minimum number of bins for the output array.<br></br>
-        ///	
+        ///	A minimum number of bins for the output array.
         /// </param>
         /// <returns>
         ///	The result of binning the input array.<br></br>
-        ///	
         ///	The length of out is equal to np.amax(x)+1.
         /// </returns>
         public NDarray bincount(NDarray x, NDarray weights = null, int? minlength = 0)
@@ -3864,18 +3529,16 @@ namespace Numpy
         ///	 All estimators that compute bin counts are recast to bin width
         ///	using the ptp of the data.<br></br>
         ///	 The final bin count is obtained from
-        ///	np.round(np.ceil(range / h)).<br></br>
-        ///	
+        ///	np.round(np.ceil(range / h)).
         /// </summary>
         /// <param name="a">
         ///	Input data.<br></br>
-        ///	 The histogram is computed over the flattened array.<br></br>
-        ///	
+        ///	The histogram is computed over the flattened array.
         /// </param>
         /// <param name="bins">
         ///	If bins is an int, it defines the number of equal-width
         ///	bins in the given range (10, by default).<br></br>
-        ///	 If bins is a
+        ///	If bins is a
         ///	sequence, it defines the bin edges, including the rightmost
         ///	edge, allowing for non-uniform bin widths.<br></br>
         ///	
@@ -3885,38 +3548,35 @@ namespace Numpy
         ///	consequently the number of bins (see Notes for more detail on
         ///	the estimators) from the data that falls within the requested
         ///	range.<br></br>
-        ///	 While the bin width will be optimal for the actual data
+        ///	While the bin width will be optimal for the actual data
         ///	in the range, the number of bins will be computed to fill the
         ///	entire range, including the empty portions.<br></br>
-        ///	 For visualisation,
+        ///	For visualisation,
         ///	using the ‘auto’ option is suggested.<br></br>
-        ///	 Weighted data is not
-        ///	supported for automated bin size selection.<br></br>
-        ///	
+        ///	Weighted data is not
+        ///	supported for automated bin size selection.
         /// </param>
         /// <param name="range">
         ///	The lower and upper range of the bins.<br></br>
-        ///	  If not provided, range
+        ///	If not provided, range
         ///	is simply (a.min(), a.max()).<br></br>
-        ///	  Values outside the range are
+        ///	Values outside the range are
         ///	ignored.<br></br>
-        ///	 The first element of the range must be less than or
+        ///	The first element of the range must be less than or
         ///	equal to the second.<br></br>
-        ///	 range affects the automatic bin
+        ///	range affects the automatic bin
         ///	computation as well.<br></br>
-        ///	 While bin width is computed to be optimal
+        ///	While bin width is computed to be optimal
         ///	based on the actual data within range, the bin count will fill
-        ///	the entire range including portions containing no data.<br></br>
-        ///	
+        ///	the entire range including portions containing no data.
         /// </param>
         /// <param name="weights">
         ///	An array of weights, of the same shape as a.<br></br>
-        ///	  Each value in
+        ///	Each value in
         ///	a only contributes its associated weight towards the bin count
         ///	(instead of 1).<br></br>
-        ///	 This is currently not used by any of the bin estimators,
-        ///	but may be in the future.<br></br>
-        ///	
+        ///	This is currently not used by any of the bin estimators,
+        ///	but may be in the future.
         /// </param>
         /// <returns>
         ///	The edges to pass into histogram
@@ -3957,18 +3617,16 @@ namespace Numpy
         ///	 All estimators that compute bin counts are recast to bin width
         ///	using the ptp of the data.<br></br>
         ///	 The final bin count is obtained from
-        ///	np.round(np.ceil(range / h)).<br></br>
-        ///	
+        ///	np.round(np.ceil(range / h)).
         /// </summary>
         /// <param name="a">
         ///	Input data.<br></br>
-        ///	 The histogram is computed over the flattened array.<br></br>
-        ///	
+        ///	The histogram is computed over the flattened array.
         /// </param>
         /// <param name="bins">
         ///	If bins is an int, it defines the number of equal-width
         ///	bins in the given range (10, by default).<br></br>
-        ///	 If bins is a
+        ///	If bins is a
         ///	sequence, it defines the bin edges, including the rightmost
         ///	edge, allowing for non-uniform bin widths.<br></br>
         ///	
@@ -3978,38 +3636,35 @@ namespace Numpy
         ///	consequently the number of bins (see Notes for more detail on
         ///	the estimators) from the data that falls within the requested
         ///	range.<br></br>
-        ///	 While the bin width will be optimal for the actual data
+        ///	While the bin width will be optimal for the actual data
         ///	in the range, the number of bins will be computed to fill the
         ///	entire range, including the empty portions.<br></br>
-        ///	 For visualisation,
+        ///	For visualisation,
         ///	using the ‘auto’ option is suggested.<br></br>
-        ///	 Weighted data is not
-        ///	supported for automated bin size selection.<br></br>
-        ///	
+        ///	Weighted data is not
+        ///	supported for automated bin size selection.
         /// </param>
         /// <param name="range">
         ///	The lower and upper range of the bins.<br></br>
-        ///	  If not provided, range
+        ///	If not provided, range
         ///	is simply (a.min(), a.max()).<br></br>
-        ///	  Values outside the range are
+        ///	Values outside the range are
         ///	ignored.<br></br>
-        ///	 The first element of the range must be less than or
+        ///	The first element of the range must be less than or
         ///	equal to the second.<br></br>
-        ///	 range affects the automatic bin
+        ///	range affects the automatic bin
         ///	computation as well.<br></br>
-        ///	 While bin width is computed to be optimal
+        ///	While bin width is computed to be optimal
         ///	based on the actual data within range, the bin count will fill
-        ///	the entire range including portions containing no data.<br></br>
-        ///	
+        ///	the entire range including portions containing no data.
         /// </param>
         /// <param name="weights">
         ///	An array of weights, of the same shape as a.<br></br>
-        ///	  Each value in
+        ///	Each value in
         ///	a only contributes its associated weight towards the bin count
         ///	(instead of 1).<br></br>
-        ///	 This is currently not used by any of the bin estimators,
-        ///	but may be in the future.<br></br>
-        ///	
+        ///	This is currently not used by any of the bin estimators,
+        ///	but may be in the future.
         /// </param>
         /// <returns>
         ///	The edges to pass into histogram
@@ -4050,18 +3705,16 @@ namespace Numpy
         ///	 All estimators that compute bin counts are recast to bin width
         ///	using the ptp of the data.<br></br>
         ///	 The final bin count is obtained from
-        ///	np.round(np.ceil(range / h)).<br></br>
-        ///	
+        ///	np.round(np.ceil(range / h)).
         /// </summary>
         /// <param name="a">
         ///	Input data.<br></br>
-        ///	 The histogram is computed over the flattened array.<br></br>
-        ///	
+        ///	The histogram is computed over the flattened array.
         /// </param>
         /// <param name="bins">
         ///	If bins is an int, it defines the number of equal-width
         ///	bins in the given range (10, by default).<br></br>
-        ///	 If bins is a
+        ///	If bins is a
         ///	sequence, it defines the bin edges, including the rightmost
         ///	edge, allowing for non-uniform bin widths.<br></br>
         ///	
@@ -4071,38 +3724,35 @@ namespace Numpy
         ///	consequently the number of bins (see Notes for more detail on
         ///	the estimators) from the data that falls within the requested
         ///	range.<br></br>
-        ///	 While the bin width will be optimal for the actual data
+        ///	While the bin width will be optimal for the actual data
         ///	in the range, the number of bins will be computed to fill the
         ///	entire range, including the empty portions.<br></br>
-        ///	 For visualisation,
+        ///	For visualisation,
         ///	using the ‘auto’ option is suggested.<br></br>
-        ///	 Weighted data is not
-        ///	supported for automated bin size selection.<br></br>
-        ///	
+        ///	Weighted data is not
+        ///	supported for automated bin size selection.
         /// </param>
         /// <param name="range">
         ///	The lower and upper range of the bins.<br></br>
-        ///	  If not provided, range
+        ///	If not provided, range
         ///	is simply (a.min(), a.max()).<br></br>
-        ///	  Values outside the range are
+        ///	Values outside the range are
         ///	ignored.<br></br>
-        ///	 The first element of the range must be less than or
+        ///	The first element of the range must be less than or
         ///	equal to the second.<br></br>
-        ///	 range affects the automatic bin
+        ///	range affects the automatic bin
         ///	computation as well.<br></br>
-        ///	 While bin width is computed to be optimal
+        ///	While bin width is computed to be optimal
         ///	based on the actual data within range, the bin count will fill
-        ///	the entire range including portions containing no data.<br></br>
-        ///	
+        ///	the entire range including portions containing no data.
         /// </param>
         /// <param name="weights">
         ///	An array of weights, of the same shape as a.<br></br>
-        ///	  Each value in
+        ///	Each value in
         ///	a only contributes its associated weight towards the bin count
         ///	(instead of 1).<br></br>
-        ///	 This is currently not used by any of the bin estimators,
-        ///	but may be in the future.<br></br>
-        ///	
+        ///	This is currently not used by any of the bin estimators,
+        ///	but may be in the future.
         /// </param>
         /// <returns>
         ///	The edges to pass into histogram
@@ -4149,36 +3799,30 @@ namespace Numpy
         ///	For monotonically _increasing_ bins, the following are equivalent:
         ///	
         ///	Note that as the order of the arguments are reversed, the side must be too.<br></br>
-        ///	
         ///	The searchsorted call is marginally faster, as it does not do any
         ///	monotonicity checks.<br></br>
-        ///	 Perhaps more importantly, it supports all dtypes.<br></br>
-        ///	
+        ///	 Perhaps more importantly, it supports all dtypes.
         /// </summary>
         /// <param name="x">
         ///	Input array to be binned.<br></br>
-        ///	 Prior to NumPy 1.10.0, this array had to
-        ///	be 1-dimensional, but can now have any shape.<br></br>
-        ///	
+        ///	Prior to NumPy 1.10.0, this array had to
+        ///	be 1-dimensional, but can now have any shape.
         /// </param>
         /// <param name="bins">
         ///	Array of bins.<br></br>
-        ///	 It has to be 1-dimensional and monotonic.<br></br>
-        ///	
+        ///	It has to be 1-dimensional and monotonic.
         /// </param>
         /// <param name="right">
         ///	Indicating whether the intervals include the right or the left bin
         ///	edge.<br></br>
-        ///	 Default behavior is (right==False) indicating that the interval
+        ///	Default behavior is (right==False) indicating that the interval
         ///	does not include the right edge.<br></br>
-        ///	 The left bin end is open in this
+        ///	The left bin end is open in this
         ///	case, i.e., bins[i-1] &lt;= x &lt; bins[i] is the default behavior for
-        ///	monotonically increasing bins.<br></br>
-        ///	
+        ///	monotonically increasing bins.
         /// </param>
         /// <returns>
-        ///	Output array of indices, of same shape as x.<br></br>
-        ///	
+        ///	Output array of indices, of same shape as x.
         /// </returns>
         public NDarray digitize(NDarray x, NDarray bins, bool? right = false)
         {

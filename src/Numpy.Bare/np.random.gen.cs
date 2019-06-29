@@ -35,19 +35,14 @@ namespace Numpy
             /// </summary>
             /// <param name="d1">
             ///	The dimensions of the returned array, should all be positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.<br></br>
-            ///	
+            ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <param name="d0">
             ///	The dimensions of the returned array, should all be positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.<br></br>
-            ///	
+            ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <returns>
-            ///	Random values.<br></br>
-            ///	
+            ///	Random values.
             /// </returns>
             public static NDarray rand(int? d1 = null, int? d0 = null)
                 => NumPy.Instance.random_rand(d1:d1, d0:d0);
@@ -81,21 +76,16 @@ namespace Numpy
             /// </summary>
             /// <param name="d1">
             ///	The dimensions of the returned array, should be all positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.<br></br>
-            ///	
+            ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <param name="d0">
             ///	The dimensions of the returned array, should be all positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.<br></br>
-            ///	
+            ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <returns>
             ///	A (d0, d1, ..., dn)-shaped array of floating-point samples from
             ///	the standard normal distribution, or a single such float if
-            ///	no parameters were supplied.<br></br>
-            ///	
+            ///	no parameters were supplied.
             /// </returns>
             public static NDarray randn(int? d1 = null, int? d0 = null)
                 => NumPy.Instance.random_randn(d1:d1, d0:d0);
@@ -109,40 +99,35 @@ namespace Numpy
             ///	Return random integers from the “discrete uniform” distribution of
             ///	the specified dtype in the “half-open” interval [low, high).<br></br>
             ///	 If
-            ///	high is None (the default), then results are from [0, low).<br></br>
-            ///	
+            ///	high is None (the default), then results are from [0, low).
             /// </summary>
             /// <param name="low">
             ///	Lowest (signed) integer to be drawn from the distribution (unless
             ///	high=None, in which case this parameter is one above the
-            ///	highest such integer).<br></br>
-            ///	
+            ///	highest such integer).
             /// </param>
             /// <param name="high">
             ///	If provided, one above the largest (signed) integer to be drawn
-            ///	from the distribution (see above for behavior if high=None).<br></br>
-            ///	
+            ///	from the distribution (see above for behavior if high=None).
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <param name="dtype">
             ///	Desired dtype of the result.<br></br>
-            ///	 All dtypes are determined by their
+            ///	All dtypes are determined by their
             ///	name, i.e., ‘int64’, ‘int’, etc, so byteorder is not available
             ///	and a specific precision may have different C types depending
             ///	on the platform.<br></br>
-            ///	 The default value is ‘np.int’.
+            ///	The default value is ‘np.int’.
             /// </param>
             /// <returns>
             ///	size-shaped array of random integers from the appropriate
-            ///	distribution, or a single such random int if size not provided.<br></br>
-            ///	
+            ///	distribution, or a single such random int if size not provided.
             /// </returns>
             public static NDarray<int> randint(int low, int? high = null, int[] size = null, Dtype dtype = null)
                 => NumPy.Instance.random_randint(low, high:high, size:size, dtype:dtype);
@@ -174,26 +159,22 @@ namespace Numpy
             /// <param name="low">
             ///	Lowest (signed) integer to be drawn from the distribution (unless
             ///	high=None, in which case this parameter is the highest such
-            ///	integer).<br></br>
-            ///	
+            ///	integer).
             /// </param>
             /// <param name="high">
             ///	If provided, the largest (signed) integer to be drawn from the
-            ///	distribution (see above for behavior if high=None).<br></br>
-            ///	
+            ///	distribution (see above for behavior if high=None).
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
             ///	size-shaped array of random integers from the appropriate
-            ///	distribution, or a single such random int if size not provided.<br></br>
-            ///	
+            ///	distribution, or a single such random int if size not provided.
             /// </returns>
             public static NDarray<int> random_integers(int low, int? high = null, int[] size = null)
                 => NumPy.Instance.random_random_integers(low, high:high, size:size);
@@ -211,16 +192,14 @@ namespace Numpy
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
             ///	Array of random floats of shape size (unless size=None, in which
-            ///	case a single float is returned).<br></br>
-            ///	
+            ///	case a single float is returned).
             /// </returns>
             public static NDarray<float> random_sample(params int[] size)
                 => NumPy.Instance.random_random_sample(size:size);
@@ -238,16 +217,14 @@ namespace Numpy
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
             ///	Array of random floats of shape size (unless size=None, in which
-            ///	case a single float is returned).<br></br>
-            ///	
+            ///	case a single float is returned).
             /// </returns>
             public static NDarray<float> random_(params int[] size)
                 => NumPy.Instance.random_random(size:size);
@@ -265,16 +242,14 @@ namespace Numpy
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
             ///	Array of random floats of shape size (unless size=None, in which
-            ///	case a single float is returned).<br></br>
-            ///	
+            ///	case a single float is returned).
             /// </returns>
             public static NDarray<float> ranf(params int[] size)
                 => NumPy.Instance.random_ranf(size:size);
@@ -292,16 +267,14 @@ namespace Numpy
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
             ///	Array of random floats of shape size (unless size=None, in which
-            ///	case a single float is returned).<br></br>
-            ///	
+            ///	case a single float is returned).
             /// </returns>
             public static NDarray<float> sample(params int[] size)
                 => NumPy.Instance.random_sample(size:size);
@@ -313,26 +286,22 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	If an ndarray, a random sample is generated from its elements.<br></br>
-            ///	
             ///	If an int, the random sample is generated as if a were np.arange(a)
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <param name="replace">
             ///	Whether the sample is with or without replacement
             /// </param>
             /// <param name="p">
             ///	The probabilities associated with each entry in a.<br></br>
-            ///	
             ///	If not given the sample assumes a uniform distribution over all
-            ///	entries in a.<br></br>
-            ///	
+            ///	entries in a.
             /// </param>
             /// <returns>
             ///	The generated random samples
@@ -347,26 +316,22 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	If an ndarray, a random sample is generated from its elements.<br></br>
-            ///	
             ///	If an int, the random sample is generated as if a were np.arange(a)
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <param name="replace">
             ///	Whether the sample is with or without replacement
             /// </param>
             /// <param name="p">
             ///	The probabilities associated with each entry in a.<br></br>
-            ///	
             ///	If not given the sample assumes a uniform distribution over all
-            ///	entries in a.<br></br>
-            ///	
+            ///	entries in a.
             /// </param>
             /// <returns>
             ///	The generated random samples
@@ -377,16 +342,13 @@ namespace Numpy
         
         public static partial class random {
             /// <summary>
-            ///	Return random bytes.<br></br>
-            ///	
+            ///	Return random bytes.
             /// </summary>
             /// <param name="length">
-            ///	Number of random bytes.<br></br>
-            ///	
+            ///	Number of random bytes.
             /// </param>
             /// <returns>
-            ///	String of length length.<br></br>
-            ///	
+            ///	String of length length.
             /// </returns>
             public static string bytes(int length)
                 => NumPy.Instance.random_bytes(length);
@@ -400,12 +362,10 @@ namespace Numpy
             ///	This function only shuffles the array along the first axis of a
             ///	multi-dimensional array.<br></br>
             ///	 The order of sub-arrays is changed but
-            ///	their contents remains the same.<br></br>
-            ///	
+            ///	their contents remains the same.
             /// </summary>
             /// <param name="x">
-            ///	The array or list to be shuffled.<br></br>
-            ///	
+            ///	The array or list to be shuffled.
             /// </param>
             public static void shuffle(NDarray x)
                 => NumPy.Instance.random_shuffle(x);
@@ -417,19 +377,15 @@ namespace Numpy
             ///	
             ///	
             ///	If x is a multi-dimensional array, it is only shuffled along its
-            ///	first index.<br></br>
-            ///	
+            ///	first index.
             /// </summary>
             /// <param name="x">
             ///	If x is an integer, randomly permute np.arange(x).<br></br>
-            ///	
             ///	If x is an array, make a copy and shuffle the elements
-            ///	randomly.<br></br>
-            ///	
+            ///	randomly.
             /// </param>
             /// <returns>
-            ///	Permuted sequence or array range.<br></br>
-            ///	
+            ///	Permuted sequence or array range.
             /// </returns>
             public static NDarray permutation(NDarray x)
                 => NumPy.Instance.random_permutation(x);
@@ -441,19 +397,15 @@ namespace Numpy
             ///	
             ///	
             ///	If x is a multi-dimensional array, it is only shuffled along its
-            ///	first index.<br></br>
-            ///	
+            ///	first index.
             /// </summary>
             /// <param name="x">
             ///	If x is an integer, randomly permute np.arange(x).<br></br>
-            ///	
             ///	If x is an array, make a copy and shuffle the elements
-            ///	randomly.<br></br>
-            ///	
+            ///	randomly.
             /// </param>
             /// <returns>
-            ///	Permuted sequence or array range.<br></br>
-            ///	
+            ///	Permuted sequence or array range.
             /// </returns>
             public static NDarray permutation(int x)
                 => NumPy.Instance.random_permutation(x);
@@ -471,30 +423,24 @@ namespace Numpy
             ///	
             ///	where the normalisation, B, is the beta function,
             ///	
-            ///	It is often seen in Bayesian inference and order statistics.<br></br>
-            ///	
+            ///	It is often seen in Bayesian inference and order statistics.
             /// </summary>
             /// <param name="a">
-            ///	Alpha, positive (&gt;0).<br></br>
-            ///	
+            ///	Alpha, positive (&gt;0).
             /// </param>
             /// <param name="b">
-            ///	Beta, positive (&gt;0).<br></br>
-            ///	
+            ///	Beta, positive (&gt;0).
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if a and b are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(a, b).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(a, b).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized beta distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized beta distribution.
             /// </returns>
             public static NDarray beta(NDarray<float> a, NDarray<float> b, int[] size = null)
                 => NumPy.Instance.random_beta(a, b, size:size);
@@ -534,27 +480,23 @@ namespace Numpy
             /// </summary>
             /// <param name="n">
             ///	Parameter of the distribution, &gt;= 0.<br></br>
-            ///	 Floats are also accepted,
-            ///	but they will be truncated to integers.<br></br>
-            ///	
+            ///	Floats are also accepted,
+            ///	but they will be truncated to integers.
             /// </param>
             /// <param name="p">
             ///	Parameter of the distribution, &gt;= 0 and &lt;=1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if n and p are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(n, p).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(n, p).size samples are drawn.
             /// </param>
             /// <returns>
             ///	Drawn samples from the parameterized binomial distribution, where
-            ///	each sample is equal to the number of successes over the n trials.<br></br>
-            ///	
+            ///	each sample is equal to the number of successes over the n trials.
             /// </returns>
             public static NDarray binomial(NDarray<int> n, NDarray<float> p, int[] size = null)
                 => NumPy.Instance.random_binomial(n, p, size:size);
@@ -594,27 +536,23 @@ namespace Numpy
             /// </summary>
             /// <param name="n">
             ///	Parameter of the distribution, &gt;= 0.<br></br>
-            ///	 Floats are also accepted,
-            ///	but they will be truncated to integers.<br></br>
-            ///	
+            ///	Floats are also accepted,
+            ///	but they will be truncated to integers.
             /// </param>
             /// <param name="p">
             ///	Parameter of the distribution, &gt;= 0 and &lt;=1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if n and p are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(n, p).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(n, p).size samples are drawn.
             /// </param>
             /// <returns>
             ///	Drawn samples from the parameterized binomial distribution, where
-            ///	each sample is equal to the number of successes over the n trials.<br></br>
-            ///	
+            ///	each sample is equal to the number of successes over the n trials.
             /// </returns>
             public static NDarray binomial(int n, NDarray<float> p, int[] size = null)
                 => NumPy.Instance.random_binomial(n, p, size:size);
@@ -646,22 +584,19 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="df">
-            ///	Number of degrees of freedom, should be &gt; 0.<br></br>
-            ///	
+            ///	Number of degrees of freedom, should be &gt; 0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if df is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(df).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(df).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized chi-square distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized chi-square distribution.
             /// </returns>
             public static NDarray chisquare(NDarray<float> df, int[] size = null)
                 => NumPy.Instance.random_chisquare(df, size:size);
@@ -693,20 +628,17 @@ namespace Numpy
             /// </summary>
             /// <param name="alpha">
             ///	Parameter of the distribution (k dimension for sample of
-            ///	dimension k).<br></br>
-            ///	
+            ///	dimension k).
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
-            ///	The drawn samples, of shape (size, alpha.ndim).<br></br>
-            ///	
+            ///	The drawn samples, of shape (size, alpha.ndim).
             /// </returns>
             public static NDarray dirichlet(NDarray alpha, int[] size = null)
                 => NumPy.Instance.random_dirichlet(alpha, size:size);
@@ -740,17 +672,15 @@ namespace Numpy
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if scale is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized exponential distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized exponential distribution.
             /// </returns>
             public static NDarray exponential(NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_exponential(scale:scale, size:size);
@@ -789,26 +719,21 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="dfnum">
-            ///	Degrees of freedom in numerator, should be &gt; 0.<br></br>
-            ///	
+            ///	Degrees of freedom in numerator, should be &gt; 0.
             /// </param>
             /// <param name="dfden">
-            ///	Degrees of freedom in denominator, should be &gt; 0.<br></br>
-            ///	
+            ///	Degrees of freedom in denominator, should be &gt; 0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if dfnum and dfden are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(dfnum, dfden).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(dfnum, dfden).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Fisher distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Fisher distribution.
             /// </returns>
             public static NDarray f(NDarray<float> dfnum, NDarray<float> dfden, int[] size = null)
                 => NumPy.Instance.random_f(dfnum, dfden, size:size);
@@ -841,29 +766,23 @@ namespace Numpy
             /// </summary>
             /// <param name="shape">
             ///	The shape of the gamma distribution.<br></br>
-            ///	 Should be greater than zero.<br></br>
-            ///	
+            ///	Should be greater than zero.
             /// </param>
             /// <param name="scale">
             ///	The scale of the gamma distribution.<br></br>
-            ///	 Should be greater than zero.<br></br>
-            ///	
-            ///	Default is equal to 1.<br></br>
-            ///	
+            ///	Should be greater than zero.<br></br>
+            ///	Default is equal to 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if shape and scale are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(shape, scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(shape, scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized gamma distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized gamma distribution.
             /// </returns>
             public static NDarray gamma(Shape shape, NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_gamma(shape, scale:scale, size:size);
@@ -884,26 +803,22 @@ namespace Numpy
             ///	
             ///	The probability mass function of the geometric distribution is
             ///	
-            ///	where p is the probability of success of an individual trial.<br></br>
-            ///	
+            ///	where p is the probability of success of an individual trial.
             /// </summary>
             /// <param name="p">
-            ///	The probability of success of an individual trial.<br></br>
-            ///	
+            ///	The probability of success of an individual trial.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if p is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(p).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(p).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized geometric distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized geometric distribution.
             /// </returns>
             public static NDarray geometric(NDarray<float> p, int[] size = null)
                 => NumPy.Instance.random_geometric(p, size:size);
@@ -925,7 +840,6 @@ namespace Numpy
             ///	The Gumbel (or Smallest Extreme Value (SEV) or the Smallest Extreme
             ///	Value Type I) distribution is one of a class of Generalized Extreme
             ///	Value (GEV) distributions used in modeling extreme value problems.<br></br>
-            ///	
             ///	The Gumbel is a special case of the Extreme Value Type I distribution
             ///	for maximums from distributions with “exponential-like” tails.<br></br>
             ///	
@@ -961,27 +875,22 @@ namespace Numpy
             /// </summary>
             /// <param name="loc">
             ///	The location of the mode of the distribution.<br></br>
-            ///	 Default is 0.<br></br>
-            ///	
+            ///	Default is 0.
             /// </param>
             /// <param name="scale">
             ///	The scale parameter of the distribution.<br></br>
-            ///	 Default is 1.<br></br>
-            ///	
+            ///	Default is 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Gumbel distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Gumbel distribution.
             /// </returns>
             public static NDarray gumbel(NDarray<float> loc = null, NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_gumbel(loc:loc, scale:scale, size:size);
@@ -1027,34 +936,29 @@ namespace Numpy
             /// </summary>
             /// <param name="ngood">
             ///	Number of ways to make a good selection.<br></br>
-            ///	  Must be nonnegative.<br></br>
-            ///	
+            ///	Must be nonnegative.
             /// </param>
             /// <param name="nbad">
             ///	Number of ways to make a bad selection.<br></br>
-            ///	  Must be nonnegative.<br></br>
-            ///	
+            ///	Must be nonnegative.
             /// </param>
             /// <param name="nsample">
             ///	Number of items sampled.<br></br>
-            ///	  Must be at least 1 and at most
-            ///	ngood + nbad.<br></br>
-            ///	
+            ///	Must be at least 1 and at most
+            ///	ngood + nbad.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if ngood, nbad, and nsample
             ///	are all scalars.<br></br>
-            ///	  Otherwise, np.broadcast(ngood, nbad, nsample).size
-            ///	samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(ngood, nbad, nsample).size
+            ///	samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized hypergeometric distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized hypergeometric distribution.
             /// </returns>
             public static NDarray hypergeometric(NDarray<int> ngood, NDarray<int> nbad, NDarray<int> nsample, int[] size = null)
                 => NumPy.Instance.random_hypergeometric(ngood, nbad, nsample, size:size);
@@ -1090,27 +994,22 @@ namespace Numpy
             /// </summary>
             /// <param name="loc">
             ///	The position, , of the distribution peak.<br></br>
-            ///	 Default is 0.<br></br>
-            ///	
+            ///	Default is 0.
             /// </param>
             /// <param name="scale">
             ///	, the exponential decay.<br></br>
-            ///	 Default is 1.<br></br>
-            ///	
+            ///	Default is 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Laplace distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Laplace distribution.
             /// </returns>
             public static NDarray laplace(NDarray<float> loc = null, NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_laplace(loc:loc, scale:scale, size:size);
@@ -1143,29 +1042,23 @@ namespace Numpy
             /// </summary>
             /// <param name="loc">
             ///	Parameter of the distribution.<br></br>
-            ///	 Default is 0.<br></br>
-            ///	
+            ///	Default is 0.
             /// </param>
             /// <param name="scale">
             ///	Parameter of the distribution.<br></br>
-            ///	 Should be greater than zero.<br></br>
-            ///	
-            ///	Default is 1.<br></br>
-            ///	
+            ///	Should be greater than zero.<br></br>
+            ///	Default is 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized logistic distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized logistic distribution.
             /// </returns>
             public static NDarray logistic(NDarray<float> loc = null, NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_logistic(loc:loc, scale:scale, size:size);
@@ -1192,7 +1085,6 @@ namespace Numpy
             ///	
             ///	where  is the mean and  is the standard
             ///	deviation of the normally distributed logarithm of the variable.<br></br>
-            ///	
             ///	A log-normal distribution results if a random variable is the product
             ///	of a large number of independent, identically-distributed variables in
             ///	the same way that a normal distribution results if the variable is the
@@ -1204,29 +1096,24 @@ namespace Numpy
             /// </summary>
             /// <param name="mean">
             ///	Mean value of the underlying normal distribution.<br></br>
-            ///	 Default is 0.<br></br>
-            ///	
+            ///	Default is 0.
             /// </param>
             /// <param name="sigma">
             ///	Standard deviation of the underlying normal distribution.<br></br>
-            ///	 Should
+            ///	Should
             ///	be greater than zero.<br></br>
-            ///	 Default is 1.<br></br>
-            ///	
+            ///	Default is 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if mean and sigma are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(mean, sigma).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(mean, sigma).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized log-normal distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized log-normal distribution.
             /// </returns>
             public static NDarray lognormal(NDarray<float> mean = null, NDarray<float> sigma = null, int[] size = null)
                 => NumPy.Instance.random_lognormal(mean:mean, sigma:sigma, size:size);
@@ -1259,22 +1146,19 @@ namespace Numpy
             /// </summary>
             /// <param name="p">
             ///	Shape parameter for the distribution.<br></br>
-            ///	  Must be in the range (0, 1).<br></br>
-            ///	
+            ///	Must be in the range (0, 1).
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if p is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(p).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(p).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized logarithmic series distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized logarithmic series distribution.
             /// </returns>
             public static NDarray logseries(NDarray<float> p, int[] size = null)
                 => NumPy.Instance.random_logseries(p, size:size);
@@ -1295,28 +1179,24 @@ namespace Numpy
             ///	distribution represents n such experiments.<br></br>
             ///	  Its values,
             ///	X_i = [X_0, X_1, ..., X_p], represent the number of times the
-            ///	outcome was i.<br></br>
-            ///	
+            ///	outcome was i.
             /// </summary>
             /// <param name="n">
-            ///	Number of experiments.<br></br>
-            ///	
+            ///	Number of experiments.
             /// </param>
             /// <param name="pvals">
             ///	Probabilities of each of the p different outcomes.<br></br>
-            ///	  These
+            ///	These
             ///	should sum to 1 (however, the last element is always assumed to
             ///	account for the remaining probability, as long as
-            ///	sum(pvals[:-1]) &lt;= 1).<br></br>
-            ///	
+            ///	sum(pvals[:-1]) &lt;= 1).
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
             ///	The drawn samples, of shape size, if that was provided.<br></br>
@@ -1325,8 +1205,7 @@ namespace Numpy
             ///	
             ///	
             ///	In other words, each entry out[i,j,...,:] is an N-dimensional
-            ///	value drawn from the distribution.<br></br>
-            ///	
+            ///	value drawn from the distribution.
             /// </returns>
             public static NDarray multinomial(int n, NDarray<float> pvals, int[] size = null)
                 => NumPy.Instance.random_multinomial(n, pvals, size:size);
@@ -1357,7 +1236,6 @@ namespace Numpy
             ///	
             ///	
             ///	Covariance indicates the level to which two variables vary together.<br></br>
-            ///	
             ///	From the multivariate normal distribution, we draw N-dimensional
             ///	samples, .  The covariance matrix
             ///	element  is the covariance of  and .
@@ -1375,7 +1253,6 @@ namespace Numpy
             ///	Diagonal covariance means that points are oriented along x or y-axis:
             ///	
             ///	Note that the covariance matrix must be positive semidefinite (a.k.a.<br></br>
-            ///	
             ///	nonnegative-definite).<br></br>
             ///	 Otherwise, the behavior of this method is
             ///	undefined and backwards compatibility is not guaranteed.<br></br>
@@ -1384,31 +1261,25 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="mean">
-            ///	Mean of the N-dimensional distribution.<br></br>
-            ///	
+            ///	Mean of the N-dimensional distribution.
             /// </param>
             /// <param name="cov">
             ///	Covariance matrix of the distribution.<br></br>
-            ///	 It must be symmetric and
-            ///	positive-semidefinite for proper sampling.<br></br>
-            ///	
+            ///	It must be symmetric and
+            ///	positive-semidefinite for proper sampling.
             /// </param>
             /// <param name="size">
             ///	Given a shape of, for example, (m,n,k), m*n*k samples are
             ///	generated, and packed in an m-by-n-by-k arrangement.<br></br>
-            ///	  Because
+            ///	Because
             ///	each sample is N-dimensional, the output shape is (m,n,k,N).<br></br>
-            ///	
-            ///	If no shape is specified, a single (N-D) sample is returned.<br></br>
-            ///	
+            ///	If no shape is specified, a single (N-D) sample is returned.
             /// </param>
             /// <param name="check_valid">
-            ///	Behavior when the covariance matrix is not positive semidefinite.<br></br>
-            ///	
+            ///	Behavior when the covariance matrix is not positive semidefinite.
             /// </param>
             /// <param name="tol">
-            ///	Tolerance when checking the singular values in covariance matrix.<br></br>
-            ///	
+            ///	Tolerance when checking the singular values in covariance matrix.
             /// </param>
             /// <returns>
             ///	The drawn samples, of shape size, if that was provided.<br></br>
@@ -1417,8 +1288,7 @@ namespace Numpy
             ///	
             ///	
             ///	In other words, each entry out[i,j,...,:] is an N-dimensional
-            ///	value drawn from the distribution.<br></br>
-            ///	
+            ///	value drawn from the distribution.
             /// </returns>
             public static NDarray multivariate_normal(NDarray mean, NDarray cov, int[] size = null, string check_valid = null, float? tol = null)
                 => NumPy.Instance.random_multivariate_normal(mean, cov, size:size, check_valid:check_valid, tol:tol);
@@ -1440,7 +1310,6 @@ namespace Numpy
             ///	
             ///	where  is the number of successes,  is the
             ///	probability of success, and  is the number of trials.<br></br>
-            ///	
             ///	The negative binomial distribution gives the probability of N
             ///	failures given n successes, with a success on the last trial.<br></br>
             ///	
@@ -1454,28 +1323,24 @@ namespace Numpy
             /// </summary>
             /// <param name="n">
             ///	Parameter of the distribution, &gt; 0.<br></br>
-            ///	 Floats are also accepted,
-            ///	but they will be truncated to integers.<br></br>
-            ///	
+            ///	Floats are also accepted,
+            ///	but they will be truncated to integers.
             /// </param>
             /// <param name="p">
             ///	Parameter of the distribution, &gt;= 0 and &lt;=1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if n and p are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(n, p).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(n, p).size samples are drawn.
             /// </param>
             /// <returns>
             ///	Drawn samples from the parameterized negative binomial distribution,
             ///	where each sample is equal to N, the number of failures that
-            ///	occurred before a total of n successes was reached.<br></br>
-            ///	
+            ///	occurred before a total of n successes was reached.
             /// </returns>
             public static NDarray negative_binomial(NDarray<int> n, NDarray<float> p, int[] size = null)
                 => NumPy.Instance.random_negative_binomial(n, p, size:size);
@@ -1507,26 +1372,21 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="df">
-            ///	Degrees of freedom, should be &gt; 0.<br></br>
-            ///	
+            ///	Degrees of freedom, should be &gt; 0.
             /// </param>
             /// <param name="nonc">
-            ///	Non-centrality, should be non-negative.<br></br>
-            ///	
+            ///	Non-centrality, should be non-negative.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if df and nonc are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(df, nonc).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(df, nonc).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized noncentral chi-square distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized noncentral chi-square distribution.
             /// </returns>
             public static NDarray noncentral_chisquare(NDarray<float> df, NDarray<float> nonc, int[] size = null)
                 => NumPy.Instance.random_noncentral_chisquare(df, nonc, size:size);
@@ -1540,7 +1400,6 @@ namespace Numpy
             ///	Samples are drawn from an F distribution with specified parameters,
             ///	dfnum (degrees of freedom in numerator) and dfden (degrees of
             ///	freedom in denominator), where both parameters &gt; 1.<br></br>
-            ///	
             ///	nonc is the non-centrality parameter.<br></br>
             ///	
             ///	
@@ -1558,32 +1417,27 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="dfnum">
-            ///	Numerator degrees of freedom, should be &gt; 0.<br></br>
-            ///	
+            ///	Numerator degrees of freedom, should be &gt; 0.
             /// </param>
             /// <param name="dfden">
-            ///	Denominator degrees of freedom, should be &gt; 0.<br></br>
-            ///	
+            ///	Denominator degrees of freedom, should be &gt; 0.
             /// </param>
             /// <param name="nonc">
             ///	Non-centrality parameter, the sum of the squares of the numerator
-            ///	means, should be &gt;= 0.<br></br>
-            ///	
+            ///	means, should be &gt;= 0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if dfnum, dfden, and nonc
             ///	are all scalars.<br></br>
-            ///	  Otherwise, np.broadcast(dfnum, dfden, nonc).size
-            ///	samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(dfnum, dfden, nonc).size
+            ///	samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized noncentral Fisher distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized noncentral Fisher distribution.
             /// </returns>
             public static NDarray noncentral_f(NDarray<float> dfnum, NDarray<float> dfden, NDarray<float> nonc, int[] size = null)
                 => NumPy.Instance.random_noncentral_f(dfnum, dfden, nonc, size:size);
@@ -1628,26 +1482,21 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="loc">
-            ///	Mean (“centre”) of the distribution.<br></br>
-            ///	
+            ///	Mean (“centre”) of the distribution.
             /// </param>
             /// <param name="scale">
-            ///	Standard deviation (spread or “width”) of the distribution.<br></br>
-            ///	
+            ///	Standard deviation (spread or “width”) of the distribution.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized normal distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized normal distribution.
             /// </returns>
             public static NDarray normal(NDarray<float> loc = null, NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_normal(loc:loc, scale:scale, size:size);
@@ -1709,22 +1558,19 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	Shape of the distribution.<br></br>
-            ///	 Should be greater than zero.<br></br>
-            ///	
+            ///	Should be greater than zero.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if a is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(a).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(a).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Pareto distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Pareto distribution.
             /// </returns>
             public static NDarray pareto(NDarray<float> a, int[] size = null)
                 => NumPy.Instance.random_pareto(a, size:size);
@@ -1757,23 +1603,20 @@ namespace Numpy
             /// </summary>
             /// <param name="lam">
             ///	Expectation of interval, should be &gt;= 0.<br></br>
-            ///	 A sequence of expectation
-            ///	intervals must be broadcastable over the requested size.<br></br>
-            ///	
+            ///	A sequence of expectation
+            ///	intervals must be broadcastable over the requested size.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if lam is a scalar.<br></br>
-            ///	 Otherwise,
-            ///	np.array(lam).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(lam).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Poisson distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Poisson distribution.
             /// </returns>
             public static NDarray poisson(NDarray<float> lam = null, int[] size = null)
                 => NumPy.Instance.random_poisson(lam:lam, size:size);
@@ -1806,22 +1649,19 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	Parameter of the distribution.<br></br>
-            ///	 Should be greater than zero.<br></br>
-            ///	
+            ///	Should be greater than zero.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if a is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(a).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(a).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized power distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized power distribution.
             /// </returns>
             public static NDarray power(NDarray<float> a, int[] size = null)
                 => NumPy.Instance.random_power(a, size:size);
@@ -1851,23 +1691,20 @@ namespace Numpy
             /// </summary>
             /// <param name="scale">
             ///	Scale, also equals the mode.<br></br>
-            ///	 Should be &gt;= 0.<br></br>
-            ///	 Default is 1.<br></br>
-            ///	
+            ///	Should be &gt;= 0.<br></br>
+            ///	Default is 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if scale is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Rayleigh distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Rayleigh distribution.
             /// </returns>
             public static NDarray rayleigh(NDarray<float> scale = null, int[] size = null)
                 => NumPy.Instance.random_rayleigh(scale:scale, size:size);
@@ -1905,15 +1742,13 @@ namespace Numpy
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
-            ///	The drawn samples.<br></br>
-            ///	
+            ///	The drawn samples.
             /// </returns>
             public static NDarray standard_cauchy(params int[] size)
                 => NumPy.Instance.random_standard_cauchy(size:size);
@@ -1925,20 +1760,17 @@ namespace Numpy
             ///	
             ///	
             ///	standard_exponential is identical to the exponential distribution
-            ///	with a scale parameter of 1.<br></br>
-            ///	
+            ///	with a scale parameter of 1.
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
-            ///	Drawn samples.<br></br>
-            ///	
+            ///	Drawn samples.
             /// </returns>
             public static NDarray standard_exponential(params int[] size)
                 => NumPy.Instance.random_standard_exponential(size:size);
@@ -1968,22 +1800,19 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="shape">
-            ///	Parameter, should be &gt; 0.<br></br>
-            ///	
+            ///	Parameter, should be &gt; 0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if shape is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(shape).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(shape).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized standard gamma distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized standard gamma distribution.
             /// </returns>
             public static NDarray standard_gamma(Shape shape, int[] size = null)
                 => NumPy.Instance.random_standard_gamma(shape, size:size);
@@ -1991,20 +1820,17 @@ namespace Numpy
         
         public static partial class random {
             /// <summary>
-            ///	Draw samples from a standard Normal distribution (mean=0, stdev=1).<br></br>
-            ///	
+            ///	Draw samples from a standard Normal distribution (mean=0, stdev=1).
             /// </summary>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  Default is None, in which case a
-            ///	single value is returned.<br></br>
-            ///	
+            ///	Default is None, in which case a
+            ///	single value is returned.
             /// </param>
             /// <returns>
-            ///	Drawn samples.<br></br>
-            ///	
+            ///	Drawn samples.
             /// </returns>
             public static NDarray standard_normal(params int[] size)
                 => NumPy.Instance.random_standard_normal(size:size);
@@ -2043,22 +1869,19 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="df">
-            ///	Degrees of freedom, should be &gt; 0.<br></br>
-            ///	
+            ///	Degrees of freedom, should be &gt; 0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if df is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(df).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(df).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized standard Student’s t distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized standard Student’s t distribution.
             /// </returns>
             public static NDarray standard_t(NDarray<float> df, int[] size = null)
                 => NumPy.Instance.random_standard_t(df, size:size);
@@ -2091,33 +1914,27 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="left">
-            ///	Lower limit.<br></br>
-            ///	
+            ///	Lower limit.
             /// </param>
             /// <param name="mode">
             ///	The value where the peak of the distribution occurs.<br></br>
-            ///	
-            ///	The value should fulfill the condition left &lt;= mode &lt;= right.<br></br>
-            ///	
+            ///	The value should fulfill the condition left &lt;= mode &lt;= right.
             /// </param>
             /// <param name="right">
-            ///	Upper limit, should be larger than left.<br></br>
-            ///	
+            ///	Upper limit, should be larger than left.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if left, mode, and right
             ///	are all scalars.<br></br>
-            ///	  Otherwise, np.broadcast(left, mode, right).size
-            ///	samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(left, mode, right).size
+            ///	samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized triangular distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized triangular distribution.
             /// </returns>
             public static NDarray triangular(NDarray<float> left, NDarray<float> mode, NDarray<float> right, int[] size = null)
                 => NumPy.Instance.random_triangular(left, mode, right, size:size);
@@ -2143,40 +1960,34 @@ namespace Numpy
             ///	
             ///	
             ///	When high == low, values of low will be returned.<br></br>
-            ///	
             ///	If high &lt; low, the results are officially undefined
             ///	and may eventually raise an error, i.e.<br></br>
             ///	 do not rely on this
             ///	function to behave when passed arguments satisfying that
-            ///	inequality condition.<br></br>
-            ///	
+            ///	inequality condition.
             /// </summary>
             /// <param name="low">
             ///	Lower boundary of the output interval.<br></br>
-            ///	  All values generated will be
+            ///	All values generated will be
             ///	greater than or equal to low.<br></br>
-            ///	  The default value is 0.<br></br>
-            ///	
+            ///	The default value is 0.
             /// </param>
             /// <param name="high">
             ///	Upper boundary of the output interval.<br></br>
-            ///	  All values generated will be
+            ///	All values generated will be
             ///	less than high.<br></br>
-            ///	  The default value is 1.0.
+            ///	The default value is 1.0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if low and high are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(low, high).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(low, high).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized uniform distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized uniform distribution.
             /// </returns>
             public static NDarray uniform(NDarray<float> low = null, NDarray<float> high = null, int[] size = null)
                 => NumPy.Instance.random_uniform(low:low, high:high, size:size);
@@ -2218,25 +2029,21 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="mu">
-            ///	Mode (“center”) of the distribution.<br></br>
-            ///	
+            ///	Mode (“center”) of the distribution.
             /// </param>
             /// <param name="kappa">
             ///	Dispersion of the distribution, has to be &gt;=0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if mu and kappa are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(mu, kappa).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(mu, kappa).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized von Mises distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized von Mises distribution.
             /// </returns>
             public static NDarray vonmises(NDarray<float> mu, NDarray<float> kappa, int[] size = null)
                 => NumPy.Instance.random_vonmises(mu, kappa, size:size);
@@ -2275,26 +2082,21 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="mean">
-            ///	Distribution mean, should be &gt; 0.<br></br>
-            ///	
+            ///	Distribution mean, should be &gt; 0.
             /// </param>
             /// <param name="scale">
-            ///	Scale parameter, should be &gt;= 0.<br></br>
-            ///	
+            ///	Scale parameter, should be &gt;= 0.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if mean and scale are both scalars.<br></br>
-            ///	
-            ///	Otherwise, np.broadcast(mean, scale).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise, np.broadcast(mean, scale).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Wald distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Wald distribution.
             /// </returns>
             public static NDarray wald(NDarray<float> mean, NDarray<float> scale, int[] size = null)
                 => NumPy.Instance.random_wald(mean, scale, size:size);
@@ -2321,7 +2123,6 @@ namespace Numpy
             ///	for smallest values, SEV Type III, or Rosin-Rammler
             ///	distribution) is one of a class of Generalized Extreme Value
             ///	(GEV) distributions used in modeling extreme value problems.<br></br>
-            ///	
             ///	This class includes the Gumbel and Frechet distributions.<br></br>
             ///	
             ///	
@@ -2341,22 +2142,19 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	Shape parameter of the distribution.<br></br>
-            ///	  Must be nonnegative.<br></br>
-            ///	
+            ///	Must be nonnegative.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if a is a scalar.<br></br>
-            ///	  Otherwise,
-            ///	np.array(a).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(a).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Weibull distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Weibull distribution.
             /// </returns>
             public static NDarray weibull(NDarray<float> a, int[] size = null)
                 => NumPy.Instance.random_weibull(a, size:size);
@@ -2393,22 +2191,19 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	Distribution parameter.<br></br>
-            ///	 Should be greater than 1.<br></br>
-            ///	
+            ///	Should be greater than 1.
             /// </param>
             /// <param name="size">
             ///	Output shape.<br></br>
-            ///	  If the given shape is, e.g., (m, n, k), then
+            ///	If the given shape is, e.g., (m, n, k), then
             ///	m * n * k samples are drawn.<br></br>
-            ///	  If size is None (default),
+            ///	If size is None (default),
             ///	a single value is returned if a is a scalar.<br></br>
-            ///	 Otherwise,
-            ///	np.array(a).size samples are drawn.<br></br>
-            ///	
+            ///	Otherwise,
+            ///	np.array(a).size samples are drawn.
             /// </param>
             /// <returns>
-            ///	Drawn samples from the parameterized Zipf distribution.<br></br>
-            ///	
+            ///	Drawn samples from the parameterized Zipf distribution.
             /// </returns>
             public static NDarray zipf(NDarray<float> a, int[] size = null)
                 => NumPy.Instance.random_zipf(a, size:size);
@@ -2458,14 +2253,13 @@ namespace Numpy
             /// </summary>
             /// <param name="seed">
             ///	Random seed used to initialize the pseudo-random number generator.<br></br>
-            ///	  Can
+            ///	Can
             ///	be any integer between 0 and 2**32 - 1 inclusive, an array (or other
             ///	sequence) of such integers, or None (the default).<br></br>
-            ///	  If seed is
+            ///	If seed is
             ///	None, then RandomState will try to read data from
             ///	/dev/urandom (or the Windows analogue) if available or seed from
-            ///	the clock otherwise.<br></br>
-            ///	
+            ///	the clock otherwise.
             /// </param>
             public static void RandomState(int? seed = null)
                 => NumPy.Instance.random_RandomState(seed:seed);
@@ -2515,14 +2309,13 @@ namespace Numpy
             /// </summary>
             /// <param name="seed">
             ///	Random seed used to initialize the pseudo-random number generator.<br></br>
-            ///	  Can
+            ///	Can
             ///	be any integer between 0 and 2**32 - 1 inclusive, an array (or other
             ///	sequence) of such integers, or None (the default).<br></br>
-            ///	  If seed is
+            ///	If seed is
             ///	None, then RandomState will try to read data from
             ///	/dev/urandom (or the Windows analogue) if available or seed from
-            ///	the clock otherwise.<br></br>
-            ///	
+            ///	the clock otherwise.
             /// </param>
             public static void RandomState(NDarray seed = null)
                 => NumPy.Instance.random_RandomState(seed:seed);
@@ -2536,14 +2329,11 @@ namespace Numpy
             ///	This method is called when RandomState is initialized.<br></br>
             ///	 It can be
             ///	called again to re-seed the generator.<br></br>
-            ///	 For details, see RandomState.<br></br>
-            ///	
+            ///	 For details, see RandomState.
             /// </summary>
             /// <param name="seed">
             ///	Seed for RandomState.<br></br>
-            ///	
-            ///	Must be convertible to 32 bit unsigned integers.<br></br>
-            ///	
+            ///	Must be convertible to 32 bit unsigned integers.
             /// </param>
             public static void seed(int? seed = null)
                 => NumPy.Instance.random_seed(seed:seed);
@@ -2557,14 +2347,11 @@ namespace Numpy
             ///	This method is called when RandomState is initialized.<br></br>
             ///	 It can be
             ///	called again to re-seed the generator.<br></br>
-            ///	 For details, see RandomState.<br></br>
-            ///	
+            ///	 For details, see RandomState.
             /// </summary>
             /// <param name="seed">
             ///	Seed for RandomState.<br></br>
-            ///	
-            ///	Must be convertible to 32 bit unsigned integers.<br></br>
-            ///	
+            ///	Must be convertible to 32 bit unsigned integers.
             /// </param>
             public static void seed(NDarray seed = null)
                 => NumPy.Instance.random_seed(seed:seed);
@@ -2584,8 +2371,7 @@ namespace Numpy
             ///	set_state and get_state are not needed to work with any of the
             ///	random distributions in NumPy.<br></br>
             ///	 If the internal state is manually altered,
-            ///	the user should know exactly what he/she is doing.<br></br>
-            ///	
+            ///	the user should know exactly what he/she is doing.
             /// </summary>
             /// <param name="out">
             ///	The returned tuple has the following items:
@@ -2627,8 +2413,7 @@ namespace Numpy
             ///	The state tuple has the following items:
             /// </param>
             /// <returns>
-            ///	Returns ‘None’ on success.<br></br>
-            ///	
+            ///	Returns ‘None’ on success.
             /// </returns>
             public static None set_state(tuple(str state)
                 => NumPy.Instance.random_set_state(state);

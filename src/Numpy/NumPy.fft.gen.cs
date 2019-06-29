@@ -50,37 +50,30 @@ namespace Numpy
         ///	general case.<br></br>
         ///	
         ///	
-        ///	If the input a contains an imaginary part, it is silently discarded.<br></br>
-        ///	
+        ///	If the input a contains an imaginary part, it is silently discarded.
         /// </summary>
         /// <param name="a">
         ///	Input array
         /// </param>
         /// <param name="n">
         ///	Number of points along transformation axis in the input to use.<br></br>
-        ///	
         ///	If n is smaller than the length of the input, the input is cropped.<br></br>
-        ///	
         ///	If it is larger, the input is padded with zeros.<br></br>
-        ///	 If n is not given,
-        ///	the length of the input along the axis specified by axis is used.<br></br>
-        ///	
+        ///	If n is not given,
+        ///	the length of the input along the axis specified by axis is used.
         /// </param>
         /// <param name="axis">
         ///	Axis over which to compute the FFT.<br></br>
-        ///	 If not given, the last axis is
-        ///	used.<br></br>
-        ///	
+        ///	If not given, the last axis is
+        ///	used.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
         ///	The truncated or zero-padded input, transformed along the axis
         ///	indicated by axis, or the last one if axis is not specified.<br></br>
-        ///	
         ///	If n is even, the length of the transformed axis is (n/2)+1.
         ///	If n is odd, the length is (n+1)/2.
         /// </returns>
@@ -107,7 +100,6 @@ namespace Numpy
         ///	
         ///	This function computes the inverse of the one-dimensional n-point
         ///	discrete Fourier Transform of real input computed by rfft.<br></br>
-        ///	
         ///	In other words, irfft(rfft(a), len(a)) == a to within numerical
         ///	accuracy.<br></br>
         ///	 (See Notes below for why len(a) is necessary here.)
@@ -134,45 +126,37 @@ namespace Numpy
         ///	extra/removed values will be added/removed at high frequencies.<br></br>
         ///	 One can
         ///	thus resample a series to m points via Fourier interpolation by:
-        ///	a_resamp = irfft(rfft(a), m).<br></br>
-        ///	
+        ///	a_resamp = irfft(rfft(a), m).
         /// </summary>
         /// <param name="a">
-        ///	The input array.<br></br>
-        ///	
+        ///	The input array.
         /// </param>
         /// <param name="n">
         ///	Length of the transformed axis of the output.<br></br>
-        ///	
         ///	For n output points, n//2+1 input points are necessary.<br></br>
-        ///	  If the
+        ///	If the
         ///	input is longer than this, it is cropped.<br></br>
-        ///	  If it is shorter than this,
+        ///	If it is shorter than this,
         ///	it is padded with zeros.<br></br>
-        ///	  If n is not given, it is determined from
-        ///	the length of the input along the axis specified by axis.<br></br>
-        ///	
+        ///	If n is not given, it is determined from
+        ///	the length of the input along the axis specified by axis.
         /// </param>
         /// <param name="axis">
         ///	Axis over which to compute the inverse FFT.<br></br>
-        ///	 If not given, the last
-        ///	axis is used.<br></br>
-        ///	
+        ///	If not given, the last
+        ///	axis is used.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
         ///	The truncated or zero-padded input, transformed along the axis
         ///	indicated by axis, or the last one if axis is not specified.<br></br>
-        ///	
         ///	The length of the transformed axis is n, or, if n is not given,
         ///	2*(m-1) where m is the length of the transformed axis of the
         ///	input.<br></br>
-        ///	 To get an odd number of output points, n must be specified.<br></br>
-        ///	
+        ///	 To get an odd number of output points, n must be specified.
         /// </returns>
         public NDarray fft_irfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
         {
@@ -198,30 +182,23 @@ namespace Numpy
         ///	Notes
         ///	
         ///	This is really just rfftn with different default behavior.<br></br>
-        ///	
-        ///	For more details see rfftn.<br></br>
-        ///	
+        ///	For more details see rfftn.
         /// </summary>
         /// <param name="a">
-        ///	Input array, taken to be real.<br></br>
-        ///	
+        ///	Input array, taken to be real.
         /// </param>
         /// <param name="s">
-        ///	Shape of the FFT.<br></br>
-        ///	
+        ///	Shape of the FFT.
         /// </param>
         /// <param name="axes">
-        ///	Axes over which to compute the FFT.<br></br>
-        ///	
+        ///	Axes over which to compute the FFT.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
-        ///	The result of the real 2-D FFT.<br></br>
-        ///	
+        ///	The result of the real 2-D FFT.
         /// </returns>
         public NDarray fft_rfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
@@ -247,31 +224,24 @@ namespace Numpy
         ///	Notes
         ///	
         ///	This is really irfftn with different defaults.<br></br>
-        ///	
-        ///	For more details see irfftn.<br></br>
-        ///	
+        ///	For more details see irfftn.
         /// </summary>
         /// <param name="a">
         ///	The input array
         /// </param>
         /// <param name="s">
-        ///	Shape of the inverse FFT.<br></br>
-        ///	
+        ///	Shape of the inverse FFT.
         /// </param>
         /// <param name="axes">
         ///	The axes over which to compute the inverse fft.<br></br>
-        ///	
-        ///	Default is the last two axes.<br></br>
-        ///	
+        ///	Default is the last two axes.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
-        ///	The result of the inverse real 2-D FFT.<br></br>
-        ///	
+        ///	The result of the inverse real 2-D FFT.
         /// </returns>
         public NDarray fft_irfft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
@@ -312,49 +282,38 @@ namespace Numpy
         ///	transformation axes.<br></br>
         ///	
         ///	
-        ///	See fft for details, definitions and conventions used.<br></br>
-        ///	
+        ///	See fft for details, definitions and conventions used.
         /// </summary>
         /// <param name="a">
-        ///	Input array, taken to be real.<br></br>
-        ///	
+        ///	Input array, taken to be real.
         /// </param>
         /// <param name="s">
         ///	Shape (length along each transformed axis) to use from the input.<br></br>
-        ///	
         ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
-        ///	
         ///	The final element of s corresponds to n for rfft(x, n), while
         ///	for the remaining axes, it corresponds to n for fft(x, n).<br></br>
-        ///	
         ///	Along any axis, if the given shape is smaller than that of the input,
         ///	the input is cropped.<br></br>
-        ///	  If it is larger, the input is padded with zeros.<br></br>
-        ///	
+        ///	If it is larger, the input is padded with zeros.<br></br>
         ///	if s is not given, the shape of the input along the axes specified
-        ///	by axes is used.<br></br>
-        ///	
+        ///	by axes is used.
         /// </param>
         /// <param name="axes">
         ///	Axes over which to compute the FFT.<br></br>
-        ///	  If not given, the last len(s)
-        ///	axes are used, or all axes if s is also not specified.<br></br>
-        ///	
+        ///	If not given, the last len(s)
+        ///	axes are used, or all axes if s is also not specified.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
         ///	The truncated or zero-padded input, transformed along the axes
         ///	indicated by axes, or by a combination of s and a,
         ///	as explained in the parameters section above.<br></br>
-        ///	
         ///	The length of the last axis transformed will be s[-1]//2+1,
         ///	while the remaining transformed axes will have lengths according to
-        ///	s, or unchanged from the input.<br></br>
-        ///	
+        ///	s, or unchanged from the input.
         /// </returns>
         public NDarray fft_rfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
@@ -397,47 +356,39 @@ namespace Numpy
         ///	See fft for definitions and conventions used.<br></br>
         ///	
         ///	
-        ///	See rfft for definitions and conventions used for real input.<br></br>
-        ///	
+        ///	See rfft for definitions and conventions used for real input.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="s">
         ///	Shape (length of each transformed axis) of the output
         ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
-        ///	 s is also the
+        ///	s is also the
         ///	number of input points used along this axis, except for the last axis,
         ///	where s[-1]//2+1 points of the input are used.<br></br>
-        ///	
         ///	Along any axis, if the shape indicated by s is smaller than that of
         ///	the input, the input is cropped.<br></br>
-        ///	  If it is larger, the input is padded
+        ///	If it is larger, the input is padded
         ///	with zeros.<br></br>
-        ///	 If s is not given, the shape of the input along the
-        ///	axes specified by axes is used.<br></br>
-        ///	
+        ///	If s is not given, the shape of the input along the
+        ///	axes specified by axes is used.
         /// </param>
         /// <param name="axes">
         ///	Axes over which to compute the inverse FFT.<br></br>
-        ///	 If not given, the last
+        ///	If not given, the last
         ///	len(s) axes are used, or all axes if s is also not specified.<br></br>
-        ///	
         ///	Repeated indices in axes means that the inverse transform over that
-        ///	axis is performed multiple times.<br></br>
-        ///	
+        ///	axis is performed multiple times.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
         ///	The truncated or zero-padded input, transformed along the axes
         ///	indicated by axes, or by a combination of s or a,
         ///	as explained in the parameters section above.<br></br>
-        ///	
         ///	The length of each transformed axis is as given by the corresponding
         ///	element of s, or the length of the input in every axis except for the
         ///	last one if s is not given.<br></br>
@@ -445,8 +396,7 @@ namespace Numpy
         ///	of the output when s is not given is 2*(m-1) where m is the
         ///	length of the final transformed axis of the input.<br></br>
         ///	  To get an odd
-        ///	number of output points in the final axis, s must be specified.<br></br>
-        ///	
+        ///	number of output points in the final axis, s must be specified.
         /// </returns>
         public NDarray fft_irfftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
         {
@@ -476,40 +426,34 @@ namespace Numpy
         ///	opposite case: here the signal has Hermitian symmetry in the time
         ///	domain and is real in the frequency domain.<br></br>
         ///	 So here it’s hfft for
-        ///	which you must supply the length of the result if it is to be odd.<br></br>
-        ///	
+        ///	which you must supply the length of the result if it is to be odd.
         /// </summary>
         /// <param name="a">
-        ///	The input array.<br></br>
-        ///	
+        ///	The input array.
         /// </param>
         /// <param name="n">
         ///	Length of the transformed axis of the output.<br></br>
-        ///	 For n output
+        ///	For n output
         ///	points, n//2 + 1 input points are necessary.<br></br>
-        ///	  If the input is
+        ///	If the input is
         ///	longer than this, it is cropped.<br></br>
-        ///	  If it is shorter than this, it is
+        ///	If it is shorter than this, it is
         ///	padded with zeros.<br></br>
-        ///	  If n is not given, it is determined from the
-        ///	length of the input along the axis specified by axis.<br></br>
-        ///	
+        ///	If n is not given, it is determined from the
+        ///	length of the input along the axis specified by axis.
         /// </param>
         /// <param name="axis">
         ///	Axis over which to compute the FFT.<br></br>
-        ///	 If not given, the last
-        ///	axis is used.<br></br>
-        ///	
+        ///	If not given, the last
+        ///	axis is used.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
         ///	The truncated or zero-padded input, transformed along the axis
         ///	indicated by axis, or the last one if axis is not specified.<br></br>
-        ///	
         ///	The length of the transformed axis is n, or, if n is not given,
         ///	2*m - 2 where m is the length of the transformed axis of
         ///	the input.<br></br>
@@ -546,37 +490,31 @@ namespace Numpy
         ///	which you must supply the length of the result if it is to be odd:
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="n">
         ///	Length of the inverse FFT, the number of points along
         ///	transformation axis in the input to use.<br></br>
-        ///	  If n is smaller than
+        ///	If n is smaller than
         ///	the length of the input, the input is cropped.<br></br>
-        ///	  If it is larger,
+        ///	If it is larger,
         ///	the input is padded with zeros.<br></br>
-        ///	 If n is not given, the length of
-        ///	the input along the axis specified by axis is used.<br></br>
-        ///	
+        ///	If n is not given, the length of
+        ///	the input along the axis specified by axis is used.
         /// </param>
         /// <param name="axis">
         ///	Axis over which to compute the inverse FFT.<br></br>
-        ///	 If not given, the last
-        ///	axis is used.<br></br>
-        ///	
+        ///	If not given, the last
+        ///	axis is used.
         /// </param>
         /// <param name="norm">
         ///	Normalization mode (see numpy.fft).<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <returns>
         ///	The truncated or zero-padded input, transformed along the axis
         ///	indicated by axis, or the last one if axis is not specified.<br></br>
-        ///	
-        ///	The length of the transformed axis is n//2 + 1.<br></br>
-        ///	
+        ///	The length of the transformed axis is n//2 + 1.
         /// </returns>
         public NDarray fft_ihfft(NDarray a, int? n = null, int? axis = -1, string norm = null)
         {
@@ -608,17 +546,14 @@ namespace Numpy
         ///	Given a window length n and a sample spacing d:
         /// </summary>
         /// <param name="n">
-        ///	Window length.<br></br>
-        ///	
+        ///	Window length.
         /// </param>
         /// <param name="d">
         ///	Sample spacing (inverse of the sampling rate).<br></br>
-        ///	 Defaults to 1.<br></br>
-        ///	
+        ///	Defaults to 1.
         /// </param>
         /// <returns>
-        ///	Array of length n containing the sample frequencies.<br></br>
-        ///	
+        ///	Array of length n containing the sample frequencies.
         /// </returns>
         public NDarray fft_fftfreq(int n, float? d = 1.0f)
         {
@@ -649,21 +584,17 @@ namespace Numpy
         ///	Given a window length n and a sample spacing d:
         ///	
         ///	Unlike fftfreq (but like scipy.fftpack.rfftfreq)
-        ///	the Nyquist frequency component is considered to be positive.<br></br>
-        ///	
+        ///	the Nyquist frequency component is considered to be positive.
         /// </summary>
         /// <param name="n">
-        ///	Window length.<br></br>
-        ///	
+        ///	Window length.
         /// </param>
         /// <param name="d">
         ///	Sample spacing (inverse of the sampling rate).<br></br>
-        ///	 Defaults to 1.<br></br>
-        ///	
+        ///	Defaults to 1.
         /// </param>
         /// <returns>
-        ///	Array of length n//2 + 1 containing the sample frequencies.<br></br>
-        ///	
+        ///	Array of length n//2 + 1 containing the sample frequencies.
         /// </returns>
         public NDarray fft_rfftfreq(int n, float? d = 1.0f)
         {
@@ -685,22 +616,17 @@ namespace Numpy
         ///	
         ///	
         ///	This function swaps half-spaces for all axes listed (defaults to all).<br></br>
-        ///	
-        ///	Note that y[0] is the Nyquist component only if len(x) is even.<br></br>
-        ///	
+        ///	Note that y[0] is the Nyquist component only if len(x) is even.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axes">
         ///	Axes over which to shift.<br></br>
-        ///	  Default is None, which shifts all axes.<br></br>
-        ///	
+        ///	Default is None, which shifts all axes.
         /// </param>
         /// <returns>
-        ///	The shifted array.<br></br>
-        ///	
+        ///	The shifted array.
         /// </returns>
         public NDarray fft_fftshift(NDarray x, int[] axes = null)
         {
@@ -720,21 +646,17 @@ namespace Numpy
         /// <summary>
         ///	The inverse of fftshift.<br></br>
         ///	 Although identical for even-length x, the
-        ///	functions differ by one sample for odd-length x.<br></br>
-        ///	
+        ///	functions differ by one sample for odd-length x.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axes">
         ///	Axes over which to calculate.<br></br>
-        ///	  Defaults to None, which shifts all axes.<br></br>
-        ///	
+        ///	Defaults to None, which shifts all axes.
         /// </param>
         /// <returns>
-        ///	The shifted array.<br></br>
-        ///	
+        ///	The shifted array.
         /// </returns>
         public NDarray fft_ifftshift(NDarray x, int[] axes = null)
         {

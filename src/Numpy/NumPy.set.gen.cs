@@ -34,16 +34,13 @@ namespace Numpy
         ///	python keyword in, for 1-D sequences.<br></br>
         ///	 in1d(a, b) is roughly
         ///	equivalent to np.array([item in b for item in a]).<br></br>
-        ///	
         ///	However, this idea fails if ar2 is a set, or similar (non-sequence)
         ///	container:  As ar2 is converted to an array, in those cases
         ///	asarray(ar2) is an object array rather than the expected array of
-        ///	contained values.<br></br>
-        ///	
+        ///	contained values.
         /// </summary>
         /// <param name="ar1">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="ar2">
         ///	The values against which to test each value of ar1.
@@ -51,17 +48,14 @@ namespace Numpy
         /// <param name="assume_unique">
         ///	If True, the input arrays are both assumed to be unique, which
         ///	can speed up the calculation.<br></br>
-        ///	  Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <param name="invert">
         ///	If True, the values in the returned array are inverted (that is,
         ///	False where an element of ar1 is in ar2 and True otherwise).<br></br>
-        ///	
         ///	Default is False.<br></br>
-        ///	 np.in1d(a, b, invert=True) is equivalent
-        ///	to (but is faster than) np.invert(in1d(a, b)).<br></br>
-        ///	
+        ///	np.in1d(a, b, invert=True) is equivalent
+        ///	to (but is faster than) np.invert(in1d(a, b)).
         /// </param>
         /// <returns>
         ///	The values ar1[in1d] are in ar2.
@@ -86,32 +80,27 @@ namespace Numpy
         ///	Find the intersection of two arrays.<br></br>
         ///	
         ///	
-        ///	Return the sorted, unique values that are in both of the input arrays.<br></br>
-        ///	
+        ///	Return the sorted, unique values that are in both of the input arrays.
         /// </summary>
         /// <param name="ar2">
         ///	Input arrays.<br></br>
-        ///	 Will be flattened if not already 1D.<br></br>
-        ///	
+        ///	Will be flattened if not already 1D.
         /// </param>
         /// <param name="ar1">
         ///	Input arrays.<br></br>
-        ///	 Will be flattened if not already 1D.<br></br>
-        ///	
+        ///	Will be flattened if not already 1D.
         /// </param>
         /// <param name="assume_unique">
         ///	If True, the input arrays are both assumed to be unique, which
         ///	can speed up the calculation.<br></br>
-        ///	  Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <param name="return_indices">
         ///	If True, the indices which correspond to the intersection of the two
         ///	arrays are returned.<br></br>
-        ///	 The first instance of a value is used if there are
+        ///	The first instance of a value is used if there are
         ///	multiple.<br></br>
-        ///	 Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -143,7 +132,6 @@ namespace Numpy
         
         /// <summary>
         ///	Calculates element in test_elements, broadcasting over element only.<br></br>
-        ///	
         ///	Returns a boolean array of the same shape as element that is True
         ///	where an element of element is in test_elements and False otherwise.<br></br>
         ///	
@@ -151,7 +139,6 @@ namespace Numpy
         ///	Notes
         ///	
         ///	isin is an element-wise function version of the python keyword in.<br></br>
-        ///	
         ///	isin(a, b) is roughly equivalent to
         ///	np.array([item in b for item in a]) if a and b are 1-D sequences.<br></br>
         ///	
@@ -163,42 +150,32 @@ namespace Numpy
         ///	array of the values contained in test_elements.<br></br>
         ///	 This is a consequence
         ///	of the array constructor’s way of handling non-sequence collections.<br></br>
-        ///	
-        ///	Converting the set to a list usually gives the desired behavior.<br></br>
-        ///	
+        ///	Converting the set to a list usually gives the desired behavior.
         /// </summary>
         /// <param name="element">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="test_elements">
         ///	The values against which to test each value of element.<br></br>
-        ///	
         ///	This argument is flattened if it is an array or array_like.<br></br>
-        ///	
-        ///	See notes for behavior with non-array-like parameters.<br></br>
-        ///	
+        ///	See notes for behavior with non-array-like parameters.
         /// </param>
         /// <param name="assume_unique">
         ///	If True, the input arrays are both assumed to be unique, which
         ///	can speed up the calculation.<br></br>
-        ///	  Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <param name="invert">
         ///	If True, the values in the returned array are inverted, as if
         ///	calculating element not in test_elements.<br></br>
-        ///	 Default is False.<br></br>
-        ///	
+        ///	Default is False.<br></br>
         ///	np.isin(a, b, invert=True) is equivalent to (but faster
-        ///	than) np.invert(np.isin(a, b)).<br></br>
-        ///	
+        ///	than) np.invert(np.isin(a, b)).
         /// </param>
         /// <returns>
         ///	Has the same shape as element.<br></br>
         ///	 The values element[isin]
-        ///	are in test_elements.<br></br>
-        ///	
+        ///	are in test_elements.
         /// </returns>
         public NDarray isin(NDarray element, NDarray test_elements, bool? assume_unique = false, bool? invert = false)
         {
@@ -223,24 +200,20 @@ namespace Numpy
         ///	Return the unique values in ar1 that are not in ar2.
         /// </summary>
         /// <param name="ar1">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="ar2">
-        ///	Input comparison array.<br></br>
-        ///	
+        ///	Input comparison array.
         /// </param>
         /// <param name="assume_unique">
         ///	If True, the input arrays are both assumed to be unique, which
         ///	can speed up the calculation.<br></br>
-        ///	  Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <returns>
         ///	1D array of values in ar1 that are not in ar2. The result
         ///	is sorted when assume_unique=False, but otherwise only sorted
-        ///	if the input is sorted.<br></br>
-        ///	
+        ///	if the input is sorted.
         /// </returns>
         public NDarray setdiff1d(NDarray ar1, NDarray ar2, bool assume_unique = false)
         {
@@ -262,27 +235,22 @@ namespace Numpy
         ///	
         ///	
         ///	Return the sorted, unique values that are in only one (not both) of the
-        ///	input arrays.<br></br>
-        ///	
+        ///	input arrays.
         /// </summary>
         /// <param name="ar2">
-        ///	Input arrays.<br></br>
-        ///	
+        ///	Input arrays.
         /// </param>
         /// <param name="ar1">
-        ///	Input arrays.<br></br>
-        ///	
+        ///	Input arrays.
         /// </param>
         /// <param name="assume_unique">
         ///	If True, the input arrays are both assumed to be unique, which
         ///	can speed up the calculation.<br></br>
-        ///	  Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <returns>
         ///	Sorted 1D array of unique values that are in only one of the input
-        ///	arrays.<br></br>
-        ///	
+        ///	arrays.
         /// </returns>
         public NDarray setxor1d(NDarray ar2, NDarray ar1, bool assume_unique = false)
         {
@@ -304,22 +272,18 @@ namespace Numpy
         ///	
         ///	
         ///	Return the unique, sorted array of values that are in either of the two
-        ///	input arrays.<br></br>
-        ///	
+        ///	input arrays.
         /// </summary>
         /// <param name="ar2">
         ///	Input arrays.<br></br>
-        ///	 They are flattened if they are not already 1D.<br></br>
-        ///	
+        ///	They are flattened if they are not already 1D.
         /// </param>
         /// <param name="ar1">
         ///	Input arrays.<br></br>
-        ///	 They are flattened if they are not already 1D.<br></br>
-        ///	
+        ///	They are flattened if they are not already 1D.
         /// </param>
         /// <returns>
-        ///	Unique, sorted union of the input arrays.<br></br>
-        ///	
+        ///	Unique, sorted union of the input arrays.
         /// </returns>
         public NDarray union1d(NDarray ar2, NDarray ar1)
         {

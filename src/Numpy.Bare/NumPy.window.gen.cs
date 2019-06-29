@@ -43,7 +43,6 @@ namespace Numpy
         ///	tapering function.<br></br>
         ///	 The fourier transform of the Bartlett is the product
         ///	of two sinc functions.<br></br>
-        ///	
         ///	Note the excellent discussion in Kanasewich.<br></br>
         ///	
         ///	
@@ -51,15 +50,13 @@ namespace Numpy
         /// </summary>
         /// <param name="M">
         ///	Number of points in the output window.<br></br>
-        ///	 If zero or less, an
-        ///	empty array is returned.<br></br>
-        ///	
+        ///	If zero or less, an
+        ///	empty array is returned.
         /// </param>
         /// <returns>
         ///	The triangular window, with the maximum value normalized to one
         ///	(the value one appears only if the number of samples is odd), with
-        ///	the first and last samples equal to zero.<br></br>
-        ///	
+        ///	the first and last samples equal to zero.
         /// </returns>
         public NDarray bartlett(int M)
         {
@@ -112,20 +109,17 @@ namespace Numpy
         ///	Oppenheim, A.V., and R.W.<br></br>
         ///	 Schafer.<br></br>
         ///	 Discrete-Time Signal Processing.<br></br>
-        ///	
         ///	Upper Saddle River, NJ: Prentice-Hall, 1999, pp.<br></br>
         ///	 468-471.
         /// </summary>
         /// <param name="M">
         ///	Number of points in the output window.<br></br>
-        ///	 If zero or less, an empty
-        ///	array is returned.<br></br>
-        ///	
+        ///	If zero or less, an empty
+        ///	array is returned.
         /// </param>
         /// <returns>
         ///	The window, with the maximum value normalized to one (the value one
-        ///	appears only if the number of samples is odd).<br></br>
-        ///	
+        ///	appears only if the number of samples is odd).
         /// </returns>
         public NDarray blackman(int M)
         {
@@ -159,7 +153,6 @@ namespace Numpy
         ///	and is described in Blackman and Tukey.<br></br>
         ///	 It was recommended for
         ///	smoothing the truncated autocovariance function in the time domain.<br></br>
-        ///	
         ///	Most references to the Hamming window come from the signal processing
         ///	literature, where it is used as one of many windowing functions for
         ///	smoothing values.<br></br>
@@ -173,14 +166,12 @@ namespace Numpy
         /// </summary>
         /// <param name="M">
         ///	Number of points in the output window.<br></br>
-        ///	 If zero or less, an
-        ///	empty array is returned.<br></br>
-        ///	
+        ///	If zero or less, an
+        ///	empty array is returned.
         /// </param>
         /// <returns>
         ///	The window, with the maximum value normalized to one (the value
-        ///	one appears only if the number of samples is odd).<br></br>
-        ///	
+        ///	one appears only if the number of samples is odd).
         /// </returns>
         public NDarray hamming(int M)
         {
@@ -207,7 +198,6 @@ namespace Numpy
         ///	The Hanning window is defined as
         ///	
         ///	The Hanning was named for Julius von Hann, an Austrian meteorologist.<br></br>
-        ///	
         ///	It is also known as the Cosine Bell.<br></br>
         ///	 Some authors prefer that it be
         ///	called a Hann window, to help avoid confusion with the very similar
@@ -227,14 +217,12 @@ namespace Numpy
         /// </summary>
         /// <param name="M">
         ///	Number of points in the output window.<br></br>
-        ///	 If zero or less, an
-        ///	empty array is returned.<br></br>
-        ///	
+        ///	If zero or less, an
+        ///	empty array is returned.
         /// </param>
         /// <returns>
         ///	The window, with the maximum value normalized to one (the value
-        ///	one appears only if M is odd).<br></br>
-        ///	
+        ///	one appears only if M is odd).
         /// </returns>
         public NDarray hanning(int M)
         {
@@ -297,18 +285,15 @@ namespace Numpy
         /// </summary>
         /// <param name="M">
         ///	Number of points in the output window.<br></br>
-        ///	 If zero or less, an
-        ///	empty array is returned.<br></br>
-        ///	
+        ///	If zero or less, an
+        ///	empty array is returned.
         /// </param>
         /// <param name="beta">
-        ///	Shape parameter for window.<br></br>
-        ///	
+        ///	Shape parameter for window.
         /// </param>
         /// <returns>
         ///	The window, with the maximum value normalized to one (the value
-        ///	one appears only if the number of samples is odd).<br></br>
-        ///	
+        ///	one appears only if the number of samples is odd).
         /// </returns>
         public NDarray kaiser(int M, float beta)
         {

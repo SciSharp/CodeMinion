@@ -22,16 +22,13 @@ namespace Numpy
                 ///	Return element-wise string concatenation for two arrays of str or unicode.<br></br>
                 ///	
                 ///	
-                ///	Arrays x1 and x2 must have the same shape.<br></br>
-                ///	
+                ///	Arrays x1 and x2 must have the same shape.
                 /// </summary>
                 /// <param name="x1">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <param name="x2">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
                 ///	Output array of string_ or unicode_, depending on input types
@@ -50,8 +47,7 @@ namespace Numpy
                 ///	
                 ///	
                 ///	Values in i of less than 0 are treated as 0 (which yields an
-                ///	empty string).<br></br>
-                ///	
+                ///	empty string).
                 /// </summary>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input types
@@ -66,12 +62,10 @@ namespace Numpy
                 /// <summary>
                 ///	Return (a % i), that is pre-Python 2.6 string formatting
                 ///	(iterpolation), element-wise for a pair of array_likes of str
-                ///	or unicode.<br></br>
-                ///	
+                ///	or unicode.
                 /// </summary>
                 /// <param name="values">
-                ///	These values will be element-wise interpolated into the string.<br></br>
-                ///	
+                ///	These values will be element-wise interpolated into the string.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input types
@@ -91,12 +85,10 @@ namespace Numpy
                 ///	Calls str.capitalize element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array of strings to capitalize.<br></br>
-                ///	
+                ///	Input array of strings to capitalize.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input
@@ -114,15 +106,13 @@ namespace Numpy
                 ///	length width.<br></br>
                 ///	
                 ///	
-                ///	Calls str.center element-wise.<br></br>
-                ///	
+                ///	Calls str.center element-wise.
                 /// </summary>
                 /// <param name="width">
                 ///	The length of the resulting strings
                 /// </param>
                 /// <param name="fillchar">
-                ///	The padding character to use (default is space).<br></br>
-                ///	
+                ///	The padding character to use (default is space).
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input
@@ -147,8 +137,7 @@ namespace Numpy
                 ///	
                 ///	Notes
                 ///	
-                ///	The type of the result will depend on the encoding specified.<br></br>
-                ///	
+                ///	The type of the result will depend on the encoding specified.
                 /// </summary>
                 /// <param name="encoding">
                 ///	The name of an encoding
@@ -175,8 +164,7 @@ namespace Numpy
                 ///	
                 ///	Notes
                 ///	
-                ///	The type of the result will depend on the encoding specified.<br></br>
-                ///	
+                ///	The type of the result will depend on the encoding specified.
                 /// </summary>
                 /// <param name="encoding">
                 ///	The name of an encoding
@@ -196,8 +184,7 @@ namespace Numpy
                 ///	sequence seq.<br></br>
                 ///	
                 ///	
-                ///	Calls str.join element-wise.<br></br>
-                ///	
+                ///	Calls str.join element-wise.
                 /// </summary>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input types
@@ -214,8 +201,7 @@ namespace Numpy
                 ///	string of length width.<br></br>
                 ///	
                 ///	
-                ///	Calls str.ljust element-wise.<br></br>
-                ///	
+                ///	Calls str.ljust element-wise.
                 /// </summary>
                 /// <param name="width">
                 ///	The length of the resulting strings
@@ -240,12 +226,10 @@ namespace Numpy
                 ///	Call str.lower element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -262,22 +246,19 @@ namespace Numpy
                 ///	removed.<br></br>
                 ///	
                 ///	
-                ///	Calls str.lstrip element-wise.<br></br>
-                ///	
+                ///	Calls str.lstrip element-wise.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <param name="chars">
                 ///	The chars argument is a string specifying the set of
                 ///	characters to be removed.<br></br>
-                ///	 If omitted or None, the chars
+                ///	If omitted or None, the chars
                 ///	argument defaults to removing whitespace.<br></br>
-                ///	 The chars argument
+                ///	The chars argument
                 ///	is not a prefix; rather, all combinations of its values are
-                ///	stripped.<br></br>
-                ///	
+                ///	stripped.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -301,22 +282,18 @@ namespace Numpy
                 ///	before the separator, the separator itself, and the part after
                 ///	the separator.<br></br>
                 ///	 If the separator is not found, return 3 strings
-                ///	containing the string itself, followed by two empty strings.<br></br>
-                ///	
+                ///	containing the string itself, followed by two empty strings.
                 /// </summary>
                 /// <param name="a">
                 ///	Input array
                 /// </param>
                 /// <param name="sep">
-                ///	Separator to split each string element in a.<br></br>
-                ///	
+                ///	Separator to split each string element in a.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type.<br></br>
-                ///	
                 ///	The output array will have an extra dimension with 3
-                ///	elements per input element.<br></br>
-                ///	
+                ///	elements per input element.
                 /// </returns>
                 public static NDarray partition(NDarray a, string sep)
                     => NumPy.Instance.core_defchararray_partition(a, sep);
@@ -330,13 +307,11 @@ namespace Numpy
                 ///	occurrences of substring old replaced by new.<br></br>
                 ///	
                 ///	
-                ///	Calls str.replace element-wise.<br></br>
-                ///	
+                ///	Calls str.replace element-wise.
                 /// </summary>
                 /// <param name="count">
                 ///	If the optional argument count is given, only the first
-                ///	count occurrences are replaced.<br></br>
-                ///	
+                ///	count occurrences are replaced.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -353,8 +328,7 @@ namespace Numpy
                 ///	string of length width.<br></br>
                 ///	
                 ///	
-                ///	Calls str.rjust element-wise.<br></br>
-                ///	
+                ///	Calls str.rjust element-wise.
                 /// </summary>
                 /// <param name="width">
                 ///	The length of the resulting strings
@@ -384,22 +358,19 @@ namespace Numpy
                 ///	before the separator, the separator itself, and the part after
                 ///	the separator.<br></br>
                 ///	 If the separator is not found, return 3 strings
-                ///	containing the string itself, followed by two empty strings.<br></br>
-                ///	
+                ///	containing the string itself, followed by two empty strings.
                 /// </summary>
                 /// <param name="a">
                 ///	Input array
                 /// </param>
                 /// <param name="sep">
-                ///	Right-most separator to split each element in array.<br></br>
-                ///	
+                ///	Right-most separator to split each element in array.
                 /// </param>
                 /// <returns>
                 ///	Output array of string or unicode, depending on input
                 ///	type.<br></br>
                 ///	  The output array will have an extra dimension with
-                ///	3 elements per input element.<br></br>
-                ///	
+                ///	3 elements per input element.
                 /// </returns>
                 public static NDarray rpartition(string[] a, string sep)
                     => NumPy.Instance.core_defchararray_rpartition(a, sep);
@@ -417,18 +388,15 @@ namespace Numpy
                 ///	
                 ///	
                 ///	Except for splitting from the right, rsplit
-                ///	behaves like split.<br></br>
-                ///	
+                ///	behaves like split.
                 /// </summary>
                 /// <param name="sep">
                 ///	If sep is not specified or None, any whitespace string
-                ///	is a separator.<br></br>
-                ///	
+                ///	is a separator.
                 /// </param>
                 /// <param name="maxsplit">
                 ///	If maxsplit is given, at most maxsplit splits are done,
-                ///	the rightmost ones.<br></br>
-                ///	
+                ///	the rightmost ones.
                 /// </param>
                 /// <returns>
                 ///	Array of list objects
@@ -445,18 +413,16 @@ namespace Numpy
                 ///	characters removed.<br></br>
                 ///	
                 ///	
-                ///	Calls str.rstrip element-wise.<br></br>
-                ///	
+                ///	Calls str.rstrip element-wise.
                 /// </summary>
                 /// <param name="chars">
                 ///	The chars argument is a string specifying the set of
                 ///	characters to be removed.<br></br>
-                ///	 If omitted or None, the chars
+                ///	If omitted or None, the chars
                 ///	argument defaults to removing whitespace.<br></br>
-                ///	 The chars argument
+                ///	The chars argument
                 ///	is not a suffix; rather, all combinations of its values are
-                ///	stripped.<br></br>
-                ///	
+                ///	stripped.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -473,17 +439,14 @@ namespace Numpy
                 ///	string, using sep as the delimiter string.<br></br>
                 ///	
                 ///	
-                ///	Calls str.split element-wise.<br></br>
-                ///	
+                ///	Calls str.split element-wise.
                 /// </summary>
                 /// <param name="sep">
                 ///	If sep is not specified or None, any whitespace string is a
-                ///	separator.<br></br>
-                ///	
+                ///	separator.
                 /// </param>
                 /// <param name="maxsplit">
-                ///	If maxsplit is given, at most maxsplit splits are done.<br></br>
-                ///	
+                ///	If maxsplit is given, at most maxsplit splits are done.
                 /// </param>
                 /// <returns>
                 ///	Array of list objects
@@ -500,13 +463,11 @@ namespace Numpy
                 ///	element, breaking at line boundaries.<br></br>
                 ///	
                 ///	
-                ///	Calls str.splitlines element-wise.<br></br>
-                ///	
+                ///	Calls str.splitlines element-wise.
                 /// </summary>
                 /// <param name="keepends">
                 ///	Line breaks are not included in the resulting list unless
-                ///	keepends is given and true.<br></br>
-                ///	
+                ///	keepends is given and true.
                 /// </param>
                 /// <returns>
                 ///	Array of list objects
@@ -523,18 +484,16 @@ namespace Numpy
                 ///	trailing characters removed.<br></br>
                 ///	
                 ///	
-                ///	Calls str.strip element-wise.<br></br>
-                ///	
+                ///	Calls str.strip element-wise.
                 /// </summary>
                 /// <param name="chars">
                 ///	The chars argument is a string specifying the set of
                 ///	characters to be removed.<br></br>
-                ///	 If omitted or None, the chars
+                ///	If omitted or None, the chars
                 ///	argument defaults to removing whitespace.<br></br>
-                ///	 The chars argument
+                ///	The chars argument
                 ///	is not a prefix or suffix; rather, all combinations of its
-                ///	values are stripped.<br></br>
-                ///	
+                ///	values are stripped.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -554,12 +513,10 @@ namespace Numpy
                 ///	Calls str.swapcase element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -582,12 +539,10 @@ namespace Numpy
                 ///	Calls str.title element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -606,8 +561,7 @@ namespace Numpy
                 ///	given translation table.<br></br>
                 ///	
                 ///	
-                ///	Calls str.translate element-wise.<br></br>
-                ///	
+                ///	Calls str.translate element-wise.
                 /// </summary>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -626,12 +580,10 @@ namespace Numpy
                 ///	Calls str.upper element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -646,16 +598,13 @@ namespace Numpy
                 /// <summary>
                 ///	Return the numeric string left-filled with zeros
                 ///	
-                ///	Calls str.zfill element-wise.<br></br>
-                ///	
+                ///	Calls str.zfill element-wise.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <param name="width">
-                ///	Width of string to left-fill elements in a.<br></br>
-                ///	
+                ///	Width of string to left-fill elements in a.
                 /// </param>
                 /// <returns>
                 ///	Output array of str or unicode, depending on input type
@@ -674,20 +623,16 @@ namespace Numpy
                 ///	Unlike numpy.equal, this comparison is performed by first
                 ///	stripping whitespace characters from the end of the string.<br></br>
                 ///	  This
-                ///	behavior is provided for backward-compatibility with numarray.<br></br>
-                ///	
+                ///	behavior is provided for backward-compatibility with numarray.
                 /// </summary>
                 /// <param name="x2">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <param name="x1">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <returns>
-                ///	Output array of bools, or a single bool if x1 and x2 are scalars.<br></br>
-                ///	
+                ///	Output array of bools, or a single bool if x1 and x2 are scalars.
                 /// </returns>
                 public static NDarray equal(string[] x2, string[] x1)
                     => NumPy.Instance.core_defchararray_equal(x2, x1);
@@ -703,20 +648,16 @@ namespace Numpy
                 ///	Unlike numpy.not_equal, this comparison is performed by first
                 ///	stripping whitespace characters from the end of the string.<br></br>
                 ///	  This
-                ///	behavior is provided for backward-compatibility with numarray.<br></br>
-                ///	
+                ///	behavior is provided for backward-compatibility with numarray.
                 /// </summary>
                 /// <param name="x2">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <param name="x1">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <returns>
-                ///	Output array of bools, or a single bool if x1 and x2 are scalars.<br></br>
-                ///	
+                ///	Output array of bools, or a single bool if x1 and x2 are scalars.
                 /// </returns>
                 public static NDarray not_equal(string[] x2, string[] x1)
                     => NumPy.Instance.core_defchararray_not_equal(x2, x1);
@@ -731,22 +672,17 @@ namespace Numpy
                 ///	
                 ///	Unlike numpy.greater_equal, this comparison is performed by
                 ///	first stripping whitespace characters from the end of the string.<br></br>
-                ///	
                 ///	This behavior is provided for backward-compatibility with
-                ///	numarray.<br></br>
-                ///	
+                ///	numarray.
                 /// </summary>
                 /// <param name="x2">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <param name="x1">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <returns>
-                ///	Output array of bools, or a single bool if x1 and x2 are scalars.<br></br>
-                ///	
+                ///	Output array of bools, or a single bool if x1 and x2 are scalars.
                 /// </returns>
                 public static NDarray greater_equal(string[] x2, string[] x1)
                     => NumPy.Instance.core_defchararray_greater_equal(x2, x1);
@@ -762,20 +698,16 @@ namespace Numpy
                 ///	Unlike numpy.less_equal, this comparison is performed by first
                 ///	stripping whitespace characters from the end of the string.<br></br>
                 ///	  This
-                ///	behavior is provided for backward-compatibility with numarray.<br></br>
-                ///	
+                ///	behavior is provided for backward-compatibility with numarray.
                 /// </summary>
                 /// <param name="x2">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <param name="x1">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <returns>
-                ///	Output array of bools, or a single bool if x1 and x2 are scalars.<br></br>
-                ///	
+                ///	Output array of bools, or a single bool if x1 and x2 are scalars.
                 /// </returns>
                 public static NDarray less_equal(string[] x2, string[] x1)
                     => NumPy.Instance.core_defchararray_less_equal(x2, x1);
@@ -791,20 +723,16 @@ namespace Numpy
                 ///	Unlike numpy.greater, this comparison is performed by first
                 ///	stripping whitespace characters from the end of the string.<br></br>
                 ///	  This
-                ///	behavior is provided for backward-compatibility with numarray.<br></br>
-                ///	
+                ///	behavior is provided for backward-compatibility with numarray.
                 /// </summary>
                 /// <param name="x2">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <param name="x1">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <returns>
-                ///	Output array of bools, or a single bool if x1 and x2 are scalars.<br></br>
-                ///	
+                ///	Output array of bools, or a single bool if x1 and x2 are scalars.
                 /// </returns>
                 public static NDarray greater(string[] x2, string[] x1)
                     => NumPy.Instance.core_defchararray_greater(x2, x1);
@@ -820,20 +748,16 @@ namespace Numpy
                 ///	Unlike numpy.greater, this comparison is performed by first
                 ///	stripping whitespace characters from the end of the string.<br></br>
                 ///	  This
-                ///	behavior is provided for backward-compatibility with numarray.<br></br>
-                ///	
+                ///	behavior is provided for backward-compatibility with numarray.
                 /// </summary>
                 /// <param name="x2">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <param name="x1">
-                ///	Input arrays of the same shape.<br></br>
-                ///	
+                ///	Input arrays of the same shape.
                 /// </param>
                 /// <returns>
-                ///	Output array of bools, or a single bool if x1 and x2 are scalars.<br></br>
-                ///	
+                ///	Output array of bools, or a single bool if x1 and x2 are scalars.
                 /// </returns>
                 public static NDarray less(string[] x2, string[] x1)
                     => NumPy.Instance.core_defchararray_less(x2, x1);
@@ -847,26 +771,21 @@ namespace Numpy
                 ///	substring sub in the range [start, end].<br></br>
                 ///	
                 ///	
-                ///	Calls str.count element-wise.<br></br>
-                ///	
+                ///	Calls str.count element-wise.
                 /// </summary>
                 /// <param name="sub">
-                ///	The substring to search for.<br></br>
-                ///	
+                ///	The substring to search for.
                 /// </param>
                 /// <param name="end">
                 ///	Optional arguments start and end are interpreted as slice
-                ///	notation to specify the range in which to count.<br></br>
-                ///	
+                ///	notation to specify the range in which to count.
                 /// </param>
                 /// <param name="start">
                 ///	Optional arguments start and end are interpreted as slice
-                ///	notation to specify the range in which to count.<br></br>
-                ///	
+                ///	notation to specify the range in which to count.
                 /// </param>
                 /// <returns>
-                ///	Output array of ints.<br></br>
-                ///	
+                ///	Output array of ints.
                 /// </returns>
                 public static NDarray count(string[] a, string sub, int? end = null, int? start = null)
                     => NumPy.Instance.core_defchararray_count(a, sub, end:end, start:start);
@@ -885,23 +804,19 @@ namespace Numpy
                 ///	
                 ///	For each element, return the lowest index in the string where
                 ///	substring sub is found, such that sub is contained in the
-                ///	range [start, end].<br></br>
-                ///	
+                ///	range [start, end].
                 /// </summary>
                 /// <param name="end">
                 ///	Optional arguments start and end are interpreted as in
-                ///	slice notation.<br></br>
-                ///	
+                ///	slice notation.
                 /// </param>
                 /// <param name="start">
                 ///	Optional arguments start and end are interpreted as in
-                ///	slice notation.<br></br>
-                ///	
+                ///	slice notation.
                 /// </param>
                 /// <returns>
                 ///	Output array of ints.<br></br>
-                ///	  Returns -1 if sub is not found.<br></br>
-                ///	
+                ///	  Returns -1 if sub is not found.
                 /// </returns>
                 public static NDarray find(string[] a, string sub, int? end = null, int? start = null)
                     => NumPy.Instance.core_defchararray_find(a, sub, end:end, start:start);
@@ -914,13 +829,11 @@ namespace Numpy
                 ///	Like find, but raises ValueError when the substring is not found.<br></br>
                 ///	
                 ///	
-                ///	Calls str.index element-wise.<br></br>
-                ///	
+                ///	Calls str.index element-wise.
                 /// </summary>
                 /// <returns>
                 ///	Output array of ints.<br></br>
-                ///	  Returns -1 if sub is not found.<br></br>
-                ///	
+                ///	  Returns -1 if sub is not found.
                 /// </returns>
                 public static NDarray index(string[] a, string sub, int? end = null, int? start = null)
                     => NumPy.Instance.core_defchararray_index(a, sub, end:end, start:start);
@@ -937,8 +850,7 @@ namespace Numpy
                 ///	Calls str.isalpha element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <returns>
                 ///	Output array of bools
@@ -961,16 +873,13 @@ namespace Numpy
                 ///	Decimal characters include digit characters, and all characters
                 ///	that that can be used to form decimal-radix numbers,
                 ///	e.g.<br></br>
-                ///	 U+0660, ARABIC-INDIC DIGIT ZERO.<br></br>
-                ///	
+                ///	 U+0660, ARABIC-INDIC DIGIT ZERO.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
-                ///	Array of booleans identical in shape to a.<br></br>
-                ///	
+                ///	Array of booleans identical in shape to a.
                 /// </returns>
                 public static NDarray isdecimal(NDarray a)
                     => NumPy.Instance.core_defchararray_isdecimal(a);
@@ -987,8 +896,7 @@ namespace Numpy
                 ///	Calls str.isdigit element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <returns>
                 ///	Output array of bools
@@ -1009,8 +917,7 @@ namespace Numpy
                 ///	Calls str.islower element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <returns>
                 ///	Output array of bools
@@ -1033,16 +940,13 @@ namespace Numpy
                 ///	Numeric characters include digit characters, and all characters
                 ///	that have the Unicode numeric value property, e.g.<br></br>
                 ///	 U+2155,
-                ///	VULGAR FRACTION ONE FIFTH.<br></br>
-                ///	
+                ///	VULGAR FRACTION ONE FIFTH.
                 /// </summary>
                 /// <param name="a">
-                ///	Input array.<br></br>
-                ///	
+                ///	Input array.
                 /// </param>
                 /// <returns>
-                ///	Array of booleans of same shape as a.<br></br>
-                ///	
+                ///	Array of booleans of same shape as a.
                 /// </returns>
                 public static NDarray isnumeric(NDarray a)
                     => NumPy.Instance.core_defchararray_isnumeric(a);
@@ -1060,8 +964,7 @@ namespace Numpy
                 ///	Calls str.isspace element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <returns>
                 ///	Output array of bools
@@ -1081,8 +984,7 @@ namespace Numpy
                 ///	Call str.istitle element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <returns>
                 ///	Output array of bools
@@ -1103,8 +1005,7 @@ namespace Numpy
                 ///	Call str.isupper element-wise.<br></br>
                 ///	
                 ///	
-                ///	For 8-bit strings, this method is locale-dependent.<br></br>
-                ///	
+                ///	For 8-bit strings, this method is locale-dependent.
                 /// </summary>
                 /// <returns>
                 ///	Output array of bools
@@ -1122,23 +1023,19 @@ namespace Numpy
                 ///	within [start, end].<br></br>
                 ///	
                 ///	
-                ///	Calls str.rfind element-wise.<br></br>
-                ///	
+                ///	Calls str.rfind element-wise.
                 /// </summary>
                 /// <param name="end">
                 ///	Optional arguments start and end are interpreted as in
-                ///	slice notation.<br></br>
-                ///	
+                ///	slice notation.
                 /// </param>
                 /// <param name="start">
                 ///	Optional arguments start and end are interpreted as in
-                ///	slice notation.<br></br>
-                ///	
+                ///	slice notation.
                 /// </param>
                 /// <returns>
                 ///	Output array of ints.<br></br>
-                ///	  Return -1 on failure.<br></br>
-                ///	
+                ///	  Return -1 on failure.
                 /// </returns>
                 public static NDarray rfind(string[] a, string sub, int? end = null, int? start = null)
                     => NumPy.Instance.core_defchararray_rfind(a, sub, end:end, start:start);
@@ -1152,12 +1049,10 @@ namespace Numpy
                 ///	not found.<br></br>
                 ///	
                 ///	
-                ///	Calls str.rindex element-wise.<br></br>
-                ///	
+                ///	Calls str.rindex element-wise.
                 /// </summary>
                 /// <returns>
-                ///	Output array of ints.<br></br>
-                ///	
+                ///	Output array of ints.
                 /// </returns>
                 public static NDarray rindex(string[] a, string sub, int? end = null, int? start = null)
                     => NumPy.Instance.core_defchararray_rindex(a, sub, end:end, start:start);
@@ -1171,20 +1066,17 @@ namespace Numpy
                 ///	in a starts with prefix, otherwise False.<br></br>
                 ///	
                 ///	
-                ///	Calls str.startswith element-wise.<br></br>
-                ///	
+                ///	Calls str.startswith element-wise.
                 /// </summary>
                 /// <param name="end">
                 ///	With optional start, test beginning at that position.<br></br>
-                ///	 With
-                ///	optional end, stop comparing at that position.<br></br>
-                ///	
+                ///	With
+                ///	optional end, stop comparing at that position.
                 /// </param>
                 /// <param name="start">
                 ///	With optional start, test beginning at that position.<br></br>
-                ///	 With
-                ///	optional end, stop comparing at that position.<br></br>
-                ///	
+                ///	With
+                ///	optional end, stop comparing at that position.
                 /// </param>
                 /// <returns>
                 ///	Array of booleans
@@ -1215,42 +1107,34 @@ namespace Numpy
                 ///	is in “Fortran order”.
                 /// </summary>
                 /// <param name="shape">
-                ///	Shape of the array.<br></br>
-                ///	
+                ///	Shape of the array.
                 /// </param>
                 /// <param name="itemsize">
                 ///	Length of each array element, in number of characters.<br></br>
-                ///	 Default is 1.<br></br>
-                ///	
+                ///	Default is 1.
                 /// </param>
                 /// <param name="unicode">
                 ///	Are the array elements of type unicode (True) or string (False).<br></br>
-                ///	
-                ///	Default is False.<br></br>
-                ///	
+                ///	Default is False.
                 /// </param>
                 /// <param name="buffer">
                 ///	Memory address of the start of the array data.<br></br>
-                ///	  Default is None,
-                ///	in which case a new array is created.<br></br>
-                ///	
+                ///	Default is None,
+                ///	in which case a new array is created.
                 /// </param>
                 /// <param name="offset">
                 ///	Fixed stride displacement from the beginning of an axis?
                 ///	Default is 0.<br></br>
-                ///	 Needs to be &gt;=0.
+                ///	Needs to be &gt;=0.
                 /// </param>
                 /// <param name="strides">
                 ///	Strides for the array (see ndarray.strides for full description).<br></br>
-                ///	
-                ///	Default is None.<br></br>
-                ///	
+                ///	Default is None.
                 /// </param>
                 /// <param name="order">
                 ///	The order in which the array data is stored in memory: ‘C’ -&gt;
                 ///	“row major” order (the default), ‘F’ -&gt; “column major”
-                ///	(Fortran) order.<br></br>
-                ///	
+                ///	(Fortran) order.
                 /// </param>
                 public static void chararray(Shape shape, int? itemsize = null, bool? unicode = null, int? buffer = null, int? offset = null, int[] strides = null, string order = null)
                     => NumPy.Instance.core_defchararray_chararray(shape, itemsize:itemsize, unicode:unicode, buffer:buffer, offset:offset, strides:strides, order:order);

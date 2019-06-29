@@ -48,14 +48,12 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	Hermitian (symmetric if all elements are real), positive-definite
-            ///	input matrix.<br></br>
-            ///	
+            ///	input matrix.
             /// </param>
             /// <returns>
             ///	Upper or lower-triangular Cholesky factor of a.<br></br>
             ///	  Returns a
-            ///	matrix object if a is a matrix object.<br></br>
-            ///	
+            ///	matrix object if a is a matrix object.
             /// </returns>
             public static NDarray cholesky(NDarray a)
                 => NumPy.Instance.linalg_cholesky(a);
@@ -73,16 +71,13 @@ namespace Numpy
             ///	
             ///	
             ///	The determinant is computed via LU factorization using the LAPACK
-            ///	routine z/dgetrf.<br></br>
-            ///	
+            ///	routine z/dgetrf.
             /// </summary>
             /// <param name="a">
-            ///	Input array to compute determinants for.<br></br>
-            ///	
+            ///	Input array to compute determinants for.
             /// </param>
             /// <returns>
-            ///	Determinant of a.<br></br>
-            ///	
+            ///	Determinant of a.
             /// </returns>
             public static NDarray det(NDarray a)
                 => NumPy.Instance.linalg_det(a);
@@ -133,8 +128,7 @@ namespace Numpy
             ///	
             ///	G.<br></br>
             ///	 Strang, Linear Algebra and Its Applications, 2nd Ed., Orlando, FL,
-            ///	Academic Press, Inc., 1980, Various pp.<br></br>
-            ///	
+            ///	Academic Press, Inc., 1980, Various pp.
             /// </summary>
             /// <param name="a">
             ///	Matrices for which the eigenvalues and right eigenvectors will
@@ -189,19 +183,16 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	Hermitian or real symmetric matrices whose eigenvalues and
-            ///	eigenvectors are to be computed.<br></br>
-            ///	
+            ///	eigenvectors are to be computed.
             /// </param>
             /// <param name="UPLO">
             ///	Specifies whether the calculation is done with the lower triangular
             ///	part of a (‘L’, default) or the upper triangular part (‘U’).<br></br>
-            ///	
             ///	Irrespective of this value only the real parts of the diagonal will
             ///	be considered in the computation to preserve the notion of a Hermitian
             ///	matrix.<br></br>
-            ///	 It therefore follows that the imaginary part of the diagonal
-            ///	will always be treated as zero.<br></br>
-            ///	
+            ///	It therefore follows that the imaginary part of the diagonal
+            ///	will always be treated as zero.
             /// </param>
             /// <returns>
             /// A tuple of:
@@ -233,19 +224,15 @@ namespace Numpy
             ///	
             ///	
             ///	This is implemented using the _geev LAPACK routines which compute
-            ///	the eigenvalues and eigenvectors of general square arrays.<br></br>
-            ///	
+            ///	the eigenvalues and eigenvectors of general square arrays.
             /// </summary>
             /// <param name="a">
-            ///	A complex- or real-valued matrix whose eigenvalues will be computed.<br></br>
-            ///	
+            ///	A complex- or real-valued matrix whose eigenvalues will be computed.
             /// </param>
             /// <returns>
             ///	The eigenvalues, each repeated according to its multiplicity.<br></br>
-            ///	
             ///	They are not necessarily ordered, nor are they necessarily
-            ///	real for real matrices.<br></br>
-            ///	
+            ///	real for real matrices.
             /// </returns>
             public static NDarray eigvals(NDarray a)
                 => NumPy.Instance.linalg_eigvals(a);
@@ -269,24 +256,20 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	A complex- or real-valued matrix whose eigenvalues are to be
-            ///	computed.<br></br>
-            ///	
+            ///	computed.
             /// </param>
             /// <param name="UPLO">
             ///	Specifies whether the calculation is done with the lower triangular
             ///	part of a (‘L’, default) or the upper triangular part (‘U’).<br></br>
-            ///	
             ///	Irrespective of this value only the real parts of the diagonal will
             ///	be considered in the computation to preserve the notion of a Hermitian
             ///	matrix.<br></br>
-            ///	 It therefore follows that the imaginary part of the diagonal
-            ///	will always be treated as zero.<br></br>
-            ///	
+            ///	It therefore follows that the imaginary part of the diagonal
+            ///	will always be treated as zero.
             /// </param>
             /// <returns>
             ///	The eigenvalues in ascending order, each repeated according to
-            ///	its multiplicity.<br></br>
-            ///	
+            ///	its multiplicity.
             /// </returns>
             public static NDarray eigvalsh(NDarray a, string UPLO = "L")
                 => NumPy.Instance.linalg_eigvalsh(a, UPLO:UPLO);
@@ -304,16 +287,13 @@ namespace Numpy
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
-            ///	details.<br></br>
-            ///	
+            ///	details.
             /// </summary>
             /// <param name="a">
-            ///	Matrix to be inverted.<br></br>
-            ///	
+            ///	Matrix to be inverted.
             /// </param>
             /// <returns>
-            ///	(Multiplicative) inverse of the matrix a.<br></br>
-            ///	
+            ///	(Multiplicative) inverse of the matrix a.
             /// </returns>
             public static NDarray inv(NDarray a)
                 => NumPy.Instance.linalg_inv(a);
@@ -336,27 +316,22 @@ namespace Numpy
             ///	
             ///	Notes
             ///	
-            ///	If b is a matrix, then all array results are returned as matrices.<br></br>
-            ///	
+            ///	If b is a matrix, then all array results are returned as matrices.
             /// </summary>
             /// <param name="a">
-            ///	“Coefficient” matrix.<br></br>
-            ///	
+            ///	“Coefficient” matrix.
             /// </param>
             /// <param name="b">
             ///	Ordinate or “dependent variable” values.<br></br>
-            ///	 If b is two-dimensional,
+            ///	If b is two-dimensional,
             ///	the least-squares solution is calculated for each of the K columns
-            ///	of b.<br></br>
-            ///	
+            ///	of b.
             /// </param>
             /// <param name="rcond">
             ///	Cut-off ratio for small singular values of a.<br></br>
-            ///	
             ///	For the purposes of rank determination, singular values are treated
             ///	as zero if they are smaller than rcond times the largest singular
-            ///	value of a.<br></br>
-            ///	
+            ///	value of a.
             /// </param>
             /// <returns>
             /// A tuple of:
@@ -408,22 +383,19 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="a">
-            ///	Matrix or stack of matrices to be pseudo-inverted.<br></br>
-            ///	
+            ///	Matrix or stack of matrices to be pseudo-inverted.
             /// </param>
             /// <param name="rcond">
             ///	Cutoff for small singular values.<br></br>
-            ///	
             ///	Singular values smaller (in modulus) than
             ///	rcond * largest_singular_value (again, in modulus)
             ///	are set to zero.<br></br>
-            ///	 Broadcasts against the stack of matrices
+            ///	Broadcasts against the stack of matrices
             /// </param>
             /// <returns>
             ///	The pseudo-inverse of a.<br></br>
             ///	 If a is a matrix instance, then so
-            ///	is B.<br></br>
-            ///	
+            ///	is B.
             /// </returns>
             public static NDarray pinv(NDarray a, float rcond = 1e-15f)
                 => NumPy.Instance.linalg_pinv(a, rcond:rcond);
@@ -455,17 +427,14 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="a">
-            ///	Coefficient matrix.<br></br>
-            ///	
+            ///	Coefficient matrix.
             /// </param>
             /// <param name="b">
-            ///	Ordinate or “dependent variable” values.<br></br>
-            ///	
+            ///	Ordinate or “dependent variable” values.
             /// </param>
             /// <returns>
             ///	Solution to the system a x = b.<br></br>
-            ///	  Returned shape is identical to b.<br></br>
-            ///	
+            ///	  Returned shape is identical to b.
             /// </returns>
             public static NDarray solve(NDarray a, NDarray b)
                 => NumPy.Instance.linalg_solve(a, b);
@@ -512,26 +481,22 @@ namespace Numpy
             ///	function np.matmul for python versions below 3.5.)
             ///	
             ///	If a is a matrix object (as opposed to an ndarray), then so are
-            ///	all the return values.<br></br>
-            ///	
+            ///	all the return values.
             /// </summary>
             /// <param name="a">
-            ///	A real or complex array with a.ndim &gt;= 2.<br></br>
-            ///	
+            ///	A real or complex array with a.ndim &gt;= 2.
             /// </param>
             /// <param name="full_matrices">
             ///	If True (default), u and vh have the shapes (..., M, M) and
             ///	(..., N, N), respectively.<br></br>
-            ///	  Otherwise, the shapes are
+            ///	Otherwise, the shapes are
             ///	(..., M, K) and (..., K, N), respectively, where
-            ///	K = min(M, N).<br></br>
-            ///	
+            ///	K = min(M, N).
             /// </param>
             /// <param name="compute_uv">
             ///	Whether or not to compute u and vh in addition to s.<br></br>
-            ///	  True
-            ///	by default.<br></br>
-            ///	
+            ///	True
+            ///	by default.
             /// </param>
             /// <returns>
             /// A tuple of:
@@ -580,34 +545,27 @@ namespace Numpy
             ///	References
             /// </summary>
             /// <param name="a">
-            ///	Input array, can be complex.<br></br>
-            ///	
+            ///	Input array, can be complex.
             /// </param>
             /// <param name="n">
             ///	Length of the transformed axis of the output.<br></br>
-            ///	
             ///	If n is smaller than the length of the input, the input is cropped.<br></br>
-            ///	
             ///	If it is larger, the input is padded with zeros.<br></br>
-            ///	  If n is not given,
-            ///	the length of the input along the axis specified by axis is used.<br></br>
-            ///	
+            ///	If n is not given,
+            ///	the length of the input along the axis specified by axis is used.
             /// </param>
             /// <param name="axis">
             ///	Axis over which to compute the FFT.<br></br>
-            ///	  If not given, the last axis is
-            ///	used.<br></br>
-            ///	
+            ///	If not given, the last axis is
+            ///	used.
             /// </param>
             /// <param name="norm">
             ///	Normalization mode (see numpy.fft).<br></br>
-            ///	 Default is None.<br></br>
-            ///	
+            ///	Default is None.
             /// </param>
             /// <returns>
             ///	The truncated or zero-padded input, transformed along the axis
-            ///	indicated by axis, or the last one if axis is not specified.<br></br>
-            ///	
+            ///	indicated by axis, or the last one if axis is not specified.
             /// </returns>
             public static NDarray fft_(NDarray a, int? n = null, int? axis = -1, string norm = null)
                 => NumPy.Instance.fft_fft(a, n:n, axis:axis, norm:norm);
@@ -637,8 +595,7 @@ namespace Numpy
             ///	
             ///	
             ///	See fftn for details and a plotting example, and numpy.fft for
-            ///	definitions and conventions used.<br></br>
-            ///	
+            ///	definitions and conventions used.
             /// </summary>
             /// <param name="a">
             ///	Input array, can be complex
@@ -646,36 +603,29 @@ namespace Numpy
             /// <param name="s">
             ///	Shape (length of each transformed axis) of the output
             ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
-            ///	
             ///	This corresponds to n for fft(x, n).<br></br>
-            ///	
             ///	Along each axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
-            ///	  If it is larger, the input is padded with zeros.<br></br>
-            ///	
+            ///	If it is larger, the input is padded with zeros.<br></br>
             ///	if s is not given, the shape of the input along the axes specified
-            ///	by axes is used.<br></br>
-            ///	
+            ///	by axes is used.
             /// </param>
             /// <param name="axes">
             ///	Axes over which to compute the FFT.<br></br>
-            ///	  If not given, the last two
+            ///	If not given, the last two
             ///	axes are used.<br></br>
-            ///	  A repeated index in axes means the transform over
+            ///	A repeated index in axes means the transform over
             ///	that axis is performed multiple times.<br></br>
-            ///	  A one-element sequence means
-            ///	that a one-dimensional FFT is performed.<br></br>
-            ///	
+            ///	A one-element sequence means
+            ///	that a one-dimensional FFT is performed.
             /// </param>
             /// <param name="norm">
             ///	Normalization mode (see numpy.fft).<br></br>
-            ///	 Default is None.<br></br>
-            ///	
+            ///	Default is None.
             /// </param>
             /// <returns>
             ///	The truncated or zero-padded input, transformed along the axes
-            ///	indicated by axes, or the last two axes if axes is not given.<br></br>
-            ///	
+            ///	indicated by axes, or the last two axes if axes is not given.
             /// </returns>
             public static NDarray fft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
                 => NumPy.Instance.fft_fft2(a, s:s, axes:axes, norm:norm);
@@ -700,46 +650,36 @@ namespace Numpy
             ///	axes, in order of decreasingly negative frequency.<br></br>
             ///	
             ///	
-            ///	See numpy.fft for details, definitions and conventions used.<br></br>
-            ///	
+            ///	See numpy.fft for details, definitions and conventions used.
             /// </summary>
             /// <param name="a">
-            ///	Input array, can be complex.<br></br>
-            ///	
+            ///	Input array, can be complex.
             /// </param>
             /// <param name="s">
             ///	Shape (length of each transformed axis) of the output
             ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
-            ///	
             ///	This corresponds to n for fft(x, n).<br></br>
-            ///	
             ///	Along any axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
-            ///	  If it is larger, the input is padded with zeros.<br></br>
-            ///	
+            ///	If it is larger, the input is padded with zeros.<br></br>
             ///	if s is not given, the shape of the input along the axes specified
-            ///	by axes is used.<br></br>
-            ///	
+            ///	by axes is used.
             /// </param>
             /// <param name="axes">
             ///	Axes over which to compute the FFT.<br></br>
-            ///	  If not given, the last len(s)
+            ///	If not given, the last len(s)
             ///	axes are used, or all axes if s is also not specified.<br></br>
-            ///	
             ///	Repeated indices in axes means that the transform over that axis is
-            ///	performed multiple times.<br></br>
-            ///	
+            ///	performed multiple times.
             /// </param>
             /// <param name="norm">
             ///	Normalization mode (see numpy.fft).<br></br>
-            ///	 Default is None.<br></br>
-            ///	
+            ///	Default is None.
             /// </param>
             /// <returns>
             ///	The truncated or zero-padded input, transformed along the axes
             ///	indicated by axes, or by a combination of s and a,
-            ///	as explained in the parameters section above.<br></br>
-            ///	
+            ///	as explained in the parameters section above.
             /// </returns>
             public static NDarray fftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
                 => NumPy.Instance.fft_fftn(a, s:s, axes:axes, norm:norm);
@@ -754,7 +694,6 @@ namespace Numpy
             ///	discrete Fourier transform computed by fft.<br></br>
             ///	  In other words,
             ///	ifft(fft(a)) == a to within numerical accuracy.<br></br>
-            ///	
             ///	For a general description of the algorithm and definitions,
             ///	see numpy.fft.<br></br>
             ///	
@@ -775,40 +714,31 @@ namespace Numpy
             ///	  Even though this is the common
             ///	approach, it might lead to surprising results.<br></br>
             ///	  If a different padding is
-            ///	desired, it must be performed before calling ifft.<br></br>
-            ///	
+            ///	desired, it must be performed before calling ifft.
             /// </summary>
             /// <param name="a">
-            ///	Input array, can be complex.<br></br>
-            ///	
+            ///	Input array, can be complex.
             /// </param>
             /// <param name="n">
             ///	Length of the transformed axis of the output.<br></br>
-            ///	
             ///	If n is smaller than the length of the input, the input is cropped.<br></br>
-            ///	
             ///	If it is larger, the input is padded with zeros.<br></br>
-            ///	  If n is not given,
+            ///	If n is not given,
             ///	the length of the input along the axis specified by axis is used.<br></br>
-            ///	
-            ///	See notes about padding issues.<br></br>
-            ///	
+            ///	See notes about padding issues.
             /// </param>
             /// <param name="axis">
             ///	Axis over which to compute the inverse DFT.<br></br>
-            ///	  If not given, the last
-            ///	axis is used.<br></br>
-            ///	
+            ///	If not given, the last
+            ///	axis is used.
             /// </param>
             /// <param name="norm">
             ///	Normalization mode (see numpy.fft).<br></br>
-            ///	 Default is None.<br></br>
-            ///	
+            ///	Default is None.
             /// </param>
             /// <returns>
             ///	The truncated or zero-padded input, transformed along the axis
-            ///	indicated by axis, or the last one if axis is not specified.<br></br>
-            ///	
+            ///	indicated by axis, or the last one if axis is not specified.
             /// </returns>
             public static NDarray ifft(NDarray a, int? n = null, int? axis = -1, string norm = null)
                 => NumPy.Instance.fft_ifft(a, n:n, axis:axis, norm:norm);
@@ -851,46 +781,38 @@ namespace Numpy
             ///	  Although this is the common
             ///	approach, it might lead to surprising results.<br></br>
             ///	  If another form of zero
-            ///	padding is desired, it must be performed before ifft2 is called.<br></br>
-            ///	
+            ///	padding is desired, it must be performed before ifft2 is called.
             /// </summary>
             /// <param name="a">
-            ///	Input array, can be complex.<br></br>
-            ///	
+            ///	Input array, can be complex.
             /// </param>
             /// <param name="s">
             ///	Shape (length of each axis) of the output (s[0] refers to axis 0,
             ///	s[1] to axis 1, etc.).<br></br>
-            ///	  This corresponds to n for ifft(x, n).<br></br>
-            ///	
+            ///	This corresponds to n for ifft(x, n).<br></br>
             ///	Along each axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
-            ///	  If it is larger, the input is padded with zeros.<br></br>
-            ///	
+            ///	If it is larger, the input is padded with zeros.<br></br>
             ///	if s is not given, the shape of the input along the axes specified
             ///	by axes is used.<br></br>
-            ///	  See notes for issue on ifft zero padding.<br></br>
-            ///	
+            ///	See notes for issue on ifft zero padding.
             /// </param>
             /// <param name="axes">
             ///	Axes over which to compute the FFT.<br></br>
-            ///	  If not given, the last two
+            ///	If not given, the last two
             ///	axes are used.<br></br>
-            ///	  A repeated index in axes means the transform over
+            ///	A repeated index in axes means the transform over
             ///	that axis is performed multiple times.<br></br>
-            ///	  A one-element sequence means
-            ///	that a one-dimensional FFT is performed.<br></br>
-            ///	
+            ///	A one-element sequence means
+            ///	that a one-dimensional FFT is performed.
             /// </param>
             /// <param name="norm">
             ///	Normalization mode (see numpy.fft).<br></br>
-            ///	 Default is None.<br></br>
-            ///	
+            ///	Default is None.
             /// </param>
             /// <returns>
             ///	The truncated or zero-padded input, transformed along the axes
-            ///	indicated by axes, or the last two axes if axes is not given.<br></br>
-            ///	
+            ///	indicated by axes, or the last two axes if axes is not given.
             /// </returns>
             public static NDarray ifft2(NDarray a, int[] s = null, int[] axes = null, string norm = null)
                 => NumPy.Instance.fft_ifft2(a, s:s, axes:axes, norm:norm);
@@ -906,7 +828,6 @@ namespace Numpy
             ///	means of the Fast Fourier Transform (FFT).<br></br>
             ///	  In other words,
             ///	ifftn(fftn(a)) == a to within numerical accuracy.<br></br>
-            ///	
             ///	For a description of the definitions and conventions used, see numpy.fft.<br></br>
             ///	
             ///	
@@ -929,47 +850,37 @@ namespace Numpy
             ///	  Although this is the common
             ///	approach, it might lead to surprising results.<br></br>
             ///	  If another form of zero
-            ///	padding is desired, it must be performed before ifftn is called.<br></br>
-            ///	
+            ///	padding is desired, it must be performed before ifftn is called.
             /// </summary>
             /// <param name="a">
-            ///	Input array, can be complex.<br></br>
-            ///	
+            ///	Input array, can be complex.
             /// </param>
             /// <param name="s">
             ///	Shape (length of each transformed axis) of the output
             ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
-            ///	
             ///	This corresponds to n for ifft(x, n).<br></br>
-            ///	
             ///	Along any axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
-            ///	  If it is larger, the input is padded with zeros.<br></br>
-            ///	
+            ///	If it is larger, the input is padded with zeros.<br></br>
             ///	if s is not given, the shape of the input along the axes specified
             ///	by axes is used.<br></br>
-            ///	  See notes for issue on ifft zero padding.<br></br>
-            ///	
+            ///	See notes for issue on ifft zero padding.
             /// </param>
             /// <param name="axes">
             ///	Axes over which to compute the IFFT.<br></br>
-            ///	  If not given, the last len(s)
+            ///	If not given, the last len(s)
             ///	axes are used, or all axes if s is also not specified.<br></br>
-            ///	
             ///	Repeated indices in axes means that the inverse transform over that
-            ///	axis is performed multiple times.<br></br>
-            ///	
+            ///	axis is performed multiple times.
             /// </param>
             /// <param name="norm">
             ///	Normalization mode (see numpy.fft).<br></br>
-            ///	 Default is None.<br></br>
-            ///	
+            ///	Default is None.
             /// </param>
             /// <returns>
             ///	The truncated or zero-padded input, transformed along the axes
             ///	indicated by axes, or by a combination of s or a,
-            ///	as explained in the parameters section above.<br></br>
-            ///	
+            ///	as explained in the parameters section above.
             /// </returns>
             public static NDarray ifftn(NDarray a, int[] s = null, int[] axes = null, string norm = null)
                 => NumPy.Instance.fft_ifftn(a, s:s, axes:axes, norm:norm);
@@ -998,12 +909,10 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Argument of the Bessel function.<br></br>
-        ///	
+        ///	Argument of the Bessel function.
         /// </param>
         /// <returns>
-        ///	The modified Bessel function evaluated at each of the elements of x.<br></br>
-        ///	
+        ///	The modified Bessel function evaluated at each of the elements of x.
         /// </returns>
         public static NDarray i0(NDarray x)
             => NumPy.Instance.i0(x);

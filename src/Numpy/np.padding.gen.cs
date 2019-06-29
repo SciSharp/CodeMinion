@@ -42,19 +42,14 @@ namespace Numpy
         /// </param>
         /// <param name="pad_width">
         ///	Number of values padded to the edges of each axis.<br></br>
-        ///	
         ///	((before_1, after_1), … (before_N, after_N)) unique pad widths
         ///	for each axis.<br></br>
-        ///	
         ///	((before, after),) yields same before and after pad for each axis.<br></br>
-        ///	
         ///	(pad,) or int is a shortcut for before = after = pad width for all
-        ///	axes.<br></br>
-        ///	
+        ///	axes.
         /// </param>
         /// <param name="mode">
-        ///	One of the following string values or a user supplied function.<br></br>
-        ///	
+        ///	One of the following string values or a user supplied function.
         /// </param>
         /// <param name="stat_length">
         ///	Used in ‘maximum’, ‘mean’, ‘median’, and ‘minimum’.  Number of
@@ -73,8 +68,7 @@ namespace Numpy
         ///	length for all axes.<br></br>
         ///	
         ///	
-        ///	Default is None, to use the entire axis.<br></br>
-        ///	
+        ///	Default is None, to use the entire axis.
         /// </param>
         /// <param name="constant_values">
         ///	Used in ‘constant’.  The values to set the padded values for each
@@ -93,8 +87,7 @@ namespace Numpy
         ///	all axes.<br></br>
         ///	
         ///	
-        ///	Default is 0.<br></br>
-        ///	
+        ///	Default is 0.
         /// </param>
         /// <param name="end_values">
         ///	Used in ‘linear_ramp’.  The values used for the ending value of the
@@ -113,21 +106,18 @@ namespace Numpy
         ///	all axes.<br></br>
         ///	
         ///	
-        ///	Default is 0.<br></br>
-        ///	
+        ///	Default is 0.
         /// </param>
         /// <param name="reflect_type">
         ///	Used in ‘reflect’, and ‘symmetric’.  The ‘even’ style is the
         ///	default with an unaltered reflection around the edge value.<br></br>
-        ///	  For
+        ///	For
         ///	the ‘odd’ style, the extended part of the array is created by
-        ///	subtracting the reflected values from two times the edge value.<br></br>
-        ///	
+        ///	subtracting the reflected values from two times the edge value.
         /// </param>
         /// <returns>
         ///	Padded array of rank equal to array with shape increased
-        ///	according to pad_width.<br></br>
-        ///	
+        ///	according to pad_width.
         /// </returns>
         public static NDarray pad(NDarray array, NDarray pad_width, string mode, int[] stat_length = null, int[] constant_values = null, int[] end_values = null, string reflect_type = null)
             => NumPy.Instance.pad(array, pad_width, mode, stat_length:stat_length, constant_values:constant_values, end_values:end_values, reflect_type:reflect_type);

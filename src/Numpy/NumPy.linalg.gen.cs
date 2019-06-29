@@ -22,34 +22,29 @@ namespace Numpy
         ///	 Specifically,
         /// </summary>
         /// <param name="a">
-        ///	First argument.<br></br>
-        ///	
+        ///	First argument.
         /// </param>
         /// <param name="b">
-        ///	Second argument.<br></br>
-        ///	
+        ///	Second argument.
         /// </param>
         /// <param name="out">
         ///	Output argument.<br></br>
-        ///	 This must have the exact kind that would be returned
+        ///	This must have the exact kind that would be returned
         ///	if it was not used.<br></br>
-        ///	 In particular, it must have the right type, must be
+        ///	In particular, it must have the right type, must be
         ///	C-contiguous, and its dtype must be the dtype that would be returned
         ///	for dot(a,b).<br></br>
-        ///	 This is a performance feature.<br></br>
-        ///	 Therefore, if these
+        ///	This is a performance feature.<br></br>
+        ///	Therefore, if these
         ///	conditions are not met, an exception is raised, instead of attempting
-        ///	to be flexible.<br></br>
-        ///	
+        ///	to be flexible.
         /// </param>
         /// <returns>
         ///	Returns the dot product of a and b.<br></br>
         ///	  If a and b are both
         ///	scalars or both 1-D arrays then a scalar is returned; otherwise
         ///	an array is returned.<br></br>
-        ///	
-        ///	If out is given, then it is returned.<br></br>
-        ///	
+        ///	If out is given, then it is returned.
         /// </returns>
         public NDarray dot(NDarray a, NDarray b, NDarray @out = null)
         {
@@ -78,9 +73,7 @@ namespace Numpy
         ///	
         ///	
         ///	If the first argument is 1-D it is treated as a row vector.<br></br>
-        ///	
         ///	If the last argument is 1-D it is treated as a column vector.<br></br>
-        ///	
         ///	The other arguments must be 2-D.<br></br>
         ///	
         ///	
@@ -100,15 +93,11 @@ namespace Numpy
         /// </summary>
         /// <param name="arrays">
         ///	If the first argument is 1-D it is treated as row vector.<br></br>
-        ///	
         ///	If the last argument is 1-D it is treated as column vector.<br></br>
-        ///	
-        ///	The other arguments must be 2-D.<br></br>
-        ///	
+        ///	The other arguments must be 2-D.
         /// </param>
         /// <returns>
-        ///	Returns the dot product of the supplied arrays.<br></br>
-        ///	
+        ///	Returns the dot product of the supplied arrays.
         /// </returns>
         public NDarray linalg_multi_dot(params NDarray[] arrays)
         {
@@ -137,23 +126,19 @@ namespace Numpy
         ///	Note that vdot handles multidimensional arrays differently than dot:
         ///	it does not perform a matrix product, but flattens input arguments
         ///	to 1-D vectors first.<br></br>
-        ///	 Consequently, it should only be used for vectors.<br></br>
-        ///	
+        ///	 Consequently, it should only be used for vectors.
         /// </summary>
         /// <param name="a">
         ///	If a is complex the complex conjugate is taken before calculation
-        ///	of the dot product.<br></br>
-        ///	
+        ///	of the dot product.
         /// </param>
         /// <param name="b">
-        ///	Second argument to the dot product.<br></br>
-        ///	
+        ///	Second argument to the dot product.
         /// </param>
         /// <returns>
         ///	Dot product of a and b.<br></br>
         ///	  Can be an int, float, or
-        ///	complex depending on the types of a and b.<br></br>
-        ///	
+        ///	complex depending on the types of a and b.
         /// </returns>
         public NDarray vdot(NDarray a, NDarray b)
         {
@@ -188,12 +173,10 @@ namespace Numpy
         ///	In addition a or b may be scalars, in which case:
         /// </summary>
         /// <param name="b">
-        ///	If a and b are nonscalar, their last dimensions must match.<br></br>
-        ///	
+        ///	If a and b are nonscalar, their last dimensions must match.
         /// </param>
         /// <param name="a">
-        ///	If a and b are nonscalar, their last dimensions must match.<br></br>
-        ///	
+        ///	If a and b are nonscalar, their last dimensions must match.
         /// </param>
         /// <returns>
         ///	out.shape = a.shape[:-1] + b.shape[:-1]
@@ -224,15 +207,13 @@ namespace Numpy
         /// </summary>
         /// <param name="a">
         ///	First input vector.<br></br>
-        ///	  Input is flattened if
-        ///	not already 1-dimensional.<br></br>
-        ///	
+        ///	Input is flattened if
+        ///	not already 1-dimensional.
         /// </param>
         /// <param name="b">
         ///	Second input vector.<br></br>
-        ///	  Input is flattened if
-        ///	not already 1-dimensional.<br></br>
-        ///	
+        ///	Input is flattened if
+        ///	not already 1-dimensional.
         /// </param>
         /// <param name="out">
         ///	A location where the result is stored
@@ -270,26 +251,21 @@ namespace Numpy
         ///	in Python 3.5 following PEP465.
         /// </summary>
         /// <param name="x2">
-        ///	Input arrays, scalars not allowed.<br></br>
-        ///	
+        ///	Input arrays, scalars not allowed.
         /// </param>
         /// <param name="x1">
-        ///	Input arrays, scalars not allowed.<br></br>
-        ///	
+        ///	Input arrays, scalars not allowed.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that matches the signature (n,k),(k,m)-&gt;(n,m).<br></br>
-        ///	 If not
-        ///	provided or None, a freshly-allocated array is returned.<br></br>
-        ///	
+        ///	If not
+        ///	provided or None, a freshly-allocated array is returned.
         /// </param>
         /// <returns>
         ///	The matrix product of the inputs.<br></br>
-        ///	
-        ///	This is a scalar only when both x1, x2 are 1-d vectors.<br></br>
-        ///	
+        ///	This is a scalar only when both x1, x2 are 1-d vectors.
         /// </returns>
         public NDarray matmul(NDarray x2, NDarray x1, NDarray @out = null)
         {
@@ -331,8 +307,7 @@ namespace Numpy
         ///	When there is more than one axis to sum over - and they are not the last
         ///	(first) axes of a (b) - the argument axes should consist of
         ///	two sequences of the same length, with the first axis to sum over given
-        ///	first in both sequences, the second axis second, and so forth.<br></br>
-        ///	
+        ///	first in both sequences, the second axis second, and so forth.
         /// </summary>
         /// <param name="b">
         ///	Tensors to “dot”.
@@ -361,7 +336,6 @@ namespace Numpy
         ///	
         ///	Using the Einstein summation convention, many common multi-dimensional,
         ///	linear algebraic array operations can be represented in a simple fashion.<br></br>
-        ///	
         ///	In implicit mode einsum computes these values.<br></br>
         ///	
         ///	
@@ -387,7 +361,6 @@ namespace Numpy
         ///	
         ///	The subscripts string is a comma-separated list of subscript labels,
         ///	where each label refers to a dimension of the corresponding operand.<br></br>
-        ///	
         ///	Whenever a label is repeated it is summed, so np.einsum('i,i', a, b)
         ///	is equivalent to np.inner(a,b).<br></br>
         ///	 If a label
@@ -416,15 +389,12 @@ namespace Numpy
         ///	specifying output subscript labels.<br></br>
         ///	  This requires the
         ///	identifier ‘-&gt;’ as well as the list of output subscript labels.<br></br>
-        ///	
         ///	This feature increases the flexibility of the function since
         ///	summing can be disabled or forced when required.<br></br>
         ///	 The call
         ///	np.einsum('i-&gt;', a) is like np.sum(a, axis=-1),
         ///	and np.einsum('ii-&gt;i', a) is like np.diag(a).<br></br>
-        ///	
         ///	The difference is that einsum does not allow broadcasting by default.<br></br>
-        ///	
         ///	Additionally np.einsum('ij,jh-&gt;ih', a, b) directly specifies the
         ///	order of the output subscript labels and therefore returns matrix
         ///	multiplication, unlike the example above in implicit mode.<br></br>
@@ -434,7 +404,6 @@ namespace Numpy
         ///	  Default
         ///	NumPy-style broadcasting is done by adding an ellipsis
         ///	to the left of each term, like np.einsum('...ii-&gt;...i', a).<br></br>
-        ///	
         ///	To take the trace along the first and last axes,
         ///	you can do np.einsum('i...i', a), or to do a matrix-matrix
         ///	product with the left-most indices instead of rightmost, one can do
@@ -450,10 +419,8 @@ namespace Numpy
         ///	
         ///	einsum also provides an alternative way to provide the subscripts
         ///	and operands as einsum(op0, sublist0, op1, sublist1, ..., [sublistout]).<br></br>
-        ///	
         ///	If the output shape is not provided in this format einsum will be
         ///	calculated in implicit mode, otherwise it will be performed explicitly.<br></br>
-        ///	
         ///	The examples below have corresponding einsum calls with the two
         ///	parameter methods.<br></br>
         ///	
@@ -477,55 +444,46 @@ namespace Numpy
         ///	returns the optimal path in the majority of cases.<br></br>
         ///	 In some cases ‘optimal’
         ///	will return the superlative path through a more expensive, exhaustive search.<br></br>
-        ///	
         ///	For iterative calculations it may be advisable to calculate the optimal path
         ///	once and reuse that path by supplying it as an argument.<br></br>
         ///	 An example is given
         ///	below.<br></br>
         ///	
         ///	
-        ///	See numpy.einsum_path for more details.<br></br>
-        ///	
+        ///	See numpy.einsum_path for more details.
         /// </summary>
         /// <param name="subscripts">
         ///	Specifies the subscripts for summation as comma separated list of
         ///	subscript labels.<br></br>
-        ///	 An implicit (classical Einstein summation)
+        ///	An implicit (classical Einstein summation)
         ///	calculation is performed unless the explicit indicator ‘-&gt;’ is
-        ///	included as well as subscript labels of the precise output form.<br></br>
-        ///	
+        ///	included as well as subscript labels of the precise output form.
         /// </param>
         /// <param name="operands">
-        ///	These are the arrays for the operation.<br></br>
-        ///	
+        ///	These are the arrays for the operation.
         /// </param>
         /// <param name="out">
-        ///	If provided, the calculation is done into this array.<br></br>
-        ///	
+        ///	If provided, the calculation is done into this array.
         /// </param>
         /// <param name="dtype">
         ///	If provided, forces the calculation to use the data type specified.<br></br>
-        ///	
         ///	Note that you may have to also give a more liberal casting
         ///	parameter to allow the conversions.<br></br>
-        ///	 Default is None.<br></br>
-        ///	
+        ///	Default is None.
         /// </param>
         /// <param name="order">
         ///	Controls the memory layout of the output.<br></br>
-        ///	 ‘C’ means it should
+        ///	‘C’ means it should
         ///	be C contiguous.<br></br>
-        ///	 ‘F’ means it should be Fortran contiguous,
+        ///	‘F’ means it should be Fortran contiguous,
         ///	‘A’ means it should be ‘F’ if the inputs are all ‘F’, ‘C’ otherwise.<br></br>
-        ///	
         ///	‘K’ means it should be as close to the layout as the inputs as
         ///	is possible, including arbitrarily permuted axes.<br></br>
-        ///	
         ///	Default is ‘K’.
         /// </param>
         /// <param name="casting">
         ///	Controls what kind of data casting may occur.<br></br>
-        ///	  Setting this to
+        ///	Setting this to
         ///	‘unsafe’ is not recommended, as it can adversely affect accumulations.<br></br>
         ///	
         ///	
@@ -533,18 +491,15 @@ namespace Numpy
         /// </param>
         /// <param name="optimize">
         ///	Controls if intermediate optimization should occur.<br></br>
-        ///	 No optimization
+        ///	No optimization
         ///	will occur if False and True will default to the ‘greedy’ algorithm.<br></br>
-        ///	
         ///	Also accepts an explicit contraction list from the np.einsum_path
         ///	function.<br></br>
-        ///	 See np.einsum_path for more details.<br></br>
-        ///	 Defaults to False.<br></br>
-        ///	
+        ///	See np.einsum_path for more details.<br></br>
+        ///	Defaults to False.
         /// </param>
         /// <returns>
-        ///	The calculation based on the Einstein summation convention.<br></br>
-        ///	
+        ///	The calculation based on the Einstein summation convention.
         /// </returns>
         public NDarray einsum(string subscripts, NDarray[] operands, NDarray @out = null, Dtype dtype = null, string order = null, string casting = "safe", object optimize = null)
         {
@@ -577,22 +532,19 @@ namespace Numpy
         ///	contracted first, the result of this contraction is then appended to the
         ///	end of the contraction list.<br></br>
         ///	 This list can then be iterated over until all
-        ///	intermediate contractions are complete.<br></br>
-        ///	
+        ///	intermediate contractions are complete.
         /// </summary>
         /// <param name="subscripts">
-        ///	Specifies the subscripts for summation.<br></br>
-        ///	
+        ///	Specifies the subscripts for summation.
         /// </param>
         /// <param name="operands">
-        ///	These are the arrays for the operation.<br></br>
-        ///	
+        ///	These are the arrays for the operation.
         /// </param>
         /// <param name="optimize">
         ///	Choose the type of path.<br></br>
-        ///	 If a tuple is provided, the second argument is
+        ///	If a tuple is provided, the second argument is
         ///	assumed to be the maximum intermediate size created.<br></br>
-        ///	 If only a single
+        ///	If only a single
         ///	argument is provided the largest input or output array size is used
         ///	as a maximum intermediate size.<br></br>
         ///	
@@ -632,24 +584,21 @@ namespace Numpy
         ///	 If n == 0, the identity matrix
         ///	of the same shape as M is returned.<br></br>
         ///	 If n &lt; 0, the inverse
-        ///	is computed and then raised to the abs(n).<br></br>
-        ///	
+        ///	is computed and then raised to the abs(n).
         /// </summary>
         /// <param name="a">
         ///	Matrix to be “powered.”
         /// </param>
         /// <param name="n">
         ///	The exponent can be any integer or long integer, positive,
-        ///	negative, or zero.<br></br>
-        ///	
+        ///	negative, or zero.
         /// </param>
         /// <returns>
         ///	The return value is the same shape and type as M;
         ///	if the exponent is positive or zero then the type of the
         ///	elements is the same as those of M.<br></br>
         ///	 If the exponent is
-        ///	negative the elements are floating-point.<br></br>
-        ///	
+        ///	negative the elements are floating-point.
         /// </returns>
         public NDarray linalg_matrix_power(NDarray a, int n)
         {
@@ -678,10 +627,8 @@ namespace Numpy
         ///	
         ///	The function assumes that the number of dimensions of a and b
         ///	are the same, if necessary prepending the smallest with ones.<br></br>
-        ///	
         ///	If a.shape = (r0,r1,..,rN) and b.shape = (s0,s1,…,sN),
         ///	the Kronecker product has shape (r0*s0, r1*s1, …, rN*SN).<br></br>
-        ///	
         ///	The elements are products of elements from a and b, organized
         ///	explicitly by:
         ///	
@@ -731,7 +678,6 @@ namespace Numpy
         ///	  Because
         ///	‘full’ was the previous default and ‘reduced’ is the new default,
         ///	backward compatibility can be maintained by letting mode default.<br></br>
-        ///	
         ///	The ‘raw’ option was added so that LAPACK routines that can multiply
         ///	arrays by q using the Householder reflectors can be used.<br></br>
         ///	 Note that in
@@ -739,31 +685,28 @@ namespace Numpy
         ///	the h array is transposed to be FORTRAN compatible.<br></br>
         ///	  No routines using
         ///	the ‘raw’ return are currently exposed by numpy, but some are available
-        ///	in lapack_lite and just await the necessary work.<br></br>
-        ///	
+        ///	in lapack_lite and just await the necessary work.
         /// </summary>
         /// <param name="a">
-        ///	Matrix to be factored.<br></br>
-        ///	
+        ///	Matrix to be factored.
         /// </param>
         /// <param name="mode">
         ///	If K = min(M, N), then
         ///	
         ///	The options ‘reduced’, ‘complete, and ‘raw’ are new in numpy 1.8,
         ///	see the notes for more information.<br></br>
-        ///	 The default is ‘reduced’, and to
+        ///	The default is ‘reduced’, and to
         ///	maintain backward compatibility with earlier versions of numpy both
         ///	it and the old default ‘full’ can be omitted.<br></br>
-        ///	 Note that array h
+        ///	Note that array h
         ///	returned in ‘raw’ mode is transposed for calling Fortran.<br></br>
-        ///	 The
+        ///	The
         ///	‘economic’ mode is deprecated.<br></br>
-        ///	  The modes ‘full’ and ‘economic’ may
+        ///	The modes ‘full’ and ‘economic’ may
         ///	be passed using only the first letter for backwards compatibility,
         ///	but all others must be spelled out.<br></br>
-        ///	 See the Notes for more
-        ///	explanation.<br></br>
-        ///	
+        ///	See the Notes for more
+        ///	explanation.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -815,20 +758,17 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	The matrix whose condition number is sought.<br></br>
-        ///	
+        ///	The matrix whose condition number is sought.
         /// </param>
         /// <param name="p">
         ///	Order of the norm:
         ///	
         ///	inf means the numpy.inf object, and the Frobenius norm is
-        ///	the root-of-sum-of-squares norm.<br></br>
-        ///	
+        ///	the root-of-sum-of-squares norm.
         /// </param>
         /// <returns>
         ///	The condition number of the matrix.<br></br>
-        ///	 May be infinite.<br></br>
-        ///	
+        ///	 May be infinite.
         /// </returns>
         public {float linalg_cond(NDarray x, {None p = null)
         {
@@ -874,7 +814,6 @@ namespace Numpy
         ///	 Computing the SVD on M will not produce a singular value
         ///	exactly equal to 0 in general: any difference of the smallest SVD value from
         ///	0 will be caused by numerical imprecision in the calculation of the SVD.<br></br>
-        ///	
         ///	Our threshold for small SVD values takes this numerical imprecision into
         ///	account, and the default threshold will detect such numerical rank
         ///	deficiency.<br></br>
@@ -917,18 +856,15 @@ namespace Numpy
         /// </param>
         /// <param name="tol">
         ///	threshold below which SVD values are considered zero.<br></br>
-        ///	 If tol is
+        ///	If tol is
         ///	None, and S is an array with singular values for M, and
         ///	eps is the epsilon value for datatype of S, then tol is
-        ///	set to S.max() * max(M.shape) * eps.<br></br>
-        ///	
+        ///	set to S.max() * max(M.shape) * eps.
         /// </param>
         /// <param name="hermitian">
         ///	If True, M is assumed to be Hermitian (symmetric if real-valued),
         ///	enabling a more efficient method for finding singular values.<br></br>
-        ///	
-        ///	Defaults to False.<br></br>
-        ///	
+        ///	Defaults to False.
         /// </param>
         public int linalg_matrix_rank(NDarray M, NDarray tol = null, bool? hermitian = false)
         {
@@ -964,12 +900,10 @@ namespace Numpy
         ///	
         ///	
         ///	The determinant is computed via LU factorization using the LAPACK
-        ///	routine z/dgetrf.<br></br>
-        ///	
+        ///	routine z/dgetrf.
         /// </summary>
         /// <param name="a">
-        ///	Input array, has to be a square 2-D array.<br></br>
-        ///	
+        ///	Input array, has to be a square 2-D array.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -1005,57 +939,48 @@ namespace Numpy
         ///	
         ///	If a has more than two dimensions, then the axes specified by axis1 and
         ///	axis2 are used to determine the 2-D sub-arrays whose traces are returned.<br></br>
-        ///	
         ///	The shape of the resulting array is the same as that of a with axis1
-        ///	and axis2 removed.<br></br>
-        ///	
+        ///	and axis2 removed.
         /// </summary>
         /// <param name="a">
-        ///	Input array, from which the diagonals are taken.<br></br>
-        ///	
+        ///	Input array, from which the diagonals are taken.
         /// </param>
         /// <param name="offset">
         ///	Offset of the diagonal from the main diagonal.<br></br>
-        ///	 Can be both positive
+        ///	Can be both positive
         ///	and negative.<br></br>
-        ///	 Defaults to 0.<br></br>
-        ///	
+        ///	Defaults to 0.
         /// </param>
         /// <param name="axis2">
         ///	Axes to be used as the first and second axis of the 2-D sub-arrays
         ///	from which the diagonals should be taken.<br></br>
-        ///	 Defaults are the first two
-        ///	axes of a.<br></br>
-        ///	
+        ///	Defaults are the first two
+        ///	axes of a.
         /// </param>
         /// <param name="axis1">
         ///	Axes to be used as the first and second axis of the 2-D sub-arrays
         ///	from which the diagonals should be taken.<br></br>
-        ///	 Defaults are the first two
-        ///	axes of a.<br></br>
-        ///	
+        ///	Defaults are the first two
+        ///	axes of a.
         /// </param>
         /// <param name="dtype">
         ///	Determines the data-type of the returned array and of the accumulator
         ///	where the elements are summed.<br></br>
-        ///	 If dtype has the value None and a is
+        ///	If dtype has the value None and a is
         ///	of integer type of precision less than the default integer
         ///	precision, then the default integer precision is used.<br></br>
-        ///	 Otherwise,
-        ///	the precision is the same as that of a.<br></br>
-        ///	
+        ///	Otherwise,
+        ///	the precision is the same as that of a.
         /// </param>
         /// <param name="out">
         ///	Array into which the output is placed.<br></br>
-        ///	 Its type is preserved and
-        ///	it must be of the right shape to hold the output.<br></br>
-        ///	
+        ///	Its type is preserved and
+        ///	it must be of the right shape to hold the output.
         /// </param>
         /// <returns>
         ///	If a is 2-D, the sum along the diagonal is returned.<br></br>
         ///	  If a has
-        ///	larger dimensions, then an array of sums along diagonals is returned.<br></br>
-        ///	
+        ///	larger dimensions, then an array of sums along diagonals is returned.
         /// </returns>
         public NDarray trace(NDarray a, int? offset = 0, int? axis2 = null, int? axis1 = null, Dtype dtype = null, NDarray @out = null)
         {
@@ -1081,27 +1006,22 @@ namespace Numpy
         ///	
         ///	It is assumed that all indices of x are summed over in the product,
         ///	together with the rightmost indices of a, as is done in, for example,
-        ///	tensordot(a, x, axes=b.ndim).<br></br>
-        ///	
+        ///	tensordot(a, x, axes=b.ndim).
         /// </summary>
         /// <param name="a">
         ///	Coefficient tensor, of shape b.shape + Q.<br></br>
-        ///	 Q, a tuple, equals
+        ///	Q, a tuple, equals
         ///	the shape of that sub-tensor of a consisting of the appropriate
         ///	number of its rightmost indices, and must be such that
         ///	prod(Q) == prod(b.shape) (in which sense a is said to be
-        ///	‘square’).<br></br>
-        ///	
+        ///	‘square’).
         /// </param>
         /// <param name="b">
-        ///	Right-hand tensor, which can be of any shape.<br></br>
-        ///	
+        ///	Right-hand tensor, which can be of any shape.
         /// </param>
         /// <param name="axes">
         ///	Axes in a to reorder to the right, before inversion.<br></br>
-        ///	
-        ///	If None (default), no reordering is done.<br></br>
-        ///	
+        ///	If None (default), no reordering is done.
         /// </param>
         public NDarray linalg_tensorsolve(NDarray a, NDarray b, int[] axes = null)
         {
@@ -1127,24 +1047,19 @@ namespace Numpy
         ///	tensordot(a, b, ind), i.<br></br>
         ///	 e., up to floating-point accuracy,
         ///	tensordot(tensorinv(a), a, ind) is the “identity” tensor for the
-        ///	tensordot operation.<br></br>
-        ///	
+        ///	tensordot operation.
         /// </summary>
         /// <param name="a">
         ///	Tensor to ‘invert’. Its shape must be ‘square’, i.<br></br>
-        ///	 e.,
-        ///	prod(a.shape[:ind]) == prod(a.shape[ind:]).<br></br>
-        ///	
+        ///	e.,
+        ///	prod(a.shape[:ind]) == prod(a.shape[ind:]).
         /// </param>
         /// <param name="ind">
         ///	Number of first indices that are involved in the inverse sum.<br></br>
-        ///	
-        ///	Must be a positive integer, default is 2.<br></br>
-        ///	
+        ///	Must be a positive integer, default is 2.
         /// </param>
         /// <returns>
-        ///	a’s tensordot inverse, shape a.shape[ind:] + a.shape[:ind].<br></br>
-        ///	
+        ///	a’s tensordot inverse, shape a.shape[ind:] + a.shape[:ind].
         /// </returns>
         public NDarray linalg_tensorinv(NDarray a, int? ind = 2)
         {
@@ -1168,8 +1083,7 @@ namespace Numpy
         ///	General purpose exception class, derived from Python’s exception.Exception
         ///	class, programmatically raised in linalg functions when a Linear
         ///	Algebra-related condition would prevent further correct execution of the
-        ///	function.<br></br>
-        ///	
+        ///	function.
         /// </summary>
         public void linalg_LinAlgError()
         {

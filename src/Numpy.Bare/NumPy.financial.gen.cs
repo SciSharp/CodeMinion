@@ -42,7 +42,6 @@ namespace Numpy
         /// </param>
         /// <param name="when">
         ///	When payments are due (‘begin’ (1) or ‘end’ (0)).<br></br>
-        ///	
         ///	Defaults to {‘end’, 0}.
         /// </param>
         /// <returns>
@@ -50,9 +49,7 @@ namespace Numpy
         ///	  If all input is scalar, returns a scalar float.<br></br>
         ///	  If
         ///	any input is array_like, returns future values for each input element.<br></br>
-        ///	
-        ///	If multiple inputs are array_like, they all must have the same shape.<br></br>
-        ///	
+        ///	If multiple inputs are array_like, they all must have the same shape.
         /// </returns>
         public NDarray fv(NDarray rate, NDarray nper, NDarray pmt, NDarray pv, string @when = "end")
         {
@@ -102,8 +99,7 @@ namespace Numpy
         ///	When payments are due (‘begin’ (1) or ‘end’ (0))
         /// </param>
         /// <returns>
-        ///	Present value of a series of payments or investments.<br></br>
-        ///	
+        ///	Present value of a series of payments or investments.
         /// </returns>
         public NDarray pv(NDarray rate, NDarray nper, NDarray pmt, NDarray fv = null, string @when = "end")
         {
@@ -133,25 +129,22 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="rate">
-        ///	The discount rate.<br></br>
-        ///	
+        ///	The discount rate.
         /// </param>
         /// <param name="values">
         ///	The values of the time series of cash flows.<br></br>
-        ///	  The (fixed) time
+        ///	The (fixed) time
         ///	interval between cash flow “events” must be the same as that for
         ///	which rate is given (i.e., if rate is per year, then precisely
         ///	a year is understood to elapse between each cash flow event).<br></br>
-        ///	  By
+        ///	By
         ///	convention, investments or “deposits” are negative, income or
         ///	“withdrawals” are positive; values must begin with the initial
-        ///	investment, thus values[0] will typically be negative.<br></br>
-        ///	
+        ///	investment, thus values[0] will typically be negative.
         /// </param>
         /// <returns>
         ///	The NPV of the input cash flow series values at the discount
-        ///	rate.<br></br>
-        ///	
+        ///	rate.
         /// </returns>
         public float npv(ValueType rate, NDarray values)
         {
@@ -213,8 +206,7 @@ namespace Numpy
         ///	  If any input is array_like, returns payment for each
         ///	input element.<br></br>
         ///	 If multiple inputs are array_like, they all must have
-        ///	the same shape.<br></br>
-        ///	
+        ///	the same shape.
         /// </returns>
         public NDarray pmt(NDarray rate, NDarray nper, NDarray pv, NDarray fv = null, string @when = "end")
         {
@@ -234,17 +226,15 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Compute the payment against loan principal.<br></br>
-        ///	
+        ///	Compute the payment against loan principal.
         /// </summary>
         /// <param name="rate">
         ///	Rate of interest (per period)
         /// </param>
         /// <param name="per">
         ///	Amount paid against the loan changes.<br></br>
-        ///	  The per is the period of
-        ///	interest.<br></br>
-        ///	
+        ///	The per is the period of
+        ///	interest.
         /// </param>
         /// <param name="nper">
         ///	Number of compounding periods
@@ -291,9 +281,7 @@ namespace Numpy
         /// </param>
         /// <param name="per">
         ///	Interest paid against the loan changes during the life or the loan.<br></br>
-        ///	
-        ///	The per is the payment period to calculate the interest amount.<br></br>
-        ///	
+        ///	The per is the payment period to calculate the interest amount.
         /// </param>
         /// <param name="nper">
         ///	Number of compounding periods
@@ -306,7 +294,6 @@ namespace Numpy
         /// </param>
         /// <param name="when">
         ///	When payments are due (‘begin’ (1) or ‘end’ (0)).<br></br>
-        ///	
         ///	Defaults to {‘end’, 0}.
         /// </param>
         /// <returns>
@@ -316,8 +303,7 @@ namespace Numpy
         ///	  If any input is array_like, returns interest payment for each
         ///	input element.<br></br>
         ///	 If multiple inputs are array_like, they all must have
-        ///	the same shape.<br></br>
-        ///	
+        ///	the same shape.
         /// </returns>
         public NDarray ipmt(NDarray rate, NDarray per, NDarray nper, NDarray pv, NDarray fv = null, string @when = "end")
         {
@@ -368,16 +354,14 @@ namespace Numpy
         /// </summary>
         /// <param name="values">
         ///	Input cash flows per time period.<br></br>
-        ///	  By convention, net “deposits”
+        ///	By convention, net “deposits”
         ///	are negative and net “withdrawals” are positive.<br></br>
-        ///	  Thus, for
+        ///	Thus, for
         ///	example, at least the first element of values, which represents
-        ///	the initial investment, will typically be negative.<br></br>
-        ///	
+        ///	the initial investment, will typically be negative.
         /// </param>
         /// <returns>
-        ///	Internal Rate of Return for periodic input values.<br></br>
-        ///	
+        ///	Internal Rate of Return for periodic input values.
         /// </returns>
         public float irr(NDarray values)
         {
@@ -393,15 +377,13 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Modified internal rate of return.<br></br>
-        ///	
+        ///	Modified internal rate of return.
         /// </summary>
         /// <param name="values">
         ///	Cash flows (must contain at least one positive and one negative
         ///	value) or nan is returned.<br></br>
-        ///	  The first value is considered a sunk
-        ///	cost at time zero.<br></br>
-        ///	
+        ///	The first value is considered a sunk
+        ///	cost at time zero.
         /// </param>
         /// <param name="finance_rate">
         ///	Interest rate paid on the cash flows

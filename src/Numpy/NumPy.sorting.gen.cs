@@ -54,7 +54,6 @@ namespace Numpy
         ///	where R is a non-nan real value.<br></br>
         ///	 Complex values with the same nan
         ///	placements are sorted according to the non-nan part if it exists.<br></br>
-        ///	
         ///	Non-nan values are sorted as before.<br></br>
         ///	
         ///	
@@ -67,36 +66,31 @@ namespace Numpy
         ///	‘stable’ automatically choses the best stable sorting algorithm
         ///	for the data type being sorted.<br></br>
         ///	 It is currently mapped to
-        ///	merge sort.<br></br>
-        ///	
+        ///	merge sort.
         /// </summary>
         /// <param name="a">
-        ///	Array to be sorted.<br></br>
-        ///	
+        ///	Array to be sorted.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to sort.<br></br>
-        ///	 If None, the array is flattened before
+        ///	If None, the array is flattened before
         ///	sorting.<br></br>
-        ///	 The default is -1, which sorts along the last axis.<br></br>
-        ///	
+        ///	The default is -1, which sorts along the last axis.
         /// </param>
         /// <param name="kind">
         ///	Sorting algorithm.<br></br>
-        ///	 Default is ‘quicksort’.
+        ///	Default is ‘quicksort’.
         /// </param>
         /// <param name="order">
         ///	When a is an array with fields defined, this argument specifies
         ///	which fields to compare first, second, etc.<br></br>
-        ///	  A single field can
+        ///	A single field can
         ///	be specified as a string, and not all fields need be specified,
         ///	but unspecified fields will still be used, in the order in which
-        ///	they come up in the dtype, to break ties.<br></br>
-        ///	
+        ///	they come up in the dtype, to break ties.
         /// </param>
         /// <returns>
-        ///	Array of the same type and shape as a.<br></br>
-        ///	
+        ///	Array of the same type and shape as a.
         /// </returns>
         public NDarray sort(NDarray a, int? axis = -1, string kind = "quicksort", string order = null)
         {
@@ -128,23 +122,19 @@ namespace Numpy
         ///	can be converted to arrays of the same shape.<br></br>
         ///	 If a 2D array is provided
         ///	for the keys argument, it’s rows are interpreted as the sorting keys and
-        ///	sorting is according to the last row, second last row etc.<br></br>
-        ///	
+        ///	sorting is according to the last row, second last row etc.
         /// </summary>
         /// <param name="keys">
         ///	The k different “columns” to be sorted.<br></br>
-        ///	  The last column (or row if
-        ///	keys is a 2D array) is the primary sort key.<br></br>
-        ///	
+        ///	The last column (or row if
+        ///	keys is a 2D array) is the primary sort key.
         /// </param>
         /// <param name="axis">
         ///	Axis to be indirectly sorted.<br></br>
-        ///	  By default, sort over the last axis.<br></br>
-        ///	
+        ///	By default, sort over the last axis.
         /// </param>
         /// <returns>
-        ///	Array of indices that sort the keys along the specified axis.<br></br>
-        ///	
+        ///	Array of indices that sort the keys along the specified axis.
         /// </returns>
         public NDarray lexsort(NDarray keys, int? axis = -1)
         {
@@ -177,41 +167,33 @@ namespace Numpy
         ///	
         ///	As of NumPy 1.4.0 argsort works with real/complex arrays containing
         ///	nan values.<br></br>
-        ///	 The enhanced sort order is documented in sort.<br></br>
-        ///	
+        ///	 The enhanced sort order is documented in sort.
         /// </summary>
         /// <param name="a">
-        ///	Array to sort.<br></br>
-        ///	
+        ///	Array to sort.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to sort.<br></br>
-        ///	  The default is -1 (the last axis).<br></br>
-        ///	 If None,
-        ///	the flattened array is used.<br></br>
-        ///	
+        ///	The default is -1 (the last axis).<br></br>
+        ///	If None,
+        ///	the flattened array is used.
         /// </param>
         /// <param name="kind">
-        ///	Sorting algorithm.<br></br>
-        ///	
+        ///	Sorting algorithm.
         /// </param>
         /// <param name="order">
         ///	When a is an array with fields defined, this argument specifies
         ///	which fields to compare first, second, etc.<br></br>
-        ///	  A single field can
+        ///	A single field can
         ///	be specified as a string, and not all fields need be specified,
         ///	but unspecified fields will still be used, in the order in which
-        ///	they come up in the dtype, to break ties.<br></br>
-        ///	
+        ///	they come up in the dtype, to break ties.
         /// </param>
         /// <returns>
         ///	Array of indices that sort a along the specified axis.<br></br>
-        ///	
         ///	If a is one-dimensional, a[index_array] yields a sorted a.<br></br>
-        ///	
         ///	More generally, np.take_along_axis(a, index_array, axis=a) always
-        ///	yields the sorted a, irrespective of dimensionality.<br></br>
-        ///	
+        ///	yields the sorted a, irrespective of dimensionality.
         /// </returns>
         public NDarray argsort(NDarray a, int? axis = -1, string kind = "quicksort", string order = null)
         {
@@ -235,27 +217,24 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	See sort for notes on the different sorting algorithms.<br></br>
-        ///	
+        ///	See sort for notes on the different sorting algorithms.
         /// </summary>
         /// <param name="axis">
         ///	Axis along which to sort.<br></br>
-        ///	 Default is -1, which means sort along the
-        ///	last axis.<br></br>
-        ///	
+        ///	Default is -1, which means sort along the
+        ///	last axis.
         /// </param>
         /// <param name="kind">
         ///	Sorting algorithm.<br></br>
-        ///	 Default is ‘quicksort’.
+        ///	Default is ‘quicksort’.
         /// </param>
         /// <param name="order">
         ///	When a is an array with fields defined, this argument specifies
         ///	which fields to compare first, second, etc.<br></br>
-        ///	  A single field can
+        ///	A single field can
         ///	be specified as a string, and not all fields need be specified,
         ///	but unspecified fields will still be used, in the order in which
-        ///	they come up in the dtype, to break ties.<br></br>
-        ///	
+        ///	they come up in the dtype, to break ties.
         /// </param>
         public void sort(int? axis = -1, string kind = null, string order = null)
         {
@@ -277,16 +256,13 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	np.msort(a) is equivalent to  np.sort(a, axis=0).<br></br>
-        ///	
+        ///	np.msort(a) is equivalent to  np.sort(a, axis=0).
         /// </summary>
         /// <param name="a">
-        ///	Array to be sorted.<br></br>
-        ///	
+        ///	Array to be sorted.
         /// </param>
         /// <returns>
-        ///	Array of the same type and shape as a.<br></br>
-        ///	
+        ///	Array of the same type and shape as a.
         /// </returns>
         public NDarray msort(NDarray a)
         {
@@ -302,15 +278,13 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Sort a complex array using the real part first, then the imaginary part.<br></br>
-        ///	
+        ///	Sort a complex array using the real part first, then the imaginary part.
         /// </summary>
         /// <param name="a">
         ///	Input array
         /// </param>
         /// <returns>
-        ///	Always returns a sorted complex array.<br></br>
-        ///	
+        ///	Always returns a sorted complex array.
         /// </returns>
         public NDarray sort_complex(NDarray a)
         {
@@ -360,49 +334,43 @@ namespace Numpy
         ///	 If both the
         ///	real and imaginary parts are non-nan then the order is determined by
         ///	the real parts except when they are equal, in which case the order
-        ///	is determined by the imaginary parts.<br></br>
-        ///	
+        ///	is determined by the imaginary parts.
         /// </summary>
         /// <param name="a">
-        ///	Array to be sorted.<br></br>
-        ///	
+        ///	Array to be sorted.
         /// </param>
         /// <param name="kth">
         ///	Element index to partition by.<br></br>
-        ///	 The k-th value of the element
+        ///	The k-th value of the element
         ///	will be in its final sorted position and all smaller elements
         ///	will be moved before it and all equal or greater elements behind
         ///	it.<br></br>
-        ///	 The order of all elements in the partitions is undefined.<br></br>
-        ///	 If
+        ///	The order of all elements in the partitions is undefined.<br></br>
+        ///	If
         ///	provided with a sequence of k-th it will partition all elements
-        ///	indexed by k-th  of them into their sorted position at once.<br></br>
-        ///	
+        ///	indexed by k-th  of them into their sorted position at once.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to sort.<br></br>
-        ///	 If None, the array is flattened before
+        ///	If None, the array is flattened before
         ///	sorting.<br></br>
-        ///	 The default is -1, which sorts along the last axis.<br></br>
-        ///	
+        ///	The default is -1, which sorts along the last axis.
         /// </param>
         /// <param name="kind">
         ///	Selection algorithm.<br></br>
-        ///	 Default is ‘introselect’.
+        ///	Default is ‘introselect’.
         /// </param>
         /// <param name="order">
         ///	When a is an array with fields defined, this argument
         ///	specifies which fields to compare first, second, etc.<br></br>
-        ///	  A single
+        ///	A single
         ///	field can be specified as a string.<br></br>
-        ///	  Not all fields need be
+        ///	Not all fields need be
         ///	specified, but unspecified fields will still be used, in the
-        ///	order in which they come up in the dtype, to break ties.<br></br>
-        ///	
+        ///	order in which they come up in the dtype, to break ties.
         /// </param>
         /// <returns>
-        ///	Array of the same type and shape as a.<br></br>
-        ///	
+        ///	Array of the same type and shape as a.
         /// </returns>
         public NDarray partition(NDarray a, int[] kth, int? axis = -1, string kind = "introselect", string order = null)
         {
@@ -431,53 +399,45 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	See partition for notes on the different selection algorithms.<br></br>
-        ///	
+        ///	See partition for notes on the different selection algorithms.
         /// </summary>
         /// <param name="a">
-        ///	Array to sort.<br></br>
-        ///	
+        ///	Array to sort.
         /// </param>
         /// <param name="kth">
         ///	Element index to partition by.<br></br>
-        ///	 The k-th element will be in its
+        ///	The k-th element will be in its
         ///	final sorted position and all smaller elements will be moved
         ///	before it and all larger elements behind it.<br></br>
-        ///	 The order all
+        ///	The order all
         ///	elements in the partitions is undefined.<br></br>
-        ///	 If provided with a
+        ///	If provided with a
         ///	sequence of k-th it will partition all of them into their sorted
-        ///	position at once.<br></br>
-        ///	
+        ///	position at once.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to sort.<br></br>
-        ///	 The default is -1 (the last axis).<br></br>
-        ///	 If
-        ///	None, the flattened array is used.<br></br>
-        ///	
+        ///	The default is -1 (the last axis).<br></br>
+        ///	If
+        ///	None, the flattened array is used.
         /// </param>
         /// <param name="kind">
         ///	Selection algorithm.<br></br>
-        ///	 Default is ‘introselect’
+        ///	Default is ‘introselect’
         /// </param>
         /// <param name="order">
         ///	When a is an array with fields defined, this argument
         ///	specifies which fields to compare first, second, etc.<br></br>
-        ///	 A single
+        ///	A single
         ///	field can be specified as a string, and not all fields need be
         ///	specified, but unspecified fields will still be used, in the
-        ///	order in which they come up in the dtype, to break ties.<br></br>
-        ///	
+        ///	order in which they come up in the dtype, to break ties.
         /// </param>
         /// <returns>
         ///	Array of indices that partition a along the specified axis.<br></br>
-        ///	
         ///	If a is one-dimensional, a[index_array] yields a partitioned a.<br></br>
-        ///	
         ///	More generally, np.take_along_axis(a, index_array, axis=a) always
-        ///	yields the partitioned a, irrespective of dimensionality.<br></br>
-        ///	
+        ///	yields the partitioned a, irrespective of dimensionality.
         /// </returns>
         public NDarray argpartition(NDarray a, int[] kth, int? axis = -1, string kind = "introselect", string order = null)
         {
@@ -503,29 +463,24 @@ namespace Numpy
         ///	Notes
         ///	
         ///	In case of multiple occurrences of the maximum values, the indices
-        ///	corresponding to the first occurrence are returned.<br></br>
-        ///	
+        ///	corresponding to the first occurrence are returned.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	By default, the index is into the flattened array, otherwise
-        ///	along the specified axis.<br></br>
-        ///	
+        ///	along the specified axis.
         /// </param>
         /// <param name="out">
         ///	If provided, the result will be inserted into this array.<br></br>
-        ///	 It should
-        ///	be of the appropriate shape and dtype.<br></br>
-        ///	
+        ///	It should
+        ///	be of the appropriate shape and dtype.
         /// </param>
         /// <returns>
         ///	Array of indices into the array.<br></br>
         ///	 It has the same shape as a.shape
-        ///	with the dimension along axis removed.<br></br>
-        ///	
+        ///	with the dimension along axis removed.
         /// </returns>
         public NDarray argmax(NDarray a, int? axis = null, NDarray @out = null)
         {
@@ -547,21 +502,17 @@ namespace Numpy
         ///	NaNs.<br></br>
         ///	 For all-NaN slices ValueError is raised.<br></br>
         ///	 Warning: the
-        ///	results cannot be trusted if a slice contains only NaNs and -Infs.<br></br>
-        ///	
+        ///	results cannot be trusted if a slice contains only NaNs and -Infs.
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to operate.<br></br>
-        ///	  By default flattened input is used.<br></br>
-        ///	
+        ///	By default flattened input is used.
         /// </param>
         /// <returns>
-        ///	An array of indices or a single index value.<br></br>
-        ///	
+        ///	An array of indices or a single index value.
         /// </returns>
         public NDarray nanargmax(NDarray a, int? axis = null)
         {
@@ -584,29 +535,24 @@ namespace Numpy
         ///	Notes
         ///	
         ///	In case of multiple occurrences of the minimum values, the indices
-        ///	corresponding to the first occurrence are returned.<br></br>
-        ///	
+        ///	corresponding to the first occurrence are returned.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	By default, the index is into the flattened array, otherwise
-        ///	along the specified axis.<br></br>
-        ///	
+        ///	along the specified axis.
         /// </param>
         /// <param name="out">
         ///	If provided, the result will be inserted into this array.<br></br>
-        ///	 It should
-        ///	be of the appropriate shape and dtype.<br></br>
-        ///	
+        ///	It should
+        ///	be of the appropriate shape and dtype.
         /// </param>
         /// <returns>
         ///	Array of indices into the array.<br></br>
         ///	 It has the same shape as a.shape
-        ///	with the dimension along axis removed.<br></br>
-        ///	
+        ///	with the dimension along axis removed.
         /// </returns>
         public NDarray argmin(NDarray a, int? axis = null, NDarray @out = null)
         {
@@ -628,21 +574,17 @@ namespace Numpy
         ///	NaNs.<br></br>
         ///	 For all-NaN slices ValueError is raised.<br></br>
         ///	 Warning: the results
-        ///	cannot be trusted if a slice contains only NaNs and Infs.<br></br>
-        ///	
+        ///	cannot be trusted if a slice contains only NaNs and Infs.
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to operate.<br></br>
-        ///	  By default flattened input is used.<br></br>
-        ///	
+        ///	By default flattened input is used.
         /// </param>
         /// <returns>
-        ///	An array of indices or a single index value.<br></br>
-        ///	
+        ///	An array of indices or a single index value.
         /// </returns>
         public NDarray nanargmin(NDarray a, int? axis = null)
         {
@@ -668,18 +610,14 @@ namespace Numpy
         ///	
         ///	
         ///	The output of argwhere is not suitable for indexing arrays.<br></br>
-        ///	
-        ///	For this purpose use nonzero(a) instead.<br></br>
-        ///	
+        ///	For this purpose use nonzero(a) instead.
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <returns>
         ///	Indices of elements that are non-zero.<br></br>
-        ///	 Indices are grouped by element.<br></br>
-        ///	
+        ///	 Indices are grouped by element.
         /// </returns>
         public NDarray argwhere(NDarray a)
         {
@@ -698,17 +636,14 @@ namespace Numpy
         ///	Return indices that are non-zero in the flattened version of a.<br></br>
         ///	
         ///	
-        ///	This is equivalent to np.nonzero(np.ravel(a))[0].<br></br>
-        ///	
+        ///	This is equivalent to np.nonzero(np.ravel(a))[0].
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <returns>
         ///	Output array, containing the indices of the elements of a.ravel()
-        ///	that are non-zero.<br></br>
-        ///	
+        ///	that are non-zero.
         /// </returns>
         public NDarray flatnonzero(NDarray a)
         {
@@ -746,37 +681,30 @@ namespace Numpy
         ///	
         ///	This function is a faster version of the builtin python bisect.bisect_left
         ///	(side='left') and bisect.bisect_right (side='right') functions,
-        ///	which is also vectorized in the v argument.<br></br>
-        ///	
+        ///	which is also vectorized in the v argument.
         /// </summary>
         /// <param name="a">
         ///	Input array.<br></br>
-        ///	 If sorter is None, then it must be sorted in
+        ///	If sorter is None, then it must be sorted in
         ///	ascending order, otherwise sorter must be an array of indices
-        ///	that sort it.<br></br>
-        ///	
+        ///	that sort it.
         /// </param>
         /// <param name="v">
-        ///	Values to insert into a.<br></br>
-        ///	
+        ///	Values to insert into a.
         /// </param>
         /// <param name="side">
         ///	If ‘left’, the index of the first suitable location found is given.<br></br>
-        ///	
         ///	If ‘right’, return the last such index.<br></br>
-        ///	  If there is no suitable
-        ///	index, return either 0 or N (where N is the length of a).<br></br>
-        ///	
+        ///	If there is no suitable
+        ///	index, return either 0 or N (where N is the length of a).
         /// </param>
         /// <param name="sorter">
         ///	Optional array of integer indices that sort array a into ascending
         ///	order.<br></br>
-        ///	 They are typically the result of argsort.<br></br>
-        ///	
+        ///	They are typically the result of argsort.
         /// </param>
         /// <returns>
-        ///	Array of insertion points with the same shape as v.<br></br>
-        ///	
+        ///	Array of insertion points with the same shape as v.
         /// </returns>
         public NDarray<int> searchsorted(NDarray a, NDarray v, string side = "left", NDarray sorter = null)
         {
@@ -803,21 +731,17 @@ namespace Numpy
         ///	condition is boolean np.extract is equivalent to arr[condition].<br></br>
         ///	
         ///	
-        ///	Note that place does the exact opposite of extract.<br></br>
-        ///	
+        ///	Note that place does the exact opposite of extract.
         /// </summary>
         /// <param name="condition">
         ///	An array whose nonzero or True entries indicate the elements of arr
-        ///	to extract.<br></br>
-        ///	
+        ///	to extract.
         /// </param>
         /// <param name="arr">
-        ///	Input array of the same size as condition.<br></br>
-        ///	
+        ///	Input array of the same size as condition.
         /// </param>
         /// <returns>
-        ///	Rank 1 array of values from arr where condition is True.<br></br>
-        ///	
+        ///	Rank 1 array of values from arr where condition is True.
         /// </returns>
         public NDarray extract(NDarray condition, NDarray arr)
         {
@@ -846,26 +770,20 @@ namespace Numpy
         ///	 Thus, this function
         ///	(recursively) counts how many elements in a (and in
         ///	sub-arrays thereof) have their __nonzero__() or __bool__()
-        ///	method evaluated to True.<br></br>
-        ///	
+        ///	method evaluated to True.
         /// </summary>
         /// <param name="a">
-        ///	The array for which to count non-zeros.<br></br>
-        ///	
+        ///	The array for which to count non-zeros.
         /// </param>
         /// <param name="axis">
         ///	Axis or tuple of axes along which to count non-zeros.<br></br>
-        ///	
         ///	Default is None, meaning that non-zeros will be counted
-        ///	along a flattened version of a.<br></br>
-        ///	
+        ///	along a flattened version of a.
         /// </param>
         /// <returns>
         ///	Number of non-zero values in the array along a given axis.<br></br>
-        ///	
         ///	Otherwise, the total number of non-zero values in the array
-        ///	is returned.<br></br>
-        ///	
+        ///	is returned.
         /// </returns>
         public NDarray<int> count_nonzero(NDarray a, int[] axis)
         {
@@ -894,19 +812,15 @@ namespace Numpy
         ///	 Thus, this function
         ///	(recursively) counts how many elements in a (and in
         ///	sub-arrays thereof) have their __nonzero__() or __bool__()
-        ///	method evaluated to True.<br></br>
-        ///	
+        ///	method evaluated to True.
         /// </summary>
         /// <param name="a">
-        ///	The array for which to count non-zeros.<br></br>
-        ///	
+        ///	The array for which to count non-zeros.
         /// </param>
         /// <returns>
         ///	Number of non-zero values in the array along a given axis.<br></br>
-        ///	
         ///	Otherwise, the total number of non-zero values in the array
-        ///	is returned.<br></br>
-        ///	
+        ///	is returned.
         /// </returns>
         public int count_nonzero(NDarray a)
         {

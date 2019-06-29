@@ -22,26 +22,21 @@ namespace Numpy
         ///	
         ///	
         ///	Raises a TypeError if the casting rule is violated, and if
-        ///	where is provided, it selects which elements to copy.<br></br>
-        ///	
+        ///	where is provided, it selects which elements to copy.
         /// </summary>
         /// <param name="dst">
-        ///	The array into which values are copied.<br></br>
-        ///	
+        ///	The array into which values are copied.
         /// </param>
         /// <param name="src">
-        ///	The array from which values are copied.<br></br>
-        ///	
+        ///	The array from which values are copied.
         /// </param>
         /// <param name="casting">
-        ///	Controls what kind of data casting may occur when copying.<br></br>
-        ///	
+        ///	Controls what kind of data casting may occur when copying.
         /// </param>
         /// <param name="where">
         ///	A boolean array which is broadcasted to match the dimensions
         ///	of dst, and selects elements to copy from src to dst
-        ///	wherever it contains the value True.<br></br>
-        ///	
+        ///	wherever it contains the value True.
         /// </param>
         public void copyto(NDarray dst, NDarray src, string casting = "same_kind", NDarray @where = null)
         {
@@ -63,26 +58,21 @@ namespace Numpy
         ///	
         ///	
         ///	Raises a TypeError if the casting rule is violated, and if
-        ///	where is provided, it selects which elements to copy.<br></br>
-        ///	
+        ///	where is provided, it selects which elements to copy.
         /// </summary>
         /// <param name="dst">
-        ///	The array into which values are copied.<br></br>
-        ///	
+        ///	The array into which values are copied.
         /// </param>
         /// <param name="src">
-        ///	The array from which values are copied.<br></br>
-        ///	
+        ///	The array from which values are copied.
         /// </param>
         /// <param name="casting">
-        ///	Controls what kind of data casting may occur when copying.<br></br>
-        ///	
+        ///	Controls what kind of data casting may occur when copying.
         /// </param>
         /// <param name="where">
         ///	A boolean array which is broadcasted to match the dimensions
         ///	of dst, and selects elements to copy from src to dst
-        ///	wherever it contains the value True.<br></br>
-        ///	
+        ///	wherever it contains the value True.
         /// </param>
         public void copyto(NDarray dst, NDarray src, string casting = "same_kind", bool[] @where = null)
         {
@@ -112,53 +102,45 @@ namespace Numpy
         ///	
         ///	The order keyword gives the index ordering both for fetching the values
         ///	from a, and then placing the values into the output array.<br></br>
-        ///	
         ///	For example, let’s say you have an array:
         ///	
         ///	You can think of reshaping as first raveling the array (using the given
         ///	index order), then inserting the elements from the raveled array into the
         ///	new array using the same kind of index ordering as was used for the
-        ///	raveling.<br></br>
-        ///	
+        ///	raveling.
         /// </summary>
         /// <param name="a">
-        ///	Array to be reshaped.<br></br>
-        ///	
+        ///	Array to be reshaped.
         /// </param>
         /// <param name="newshape">
         ///	The new shape should be compatible with the original shape.<br></br>
-        ///	 If
+        ///	If
         ///	an integer, then the result will be a 1-D array of that length.<br></br>
-        ///	
         ///	One shape dimension can be -1. In this case, the value is
-        ///	inferred from the length of the array and remaining dimensions.<br></br>
-        ///	
+        ///	inferred from the length of the array and remaining dimensions.
         /// </param>
         /// <param name="order">
         ///	Read the elements of a using this index order, and place the
         ///	elements into the reshaped array using this index order.<br></br>
-        ///	  ‘C’
+        ///	‘C’
         ///	means to read / write the elements using C-like index order,
         ///	with the last axis index changing fastest, back to the first
         ///	axis index changing slowest.<br></br>
-        ///	 ‘F’ means to read / write the
+        ///	‘F’ means to read / write the
         ///	elements using Fortran-like index order, with the first index
         ///	changing fastest, and the last index changing slowest.<br></br>
-        ///	 Note that
+        ///	Note that
         ///	the ‘C’ and ‘F’ options take no account of the memory layout of
         ///	the underlying array, and only refer to the order of indexing.<br></br>
-        ///	
         ///	‘A’ means to read / write the elements in Fortran-like index
         ///	order if a is Fortran contiguous in memory, C-like order
-        ///	otherwise.<br></br>
-        ///	
+        ///	otherwise.
         /// </param>
         /// <returns>
         ///	This will be a new view object if possible; otherwise, it will
         ///	be a copy.<br></br>
         ///	  Note there is no guarantee of the memory layout (C- or
-        ///	Fortran- contiguous) of the returned array.<br></br>
-        ///	
+        ///	Fortran- contiguous) of the returned array.
         /// </returns>
         public NDarray reshape(NDarray a, Shape newshape, string order = null)
         {
@@ -202,44 +184,39 @@ namespace Numpy
         ///	
         ///	
         ///	When a view is desired in as many cases as possible, arr.reshape(-1)
-        ///	may be preferable.<br></br>
-        ///	
+        ///	may be preferable.
         /// </summary>
         /// <param name="a">
         ///	Input array.<br></br>
-        ///	  The elements in a are read in the order specified by
-        ///	order, and packed as a 1-D array.<br></br>
-        ///	
+        ///	The elements in a are read in the order specified by
+        ///	order, and packed as a 1-D array.
         /// </param>
         /// <param name="order">
         ///	The elements of a are read using this index order.<br></br>
-        ///	 ‘C’ means
+        ///	‘C’ means
         ///	to index the elements in row-major, C-style order,
         ///	with the last axis index changing fastest, back to the first
         ///	axis index changing slowest.<br></br>
-        ///	  ‘F’ means to index the elements
+        ///	‘F’ means to index the elements
         ///	in column-major, Fortran-style order, with the
         ///	first index changing fastest, and the last index changing
         ///	slowest.<br></br>
-        ///	 Note that the ‘C’ and ‘F’ options take no account of
+        ///	Note that the ‘C’ and ‘F’ options take no account of
         ///	the memory layout of the underlying array, and only refer to
         ///	the order of axis indexing.<br></br>
-        ///	  ‘A’ means to read the elements in
+        ///	‘A’ means to read the elements in
         ///	Fortran-like index order if a is Fortran contiguous in
         ///	memory, C-like order otherwise.<br></br>
-        ///	  ‘K’ means to read the
+        ///	‘K’ means to read the
         ///	elements in the order they occur in memory, except for
         ///	reversing the data when strides are negative.<br></br>
-        ///	  By default, ‘C’
-        ///	index order is used.<br></br>
-        ///	
+        ///	By default, ‘C’
+        ///	index order is used.
         /// </param>
         /// <returns>
         ///	y is an array of the same subtype as a, with shape (a.size,).<br></br>
-        ///	
         ///	Note that matrices are special cased for backward compatibility, if a
-        ///	is a matrix, then y is a 1-D ndarray.<br></br>
-        ///	
+        ///	is a matrix, then y is a 1-D ndarray.
         /// </returns>
         public NDarray ravel(NDarray a, string order = null)
         {
@@ -256,25 +233,21 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return a copy of the array collapsed into one dimension.<br></br>
-        ///	
+        ///	Return a copy of the array collapsed into one dimension.
         /// </summary>
         /// <param name="order">
         ///	‘C’ means to flatten in row-major (C-style) order.<br></br>
-        ///	
         ///	‘F’ means to flatten in column-major (Fortran-
         ///	style) order.<br></br>
-        ///	 ‘A’ means to flatten in column-major
+        ///	‘A’ means to flatten in column-major
         ///	order if a is Fortran contiguous in memory,
         ///	row-major order otherwise.<br></br>
-        ///	 ‘K’ means to flatten
+        ///	‘K’ means to flatten
         ///	a in the order the elements occur in memory.<br></br>
-        ///	
         ///	The default is ‘C’.
         /// </param>
         /// <returns>
-        ///	A copy of the input array, flattened to one dimension.<br></br>
-        ///	
+        ///	A copy of the input array, flattened to one dimension.
         /// </returns>
         public NDarray flatten(string order = null)
         {
@@ -293,28 +266,23 @@ namespace Numpy
         ///	Move axes of an array to new positions.<br></br>
         ///	
         ///	
-        ///	Other axes remain in their original order.<br></br>
-        ///	
+        ///	Other axes remain in their original order.
         /// </summary>
         /// <param name="a">
-        ///	The array whose axes should be reordered.<br></br>
-        ///	
+        ///	The array whose axes should be reordered.
         /// </param>
         /// <param name="source">
         ///	Original positions of the axes to move.<br></br>
-        ///	 These must be unique.<br></br>
-        ///	
+        ///	These must be unique.
         /// </param>
         /// <param name="destination">
         ///	Destination positions for each of the original axes.<br></br>
-        ///	 These must also be
-        ///	unique.<br></br>
-        ///	
+        ///	These must also be
+        ///	unique.
         /// </param>
         /// <returns>
         ///	Array with moved axes.<br></br>
-        ///	 This array is a view of the input array.<br></br>
-        ///	
+        ///	 This array is a view of the input array.
         /// </returns>
         public NDarray moveaxis(NDarray a, int[] source, int[] destination)
         {
@@ -341,27 +309,23 @@ namespace Numpy
         ///	1.11.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	The axis to roll backwards.<br></br>
-        ///	  The positions of the other axes do not
-        ///	change relative to one another.<br></br>
-        ///	
+        ///	The positions of the other axes do not
+        ///	change relative to one another.
         /// </param>
         /// <param name="start">
         ///	The axis is rolled until it lies before this position.<br></br>
-        ///	  The default,
-        ///	0, results in a “complete” roll.<br></br>
-        ///	
+        ///	The default,
+        ///	0, results in a “complete” roll.
         /// </param>
         /// <returns>
         ///	For NumPy &gt;= 1.10.0 a view of a is always returned.<br></br>
         ///	 For earlier
         ///	NumPy versions a view of a is returned only if the order of the
-        ///	axes is changed, otherwise the input array is returned.<br></br>
-        ///	
+        ///	axes is changed, otherwise the input array is returned.
         /// </returns>
         public NDarray rollaxis(NDarray a, int axis, int? start = 0)
         {
@@ -379,28 +343,23 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Interchange two axes of an array.<br></br>
-        ///	
+        ///	Interchange two axes of an array.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis1">
-        ///	First axis.<br></br>
-        ///	
+        ///	First axis.
         /// </param>
         /// <param name="axis2">
-        ///	Second axis.<br></br>
-        ///	
+        ///	Second axis.
         /// </param>
         /// <returns>
         ///	For NumPy &gt;= 1.10.0, if a is an ndarray, then a view of a is
         ///	returned; otherwise a new array is created.<br></br>
         ///	 For earlier NumPy
         ///	versions a view of a is returned only if the order of the
-        ///	axes is changed, otherwise the input array is returned.<br></br>
-        ///	
+        ///	axes is changed, otherwise the input array is returned.
         /// </returns>
         public NDarray swapaxes(NDarray a, int axis1, int axis2)
         {
@@ -427,23 +386,19 @@ namespace Numpy
         ///	when using the axes keyword argument.<br></br>
         ///	
         ///	
-        ///	Transposing a 1-D array returns an unchanged view of the original array.<br></br>
-        ///	
+        ///	Transposing a 1-D array returns an unchanged view of the original array.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axes">
         ///	By default, reverse the dimensions, otherwise permute the axes
-        ///	according to the values given.<br></br>
-        ///	
+        ///	according to the values given.
         /// </param>
         /// <returns>
         ///	a with its axes permuted.<br></br>
         ///	  A view is returned whenever
-        ///	possible.<br></br>
-        ///	
+        ///	possible.
         /// </returns>
         public NDarray transpose(NDarray a, int[] axes = null)
         {
@@ -464,18 +419,14 @@ namespace Numpy
         ///	
         ///	
         ///	Scalar inputs are converted to 1-dimensional arrays, whilst
-        ///	higher-dimensional inputs are preserved.<br></br>
-        ///	
+        ///	higher-dimensional inputs are preserved.
         /// </summary>
         /// <param name="arys">
-        ///	One or more input arrays.<br></br>
-        ///	
+        ///	One or more input arrays.
         /// </param>
         /// <returns>
         ///	An array, or list of arrays, each with a.ndim &gt;= 1.<br></br>
-        ///	
-        ///	Copies are made only if necessary.<br></br>
-        ///	
+        ///	Copies are made only if necessary.
         /// </returns>
         public NDarray atleast_1d(params NDarray[] arys)
         {
@@ -491,23 +442,19 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	View inputs as arrays with at least two dimensions.<br></br>
-        ///	
+        ///	View inputs as arrays with at least two dimensions.
         /// </summary>
         /// <param name="arys">
         ///	One or more array-like sequences.<br></br>
-        ///	  Non-array inputs are converted
+        ///	Non-array inputs are converted
         ///	to arrays.<br></br>
-        ///	  Arrays that already have two or more dimensions are
-        ///	preserved.<br></br>
-        ///	
+        ///	Arrays that already have two or more dimensions are
+        ///	preserved.
         /// </param>
         /// <returns>
         ///	An array, or list of arrays, each with a.ndim &gt;= 2.<br></br>
-        ///	
         ///	Copies are avoided where possible, and views with two or more
-        ///	dimensions are returned.<br></br>
-        ///	
+        ///	dimensions are returned.
         /// </returns>
         public NDarray atleast_2d(params NDarray[] arys)
         {
@@ -523,16 +470,14 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	View inputs as arrays with at least three dimensions.<br></br>
-        ///	
+        ///	View inputs as arrays with at least three dimensions.
         /// </summary>
         /// <param name="arys">
         ///	One or more array-like sequences.<br></br>
-        ///	  Non-array inputs are converted to
+        ///	Non-array inputs are converted to
         ///	arrays.<br></br>
-        ///	  Arrays that already have three or more dimensions are
-        ///	preserved.<br></br>
-        ///	
+        ///	Arrays that already have three or more dimensions are
+        ///	preserved.
         /// </param>
         /// <returns>
         ///	An array, or list of arrays, each with a.ndim &gt;= 3.<br></br>
@@ -541,8 +486,7 @@ namespace Numpy
         ///	returned.<br></br>
         ///	  For example, a 1-D array of shape (N,) becomes a view
         ///	of shape (1, N, 1), and a 2-D array of shape (M, N) becomes a
-        ///	view of shape (M, N, 1).<br></br>
-        ///	
+        ///	view of shape (M, N, 1).
         /// </returns>
         public NDarray atleast_3d(params NDarray[] arys)
         {
@@ -558,24 +502,19 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Produce an object that mimics broadcasting.<br></br>
-        ///	
+        ///	Produce an object that mimics broadcasting.
         /// </summary>
         /// <param name="in2">
-        ///	Input parameters.<br></br>
-        ///	
+        ///	Input parameters.
         /// </param>
         /// <param name="in1">
-        ///	Input parameters.<br></br>
-        ///	
+        ///	Input parameters.
         /// </param>
         /// <returns>
         ///	Broadcast the input parameters against one another, and
         ///	return an object that encapsulates the result.<br></br>
-        ///	
         ///	Amongst others, it has shape and nd properties, and
-        ///	may be used as an iterator.<br></br>
-        ///	
+        ///	may be used as an iterator.
         /// </returns>
         public NDarray broadcast(NDarray in2, NDarray in1)
         {
@@ -598,25 +537,21 @@ namespace Numpy
         ///	Notes
         /// </summary>
         /// <param name="array">
-        ///	The array to broadcast.<br></br>
-        ///	
+        ///	The array to broadcast.
         /// </param>
         /// <param name="shape">
-        ///	The shape of the desired array.<br></br>
-        ///	
+        ///	The shape of the desired array.
         /// </param>
         /// <param name="subok">
         ///	If True, then sub-classes will be passed-through, otherwise
-        ///	the returned array will be forced to be a base-class array (default).<br></br>
-        ///	
+        ///	the returned array will be forced to be a base-class array (default).
         /// </param>
         /// <returns>
         ///	A readonly view on the original array with the given shape.<br></br>
         ///	 It is
         ///	typically not contiguous.<br></br>
         ///	 Furthermore, more than one element of a
-        ///	broadcasted array may refer to a single memory location.<br></br>
-        ///	
+        ///	broadcasted array may refer to a single memory location.
         /// </returns>
         public NDarray broadcast_to(NDarray array, Shape shape, bool? subok = false)
         {
@@ -634,17 +569,14 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Broadcast any number of arrays against each other.<br></br>
-        ///	
+        ///	Broadcast any number of arrays against each other.
         /// </summary>
         /// <param name="args">
-        ///	The arrays to broadcast.<br></br>
-        ///	
+        ///	The arrays to broadcast.
         /// </param>
         /// <param name="subok">
         ///	If True, then sub-classes will be passed-through, otherwise
-        ///	the returned arrays will be forced to be a base-class array (default).<br></br>
-        ///	
+        ///	the returned arrays will be forced to be a base-class array (default).
         /// </param>
         /// <returns>
         ///	These arrays are views on the original arrays.<br></br>
@@ -653,8 +585,7 @@ namespace Numpy
         ///	  Furthermore, more than one element of a
         ///	broadcasted array may refer to a single memory location.<br></br>
         ///	  If you
-        ///	need to write to the arrays, make copies first.<br></br>
-        ///	
+        ///	need to write to the arrays, make copies first.
         /// </returns>
         public NDarray[] broadcast_arrays(NDarray[] args, bool? subok = null)
         {
@@ -675,22 +606,18 @@ namespace Numpy
         ///	
         ///	
         ///	Insert a new axis that will appear at the axis position in the expanded
-        ///	array shape.<br></br>
-        ///	
+        ///	array shape.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
-        ///	Position in the expanded axes where the new axis is placed.<br></br>
-        ///	
+        ///	Position in the expanded axes where the new axis is placed.
         /// </param>
         /// <returns>
         ///	Output array.<br></br>
         ///	 The number of dimensions is one greater than that of
-        ///	the input array.<br></br>
-        ///	
+        ///	the input array.
         /// </returns>
         public NDarray expand_dims(NDarray a, int axis)
         {
@@ -707,26 +634,22 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Remove single-dimensional entries from the shape of an array.<br></br>
-        ///	
+        ///	Remove single-dimensional entries from the shape of an array.
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="axis">
         ///	Selects a subset of the single-dimensional entries in the
         ///	shape.<br></br>
-        ///	 If an axis is selected with shape entry greater than
-        ///	one, an error is raised.<br></br>
-        ///	
+        ///	If an axis is selected with shape entry greater than
+        ///	one, an error is raised.
         /// </param>
         /// <returns>
         ///	The input array, but with all or a subset of the
         ///	dimensions of length 1 removed.<br></br>
         ///	 This is always a itself
-        ///	or a view into a.<br></br>
-        ///	
+        ///	or a view into a.
         /// </returns>
         public NDarray squeeze(NDarray a, int[] axis = null)
         {
@@ -743,21 +666,18 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return an array converted to a float type.<br></br>
-        ///	
+        ///	Return an array converted to a float type.
         /// </summary>
         /// <param name="a">
-        ///	The input array.<br></br>
-        ///	
+        ///	The input array.
         /// </param>
         /// <param name="dtype">
         ///	Float type code to coerce input array a.<br></br>
-        ///	  If dtype is one of the
+        ///	If dtype is one of the
         ///	‘int’ dtypes, it is replaced with float64.
         /// </param>
         /// <returns>
-        ///	The input a as a float ndarray.<br></br>
-        ///	
+        ///	The input a as a float ndarray.
         /// </returns>
         public NDarray asfarray(NDarray a, Dtype dtype = null)
         {
@@ -774,20 +694,16 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return an array (ndim &gt;= 1) laid out in Fortran order in memory.<br></br>
-        ///	
+        ///	Return an array (ndim &gt;= 1) laid out in Fortran order in memory.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="dtype">
-        ///	By default, the data-type is inferred from the input data.<br></br>
-        ///	
+        ///	By default, the data-type is inferred from the input data.
         /// </param>
         /// <returns>
-        ///	The input a in Fortran, or column-major, order.<br></br>
-        ///	
+        ///	The input a in Fortran, or column-major, order.
         /// </returns>
         public NDarray asfortranarray(NDarray a, Dtype dtype = null)
         {
@@ -804,25 +720,21 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Convert the input to an array, checking for NaNs or Infs.<br></br>
-        ///	
+        ///	Convert the input to an array, checking for NaNs or Infs.
         /// </summary>
         /// <param name="a">
         ///	Input data, in any form that can be converted to an array.<br></br>
-        ///	  This
+        ///	This
         ///	includes lists, lists of tuples, tuples, tuples of tuples, tuples
         ///	of lists and ndarrays.<br></br>
-        ///	  Success requires no NaNs or Infs.<br></br>
-        ///	
+        ///	Success requires no NaNs or Infs.
         /// </param>
         /// <param name="dtype">
-        ///	By default, the data-type is inferred from the input data.<br></br>
-        ///	
+        ///	By default, the data-type is inferred from the input data.
         /// </param>
         /// <param name="order">
         ///	Whether to use row-major (C-style) or
         ///	column-major (Fortran-style) memory representation.<br></br>
-        ///	
         ///	Defaults to ‘C’.
         /// </param>
         /// <returns>
@@ -830,8 +742,7 @@ namespace Numpy
         ///	  No copy is performed if the input
         ///	is already an ndarray.<br></br>
         ///	  If a is a subclass of ndarray, a base
-        ///	class ndarray is returned.<br></br>
-        ///	
+        ///	class ndarray is returned.
         /// </returns>
         public NDarray asarray_chkfinite(NDarray a, Dtype dtype = null, string order = null)
         {
@@ -859,20 +770,17 @@ namespace Numpy
         ///	Notes
         ///	
         ///	The returned array will be guaranteed to have the listed requirements
-        ///	by making a copy if needed.<br></br>
-        ///	
+        ///	by making a copy if needed.
         /// </summary>
         /// <param name="a">
-        ///	The object to be converted to a type-and-requirement-satisfying array.<br></br>
-        ///	
+        ///	The object to be converted to a type-and-requirement-satisfying array.
         /// </param>
         /// <param name="dtype">
         ///	The required data-type.<br></br>
-        ///	 If None preserve the current dtype.<br></br>
-        ///	 If your
+        ///	If None preserve the current dtype.<br></br>
+        ///	If your
         ///	application requires the data to be in native byteorder, include
-        ///	a byteorder specification as a part of the dtype specification.<br></br>
-        ///	
+        ///	a byteorder specification as a part of the dtype specification.
         /// </param>
         /// <param name="requirements">
         ///	The requirements list can be any of the following
@@ -903,31 +811,26 @@ namespace Numpy
         ///	but the input masks are not preserved.<br></br>
         ///	 In cases where a MaskedArray
         ///	is expected as input, use the ma.concatenate function from the masked
-        ///	array module instead.<br></br>
-        ///	
+        ///	array module instead.
         /// </summary>
         /// <param name="arys">
         ///	The arrays must have the same shape, except in the dimension
-        ///	corresponding to axis (the first, by default).<br></br>
-        ///	
+        ///	corresponding to axis (the first, by default).
         /// </param>
         /// <param name="axis">
         ///	The axis along which the arrays will be joined.<br></br>
-        ///	  If axis is None,
+        ///	If axis is None,
         ///	arrays are flattened before use.<br></br>
-        ///	  Default is 0.<br></br>
-        ///	
+        ///	Default is 0.
         /// </param>
         /// <param name="out">
         ///	If provided, the destination to place the result.<br></br>
-        ///	 The shape must be
+        ///	The shape must be
         ///	correct, matching that of what concatenate would have returned if no
-        ///	out argument were specified.<br></br>
-        ///	
+        ///	out argument were specified.
         /// </param>
         /// <returns>
-        ///	The concatenated array.<br></br>
-        ///	
+        ///	The concatenated array.
         /// </returns>
         public NDarray concatenate(NDarray[] arys, int? axis = 0, NDarray @out = null)
         {
@@ -951,27 +854,22 @@ namespace Numpy
         ///	The axis parameter specifies the index of the new axis in the dimensions
         ///	of the result.<br></br>
         ///	 For example, if axis=0 it will be the first dimension
-        ///	and if axis=-1 it will be the last dimension.<br></br>
-        ///	
+        ///	and if axis=-1 it will be the last dimension.
         /// </summary>
         /// <param name="arrays">
-        ///	Each array must have the same shape.<br></br>
-        ///	
+        ///	Each array must have the same shape.
         /// </param>
         /// <param name="axis">
-        ///	The axis in the result array along which the input arrays are stacked.<br></br>
-        ///	
+        ///	The axis in the result array along which the input arrays are stacked.
         /// </param>
         /// <param name="out">
         ///	If provided, the destination to place the result.<br></br>
-        ///	 The shape must be
+        ///	The shape must be
         ///	correct, matching that of what stack would have returned if no
-        ///	out argument were specified.<br></br>
-        ///	
+        ///	out argument were specified.
         /// </param>
         /// <returns>
-        ///	The stacked array has one more dimension than the input arrays.<br></br>
-        ///	
+        ///	The stacked array has one more dimension than the input arrays.
         /// </returns>
         public NDarray stack(NDarray[] arrays, int? axis = 0, NDarray @out = null)
         {
@@ -997,17 +895,14 @@ namespace Numpy
         ///	 2-D arrays are stacked as-is,
         ///	just like with hstack.<br></br>
         ///	  1-D arrays are turned into 2-D columns
-        ///	first.<br></br>
-        ///	
+        ///	first.
         /// </summary>
         /// <param name="tup">
         ///	Arrays to stack.<br></br>
-        ///	 All of them must have the same first dimension.<br></br>
-        ///	
+        ///	All of them must have the same first dimension.
         /// </param>
         /// <returns>
-        ///	The array formed by stacking the given arrays.<br></br>
-        ///	
+        ///	The array formed by stacking the given arrays.
         /// </returns>
         public NDarray column_stack(params NDarray[] tup)
         {
@@ -1038,18 +933,14 @@ namespace Numpy
         ///	instance, for pixel-data with a height (first axis), width (second axis),
         ///	and r/g/b channels (third axis).<br></br>
         ///	 The functions concatenate, stack and
-        ///	block provide more general stacking and concatenation operations.<br></br>
-        ///	
+        ///	block provide more general stacking and concatenation operations.
         /// </summary>
         /// <param name="tup">
         ///	The arrays must have the same shape along all but the third axis.<br></br>
-        ///	
-        ///	1-D or 2-D arrays must have the same shape.<br></br>
-        ///	
+        ///	1-D or 2-D arrays must have the same shape.
         /// </param>
         /// <returns>
-        ///	The array formed by stacking the given arrays, will be at least 3-D.<br></br>
-        ///	
+        ///	The array formed by stacking the given arrays, will be at least 3-D.
         /// </returns>
         public NDarray dstack(params NDarray[] tup)
         {
@@ -1079,17 +970,14 @@ namespace Numpy
         ///	instance, for pixel-data with a height (first axis), width (second axis),
         ///	and r/g/b channels (third axis).<br></br>
         ///	 The functions concatenate, stack and
-        ///	block provide more general stacking and concatenation operations.<br></br>
-        ///	
+        ///	block provide more general stacking and concatenation operations.
         /// </summary>
         /// <param name="tup">
         ///	The arrays must have the same shape along all but the second axis,
-        ///	except 1-D arrays which can be any length.<br></br>
-        ///	
+        ///	except 1-D arrays which can be any length.
         /// </param>
         /// <returns>
-        ///	The array formed by stacking the given arrays.<br></br>
-        ///	
+        ///	The array formed by stacking the given arrays.
         /// </returns>
         public NDarray hstack(params NDarray[] tup)
         {
@@ -1119,18 +1007,14 @@ namespace Numpy
         ///	instance, for pixel-data with a height (first axis), width (second axis),
         ///	and r/g/b channels (third axis).<br></br>
         ///	 The functions concatenate, stack and
-        ///	block provide more general stacking and concatenation operations.<br></br>
-        ///	
+        ///	block provide more general stacking and concatenation operations.
         /// </summary>
         /// <param name="tup">
         ///	The arrays must have the same shape along all but the first axis.<br></br>
-        ///	
-        ///	1-D arrays must have the same length.<br></br>
-        ///	
+        ///	1-D arrays must have the same length.
         /// </param>
         /// <returns>
-        ///	The array formed by stacking the given arrays, will be at least 2-D.<br></br>
-        ///	
+        ///	The array formed by stacking the given arrays, will be at least 2-D.
         /// </returns>
         public NDarray vstack(params NDarray[] tup)
         {
@@ -1177,7 +1061,6 @@ namespace Numpy
         ///	
         ///	
         ///	This function does not enforce that the blocks lie on a fixed grid.<br></br>
-        ///	
         ///	np.block([[a, b], [c, d]]) is not restricted to arrays of the form:
         ///	
         ///	But is also allowed to produce, for some a, b, c, d:
@@ -1186,8 +1069,7 @@ namespace Numpy
         ///	capable of producing the following directly:
         ///	
         ///	Matlab’s “square bracket stacking”, [A, B, ...; p, q, ...], is
-        ///	equivalent to np.block([[A, B, ...], [p, q, ...]]).<br></br>
-        ///	
+        ///	equivalent to np.block([[A, B, ...], [p, q, ...]]).
         /// </summary>
         /// <param name="arrays">
         ///	If passed a single ndarray or scalar (a nested list of depth 0), this
@@ -1196,8 +1078,7 @@ namespace Numpy
         ///	
         ///	Elements shapes must match along the appropriate axes (without
         ///	broadcasting), but leading 1s will be prepended to the shape as
-        ///	necessary to make the dimensions match.<br></br>
-        ///	
+        ///	necessary to make the dimensions match.
         /// </param>
         /// <returns>
         ///	The array assembled from the given blocks.<br></br>
@@ -1222,36 +1103,31 @@ namespace Numpy
         */
         
         /// <summary>
-        ///	Split an array into multiple sub-arrays.<br></br>
-        ///	
+        ///	Split an array into multiple sub-arrays.
         /// </summary>
         /// <param name="ary">
-        ///	Array to be divided into sub-arrays.<br></br>
-        ///	
+        ///	Array to be divided into sub-arrays.
         /// </param>
         /// <param name="indices_or_sections">
         ///	If indices_or_sections is an integer, N, the array will be divided
         ///	into N equal arrays along axis.<br></br>
-        ///	  If such a split is not possible,
+        ///	If such a split is not possible,
         ///	an error is raised.<br></br>
         ///	
         ///	
         ///	If indices_or_sections is a 1-D array of sorted integers, the entries
         ///	indicate where along axis the array is split.<br></br>
-        ///	  For example,
+        ///	For example,
         ///	[2, 3] would, for axis=0, result in
         ///	
         ///	If an index exceeds the dimension of the array along axis,
-        ///	an empty sub-array is returned correspondingly.<br></br>
-        ///	
+        ///	an empty sub-array is returned correspondingly.
         /// </param>
         /// <param name="axis">
-        ///	The axis along which to split, default is 0.<br></br>
-        ///	
+        ///	The axis along which to split, default is 0.
         /// </param>
         /// <returns>
-        ///	A list of sub-arrays.<br></br>
-        ///	
+        ///	A list of sub-arrays.
         /// </returns>
         public NDarray[] split(NDarray ary, int[] indices_or_sections, int? axis = 0)
         {
@@ -1286,26 +1162,21 @@ namespace Numpy
         ///	
         ///	
         ///	If A.ndim &gt; d, reps is promoted to A.ndim by pre-pending 1’s to it.<br></br>
-        ///	
         ///	Thus for an A of shape (2, 3, 4, 5), a reps of (2, 2) is treated as
         ///	(1, 1, 2, 2).<br></br>
         ///	
         ///	
         ///	Note : Although tile may be used for broadcasting, it is strongly
-        ///	recommended to use numpy’s broadcasting operations and functions.<br></br>
-        ///	
+        ///	recommended to use numpy’s broadcasting operations and functions.
         /// </summary>
         /// <param name="A">
-        ///	The input array.<br></br>
-        ///	
+        ///	The input array.
         /// </param>
         /// <param name="reps">
-        ///	The number of repetitions of A along each axis.<br></br>
-        ///	
+        ///	The number of repetitions of A along each axis.
         /// </param>
         /// <returns>
-        ///	The tiled output array.<br></br>
-        ///	
+        ///	The tiled output array.
         /// </returns>
         public NDarray tile(NDarray A, NDarray reps)
         {
@@ -1322,29 +1193,24 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Repeat elements of an array.<br></br>
-        ///	
+        ///	Repeat elements of an array.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="repeats">
         ///	The number of repetitions for each element.<br></br>
-        ///	  repeats is broadcasted
-        ///	to fit the shape of the given axis.<br></br>
-        ///	
+        ///	repeats is broadcasted
+        ///	to fit the shape of the given axis.
         /// </param>
         /// <param name="axis">
         ///	The axis along which to repeat values.<br></br>
-        ///	  By default, use the
-        ///	flattened input array, and return a flat output array.<br></br>
-        ///	
+        ///	By default, use the
+        ///	flattened input array, and return a flat output array.
         /// </param>
         /// <returns>
         ///	Output array which has the same shape as a, except along
-        ///	the given axis.<br></br>
-        ///	
+        ///	the given axis.
         /// </returns>
         public NDarray repeat(NDarray a, int[] repeats, int? axis = null)
         {
@@ -1374,30 +1240,24 @@ namespace Numpy
         ///	 For example:
         ///	
         ///	Is equivalent to np.delete(arr, [0,2,4], axis=0), but allows further
-        ///	use of mask.<br></br>
-        ///	
+        ///	use of mask.
         /// </summary>
         /// <param name="arr">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="obj">
-        ///	Indicate which sub-arrays to remove.<br></br>
-        ///	
+        ///	Indicate which sub-arrays to remove.
         /// </param>
         /// <param name="axis">
         ///	The axis along which to delete the subarray defined by obj.<br></br>
-        ///	
-        ///	If axis is None, obj is applied to the flattened array.<br></br>
-        ///	
+        ///	If axis is None, obj is applied to the flattened array.
         /// </param>
         /// <returns>
         ///	A copy of arr with the elements specified by obj removed.<br></br>
         ///	 Note
         ///	that delete does not occur in-place.<br></br>
         ///	 If axis is None, out is
-        ///	a flattened array.<br></br>
-        ///	
+        ///	a flattened array.
         /// </returns>
         public NDarray delete(NDarray arr, Slice obj, int? axis = null)
         {
@@ -1422,12 +1282,10 @@ namespace Numpy
         ///	
         ///	Note that for higher dimensional inserts obj=0 behaves very different
         ///	from obj=[0] just like arr[:,0,:] = values is different from
-        ///	arr[:,[0],:] = values.<br></br>
-        ///	
+        ///	arr[:,[0],:] = values.
         /// </summary>
         /// <param name="arr">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="obj">
         ///	Object that defines the index or indices before which values is
@@ -1436,31 +1294,26 @@ namespace Numpy
         ///	
         ///	Support for multiple insertions when obj is a single scalar or a
         ///	sequence with one element (similar to calling insert multiple
-        ///	times).<br></br>
-        ///	
+        ///	times).
         /// </param>
         /// <param name="values">
         ///	Values to insert into arr.<br></br>
-        ///	 If the type of values is different
+        ///	If the type of values is different
         ///	from that of arr, values is converted to the type of arr.<br></br>
-        ///	
         ///	values should be shaped so that arr[...,obj,...] = values
-        ///	is legal.<br></br>
-        ///	
+        ///	is legal.
         /// </param>
         /// <param name="axis">
         ///	Axis along which to insert values.<br></br>
-        ///	  If axis is None then arr
-        ///	is flattened first.<br></br>
-        ///	
+        ///	If axis is None then arr
+        ///	is flattened first.
         /// </param>
         /// <returns>
         ///	A copy of arr with values inserted.<br></br>
         ///	  Note that insert
         ///	does not occur in-place: a new array is returned.<br></br>
         ///	 If
-        ///	axis is None, out is a flattened array.<br></br>
-        ///	
+        ///	axis is None, out is a flattened array.
         /// </returns>
         public NDarray insert(NDarray arr, int obj = 0, NDarray values = null, int? axis = null)
         {
@@ -1479,35 +1332,30 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Append values to the end of an array.<br></br>
-        ///	
+        ///	Append values to the end of an array.
         /// </summary>
         /// <param name="arr">
-        ///	Values are appended to a copy of this array.<br></br>
-        ///	
+        ///	Values are appended to a copy of this array.
         /// </param>
         /// <param name="values">
         ///	These values are appended to a copy of arr.<br></br>
-        ///	  It must be of the
+        ///	It must be of the
         ///	correct shape (the same shape as arr, excluding axis).<br></br>
-        ///	  If
+        ///	If
         ///	axis is not specified, values can be any shape and will be
-        ///	flattened before use.<br></br>
-        ///	
+        ///	flattened before use.
         /// </param>
         /// <param name="axis">
         ///	The axis along which values are appended.<br></br>
-        ///	  If axis is not
-        ///	given, both arr and values are flattened before use.<br></br>
-        ///	
+        ///	If axis is not
+        ///	given, both arr and values are flattened before use.
         /// </param>
         /// <returns>
         ///	A copy of arr with values appended to axis.<br></br>
         ///	  Note that
         ///	append does not occur in-place: a new array is allocated and
         ///	filled.<br></br>
-        ///	  If axis is None, out is a flattened array.<br></br>
-        ///	
+        ///	  If axis is None, out is a flattened array.
         /// </returns>
         public NDarray append(NDarray arr, NDarray values, int? axis = null)
         {
@@ -1525,24 +1373,20 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Trim the leading and/or trailing zeros from a 1-D array or sequence.<br></br>
-        ///	
+        ///	Trim the leading and/or trailing zeros from a 1-D array or sequence.
         /// </summary>
         /// <param name="filt">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="trim">
         ///	A string with ‘f’ representing trim from front and ‘b’ to trim from
         ///	back.<br></br>
-        ///	 Default is ‘fb’, trim zeros from both front and back of the
-        ///	array.<br></br>
-        ///	
+        ///	Default is ‘fb’, trim zeros from both front and back of the
+        ///	array.
         /// </param>
         /// <returns>
         ///	The result of trimming the input.<br></br>
-        ///	 The input data type is preserved.<br></br>
-        ///	
+        ///	 The input data type is preserved.
         /// </returns>
         public NDarray trim_zeros(NDarray filt, string trim = "fb")
         {
@@ -1569,7 +1413,6 @@ namespace Numpy
         ///	Notes
         ///	
         ///	When an axis is specified the subarrays indexed by the axis are sorted.<br></br>
-        ///	
         ///	This is done by making the specified axis the first dimension of the array
         ///	and then flattening the subarrays in C order.<br></br>
         ///	 The flattened subarrays are
@@ -1578,31 +1421,27 @@ namespace Numpy
         ///	treated in the same way as any other 1-D array.<br></br>
         ///	 The result is that the
         ///	flattened subarrays are sorted in lexicographic order starting with the
-        ///	first element.<br></br>
-        ///	
+        ///	first element.
         /// </summary>
         /// <param name="ar">
         ///	Input array.<br></br>
-        ///	 Unless axis is specified, this will be flattened if it
-        ///	is not already 1-D.<br></br>
-        ///	
+        ///	Unless axis is specified, this will be flattened if it
+        ///	is not already 1-D.
         /// </param>
         /// <param name="axis">
         ///	The axis to operate on.<br></br>
-        ///	 If None, ar will be flattened.<br></br>
-        ///	 If an integer,
+        ///	If None, ar will be flattened.<br></br>
+        ///	If an integer,
         ///	the subarrays indexed by the given axis will be flattened and treated
         ///	as the elements of a 1-D array with the dimension of the given axis,
         ///	see the notes for more details.<br></br>
-        ///	  Object arrays or structured arrays
+        ///	Object arrays or structured arrays
         ///	that contain objects are not supported if the axis kwarg is used.<br></br>
-        ///	 The
-        ///	default is None.<br></br>
-        ///	
+        ///	The
+        ///	default is None.
         /// </param>
         /// <returns>
-        ///	The sorted unique values.<br></br>
-        ///	
+        ///	The sorted unique values.
         /// </returns>
         public NDarray unique(NDarray ar, int? axis = null)
         {
@@ -1629,7 +1468,6 @@ namespace Numpy
         ///	Notes
         ///	
         ///	When an axis is specified the subarrays indexed by the axis are sorted.<br></br>
-        ///	
         ///	This is done by making the specified axis the first dimension of the array
         ///	and then flattening the subarrays in C order.<br></br>
         ///	 The flattened subarrays are
@@ -1638,46 +1476,39 @@ namespace Numpy
         ///	treated in the same way as any other 1-D array.<br></br>
         ///	 The result is that the
         ///	flattened subarrays are sorted in lexicographic order starting with the
-        ///	first element.<br></br>
-        ///	
+        ///	first element.
         /// </summary>
         /// <param name="ar">
         ///	Input array.<br></br>
-        ///	 Unless axis is specified, this will be flattened if it
-        ///	is not already 1-D.<br></br>
-        ///	
+        ///	Unless axis is specified, this will be flattened if it
+        ///	is not already 1-D.
         /// </param>
         /// <param name="return_index">
         ///	If True, also return the indices of ar (along the specified axis,
-        ///	if provided, or in the flattened array) that result in the unique array.<br></br>
-        ///	
+        ///	if provided, or in the flattened array) that result in the unique array.
         /// </param>
         /// <param name="return_inverse">
         ///	If True, also return the indices of the unique array (for the specified
-        ///	axis, if provided) that can be used to reconstruct ar.<br></br>
-        ///	
+        ///	axis, if provided) that can be used to reconstruct ar.
         /// </param>
         /// <param name="return_counts">
         ///	If True, also return the number of times each unique item appears
-        ///	in ar.<br></br>
-        ///	
+        ///	in ar.
         /// </param>
         /// <param name="axis">
         ///	The axis to operate on.<br></br>
-        ///	 If None, ar will be flattened.<br></br>
-        ///	 If an integer,
+        ///	If None, ar will be flattened.<br></br>
+        ///	If an integer,
         ///	the subarrays indexed by the given axis will be flattened and treated
         ///	as the elements of a 1-D array with the dimension of the given axis,
         ///	see the notes for more details.<br></br>
-        ///	  Object arrays or structured arrays
+        ///	Object arrays or structured arrays
         ///	that contain objects are not supported if the axis kwarg is used.<br></br>
-        ///	 The
-        ///	default is None.<br></br>
-        ///	
+        ///	The
+        ///	default is None.
         /// </param>
         /// <returns>
-        ///	The sorted unique values.<br></br>
-        ///	
+        ///	The sorted unique values.
         /// </returns>
         public NDarray[] unique(NDarray ar, bool return_index, bool return_inverse, bool return_counts, int? axis = null)
         {
@@ -1719,30 +1550,25 @@ namespace Numpy
         ///	
         ///	
         ///	flip(m, (0, 1)) corresponds to m[::-1,::-1,...] with ::-1 at
-        ///	position 0 and position 1.<br></br>
-        ///	
+        ///	position 0 and position 1.
         /// </summary>
         /// <param name="m">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which to flip over.<br></br>
-        ///	 The default,
+        ///	The default,
         ///	axis=None, will flip over all of the axes of the input array.<br></br>
-        ///	
         ///	If axis is negative it counts from the last to the first axis.<br></br>
         ///	
         ///	
         ///	If axis is a tuple of ints, flipping is performed on all of the axes
-        ///	specified in the tuple.<br></br>
-        ///	
+        ///	specified in the tuple.
         /// </param>
         /// <returns>
         ///	A view of m with the entries of axis reversed.<br></br>
         ///	  Since a view is
-        ///	returned, this operation is done in constant time.<br></br>
-        ///	
+        ///	returned, this operation is done in constant time.
         /// </returns>
         public NDarray flip(NDarray m, int[] axis = null)
         {
@@ -1763,19 +1589,16 @@ namespace Numpy
         ///	
         ///	
         ///	Flip the entries in each row in the left/right direction.<br></br>
-        ///	
         ///	Columns are preserved, but appear in a different order than before.<br></br>
         ///	
         ///	
         ///	Notes
         ///	
         ///	Equivalent to m[:,::-1].<br></br>
-        ///	 Requires the array to be at least 2-D.<br></br>
-        ///	
+        ///	 Requires the array to be at least 2-D.
         /// </summary>
         /// <param name="m">
-        ///	Input array, must be at least 2-D.<br></br>
-        ///	
+        ///	Input array, must be at least 2-D.
         /// </param>
         /// <returns>
         ///	A view of m with the columns reversed.<br></br>
@@ -1800,20 +1623,16 @@ namespace Numpy
         ///	
         ///	
         ///	Flip the entries in each column in the up/down direction.<br></br>
-        ///	
         ///	Rows are preserved, but appear in a different order than before.<br></br>
         ///	
         ///	
         ///	Notes
         ///	
         ///	Equivalent to m[::-1,...].<br></br>
-        ///	
-        ///	Does not require the array to be two-dimensional.<br></br>
-        ///	
+        ///	Does not require the array to be two-dimensional.
         /// </summary>
         /// <param name="m">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <returns>
         ///	A view of m with the rows reversed.<br></br>
@@ -1843,33 +1662,28 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	Supports rolling over multiple dimensions simultaneously.<br></br>
-        ///	
+        ///	Supports rolling over multiple dimensions simultaneously.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="shift">
         ///	The number of places by which elements are shifted.<br></br>
-        ///	  If a tuple,
+        ///	If a tuple,
         ///	then axis must be a tuple of the same size, and each of the
         ///	given axes is shifted by the corresponding number.<br></br>
-        ///	  If an int
+        ///	If an int
         ///	while axis is a tuple of ints, then the same value is used for
-        ///	all given axes.<br></br>
-        ///	
+        ///	all given axes.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which elements are shifted.<br></br>
-        ///	  By default, the
+        ///	By default, the
         ///	array is flattened before shifting, after which the original
-        ///	shape is restored.<br></br>
-        ///	
+        ///	shape is restored.
         /// </param>
         /// <returns>
-        ///	Output array, with the same shape as a.<br></br>
-        ///	
+        ///	Output array, with the same shape as a.
         /// </returns>
         public NDarray roll(NDarray a, int[] shift, int[] axis = null)
         {
@@ -1899,22 +1713,17 @@ namespace Numpy
         ///	rot90(m, k=1, axes=(1,0)) is equivalent to rot90(m, k=-1, axes=(0,1))
         /// </summary>
         /// <param name="m">
-        ///	Array of two or more dimensions.<br></br>
-        ///	
+        ///	Array of two or more dimensions.
         /// </param>
         /// <param name="k">
-        ///	Number of times the array is rotated by 90 degrees.<br></br>
-        ///	
+        ///	Number of times the array is rotated by 90 degrees.
         /// </param>
         /// <param name="axes">
         ///	The array is rotated in the plane defined by the axes.<br></br>
-        ///	
-        ///	Axes must be different.<br></br>
-        ///	
+        ///	Axes must be different.
         /// </param>
         /// <returns>
-        ///	A rotated view of m.<br></br>
-        ///	
+        ///	A rotated view of m.
         /// </returns>
         public NDarray rot90(NDarray m, int k = 1, int[] axes = null)
         {

@@ -31,24 +31,19 @@ namespace Numpy
         ///	length is not long enough to store the max integer/float value converted
         ///	to a string.<br></br>
         ///	 Previously can_cast in ‘safe’ mode returned True for
-        ///	integer/float dtype and a string dtype of any length.<br></br>
-        ///	
+        ///	integer/float dtype and a string dtype of any length.
         /// </summary>
         /// <param name="from_">
-        ///	Data type, scalar, or array to cast from.<br></br>
-        ///	
+        ///	Data type, scalar, or array to cast from.
         /// </param>
         /// <param name="to">
-        ///	Data type to cast to.<br></br>
-        ///	
+        ///	Data type to cast to.
         /// </param>
         /// <param name="casting">
-        ///	Controls what kind of data casting may occur.<br></br>
-        ///	
+        ///	Controls what kind of data casting may occur.
         /// </param>
         /// <returns>
-        ///	True if cast can occur according to the casting rule.<br></br>
-        ///	
+        ///	True if cast can occur according to the casting rule.
         /// </returns>
         public static bool can_cast(Dtype from_, Dtype to, string casting = "safe")
             => NumPy.Instance.can_cast(from_, to, casting:casting);
@@ -56,7 +51,6 @@ namespace Numpy
         /// <summary>
         ///	Returns the data type with the smallest size and smallest scalar
         ///	kind to which both type1 and type2 may be safely cast.<br></br>
-        ///	
         ///	The returned data type is always in native byte order.<br></br>
         ///	
         ///	
@@ -70,20 +64,16 @@ namespace Numpy
         ///	dtype as another argument.<br></br>
         ///	 Previously it always returned the input string
         ///	dtype, even if it wasn’t long enough to store the max integer/float value
-        ///	converted to a string.<br></br>
-        ///	
+        ///	converted to a string.
         /// </summary>
         /// <param name="type1">
-        ///	First data type.<br></br>
-        ///	
+        ///	First data type.
         /// </param>
         /// <param name="type2">
-        ///	Second data type.<br></br>
-        ///	
+        ///	Second data type.
         /// </param>
         /// <returns>
-        ///	The promoted data type.<br></br>
-        ///	
+        ///	The promoted data type.
         /// </returns>
         public static Dtype promote_types(Dtype type1, Dtype type2)
             => NumPy.Instance.promote_types(type1, type2);
@@ -102,12 +92,10 @@ namespace Numpy
         ///	Notes
         /// </summary>
         /// <param name="a">
-        ///	The value whose minimal data type is to be found.<br></br>
-        ///	
+        ///	The value whose minimal data type is to be found.
         /// </param>
         /// <returns>
-        ///	The minimal data type.<br></br>
-        ///	
+        ///	The minimal data type.
         /// </returns>
         public static Dtype min_scalar_type(NDarray a)
             => NumPy.Instance.min_scalar_type(a);
@@ -130,7 +118,6 @@ namespace Numpy
         ///	  If the 3 is a
         ///	32-bit integer, the NumPy rules indicate it can’t convert losslessly
         ///	into a 32-bit float, so a 64-bit float should be the result type.<br></br>
-        ///	
         ///	By examining the value of the constant, ‘3’, we see that it fits in
         ///	an 8-bit integer, which can be cast losslessly into the 32-bit float.<br></br>
         ///	
@@ -158,16 +145,13 @@ namespace Numpy
         ///	
         ///	The set of int values is not a subset of the uint values for types
         ///	with the same number of bits, something not reflected in
-        ///	min_scalar_type, but handled as a special case in result_type.<br></br>
-        ///	
+        ///	min_scalar_type, but handled as a special case in result_type.
         /// </summary>
         /// <param name="arrays_and_dtypes">
-        ///	The operands of some operation whose result type is needed.<br></br>
-        ///	
+        ///	The operands of some operation whose result type is needed.
         /// </param>
         /// <returns>
-        ///	The result type.<br></br>
-        ///	
+        ///	The result type.
         /// </returns>
         public static Dtype result_type(list of arrays and dtypes arrays_and_dtypes)
             => NumPy.Instance.result_type(arrays_and_dtypes);
@@ -186,41 +170,33 @@ namespace Numpy
         ///	
         ///	
         ///	All input arrays except int64 and uint64 can be safely cast to the
-        ///	returned dtype without loss of information.<br></br>
-        ///	
+        ///	returned dtype without loss of information.
         /// </summary>
         /// <param name="array2">
-        ///	Input arrays.<br></br>
-        ///	
+        ///	Input arrays.
         /// </param>
         /// <param name="array1">
-        ///	Input arrays.<br></br>
-        ///	
+        ///	Input arrays.
         /// </param>
         /// <returns>
-        ///	Data type code.<br></br>
-        ///	
+        ///	Data type code.
         /// </returns>
         public static Dtype common_type(NDarray array2, NDarray array1)
             => NumPy.Instance.common_type(array2, array1);
         
         /// <summary>
-        ///	Return the scalar dtype or NumPy equivalent of Python type of an object.<br></br>
-        ///	
+        ///	Return the scalar dtype or NumPy equivalent of Python type of an object.
         /// </summary>
         /// <param name="rep">
-        ///	The object of which the type is returned.<br></br>
-        ///	
+        ///	The object of which the type is returned.
         /// </param>
         /// <param name="default">
         ///	If given, this is returned for objects whose types can not be
         ///	determined.<br></br>
-        ///	 If not given, None is returned for those objects.<br></br>
-        ///	
+        ///	If not given, None is returned for those objects.
         /// </param>
         /// <returns>
-        ///	The data type of rep.<br></br>
-        ///	
+        ///	The data type of rep.
         /// </returns>
         public static Dtype obj2sctype(object rep, object @default = null)
             => NumPy.Instance.obj2sctype(rep, @default:@default);
@@ -232,23 +208,20 @@ namespace Numpy
         ///	A numpy array is homogeneous, and contains elements described by a
         ///	dtype object.<br></br>
         ///	 A dtype object can be constructed from different
-        ///	combinations of fundamental numeric types.<br></br>
-        ///	
+        ///	combinations of fundamental numeric types.
         /// </summary>
         /// <param name="align">
         ///	Add padding to the fields to match what a C compiler would output
         ///	for a similar C-struct.<br></br>
-        ///	 Can be True only if obj is a dictionary
+        ///	Can be True only if obj is a dictionary
         ///	or a comma-separated string.<br></br>
-        ///	 If a struct dtype is being created,
-        ///	this also sets a sticky alignment flag isalignedstruct.<br></br>
-        ///	
+        ///	If a struct dtype is being created,
+        ///	this also sets a sticky alignment flag isalignedstruct.
         /// </param>
         /// <param name="copy">
         ///	Make a new copy of the data-type object.<br></br>
-        ///	 If False, the result
-        ///	may just be a reference to a built-in data-type object.<br></br>
-        ///	
+        ///	If False, the result
+        ///	may just be a reference to a built-in data-type object.
         /// </param>
         public static void dtype(bool? align = null, bool? copy = null)
             => NumPy.Instance.dtype(align:align, copy:copy);
@@ -265,37 +238,30 @@ namespace Numpy
         ///	The format description, either specified as a string with
         ///	comma-separated format descriptions in the form 'f8, i4, a5', or
         ///	a list of format description strings  in the form
-        ///	['f8', 'i4', 'a5'].<br></br>
-        ///	
+        ///	['f8', 'i4', 'a5'].
         /// </param>
         /// <param name="names">
         ///	The field names, either specified as a comma-separated string in the
         ///	form 'col1, col2, col3', or as a list or tuple of strings in the
         ///	form ['col1', 'col2', 'col3'].<br></br>
-        ///	
         ///	An empty list can be used, in that case default field names
-        ///	(‘f0’, ‘f1’, …) are used.<br></br>
-        ///	
+        ///	(‘f0’, ‘f1’, …) are used.
         /// </param>
         /// <param name="titles">
         ///	Sequence of title strings.<br></br>
-        ///	 An empty list can be used to leave titles
-        ///	out.<br></br>
-        ///	
+        ///	An empty list can be used to leave titles
+        ///	out.
         /// </param>
         /// <param name="aligned">
         ///	If True, align the fields by padding as the C-compiler would.<br></br>
-        ///	
-        ///	Default is False.<br></br>
-        ///	
+        ///	Default is False.
         /// </param>
         /// <param name="byteorder">
         ///	If specified, all the fields will be changed to the
         ///	provided byte-order.<br></br>
-        ///	  Otherwise, the default byte-order is
+        ///	Otherwise, the default byte-order is
         ///	used.<br></br>
-        ///	 For all available string specifiers, see dtype.newbyteorder.<br></br>
-        ///	
+        ///	For all available string specifiers, see dtype.newbyteorder.
         /// </param>
         public static void format_parser(string[] formats, string[] names, string[] titles, bool? aligned = null, string byteorder = null)
             => NumPy.Instance.format_parser(formats, names, titles, aligned:aligned, byteorder:byteorder);
@@ -307,27 +273,22 @@ namespace Numpy
         ///	Notes
         ///	
         ///	For developers of NumPy: do not instantiate this at the module level.<br></br>
-        ///	
         ///	The initial calculation of these parameters is expensive and negatively
         ///	impacts import times.<br></br>
         ///	  These objects are cached, so calling finfo()
-        ///	repeatedly inside your functions is not a problem.<br></br>
-        ///	
+        ///	repeatedly inside your functions is not a problem.
         /// </summary>
         /// <param name="dtype">
-        ///	Kind of floating point data-type about which to get information.<br></br>
-        ///	
+        ///	Kind of floating point data-type about which to get information.
         /// </param>
         public static void finfo(Dtype dtype)
             => NumPy.Instance.finfo(dtype);
         
         /// <summary>
-        ///	Machine limits for integer types.<br></br>
-        ///	
+        ///	Machine limits for integer types.
         /// </summary>
         /// <param name="int_type">
-        ///	The kind of integer data type to get information about.<br></br>
-        ///	
+        ///	The kind of integer data type to get information about.
         /// </param>
         public static void iinfo(Dtype int_type)
             => NumPy.Instance.iinfo(int_type);
@@ -341,83 +302,67 @@ namespace Numpy
         /// <param name="float_conv">
         ///	Function that converts an integer or integer array to a float
         ///	or float array.<br></br>
-        ///	 Default is float.<br></br>
-        ///	
+        ///	Default is float.
         /// </param>
         /// <param name="int_conv">
         ///	Function that converts a float or float array to an integer or
         ///	integer array.<br></br>
-        ///	 Default is int.<br></br>
-        ///	
+        ///	Default is int.
         /// </param>
         /// <param name="float_to_float">
         ///	Function that converts a float array to float.<br></br>
-        ///	 Default is float.<br></br>
-        ///	
+        ///	Default is float.<br></br>
         ///	Note that this does not seem to do anything useful in the current
-        ///	implementation.<br></br>
-        ///	
+        ///	implementation.
         /// </param>
         /// <param name="float_to_str">
         ///	Function that converts a single float to a string.<br></br>
-        ///	 Default is
-        ///	lambda v:'%24.16e' %v.<br></br>
-        ///	
+        ///	Default is
+        ///	lambda v:'%24.16e' %v.
         /// </param>
         /// <param name="title">
-        ///	Title that is printed in the string representation of MachAr.<br></br>
-        ///	
+        ///	Title that is printed in the string representation of MachAr.
         /// </param>
         public static void MachAr(Delegate float_conv = null, Delegate int_conv = null, Delegate float_to_float = null, Delegate float_to_str = null, string title = null)
             => NumPy.Instance.MachAr(float_conv:float_conv, int_conv:int_conv, float_to_float:float_to_float, float_to_str:float_to_str, title:title);
         
         /// <summary>
-        ///	Determines whether the given object represents a scalar data-type.<br></br>
-        ///	
+        ///	Determines whether the given object represents a scalar data-type.
         /// </summary>
         /// <param name="rep">
         ///	If rep is an instance of a scalar dtype, True is returned.<br></br>
-        ///	 If not,
-        ///	False is returned.<br></br>
-        ///	
+        ///	If not,
+        ///	False is returned.
         /// </param>
         /// <returns>
-        ///	Boolean result of check whether rep is a scalar dtype.<br></br>
-        ///	
+        ///	Boolean result of check whether rep is a scalar dtype.
         /// </returns>
         public static bool issctype(object rep)
             => NumPy.Instance.issctype(rep);
         
         /// <summary>
-        ///	Returns True if first argument is a typecode lower/equal in type hierarchy.<br></br>
-        ///	
+        ///	Returns True if first argument is a typecode lower/equal in type hierarchy.
         /// </summary>
         /// <param name="arg2">
-        ///	dtype or string representing a typecode.<br></br>
-        ///	
+        ///	dtype or string representing a typecode.
         /// </param>
         /// <param name="arg1">
-        ///	dtype or string representing a typecode.<br></br>
-        ///	
+        ///	dtype or string representing a typecode.
         /// </param>
         public static bool issubdtype(Dtype arg2, Dtype arg1)
             => NumPy.Instance.issubdtype(arg2, arg1);
         
         /// <summary>
-        ///	Determine if the first argument is a subclass of the second argument.<br></br>
-        ///	
+        ///	Determine if the first argument is a subclass of the second argument.
         /// </summary>
         /// <param name="arg2">
-        ///	Data-types.<br></br>
-        ///	
+        ///	Data-types.
         /// </param>
         /// <param name="arg1">
-        ///	Data-types.<br></br>
-        ///	
+        ///	Data-types.
         /// </param>
         /// <returns>
-        ///	The result.<br></br>
-        ///	
+        ///	The result.
         /// </returns>
         public static bool issubsctype(Dtype arg2, Dtype arg1)
             => NumPy.Instance.issubsctype(arg2, arg1);
@@ -429,22 +374,19 @@ namespace Numpy
         ///	
         ///	issubclass_ is equivalent to the Python built-in issubclass,
         ///	except that it returns False instead of raising a TypeError if one
-        ///	of the arguments is not a class.<br></br>
-        ///	
+        ///	of the arguments is not a class.
         /// </summary>
         /// <param name="arg1">
         ///	Input class.<br></br>
-        ///	 True is returned if arg1 is a subclass of arg2.
+        ///	True is returned if arg1 is a subclass of arg2.
         /// </param>
         /// <param name="arg2">
         ///	Input class.<br></br>
-        ///	 If a tuple of classes, True is returned if arg1 is a
-        ///	subclass of any of the tuple elements.<br></br>
-        ///	
+        ///	If a tuple of classes, True is returned if arg1 is a
+        ///	subclass of any of the tuple elements.
         /// </param>
         /// <returns>
-        ///	Whether arg1 is a subclass of arg2 or not.<br></br>
-        ///	
+        ///	Whether arg1 is a subclass of arg2 or not.
         /// </returns>
         public static bool issubclass_(class arg1, class or tuple of classes. arg2)
             => NumPy.Instance.issubclass_(arg1, arg2);
@@ -452,58 +394,48 @@ namespace Numpy
         
         /*
         /// <summary>
-        ///	Determine common type following standard coercion rules.<br></br>
-        ///	
+        ///	Determine common type following standard coercion rules.
         /// </summary>
         /// <param name="array_types">
-        ///	A list of dtypes or dtype convertible objects representing arrays.<br></br>
-        ///	
+        ///	A list of dtypes or dtype convertible objects representing arrays.
         /// </param>
         /// <param name="scalar_types">
-        ///	A list of dtypes or dtype convertible objects representing scalars.<br></br>
-        ///	
+        ///	A list of dtypes or dtype convertible objects representing scalars.
         /// </param>
         /// <returns>
         ///	The common data type, which is the maximum of array_types ignoring
         ///	scalar_types, unless the maximum of scalar_types is of a
         ///	different kind (dtype.kind).<br></br>
         ///	 If the kind is not understood, then
-        ///	None is returned.<br></br>
-        ///	
+        ///	None is returned.
         /// </returns>
         public static Dtype find_common_type(sequence array_types, sequence scalar_types)
             => NumPy.Instance.find_common_type(array_types, scalar_types);
         */
         
         /// <summary>
-        ///	Return a description for the given data type code.<br></br>
-        ///	
+        ///	Return a description for the given data type code.
         /// </summary>
         /// <param name="char">
-        ///	Data type code.<br></br>
-        ///	
+        ///	Data type code.
         /// </param>
         /// <returns>
-        ///	Description of the input data type code.<br></br>
-        ///	
+        ///	Description of the input data type code.
         /// </returns>
         public static string typename(string @char)
             => NumPy.Instance.typename(@char);
         
         /// <summary>
-        ///	Return the string representation of a scalar dtype.<br></br>
-        ///	
+        ///	Return the string representation of a scalar dtype.
         /// </summary>
         /// <param name="sctype">
         ///	If a scalar dtype, the corresponding string character is
         ///	returned.<br></br>
-        ///	 If an object, sctype2char tries to infer its scalar type
-        ///	and then return the corresponding string character.<br></br>
-        ///	
+        ///	If an object, sctype2char tries to infer its scalar type
+        ///	and then return the corresponding string character.
         /// </param>
         /// <returns>
-        ///	The string character corresponding to the scalar type.<br></br>
-        ///	
+        ///	The string character corresponding to the scalar type.
         /// </returns>
         public static string sctype2char(object sctype)
             => NumPy.Instance.sctype2char(sctype);
@@ -516,28 +448,22 @@ namespace Numpy
         ///	The returned type character must represent the smallest size dtype such
         ///	that an array of the returned type can handle the data from an array of
         ///	all types in typechars (or if typechars is an array, then its
-        ///	dtype.char).<br></br>
-        ///	
+        ///	dtype.char).
         /// </summary>
         /// <param name="typechars">
         ///	If a list of strings, each string should represent a dtype.<br></br>
-        ///	
-        ///	If array_like, the character representation of the array dtype is used.<br></br>
-        ///	
+        ///	If array_like, the character representation of the array dtype is used.
         /// </param>
         /// <param name="typeset">
         ///	The set of characters that the returned character is chosen from.<br></br>
-        ///	
         ///	The default set is ‘GDFgdf’.
         /// </param>
         /// <param name="default">
         ///	The default character, this is returned if none of the characters in
-        ///	typechars matches a character in typeset.<br></br>
-        ///	
+        ///	typechars matches a character in typeset.
         /// </param>
         /// <returns>
-        ///	The character representing the minimum-size type that was found.<br></br>
-        ///	
+        ///	The character representing the minimum-size type that was found.
         /// </returns>
         public static string mintypecode(string[] typechars, string[] typeset = null, string @default = "d")
             => NumPy.Instance.mintypecode(typechars, typeset:typeset, @default:@default);

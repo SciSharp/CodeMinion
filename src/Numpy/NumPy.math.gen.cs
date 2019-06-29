@@ -36,35 +36,28 @@ namespace Numpy
         ///	ranges from -1 for  to +1 for   The
         ///	function has zeroes where the angle is a multiple of .
         ///	Sines of angles between  and  are negative.<br></br>
-        ///	
         ///	The numerous properties of the sine and related functions are included
-        ///	in any standard trigonometry text.<br></br>
-        ///	
+        ///	in any standard trigonometry text.
         /// </summary>
         /// <param name="x">
-        ///	Angle, in radians ( rad equals 360 degrees).<br></br>
-        ///	
+        ///	Angle, in radians ( rad equals 360 degrees).
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The sine of each element of x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray sin(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -97,33 +90,27 @@ namespace Numpy
         ///	 Abramowitz and I.<br></br>
         ///	 A.<br></br>
         ///	 Stegun, Handbook of Mathematical Functions.<br></br>
-        ///	
         ///	New York, NY: Dover, 1972.
         /// </summary>
         /// <param name="x">
-        ///	Input array in radians.<br></br>
-        ///	
+        ///	Input array in radians.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding cosine values.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray cos(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -159,33 +146,27 @@ namespace Numpy
         ///	 Abramowitz and I.<br></br>
         ///	 A.<br></br>
         ///	 Stegun, Handbook of Mathematical Functions.<br></br>
-        ///	
         ///	New York, NY: Dover, 1972.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding tangent values.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray tan(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -214,7 +195,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, arcsin always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -233,34 +213,28 @@ namespace Numpy
         ///	 A., Handbook of Mathematical Functions,
         ///	10th printing, New York: Dover, 1964, pp.<br></br>
         ///	 79ff.<br></br>
-        ///	
         ///	http://www.math.sfu.ca/~cbm/aands/
         /// </summary>
         /// <param name="x">
-        ///	y-coordinate on the unit circle.<br></br>
-        ///	
+        ///	y-coordinate on the unit circle.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The inverse sine of each element in x, in radians and in the
         ///	closed interval [-pi/2, pi/2].<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray arcsin(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -293,7 +267,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, arccos always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -315,31 +288,25 @@ namespace Numpy
         /// </summary>
         /// <param name="x">
         ///	x-coordinate on the unit circle.<br></br>
-        ///	
-        ///	For real arguments, the domain is [-1, 1].<br></br>
-        ///	
+        ///	For real arguments, the domain is [-1, 1].
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The angle of the ray intersecting the unit circle at the given
         ///	x-coordinate in radians [0, pi].<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray arccos(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -372,7 +339,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, arctan always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -395,26 +361,22 @@ namespace Numpy
         /// </summary>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Out has the same shape as x.<br></br>
         ///	  Its real part is in
         ///	[-pi/2, pi/2] (arctan(+/-inf) returns +/-pi/2).<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray arctan(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -439,37 +401,30 @@ namespace Numpy
         ///	  If x1 or
         ///	x2 is scalar_like (i.e., unambiguously cast-able to a scalar type),
         ///	it is broadcast for use with each element of the other argument.<br></br>
-        ///	
         ///	(See Examples)
         /// </summary>
         /// <param name="x2">
-        ///	Leg of the triangle(s).<br></br>
-        ///	
+        ///	Leg of the triangle(s).
         /// </param>
         /// <param name="x1">
-        ///	Leg of the triangle(s).<br></br>
-        ///	
+        ///	Leg of the triangle(s).
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The hypotenuse of the triangle(s).<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray hypot(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -520,35 +475,29 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x1">
-        ///	y-coordinates.<br></br>
-        ///	
+        ///	y-coordinates.
         /// </param>
         /// <param name="x2">
         ///	x-coordinates.<br></br>
-        ///	 x2 must be broadcastable to match the shape of
-        ///	x1 or vice versa.<br></br>
-        ///	
+        ///	x2 must be broadcastable to match the shape of
+        ///	x1 or vice versa.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Array of angles in radians, in the range [-pi, pi].<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray arctan2(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -567,34 +516,28 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Convert angles from radians to degrees.<br></br>
-        ///	
+        ///	Convert angles from radians to degrees.
         /// </summary>
         /// <param name="x">
-        ///	Input array in radians.<br></br>
-        ///	
+        ///	Input array in radians.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding degree values; if out was supplied this is a
         ///	reference to it.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray degrees(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -612,33 +555,27 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Convert angles from degrees to radians.<br></br>
-        ///	
+        ///	Convert angles from degrees to radians.
         /// </summary>
         /// <param name="x">
-        ///	Input array in degrees.<br></br>
-        ///	
+        ///	Input array in degrees.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding radian values.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray radians(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -667,24 +604,19 @@ namespace Numpy
         ///	
         ///	If the discontinuity in p is smaller than pi, but larger than
         ///	discont, no unwrapping is done because taking the 2*pi complement
-        ///	would only make the discontinuity larger.<br></br>
-        ///	
+        ///	would only make the discontinuity larger.
         /// </summary>
         /// <param name="p">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="discont">
-        ///	Maximum discontinuity between values, default is pi.<br></br>
-        ///	
+        ///	Maximum discontinuity between values, default is pi.
         /// </param>
         /// <param name="axis">
-        ///	Axis along which unwrap will operate, default is the last axis.<br></br>
-        ///	
+        ///	Axis along which unwrap will operate, default is the last axis.
         /// </param>
         /// <returns>
-        ///	Output array.<br></br>
-        ///	
+        ///	Output array.
         /// </returns>
         public NDarray unwrap(NDarray p, float? discont = 3.141592653589793f, int? axis = -1)
         {
@@ -710,29 +642,24 @@ namespace Numpy
         ///	deg2rad(x) is x * pi / 180.
         /// </summary>
         /// <param name="x">
-        ///	Angles in degrees.<br></br>
-        ///	
+        ///	Angles in degrees.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding angle in radians.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray deg2rad(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -755,33 +682,27 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	rad2deg(x) is 180 * x / pi.<br></br>
-        ///	
+        ///	rad2deg(x) is 180 * x / pi.
         /// </summary>
         /// <param name="x">
-        ///	Angle in radians.<br></br>
-        ///	
+        ///	Angle in radians.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding angle in degrees.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray rad2deg(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -818,34 +739,28 @@ namespace Numpy
         ///	 Abramowitz and I.<br></br>
         ///	 A.<br></br>
         ///	 Stegun, Handbook of Mathematical Functions.<br></br>
-        ///	
         ///	New York, NY: Dover, 1972, pg.<br></br>
         ///	 83.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding hyperbolic sine values.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray sinh(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -866,33 +781,27 @@ namespace Numpy
         ///	Hyperbolic cosine, element-wise.<br></br>
         ///	
         ///	
-        ///	Equivalent to 1/2 * (np.exp(x) + np.exp(-x)) and np.cos(1j*x).<br></br>
-        ///	
+        ///	Equivalent to 1/2 * (np.exp(x) + np.exp(-x)) and np.cos(1j*x).
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Output array of same shape as x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray cosh(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -925,29 +834,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The corresponding hyperbolic tangent values.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray tanh(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -977,7 +881,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, arcsinh always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity, it
         ///	returns nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -992,29 +895,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Array of the same shape as x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray arcsinh(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1045,7 +943,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, arccosh always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity, it
         ///	yields nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -1057,29 +954,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Array of the same shape as x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray arccosh(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1109,7 +1001,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, arctanh always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -1124,29 +1015,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Array of the same shape as x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray arctanh(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1182,28 +1068,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="decimals">
         ///	Number of decimal places to round to (default: 0).<br></br>
-        ///	  If
+        ///	If
         ///	decimals is negative, it specifies the number of positions to
-        ///	the left of the decimal point.<br></br>
-        ///	
+        ///	the left of the decimal point.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type of the output
         ///	values will be cast if necessary.<br></br>
-        ///	 See doc.ufuncs (Section
-        ///	“Output arguments”) for details.<br></br>
-        ///	
+        ///	See doc.ufuncs (Section
+        ///	“Output arguments”) for details.
         /// </param>
         /// <returns>
         ///	An array of the same type as a, containing the rounded values.<br></br>
-        ///	
         ///	Unless out was specified, a new array is created.<br></br>
         ///	  A reference to
         ///	the result is returned.<br></br>
@@ -1211,8 +1093,7 @@ namespace Numpy
         ///	
         ///	The real and imaginary parts of complex numbers are rounded
         ///	separately.<br></br>
-        ///	  The result of rounding a float is a float.<br></br>
-        ///	
+        ///	  The result of rounding a float is a float.
         /// </returns>
         public NDarray around(NDarray a, int? decimals = 0, NDarray @out = null)
         {
@@ -1230,33 +1111,27 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Round elements of the array to the nearest integer.<br></br>
-        ///	
+        ///	Round elements of the array to the nearest integer.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Output array is same shape and type as x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray rint(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1278,9 +1153,7 @@ namespace Numpy
         ///	
         ///	
         ///	Round an array of floats element-wise to nearest integer towards zero.<br></br>
-        ///	
-        ///	The rounded values are returned as floats.<br></br>
-        ///	
+        ///	The rounded values are returned as floats.
         /// </summary>
         /// <param name="x">
         ///	An array of floats to be rounded
@@ -1320,29 +1193,24 @@ namespace Numpy
         ///	floor where floor(-2.5) == -3.
         /// </summary>
         /// <param name="x">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The floor of each element in x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray floor(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1368,29 +1236,24 @@ namespace Numpy
         ///	  It is often denoted as .
         /// </summary>
         /// <param name="x">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The ceiling of each element in x, with float dtype.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray ceil(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1420,29 +1283,24 @@ namespace Numpy
         ///	Notes
         /// </summary>
         /// <param name="x">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The truncated value of each element in x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray trunc(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -1472,66 +1330,58 @@ namespace Numpy
         ///	The product of an empty array is the neutral element 1:
         /// </summary>
         /// <param name="a">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which a product is performed.<br></br>
-        ///	  The default,
+        ///	The default,
         ///	axis=None, will calculate the product of all the elements in the
         ///	input array.<br></br>
-        ///	 If axis is negative it counts from the last to the
+        ///	If axis is negative it counts from the last to the
         ///	first axis.<br></br>
         ///	
         ///	
         ///	If axis is a tuple of ints, a product is performed on all of the
         ///	axes specified in the tuple instead of a single axis or all the
-        ///	axes as before.<br></br>
-        ///	
+        ///	axes as before.
         /// </param>
         /// <param name="dtype">
         ///	The type of the returned array, as well as of the accumulator in
         ///	which the elements are multiplied.<br></br>
-        ///	  The dtype of a is used by
+        ///	The dtype of a is used by
         ///	default unless a has an integer dtype of less precision than the
         ///	default platform integer.<br></br>
-        ///	  In that case, if a is signed then the
+        ///	In that case, if a is signed then the
         ///	platform integer is used while if a is unsigned then an unsigned
-        ///	integer of the same precision as the platform integer is used.<br></br>
-        ///	
+        ///	integer of the same precision as the platform integer is used.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type of the output
-        ///	values will be cast if necessary.<br></br>
-        ///	
+        ///	values will be cast if necessary.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left in the
         ///	result as dimensions with size one.<br></br>
-        ///	 With this option, the result
+        ///	With this option, the result
         ///	will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the prod method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <param name="initial">
         ///	The starting value for this product.<br></br>
-        ///	 See reduce for details.<br></br>
-        ///	
+        ///	See reduce for details.
         /// </param>
         /// <returns>
         ///	An array shaped as a but with the specified axis removed.<br></br>
-        ///	
-        ///	Returns a reference to out if specified.<br></br>
-        ///	
+        ///	Returns a reference to out if specified.
         /// </returns>
         public NDarray prod(NDarray a, int[] axis = null, Dtype dtype = null, NDarray @out = null, bool? keepdims = null, ValueType initial = null)
         {
@@ -1564,59 +1414,53 @@ namespace Numpy
         ///	The sum of an empty array is the neutral element 0:
         /// </summary>
         /// <param name="a">
-        ///	Elements to sum.<br></br>
-        ///	
+        ///	Elements to sum.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which a sum is performed.<br></br>
-        ///	  The default,
+        ///	The default,
         ///	axis=None, will sum all of the elements of the input array.<br></br>
-        ///	  If
+        ///	If
         ///	axis is negative it counts from the last to the first axis.<br></br>
         ///	
         ///	
         ///	If axis is a tuple of ints, a sum is performed on all of the axes
         ///	specified in the tuple instead of a single axis or all the axes as
-        ///	before.<br></br>
-        ///	
+        ///	before.
         /// </param>
         /// <param name="dtype">
         ///	The type of the returned array and of the accumulator in which the
         ///	elements are summed.<br></br>
-        ///	  The dtype of a is used by default unless a
+        ///	The dtype of a is used by default unless a
         ///	has an integer dtype of less precision than the default platform
         ///	integer.<br></br>
-        ///	  In that case, if a is signed then the platform integer
+        ///	In that case, if a is signed then the platform integer
         ///	is used while if a is unsigned then an unsigned integer of the
-        ///	same precision as the platform integer is used.<br></br>
-        ///	
+        ///	same precision as the platform integer is used.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must have
+        ///	It must have
         ///	the same shape as the expected output, but the type of the output
-        ///	values will be cast if necessary.<br></br>
-        ///	
+        ///	values will be cast if necessary.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the sum method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
-        ///	  If the
+        ///	If the
         ///	sub-class’ method does not implement keepdims any
-        ///	exceptions will be raised.<br></br>
-        ///	
+        ///	exceptions will be raised.
         /// </param>
         /// <param name="initial">
         ///	Starting value for the sum.<br></br>
-        ///	 See reduce for details.<br></br>
-        ///	
+        ///	See reduce for details.
         /// </param>
         /// <returns>
         ///	An array with the same shape as a, with the specified
@@ -1624,8 +1468,7 @@ namespace Numpy
         ///	   If a is a 0-d array, or if axis is None, a scalar
         ///	is returned.<br></br>
         ///	  If an output array is specified, a reference to
-        ///	out is returned.<br></br>
-        ///	
+        ///	out is returned.
         /// </returns>
         public NDarray sum(NDarray a, int[] axis = null, Dtype dtype = null, NDarray @out = null, bool? keepdims = null, ValueType initial = null)
         {
@@ -1650,57 +1493,50 @@ namespace Numpy
         ///	Numbers (NaNs) as ones.<br></br>
         ///	
         ///	
-        ///	One is returned for slices that are all-NaN or empty.<br></br>
-        ///	
+        ///	One is returned for slices that are all-NaN or empty.
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose product is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the product is computed.<br></br>
-        ///	 The default is to compute
-        ///	the product of the flattened array.<br></br>
-        ///	
+        ///	The default is to compute
+        ///	the product of the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	The type of the returned array and of the accumulator in which the
         ///	elements are summed.<br></br>
-        ///	  By default, the dtype of a is used.<br></br>
-        ///	  An
+        ///	By default, the dtype of a is used.<br></br>
+        ///	An
         ///	exception is when a has an integer type with less precision than
         ///	the platform (u)intp.<br></br>
-        ///	 In that case, the default will be either
+        ///	In that case, the default will be either
         ///	(u)int32 or (u)int64 depending on whether the platform is 32 or 64
         ///	bits.<br></br>
-        ///	 For inexact inputs, dtype must be inexact.<br></br>
-        ///	
+        ///	For inexact inputs, dtype must be inexact.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None.<br></br>
-        ///	 If provided, it must have the same shape as the
+        ///	If provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	  See
+        ///	See
         ///	doc.ufuncs for details.<br></br>
-        ///	 The casting of NaN to integer can yield
-        ///	unexpected results.<br></br>
-        ///	
+        ///	The casting of NaN to integer can yield
+        ///	unexpected results.
         /// </param>
         /// <param name="keepdims">
         ///	If True, the axes which are reduced are left in the result as
         ///	dimensions with size one.<br></br>
-        ///	 With this option, the result will
-        ///	broadcast correctly against the original arr.<br></br>
-        ///	
+        ///	With this option, the result will
+        ///	broadcast correctly against the original arr.
         /// </param>
         /// <returns>
         ///	A new array holding the result is returned unless out is
-        ///	specified, in which case it is returned.<br></br>
-        ///	
+        ///	specified, in which case it is returned.
         /// </returns>
         public NDarray nanprod(NDarray a, int[] axis = null, Dtype dtype = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -1732,67 +1568,60 @@ namespace Numpy
         ///	Notes
         ///	
         ///	If both positive and negative infinity are present, the sum will be Not
-        ///	A Number (NaN).<br></br>
-        ///	
+        ///	A Number (NaN).
         /// </summary>
         /// <param name="a">
         ///	Array containing numbers whose sum is desired.<br></br>
-        ///	 If a is not an
-        ///	array, a conversion is attempted.<br></br>
-        ///	
+        ///	If a is not an
+        ///	array, a conversion is attempted.
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which the sum is computed.<br></br>
-        ///	 The default is to compute the
-        ///	sum of the flattened array.<br></br>
-        ///	
+        ///	The default is to compute the
+        ///	sum of the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	The type of the returned array and of the accumulator in which the
         ///	elements are summed.<br></br>
-        ///	  By default, the dtype of a is used.<br></br>
-        ///	  An
+        ///	By default, the dtype of a is used.<br></br>
+        ///	An
         ///	exception is when a has an integer type with less precision than
         ///	the platform (u)intp.<br></br>
-        ///	 In that case, the default will be either
+        ///	In that case, the default will be either
         ///	(u)int32 or (u)int64 depending on whether the platform is 32 or 64
         ///	bits.<br></br>
-        ///	 For inexact inputs, dtype must be inexact.<br></br>
-        ///	
+        ///	For inexact inputs, dtype must be inexact.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
-        ///	  The default
+        ///	The default
         ///	is None.<br></br>
-        ///	 If provided, it must have the same shape as the
+        ///	If provided, it must have the same shape as the
         ///	expected output, but the type will be cast if necessary.<br></br>
-        ///	  See
+        ///	See
         ///	doc.ufuncs for details.<br></br>
-        ///	 The casting of NaN to integer can yield
-        ///	unexpected results.<br></br>
-        ///	
+        ///	The casting of NaN to integer can yield
+        ///	unexpected results.
         /// </param>
         /// <param name="keepdims">
         ///	If this is set to True, the axes which are reduced are left
         ///	in the result as dimensions with size one.<br></br>
-        ///	 With this option,
+        ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
         ///	
         ///	If the value is anything but the default, then
         ///	keepdims will be passed through to the mean or sum methods
         ///	of sub-classes of ndarray.<br></br>
-        ///	  If the sub-classes methods
-        ///	does not implement keepdims any exceptions will be raised.<br></br>
-        ///	
+        ///	If the sub-classes methods
+        ///	does not implement keepdims any exceptions will be raised.
         /// </param>
         /// <returns>
         ///	A new array holding the result is returned unless out is
         ///	specified, in which it is returned.<br></br>
         ///	 The result has the same
         ///	size as a, and the same shape as a if axis is not None
-        ///	or a is a 1-d array.<br></br>
-        ///	
+        ///	or a is a 1-d array.
         /// </returns>
         public NDarray nansum(NDarray a, int[] axis = null, Dtype dtype = null, NDarray @out = null, bool? keepdims = null)
         {
@@ -1818,40 +1647,34 @@ namespace Numpy
         ///	Notes
         ///	
         ///	Arithmetic is modular when using integer types, and no error is
-        ///	raised on overflow.<br></br>
-        ///	
+        ///	raised on overflow.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	Axis along which the cumulative product is computed.<br></br>
-        ///	  By default
-        ///	the input is flattened.<br></br>
-        ///	
+        ///	By default
+        ///	the input is flattened.
         /// </param>
         /// <param name="dtype">
         ///	Type of the returned array, as well as of the accumulator in which
         ///	the elements are multiplied.<br></br>
-        ///	  If dtype is not specified, it
+        ///	If dtype is not specified, it
         ///	defaults to the dtype of a, unless a has an integer dtype with
         ///	a precision less than that of the default platform integer.<br></br>
-        ///	  In
-        ///	that case, the default platform integer is used instead.<br></br>
-        ///	
+        ///	In
+        ///	that case, the default platform integer is used instead.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output
-        ///	but the type of the resulting values will be cast if necessary.<br></br>
-        ///	
+        ///	but the type of the resulting values will be cast if necessary.
         /// </param>
         /// <returns>
         ///	A new array holding the result is returned unless out is
-        ///	specified, in which case a reference to out is returned.<br></br>
-        ///	
+        ///	specified, in which case a reference to out is returned.
         /// </returns>
         public NDarray cumprod(NDarray a, int? axis = null, Dtype dtype = null, NDarray @out = null)
         {
@@ -1876,45 +1699,39 @@ namespace Numpy
         ///	Notes
         ///	
         ///	Arithmetic is modular when using integer types, and no error is
-        ///	raised on overflow.<br></br>
-        ///	
+        ///	raised on overflow.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	Axis along which the cumulative sum is computed.<br></br>
-        ///	 The default
-        ///	(None) is to compute the cumsum over the flattened array.<br></br>
-        ///	
+        ///	The default
+        ///	(None) is to compute the cumsum over the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	Type of the returned array and of the accumulator in which the
         ///	elements are summed.<br></br>
-        ///	  If dtype is not specified, it defaults
+        ///	If dtype is not specified, it defaults
         ///	to the dtype of a, unless a has an integer dtype with a
         ///	precision less than that of the default platform integer.<br></br>
-        ///	  In
-        ///	that case, the default platform integer is used.<br></br>
-        ///	
+        ///	In
+        ///	that case, the default platform integer is used.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output
         ///	but the type will be cast if necessary.<br></br>
-        ///	 See doc.ufuncs
-        ///	(Section “Output arguments”) for more details.<br></br>
-        ///	
+        ///	See doc.ufuncs
+        ///	(Section “Output arguments”) for more details.
         /// </param>
         /// <returns>
         ///	A new array holding the result is returned unless out is
         ///	specified, in which case a reference to out is returned.<br></br>
         ///	 The
         ///	result has the same size as a, and the same shape as a if
-        ///	axis is not None or a is a 1-d array.<br></br>
-        ///	
+        ///	axis is not None or a is a 1-d array.
         /// </returns>
         public NDarray cumsum(NDarray a, int? axis = null, Dtype dtype = null, NDarray @out = null)
         {
@@ -1939,40 +1756,34 @@ namespace Numpy
         ///	encountered and leading NaNs are replaced by ones.<br></br>
         ///	
         ///	
-        ///	Ones are returned for slices that are all-NaN or empty.<br></br>
-        ///	
+        ///	Ones are returned for slices that are all-NaN or empty.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	Axis along which the cumulative product is computed.<br></br>
-        ///	  By default
-        ///	the input is flattened.<br></br>
-        ///	
+        ///	By default
+        ///	the input is flattened.
         /// </param>
         /// <param name="dtype">
         ///	Type of the returned array, as well as of the accumulator in which
         ///	the elements are multiplied.<br></br>
-        ///	  If dtype is not specified, it
+        ///	If dtype is not specified, it
         ///	defaults to the dtype of a, unless a has an integer dtype with
         ///	a precision less than that of the default platform integer.<br></br>
-        ///	  In
-        ///	that case, the default platform integer is used instead.<br></br>
-        ///	
+        ///	In
+        ///	that case, the default platform integer is used instead.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output
-        ///	but the type of the resulting values will be cast if necessary.<br></br>
-        ///	
+        ///	but the type of the resulting values will be cast if necessary.
         /// </param>
         /// <returns>
         ///	A new array holding the result is returned unless out is
-        ///	specified, in which case it is returned.<br></br>
-        ///	
+        ///	specified, in which case it is returned.
         /// </returns>
         public NDarray nancumprod(NDarray a, int? axis = null, Dtype dtype = null, NDarray @out = null)
         {
@@ -1997,45 +1808,39 @@ namespace Numpy
         ///	encountered and leading NaNs are replaced by zeros.<br></br>
         ///	
         ///	
-        ///	Zeros are returned for slices that are all-NaN or empty.<br></br>
-        ///	
+        ///	Zeros are returned for slices that are all-NaN or empty.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="axis">
         ///	Axis along which the cumulative sum is computed.<br></br>
-        ///	 The default
-        ///	(None) is to compute the cumsum over the flattened array.<br></br>
-        ///	
+        ///	The default
+        ///	(None) is to compute the cumsum over the flattened array.
         /// </param>
         /// <param name="dtype">
         ///	Type of the returned array and of the accumulator in which the
         ///	elements are summed.<br></br>
-        ///	  If dtype is not specified, it defaults
+        ///	If dtype is not specified, it defaults
         ///	to the dtype of a, unless a has an integer dtype with a
         ///	precision less than that of the default platform integer.<br></br>
-        ///	  In
-        ///	that case, the default platform integer is used.<br></br>
-        ///	
+        ///	In
+        ///	that case, the default platform integer is used.
         /// </param>
         /// <param name="out">
         ///	Alternative output array in which to place the result.<br></br>
-        ///	 It must
+        ///	It must
         ///	have the same shape and buffer length as the expected output
         ///	but the type will be cast if necessary.<br></br>
-        ///	 See doc.ufuncs
-        ///	(Section “Output arguments”) for more details.<br></br>
-        ///	
+        ///	See doc.ufuncs
+        ///	(Section “Output arguments”) for more details.
         /// </param>
         /// <returns>
         ///	A new array holding the result is returned unless out is
         ///	specified, in which it is returned.<br></br>
         ///	 The result has the same
         ///	size as a, and the same shape as a if axis is not None
-        ///	or a is a 1-d array.<br></br>
-        ///	
+        ///	or a is a 1-d array.
         /// </returns>
         public NDarray nancumsum(NDarray a, int? axis = null, Dtype dtype = null, NDarray @out = null)
         {
@@ -2082,34 +1887,30 @@ namespace Numpy
         /// </param>
         /// <param name="n">
         ///	The number of times values are differenced.<br></br>
-        ///	 If zero, the input
-        ///	is returned as-is.<br></br>
-        ///	
+        ///	If zero, the input
+        ///	is returned as-is.
         /// </param>
         /// <param name="axis">
         ///	The axis along which the difference is taken, default is the
-        ///	last axis.<br></br>
-        ///	
+        ///	last axis.
         /// </param>
         /// <param name="append">
         ///	Values to prepend or append to “a” along axis prior to
         ///	performing the difference.<br></br>
-        ///	  Scalar values are expanded to
+        ///	Scalar values are expanded to
         ///	arrays with length 1 in the direction of axis and the shape
         ///	of the input array in along all other axes.<br></br>
-        ///	  Otherwise the
-        ///	dimension and shape must match “a” except along axis.<br></br>
-        ///	
+        ///	Otherwise the
+        ///	dimension and shape must match “a” except along axis.
         /// </param>
         /// <param name="prepend">
         ///	Values to prepend or append to “a” along axis prior to
         ///	performing the difference.<br></br>
-        ///	  Scalar values are expanded to
+        ///	Scalar values are expanded to
         ///	arrays with length 1 in the direction of axis and the shape
         ///	of the input array in along all other axes.<br></br>
-        ///	  Otherwise the
-        ///	dimension and shape must match “a” except along axis.<br></br>
-        ///	
+        ///	Otherwise the
+        ///	dimension and shape must match “a” except along axis.
         /// </param>
         /// <returns>
         ///	The n-th differences.<br></br>
@@ -2121,8 +1922,7 @@ namespace Numpy
         ///	 This is the same as the type of
         ///	a in most cases.<br></br>
         ///	 A notable exception is datetime64, which
-        ///	results in a timedelta64 output array.<br></br>
-        ///	
+        ///	results in a timedelta64 output array.
         /// </returns>
         public NDarray diff(NDarray a, int? n = 1, int? axis = -1, NDarray append = null, NDarray prepend = null)
         {
@@ -2148,25 +1948,20 @@ namespace Numpy
         ///	Notes
         ///	
         ///	When applied to masked arrays, this function drops the mask information
-        ///	if the to_begin and/or to_end parameters are used.<br></br>
-        ///	
+        ///	if the to_begin and/or to_end parameters are used.
         /// </summary>
         /// <param name="ary">
-        ///	If necessary, will be flattened before the differences are taken.<br></br>
-        ///	
+        ///	If necessary, will be flattened before the differences are taken.
         /// </param>
         /// <param name="to_end">
-        ///	Number(s) to append at the end of the returned differences.<br></br>
-        ///	
+        ///	Number(s) to append at the end of the returned differences.
         /// </param>
         /// <param name="to_begin">
-        ///	Number(s) to prepend at the beginning of the returned differences.<br></br>
-        ///	
+        ///	Number(s) to prepend at the beginning of the returned differences.
         /// </param>
         /// <returns>
         ///	The differences.<br></br>
-        ///	 Loosely, this is ary.flat[1:] - ary.flat[:-1].<br></br>
-        ///	
+        ///	 Loosely, this is ary.flat[1:] - ary.flat[:-1].
         /// </returns>
         public NDarray ediff1d(NDarray ary, NDarray to_end = null, NDarray to_begin = null)
         {
@@ -2190,7 +1985,6 @@ namespace Numpy
         ///	The gradient is computed using second order accurate central differences
         ///	in the interior points and either first or second order accurate one-sides
         ///	(forward or backwards) differences at the boundaries.<br></br>
-        ///	
         ///	The returned gradient hence has the same shape as the input array.<br></br>
         ///	
         ///	
@@ -2218,40 +2012,32 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="f">
-        ///	An N-dimensional array containing samples of a scalar function.<br></br>
-        ///	
+        ///	An N-dimensional array containing samples of a scalar function.
         /// </param>
         /// <param name="varargs">
         ///	Spacing between f values.<br></br>
-        ///	 Default unitary spacing for all dimensions.<br></br>
-        ///	
+        ///	Default unitary spacing for all dimensions.<br></br>
         ///	Spacing can be specified using:
         ///	
         ///	If axis is given, the number of varargs must equal the number of axes.<br></br>
-        ///	
-        ///	Default: 1.<br></br>
-        ///	
+        ///	Default: 1.
         /// </param>
         /// <param name="edge_order">
         ///	Gradient is calculated using N-th order accurate differences
         ///	at the boundaries.<br></br>
-        ///	 Default: 1.<br></br>
-        ///	
+        ///	Default: 1.
         /// </param>
         /// <param name="axis">
         ///	Gradient is calculated only along the given axis or axes
         ///	The default (axis = None) is to calculate the gradient for all the axes
         ///	of the input array.<br></br>
-        ///	 axis may be negative, in which case it counts from
-        ///	the last to the first axis.<br></br>
-        ///	
+        ///	axis may be negative, in which case it counts from
+        ///	the last to the first axis.
         /// </param>
         /// <returns>
         ///	A set of ndarrays (or a single ndarray if there is only one dimension)
         ///	corresponding to the derivatives of f with respect to each dimension.<br></br>
-        ///	
-        ///	Each derivative has the same shape as f.<br></br>
-        ///	
+        ///	Each derivative has the same shape as f.
         /// </returns>
         public NDarray gradient(NDarray f, NDarray varargs = null, int? edge_order = null, int[] axis = null)
         {
@@ -2287,44 +2073,35 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	Supports full broadcasting of the inputs.<br></br>
-        ///	
+        ///	Supports full broadcasting of the inputs.
         /// </summary>
         /// <param name="a">
-        ///	Components of the first vector(s).<br></br>
-        ///	
+        ///	Components of the first vector(s).
         /// </param>
         /// <param name="b">
-        ///	Components of the second vector(s).<br></br>
-        ///	
+        ///	Components of the second vector(s).
         /// </param>
         /// <param name="axisa">
         ///	Axis of a that defines the vector(s).<br></br>
-        ///	  By default, the last axis.<br></br>
-        ///	
+        ///	By default, the last axis.
         /// </param>
         /// <param name="axisb">
         ///	Axis of b that defines the vector(s).<br></br>
-        ///	  By default, the last axis.<br></br>
-        ///	
+        ///	By default, the last axis.
         /// </param>
         /// <param name="axisc">
         ///	Axis of c containing the cross product vector(s).<br></br>
-        ///	  Ignored if
+        ///	Ignored if
         ///	both input vectors have dimension 2, as the return is scalar.<br></br>
-        ///	
-        ///	By default, the last axis.<br></br>
-        ///	
+        ///	By default, the last axis.
         /// </param>
         /// <param name="axis">
         ///	If defined, the axis of a, b and c that defines the vector(s)
         ///	and cross product(s).<br></br>
-        ///	  Overrides axisa, axisb and axisc.<br></br>
-        ///	
+        ///	Overrides axisa, axisb and axisc.
         /// </param>
         /// <returns>
-        ///	Vector cross product(s).<br></br>
-        ///	
+        ///	Vector cross product(s).
         /// </returns>
         public NDarray cross(NDarray a, NDarray b, int? axisa = -1, int? axisb = -1, int? axisc = -1, int? axis = null)
         {
@@ -2364,29 +2141,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="y">
-        ///	Input array to integrate.<br></br>
-        ///	
+        ///	Input array to integrate.
         /// </param>
         /// <param name="x">
         ///	The sample points corresponding to the y values.<br></br>
-        ///	 If x is None,
+        ///	If x is None,
         ///	the sample points are assumed to be evenly spaced dx apart.<br></br>
-        ///	 The
-        ///	default is None.<br></br>
-        ///	
+        ///	The
+        ///	default is None.
         /// </param>
         /// <param name="dx">
         ///	The spacing between sample points when x is None.<br></br>
-        ///	 The default is 1.<br></br>
-        ///	
+        ///	The default is 1.
         /// </param>
         /// <param name="axis">
-        ///	The axis along which to integrate.<br></br>
-        ///	
+        ///	The axis along which to integrate.
         /// </param>
         /// <returns>
-        ///	Definite integral as approximated by trapezoidal rule.<br></br>
-        ///	
+        ///	Definite integral as approximated by trapezoidal rule.
         /// </returns>
         public float trapz(NDarray y, NDarray x = null, float? dx = 1.0f, int? axis = -1)
         {
@@ -2428,29 +2200,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Output array, element-wise exponential of x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray exp(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2474,33 +2241,27 @@ namespace Numpy
         ///	Notes
         ///	
         ///	This function provides greater precision than exp(x) - 1
-        ///	for small values of x.<br></br>
-        ///	
+        ///	for small values of x.
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Element-wise exponential minus one: out = exp(x) - 1.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray expm1(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2524,29 +2285,24 @@ namespace Numpy
         ///	Notes
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Element-wise 2 to the power x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray exp2(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2597,29 +2353,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input value.<br></br>
-        ///	
+        ///	Input value.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The natural logarithm of x, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray log(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2649,14 +2400,12 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, log10 always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
         ///	
         ///	For complex-valued input, log10 is a complex analytical function that
         ///	has a branch cut [-inf, 0] and is continuous from above on it.<br></br>
-        ///	
         ///	log10 handles the floating-point negative zero as an infinitesimal
         ///	negative number, conforming to the C99 standard.<br></br>
         ///	
@@ -2664,31 +2413,26 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The logarithm to the base 10 of x, element-wise.<br></br>
         ///	 NaNs are
         ///	returned where x is negative.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray log10(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2718,7 +2462,6 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, log2 always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
@@ -2727,33 +2470,27 @@ namespace Numpy
         ///	has a branch cut [-inf, 0] and is continuous from above on it.<br></br>
         ///	 log2
         ///	handles the floating-point negative zero as an infinitesimal negative
-        ///	number, conforming to the C99 standard.<br></br>
-        ///	
+        ///	number, conforming to the C99 standard.
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Base-2 logarithm of x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray log2(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2790,14 +2527,12 @@ namespace Numpy
         ///	
         ///	
         ///	For real-valued input data types, log1p always returns real output.<br></br>
-        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
         ///	
         ///	For complex-valued input, log1p is a complex analytical function that
         ///	has a branch cut [-inf, -1] and is continuous from above on it.<br></br>
-        ///	
         ///	log1p handles the floating-point negative zero as an infinitesimal
         ///	negative number, conforming to the C99 standard.<br></br>
         ///	
@@ -2805,29 +2540,24 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Natural logarithm of 1 + x, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray log1p(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -2861,33 +2591,27 @@ namespace Numpy
         ///	Notes
         /// </summary>
         /// <param name="x2">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="x1">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Logarithm of exp(x1) + exp(x2).<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray logaddexp(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -2914,39 +2638,33 @@ namespace Numpy
         ///	to exceed the range of normal floating point numbers.<br></br>
         ///	  In such cases
         ///	the base-2 logarithm of the calculated probability can be used instead.<br></br>
-        ///	
         ///	This function allows adding probabilities stored in such a fashion.<br></br>
         ///	
         ///	
         ///	Notes
         /// </summary>
         /// <param name="x2">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="x1">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Base-2 logarithm of 2**x1 + 2**x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray logaddexp2(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -2990,12 +2708,10 @@ namespace Numpy
         /// </summary>
         /// <param name="x">
         ///	Array (possibly multi-dimensional) of values for which to to
-        ///	calculate sinc(x).<br></br>
-        ///	
+        ///	calculate sinc(x).
         /// </param>
         /// <returns>
-        ///	sinc(x), which has the same shape as the input.<br></br>
-        ///	
+        ///	sinc(x), which has the same shape as the input.
         /// </returns>
         public NDarray sinc(NDarray x)
         {
@@ -3011,33 +2727,27 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Returns element-wise True where signbit is set (less than zero).<br></br>
-        ///	
+        ///	Returns element-wise True where signbit is set (less than zero).
         /// </summary>
         /// <param name="x">
-        ///	The input value(s).<br></br>
-        ///	
+        ///	The input value(s).
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Output array, or reference to out if that was supplied.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray signbit(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -3064,31 +2774,27 @@ namespace Numpy
         ///	x1.
         /// </summary>
         /// <param name="x1">
-        ///	Values to change the sign of.<br></br>
-        ///	
+        ///	Values to change the sign of.
         /// </param>
         /// <param name="x2">
         ///	The sign of x2 is copied to x1.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The values of x1 with the sign of x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray copysign(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3117,37 +2823,31 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	Complex dtypes are not supported, they will raise a TypeError.<br></br>
-        ///	
+        ///	Complex dtypes are not supported, they will raise a TypeError.
         /// </summary>
         /// <param name="x">
-        ///	Array of numbers to be decomposed.<br></br>
-        ///	
+        ///	Array of numbers to be decomposed.
         /// </param>
         /// <param name="out1">
         ///	Output array for the mantissa.<br></br>
-        ///	 Must have the same shape as x.<br></br>
-        ///	
+        ///	Must have the same shape as x.
         /// </param>
         /// <param name="out2">
         ///	Output array for the exponent.<br></br>
-        ///	 Must have the same shape as x.<br></br>
-        ///	
+        ///	Must have the same shape as x.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -3192,32 +2892,27 @@ namespace Numpy
         ///	more clear to simply use the expression x1 * 2**x2.
         /// </summary>
         /// <param name="x1">
-        ///	Array of multipliers.<br></br>
-        ///	
+        ///	Array of multipliers.
         /// </param>
         /// <param name="x2">
-        ///	Array of twos exponents.<br></br>
-        ///	
+        ///	Array of twos exponents.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The result of x1 * 2**x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray ldexp(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3236,35 +2931,30 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return the next floating-point value after x1 towards x2, element-wise.<br></br>
-        ///	
+        ///	Return the next floating-point value after x1 towards x2, element-wise.
         /// </summary>
         /// <param name="x1">
-        ///	Values to find the next representable value of.<br></br>
-        ///	
+        ///	Values to find the next representable value of.
         /// </param>
         /// <param name="x2">
         ///	The direction where to look for the next representable value of x1.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The next representable values of x1 in the direction of x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray nextafter(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3294,33 +2984,27 @@ namespace Numpy
         ///	x for any finite x.<br></br>
         ///	
         ///	
-        ///	Spacing of +- inf and NaN is NaN.<br></br>
-        ///	
+        ///	Spacing of +- inf and NaN is NaN.
         /// </summary>
         /// <param name="x">
-        ///	Values to find the spacing of.<br></br>
-        ///	
+        ///	Values to find the spacing of.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The spacing of values of x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray spacing(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -3348,8 +3032,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The lowest common multiple of the absolute value of the inputs
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray lcm(NDarray x2, NDarray x1)
         {
@@ -3376,8 +3059,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The greatest common divisor of the absolute value of the inputs
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray gcd(NDarray x2, NDarray x1)
         {
@@ -3399,43 +3081,36 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	Equivalent to x1 + x2 in terms of array broadcasting.<br></br>
-        ///	
+        ///	Equivalent to x1 + x2 in terms of array broadcasting.
         /// </summary>
         /// <param name="x2">
         ///	The arrays to be added.<br></br>
-        ///	  If x1.shape != x2.shape, they must be
+        ///	If x1.shape != x2.shape, they must be
         ///	broadcastable to a common shape (which may be the shape of one or
-        ///	the other).<br></br>
-        ///	
+        ///	the other).
         /// </param>
         /// <param name="x1">
         ///	The arrays to be added.<br></br>
-        ///	  If x1.shape != x2.shape, they must be
+        ///	If x1.shape != x2.shape, they must be
         ///	broadcastable to a common shape (which may be the shape of one or
-        ///	the other).<br></br>
-        ///	
+        ///	the other).
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The sum of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray @add(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -3465,33 +3140,27 @@ namespace Numpy
         ///	For integer arguments with absolute value larger than 1 the result is
         ///	always zero because of the way Python handles integer division.<br></br>
         ///	  For
-        ///	integer zero the result is an overflow.<br></br>
-        ///	
+        ///	integer zero the result is an overflow.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Return array.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray reciprocal(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -3515,18 +3184,14 @@ namespace Numpy
         ///	Notes
         ///	
         ///	Equivalent to x.copy(), but only defined for types that support
-        ///	arithmetic.<br></br>
-        ///	
+        ///	arithmetic.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <returns>
         ///	Returned array or scalar: y = +x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray positive(NDarray x)
         {
@@ -3542,33 +3207,27 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Numerical negative, element-wise.<br></br>
-        ///	
+        ///	Numerical negative, element-wise.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Returned array or scalar: y = -x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray negative(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -3591,37 +3250,30 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	Equivalent to x1 * x2 in terms of array broadcasting.<br></br>
-        ///	
+        ///	Equivalent to x1 * x2 in terms of array broadcasting.
         /// </summary>
         /// <param name="x2">
-        ///	Input arrays to be multiplied.<br></br>
-        ///	
+        ///	Input arrays to be multiplied.
         /// </param>
         /// <param name="x1">
-        ///	Input arrays to be multiplied.<br></br>
-        ///	
+        ///	Input arrays to be multiplied.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The product of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray multiply(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -3661,35 +3313,29 @@ namespace Numpy
         ///	In Python 3.0, // is the floor division operator and / the
         ///	true division operator.<br></br>
         ///	  The true_divide(x1, x2) function is
-        ///	equivalent to true division in Python.<br></br>
-        ///	
+        ///	equivalent to true division in Python.
         /// </summary>
         /// <param name="x1">
-        ///	Dividend array.<br></br>
-        ///	
+        ///	Dividend array.
         /// </param>
         /// <param name="x2">
-        ///	Divisor array.<br></br>
-        ///	
+        ///	Divisor array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray divide(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3714,36 +3360,30 @@ namespace Numpy
         ///	Raise each base in x1 to the positionally-corresponding power in
         ///	x2.  x1 and x2 must be broadcastable to the same shape.<br></br>
         ///	 Note that an
-        ///	integer type raised to a negative integer power will raise a ValueError.<br></br>
-        ///	
+        ///	integer type raised to a negative integer power will raise a ValueError.
         /// </summary>
         /// <param name="x1">
-        ///	The bases.<br></br>
-        ///	
+        ///	The bases.
         /// </param>
         /// <param name="x2">
-        ///	The exponents.<br></br>
-        ///	
+        ///	The exponents.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The bases in x1 raised to the exponents in x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray power(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3767,37 +3407,30 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	Equivalent to x1 - x2 in terms of array broadcasting.<br></br>
-        ///	
+        ///	Equivalent to x1 - x2 in terms of array broadcasting.
         /// </summary>
         /// <param name="x2">
-        ///	The arrays to be subtracted from each other.<br></br>
-        ///	
+        ///	The arrays to be subtracted from each other.
         /// </param>
         /// <param name="x1">
-        ///	The arrays to be subtracted from each other.<br></br>
-        ///	
+        ///	The arrays to be subtracted from each other.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The difference of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray subtract(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -3837,35 +3470,29 @@ namespace Numpy
         ///	In Python 3.0, // is the floor division operator and / the
         ///	true division operator.<br></br>
         ///	  The true_divide(x1, x2) function is
-        ///	equivalent to true division in Python.<br></br>
-        ///	
+        ///	equivalent to true division in Python.
         /// </summary>
         /// <param name="x1">
-        ///	Dividend array.<br></br>
-        ///	
+        ///	Dividend array.
         /// </param>
         /// <param name="x2">
-        ///	Divisor array.<br></br>
-        ///	
+        ///	Divisor array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray true_divide(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3885,39 +3512,32 @@ namespace Numpy
         
         /// <summary>
         ///	Return the largest integer smaller or equal to the division of the inputs.<br></br>
-        ///	
         ///	It is equivalent to the Python // operator and pairs with the
         ///	Python % (remainder), function so that b = a % b + b * (a // b)
-        ///	up to roundoff.<br></br>
-        ///	
+        ///	up to roundoff.
         /// </summary>
         /// <param name="x1">
-        ///	Numerator.<br></br>
-        ///	
+        ///	Numerator.
         /// </param>
         /// <param name="x2">
-        ///	Denominator.<br></br>
-        ///	
+        ///	Denominator.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	y = floor(x1/x2)
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray floor_divide(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -3946,36 +3566,30 @@ namespace Numpy
         ///	floats with a minimum precision of float64 so that the result is always
         ///	inexact.<br></br>
         ///	  The intent is that the function will return a usable result for
-        ///	negative powers and seldom overflow for positive powers.<br></br>
-        ///	
+        ///	negative powers and seldom overflow for positive powers.
         /// </summary>
         /// <param name="x1">
-        ///	The bases.<br></br>
-        ///	
+        ///	The bases.
         /// </param>
         /// <param name="x2">
-        ///	The exponents.<br></br>
-        ///	
+        ///	The exponents.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The bases in x1 raised to the exponents in x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray float_power(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -4010,36 +3624,30 @@ namespace Numpy
         ///	the dividend, while for remainder the sign of the result is the sign
         ///	of the divisor.<br></br>
         ///	 The fmod function is equivalent to the Matlab(TM)
-        ///	rem function.<br></br>
-        ///	
+        ///	rem function.
         /// </summary>
         /// <param name="x1">
-        ///	Dividend.<br></br>
-        ///	
+        ///	Dividend.
         /// </param>
         /// <param name="x2">
-        ///	Divisor.<br></br>
-        ///	
+        ///	Divisor.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The remainder of the division of x1 by x2.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray fmod(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -4071,37 +3679,30 @@ namespace Numpy
         ///	Notes
         ///	
         ///	Returns 0 when x2 is 0 and both x1 and x2 are (arrays of)
-        ///	integers.<br></br>
-        ///	
+        ///	integers.
         /// </summary>
         /// <param name="x1">
-        ///	Dividend array.<br></br>
-        ///	
+        ///	Dividend array.
         /// </param>
         /// <param name="x2">
-        ///	Divisor array.<br></br>
-        ///	
+        ///	Divisor array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The element-wise remainder of the quotient floor_divide(x1, x2).<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray mod(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -4129,27 +3730,23 @@ namespace Numpy
         ///	
         ///	Notes
         ///	
-        ///	For integer input the return values are floats.<br></br>
-        ///	
+        ///	For integer input the return values are floats.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -4190,37 +3787,30 @@ namespace Numpy
         ///	Notes
         ///	
         ///	Returns 0 when x2 is 0 and both x1 and x2 are (arrays of)
-        ///	integers.<br></br>
-        ///	
+        ///	integers.
         /// </summary>
         /// <param name="x1">
-        ///	Dividend array.<br></br>
-        ///	
+        ///	Dividend array.
         /// </param>
         /// <param name="x2">
-        ///	Divisor array.<br></br>
-        ///	
+        ///	Divisor array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The element-wise remainder of the quotient floor_divide(x1, x2).<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray remainder(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -4245,31 +3835,26 @@ namespace Numpy
         ///	np.divmod(x, y) is equivalent to (x // y, x % y), but faster
         ///	because it avoids redundant work.<br></br>
         ///	 It is used to implement the Python
-        ///	built-in function divmod on NumPy arrays.<br></br>
-        ///	
+        ///	built-in function divmod on NumPy arrays.
         /// </summary>
         /// <param name="x1">
-        ///	Dividend array.<br></br>
-        ///	
+        ///	Dividend array.
         /// </param>
         /// <param name="x2">
-        ///	Divisor array.<br></br>
-        ///	
+        ///	Divisor array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -4298,16 +3883,13 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return the angle of the complex argument.<br></br>
-        ///	
+        ///	Return the angle of the complex argument.
         /// </summary>
         /// <param name="z">
-        ///	A complex number or sequence of complex numbers.<br></br>
-        ///	
+        ///	A complex number or sequence of complex numbers.
         /// </param>
         /// <param name="deg">
-        ///	Return angle in degrees if True, radians if False (default).<br></br>
-        ///	
+        ///	Return angle in degrees if True, radians if False (default).
         /// </param>
         /// <returns>
         ///	The counterclockwise angle from the positive real axis on
@@ -4328,20 +3910,17 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return the real part of the complex argument.<br></br>
-        ///	
+        ///	Return the real part of the complex argument.
         /// </summary>
         /// <param name="val">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <returns>
         ///	The real component of the complex argument.<br></br>
         ///	 If val is real, the type
         ///	of val is used for the output.<br></br>
         ///	  If val has complex elements, the
-        ///	returned type is float.<br></br>
-        ///	
+        ///	returned type is float.
         /// </returns>
         public NDarray real(NDarray val)
         {
@@ -4357,20 +3936,17 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return the imaginary part of the complex argument.<br></br>
-        ///	
+        ///	Return the imaginary part of the complex argument.
         /// </summary>
         /// <param name="val">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <returns>
         ///	The imaginary component of the complex argument.<br></br>
         ///	 If val is real,
         ///	the type of val is used for the output.<br></br>
         ///	  If val has complex
-        ///	elements, the returned type is float.<br></br>
-        ///	
+        ///	elements, the returned type is float.
         /// </returns>
         public NDarray imag(NDarray val)
         {
@@ -4390,33 +3966,27 @@ namespace Numpy
         ///	
         ///	
         ///	The complex conjugate of a complex number is obtained by changing the
-        ///	sign of its imaginary part.<br></br>
-        ///	
+        ///	sign of its imaginary part.
         /// </summary>
         /// <param name="x">
-        ///	Input value.<br></br>
-        ///	
+        ///	Input value.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The complex conjugate of x, with same dtype as y.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray conj(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4464,16 +4034,13 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="a">
-        ///	First one-dimensional input array.<br></br>
-        ///	
+        ///	First one-dimensional input array.
         /// </param>
         /// <param name="v">
-        ///	Second one-dimensional input array.<br></br>
-        ///	
+        ///	Second one-dimensional input array.
         /// </param>
         /// <returns>
-        ///	Discrete, linear convolution of a and v.<br></br>
-        ///	
+        ///	Discrete, linear convolution of a and v.
         /// </returns>
         public NDarray convolve(NDarray a, NDarray v, string mode = "full")
         {
@@ -4498,45 +4065,39 @@ namespace Numpy
         ///	the interval edges.<br></br>
         ///	  For example, if an interval of [0, 1]
         ///	is specified, values smaller than 0 become 0, and values larger
-        ///	than 1 become 1.<br></br>
-        ///	
+        ///	than 1 become 1.
         /// </summary>
         /// <param name="a">
-        ///	Array containing elements to clip.<br></br>
-        ///	
+        ///	Array containing elements to clip.
         /// </param>
         /// <param name="a_min">
         ///	Minimum value.<br></br>
-        ///	 If None, clipping is not performed on lower
+        ///	If None, clipping is not performed on lower
         ///	interval edge.<br></br>
-        ///	 Not more than one of a_min and a_max may be
-        ///	None.<br></br>
-        ///	
+        ///	Not more than one of a_min and a_max may be
+        ///	None.
         /// </param>
         /// <param name="a_max">
         ///	Maximum value.<br></br>
-        ///	 If None, clipping is not performed on upper
+        ///	If None, clipping is not performed on upper
         ///	interval edge.<br></br>
-        ///	 Not more than one of a_min and a_max may be
+        ///	Not more than one of a_min and a_max may be
         ///	None.<br></br>
-        ///	 If a_min or a_max are array_like, then the three
-        ///	arrays will be broadcasted to match their shapes.<br></br>
-        ///	
+        ///	If a_min or a_max are array_like, then the three
+        ///	arrays will be broadcasted to match their shapes.
         /// </param>
         /// <param name="out">
         ///	The results will be placed in this array.<br></br>
-        ///	 It may be the input
+        ///	It may be the input
         ///	array for in-place clipping.<br></br>
-        ///	  out must be of the right shape
+        ///	out must be of the right shape
         ///	to hold the output.<br></br>
-        ///	  Its type is preserved.<br></br>
-        ///	
+        ///	Its type is preserved.
         /// </param>
         /// <returns>
         ///	An array with the elements of a, but where values
         ///	&lt; a_min are replaced with a_min, and those &gt; a_max
-        ///	with a_max.<br></br>
-        ///	
+        ///	with a_max.
         /// </returns>
         public NDarray clip(NDarray a, NDarray a_min, NDarray a_max, NDarray @out = null)
         {
@@ -4562,29 +4123,24 @@ namespace Numpy
         ///	
         ///	sqrt has–consistent with common convention–as its branch cut the
         ///	real “interval” [-inf, 0), and is continuous from above on it.<br></br>
-        ///	
         ///	A branch cut is a curve in the complex plane across which a given
-        ///	complex function fails to be continuous.<br></br>
-        ///	
+        ///	complex function fails to be continuous.
         /// </summary>
         /// <param name="x">
-        ///	The values whose square-roots are required.<br></br>
-        ///	
+        ///	The values whose square-roots are required.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	An array of the same shape as x, containing the positive
@@ -4594,11 +4150,8 @@ namespace Numpy
         ///	negative reals are calculated).<br></br>
         ///	  If all of the elements in x
         ///	are real, so is y, with negative elements returning nan.<br></br>
-        ///	
         ///	If out was provided, y is a reference to it.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray sqrt(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4616,36 +4169,29 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return the cube-root of an array, element-wise.<br></br>
-        ///	
+        ///	Return the cube-root of an array, element-wise.
         /// </summary>
         /// <param name="x">
-        ///	The values whose cube-roots are required.<br></br>
-        ///	
+        ///	The values whose cube-roots are required.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	An array of the same shape as x, containing the cube
         ///	cube-root of each element in x.<br></br>
-        ///	
         ///	If out was provided, y is a reference to it.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray cbrt(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4663,33 +4209,27 @@ namespace Numpy
         }
         
         /// <summary>
-        ///	Return the element-wise square of the input.<br></br>
-        ///	
+        ///	Return the element-wise square of the input.
         /// </summary>
         /// <param name="x">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	Element-wise x*x, of the same shape and dtype as x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray square(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4710,35 +4250,30 @@ namespace Numpy
         ///	Calculate the absolute value element-wise.<br></br>
         ///	
         ///	
-        ///	np.abs is a shorthand for this function.<br></br>
-        ///	
+        ///	np.abs is a shorthand for this function.
         /// </summary>
         /// <param name="x">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	An ndarray containing the absolute value of
         ///	each element in x.<br></br>
         ///	  For complex input, a + ib, the
         ///	absolute value is .
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray absolute(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4762,35 +4297,29 @@ namespace Numpy
         ///	This function returns the absolute values (positive magnitude) of the
         ///	data in x.<br></br>
         ///	 Complex values are not handled, use absolute to find the
-        ///	absolute values of complex data.<br></br>
-        ///	
+        ///	absolute values of complex data.
         /// </summary>
         /// <param name="x">
         ///	The array of numbers for which the absolute values are required.<br></br>
-        ///	 If
-        ///	x is a scalar, the result y will also be a scalar.<br></br>
-        ///	
+        ///	If
+        ///	x is a scalar, the result y will also be a scalar.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The absolute values of x, the returned values are always floats.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray fabs(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4831,29 +4360,24 @@ namespace Numpy
         ///	which is different from a common alternative, .
         /// </summary>
         /// <param name="x">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The sign of x.<br></br>
-        ///	
-        ///	This is a scalar if x is a scalar.<br></br>
-        ///	
+        ///	This is a scalar if x is a scalar.
         /// </returns>
         public NDarray sign(NDarray x, NDarray @out = null, NDarray @where = null)
         {
@@ -4884,32 +4408,27 @@ namespace Numpy
         ///	References
         /// </summary>
         /// <param name="x1">
-        ///	Input values.<br></br>
-        ///	
+        ///	Input values.
         /// </param>
         /// <param name="x2">
-        ///	The value of the function when x1 is 0.<br></br>
-        ///	
+        ///	The value of the function when x1 is 0.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The output array, element-wise Heaviside step function of x1.
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray heaviside(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
         {
@@ -4939,7 +4458,6 @@ namespace Numpy
         ///	returned.<br></br>
         ///	 The latter distinction is important for complex NaNs, which
         ///	are defined as at least one of the real or imaginary parts being a NaN.<br></br>
-        ///	
         ///	The net effect is that NaNs are propagated.<br></br>
         ///	
         ///	
@@ -4947,41 +4465,34 @@ namespace Numpy
         ///	
         ///	The maximum is equivalent to np.where(x1 &gt;= x2, x1, x2) when
         ///	neither x1 nor x2 are nans, but it is faster and does proper
-        ///	broadcasting.<br></br>
-        ///	
+        ///	broadcasting.
         /// </summary>
         /// <param name="x2">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape, or shapes that can be broadcast to a single shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape, or shapes that can be broadcast to a single shape.
         /// </param>
         /// <param name="x1">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape, or shapes that can be broadcast to a single shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape, or shapes that can be broadcast to a single shape.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The maximum of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray maximum(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -5011,7 +4522,6 @@ namespace Numpy
         ///	returned.<br></br>
         ///	 The latter distinction is important for complex NaNs, which
         ///	are defined as at least one of the real or imaginary parts being a NaN.<br></br>
-        ///	
         ///	The net effect is that NaNs are propagated.<br></br>
         ///	
         ///	
@@ -5019,41 +4529,34 @@ namespace Numpy
         ///	
         ///	The minimum is equivalent to np.where(x1 &lt;= x2, x1, x2) when
         ///	neither x1 nor x2 are NaNs, but it is faster and does proper
-        ///	broadcasting.<br></br>
-        ///	
+        ///	broadcasting.
         /// </summary>
         /// <param name="x2">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape, or shapes that can be broadcast to a single shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape, or shapes that can be broadcast to a single shape.
         /// </param>
         /// <param name="x1">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape, or shapes that can be broadcast to a single shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape, or shapes that can be broadcast to a single shape.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The minimum of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray minimum(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -5090,41 +4593,34 @@ namespace Numpy
         ///	Notes
         ///	
         ///	The fmax is equivalent to np.where(x1 &gt;= x2, x1, x2) when neither
-        ///	x1 nor x2 are NaNs, but it is faster and does proper broadcasting.<br></br>
-        ///	
+        ///	x1 nor x2 are NaNs, but it is faster and does proper broadcasting.
         /// </summary>
         /// <param name="x2">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape.
         /// </param>
         /// <param name="x1">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The maximum of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray fmax(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -5161,41 +4657,34 @@ namespace Numpy
         ///	Notes
         ///	
         ///	The fmin is equivalent to np.where(x1 &lt;= x2, x1, x2) when neither
-        ///	x1 nor x2 are NaNs, but it is faster and does proper broadcasting.<br></br>
-        ///	
+        ///	x1 nor x2 are NaNs, but it is faster and does proper broadcasting.
         /// </summary>
         /// <param name="x2">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape.
         /// </param>
         /// <param name="x1">
         ///	The arrays holding the elements to be compared.<br></br>
-        ///	 They must have
-        ///	the same shape.<br></br>
-        ///	
+        ///	They must have
+        ///	the same shape.
         /// </param>
         /// <param name="out">
         ///	A location into which the result is stored.<br></br>
-        ///	 If provided, it must have
+        ///	If provided, it must have
         ///	a shape that the inputs broadcast to.<br></br>
-        ///	 If not provided or None,
+        ///	If not provided or None,
         ///	a freshly-allocated array is returned.<br></br>
-        ///	 A tuple (possible only as a
-        ///	keyword argument) must have length equal to the number of outputs.<br></br>
-        ///	
+        ///	A tuple (possible only as a
+        ///	keyword argument) must have length equal to the number of outputs.
         /// </param>
         /// <param name="where">
         ///	Values of True indicate to calculate the ufunc at that position, values
-        ///	of False indicate to leave the value in the output alone.<br></br>
-        ///	
+        ///	of False indicate to leave the value in the output alone.
         /// </param>
         /// <returns>
         ///	The minimum of x1 and x2, element-wise.<br></br>
-        ///	
-        ///	This is a scalar if both x1 and x2 are scalars.<br></br>
-        ///	
+        ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public NDarray fmin(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
         {
@@ -5233,27 +4722,22 @@ namespace Numpy
         ///	
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
-        ///	 This means that Not a Number is not equivalent to infinity.<br></br>
-        ///	
+        ///	 This means that Not a Number is not equivalent to infinity.
         /// </summary>
         /// <param name="x">
-        ///	Input data.<br></br>
-        ///	
+        ///	Input data.
         /// </param>
         /// <param name="copy">
         ///	Whether to create a copy of x (True) or to replace values
         ///	in-place (False).<br></br>
-        ///	 The in-place operation only occurs if
+        ///	The in-place operation only occurs if
         ///	casting to an array does not require a copy.<br></br>
-        ///	
-        ///	Default is True.<br></br>
-        ///	
+        ///	Default is True.
         /// </param>
         /// <returns>
         ///	x, with the non-finite values replaced.<br></br>
         ///	 If copy is False, this may
-        ///	be x itself.<br></br>
-        ///	
+        ///	be x itself.
         /// </returns>
         public NDarray nan_to_num(NDarray x, bool? copy = true)
         {
@@ -5282,23 +4766,19 @@ namespace Numpy
         ///	Machine epsilon varies from machine to machine and between data types
         ///	but Python floats on most platforms have a machine epsilon equal to
         ///	2.2204460492503131e-16.  You can use ‘np.finfo(float).eps’ to print
-        ///	out the machine epsilon for floats.<br></br>
-        ///	
+        ///	out the machine epsilon for floats.
         /// </summary>
         /// <param name="a">
-        ///	Input array.<br></br>
-        ///	
+        ///	Input array.
         /// </param>
         /// <param name="tol">
         ///	Tolerance in machine epsilons for the complex part of the elements
-        ///	in the array.<br></br>
-        ///	
+        ///	in the array.
         /// </param>
         /// <returns>
         ///	If a is real, the type of a is used for the output.<br></br>
         ///	  If a
-        ///	has complex elements, the returned type is float.<br></br>
-        ///	
+        ///	has complex elements, the returned type is float.
         /// </returns>
         public NDarray real_if_close(NDarray a, float tol = 100)
         {
@@ -5326,45 +4806,36 @@ namespace Numpy
         ///	Notes
         ///	
         ///	Does not check that the x-coordinate sequence xp is increasing.<br></br>
-        ///	
         ///	If xp is not increasing, the results are nonsense.<br></br>
-        ///	
         ///	A simple check for increasing is:
         /// </summary>
         /// <param name="x">
-        ///	The x-coordinates at which to evaluate the interpolated values.<br></br>
-        ///	
+        ///	The x-coordinates at which to evaluate the interpolated values.
         /// </param>
         /// <param name="xp">
         ///	The x-coordinates of the data points, must be increasing if argument
         ///	period is not specified.<br></br>
-        ///	 Otherwise, xp is internally sorted after
-        ///	normalizing the periodic boundaries with xp = xp % period.<br></br>
-        ///	
+        ///	Otherwise, xp is internally sorted after
+        ///	normalizing the periodic boundaries with xp = xp % period.
         /// </param>
         /// <param name="fp">
-        ///	The y-coordinates of the data points, same length as xp.<br></br>
-        ///	
+        ///	The y-coordinates of the data points, same length as xp.
         /// </param>
         /// <param name="left">
-        ///	Value to return for x &lt; xp[0], default is fp[0].<br></br>
-        ///	
+        ///	Value to return for x &lt; xp[0], default is fp[0].
         /// </param>
         /// <param name="right">
-        ///	Value to return for x &gt; xp[-1], default is fp[-1].<br></br>
-        ///	
+        ///	Value to return for x &gt; xp[-1], default is fp[-1].
         /// </param>
         /// <param name="period">
         ///	A period for the x-coordinates.<br></br>
-        ///	 This parameter allows the proper
+        ///	This parameter allows the proper
         ///	interpolation of angular x-coordinates.<br></br>
-        ///	 Parameters left and right
-        ///	are ignored if period is specified.<br></br>
-        ///	
+        ///	Parameters left and right
+        ///	are ignored if period is specified.
         /// </param>
         /// <returns>
-        ///	The interpolated values, same shape as x.<br></br>
-        ///	
+        ///	The interpolated values, same shape as x.
         /// </returns>
         public float or complex (corresponding to fp) or ndarray interp(NDarray x, 1-D sequence of floats xp, 1-D sequence of float or complex fp, optional float or complex corresponding to fp left = null, optional float or complex corresponding to fp right = null, None or float period = null)
         {
