@@ -39,12 +39,13 @@ namespace Torch
             /// </summary>
             public class Module : PythonObject
             {
-                // auto-generated class
                 
                 public Module(PyObject pyobj) : base(pyobj) { }
                 public Module(PythonObject other) : base(other.PyObject as PyObject) { }
 
                 protected Module() : base() { }
+
+                // TODO: every module is callable. it should have a Invoke(...) function
 
                 /// <summary>
                 /// Adds a child module to the current module.
@@ -60,7 +61,6 @@ namespace Torch
                 /// </param>
                 public void add_module(string name, Module module)
                 {
-                    //auto-generated code, do not change
                     var __self__=self;
                     var pyargs=ToTuple(new object[]
                     {

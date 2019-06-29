@@ -315,7 +315,7 @@ namespace CodeMinion.Core
                     s.Out($"/// <param name=\"{arg.Name}\">"); // note: docstring doesn't want parameters escaped with "@"
                     docstring = ProcessDocString(arg.Description);
                     foreach (var line in Regex.Split(docstring, @"\r?\n"))
-                        s.Out("///\t" + line);
+                        s.Out("///\t" + line.TrimStart());
                     s.Out("/// </param>");
                 }
             }
@@ -354,7 +354,10 @@ namespace CodeMinion.Core
             if (string.IsNullOrWhiteSpace(docstring))
                 return docstring;
             // insert linebreak after each sentence
-            return Regex.Replace(docstring, @"(?:(?<=\w|\)|\])(?<!\d)|(?<=\s\d))\.(?=(?:\s|$))", ".<br></br>\n", RegexOptions.Multiline);
+            var text= Regex.Replace(docstring, @"(?:(?<=\w|\)|\])(?<!\d)|(?<=\s\d))\.(?=(?:\s|$))", ".<br></br>\n", RegexOptions.Multiline);
+            text = Regex.Replace(text, @"(\r?\n){2,}", "\n\n");
+            text = Regex.Replace(text.Trim(), "<br></br>$", "");
+            return text;
         }
 
         // generates only the body of the API function declaration
@@ -373,9 +376,11 @@ namespace CodeMinion.Core
                 return;
             }
 
+            //if (func.Name=="DistributedDataParallel")
+            //    Debugger.Break();
             var class_names = (func.ClassName ?? "no_name").Split('.');
             int levels = class_names.Length - 1;
-            if (levels > 1)
+            if (levels < 1)
             {
                 s.Out("var __self__=self;");
             }
@@ -628,6 +633,7 @@ namespace CodeMinion.Core
                         {
                             if (func.ManualOverride || func.Ignore)
                                 continue;
+                            func.Sanitize();
                             func.IsConstructor = true;
                             func.ClassName = string.Join(".", static_classes);
                             func.Name = class_name;

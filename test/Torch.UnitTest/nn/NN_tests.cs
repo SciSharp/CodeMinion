@@ -31,8 +31,8 @@ namespace Torch.nn
         [TestMethod]
         public void ModuleDict()
         {
-            var a = new torch.nn.Conv1d(2, 2, new[] {5});
-            var b = new torch.nn.Conv1d(1, 1, new[] {3});
+            var a = new torch.nn.Conv1d(2, 2, 5);
+            var b = new torch.nn.Conv1d(1, 1, 3);
             var dict = new torch.nn.ModuleDict(
                 ("a", a),
                 ("b", b)
@@ -68,8 +68,8 @@ namespace Torch.nn
         [TestMethod]
         public void ModuleList()
         {
-            var a = new torch.nn.Conv1d(2, 2, new[] { 5 });
-            var b = new torch.nn.Conv1d(1, 1, new[] { 3 });
+            var a = new torch.nn.Conv1d(2, 2,  5 );
+            var b = new torch.nn.Conv1d(1, 1,  3 );
             var list = new torch.nn.ModuleList(a,b);
             Assert.AreEqual(a.repr, list[0].repr);
             Assert.AreNotEqual(a.repr, list[1].repr);

@@ -22,7 +22,6 @@ namespace Torch
         ///	By default, the returned Tensor has the same torch.dtype and
         ///	torch.device as this tensor.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	new_tensor() always copies data.<br></br>
         ///	 If you have a Tensor
@@ -32,37 +31,31 @@ namespace Torch
         ///	If you have a numpy array and want to avoid a copy, use
         ///	torch.from_numpy().<br></br>
         ///	
-        ///	
         ///	Warning
         ///	When data is a tensor x, new_tensor() reads out ‘the data’ from whatever it is passed,
         ///	and constructs a leaf variable.<br></br>
         ///	 Therefore tensor.new_tensor(x) is equivalent to x.clone().detach()
         ///	and tensor.new_tensor(x, requires_grad=True) is equivalent to x.clone().detach().requires_grad_(True).<br></br>
         ///	
-        ///	The equivalents using clone() and detach() are recommended.<br></br>
-        ///	
+        ///	The equivalents using clone() and detach() are recommended.
         /// </summary>
         /// <param name="data">
-        ///	The returned Tensor copies data.<br></br>
-        ///	
+        ///	The returned Tensor copies data.
         /// </param>
         /// <param name="dtype">
         ///	the desired type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.dtype as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.device as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor new_tensor(NDarray data, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -84,30 +77,25 @@ namespace Torch
         ///	Returns a Tensor of size size filled with fill_value.<br></br>
         ///	
         ///	By default, the returned Tensor has the same torch.dtype and
-        ///	torch.device as this tensor.<br></br>
-        ///	
+        ///	torch.device as this tensor.
         /// </summary>
         /// <param name="fill_value">
-        ///	the number to fill the output tensor with.<br></br>
-        ///	
+        ///	the number to fill the output tensor with.
         /// </param>
         /// <param name="dtype">
         ///	the desired type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.dtype as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.device as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor new_full<T>(Shape size, T fill_value, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -130,26 +118,22 @@ namespace Torch
         ///	Returns a Tensor of size size filled with uninitialized data.<br></br>
         ///	
         ///	By default, the returned Tensor has the same torch.dtype and
-        ///	torch.device as this tensor.<br></br>
-        ///	
+        ///	torch.device as this tensor.
         /// </summary>
         /// <param name="dtype">
         ///	the desired type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.dtype as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.device as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor new_empty(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -171,31 +155,26 @@ namespace Torch
         ///	Returns a Tensor of size size filled with 1.<br></br>
         ///	
         ///	By default, the returned Tensor has the same torch.dtype and
-        ///	torch.device as this tensor.<br></br>
-        ///	
+        ///	torch.device as this tensor.
         /// </summary>
         /// <param name="size">
         ///	a list, tuple, or torch.Size of integers defining the
-        ///	shape of the output tensor.<br></br>
-        ///	
+        ///	shape of the output tensor.
         /// </param>
         /// <param name="dtype">
         ///	the desired type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.dtype as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.device as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor new_ones(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -217,31 +196,26 @@ namespace Torch
         ///	Returns a Tensor of size size filled with 0.<br></br>
         ///	
         ///	By default, the returned Tensor has the same torch.dtype and
-        ///	torch.device as this tensor.<br></br>
-        ///	
+        ///	torch.device as this tensor.
         /// </summary>
         /// <param name="size">
         ///	a list, tuple, or torch.Size of integers defining the
-        ///	shape of the output tensor.<br></br>
-        ///	
+        ///	shape of the output tensor.
         /// </param>
         /// <param name="dtype">
         ///	the desired type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.dtype as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.dtype as this tensor.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, same torch.device as this tensor.<br></br>
-        ///	
+        ///	Default: if None, same torch.device as this tensor.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor new_zeros(Shape size, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -263,7 +237,6 @@ namespace Torch
         ///	Computes the gradient of current tensor w.r.t.<br></br>
         ///	 graph leaves.<br></br>
         ///	
-        ///	
         ///	The graph is differentiated using the chain rule.<br></br>
         ///	 If the tensor is
         ///	non-scalar (i.e.<br></br>
@@ -274,40 +247,35 @@ namespace Torch
         ///	the gradient of the differentiated function w.r.t.<br></br>
         ///	 self.<br></br>
         ///	
-        ///	
         ///	This function accumulates gradients in the leaves - you might need to
-        ///	zero them before calling it.<br></br>
-        ///	
+        ///	zero them before calling it.
         /// </summary>
         /// <param name="gradient">
         ///	Gradient w.r.t.<br></br>
-        ///	 the
+        ///	the
         ///	tensor.<br></br>
-        ///	 If it is a tensor, it will be automatically converted
+        ///	If it is a tensor, it will be automatically converted
         ///	to a Tensor that does not require grad unless create_graph is True.<br></br>
         ///	
         ///	None values can be specified for scalar Tensors or ones that
         ///	don’t require grad.<br></br>
-        ///	 If a None value would be acceptable then
-        ///	this argument is optional.<br></br>
-        ///	
+        ///	If a None value would be acceptable then
+        ///	this argument is optional.
         /// </param>
         /// <param name="retain_graph">
         ///	If False, the graph used to compute
         ///	the grads will be freed.<br></br>
-        ///	 Note that in nearly all cases setting
+        ///	Note that in nearly all cases setting
         ///	this option to True is not needed and often can be worked around
         ///	in a much more efficient way.<br></br>
-        ///	 Defaults to the value of
-        ///	create_graph.<br></br>
-        ///	
+        ///	Defaults to the value of
+        ///	create_graph.
         /// </param>
         /// <param name="create_graph">
         ///	If True, graph of the derivative will
         ///	be constructed, allowing to compute higher order derivative
         ///	products.<br></br>
-        ///	 Defaults to False.<br></br>
-        ///	
+        ///	Defaults to False.
         /// </param>
         public void backward(Tensor gradient = null, bool? retain_graph = null, bool? create_graph = false)
         {
@@ -325,8 +293,7 @@ namespace Torch
         
         /// <summary>
         ///	self.byte() is equivalent to self.to(torch.uint8).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @byte()
         {
@@ -357,8 +324,7 @@ namespace Torch
         
         /// <summary>
         ///	self.char() is equivalent to self.to(torch.int8).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @char()
         {
@@ -373,12 +339,10 @@ namespace Torch
         ///	 The copy has the same size and data
         ///	type as self.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Unlike copy_(), this function is recorded in the computation graph.<br></br>
         ///	 Gradients
-        ///	propagating to the cloned tensor will propagate to the original tensor.<br></br>
-        ///	
+        ///	propagating to the cloned tensor will propagate to the original tensor.
         /// </summary>
         public Tensor clone()
         {
@@ -392,8 +356,7 @@ namespace Torch
         ///	Returns a contiguous tensor containing the same data as self tensor.<br></br>
         ///	 If
         ///	self tensor is contiguous, this function returns the self
-        ///	tensor.<br></br>
-        ///	
+        ///	tensor.
         /// </summary>
         public Tensor contiguous()
         {
@@ -407,12 +370,10 @@ namespace Torch
         ///	Copies the elements from src into self tensor and returns
         ///	self.<br></br>
         ///	
-        ///	
         ///	The src tensor must be broadcastable
         ///	with the self tensor.<br></br>
         ///	 It may be of a different data type or reside on a
-        ///	different device.<br></br>
-        ///	
+        ///	different device.
         /// </summary>
         /// <param name="src">
         ///	the source tensor to copy from
@@ -420,9 +381,8 @@ namespace Torch
         /// <param name="non_blocking">
         ///	if True and this copy is between CPU and GPU,
         ///	the copy may occur asynchronously with respect to the host.<br></br>
-        ///	 For other
-        ///	cases, this argument has no effect.<br></br>
-        ///	
+        ///	For other
+        ///	cases, this argument has no effect.
         /// </param>
         public Tensor copy_(Tensor src, bool non_blocking = false)
         {
@@ -441,10 +401,8 @@ namespace Torch
         /// <summary>
         ///	Returns a copy of this object in CPU memory.<br></br>
         ///	
-        ///	
         ///	If this object is already in CPU memory and on the correct device,
-        ///	then no copy is performed and the original object is returned.<br></br>
-        ///	
+        ///	then no copy is performed and the original object is returned.
         /// </summary>
         public Tensor cpu()
         {
@@ -457,24 +415,20 @@ namespace Torch
         /// <summary>
         ///	Returns a copy of this object in CUDA memory.<br></br>
         ///	
-        ///	
         ///	If this object is already in CUDA memory and on the correct device,
-        ///	then no copy is performed and the original object is returned.<br></br>
-        ///	
+        ///	then no copy is performed and the original object is returned.
         /// </summary>
         /// <param name="device">
         ///	The destination GPU device.<br></br>
         ///	
-        ///	Defaults to the current CUDA device.<br></br>
-        ///	
+        ///	Defaults to the current CUDA device.
         /// </param>
         /// <param name="non_blocking">
         ///	If True and the source is in pinned memory,
         ///	the copy will be asynchronous with respect to the host.<br></br>
         ///	
         ///	Otherwise, the argument has no effect.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor cuda(Device device = null, bool non_blocking = false)
         {
@@ -491,8 +445,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the address of the first element of self tensor.<br></br>
-        ///	
+        ///	Returns the address of the first element of self tensor.
         /// </summary>
         public int data_ptr()
         {
@@ -503,8 +456,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Given a quantized Tensor, dequantize it and return the dequantized float Tensor.<br></br>
-        ///	
+        ///	Given a quantized Tensor, dequantize it and return the dequantized float Tensor.
         /// </summary>
         public Tensor dequantize()
         {
@@ -520,9 +472,7 @@ namespace Torch
         ///	 Otherwise, this throws an
         ///	error.<br></br>
         ///	
-        ///	
-        ///	See also Tensor.sparse_dim().<br></br>
-        ///	
+        ///	See also Tensor.sparse_dim().
         /// </summary>
         public int dense_dim()
         {
@@ -535,9 +485,7 @@ namespace Torch
         /// <summary>
         ///	Returns a new Tensor, detached from the current graph.<br></br>
         ///	
-        ///	
         ///	The result will never require gradient.<br></br>
-        ///	
         ///	
         ///	Note
         ///	Returned Tensor shares the same storage with the original one.<br></br>
@@ -554,8 +502,7 @@ namespace Torch
         ///	For sparse tensors:
         ///	In-place indices / values changes (such as zero_ / copy_ / add_) to the
         ///	returned tensor will not update the original tensor anymore, and will instead
-        ///	trigger an error.<br></br>
-        ///	
+        ///	trigger an error.
         /// </summary>
         public void detach()
         {
@@ -567,8 +514,7 @@ namespace Torch
         /// <summary>
         ///	Detaches the Tensor from the graph that created it, making it a leaf.<br></br>
         ///	
-        ///	Views cannot be detached in-place.<br></br>
-        ///	
+        ///	Views cannot be detached in-place.
         /// </summary>
         public void detach_()
         {
@@ -578,8 +524,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the number of dimensions of self tensor.<br></br>
-        ///	
+        ///	Returns the number of dimensions of self tensor.
         /// </summary>
         public int dim()
         {
@@ -591,8 +536,7 @@ namespace Torch
         
         /// <summary>
         ///	self.double() is equivalent to self.to(torch.float64).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @double()
         {
@@ -603,8 +547,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the size in bytes of an individual element.<br></br>
-        ///	
+        ///	Returns the size in bytes of an individual element.
         /// </summary>
         public int element_size()
         {
@@ -618,10 +561,8 @@ namespace Torch
         ///	Returns a new view of the self tensor with singleton dimensions expanded
         ///	to a larger size.<br></br>
         ///	
-        ///	
         ///	Passing -1 as the size for a dimension means not changing the size of
         ///	that dimension.<br></br>
-        ///	
         ///	
         ///	Tensor can be also expanded to a larger number of dimensions, and the
         ///	new ones will be appended at the front.<br></br>
@@ -633,8 +574,7 @@ namespace Torch
         ///	expanded to a larger size by setting the stride to 0.<br></br>
         ///	 Any dimension
         ///	of size 1 can be expanded to an arbitrary value without allocating new
-        ///	memory.<br></br>
-        ///	
+        ///	memory.
         /// </summary>
         public Tensor expand(params int[] sizes)
         {
@@ -654,9 +594,7 @@ namespace Torch
         ///	
         ///	self.expand_as(other) is equivalent to self.expand(other.size()).<br></br>
         ///	
-        ///	
-        ///	Please see expand() for more information about expand.<br></br>
-        ///	
+        ///	Please see expand() for more information about expand.
         /// </summary>
         public Tensor expand_as(Tensor other)
         {
@@ -690,8 +628,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Fills self tensor with the specified value.<br></br>
-        ///	
+        ///	Fills self tensor with the specified value.
         /// </summary>
         public Tensor fill_<T>(T @value)
         {
@@ -708,8 +645,7 @@ namespace Torch
         
         /// <summary>
         ///	self.float() is equivalent to self.to(torch.float32).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @float()
         {
@@ -740,8 +676,7 @@ namespace Torch
         /// <summary>
         ///	For CUDA tensors, this function returns the device ordinal of the GPU on which the tensor resides.<br></br>
         ///	
-        ///	For CPU tensors, an error is thrown.<br></br>
-        ///	
+        ///	For CPU tensors, an error is thrown.
         /// </summary>
         public int get_device_nr()
         {
@@ -753,8 +688,7 @@ namespace Torch
         
         /// <summary>
         ///	self.half() is equivalent to self.to(torch.float16).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor half()
         {
@@ -771,18 +705,15 @@ namespace Torch
         ///	and index[i] == j, then the ith row of tensor is added to the
         ///	jth row of self.<br></br>
         ///	
-        ///	
         ///	The dimth dimension of tensor must have the same size as the
         ///	length of index (which must be a vector), and all other dimensions must
         ///	match self, or an error will be raised.<br></br>
-        ///	
         ///	
         ///	Note
         ///	When using the CUDA backend, this operation may induce nondeterministic
         ///	behaviour that is not easily switched off.<br></br>
         ///	
-        ///	Please see the notes on Reproducibility for background.<br></br>
-        ///	
+        ///	Please see the notes on Reproducibility for background.
         /// </summary>
         /// <param name="dim">
         ///	dimension along which to index
@@ -833,11 +764,9 @@ namespace Torch
         ///	and index[i] == j, then the ith row of tensor is copied to the
         ///	jth row of self.<br></br>
         ///	
-        ///	
         ///	The dimth dimension of tensor must have the same size as the
         ///	length of index (which must be a vector), and all other dimensions must
-        ///	match self, or an error will be raised.<br></br>
-        ///	
+        ///	match self, or an error will be raised.
         /// </summary>
         /// <param name="dim">
         ///	dimension along which to index
@@ -883,8 +812,7 @@ namespace Torch
         
         /// <summary>
         ///	Fills the elements of the self tensor with value val by
-        ///	selecting the indices in the order given in index.<br></br>
-        ///	
+        ///	selecting the indices in the order given in index.
         /// </summary>
         /// <param name="dim">
         ///	dimension along which to index
@@ -936,20 +864,16 @@ namespace Torch
         ///	tensor[indices] = value.<br></br>
         ///	 Returns self.<br></br>
         ///	
-        ///	
         ///	If accumulate is True, the elements in tensor are added to
         ///	self.<br></br>
         ///	 If accumulate is False, the behavior is undefined if indices
-        ///	contain duplicate elements.<br></br>
-        ///	
+        ///	contain duplicate elements.
         /// </summary>
         /// <param name="indices">
-        ///	tensors used to index into self.<br></br>
-        ///	
+        ///	tensors used to index into self.
         /// </param>
         /// <param name="value">
-        ///	tensor of same dtype as self.<br></br>
-        ///	
+        ///	tensor of same dtype as self.
         /// </param>
         /// <param name="accumulate">
         ///	whether to accumulate into self
@@ -993,15 +917,12 @@ namespace Torch
         ///	 Otherwise, this throws an
         ///	error.<br></br>
         ///	
-        ///	
         ///	See also Tensor.values().<br></br>
-        ///	
         ///	
         ///	Note
         ///	This method can only be called on a coalesced sparse tensor.<br></br>
         ///	 See
-        ///	Tensor.coalesce() for details.<br></br>
-        ///	
+        ///	Tensor.coalesce() for details.
         /// </summary>
         public Tensor indices()
         {
@@ -1013,8 +934,7 @@ namespace Torch
         
         /// <summary>
         ///	self.int() is equivalent to self.to(torch.int32).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @int()
         {
@@ -1027,8 +947,7 @@ namespace Torch
         /// <summary>
         ///	Given a quantized Tensor,
         ///	self.int_repr() returns a CPU Tensor with uint8_t as data type that stores the
-        ///	underlying uint8_t values of the given Tensor.<br></br>
-        ///	
+        ///	underlying uint8_t values of the given Tensor.
         /// </summary>
         public Tensor int_repr()
         {
@@ -1039,8 +958,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns True if self tensor is contiguous in memory in C order.<br></br>
-        ///	
+        ///	Returns True if self tensor is contiguous in memory in C order.
         /// </summary>
         public bool is_contiguous()
         {
@@ -1051,8 +969,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns True if the data type of self is a floating point data type.<br></br>
-        ///	
+        ///	Returns True if the data type of self is a floating point data type.
         /// </summary>
         public (bool, bool) is_floating_point()
         {
@@ -1066,17 +983,14 @@ namespace Torch
         /// <summary>
         ///	All Tensors that have requires_grad which is False will be leaf Tensors by convention.<br></br>
         ///	
-        ///	
         ///	For Tensors that have requires_grad which is True, they will be leaf Tensors if they were
         ///	created by the user.<br></br>
         ///	 This means that they are not the result of an operation and so
         ///	grad_fn is None.<br></br>
         ///	
-        ///	
         ///	Only leaf Tensors will have their grad populated during a call to backward().<br></br>
         ///	
-        ///	To get grad populated for non-leaf Tensors, you can use retain_grad().<br></br>
-        ///	
+        ///	To get grad populated for non-leaf Tensors, you can use retain_grad().
         /// </summary>
         public void is_leaf()
         {
@@ -1097,8 +1011,7 @@ namespace Torch
         
         /// <summary>
         ///	Returns True if this object refers to the same THTensor object from the
-        ///	Torch C API as the given tensor.<br></br>
-        ///	
+        ///	Torch C API as the given tensor.
         /// </summary>
         public bool is_set_to(Tensor tensor)
         {
@@ -1116,9 +1029,7 @@ namespace Torch
         /// <summary>
         ///	Checks if tensor is in shared memory.<br></br>
         ///	
-        ///	
-        ///	This is always True for CUDA tensors.<br></br>
-        ///	
+        ///	This is always True for CUDA tensors.
         /// </summary>
         public void is_shared()
         {
@@ -1128,8 +1039,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns True if the data type of self is a signed data type.<br></br>
-        ///	
+        ///	Returns True if the data type of self is a signed data type.
         /// </summary>
         public bool is_signed()
         {
@@ -1171,8 +1081,7 @@ namespace Torch
         
         /// <summary>
         ///	self.long() is equivalent to self.to(torch.int64).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @long()
         {
@@ -1187,7 +1096,6 @@ namespace Torch
         ///	tensor and stores the results in self tensor.<br></br>
         ///	 self tensor and
         ///	the given tensor must be broadcastable.<br></br>
-        ///	
         ///	
         ///	The callable should have the signature:
         ///	
@@ -1256,8 +1164,7 @@ namespace Torch
         ///	one.<br></br>
         ///	 The shape of mask must be
         ///	broadcastable with the shape of the underlying
-        ///	tensor.<br></br>
-        ///	
+        ///	tensor.
         /// </summary>
         /// <param name="mask">
         ///	the binary mask
@@ -1302,8 +1209,7 @@ namespace Torch
         ///	do not have a shared-storage narrow method.<br></br>
         ///	  Calling `narrow_copy
         ///	with `dimemsion &gt; self.sparse_dim()` will return a copy with the
-        ///	relevant dense dimension narrowed, and `self.shape` updated accordingly.<br></br>
-        ///	
+        ///	relevant dense dimension narrowed, and `self.shape` updated accordingly.
         /// </summary>
         public Tensor narrow_copy(int dimension, int start, int length)
         {
@@ -1344,8 +1250,7 @@ namespace Torch
         
         /// <summary>
         ///	Fills self tensor with elements samples from the normal distribution
-        ///	parameterized by mean and std.<br></br>
-        ///	
+        ///	parameterized by mean and std.
         /// </summary>
         public Tensor normal_(double mean = 0, double std = 1)
         {
@@ -1366,8 +1271,7 @@ namespace Torch
         ///	 This tensor and the
         ///	returned ndarray share the same underlying storage.<br></br>
         ///	 Changes to
-        ///	self tensor will be reflected in the ndarray and vice versa.<br></br>
-        ///	
+        ///	self tensor will be reflected in the ndarray and vice versa.
         /// </summary>
         public NDarray numpy()
         {
@@ -1378,8 +1282,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Permute the dimensions of this tensor.<br></br>
-        ///	
+        ///	Permute the dimensions of this tensor.
         /// </summary>
         public Tensor permute(params int[] dims)
         {
@@ -1395,8 +1298,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Copies the tensor to pinned memory, if it’s not already pinned.<br></br>
-        ///	
+        ///	Copies the tensor to pinned memory, if it’s not already pinned.
         /// </summary>
         public Tensor pin_memory()
         {
@@ -1412,12 +1314,10 @@ namespace Torch
         ///	 For the purpose of indexing, the self tensor is treated as if
         ///	it were a 1-D tensor.<br></br>
         ///	
-        ///	
         ///	If accumulate is True, the elements in tensor are added to
         ///	self.<br></br>
         ///	 If accumulate is False, the behavior is undefined if indices
-        ///	contain duplicate elements.<br></br>
-        ///	
+        ///	contain duplicate elements.
         /// </summary>
         /// <param name="indices">
         ///	the indices into self
@@ -1447,8 +1347,7 @@ namespace Torch
         ///	Quantize a float Tensor using affine quantization scheme with given scale and
         ///	zero_point.<br></br>
         ///	
-        ///	returns the quantized Tensor.<br></br>
-        ///	
+        ///	returns the quantized Tensor.
         /// </summary>
         public Tensor quantize_linear(double scale, double zero_point)
         {
@@ -1466,8 +1365,7 @@ namespace Torch
         
         /// <summary>
         ///	Given a Tensor quantized by linear(affine) quantization,
-        ///	returns the scale of the underlying quantizer().<br></br>
-        ///	
+        ///	returns the scale of the underlying quantizer().
         /// </summary>
         public float q_scale()
         {
@@ -1479,8 +1377,7 @@ namespace Torch
         
         /// <summary>
         ///	Given a Tensor quantized by linear(affine) quantization,
-        ///	returns the zero_point of the underlying quantizer().<br></br>
-        ///	
+        ///	returns the zero_point of the underlying quantizer().
         /// </summary>
         public int q_zero_point()
         {
@@ -1499,8 +1396,7 @@ namespace Torch
         ///	types, if unspecified, range will be [0, 2^mantissa] to ensure that every
         ///	value is representable.<br></br>
         ///	 For example, torch.tensor(1, dtype=torch.double).random_()
-        ///	will be uniform in [0, 2^53].<br></br>
-        ///	
+        ///	will be uniform in [0, 2^53].
         /// </summary>
         public Tensor<T> random_<T>(T @from, T to)
         {
@@ -1519,7 +1415,6 @@ namespace Torch
         /// <summary>
         ///	Registers a backward hook.<br></br>
         ///	
-        ///	
         ///	The hook will be called every time a gradient with respect to the
         ///	Tensor is computed.<br></br>
         ///	 The hook should have the following signature:
@@ -1529,10 +1424,8 @@ namespace Torch
         ///	The hook should not modify its argument, but it can optionally return
         ///	a new gradient which will be used in place of grad.<br></br>
         ///	
-        ///	
         ///	This function returns a handle with a method handle.remove()
-        ///	that removes the hook from the module.<br></br>
-        ///	
+        ///	that removes the hook from the module.
         /// </summary>
         public void register_hook(Func<Tensor, Tensor> hook)
         {
@@ -1549,9 +1442,7 @@ namespace Torch
         /// <summary>
         ///	Repeats this tensor along the specified dimensions.<br></br>
         ///	
-        ///	
         ///	Unlike expand(), this function copies the tensor’s data.<br></br>
-        ///	
         ///	
         ///	Warning
         ///	torch.repeat() behaves differently from
@@ -1559,8 +1450,7 @@ namespace Torch
         ///	but is more similar to
         ///	numpy.tile.<br></br>
         ///	
-        ///	For the operator similar to numpy.repeat, see torch.repeat_interleave().<br></br>
-        ///	
+        ///	For the operator similar to numpy.repeat, see torch.repeat_interleave().
         /// </summary>
         public Tensor repeat(Shape sizes)
         {
@@ -1580,14 +1470,12 @@ namespace Torch
         ///	requires_grad attribute in-place.<br></br>
         ///	 Returns this tensor.<br></br>
         ///	
-        ///	
         ///	require_grad_()’s main use case is to tell autograd to begin recording
         ///	operations on a Tensor tensor.<br></br>
         ///	 If tensor has requires_grad=False
         ///	(because it was obtained through a DataLoader, or required preprocessing or
         ///	initialization), tensor.requires_grad_() makes it so that autograd will
-        ///	begin to record operations on tensor.<br></br>
-        ///	
+        ///	begin to record operations on tensor.
         /// </summary>
         public Tensor requires_grad_(bool requires_grad = true)
         {
@@ -1612,7 +1500,6 @@ namespace Torch
         ///	 Existing elements are preserved but any new
         ///	memory is uninitialized.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	This is a low-level method.<br></br>
         ///	 The storage is reinterpreted as C-contiguous,
@@ -1622,8 +1509,7 @@ namespace Torch
         ///	will instead want to use view(), which checks for
         ///	contiguity, or reshape(), which copies data if needed.<br></br>
         ///	 To
-        ///	change the size in-place with custom strides, see set_().<br></br>
-        ///	
+        ///	change the size in-place with custom strides, see set_().
         /// </summary>
         public Tensor resize_(Shape sizes)
         {
@@ -1641,8 +1527,7 @@ namespace Torch
         /// <summary>
         ///	Resizes the self tensor to be the same size as the specified
         ///	tensor.<br></br>
-        ///	 This is equivalent to self.resize_(tensor.size()).<br></br>
-        ///	
+        ///	 This is equivalent to self.resize_(tensor.size()).
         /// </summary>
         public Tensor resize_as_(Tensor tensor)
         {
@@ -1658,8 +1543,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Enables .grad attribute for non-leaf Tensors.<br></br>
-        ///	
+        ///	Enables .grad attribute for non-leaf Tensors.
         /// </summary>
         public void retain_grad()
         {
@@ -1693,7 +1577,6 @@ namespace Torch
         ///	index is specified by its index in src for dimension != dim and by
         ///	the corresponding value in index for dimension = dim.<br></br>
         ///	
-        ///	
         ///	For a 3-D tensor, self is updated as:
         ///	
         ///	self[index[i][j][k]][j][k] = src[i][j][k]  # if dim == 0
@@ -1702,18 +1585,15 @@ namespace Torch
         ///	
         ///	This is the reverse operation of the manner described in gather().<br></br>
         ///	
-        ///	
         ///	self, index and src (if it is a Tensor) should have same
         ///	number of dimensions.<br></br>
         ///	 It is also required that index.size(d) &lt;= src.size(d)
         ///	for all dimensions d, and that index.size(d) &lt;= self.size(d) for all
         ///	dimensions d != dim.<br></br>
         ///	
-        ///	
         ///	Moreover, as for gather(), the values of index must be
         ///	between 0 and self.size(dim) - 1 inclusive, and all values in a row
-        ///	along the specified dimension dim must be unique.<br></br>
-        ///	
+        ///	along the specified dimension dim must be unique.
         /// </summary>
         /// <param name="dim">
         ///	the axis along which to index
@@ -1757,7 +1637,6 @@ namespace Torch
         ///	for dimension != dim and by the corresponding value in index for
         ///	dimension = dim.<br></br>
         ///	
-        ///	
         ///	For a 3-D tensor, self is updated as:
         ///	
         ///	self[index[i][j][k]][j][k] += other[i][j][k]  # if dim == 0
@@ -1770,18 +1649,15 @@ namespace Torch
         ///	dimensions d, and that index.size(d) &lt;= self.size(d) for all dimensions
         ///	d != dim.<br></br>
         ///	
-        ///	
         ///	Moreover, as for gather(), the values of index must be
         ///	between 0 and self.size(dim) - 1 inclusive, and all values in a row along
         ///	the specified dimension dim must be unique.<br></br>
-        ///	
         ///	
         ///	Note
         ///	When using the CUDA backend, this operation may induce nondeterministic
         ///	behaviour that is not easily switched off.<br></br>
         ///	
-        ///	Please see the notes on Reproducibility for background.<br></br>
-        ///	
+        ///	Please see the notes on Reproducibility for background.
         /// </summary>
         /// <param name="dim">
         ///	the axis along which to index
@@ -1790,8 +1666,7 @@ namespace Torch
         ///	the indices of elements to scatter and add,
         ///	can be either empty or the same size of src.<br></br>
         ///	
-        ///	When empty, the operation returns identity.<br></br>
-        ///	
+        ///	When empty, the operation returns identity.
         /// </param>
         /// <param name="other">
         ///	the source elements to scatter and add
@@ -1832,8 +1707,7 @@ namespace Torch
         /// <summary>
         ///	Slices the self tensor along the selected dimension at the given index.<br></br>
         ///	
-        ///	This function returns a tensor with the given dimension removed.<br></br>
-        ///	
+        ///	This function returns a tensor with the given dimension removed.
         /// </summary>
         /// <param name="dim">
         ///	the dimension to slice
@@ -1863,10 +1737,8 @@ namespace Torch
         ///	 Changes to elements in one tensor will be reflected
         ///	in the other.<br></br>
         ///	
-        ///	
         ///	If source is a Storage, the method sets the underlying
-        ///	storage, offset, size, and stride.<br></br>
-        ///	
+        ///	storage, offset, size, and stride.
         /// </summary>
         /// <param name="source">
         ///	the tensor or storage to use
@@ -1876,13 +1748,11 @@ namespace Torch
         /// </param>
         /// <param name="size">
         ///	the desired size.<br></br>
-        ///	 Defaults to the size of the source.<br></br>
-        ///	
+        ///	Defaults to the size of the source.
         /// </param>
         /// <param name="stride">
         ///	the desired stride.<br></br>
-        ///	 Defaults to C-contiguous strides.<br></br>
-        ///	
+        ///	Defaults to C-contiguous strides.
         /// </param>
         public Tensor set_(Tensor source = null, int? storage_offset = 0, Shape size = null, int[] stride = null)
         {
@@ -1903,11 +1773,9 @@ namespace Torch
         /// <summary>
         ///	Moves the underlying storage to shared memory.<br></br>
         ///	
-        ///	
         ///	This is a no-op if the underlying storage is already in shared memory
         ///	and for CUDA tensors.<br></br>
-        ///	 Tensors in shared memory cannot be resized.<br></br>
-        ///	
+        ///	 Tensors in shared memory cannot be resized.
         /// </summary>
         public void share_memory_()
         {
@@ -1918,8 +1786,7 @@ namespace Torch
         
         /// <summary>
         ///	self.short() is equivalent to self.to(torch.int16).<br></br>
-        ///	 See to().<br></br>
-        ///	
+        ///	 See to().
         /// </summary>
         public Tensor @short()
         {
@@ -1932,8 +1799,7 @@ namespace Torch
         /// <summary>
         ///	Returns the size of the self tensor.<br></br>
         ///	 The returned value is a subclass of
-        ///	tuple.<br></br>
-        ///	
+        ///	tuple.
         /// </summary>
         public Shape size()
         {
@@ -1947,8 +1813,7 @@ namespace Torch
         ///	Returns a new SparseTensor with values from Tensor input filtered
         ///	by indices of mask and values are ignored.<br></br>
         ///	 input and mask
-        ///	must have the same shape.<br></br>
-        ///	
+        ///	must have the same shape.
         /// </summary>
         /// <param name="input">
         ///	an input Tensor
@@ -1976,9 +1841,7 @@ namespace Torch
         ///	 Otherwise, this throws an
         ///	error.<br></br>
         ///	
-        ///	
-        ///	See also Tensor.dense_dim().<br></br>
-        ///	
+        ///	See also Tensor.dense_dim().
         /// </summary>
         public int sparse_dim()
         {
@@ -1989,8 +1852,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the underlying storage.<br></br>
-        ///	
+        ///	Returns the underlying storage.
         /// </summary>
         public Storage storage()
         {
@@ -2002,8 +1864,7 @@ namespace Torch
         
         /// <summary>
         ///	Returns self tensor’s offset in the underlying storage in terms of
-        ///	number of storage elements (not bytes).<br></br>
-        ///	
+        ///	number of storage elements (not bytes).
         /// </summary>
         public int storage_offset()
         {
@@ -2014,8 +1875,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the type of the underlying storage.<br></br>
-        ///	
+        ///	Returns the type of the underlying storage.
         /// </summary>
         public Dtype storage_type()
         {
@@ -2028,14 +1888,12 @@ namespace Torch
         /// <summary>
         ///	Returns the stride of self tensor.<br></br>
         ///	
-        ///	
         ///	Stride is the jump necessary to go from one element to the next one in the
         ///	specified dimension dim.<br></br>
         ///	 A tuple of all strides is returned when no
         ///	argument is passed in.<br></br>
         ///	 Otherwise, an integer value is returned as the stride in
-        ///	the particular dimension dim.<br></br>
-        ///	
+        ///	the particular dimension dim.
         /// </summary>
         public int[] stride()
         {
@@ -2048,14 +1906,12 @@ namespace Torch
         /// <summary>
         ///	Returns the stride of self tensor.<br></br>
         ///	
-        ///	
         ///	Stride is the jump necessary to go from one element to the next one in the
         ///	specified dimension dim.<br></br>
         ///	 A tuple of all strides is returned when no
         ///	argument is passed in.<br></br>
         ///	 Otherwise, an integer value is returned as the stride in
-        ///	the particular dimension dim.<br></br>
-        ///	
+        ///	the particular dimension dim.
         /// </summary>
         public int stride(int dim)
         {
@@ -2076,11 +1932,9 @@ namespace Torch
         ///	other are specified, each element of other is scaled by
         ///	value before being used.<br></br>
         ///	
-        ///	
         ///	When other is a tensor, the shape of other must be
         ///	broadcastable with the shape of the underlying
-        ///	tensor.<br></br>
-        ///	
+        ///	tensor.
         /// </summary>
         public Tensor sub<T>(T @value, Tensor other = null)
         {
@@ -2103,8 +1957,7 @@ namespace Torch
         ///	
         ///	:param other: The result tensor has the same size
         ///	
-        ///	as other.<br></br>
-        ///	
+        ///	as other.
         /// </summary>
         public Tensor sum_to_size(Shape size, Tensor other = null)
         {
@@ -2125,14 +1978,12 @@ namespace Torch
         ///	 A torch.dtype and torch.device are
         ///	inferred from the arguments of self.to(*args, **kwargs).<br></br>
         ///	
-        ///	
         ///	Note
         ///	If the self Tensor already
         ///	has the correct torch.dtype and torch.device, then self is returned.<br></br>
         ///	
         ///	Otherwise, the returned tensor is a copy of self with the desired
         ///	torch.dtype and torch.device.<br></br>
-        ///	
         ///	
         ///	Here are the ways to call to:
         /// </summary>
@@ -2157,14 +2008,12 @@ namespace Torch
         ///	 A torch.dtype and torch.device are
         ///	inferred from the arguments of self.to(*args, **kwargs).<br></br>
         ///	
-        ///	
         ///	Note
         ///	If the self Tensor already
         ///	has the correct torch.dtype and torch.device, then self is returned.<br></br>
         ///	
         ///	Otherwise, the returned tensor is a copy of self with the desired
         ///	torch.dtype and torch.device.<br></br>
-        ///	
         ///	
         ///	Here are the ways to call to:
         /// </summary>
@@ -2188,14 +2037,12 @@ namespace Torch
         ///	 A torch.dtype and torch.device are
         ///	inferred from the arguments of self.to(*args, **kwargs).<br></br>
         ///	
-        ///	
         ///	Note
         ///	If the self Tensor already
         ///	has the correct torch.dtype and torch.device, then self is returned.<br></br>
         ///	
         ///	Otherwise, the returned tensor is a copy of self with the desired
         ///	torch.dtype and torch.device.<br></br>
-        ///	
         ///	
         ///	Here are the ways to call to:
         /// </summary>
@@ -2215,8 +2062,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a copy of the tensor in torch.mkldnn layout.<br></br>
-        ///	
+        ///	Returns a copy of the tensor in torch.mkldnn layout.
         /// </summary>
         public Tensor to_mkldnn()
         {
@@ -2236,9 +2082,7 @@ namespace Torch
         ///	
         ///	Tensors are automatically moved to the CPU first if necessary.<br></br>
         ///	
-        ///	
-        ///	This operation is not differentiable.<br></br>
-        ///	
+        ///	This operation is not differentiable.
         /// </summary>
         public void tolist()
         {
@@ -2250,8 +2094,7 @@ namespace Torch
         /// <summary>
         ///	Returns a sparse copy of the tensor.<br></br>
         ///	  PyTorch supports sparse tensors in
-        ///	coordinate format.<br></br>
-        ///	
+        ///	coordinate format.
         /// </summary>
         public Tensor to_sparse(int? sparseDims = null)
         {
@@ -2270,10 +2113,8 @@ namespace Torch
         ///	Returns the type if dtype is not provided, else casts this object to
         ///	the specified type.<br></br>
         ///	
-        ///	
         ///	If this is already of the correct type, no copy is performed and the
-        ///	original object is returned.<br></br>
-        ///	
+        ///	original object is returned.
         /// </summary>
         /// <param name="dtype">
         ///	The desired type
@@ -2282,9 +2123,8 @@ namespace Torch
         ///	If True, and the source is in pinned memory
         ///	and destination is on the GPU or vice versa, the copy is performed
         ///	asynchronously with respect to the host.<br></br>
-        ///	 Otherwise, the argument
-        ///	has no effect.<br></br>
-        ///	
+        ///	Otherwise, the argument
+        ///	has no effect.
         /// </param>
         public Tensor type(Dtype dtype = null, bool non_blocking = false)
         {
@@ -2302,7 +2142,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns this tensor cast to the type of the given tensor.<br></br>
-        ///	
         ///	
         ///	This is a no-op if the tensor is already of the correct type.<br></br>
         ///	 This is
@@ -2325,17 +2164,13 @@ namespace Torch
         ///	Returns a tensor which contains all slices of size size from
         ///	self tensor in the dimension dimension.<br></br>
         ///	
-        ///	
         ///	Step between two slices is given by step.<br></br>
-        ///	
         ///	
         ///	If sizedim is the size of dimension dimension for self, the size of
         ///	dimension dimension in the returned tensor will be
         ///	(sizedim - size) / step + 1.<br></br>
         ///	
-        ///	
-        ///	An additional dimension of size size is appended in the returned tensor.<br></br>
-        ///	
+        ///	An additional dimension of size size is appended in the returned tensor.
         /// </summary>
         /// <param name="dimension">
         ///	dimension in which unfolding happens
@@ -2389,15 +2224,12 @@ namespace Torch
         ///	 Otherwise, this throws an
         ///	error.<br></br>
         ///	
-        ///	
         ///	See also Tensor.indices().<br></br>
-        ///	
         ///	
         ///	Note
         ///	This method can only be called on a coalesced sparse tensor.<br></br>
         ///	 See
-        ///	Tensor.coalesce() for details.<br></br>
-        ///	
+        ///	Tensor.coalesce() for details.
         /// </summary>
         public Tensor values()
         {
@@ -2410,7 +2242,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the same data as the self tensor but of a
         ///	different shape.<br></br>
-        ///	
         ///	
         ///	The returned tensor shares the same data and must have the same number
         ///	of elements, but may have a different size.<br></br>
@@ -2425,8 +2256,7 @@ namespace Torch
         ///	Otherwise, contiguous() needs to be called before the tensor can be
         ///	viewed.<br></br>
         ///	 See also: reshape(), which returns a view if the shapes are
-        ///	compatible, and copies (equivalent to calling contiguous()) otherwise.<br></br>
-        ///	
+        ///	compatible, and copies (equivalent to calling contiguous()) otherwise.
         /// </summary>
         public Tensor view(Shape shape)
         {
@@ -2446,9 +2276,7 @@ namespace Torch
         ///	
         ///	self.view_as(other) is equivalent to self.view(other.size()).<br></br>
         ///	
-        ///	
-        ///	Please see view() for more information about view.<br></br>
-        ///	
+        ///	Please see view() for more information about view.
         /// </summary>
         public Tensor view_as(Tensor other)
         {
@@ -2464,8 +2292,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Fills self tensor with zeros.<br></br>
-        ///	
+        ///	Fills self tensor with zeros.
         /// </summary>
         public Tensor zero_()
         {

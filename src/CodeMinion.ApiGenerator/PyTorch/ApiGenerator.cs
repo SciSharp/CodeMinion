@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using CodeMinion.Core;
 using CodeMinion.Core.Helpers;
 using CodeMinion.Core.Models;
@@ -82,7 +83,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
         {
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
-            ParseClasses("nn.html", subdir: "nn", stop_at: "torch.nn.Conv2d");
+            ParseClasses("nn.html", subdir: "nn", stop_at: null);
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -90,6 +91,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
             _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Torch\\Models");
             //_generator.GenerateIntermediateJson();
             _generator.Generate();
+            Thread.Sleep(2000);
             return "DONE";
         }
 
@@ -202,7 +204,10 @@ namespace CodeMinion.ApiGenerator.PyTorch
             var doc = LoadDoc(uri);
             foreach (var classNode in doc.DocumentNode.Descendants("dl").Where(x => x.Attributes["class"]?.Value == "class"))
             {
+                var constructor_parameters = classNode.Element("dt").InnerText;
                 var fullname = classNode.Element("dt").Attributes["id"]?.Value;
+                //if (fullname== "torch.nn.parallel.DistributedDataParallel")
+                //    Debugger.Break();
                 if (stop_at != null && fullname == stop_at)
                     return;
                 //var classname = fullname.Split(".").Last();
@@ -226,6 +231,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                         var parameters_dd = dl.Element("dd");
                         var decl = new Function() { Name = fullname };
                         decl.Arguments = ParseArgumentsList(decl, parameters_dd);
+                        ParseDefaultValuesFromText(decl as Function, constructor_parameters);
                         api.Constructors.Add(decl);
                     }
                 }
@@ -270,6 +276,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 }
                 PostProcess(api);
             }
+            Console.WriteLine($"\t... {_generator.ApiClasses.Count} classes");
         }
 
         private void PostProcess(ApiClass api)
@@ -318,6 +325,23 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 }
                 if (em.InnerText.Contains("-&gt;"))
                     break;
+            }
+        }
+
+        private void ParseDefaultValuesFromText(Function f, string fullDeclaration)
+        {
+            var args= Regex.Match(fullDeclaration, @"\(.+?\)").Value?.Trim('(', ')', ' ');
+            if (string.IsNullOrWhiteSpace(args))
+                return;
+            foreach (var token in Regex.Split(args, @",\s*"))
+            {
+                if (!token.Contains("="))
+                    continue;
+                var a = token.Split("=");
+                var arg=f.Arguments.FirstOrDefault(x => x.Name == a[0]);
+                if (arg==null)
+                    continue;
+                arg.DefaultValue = InferDefaultValue(a[1].Trim(), arg);
             }
         }
 
@@ -487,7 +511,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                             arg.IsNullable = true;
                             arg.IsNamedArg = true;
                         }
-                        arg.Type = InferType(type_part.Split(',')[0].Trim(' ', '(', ')', '*'), null, arg);
+                        arg.Type = InferType(type_part.Split(',')[0].Trim(' ', '(', ')', '*'), arg.Description, arg);
                     }
 
                     //type_part = Regex.Match(p_desc, @"\(int...\)")?.Value; //(int...)
@@ -1042,13 +1066,55 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     return "Hashtable";
                 case "str":
                     return "string";
-                default:
-                    return value;
             }
+            //if (arg.Name=="track_running_stats")
+            //    Debugger.Break();
+            if (!string.IsNullOrWhiteSpace(arg.Description))
+                hint = arg.Description;
+            if (hint != null)
+            {
+                if (Regex.IsMatch(hint, @"(Number|Amount) of", RegexOptions.IgnoreCase))
+                {
+                    arg.DefaultValue = InferDefaultValue(Regex.Match(hint, @"Default: ([+-]?\d+)", RegexOptions.IgnoreCase).FirstGroupOrNull(), arg);
+                    return "int";
+                }
+                if (Regex.IsMatch(hint, @"If (True|False)", RegexOptions.IgnoreCase))
+                {
+                    arg.DefaultValue = InferDefaultValue(Regex.Match(hint, @"Default: (True|False)", RegexOptions.IgnoreCase).FirstGroupOrNull(), arg);
+                    return "bool";
+                }
+                var match = Regex.Match(hint, @"Default: ([+-]?(\d+.\d+|\d+e[+-]\d+))", RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    arg.DefaultValue = InferDefaultValue(match.FirstGroupOrNull(), arg);
+                    return "double";
+                }
+                match = Regex.Match(hint, @"Default: ([+-]?\d+)", RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    arg.DefaultValue = InferDefaultValue(match.FirstGroupOrNull(), arg);
+                    return "int";
+                }
+                match = Regex.Match(hint, @"Default: (True|False)", RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    arg.DefaultValue = InferDefaultValue(match.FirstGroupOrNull(), arg);
+                    return "bool";
+                }
+                match = Regex.Match(hint, @"Default: '(.+?)'", RegexOptions.IgnoreCase);
+                if (match.Success)
+                {
+                    arg.DefaultValue = $"\"{match.FirstGroupOrNull()}\"";
+                    return "string";
+                }
+            }
+            return value;
         }
 
         private string InferDefaultValue(string defaultValue, Argument arg)
         {
+            if (string.IsNullOrWhiteSpace(defaultValue))
+                return null;
             switch (defaultValue)
             {
                 case "torch.strided":
@@ -1070,6 +1136,13 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 if (string.IsNullOrWhiteSpace(arg.Type))
                     arg.Type = "string";
                 return "\"" + defaultValue.Trim('\'') + "\"";
+            }
+            if (string.IsNullOrWhiteSpace(arg.Type))
+            {
+                if (Regex.IsMatch(defaultValue, @"([+-]?(\d+.\d+|\d+e[+-]\d+))", RegexOptions.IgnoreCase))
+                    arg.Type = "double";
+                else if (Regex.IsMatch(defaultValue, @"^([+-]?(\d+))$"))
+                    arg.Type = "int";
             }
             return defaultValue;
         }

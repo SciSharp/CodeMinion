@@ -18,7 +18,6 @@ namespace Torch
             /// <summary>
             ///	A kind of Tensor that is to be considered a module parameter.<br></br>
             ///	
-            ///	
             ///	Parameters are Tensor subclasses, that have a
             ///	very special property when used with Module s - when they’re
             ///	assigned as Module attributes they are automatically added to the list of
@@ -30,8 +29,7 @@ namespace Torch
             ///	want to cache some temporary state, like last hidden state of the RNN, in
             ///	the model.<br></br>
             ///	 If there was no such class as Parameter, these
-            ///	temporaries would get registered too.<br></br>
-            ///	
+            ///	temporaries would get registered too.
             /// </summary>
             public partial class Parameter : PythonObject
             {

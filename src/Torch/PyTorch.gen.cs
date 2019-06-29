@@ -17,8 +17,7 @@ namespace Torch
     {
         
         /// <summary>
-        ///	Returns True if obj is a PyTorch tensor.<br></br>
-        ///	
+        ///	Returns True if obj is a PyTorch tensor.
         /// </summary>
         public bool is_tensor(Object obj)
         {
@@ -34,8 +33,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns True if obj is a PyTorch storage object.<br></br>
-        ///	
+        ///	Returns True if obj is a PyTorch storage object.
         /// </summary>
         public bool is_storage(Object obj)
         {
@@ -74,7 +72,6 @@ namespace Torch
         ///	used as default floating point type for type inference in
         ///	torch.tensor().<br></br>
         ///	
-        ///	
         ///	The default floating point dtype is initially torch.float32.
         /// </summary>
         public void set_default_dtype(Dtype d)
@@ -90,8 +87,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Get the current default floating point torch.dtype.<br></br>
-        ///	
+        ///	Get the current default floating point torch.dtype.
         /// </summary>
         public Dtype get_default_dtype()
         {
@@ -107,9 +103,7 @@ namespace Torch
         ///	 This type will also be used as default floating point type for
         ///	type inference in torch.tensor().<br></br>
         ///	
-        ///	
-        ///	The default floating point tensor type is initially torch.FloatTensor.<br></br>
-        ///	
+        ///	The default floating point tensor type is initially torch.FloatTensor.
         /// </summary>
         public void set_default_tensor_type(Dtype t)
         {
@@ -124,8 +118,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the total number of elements in the input tensor.<br></br>
-        ///	
+        ///	Returns the total number of elements in the input tensor.
         /// </summary>
         public int numel(Tensor input)
         {
@@ -146,35 +139,31 @@ namespace Torch
         /// </summary>
         /// <param name="precision">
         ///	Number of digits of precision for floating point output
-        ///	(default = 4).<br></br>
-        ///	
+        ///	(default = 4).
         /// </param>
         /// <param name="threshold">
         ///	Total number of array elements which trigger summarization
-        ///	rather than full repr (default = 1000).<br></br>
-        ///	
+        ///	rather than full repr (default = 1000).
         /// </param>
         /// <param name="edgeitems">
         ///	Number of array items in summary at beginning and end of
-        ///	each dimension (default = 3).<br></br>
-        ///	
+        ///	each dimension (default = 3).
         /// </param>
         /// <param name="linewidth">
         ///	The number of characters per line for the purpose of
         ///	inserting line breaks (default = 80).<br></br>
-        ///	 Thresholded matrices will
-        ///	ignore this parameter.<br></br>
-        ///	
+        ///	Thresholded matrices will
+        ///	ignore this parameter.
         /// </param>
         /// <param name="profile">
         ///	Sane defaults for pretty printing.<br></br>
-        ///	 Can override with any of
+        ///	Can override with any of
         ///	the above options.<br></br>
-        ///	 (any one of default, short, full)
+        ///	(any one of default, short, full)
         /// </param>
         /// <param name="sci_mode">
         ///	Enable (True) or disable (False) scientific notation.<br></br>
-        ///	 If
+        ///	If
         ///	None (default) is specified, the value is defined by _Formatter
         /// </param>
         public void set_printoptions(int? precision = 4, int? threshold = 1000, int? edgeitems = 3, int? linewidth = 80, string profile = "default", bool? sci_mode = null)
@@ -196,7 +185,6 @@ namespace Torch
         
         /// <summary>
         ///	Disables denormal floating numbers on CPU.<br></br>
-        ///	
         ///	
         ///	Returns True if your system supports flushing denormal numbers and it
         ///	successfully configures flush denormal mode.<br></br>
@@ -221,53 +209,46 @@ namespace Torch
         ///	with the given values.<br></br>
         ///	 A sparse tensor can be uncoalesced, in that case, there are duplicate
         ///	coordinates in the indices, and the value at that index is the sum of all duplicate value entries:
-        ///	torch.sparse.<br></br>
-        ///	
+        ///	torch.sparse.
         /// </summary>
         /// <param name="indices">
         ///	Initial data for the tensor.<br></br>
-        ///	 Can be a list, tuple,
+        ///	Can be a list, tuple,
         ///	NumPy ndarray, scalar, and other types.<br></br>
-        ///	 Will be cast to a torch.LongTensor
+        ///	Will be cast to a torch.LongTensor
         ///	internally.<br></br>
-        ///	 The indices are the coordinates of the non-zero values in the matrix, and thus
+        ///	The indices are the coordinates of the non-zero values in the matrix, and thus
         ///	should be two-dimensional where the first dimension is the number of tensor dimensions and
-        ///	the second dimension is the number of non-zero values.<br></br>
-        ///	
+        ///	the second dimension is the number of non-zero values.
         /// </param>
         /// <param name="values">
         ///	Initial values for the tensor.<br></br>
-        ///	 Can be a list, tuple,
-        ///	NumPy ndarray, scalar, and other types.<br></br>
-        ///	
+        ///	Can be a list, tuple,
+        ///	NumPy ndarray, scalar, and other types.
         /// </param>
         /// <param name="size">
         ///	Size of the sparse tensor.<br></br>
-        ///	 If not
+        ///	If not
         ///	provided the size will be inferred as the minimum size big enough to hold all non-zero
-        ///	elements.<br></br>
-        ///	
+        ///	elements.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, infers data type from values.<br></br>
-        ///	
+        ///	Default: if None, infers data type from values.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor sparse_coo_tensor(NDarray<int> indices, NDarray values, int? size = null, Dtype dtype = null, Device device = null, bool? requires_grad = false)
         {
@@ -293,29 +274,25 @@ namespace Torch
         ///	no copy will be performed, otherwise a new Tensor will be returned with computational graph retained if data
         ///	Tensor has requires_grad=True.<br></br>
         ///	 Similarly, if the data is an ndarray of the corresponding dtype and
-        ///	the device is the cpu, no copy will be performed.<br></br>
-        ///	
+        ///	the device is the cpu, no copy will be performed.
         /// </summary>
         /// <param name="data">
         ///	Initial data for the tensor.<br></br>
-        ///	 Can be a list, tuple,
-        ///	NumPy ndarray, scalar, and other types.<br></br>
-        ///	
+        ///	Can be a list, tuple,
+        ///	NumPy ndarray, scalar, and other types.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, infers data type from data.<br></br>
-        ///	
+        ///	Default: if None, infers data type from data.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         public Tensor as_tensor(NDarray data, Dtype dtype = null, Device device = null)
         {
@@ -335,13 +312,11 @@ namespace Torch
         /// <summary>
         ///	Creates a Tensor from a numpy.ndarray.<br></br>
         ///	
-        ///	
         ///	The returned tensor and ndarray share the same memory.<br></br>
         ///	 Modifications to
         ///	the tensor will be reflected in the ndarray and vice versa.<br></br>
         ///	 The returned
-        ///	tensor is not resizable.<br></br>
-        ///	
+        ///	tensor is not resizable.
         /// </summary>
         public Tensor from_numpy(NDarray ndarray)
         {
@@ -358,14 +333,12 @@ namespace Torch
         
         /// <summary>
         ///	Returns a tensor filled with the scalar value 0, with the shape defined
-        ///	by the variable argument sizes.<br></br>
-        ///	
+        ///	by the variable argument sizes.
         /// </summary>
         /// <param name="sizes">
         ///	a sequence of integers defining the shape of the output tensor.<br></br>
         ///	
-        ///	Can be a variable number of arguments or a collection like a list or tuple.<br></br>
-        ///	
+        ///	Can be a variable number of arguments or a collection like a list or tuple.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -373,29 +346,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor zeros(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -421,13 +390,11 @@ namespace Torch
         ///	 torch.zeros_like(input) is equivalent to
         ///	torch.zeros(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).<br></br>
         ///	
-        ///	
         ///	Warning
         ///	As of 0.4, this function does not support an out keyword.<br></br>
         ///	 As an alternative,
         ///	the old torch.zeros_like(input, out=output) is equivalent to
-        ///	torch.zeros(input.size(), out=output).<br></br>
-        ///	
+        ///	torch.zeros(input.size(), out=output).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
@@ -435,26 +402,22 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor zeros_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -475,14 +438,12 @@ namespace Torch
         
         /// <summary>
         ///	Returns a tensor filled with the scalar value 1, with the shape defined
-        ///	by the variable argument sizes.<br></br>
-        ///	
+        ///	by the variable argument sizes.
         /// </summary>
         /// <param name="sizes">
         ///	a sequence of integers defining the shape of the output tensor.<br></br>
         ///	
-        ///	Can be a variable number of arguments or a collection like a list or tuple.<br></br>
-        ///	
+        ///	Can be a variable number of arguments or a collection like a list or tuple.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -490,29 +451,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor ones(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -538,13 +495,11 @@ namespace Torch
         ///	 torch.ones_like(input) is equivalent to
         ///	torch.ones(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).<br></br>
         ///	
-        ///	
         ///	Warning
         ///	As of 0.4, this function does not support an out keyword.<br></br>
         ///	 As an alternative,
         ///	the old torch.ones_like(input, out=output) is equivalent to
-        ///	torch.ones(input.size(), out=output).<br></br>
-        ///	
+        ///	torch.ones(input.size(), out=output).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
@@ -552,26 +507,22 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor ones_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -595,11 +546,9 @@ namespace Torch
         ///	with values from the interval [start, end) taken with common difference
         ///	step beginning from start.<br></br>
         ///	
-        ///	
         ///	Note that non-integer step is subject to floating point rounding errors when
         ///	comparing against end; to avoid inconsistency, we advise adding a small epsilon to end
         ///	in such cases.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{{i+1}} = \text{out}_{i} + \text{step}
         ///	
@@ -615,34 +564,31 @@ namespace Torch
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 If dtype is not given, infer the data type from the other input
+        ///	If dtype is not given, infer the data type from the other input
         ///	arguments.<br></br>
-        ///	 If any of start, end, or stop are floating-point, the
+        ///	If any of start, end, or stop are floating-point, the
         ///	dtype is inferred to be the default dtype, see
         ///	get_default_dtype().<br></br>
-        ///	 Otherwise, the dtype is inferred to
+        ///	Otherwise, the dtype is inferred to
         ///	be torch.int64.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor arange(double end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -667,11 +613,9 @@ namespace Torch
         ///	with values from the interval [start, end) taken with common difference
         ///	step beginning from start.<br></br>
         ///	
-        ///	
         ///	Note that non-integer step is subject to floating point rounding errors when
         ///	comparing against end; to avoid inconsistency, we advise adding a small epsilon to end
         ///	in such cases.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{{i+1}} = \text{out}_{i} + \text{step}
         ///	
@@ -679,16 +623,14 @@ namespace Torch
         /// </summary>
         /// <param name="start">
         ///	the starting value for the set of points.<br></br>
-        ///	 Default: 0.<br></br>
-        ///	
+        ///	Default: 0.
         /// </param>
         /// <param name="end">
         ///	the ending value for the set of points
         /// </param>
         /// <param name="step">
         ///	the gap between each pair of adjacent points.<br></br>
-        ///	 Default: 1.<br></br>
-        ///	
+        ///	Default: 1.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -697,34 +639,31 @@ namespace Torch
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 If dtype is not given, infer the data type from the other input
+        ///	If dtype is not given, infer the data type from the other input
         ///	arguments.<br></br>
-        ///	 If any of start, end, or stop are floating-point, the
+        ///	If any of start, end, or stop are floating-point, the
         ///	dtype is inferred to be the default dtype, see
         ///	get_default_dtype().<br></br>
-        ///	 Otherwise, the dtype is inferred to
+        ///	Otherwise, the dtype is inferred to
         ///	be torch.int64.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor arange(double start, double end, double step = 1, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -752,14 +691,12 @@ namespace Torch
         ///	 Step is
         ///	the gap between two values in the tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i+1} = \text{out}_i + \text{step}.
         ///	
         ///	\]
         ///	
         ///	Warning
-        ///	This function is deprecated in favor of torch.arange().<br></br>
-        ///	
+        ///	This function is deprecated in favor of torch.arange().
         /// </summary>
         /// <param name="end">
         ///	the ending value for the set of points
@@ -771,34 +708,31 @@ namespace Torch
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 If dtype is not given, infer the data type from the other input
+        ///	If dtype is not given, infer the data type from the other input
         ///	arguments.<br></br>
-        ///	 If any of start, end, or stop are floating-point, the
+        ///	If any of start, end, or stop are floating-point, the
         ///	dtype is inferred to be the default dtype, see
         ///	get_default_dtype().<br></br>
-        ///	 Otherwise, the dtype is inferred to
+        ///	Otherwise, the dtype is inferred to
         ///	be torch.int64.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor range(float end, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -824,27 +758,23 @@ namespace Torch
         ///	 Step is
         ///	the gap between two values in the tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i+1} = \text{out}_i + \text{step}.
         ///	
         ///	\]
         ///	
         ///	Warning
-        ///	This function is deprecated in favor of torch.arange().<br></br>
-        ///	
+        ///	This function is deprecated in favor of torch.arange().
         /// </summary>
         /// <param name="start">
         ///	the starting value for the set of points.<br></br>
-        ///	 Default: 0.<br></br>
-        ///	
+        ///	Default: 0.
         /// </param>
         /// <param name="end">
         ///	the ending value for the set of points
         /// </param>
         /// <param name="step">
         ///	the gap between each pair of adjacent points.<br></br>
-        ///	 Default: 1.<br></br>
-        ///	
+        ///	Default: 1.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -853,34 +783,31 @@ namespace Torch
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 If dtype is not given, infer the data type from the other input
+        ///	If dtype is not given, infer the data type from the other input
         ///	arguments.<br></br>
-        ///	 If any of start, end, or stop are floating-point, the
+        ///	If any of start, end, or stop are floating-point, the
         ///	dtype is inferred to be the default dtype, see
         ///	get_default_dtype().<br></br>
-        ///	 Otherwise, the dtype is inferred to
+        ///	Otherwise, the dtype is inferred to
         ///	be torch.int64.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor range(float start, float end, float step = 1f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -906,9 +833,7 @@ namespace Torch
         ///	Returns a one-dimensional tensor of steps
         ///	equally spaced points between start and end.<br></br>
         ///	
-        ///	
-        ///	The output tensor is 1-D of size steps.<br></br>
-        ///	
+        ///	The output tensor is 1-D of size steps.
         /// </summary>
         /// <param name="start">
         ///	the starting value for the set of points
@@ -919,7 +844,7 @@ namespace Torch
         /// <param name="steps">
         ///	number of points to sample between start
         ///	and end.<br></br>
-        ///	 Default: 100.
+        ///	Default: 100.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -927,29 +852,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor linspace(float start, float end, int steps = 100, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -976,9 +897,7 @@ namespace Torch
         ///	logarithmically spaced with base base between
         ///	\({\text{base}}^{\text{start}}\) and \({\text{base}}^{\text{end}}\).<br></br>
         ///	
-        ///	
-        ///	The output tensor is 1-D of size steps.<br></br>
-        ///	
+        ///	The output tensor is 1-D of size steps.
         /// </summary>
         /// <param name="start">
         ///	the starting value for the set of points
@@ -989,11 +908,11 @@ namespace Torch
         /// <param name="steps">
         ///	number of points to sample between start
         ///	and end.<br></br>
-        ///	 Default: 100.
+        ///	Default: 100.
         /// </param>
         /// <param name="base">
         ///	base of the logarithm function.<br></br>
-        ///	 Default: 10.0.
+        ///	Default: 10.0.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -1001,29 +920,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor logspace(float start, float end, int steps = 100, float @base = 10.0f, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1047,8 +962,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a 2-D tensor with ones on the diagonal and zeros elsewhere.<br></br>
-        ///	
+        ///	Returns a 2-D tensor with ones on the diagonal and zeros elsewhere.
         /// </summary>
         /// <param name="n">
         ///	the number of rows
@@ -1062,29 +976,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor eye(int n, int? m = null, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1108,14 +1018,12 @@ namespace Torch
         /// <summary>
         ///	Returns a tensor filled with uninitialized data.<br></br>
         ///	 The shape of the tensor is
-        ///	defined by the variable argument sizes.<br></br>
-        ///	
+        ///	defined by the variable argument sizes.
         /// </summary>
         /// <param name="sizes">
         ///	a sequence of integers defining the shape of the output tensor.<br></br>
         ///	
-        ///	Can be a variable number of arguments or a collection like a list or tuple.<br></br>
-        ///	
+        ///	Can be a variable number of arguments or a collection like a list or tuple.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -1123,36 +1031,31 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         /// <param name="pin_memory">
         ///	If set, returned tensor would be allocated in
         ///	the pinned memory.<br></br>
-        ///	 Works only for CPU tensors.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Works only for CPU tensors.<br></br>
+        ///	Default: False.
         /// </param>
         public Tensor empty(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool requires_grad = false, bool pin_memory = false)
         {
@@ -1177,8 +1080,7 @@ namespace Torch
         ///	Returns an uninitialized tensor with the same size as input.<br></br>
         ///	
         ///	torch.empty_like(input) is equivalent to
-        ///	torch.empty(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).<br></br>
-        ///	
+        ///	torch.empty(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
@@ -1186,26 +1088,22 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor empty_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1225,17 +1123,14 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a tensor of size size filled with fill_value.<br></br>
-        ///	
+        ///	Returns a tensor of size size filled with fill_value.
         /// </summary>
         /// <param name="size">
         ///	a list, tuple, or torch.Size of integers defining the
-        ///	shape of the output tensor.<br></br>
-        ///	
+        ///	shape of the output tensor.
         /// </param>
         /// <param name="fill_value">
-        ///	the number to fill the output tensor with.<br></br>
-        ///	
+        ///	the number to fill the output tensor with.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -1243,29 +1138,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor full(Shape size, object fill_value, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -1290,39 +1181,33 @@ namespace Torch
         ///	Returns a tensor with the same size as input filled with fill_value.<br></br>
         ///	
         ///	torch.full_like(input, fill_value) is equivalent to
-        ///	torch.full(input.size(), fill_value, dtype=input.dtype, layout=input.layout, device=input.device).<br></br>
-        ///	
+        ///	torch.full(input.size(), fill_value, dtype=input.dtype, layout=input.layout, device=input.device).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
         /// </param>
         /// <param name="fill_value">
-        ///	the number to fill the output tensor with.<br></br>
-        ///	
+        ///	the number to fill the output tensor with.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor full_like(Tensor input, object fill_value, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, Tensor @out = null)
         {
@@ -1349,20 +1234,16 @@ namespace Torch
         ///	All tensors must either have the same shape (except in the concatenating
         ///	dimension) or be empty.<br></br>
         ///	
-        ///	
         ///	torch.cat() can be seen as an inverse operation for torch.split()
         ///	and torch.chunk().<br></br>
         ///	
-        ///	
-        ///	torch.cat() can be best understood via examples.<br></br>
-        ///	
+        ///	torch.cat() can be best understood via examples.
         /// </summary>
         /// <param name="tensors">
         ///	any python sequence of tensors of the same type.<br></br>
         ///	
         ///	Non-empty tensors provided must have the same shape, except in the
-        ///	cat dimension.<br></br>
-        ///	
+        ///	cat dimension.
         /// </param>
         /// <param name="dim">
         ///	the dimension over which the tensors are concatenated
@@ -1388,10 +1269,8 @@ namespace Torch
         /// <summary>
         ///	Splits a tensor into a specific number of chunks.<br></br>
         ///	
-        ///	
         ///	Last chunk will be smaller if the tensor size along the given dimension
-        ///	dim is not divisible by chunks.<br></br>
-        ///	
+        ///	dim is not divisible by chunks.
         /// </summary>
         /// <param name="tensor">
         ///	the tensor to split
@@ -1420,7 +1299,6 @@ namespace Torch
         /// <summary>
         ///	Gathers values along an axis specified by dim.<br></br>
         ///	
-        ///	
         ///	For a 3-D tensor the output is specified by:
         ///	
         ///	out[i][j][k] = input[index[i][j][k]][j][k]  # if dim == 0
@@ -1431,8 +1309,7 @@ namespace Torch
         ///	\((x_0, x_1..., x_{i-1}, x_i, x_{i+1}, ..., x_{n-1})\)
         ///	and dim = i, then index must be an \(n\)-dimensional tensor with
         ///	size \((x_0, x_1, ..., x_{i-1}, y, x_{i+1}, ..., x_{n-1})\) where \(y \geq 1\)
-        ///	and out will have the same size as index.<br></br>
-        ///	
+        ///	and out will have the same size as index.
         /// </summary>
         /// <param name="input">
         ///	the source tensor
@@ -1448,8 +1325,7 @@ namespace Torch
         /// </param>
         /// <param name="sparse_grad">
         ///	If True, gradient w.r.t.<br></br>
-        ///	 input will be a sparse tensor.<br></br>
-        ///	
+        ///	input will be a sparse tensor.
         /// </param>
         public Tensor gather(Tensor input, int dim, Tensor<long> index, Tensor @out = null, bool? sparse_grad = false)
         {
@@ -1472,20 +1348,17 @@ namespace Torch
         ///	Returns a new tensor which indexes the input tensor along dimension
         ///	dim using the entries in index which is a LongTensor.<br></br>
         ///	
-        ///	
         ///	The returned tensor has the same number of dimensions as the original tensor
         ///	(input).<br></br>
         ///	  The dimth dimension has the same size as the length
         ///	of index; other dimensions have the same size as in the original tensor.<br></br>
-        ///	
         ///	
         ///	Note
         ///	The returned tensor does not use the same storage as the original
         ///	tensor.<br></br>
         ///	  If out has a different shape than expected, we
         ///	silently change it to the correct shape, reallocating the underlying
-        ///	storage if necessary.<br></br>
-        ///	
+        ///	storage if necessary.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -1519,10 +1392,8 @@ namespace Torch
         ///	Returns a new 1-D tensor which indexes the input tensor according to
         ///	the binary mask mask which is a ByteTensor.<br></br>
         ///	
-        ///	
         ///	The shapes of the mask tensor and the input tensor don’t need
         ///	to match, but they must be broadcastable.<br></br>
-        ///	
         ///	
         ///	Note
         ///	The returned tensor does not use the same storage
@@ -1557,8 +1428,7 @@ namespace Torch
         ///	 The
         ///	dimension dim is input from start to start + length.<br></br>
         ///	 The
-        ///	returned tensor and input tensor share the same underlying storage.<br></br>
-        ///	
+        ///	returned tensor and input tensor share the same underlying storage.
         /// </summary>
         /// <param name="input">
         ///	the tensor to narrow
@@ -1596,11 +1466,9 @@ namespace Torch
         ///	 The result is sorted lexicographically, with
         ///	the last index changing the fastest (C-style).<br></br>
         ///	
-        ///	
         ///	If input has n dimensions, then the resulting indices tensor
         ///	out is of size \((z \times n)\), where \(z\) is the total number of
-        ///	non-zero elements in the input tensor.<br></br>
-        ///	
+        ///	non-zero elements in the input tensor.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -1633,13 +1501,10 @@ namespace Torch
         ///	depend on the copying vs.<br></br>
         ///	 viewing behavior.<br></br>
         ///	
-        ///	
         ///	See torch.Tensor.view() on when it is possible to return a view.<br></br>
         ///	
-        ///	
         ///	A single dimension may be -1, in which case it’s inferred from the remaining
-        ///	dimensions and the number of elements in input.<br></br>
-        ///	
+        ///	dimensions and the number of elements in input.
         /// </summary>
         /// <param name="input">
         ///	the tensor to be reshaped
@@ -1664,30 +1529,25 @@ namespace Torch
         /// <summary>
         ///	Splits the tensor into chunks.<br></br>
         ///	
-        ///	
         ///	If split_size_or_sections is an integer type, then tensor will
         ///	be split into equally sized chunks (if possible).<br></br>
         ///	 Last chunk will be smaller if
         ///	the tensor size along the given dimension dim is not divisible by
         ///	split_size.<br></br>
         ///	
-        ///	
         ///	If split_size_or_sections is a list, then tensor will be split
         ///	into len(split_size_or_sections) chunks with sizes in dim according
-        ///	to split_size_or_sections.<br></br>
-        ///	
+        ///	to split_size_or_sections.
         /// </summary>
         /// <param name="tensor">
-        ///	tensor to split.<br></br>
-        ///	
+        ///	tensor to split.
         /// </param>
         /// <param name="split_size_or_sections">
         ///	size of a single chunk or
         ///	list of sizes for each chunk
         /// </param>
         /// <param name="dim">
-        ///	dimension along which to split the tensor.<br></br>
-        ///	
+        ///	dimension along which to split the tensor.
         /// </param>
         public void split(Tensor tensor, int split_size_or_sections, int dim = 0)
         {
@@ -1706,11 +1566,9 @@ namespace Torch
         /// <summary>
         ///	Returns a tensor with all the dimensions of input of size 1 removed.<br></br>
         ///	
-        ///	
         ///	For example, if input is of shape:
         ///	\((A \times 1 \times B \times C \times 1 \times D)\) then the out tensor
         ///	will be of shape: \((A \times B \times C \times D)\).<br></br>
-        ///	
         ///	
         ///	When dim is given, a squeeze operation is done only in the given
         ///	dimension.<br></br>
@@ -1718,11 +1576,9 @@ namespace Torch
         ///	squeeze(input, 0) leaves the tensor unchanged, but squeeze(input, 1)
         ///	will squeeze the tensor to the shape \((A \times B)\).<br></br>
         ///	
-        ///	
         ///	Note
         ///	The returned tensor shares the storage with the input tensor,
-        ///	so changing the contents of one will change the contents of the other.<br></br>
-        ///	
+        ///	so changing the contents of one will change the contents of the other.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -1752,16 +1608,14 @@ namespace Torch
         /// <summary>
         ///	Concatenates sequence of tensors along a new dimension.<br></br>
         ///	
-        ///	
-        ///	All tensors need to be of the same size.<br></br>
-        ///	
+        ///	All tensors need to be of the same size.
         /// </summary>
         /// <param name="seq">
         ///	sequence of tensors to concatenate
         /// </param>
         /// <param name="dim">
         ///	dimension to insert.<br></br>
-        ///	 Has to be between 0 and the number
+        ///	Has to be between 0 and the number
         ///	of dimensions of concatenated tensors (inclusive)
         /// </param>
         /// <param name="out">
@@ -1786,10 +1640,8 @@ namespace Torch
         ///	Expects input to be &lt;= 2-D tensor and transposes dimensions 0
         ///	and 1.<br></br>
         ///	
-        ///	
         ///	0-D and 1-D tensors are returned as it is and
-        ///	2-D tensor can be seen as a short-hand function for transpose(input, 0, 1).<br></br>
-        ///	
+        ///	2-D tensor can be seen as a short-hand function for transpose(input, 0, 1).
         /// </summary>
         public Tensor t(Tensor input)
         {
@@ -1809,8 +1661,7 @@ namespace Torch
         ///	
         ///	The input tensor is treated as if it were viewed as a 1-D tensor.<br></br>
         ///	 The result
-        ///	takes the same shape as the indices.<br></br>
-        ///	
+        ///	takes the same shape as the indices.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -1837,11 +1688,9 @@ namespace Torch
         ///	
         ///	The given dimensions dim0 and dim1 are swapped.<br></br>
         ///	
-        ///	
         ///	The resulting out tensor shares it’s underlying storage with the
         ///	input tensor, so changing the content of one would change the content
-        ///	of the other.<br></br>
-        ///	
+        ///	of the other.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -1870,9 +1719,7 @@ namespace Torch
         /// <summary>
         ///	Removes a tensor dimension.<br></br>
         ///	
-        ///	
-        ///	Returns a tuple of all slices along a given dimension, already without it.<br></br>
-        ///	
+        ///	Returns a tuple of all slices along a given dimension, already without it.
         /// </summary>
         /// <param name="tensor">
         ///	the tensor to unbind
@@ -1898,15 +1745,12 @@ namespace Torch
         ///	Returns a new tensor with a dimension of size one inserted at the
         ///	specified position.<br></br>
         ///	
-        ///	
         ///	The returned tensor shares the same underlying data with this tensor.<br></br>
-        ///	
         ///	
         ///	A dim value within the range [-input.dim() - 1, input.dim() + 1)
         ///	can be used.<br></br>
         ///	 Negative dim will correspond to unsqueeze()
-        ///	applied at dim = dim + input.dim() + 1.<br></br>
-        ///	
+        ///	applied at dim = dim + input.dim() + 1.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -1935,7 +1779,6 @@ namespace Torch
         /// <summary>
         ///	Return a tensor of elements selected from either x or y, depending on condition.<br></br>
         ///	
-        ///	
         ///	The operation is defined as:
         ///	
         ///	\[out_i = \begin{cases}
@@ -1946,8 +1789,7 @@ namespace Torch
         ///	\]
         ///	
         ///	Note
-        ///	The tensors condition, x, y must be broadcastable.<br></br>
-        ///	
+        ///	The tensors condition, x, y must be broadcastable.
         /// </summary>
         /// <param name="condition">
         ///	When True (nonzero), yield x, otherwise yield y
@@ -1976,8 +1818,7 @@ namespace Torch
         /// <summary>
         ///	Sets the seed for generating random numbers.<br></br>
         ///	 Returns a
-        ///	torch._C.Generator object.<br></br>
-        ///	
+        ///	torch._C.Generator object.
         /// </summary>
         public void manual_seed(int seed)
         {
@@ -1993,8 +1834,7 @@ namespace Torch
         
         /// <summary>
         ///	Returns the initial seed for generating random numbers as a
-        ///	Python long.<br></br>
-        ///	
+        ///	Python long.
         /// </summary>
         public void initial_seed()
         {
@@ -2004,8 +1844,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the random number generator state as a torch.ByteTensor.<br></br>
-        ///	
+        ///	Returns the random number generator state as a torch.ByteTensor.
         /// </summary>
         public void get_rng_state()
         {
@@ -2015,8 +1854,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Sets the random number generator state.<br></br>
-        ///	
+        ///	Sets the random number generator state.
         /// </summary>
         public void set_rng_state(Tensor<byte> new_state)
         {
@@ -2033,18 +1871,15 @@ namespace Torch
         /// <summary>
         ///	Draws binary random numbers (0 or 1) from a Bernoulli distribution.<br></br>
         ///	
-        ///	
         ///	The input tensor should be a tensor containing probabilities
         ///	to be used for drawing the binary random number.<br></br>
         ///	
         ///	Hence, all values in input have to be in the range:
         ///	\(0 \leq \text{input}_i \leq 1\).<br></br>
         ///	
-        ///	
         ///	The \(\text{i}^{th}\) element of the output tensor will draw a
         ///	value \(1\) according to the \(\text{i}^{th}\) probability value given
         ///	in input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} \sim \mathrm{Bernoulli}(p = \text{input}_{i})
         ///	
@@ -2053,10 +1888,8 @@ namespace Torch
         ///	The returned out tensor only has values 0 or 1 and is of the same
         ///	shape as input.<br></br>
         ///	
-        ///	
         ///	out can have integral dtype, but input must have floating
-        ///	point dtype.<br></br>
-        ///	
+        ///	point dtype.
         /// </summary>
         /// <param name="input">
         ///	the input tensor of probability values for the Bernoulli distribution
@@ -2083,36 +1916,28 @@ namespace Torch
         ///	from the multinomial probability distribution located in the corresponding row
         ///	of tensor input.<br></br>
         ///	
-        ///	
         ///	Note
         ///	The rows of input do not need to sum to one (in which case we use
         ///	the values as weights), but must be non-negative, finite and have
         ///	a non-zero sum.<br></br>
         ///	
-        ///	
         ///	Indices are ordered from left to right according to when each was sampled
         ///	(first samples are placed in first column).<br></br>
         ///	
-        ///	
         ///	If input is a vector, out is a vector of size num_samples.<br></br>
-        ///	
         ///	
         ///	If input is a matrix with m rows, out is an matrix of shape
         ///	\((m \times \text{num\_samples})\).<br></br>
         ///	
-        ///	
         ///	If replacement is True, samples are drawn with replacement.<br></br>
-        ///	
         ///	
         ///	If not, they are drawn without replacement, which means that when a
         ///	sample index is drawn for a row, it cannot be drawn again for that row.<br></br>
         ///	
-        ///	
         ///	Note
         ///	When drawn without replacement, num_samples must be lower than
         ///	number of non-zero elements in input (or the min number of non-zero
-        ///	elements in each row of input if it is a matrix).<br></br>
-        ///	
+        ///	elements in each row of input if it is a matrix).
         /// </summary>
         /// <param name="input">
         ///	the input tensor containing probabilities
@@ -2146,14 +1971,12 @@ namespace Torch
         ///	Returns a tensor filled with random numbers from a uniform distribution
         ///	on the interval \([0, 1)\)
         ///	
-        ///	The shape of the tensor is defined by the variable argument sizes.<br></br>
-        ///	
+        ///	The shape of the tensor is defined by the variable argument sizes.
         /// </summary>
         /// <param name="sizes">
         ///	a sequence of integers defining the shape of the output tensor.<br></br>
         ///	
-        ///	Can be a variable number of arguments or a collection like a list or tuple.<br></br>
-        ///	
+        ///	Can be a variable number of arguments or a collection like a list or tuple.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -2161,29 +1984,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor rand(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2208,8 +2027,7 @@ namespace Torch
         ///	random numbers from a uniform distribution on the interval \([0, 1)\).<br></br>
         ///	
         ///	torch.rand_like(input) is equivalent to
-        ///	torch.rand(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).<br></br>
-        ///	
+        ///	torch.rand(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
@@ -2217,26 +2035,22 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor rand_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2259,17 +2073,13 @@ namespace Torch
         ///	Returns a tensor filled with random integers generated uniformly
         ///	between low (inclusive) and high (exclusive).<br></br>
         ///	
-        ///	
-        ///	The shape of the tensor is defined by the variable argument size.<br></br>
-        ///	
+        ///	The shape of the tensor is defined by the variable argument size.
         /// </summary>
         /// <param name="high">
-        ///	One above the highest integer to be drawn from the distribution.<br></br>
-        ///	
+        ///	One above the highest integer to be drawn from the distribution.
         /// </param>
         /// <param name="size">
-        ///	a tuple defining the shape of the output tensor.<br></br>
-        ///	
+        ///	a tuple defining the shape of the output tensor.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -2277,29 +2087,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor randint(int high, Shape size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2324,22 +2130,17 @@ namespace Torch
         ///	Returns a tensor filled with random integers generated uniformly
         ///	between low (inclusive) and high (exclusive).<br></br>
         ///	
-        ///	
-        ///	The shape of the tensor is defined by the variable argument size.<br></br>
-        ///	
+        ///	The shape of the tensor is defined by the variable argument size.
         /// </summary>
         /// <param name="low">
         ///	Lowest integer to be drawn from the distribution.<br></br>
-        ///	 Default: 0.<br></br>
-        ///	
+        ///	Default: 0.
         /// </param>
         /// <param name="high">
-        ///	One above the highest integer to be drawn from the distribution.<br></br>
-        ///	
+        ///	One above the highest integer to be drawn from the distribution.
         /// </param>
         /// <param name="size">
-        ///	a tuple defining the shape of the output tensor.<br></br>
-        ///	
+        ///	a tuple defining the shape of the output tensor.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -2347,29 +2148,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor randint(int low, int high, Shape size, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2394,39 +2191,33 @@ namespace Torch
         /// <summary>
         ///	Returns a tensor with the same shape as Tensor input filled with
         ///	random integers generated uniformly between low (inclusive) and
-        ///	high (exclusive).<br></br>
-        ///	
+        ///	high (exclusive).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
         /// </param>
         /// <param name="high">
-        ///	One above the highest integer to be drawn from the distribution.<br></br>
-        ///	
+        ///	One above the highest integer to be drawn from the distribution.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor randint_like(Tensor input, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2449,44 +2240,37 @@ namespace Torch
         /// <summary>
         ///	Returns a tensor with the same shape as Tensor input filled with
         ///	random integers generated uniformly between low (inclusive) and
-        ///	high (exclusive).<br></br>
-        ///	
+        ///	high (exclusive).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
         /// </param>
         /// <param name="low">
         ///	Lowest integer to be drawn from the distribution.<br></br>
-        ///	 Default: 0.<br></br>
-        ///	
+        ///	Default: 0.
         /// </param>
         /// <param name="high">
-        ///	One above the highest integer to be drawn from the distribution.<br></br>
-        ///	
+        ///	One above the highest integer to be drawn from the distribution.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor randint_like(Tensor input, int low, int high, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2512,19 +2296,16 @@ namespace Torch
         ///	with mean 0 and variance 1 (also called the standard normal
         ///	distribution).<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} \sim \mathcal{N}(0, 1)
         ///	
         ///	\]
         ///	
-        ///	The shape of the tensor is defined by the variable argument sizes.<br></br>
-        ///	
+        ///	The shape of the tensor is defined by the variable argument sizes.
         /// </summary>
         /// <param name="sizes">
         ///	a sequence of integers defining the shape of the output tensor.<br></br>
         ///	
-        ///	Can be a variable number of arguments or a collection like a list or tuple.<br></br>
-        ///	
+        ///	Can be a variable number of arguments or a collection like a list or tuple.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -2532,29 +2313,25 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	
+        ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor randn(Shape sizes, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2579,8 +2356,7 @@ namespace Torch
         ///	random numbers from a normal distribution with mean 0 and variance 1.<br></br>
         ///	
         ///	torch.randn_like(input) is equivalent to
-        ///	torch.randn(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).<br></br>
-        ///	
+        ///	torch.randn(input.size(), dtype=input.dtype, layout=input.layout, device=input.device).
         /// </summary>
         /// <param name="input">
         ///	the size of input will determine size of the output tensor
@@ -2588,26 +2364,22 @@ namespace Torch
         /// <param name="dtype">
         ///	the desired data type of returned Tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the dtype of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the dtype of input.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the layout of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the layout of input.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
-        ///	Default: if None, defaults to the device of input.<br></br>
-        ///	
+        ///	Default: if None, defaults to the device of input.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor randn_like(Tensor input, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2627,8 +2399,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a random permutation of integers from 0 to n - 1.<br></br>
-        ///	
+        ///	Returns a random permutation of integers from 0 to n - 1.
         /// </summary>
         /// <param name="n">
         ///	the upper bound (exclusive)
@@ -2644,23 +2415,20 @@ namespace Torch
         /// <param name="layout">
         ///	the desired layout of returned Tensor.<br></br>
         ///	
-        ///	Default: torch.strided.<br></br>
-        ///	
+        ///	Default: torch.strided.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor<long> randperm(int n, Tensor @out = null, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -2682,7 +2450,6 @@ namespace Torch
         
         /// <summary>
         ///	Saves an object to a disk file.<br></br>
-        ///	
         ///	
         ///	See also: Recommended approach for saving a model
         /// </summary>
@@ -2717,7 +2484,6 @@ namespace Torch
         /// <summary>
         ///	Loads an object saved with torch.save() from a file.<br></br>
         ///	
-        ///	
         ///	torch.load() uses Python’s unpickling facilities but treats storages,
         ///	which underlie tensors, specially.<br></br>
         ///	 They are first deserialized on the
@@ -2728,7 +2494,6 @@ namespace Torch
         ///	is raised.<br></br>
         ///	 However, storages can be dynamically remapped to an alternative
         ///	set of devices using the map_location argument.<br></br>
-        ///	
         ///	
         ///	If map_location is a callable, it will be called once for each serialized
         ///	storage with two arguments: storage and location.<br></br>
@@ -2749,19 +2514,15 @@ namespace Torch
         ///	 Otherwise, \(torch.load\) will fall back to the default
         ///	behavior, as if map_location wasn’t specified.<br></br>
         ///	
-        ///	
         ///	If map_location is a string, it should be a device tag, where all tensors
         ///	should be loaded.<br></br>
-        ///	
         ///	
         ///	Otherwise, if map_location is a dict, it will be used to remap location tags
         ///	appearing in the file (keys), to ones that specify where to put the
         ///	storages (values).<br></br>
         ///	
-        ///	
         ///	User extensions can register their own location tags and tagging and
-        ///	deserialization methods using register_package.<br></br>
-        ///	
+        ///	deserialization methods using register_package.
         /// </summary>
         /// <param name="f">
         ///	a file-like object (has to implement read, readline, tell, and seek),
@@ -2811,8 +2572,7 @@ namespace Torch
         ///	
         ///	WARNING:
         ///	To ensure that the correct number of threads is used, set_num_threads
-        ///	must be called before running eager, JIT or autograd code.<br></br>
-        ///	
+        ///	must be called before running eager, JIT or autograd code.
         /// </summary>
         public void set_num_threads(int num)
         {
@@ -2828,7 +2588,6 @@ namespace Torch
         
         /// <summary>
         ///	Computes the element-wise absolute value of the given input tensor.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = |\text{input}_{i}|
         ///	
@@ -2856,7 +2615,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the arccosine  of the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \cos^{-1}(\text{input}_{i})
         ///	
@@ -2886,7 +2644,6 @@ namespace Torch
         ///	Performs the element-wise division of tensor1 by tensor2,
         ///	multiply the result by the scalar value and add it to tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \text{tensor}_i + \text{value} \times \frac{\text{tensor1}_i}{\text{tensor2}_i}
         ///	
         ///	\]
@@ -2894,10 +2651,8 @@ namespace Torch
         ///	The shapes of tensor, tensor1, and tensor2 must be
         ///	broadcastable.<br></br>
         ///	
-        ///	
         ///	For inputs of type FloatTensor or DoubleTensor, value must be
-        ///	a real number, otherwise an integer.<br></br>
-        ///	
+        ///	a real number, otherwise an integer.
         /// </summary>
         /// <param name="tensor">
         ///	the tensor to be added
@@ -2931,7 +2686,6 @@ namespace Torch
         ///	Performs the element-wise division of tensor1 by tensor2,
         ///	multiply the result by the scalar value and add it to tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \text{tensor}_i + \text{value} \times \frac{\text{tensor1}_i}{\text{tensor2}_i}
         ///	
         ///	\]
@@ -2939,10 +2693,8 @@ namespace Torch
         ///	The shapes of tensor, tensor1, and tensor2 must be
         ///	broadcastable.<br></br>
         ///	
-        ///	
         ///	For inputs of type FloatTensor or DoubleTensor, value must be
-        ///	a real number, otherwise an integer.<br></br>
-        ///	
+        ///	a real number, otherwise an integer.
         /// </summary>
         /// <param name="tensor">
         ///	the tensor to be added
@@ -2981,7 +2733,6 @@ namespace Torch
         ///	by tensor2, multiply the result by the scalar value
         ///	and add it to tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \text{tensor}_i + \text{value} \times \text{tensor1}_i \times \text{tensor2}_i
         ///	
         ///	\]
@@ -2989,10 +2740,8 @@ namespace Torch
         ///	The shapes of tensor, tensor1, and tensor2 must be
         ///	broadcastable.<br></br>
         ///	
-        ///	
         ///	For inputs of type FloatTensor or DoubleTensor, value must be
-        ///	a real number, otherwise an integer.<br></br>
-        ///	
+        ///	a real number, otherwise an integer.
         /// </summary>
         /// <param name="tensor">
         ///	the tensor to be added
@@ -3027,7 +2776,6 @@ namespace Torch
         ///	by tensor2, multiply the result by the scalar value
         ///	and add it to tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \text{tensor}_i + \text{value} \times \text{tensor1}_i \times \text{tensor2}_i
         ///	
         ///	\]
@@ -3035,10 +2783,8 @@ namespace Torch
         ///	The shapes of tensor, tensor1, and tensor2 must be
         ///	broadcastable.<br></br>
         ///	
-        ///	
         ///	For inputs of type FloatTensor or DoubleTensor, value must be
-        ///	a real number, otherwise an integer.<br></br>
-        ///	
+        ///	a real number, otherwise an integer.
         /// </summary>
         /// <param name="tensor">
         ///	the tensor to be added
@@ -3075,7 +2821,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the arcsine  of the elements of input.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \sin^{-1}(\text{input}_{i})
         ///	
         ///	\]
@@ -3102,7 +2847,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the arctangent  of the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \tan^{-1}(\text{input}_{i})
         ///	
@@ -3133,8 +2877,7 @@ namespace Torch
         ///	and input2.
         ///	
         ///	The shapes of input1 and input2 must be
-        ///	broadcastable.<br></br>
-        ///	
+        ///	broadcastable.
         /// </summary>
         /// <param name="input1">
         ///	the first input tensor
@@ -3164,7 +2907,6 @@ namespace Torch
         ///	Returns a new tensor with the ceil of the elements of input,
         ///	the smallest integer greater than or equal to each element.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \left\lceil \text{input}_{i} \right\rceil = \left\lfloor \text{input}_{i} \right\rfloor + 1
         ///	
         ///	\]
@@ -3191,7 +2933,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the cosine  of the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \cos(\text{input}_{i})
         ///	
@@ -3220,7 +2961,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the hyperbolic cosine  of the elements of
         ///	input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \cosh(\text{input}_{i})
         ///	
@@ -3278,7 +3018,6 @@ namespace Torch
         
         /// <summary>
         ///	Computes the logarithmic derivative of the gamma function on input.<br></br>
-        ///	
         ///	
         ///	\[\psi(x) = \frac{d}{dx} \ln\left(\Gamma\left(x\right)\right) = \frac{\Gamma'(x)}{\Gamma(x)}
         ///	
@@ -3388,7 +3127,6 @@ namespace Torch
         ///	Returns a new tensor with the exponential of the elements
         ///	of the input tensor input.<br></br>
         ///	
-        ///	
         ///	\[y_{i} = e^{x_{i}}
         ///	
         ///	\]
@@ -3416,7 +3154,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the exponential of the elements minus 1
         ///	of input.<br></br>
-        ///	
         ///	
         ///	\[y_{i} = e^{x_{i}} - 1
         ///	
@@ -3446,7 +3183,6 @@ namespace Torch
         ///	Returns a new tensor with the floor of the elements of input,
         ///	the largest integer less than or equal to each element.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \left\lfloor \text{input}_{i} \right\rfloor
         ///	
         ///	\]
@@ -3474,15 +3210,12 @@ namespace Torch
         /// <summary>
         ///	Computes the element-wise remainder of division.<br></br>
         ///	
-        ///	
         ///	The dividend and divisor may contain both for integer and floating point
         ///	numbers.<br></br>
         ///	 The remainder has the same sign as the dividend input.<br></br>
         ///	
-        ///	
         ///	When divisor is a tensor, the shapes of input and
-        ///	divisor must be broadcastable.<br></br>
-        ///	
+        ///	divisor must be broadcastable.
         /// </summary>
         /// <param name="input">
         ///	the dividend
@@ -3511,15 +3244,12 @@ namespace Torch
         /// <summary>
         ///	Computes the element-wise remainder of division.<br></br>
         ///	
-        ///	
         ///	The dividend and divisor may contain both for integer and floating point
         ///	numbers.<br></br>
         ///	 The remainder has the same sign as the dividend input.<br></br>
         ///	
-        ///	
         ///	When divisor is a tensor, the shapes of input and
-        ///	divisor must be broadcastable.<br></br>
-        ///	
+        ///	divisor must be broadcastable.
         /// </summary>
         /// <param name="input">
         ///	the dividend
@@ -3548,7 +3278,6 @@ namespace Torch
         /// <summary>
         ///	Computes the fractional portion of each element in input.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \text{input}_{i} - \left\lfloor \text{input}_{i} \right\rfloor
         ///	
         ///	\]
@@ -3571,7 +3300,6 @@ namespace Torch
         ///	Does a linear interpolation of two tensors start and end based
         ///	on a scalar or tensor weight and returns the resulting out tensor.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \text{start}_i + \text{weight}_i \times (\text{end}_i - \text{start}_i)
         ///	
         ///	\]
@@ -3579,8 +3307,7 @@ namespace Torch
         ///	The shapes of start and end must be
         ///	broadcastable.<br></br>
         ///	 If weight is a tensor, then
-        ///	the shapes of start, end must be broadcastable.<br></br>
-        ///	
+        ///	the shapes of start, end must be broadcastable.
         /// </summary>
         /// <param name="start">
         ///	the tensor with the starting points
@@ -3613,7 +3340,6 @@ namespace Torch
         ///	Returns a new tensor with the natural logarithm of the elements
         ///	of input.<br></br>
         ///	
-        ///	
         ///	\[y_{i} = \log_{e} (x_{i})
         ///	
         ///	\]
@@ -3642,7 +3368,6 @@ namespace Torch
         ///	Returns a new tensor with the logarithm to the base 10 of the elements
         ///	of input.<br></br>
         ///	
-        ///	
         ///	\[y_{i} = \log_{10} (x_{i})
         ///	
         ///	\]
@@ -3669,7 +3394,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the natural logarithm of (1 + input).<br></br>
-        ///	
         ///	
         ///	\[y_i = \log_{e} (x_i + 1)
         ///	
@@ -3702,7 +3426,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the logarithm to the base 2 of the elements
         ///	of input.<br></br>
-        ///	
         ///	
         ///	\[y_{i} = \log_{2} (x_{i})
         ///	
@@ -3765,10 +3488,8 @@ namespace Torch
         ///	
         ///	where \(C = \log(\pi) \times \frac{p (p - 1)}{4}\) and \(\Gamma(\cdot)\) is the Gamma function.<br></br>
         ///	
-        ///	
         ///	If any of the elements are less than or equal to \(\frac{p - 1}{2}\), then an error
-        ///	is thrown.<br></br>
-        ///	
+        ///	is thrown.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compute the multivariate log-gamma function
@@ -3792,7 +3513,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the negative of the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = -1 \times \text{input}
         ///	
@@ -3893,15 +3613,12 @@ namespace Torch
         /// <summary>
         ///	Computes the element-wise remainder of division.<br></br>
         ///	
-        ///	
         ///	The divisor and dividend may contain both for integer and floating point
         ///	numbers.<br></br>
         ///	 The remainder has the same sign as the divisor.<br></br>
         ///	
-        ///	
         ///	When divisor is a tensor, the shapes of input and
-        ///	divisor must be broadcastable.<br></br>
-        ///	
+        ///	divisor must be broadcastable.
         /// </summary>
         /// <param name="input">
         ///	the dividend
@@ -3931,15 +3648,12 @@ namespace Torch
         /// <summary>
         ///	Computes the element-wise remainder of division.<br></br>
         ///	
-        ///	
         ///	The divisor and dividend may contain both for integer and floating point
         ///	numbers.<br></br>
         ///	 The remainder has the same sign as the divisor.<br></br>
         ///	
-        ///	
         ///	When divisor is a tensor, the shapes of input and
-        ///	divisor must be broadcastable.<br></br>
-        ///	
+        ///	divisor must be broadcastable.
         /// </summary>
         /// <param name="input">
         ///	the dividend
@@ -3968,8 +3682,7 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with each of the elements of input rounded
-        ///	to the closest integer.<br></br>
-        ///	
+        ///	to the closest integer.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -3994,7 +3707,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the reciprocal of the square-root of each of
         ///	the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \frac{1}{\sqrt{\text{input}_{i}}}
         ///	
@@ -4023,7 +3735,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the sigmoid of the elements of input.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \frac{1}{1 + e^{-\text{input}_{i}}}
         ///	
         ///	\]
@@ -4049,8 +3760,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a new tensor with the sign of the elements of input.<br></br>
-        ///	
+        ///	Returns a new tensor with the sign of the elements of input.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -4074,7 +3784,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the sine of the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \sin(\text{input}_{i})
         ///	
@@ -4104,7 +3813,6 @@ namespace Torch
         ///	Returns a new tensor with the hyperbolic sine of the elements of
         ///	input.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \sinh(\text{input}_{i})
         ///	
         ///	\]
@@ -4132,7 +3840,6 @@ namespace Torch
         /// <summary>
         ///	Returns a new tensor with the square-root of the elements of input.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \sqrt{\text{input}_{i}}
         ///	
         ///	\]
@@ -4159,7 +3866,6 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the tangent of the elements of input.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_{i} = \tan(\text{input}_{i})
         ///	
@@ -4189,7 +3895,6 @@ namespace Torch
         ///	Returns a new tensor with the hyperbolic tangent of the elements
         ///	of input.<br></br>
         ///	
-        ///	
         ///	\[\text{out}_{i} = \tanh(\text{input}_{i})
         ///	
         ///	\]
@@ -4216,8 +3921,7 @@ namespace Torch
         
         /// <summary>
         ///	Returns a new tensor with the truncated integer values of
-        ///	the elements of input.<br></br>
-        ///	
+        ///	the elements of input.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -4300,10 +4004,8 @@ namespace Torch
         ///	Returns the cumulative product of elements of input in the dimension
         ///	dim.<br></br>
         ///	
-        ///	
         ///	For example, if input is a vector of size N, the result will also be
         ///	a vector of size N, with elements.<br></br>
-        ///	
         ///	
         ///	\[y_i = x_1 \times x_2\times x_3\times \dots \times x_i
         ///	
@@ -4320,9 +4022,8 @@ namespace Torch
         ///	
         ///	If specified, the input tensor is casted to dtype before the operation
         ///	is performed.<br></br>
-        ///	 This is useful for preventing data type overflows.<br></br>
-        ///	 Default: None.<br></br>
-        ///	
+        ///	This is useful for preventing data type overflows.<br></br>
+        ///	Default: None.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -4347,10 +4048,8 @@ namespace Torch
         ///	Returns the cumulative sum of elements of input in the dimension
         ///	dim.<br></br>
         ///	
-        ///	
         ///	For example, if input is a vector of size N, the result will also be
         ///	a vector of size N, with elements.<br></br>
-        ///	
         ///	
         ///	\[y_i = x_1 + x_2 + x_3 + \dots + x_i
         ///	
@@ -4367,9 +4066,8 @@ namespace Torch
         ///	
         ///	If specified, the input tensor is casted to dtype before the operation
         ///	is performed.<br></br>
-        ///	 This is useful for preventing data type overflows.<br></br>
-        ///	 Default: None.<br></br>
-        ///	
+        ///	This is useful for preventing data type overflows.<br></br>
+        ///	Default: None.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -4394,8 +4092,7 @@ namespace Torch
         ///	Returns the p-norm of (input - other)
         ///	
         ///	The shapes of input and other must be
-        ///	broadcastable.<br></br>
-        ///	
+        ///	broadcastable.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -4427,7 +4124,6 @@ namespace Torch
         ///	 The computation is numerically
         ///	stabilized.<br></br>
         ///	
-        ///	
         ///	For summation index \(j\) given by dim and other indices \(i\), the result is
         ///	
         ///	\[\text{logsumexp}(x)_{i} = \log \sum_j \exp(x_{ij})
@@ -4438,8 +4134,7 @@ namespace Torch
         ///	as input except in the dimension(s) dim where it is of size 1.<br></br>
         ///	
         ///	Otherwise, dim is squeezed (see torch.squeeze()), resulting in the
-        ///	output tensor having 1 (or len(dim)) fewer dimension(s).<br></br>
-        ///	
+        ///	output tensor having 1 (or len(dim)) fewer dimension(s).
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -4535,9 +4230,7 @@ namespace Torch
         ///	 a value which appears most often
         ///	in that row, and indices is the index location of each mode value found.<br></br>
         ///	
-        ///	
         ///	By default, dim is the last dimension of the input tensor.<br></br>
-        ///	
         ///	
         ///	If keepdim is True, the output tensors are of the same size as
         ///	input except in the dimension dim where they are of size 1.<br></br>
@@ -4545,10 +4238,8 @@ namespace Torch
         ///	Otherwise, dim is squeezed (see torch.squeeze()), resulting
         ///	in the output tensors having 1 fewer dimension than input.<br></br>
         ///	
-        ///	
         ///	Note
-        ///	This function is not defined for torch.cuda.Tensor yet.<br></br>
-        ///	
+        ///	This function is not defined for torch.cuda.Tensor yet.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -4584,28 +4275,19 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the matrix norm or vector norm of a given tensor.<br></br>
-        ///	
+        ///	Returns the matrix norm or vector norm of a given tensor.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
         /// </param>
         /// <param name="p">
         ///	the order of norm.<br></br>
-        ///	 Default: 'fro'
+        ///	Default: 'fro'
         ///	The following norms can be calculated:
-        ///	
-        ///	
-        ///	
-        ///	
-        ///	
-        ///	
         ///	
         ///	ord
         ///	matrix norm
         ///	vector norm
-        ///	
-        ///	
         ///	
         ///	None
         ///	Frobenius norm
@@ -4627,34 +4309,31 @@ namespace Torch
         ///	ints, 2-list of python:ints, optional) : If it is an int,
         ///	vector norm will be calculated, if it is 2-tuple of ints, matrix norm
         ///	will be calculated.<br></br>
-        ///	 If the value is None, matrix norm will be calculated
+        ///	If the value is None, matrix norm will be calculated
         ///	when the input tensor only has two dimensions, vector norm will be
         ///	calculated when the input tensor only has one dimension.<br></br>
-        ///	 If the input
+        ///	If the input
         ///	tensor has more than two dimensions, the vector norm will be applied to
-        ///	last dimension.<br></br>
-        ///	
+        ///	last dimension.
         /// </param>
         /// <param name="keepdim">
         ///	whether the output tensors have dim
         ///	retained or not.<br></br>
-        ///	 Ignored if dim = None and
+        ///	Ignored if dim = None and
         ///	out = None.<br></br>
-        ///	 Default: False
+        ///	Default: False
         /// </param>
         /// <param name="out">
         ///	the output tensor.<br></br>
-        ///	 Ignored if
-        ///	dim = None and out = None.<br></br>
-        ///	
+        ///	Ignored if
+        ///	dim = None and out = None.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of
         ///	returned tensor.<br></br>
-        ///	 If specified, the input tensor is casted to
+        ///	If specified, the input tensor is casted to
         ///	:attr:’dtype’ while performing the operation.<br></br>
-        ///	 Default: None.<br></br>
-        ///	
+        ///	Default: None.
         /// </param>
         public void norm(Tensor input, object p = null, int[] dim = null, bool? keepdim = false, Tensor @out = null, Dtype dtype = null)
         {
@@ -4765,32 +4444,28 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the unique elements of the input tensor.<br></br>
-        ///	
+        ///	Returns the unique elements of the input tensor.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
         /// </param>
         /// <param name="sorted">
         ///	Whether to sort the unique elements in ascending order
-        ///	before returning as output.<br></br>
-        ///	
+        ///	before returning as output.
         /// </param>
         /// <param name="return_inverse">
         ///	Whether to also return the indices for where
-        ///	elements in the original input ended up in the returned unique list.<br></br>
-        ///	
+        ///	elements in the original input ended up in the returned unique list.
         /// </param>
         /// <param name="return_counts">
         ///	Whether to also return the counts for each unique
-        ///	element.<br></br>
-        ///	
+        ///	element.
         /// </param>
         /// <param name="dim">
         ///	the dimension to apply unique.<br></br>
-        ///	 If None, the unique of the
+        ///	If None, the unique of the
         ///	flattened input is returned.<br></br>
-        ///	 default: None
+        ///	default: None
         /// </param>
         /// <returns>
         /// A tuple of:
@@ -4830,7 +4505,6 @@ namespace Torch
         /// <summary>
         ///	Eliminates all but the first element from every consecutive group of equivalent elements.<br></br>
         ///	
-        ///	
         ///	Note
         ///	This function is different from torch.unique() in the sense that this function
         ///	only eliminates consecutive duplicate values.<br></br>
@@ -4842,19 +4516,17 @@ namespace Torch
         /// </param>
         /// <param name="return_inverse">
         ///	Whether to also return the indices for where
-        ///	elements in the original input ended up in the returned unique list.<br></br>
-        ///	
+        ///	elements in the original input ended up in the returned unique list.
         /// </param>
         /// <param name="return_counts">
         ///	Whether to also return the counts for each unique
-        ///	element.<br></br>
-        ///	
+        ///	element.
         /// </param>
         /// <param name="dim">
         ///	the dimension to apply unique.<br></br>
-        ///	 If None, the unique of the
+        ///	If None, the unique of the
         ///	flattened input is returned.<br></br>
-        ///	 default: None
+        ///	default: None
         /// </param>
         public (Tensor, Tensor, Tensor) unique_consecutive(Tensor input, bool return_inverse = false, bool return_counts = false, int? dim = null)
         {
@@ -4923,15 +4595,15 @@ namespace Torch
         /// </param>
         /// <param name="atol">
         ///	absolute tolerance.<br></br>
-        ///	 Default: 1e-08
+        ///	Default: 1e-08
         /// </param>
         /// <param name="rtol">
         ///	relative tolerance.<br></br>
-        ///	 Default: 1e-05
+        ///	Default: 1e-05
         /// </param>
         /// <param name="equal_nan">
         ///	if True, then two NaN s will be compared as equal.<br></br>
-        ///	 Default: False
+        ///	Default: False
         /// </param>
         public bool allclose(Tensor self_, Tensor other, float? atol = 1e-08f, float? rtol = 1e-05f, bool? equal_nan = false)
         {
@@ -4954,11 +4626,9 @@ namespace Torch
         ///	Returns the indices that sort a tensor along a given dimension in ascending
         ///	order by value.<br></br>
         ///	
-        ///	
         ///	This is the second value returned by torch.sort().<br></br>
         ///	  See its documentation
-        ///	for the exact semantics of this method.<br></br>
-        ///	
+        ///	for the exact semantics of this method.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -4989,8 +4659,7 @@ namespace Torch
         ///	Computes element-wise equality
         ///	
         ///	The second argument can be a number or a tensor whose shape is
-        ///	broadcastable with the first argument.<br></br>
-        ///	
+        ///	broadcastable with the first argument.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compare
@@ -5000,7 +4669,7 @@ namespace Torch
         /// </param>
         /// <param name="out">
         ///	the output tensor.<br></br>
-        ///	 Must be a ByteTensor
+        ///	Must be a ByteTensor
         /// </param>
         public Tensor eq(Tensor input, Tensor other, Tensor @out = null)
         {
@@ -5018,8 +4687,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	True if two tensors have the same size and elements, False otherwise.<br></br>
-        ///	
+        ///	True if two tensors have the same size and elements, False otherwise.
         /// </summary>
         public bool equal(Tensor tensor1, Tensor tensor2)
         {
@@ -5038,10 +4706,8 @@ namespace Torch
         /// <summary>
         ///	Computes \(\text{input} \geq \text{other}\) element-wise.<br></br>
         ///	
-        ///	
         ///	The second argument can be a number or a tensor whose shape is
-        ///	broadcastable with the first argument.<br></br>
-        ///	
+        ///	broadcastable with the first argument.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compare
@@ -5070,10 +4736,8 @@ namespace Torch
         /// <summary>
         ///	Computes \(\text{input} &gt; \text{other}\) element-wise.<br></br>
         ///	
-        ///	
         ///	The second argument can be a number or a tensor whose shape is
-        ///	broadcastable with the first argument.<br></br>
-        ///	
+        ///	broadcastable with the first argument.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compare
@@ -5100,8 +4764,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a new tensor with boolean elements representing if each element is Finite or not.<br></br>
-        ///	
+        ///	Returns a new tensor with boolean elements representing if each element is Finite or not.
         /// </summary>
         public Tensor isfinite(Tensor tensor)
         {
@@ -5117,8 +4780,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a new tensor with boolean elements representing if each element is +/-INF or not.<br></br>
-        ///	
+        ///	Returns a new tensor with boolean elements representing if each element is +/-INF or not.
         /// </summary>
         public Tensor isinf(Tensor tensor)
         {
@@ -5134,8 +4796,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns a new tensor with boolean elements representing if each element is NaN or not.<br></br>
-        ///	
+        ///	Returns a new tensor with boolean elements representing if each element is NaN or not.
         /// </summary>
         public Tensor isnan(Tensor tensor)
         {
@@ -5156,17 +4817,14 @@ namespace Torch
         ///	dim.<br></br>
         ///	 And indices is the index location of each element found.<br></br>
         ///	
-        ///	
         ///	If dim is not given, the last dimension of the input is chosen.<br></br>
-        ///	
         ///	
         ///	If keepdim is True, both the values and indices tensors
         ///	are the same size as input, except in the dimension dim where
         ///	they are of size 1.<br></br>
         ///	 Otherwise, dim is squeezed
         ///	(see torch.squeeze()), resulting in both the values and
-        ///	indices tensors having 1 fewer dimension than the input tensor.<br></br>
-        ///	
+        ///	indices tensors having 1 fewer dimension than the input tensor.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -5205,10 +4863,8 @@ namespace Torch
         /// <summary>
         ///	Computes \(\text{input} \leq \text{other}\) element-wise.<br></br>
         ///	
-        ///	
         ///	The second argument can be a number or a tensor whose shape is
-        ///	broadcastable with the first argument.<br></br>
-        ///	
+        ///	broadcastable with the first argument.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compare
@@ -5237,10 +4893,8 @@ namespace Torch
         /// <summary>
         ///	Computes \(\text{input} &lt; \text{other}\) element-wise.<br></br>
         ///	
-        ///	
         ///	The second argument can be a number or a tensor whose shape is
-        ///	broadcastable with the first argument.<br></br>
-        ///	
+        ///	broadcastable with the first argument.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compare
@@ -5359,10 +5013,8 @@ namespace Torch
         /// <summary>
         ///	Computes \(input \neq other\) element-wise.<br></br>
         ///	
-        ///	
         ///	The second argument can be a number or a tensor whose shape is
-        ///	broadcastable with the first argument.<br></br>
-        ///	
+        ///	broadcastable with the first argument.
         /// </summary>
         /// <param name="input">
         ///	the tensor to compare
@@ -5392,18 +5044,14 @@ namespace Torch
         ///	Sorts the elements of the input tensor along a given dimension
         ///	in ascending order by value.<br></br>
         ///	
-        ///	
         ///	If dim is not given, the last dimension of the input is chosen.<br></br>
-        ///	
         ///	
         ///	If descending is True then the elements are sorted in descending
         ///	order by value.<br></br>
         ///	
-        ///	
         ///	A namedtuple of (values, indices) is returned, where the values are the
         ///	sorted values and indices are the indices of the elements in the original
-        ///	input tensor.<br></br>
-        ///	
+        ///	input tensor.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -5439,16 +5087,12 @@ namespace Torch
         ///	Returns the k largest elements of the given input tensor along
         ///	a given dimension.<br></br>
         ///	
-        ///	
         ///	If dim is not given, the last dimension of the input is chosen.<br></br>
-        ///	
         ///	
         ///	If largest is False then the k smallest elements are returned.<br></br>
         ///	
-        ///	
         ///	A namedtuple of (values, indices) is returned, where the indices are the indices
         ///	of the elements in the original input tensor.<br></br>
-        ///	
         ///	
         ///	The boolean option sorted if True, will make sure that the returned
         ///	k elements are themselves sorted
@@ -5509,7 +5153,6 @@ namespace Torch
         ///	where \(d\) = signal_ndim is number of dimensions for the
         ///	signal, and \(N_i\) is the size of signal dimension \(i\).<br></br>
         ///	
-        ///	
         ///	This method supports 1D, 2D and 3D complex-to-complex transforms, indicated
         ///	by signal_ndim.<br></br>
         ///	 input must be a tensor with last dimension
@@ -5520,13 +5163,10 @@ namespace Torch
         ///	True, this normalizes the result by dividing it with
         ///	\(\sqrt{\prod_{i=1}^K N_i}\) so that the operator is unitary.<br></br>
         ///	
-        ///	
         ///	Returns the real and the imaginary parts together as one tensor of the same
         ///	shape of input.<br></br>
         ///	
-        ///	
         ///	The inverse of this function is ifft().<br></br>
-        ///	
         ///	
         ///	Note
         ///	For CUDA tensors, an LRU cache is used for cuFFT plans to speed up
@@ -5535,12 +5175,10 @@ namespace Torch
         ///	 See cuFFT plan cache for more details on how to
         ///	monitor and control the cache.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	For CPU tensors, this method is currently only available with MKL.<br></br>
         ///	 Use
-        ///	torch.backends.mkl.is_available() to check if MKL is installed.<br></br>
-        ///	
+        ///	torch.backends.mkl.is_available() to check if MKL is installed.
         /// </summary>
         /// <param name="input">
         ///	the input tensor of at least signal_ndim + 1
@@ -5588,7 +5226,6 @@ namespace Torch
         ///	where \(d\) = signal_ndim is number of dimensions for the
         ///	signal, and \(N_i\) is the size of signal dimension \(i\).<br></br>
         ///	
-        ///	
         ///	The argument specifications are almost identical with fft().<br></br>
         ///	
         ///	However, if normalized is set to True, this instead returns the
@@ -5597,13 +5234,10 @@ namespace Torch
         ///	 Therefore, to invert a fft(), the normalized
         ///	argument should be set identically for fft().<br></br>
         ///	
-        ///	
         ///	Returns the real and the imaginary parts together as one tensor of the same
         ///	shape of input.<br></br>
         ///	
-        ///	
         ///	The inverse of this function is fft().<br></br>
-        ///	
         ///	
         ///	Note
         ///	For CUDA tensors, an LRU cache is used for cuFFT plans to speed up
@@ -5612,12 +5246,10 @@ namespace Torch
         ///	 See cuFFT plan cache for more details on how to
         ///	monitor and control the cache.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	For CPU tensors, this method is currently only available with MKL.<br></br>
         ///	 Use
-        ///	torch.backends.mkl.is_available() to check if MKL is installed.<br></br>
-        ///	
+        ///	torch.backends.mkl.is_available() to check if MKL is installed.
         /// </summary>
         /// <param name="input">
         ///	the input tensor of at least signal_ndim + 1
@@ -5656,7 +5288,6 @@ namespace Torch
         ///	mathematically equivalent with fft() with differences only in
         ///	formats of the input and output.<br></br>
         ///	
-        ///	
         ///	This method supports 1D, 2D and 3D real-to-complex transforms, indicated
         ///	by signal_ndim.<br></br>
         ///	 input must be a tensor with at least
@@ -5665,7 +5296,6 @@ namespace Torch
         ///	 If normalized is set to True, this normalizes the result
         ///	by dividing it with \(\sqrt{\prod_{i=1}^K N_i}\) so that the operator is
         ///	unitary, where \(N_i\) is the size of signal dimension \(i\).<br></br>
-        ///	
         ///	
         ///	The real-to-complex Fourier transform results follow conjugate symmetry:
         ///	
@@ -5683,9 +5313,7 @@ namespace Torch
         ///	of input, but instead the last dimension will be halfed as of size
         ///	\(\lfloor \frac{N_d}{2} \rfloor + 1\).<br></br>
         ///	
-        ///	
         ///	The inverse of this function is irfft().<br></br>
-        ///	
         ///	
         ///	Note
         ///	For CUDA tensors, an LRU cache is used for cuFFT plans to speed up
@@ -5694,12 +5322,10 @@ namespace Torch
         ///	 See cuFFT plan cache for more details on how to
         ///	monitor and control the cache.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	For CPU tensors, this method is currently only available with MKL.<br></br>
         ///	 Use
-        ///	torch.backends.mkl.is_available() to check if MKL is installed.<br></br>
-        ///	
+        ///	torch.backends.mkl.is_available() to check if MKL is installed.
         /// </summary>
         /// <param name="input">
         ///	the input tensor of at least signal_ndim dimensions
@@ -5717,7 +5343,7 @@ namespace Torch
         /// <param name="onesided">
         ///	controls whether to return half of results to
         ///	avoid redundancy.<br></br>
-        ///	 Default: True
+        ///	Default: True
         /// </param>
         public Tensor rfft(Tensor input, int signal_ndim, bool? normalized = false, bool? onesided = true)
         {
@@ -5743,14 +5369,12 @@ namespace Torch
         ///	It is mathematically equivalent with ifft() with differences only in
         ///	formats of the input and output.<br></br>
         ///	
-        ///	
         ///	The argument specifications are almost identical with ifft().<br></br>
         ///	
         ///	Similar to ifft(), if normalized is set to True,
         ///	this normalizes the result by multiplying it with
         ///	\(\sqrt{\prod_{i=1}^K N_i}\) so that the operator is unitary, where
         ///	\(N_i\) is the size of signal dimension \(i\).<br></br>
-        ///	
         ///	
         ///	Due to the conjugate symmetry, input do not need to contain the full
         ///	complex frequency values.<br></br>
@@ -5764,19 +5388,15 @@ namespace Torch
         ///	the size of the original signal (without the batch dimensions if in batched
         ///	mode) to recover it with correct shape.<br></br>
         ///	
-        ///	
         ///	Therefore, to invert an rfft(), the normalized and
         ///	onesided arguments should be set identically for irfft(),
         ///	and preferrably a signal_sizes is given to avoid size mismatch.<br></br>
         ///	 See the
         ///	example below for a case of size mismatch.<br></br>
         ///	
-        ///	
         ///	See rfft() for details on conjugate symmetry.<br></br>
         ///	
-        ///	
         ///	The inverse of this function is rfft().<br></br>
-        ///	
         ///	
         ///	Warning
         ///	Generally speaking, the input of this function should contain values
@@ -5790,7 +5410,6 @@ namespace Torch
         ///	Jacobian with point perturbations, irfft() will almost
         ///	certainly fail the check.<br></br>
         ///	
-        ///	
         ///	Note
         ///	For CUDA tensors, an LRU cache is used for cuFFT plans to speed up
         ///	repeatedly running FFT methods on tensors of same geometry with same
@@ -5798,12 +5417,10 @@ namespace Torch
         ///	 See cuFFT plan cache for more details on how to
         ///	monitor and control the cache.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	For CPU tensors, this method is currently only available with MKL.<br></br>
         ///	 Use
-        ///	torch.backends.mkl.is_available() to check if MKL is installed.<br></br>
-        ///	
+        ///	torch.backends.mkl.is_available() to check if MKL is installed.
         /// </summary>
         /// <param name="input">
         ///	the input tensor of at least signal_ndim + 1
@@ -5822,12 +5439,12 @@ namespace Torch
         /// <param name="onesided">
         ///	controls whether input was halfed to avoid
         ///	redundancy, e.g., by rfft().<br></br>
-        ///	 Default: True
+        ///	Default: True
         /// </param>
         /// <param name="signal_sizes">
         ///	the size of the original
         ///	signal (without batch dimension).<br></br>
-        ///	 Default: None
+        ///	Default: None
         /// </param>
         public Tensor irfft(Tensor input, int signal_ndim, bool? normalized = false, bool? onesided = true, Shape signal_sizes = null)
         {
@@ -5848,7 +5465,6 @@ namespace Torch
         
         /// <summary>
         ///	Short-time Fourier transform (STFT).<br></br>
-        ///	
         ///	
         ///	Ignoring the optional batch dimension, this method computes the following
         ///	expression:
@@ -5900,7 +5516,6 @@ namespace Torch
         ///	If normalized is True (default is False), the function
         ///	returns the normalized STFT results, i.e., multiplied by \((\text{frame\_length})^{-0.5}\).<br></br>
         ///	
-        ///	
         ///	Returns the real and the imaginary parts together as one tensor of size
         ///	\((* \times N \times T \times 2)\), where \(*\) is the optional
         ///	batch size of input, \(N\) is the number of frequencies where
@@ -5908,11 +5523,9 @@ namespace Torch
         ///	in the last dimension represents a complex number as the real part and the
         ///	imaginary part.<br></br>
         ///	
-        ///	
         ///	Warning
         ///	This function changed signature at version 0.4.1. Calling with the
-        ///	previous signature may cause error or return incorrect result.<br></br>
-        ///	
+        ///	previous signature may cause error or return incorrect result.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -5923,7 +5536,7 @@ namespace Torch
         /// <param name="hop_length">
         ///	the distance between neighboring sliding window
         ///	frames.<br></br>
-        ///	 Default: None (treated as equal to floor(n_fft / 4))
+        ///	Default: None (treated as equal to floor(n_fft / 4))
         /// </param>
         /// <param name="win_length">
         ///	the size of window frame and STFT filter.<br></br>
@@ -5944,7 +5557,7 @@ namespace Torch
         /// <param name="pad_mode">
         ///	controls the padding method used when
         ///	center is True.<br></br>
-        ///	 Default: &quot;reflect&quot;
+        ///	Default: &quot;reflect&quot;
         /// </param>
         /// <param name="normalized">
         ///	controls whether to return the normalized STFT results
@@ -5978,7 +5591,6 @@ namespace Torch
         /// <summary>
         ///	Bartlett window function.<br></br>
         ///	
-        ///	
         ///	\[w[n] = 1 - \left| \frac{2n}{N-1} - 1 \right| = \begin{cases}
         ///	    \frac{2n}{N - 1} & \text{if } 0 \leq n \leq \frac{N - 1}{2} \\
         ///	    2 - \frac{2n}{N - 1} & \text{if } \frac{N - 1}{2} < n < N \\
@@ -5987,7 +5599,6 @@ namespace Torch
         ///	\]
         ///	
         ///	where \(N\) is the full window size.<br></br>
-        ///	
         ///	
         ///	The input window_length is a positive integer controlling the
         ///	returned window size.<br></br>
@@ -6001,10 +5612,8 @@ namespace Torch
         ///	torch.bartlett_window(L, periodic=True) equal to
         ///	torch.bartlett_window(L + 1, periodic=False)[:-1]).<br></br>
         ///	
-        ///	
         ///	Note
-        ///	If window_length \(=1\), the returned window contains a single value 1.<br></br>
-        ///	
+        ///	If window_length \(=1\), the returned window contains a single value 1.
         /// </summary>
         /// <param name="window_length">
         ///	the size of returned window
@@ -6012,36 +5621,31 @@ namespace Torch
         /// <param name="periodic">
         ///	If True, returns a window to be used as periodic
         ///	function.<br></br>
-        ///	 If False, return a symmetric window.<br></br>
-        ///	
+        ///	If False, return a symmetric window.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 Only floating point types are supported.<br></br>
-        ///	
+        ///	Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned window tensor.<br></br>
-        ///	 Only
-        ///	torch.strided (dense layout) is supported.<br></br>
-        ///	
+        ///	Only
+        ///	torch.strided (dense layout) is supported.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor bartlett_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -6064,13 +5668,11 @@ namespace Torch
         /// <summary>
         ///	Blackman window function.<br></br>
         ///	
-        ///	
         ///	\[w[n] = 0.42 - 0.5 \cos \left( \frac{2 \pi n}{N - 1} \right) + 0.08 \cos \left( \frac{4 \pi n}{N - 1} \right)
         ///	
         ///	\]
         ///	
         ///	where \(N\) is the full window size.<br></br>
-        ///	
         ///	
         ///	The input window_length is a positive integer controlling the
         ///	returned window size.<br></br>
@@ -6084,10 +5686,8 @@ namespace Torch
         ///	torch.blackman_window(L, periodic=True) equal to
         ///	torch.blackman_window(L + 1, periodic=False)[:-1]).<br></br>
         ///	
-        ///	
         ///	Note
-        ///	If window_length \(=1\), the returned window contains a single value 1.<br></br>
-        ///	
+        ///	If window_length \(=1\), the returned window contains a single value 1.
         /// </summary>
         /// <param name="window_length">
         ///	the size of returned window
@@ -6095,36 +5695,31 @@ namespace Torch
         /// <param name="periodic">
         ///	If True, returns a window to be used as periodic
         ///	function.<br></br>
-        ///	 If False, return a symmetric window.<br></br>
-        ///	
+        ///	If False, return a symmetric window.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 Only floating point types are supported.<br></br>
-        ///	
+        ///	Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned window tensor.<br></br>
-        ///	 Only
-        ///	torch.strided (dense layout) is supported.<br></br>
-        ///	
+        ///	Only
+        ///	torch.strided (dense layout) is supported.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor blackman_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -6147,13 +5742,11 @@ namespace Torch
         /// <summary>
         ///	Hamming window function.<br></br>
         ///	
-        ///	
         ///	\[w[n] = \alpha - \beta\ \cos \left( \frac{2 \pi n}{N - 1} \right),
         ///	
         ///	\]
         ///	
         ///	where \(N\) is the full window size.<br></br>
-        ///	
         ///	
         ///	The input window_length is a positive integer controlling the
         ///	returned window size.<br></br>
@@ -6167,14 +5760,11 @@ namespace Torch
         ///	torch.hamming_window(L, periodic=True) equal to
         ///	torch.hamming_window(L + 1, periodic=False)[:-1]).<br></br>
         ///	
-        ///	
         ///	Note
         ///	If window_length \(=1\), the returned window contains a single value 1.<br></br>
         ///	
-        ///	
         ///	Note
-        ///	This is a generalized version of torch.hann_window().<br></br>
-        ///	
+        ///	This is a generalized version of torch.hann_window().
         /// </summary>
         /// <param name="window_length">
         ///	the size of returned window
@@ -6182,36 +5772,31 @@ namespace Torch
         /// <param name="periodic">
         ///	If True, returns a window to be used as periodic
         ///	function.<br></br>
-        ///	 If False, return a symmetric window.<br></br>
-        ///	
+        ///	If False, return a symmetric window.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 Only floating point types are supported.<br></br>
-        ///	
+        ///	Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned window tensor.<br></br>
-        ///	 Only
-        ///	torch.strided (dense layout) is supported.<br></br>
-        ///	
+        ///	Only
+        ///	torch.strided (dense layout) is supported.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor hamming_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false, double alpha = 0.54, double beta = 0.46)
         {
@@ -6236,14 +5821,12 @@ namespace Torch
         /// <summary>
         ///	Hann window function.<br></br>
         ///	
-        ///	
         ///	\[w[n] = \frac{1}{2}\ \left[1 - \cos \left( \frac{2 \pi n}{N - 1} \right)\right] =
         ///	        \sin^2 \left( \frac{\pi n}{N - 1} \right),
         ///	
         ///	\]
         ///	
         ///	where \(N\) is the full window size.<br></br>
-        ///	
         ///	
         ///	The input window_length is a positive integer controlling the
         ///	returned window size.<br></br>
@@ -6257,10 +5840,8 @@ namespace Torch
         ///	torch.hann_window(L, periodic=True) equal to
         ///	torch.hann_window(L + 1, periodic=False)[:-1]).<br></br>
         ///	
-        ///	
         ///	Note
-        ///	If window_length \(=1\), the returned window contains a single value 1.<br></br>
-        ///	
+        ///	If window_length \(=1\), the returned window contains a single value 1.
         /// </summary>
         /// <param name="window_length">
         ///	the size of returned window
@@ -6268,36 +5849,31 @@ namespace Torch
         /// <param name="periodic">
         ///	If True, returns a window to be used as periodic
         ///	function.<br></br>
-        ///	 If False, return a symmetric window.<br></br>
-        ///	
+        ///	If False, return a symmetric window.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses a global default (see torch.set_default_tensor_type()).<br></br>
-        ///	 Only floating point types are supported.<br></br>
-        ///	
+        ///	Only floating point types are supported.
         /// </param>
         /// <param name="layout">
         ///	the desired layout of returned window tensor.<br></br>
-        ///	 Only
-        ///	torch.strided (dense layout) is supported.<br></br>
-        ///	
+        ///	Only
+        ///	torch.strided (dense layout) is supported.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="requires_grad">
         ///	If autograd should record operations on the
         ///	returned tensor.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public Tensor hann_window(int window_length, bool? periodic = true, Dtype dtype = null, Layout layout = null, Device device = null, bool? requires_grad = false)
         {
@@ -6320,7 +5896,6 @@ namespace Torch
         /// <summary>
         ///	Count the frequency of each value in an array of non-negative ints.<br></br>
         ///	
-        ///	
         ///	The number of bins (size 1) is one larger than the largest value in
         ///	input unless input is empty, in which case the result is a
         ///	tensor of size 0.<br></br>
@@ -6331,13 +5906,11 @@ namespace Torch
         ///	out[n] += weights[i] if weights is specified else
         ///	out[n] += 1.<br></br>
         ///	
-        ///	
         ///	Note
         ///	When using the CUDA backend, this operation may induce nondeterministic
         ///	behaviour that is not easily switched off.<br></br>
         ///	
-        ///	Please see the notes on Reproducibility for background.<br></br>
-        ///	
+        ///	Please see the notes on Reproducibility for background.
         /// </summary>
         /// <param name="input">
         ///	1-d int tensor
@@ -6345,13 +5918,11 @@ namespace Torch
         /// <param name="weights">
         ///	optional, weight for each value in the input tensor.<br></br>
         ///	
-        ///	Should be of same size as input tensor.<br></br>
-        ///	
+        ///	Should be of same size as input tensor.
         /// </param>
         /// <param name="minlength">
         ///	optional, minimum number of bins.<br></br>
-        ///	 Should be non-negative.<br></br>
-        ///	
+        ///	Should be non-negative.
         /// </param>
         public Tensor bincount(Tensor input, Tensor weights = null, int? minlength = 0)
         {
@@ -6369,10 +5940,9 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Broadcasts the given tensors according to Broadcasting semantics.<br></br>
-        ///	
+        ///	Broadcasts the given tensors according to Broadcasting semantics.
         /// </summary>
-        public Tensor[] broadcast_tensors(params Tensor[] tensors)
+        public Tensor[] broadcast_tensors(int tensors)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -6388,10 +5958,9 @@ namespace Torch
         /// <summary>
         ///	Do cartesian product of the given sequence of tensors.<br></br>
         ///	 The behavior is similar to
-        ///	python’s itertools.product.<br></br>
-        ///	
+        ///	python’s itertools.product.
         /// </summary>
-        public Tensor cartesian_prod(params Tensor[] tensors)
+        public Tensor cartesian_prod(int tensors)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -6408,12 +5977,10 @@ namespace Torch
         ///	Compute combinations of length \(r\) of the given tensor.<br></br>
         ///	 The behavior is similar to
         ///	python’s itertools.combinations when with_replacement is set to False, and
-        ///	itertools.combinations_with_replacement when with_replacement is set to True.<br></br>
-        ///	
+        ///	itertools.combinations_with_replacement when with_replacement is set to True.
         /// </summary>
         /// <param name="tensor">
-        ///	1D vector.<br></br>
-        ///	
+        ///	1D vector.
         /// </param>
         /// <param name="r">
         ///	number of elements to combine
@@ -6440,14 +6007,11 @@ namespace Torch
         ///	Returns the cross product of vectors in dimension dim of input
         ///	and other.<br></br>
         ///	
-        ///	
         ///	input and other must have the same size, and the size of their
         ///	dim dimension should be 3.<br></br>
         ///	
-        ///	
         ///	If dim is not given, it defaults to the first dimension found with the
-        ///	size 3.<br></br>
-        ///	
+        ///	size 3.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6456,8 +6020,7 @@ namespace Torch
         ///	the second input tensor
         /// </param>
         /// <param name="dim">
-        ///	the dimension to take the cross-product in.<br></br>
-        ///	
+        ///	the dimension to take the cross-product in.
         /// </param>
         /// <param name="out">
         ///	the output tensor
@@ -6485,15 +6048,13 @@ namespace Torch
         ///	If input is a matrix (2-D tensor), then returns a 1-D tensor with
         ///	the diagonal elements of input.<br></br>
         ///	
-        ///	
         ///	The argument diagonal controls which diagonal to consider:
         ///	
         ///	If diagonal = 0, it is the main diagonal.<br></br>
         ///	
         ///	If diagonal &gt; 0, it is above the main diagonal.<br></br>
         ///	
-        ///	If diagonal &lt; 0, it is below the main diagonal.<br></br>
-        ///	
+        ///	If diagonal &lt; 0, it is below the main diagonal.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6526,7 +6087,6 @@ namespace Torch
         ///	To facilitate creating batched diagonal matrices, the 2D planes formed by
         ///	the last two dimensions of the returned tensor are chosen by default.<br></br>
         ///	
-        ///	
         ///	The argument offset controls which diagonal to consider:
         ///	
         ///	If offset = 0, it is the main diagonal.<br></br>
@@ -6534,7 +6094,6 @@ namespace Torch
         ///	If offset &gt; 0, it is above the main diagonal.<br></br>
         ///	
         ///	If offset &lt; 0, it is below the main diagonal.<br></br>
-        ///	
         ///	
         ///	The size of the new matrix will be calculated to make the specified diagonal
         ///	of the size of the last input dimension.<br></br>
@@ -6544,34 +6103,30 @@ namespace Torch
         ///	 Exchanging them is equivalent to changing the
         ///	sign of offset.<br></br>
         ///	
-        ///	
         ///	Applying torch.diagonal() to the output of this function with
         ///	the same arguments yields a matrix identical to input.<br></br>
         ///	 However,
         ///	torch.diagonal() has different default dimensions, so those
-        ///	need to be explicitly specified.<br></br>
-        ///	
+        ///	need to be explicitly specified.
         /// </summary>
         /// <param name="input">
         ///	the input tensor.<br></br>
-        ///	 Must be at least 1-dimensional.<br></br>
-        ///	
+        ///	Must be at least 1-dimensional.
         /// </param>
         /// <param name="offset">
         ///	which diagonal to consider.<br></br>
-        ///	 Default: 0
-        ///	(main diagonal).<br></br>
-        ///	
+        ///	Default: 0
+        ///	(main diagonal).
         /// </param>
         /// <param name="dim1">
         ///	first dimension with respect to which to
         ///	take diagonal.<br></br>
-        ///	 Default: -2.
+        ///	Default: -2.
         /// </param>
         /// <param name="dim2">
         ///	second dimension with respect to which to
         ///	take diagonal.<br></br>
-        ///	 Default: -1.
+        ///	Default: -1.
         /// </param>
         public Tensor diag_embed(Tensor input, int? offset = 0, int? dim1 = -2, int? dim2 = -1)
         {
@@ -6596,24 +6151,21 @@ namespace Torch
         ///	If input is a tensor with more than one dimension, then returns a
         ///	2-D tensor with diagonal elements equal to a flattened input.<br></br>
         ///	
-        ///	
         ///	The argument offset controls which diagonal to consider:
         ///	
         ///	If offset = 0, it is the main diagonal.<br></br>
         ///	
         ///	If offset &gt; 0, it is above the main diagonal.<br></br>
         ///	
-        ///	If offset &lt; 0, it is below the main diagonal.<br></br>
-        ///	
+        ///	If offset &lt; 0, it is below the main diagonal.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
         /// </param>
         /// <param name="offset">
         ///	the diagonal to consider.<br></br>
-        ///	 Default: 0 (main
-        ///	diagonal).<br></br>
-        ///	
+        ///	Default: 0 (main
+        ///	diagonal).
         /// </param>
         public Tensor diagflat(Tensor input, int? offset = 0)
         {
@@ -6634,7 +6186,6 @@ namespace Torch
         ///	with respect to dim1 and dim2 appended as a dimension
         ///	at the end of the shape.<br></br>
         ///	
-        ///	
         ///	The argument offset controls which diagonal to consider:
         ///	
         ///	If offset = 0, it is the main diagonal.<br></br>
@@ -6643,36 +6194,30 @@ namespace Torch
         ///	
         ///	If offset &lt; 0, it is below the main diagonal.<br></br>
         ///	
-        ///	
         ///	Applying torch.diag_embed() to the output of this function with
         ///	the same arguments yields a diagonal matrix with the diagonal entries
         ///	of the input.<br></br>
         ///	 However, torch.diag_embed() has different default
-        ///	dimensions, so those need to be explicitly specified.<br></br>
-        ///	
+        ///	dimensions, so those need to be explicitly specified.
         /// </summary>
         /// <param name="input">
         ///	the input tensor.<br></br>
-        ///	 Must be at least 2-dimensional.<br></br>
-        ///	
+        ///	Must be at least 2-dimensional.
         /// </param>
         /// <param name="offset">
         ///	which diagonal to consider.<br></br>
-        ///	 Default: 0
-        ///	(main diagonal).<br></br>
-        ///	
+        ///	Default: 0
+        ///	(main diagonal).
         /// </param>
         /// <param name="dim1">
         ///	first dimension with respect to which to
         ///	take diagonal.<br></br>
-        ///	 Default: 0.<br></br>
-        ///	
+        ///	Default: 0.
         /// </param>
         /// <param name="dim2">
         ///	second dimension with respect to which to
         ///	take diagonal.<br></br>
-        ///	 Default: 1.<br></br>
-        ///	
+        ///	Default: 1.
         /// </param>
         public Tensor diagonal(Tensor input, int? offset = 0, int? dim1 = 0, int? dim2 = 1)
         {
@@ -6693,15 +6238,14 @@ namespace Torch
         /// <summary>
         ///	This function provides a way of computing multilinear expressions (i.e.<br></br>
         ///	 sums of products) using the
-        ///	Einstein summation convention.<br></br>
-        ///	
+        ///	Einstein summation convention.
         /// </summary>
         /// <param name="equation">
         ///	The equation is given in terms of lower case letters (indices) to be associated
         ///	with each dimension of the operands and result.<br></br>
-        ///	 The left hand side lists the operands
+        ///	The left hand side lists the operands
         ///	dimensions, separated by commas.<br></br>
-        ///	 There should be one index letter per tensor dimension.<br></br>
+        ///	There should be one index letter per tensor dimension.<br></br>
         ///	
         ///	The right hand side follows after -&gt; and gives the indices for the output.<br></br>
         ///	
@@ -6714,15 +6258,13 @@ namespace Torch
         ///	If an index appears several times for the same operand, a diagonal is taken.<br></br>
         ///	
         ///	Ellipses … represent a fixed number of dimensions.<br></br>
-        ///	 If the right hand side is inferred,
-        ///	the ellipsis dimensions are at the beginning of the output.<br></br>
-        ///	
+        ///	If the right hand side is inferred,
+        ///	the ellipsis dimensions are at the beginning of the output.
         /// </param>
         /// <param name="operands">
-        ///	The operands to compute the Einstein sum of.<br></br>
-        ///	
+        ///	The operands to compute the Einstein sum of.
         /// </param>
-        public Tensor einsum(string equation, params Tensor[] operands)
+        public Tensor einsum(int equation, params Tensor[] operands)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -6737,8 +6279,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Flattens a contiguous range of dims in a tensor.<br></br>
-        ///	
+        ///	Flattens a contiguous range of dims in a tensor.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6765,8 +6306,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Reverse the order of a n-D tensor along given axis in dims.<br></br>
-        ///	
+        ///	Reverse the order of a n-D tensor along given axis in dims.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6791,8 +6331,7 @@ namespace Torch
         /// <summary>
         ///	Rotate a n-D tensor by 90 degrees in the plane specified by dims axis.<br></br>
         ///	
-        ///	Rotation direction is from the first towards the second axis if k &gt; 0, and from the second towards the first for k &lt; 0.<br></br>
-        ///	
+        ///	Rotation direction is from the first towards the second axis if k &gt; 0, and from the second towards the first for k &lt; 0.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6821,12 +6360,10 @@ namespace Torch
         /// <summary>
         ///	Computes the histogram of a tensor.<br></br>
         ///	
-        ///	
         ///	The elements are sorted into equal width bins between min and
         ///	max.<br></br>
         ///	 If min and max are both zero, the minimum and
-        ///	maximum values of the data are used.<br></br>
-        ///	
+        ///	maximum values of the data are used.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6865,7 +6402,6 @@ namespace Torch
         ///	vector, and create \(N\) N-dimensional grids, where the \(i\) th grid is defined by
         ///	expanding the \(i\) th input over dimensions defined by other inputs.<br></br>
         ///	
-        ///	
         ///	Args:tensors (list of Tensor): list of scalars or 1 dimensional tensors.<br></br>
         ///	 Scalars will be
         ///	treated as tensors of size \((1,)\) automatically
@@ -6873,8 +6409,6 @@ namespace Torch
         ///	Returns:seq (sequence of Tensors): If the input has \(k\) tensors of size
         ///	\((N_1,), (N_2,), \ldots , (N_k,)\), then the output would also has \(k\) tensors,
         ///	where all tensors are of size \((N_1, N_2, \ldots , N_k)\).<br></br>
-        ///	
-        ///	
         ///	
         ///	Example:
         ///	&gt;&gt;&gt; x = torch.tensor([1, 2, 3])
@@ -6977,8 +6511,7 @@ namespace Torch
         ///	last position are re-introduced at the first position.<br></br>
         ///	 If a dimension is not
         ///	specified, the tensor will be flattened before rolling and then restored
-        ///	to the original shape.<br></br>
-        ///	
+        ///	to the original shape.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -6986,7 +6519,7 @@ namespace Torch
         /// <param name="shifts">
         ///	ints) : The number of places by which the elements
         ///	of the tensor are shifted.<br></br>
-        ///	 If shifts is a tuple, dims must be a tuple of
+        ///	If shifts is a tuple, dims must be a tuple of
         ///	the same size, and each dimension will be rolled by the corresponding
         ///	value
         /// </param>
@@ -7011,9 +6544,7 @@ namespace Torch
         /// <summary>
         ///	Returns a contraction of a and b over multiple dimensions.<br></br>
         ///	
-        ///	
-        ///	tensordot implements a generalizes the matrix product.<br></br>
-        ///	
+        ///	tensordot implements a generalizes the matrix product.
         /// </summary>
         /// <param name="a">
         ///	Left tensor to contract
@@ -7041,8 +6572,7 @@ namespace Torch
         }
         
         /// <summary>
-        ///	Returns the sum of the elements of the diagonal of the input 2-D matrix.<br></br>
-        ///	
+        ///	Returns the sum of the elements of the diagonal of the input 2-D matrix.
         /// </summary>
         public Tensor trace(Tensor input)
         {
@@ -7061,10 +6591,8 @@ namespace Torch
         ///	Returns the lower triangular part of the matrix (2-D tensor) or batch of matrices
         ///	input, the other elements of the result tensor out are set to 0.<br></br>
         ///	
-        ///	
         ///	The lower triangular part of the matrix is defined as the elements on and
         ///	below the diagonal.<br></br>
-        ///	
         ///	
         ///	The argument diagonal controls which diagonal to consider.<br></br>
         ///	 If
@@ -7075,8 +6603,7 @@ namespace Torch
         ///	the main diagonal.<br></br>
         ///	 The main diagonal are the set of indices
         ///	\(\lbrace (i, i) \rbrace\) for \(i \in [0, \min\{d_{1}, d_{2}\} - 1]\) where
-        ///	\(d_{1}, d_{2}\) are the dimensions of the matrix.<br></br>
-        ///	
+        ///	\(d_{1}, d_{2}\) are the dimensions of the matrix.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -7109,10 +6636,8 @@ namespace Torch
         ///	
         ///	Indices are ordered based on rows and then columns.<br></br>
         ///	
-        ///	
         ///	The lower triangular part of the matrix is defined as the elements on and
         ///	below the diagonal.<br></br>
-        ///	
         ///	
         ///	The argument offset controls which diagonal to consider.<br></br>
         ///	 If
@@ -7125,43 +6650,35 @@ namespace Torch
         ///	\(\lbrace (i, i) \rbrace\) for \(i \in [0, \min\{d_{1}, d_{2}\} - 1]\)
         ///	where \(d_{1}, d_{2}\) are the dimensions of the matrix.<br></br>
         ///	
-        ///	
         ///	NOTE: when running on ‘cuda’, row * col must be less than \(2^{59}\) to
-        ///	prevent overflow during calculation.<br></br>
-        ///	
+        ///	prevent overflow during calculation.
         /// </summary>
         /// <param name="row">
-        ///	number of rows in the 2-D matrix.<br></br>
-        ///	
+        ///	number of rows in the 2-D matrix.
         /// </param>
         /// <param name="column">
-        ///	number of columns in the 2-D matrix.<br></br>
-        ///	
+        ///	number of columns in the 2-D matrix.
         /// </param>
         /// <param name="offset">
         ///	diagonal offset from the main diagonal.<br></br>
         ///	
-        ///	Default: if not provided, 0.<br></br>
-        ///	
+        ///	Default: if not provided, 0.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, torch.long.<br></br>
-        ///	
+        ///	Default: if None, torch.long.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="layout">
-        ///	currently only support torch.strided.<br></br>
-        ///	
+        ///	currently only support torch.strided.
         /// </param>
         public Tensor tril_indices(int row, int column, int offset = 0, Dtype dtype = null, Device device = null, Layout layout = null)
         {
@@ -7185,10 +6702,8 @@ namespace Torch
         ///	Returns the upper triangular part of a matrix (2-D tensor) or batch of matrices
         ///	input, the other elements of the result tensor out are set to 0.<br></br>
         ///	
-        ///	
         ///	The upper triangular part of the matrix is defined as the elements on and
         ///	above the diagonal.<br></br>
-        ///	
         ///	
         ///	The argument diagonal controls which diagonal to consider.<br></br>
         ///	 If
@@ -7199,8 +6714,7 @@ namespace Torch
         ///	the main diagonal.<br></br>
         ///	 The main diagonal are the set of indices
         ///	\(\lbrace (i, i) \rbrace\) for \(i \in [0, \min\{d_{1}, d_{2}\} - 1]\) where
-        ///	\(d_{1}, d_{2}\) are the dimensions of the matrix.<br></br>
-        ///	
+        ///	\(d_{1}, d_{2}\) are the dimensions of the matrix.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -7233,10 +6747,8 @@ namespace Torch
         ///	
         ///	Indices are ordered based on rows and then columns.<br></br>
         ///	
-        ///	
         ///	The upper triangular part of the matrix is defined as the elements on and
         ///	above the diagonal.<br></br>
-        ///	
         ///	
         ///	The argument offset controls which diagonal to consider.<br></br>
         ///	 If
@@ -7249,43 +6761,35 @@ namespace Torch
         ///	\(\lbrace (i, i) \rbrace\) for \(i \in [0, \min\{d_{1}, d_{2}\} - 1]\)
         ///	where \(d_{1}, d_{2}\) are the dimensions of the matrix.<br></br>
         ///	
-        ///	
         ///	NOTE: when running on ‘cuda’, row * col must be less than \(2^{59}\) to
-        ///	prevent overflow during calculation.<br></br>
-        ///	
+        ///	prevent overflow during calculation.
         /// </summary>
         /// <param name="row">
-        ///	number of rows in the 2-D matrix.<br></br>
-        ///	
+        ///	number of rows in the 2-D matrix.
         /// </param>
         /// <param name="column">
-        ///	number of columns in the 2-D matrix.<br></br>
-        ///	
+        ///	number of columns in the 2-D matrix.
         /// </param>
         /// <param name="offset">
         ///	diagonal offset from the main diagonal.<br></br>
         ///	
-        ///	Default: if not provided, 0.<br></br>
-        ///	
+        ///	Default: if not provided, 0.
         /// </param>
         /// <param name="dtype">
         ///	the desired data type of returned tensor.<br></br>
         ///	
-        ///	Default: if None, torch.long.<br></br>
-        ///	
+        ///	Default: if None, torch.long.
         /// </param>
         /// <param name="device">
         ///	the desired device of returned tensor.<br></br>
         ///	
         ///	Default: if None, uses the current device for the default tensor type
         ///	(see torch.set_default_tensor_type()).<br></br>
-        ///	 device will be the CPU
-        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.<br></br>
-        ///	
+        ///	device will be the CPU
+        ///	for CPU tensor types and the current CUDA device for CUDA tensor types.
         /// </param>
         /// <param name="layout">
-        ///	currently only support torch.strided.<br></br>
-        ///	
+        ///	currently only support torch.strided.
         /// </param>
         public Tensor triu_indices(int row, int column, int offset = 0, Dtype dtype = null, Device device = null, Layout layout = null)
         {
@@ -7313,24 +6817,20 @@ namespace Torch
         ///	
         ///	mat is added to the final result.<br></br>
         ///	
-        ///	
         ///	batch1 and batch2 must be 3-D tensors each containing the
         ///	same number of matrices.<br></br>
-        ///	
         ///	
         ///	If batch1 is a \((b \times n \times m)\) tensor, batch2 is a
         ///	\((b \times m \times p)\) tensor, mat must be
         ///	broadcastable with a \((n \times p)\) tensor
         ///	and out will be a \((n \times p)\) tensor.<br></br>
         ///	
-        ///	
         ///	\[out = \beta\ \text{mat} + \alpha\ (\sum_{i=0}^{b-1} \text{batch1}_i \mathbin{@} \text{batch2}_i)
         ///	
         ///	\]
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and alpha
-        ///	must be real numbers, otherwise they should be integers.<br></br>
-        ///	
+        ///	must be real numbers, otherwise they should be integers.
         /// </summary>
         /// <param name="mat">
         ///	matrix to be added
@@ -7368,24 +6868,20 @@ namespace Torch
         ///	
         ///	mat is added to the final result.<br></br>
         ///	
-        ///	
         ///	batch1 and batch2 must be 3-D tensors each containing the
         ///	same number of matrices.<br></br>
-        ///	
         ///	
         ///	If batch1 is a \((b \times n \times m)\) tensor, batch2 is a
         ///	\((b \times m \times p)\) tensor, mat must be
         ///	broadcastable with a \((n \times p)\) tensor
         ///	and out will be a \((n \times p)\) tensor.<br></br>
         ///	
-        ///	
         ///	\[out = \beta\ \text{mat} + \alpha\ (\sum_{i=0}^{b-1} \text{batch1}_i \mathbin{@} \text{batch2}_i)
         ///	
         ///	\]
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and alpha
-        ///	must be real numbers, otherwise they should be integers.<br></br>
-        ///	
+        ///	must be real numbers, otherwise they should be integers.
         /// </summary>
         /// <param name="beta">
         ///	multiplier for mat (\(\beta\))
@@ -7427,24 +6923,20 @@ namespace Torch
         ///	Performs a matrix multiplication of the matrices mat1 and mat2.
         ///	The matrix mat is added to the final result.<br></br>
         ///	
-        ///	
         ///	If mat1 is a \((n \times m)\) tensor, mat2 is a
         ///	\((m \times p)\) tensor, then mat must be
         ///	broadcastable with a \((n \times p)\) tensor
         ///	and out will be a \((n \times p)\) tensor.<br></br>
         ///	
-        ///	
         ///	alpha and beta are scaling factors on matrix-vector product between
         ///	mat1 and mat2 and the added matrix mat respectively.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = \beta\ \text{mat} + \alpha\ (\text{mat1}_i \mathbin{@} \text{mat2}_i)
         ///	
         ///	\]
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and
-        ///	alpha must be real numbers, otherwise they should be integers.<br></br>
-        ///	
+        ///	alpha must be real numbers, otherwise they should be integers.
         /// </summary>
         /// <param name="mat">
         ///	matrix to be added
@@ -7478,24 +6970,20 @@ namespace Torch
         ///	Performs a matrix multiplication of the matrices mat1 and mat2.
         ///	The matrix mat is added to the final result.<br></br>
         ///	
-        ///	
         ///	If mat1 is a \((n \times m)\) tensor, mat2 is a
         ///	\((m \times p)\) tensor, then mat must be
         ///	broadcastable with a \((n \times p)\) tensor
         ///	and out will be a \((n \times p)\) tensor.<br></br>
         ///	
-        ///	
         ///	alpha and beta are scaling factors on matrix-vector product between
         ///	mat1 and mat2 and the added matrix mat respectively.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = \beta\ \text{mat} + \alpha\ (\text{mat1}_i \mathbin{@} \text{mat2}_i)
         ///	
         ///	\]
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and
-        ///	alpha must be real numbers, otherwise they should be integers.<br></br>
-        ///	
+        ///	alpha must be real numbers, otherwise they should be integers.
         /// </summary>
         /// <param name="beta">
         ///	multiplier for mat (\(\beta\))
@@ -7539,16 +7027,13 @@ namespace Torch
         ///	
         ///	The vector tensor is added to the final result.<br></br>
         ///	
-        ///	
         ///	If mat is a \((n \times m)\) tensor, vec is a 1-D tensor of
         ///	size m, then tensor must be
         ///	broadcastable with a 1-D tensor of size n and
         ///	out will be 1-D tensor of size n.<br></br>
         ///	
-        ///	
         ///	alpha and beta are scaling factors on matrix-vector product between
         ///	mat and vec and the added tensor tensor respectively.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = \beta\ \text{tensor} + \alpha\ (\text{mat} \mathbin{@} \text{vec})
         ///	
@@ -7591,16 +7076,13 @@ namespace Torch
         ///	
         ///	The vector tensor is added to the final result.<br></br>
         ///	
-        ///	
         ///	If mat is a \((n \times m)\) tensor, vec is a 1-D tensor of
         ///	size m, then tensor must be
         ///	broadcastable with a 1-D tensor of size n and
         ///	out will be 1-D tensor of size n.<br></br>
         ///	
-        ///	
         ///	alpha and beta are scaling factors on matrix-vector product between
         ///	mat and vec and the added tensor tensor respectively.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = \beta\ \text{tensor} + \alpha\ (\text{mat} \mathbin{@} \text{vec})
         ///	
@@ -7649,11 +7131,9 @@ namespace Torch
         ///	Performs the outer-product of vectors vec1 and vec2
         ///	and adds it to the matrix mat.<br></br>
         ///	
-        ///	
         ///	Optional values beta and alpha are scaling factors on the
         ///	outer product between vec1 and vec2 and the added matrix
         ///	mat respectively.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = \beta\ \text{mat} + \alpha\ (\text{vec1} \otimes \text{vec2})
         ///	
@@ -7664,7 +7144,6 @@ namespace Torch
         ///	broadcastable with a matrix of size
         ///	\((n \times m)\) and out will be a matrix of size
         ///	\((n \times m)\).<br></br>
-        ///	
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and
         ///	alpha must be real numbers, otherwise they should be integers
@@ -7701,11 +7180,9 @@ namespace Torch
         ///	Performs the outer-product of vectors vec1 and vec2
         ///	and adds it to the matrix mat.<br></br>
         ///	
-        ///	
         ///	Optional values beta and alpha are scaling factors on the
         ///	outer product between vec1 and vec2 and the added matrix
         ///	mat respectively.<br></br>
-        ///	
         ///	
         ///	\[\text{out} = \beta\ \text{mat} + \alpha\ (\text{vec1} \otimes \text{vec2})
         ///	
@@ -7716,7 +7193,6 @@ namespace Torch
         ///	broadcastable with a matrix of size
         ///	\((n \times m)\) and out will be a matrix of size
         ///	\((n \times m)\).<br></br>
-        ///	
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and
         ///	alpha must be real numbers, otherwise they should be integers
@@ -7762,10 +7238,8 @@ namespace Torch
         ///	and batch2.
         ///	mat is added to the final result.<br></br>
         ///	
-        ///	
         ///	batch1 and batch2 must be 3-D tensors each containing the same
         ///	number of matrices.<br></br>
-        ///	
         ///	
         ///	If batch1 is a \((b \times n \times m)\) tensor, batch2 is a
         ///	\((b \times m \times p)\) tensor, then mat must be
@@ -7775,14 +7249,12 @@ namespace Torch
         ///	 Both alpha and beta mean the
         ///	same as the scaling factors used in torch.addbmm().<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \beta\ \text{mat}_i + \alpha\ (\text{batch1}_i \mathbin{@} \text{batch2}_i)
         ///	
         ///	\]
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and
-        ///	alpha must be real numbers, otherwise they should be integers.<br></br>
-        ///	
+        ///	alpha must be real numbers, otherwise they should be integers.
         /// </summary>
         /// <param name="mat">
         ///	the tensor to be added
@@ -7817,10 +7289,8 @@ namespace Torch
         ///	and batch2.
         ///	mat is added to the final result.<br></br>
         ///	
-        ///	
         ///	batch1 and batch2 must be 3-D tensors each containing the same
         ///	number of matrices.<br></br>
-        ///	
         ///	
         ///	If batch1 is a \((b \times n \times m)\) tensor, batch2 is a
         ///	\((b \times m \times p)\) tensor, then mat must be
@@ -7830,14 +7300,12 @@ namespace Torch
         ///	 Both alpha and beta mean the
         ///	same as the scaling factors used in torch.addbmm().<br></br>
         ///	
-        ///	
         ///	\[\text{out}_i = \beta\ \text{mat}_i + \alpha\ (\text{batch1}_i \mathbin{@} \text{batch2}_i)
         ///	
         ///	\]
         ///	
         ///	For inputs of type FloatTensor or DoubleTensor, arguments beta and
-        ///	alpha must be real numbers, otherwise they should be integers.<br></br>
-        ///	
+        ///	alpha must be real numbers, otherwise they should be integers.
         /// </summary>
         /// <param name="beta">
         ///	multiplier for mat (\(\beta\))
@@ -7882,11 +7350,9 @@ namespace Torch
         ///	batch1 and batch2 must be 3-D tensors each containing
         ///	the same number of matrices.<br></br>
         ///	
-        ///	
         ///	If batch1 is a \((b \times n \times m)\) tensor, batch2 is a
         ///	\((b \times m \times p)\) tensor, out will be a
         ///	\((b \times n \times p)\) tensor.<br></br>
-        ///	
         ///	
         ///	\[\text{out}_i = \text{batch1}_i \mathbin{@} \text{batch2}_i
         ///	
@@ -7895,8 +7361,7 @@ namespace Torch
         ///	Note
         ///	This function does not broadcast.<br></br>
         ///	
-        ///	For broadcasting matrix products, see torch.matmul().<br></br>
-        ///	
+        ///	For broadcasting matrix products, see torch.matmul().
         /// </summary>
         /// <param name="batch1">
         ///	the first batch of matrices to be multiplied
@@ -7930,8 +7395,7 @@ namespace Torch
         ///	 Note that since this is a function to compute the product, \(N\)
         ///	needs to be greater than or equal to 2; if equal to 2 then a trivial matrix-matrix product is returned.<br></br>
         ///	
-        ///	If \(N\) is 1, then this is a no-op - the original matrix is returned as is.<br></br>
-        ///	
+        ///	If \(N\) is 1, then this is a no-op - the original matrix is returned as is.
         /// </summary>
         public Tensor chain_matmul(params Tensor[] matrices)
         {
@@ -7950,7 +7414,6 @@ namespace Torch
         ///	Computes the Cholesky decomposition of a symmetric positive-definite
         ///	matrix \(A\) or for batches of symmetric positive-definite matrices.<br></br>
         ///	
-        ///	
         ///	If upper is True, the returned matrix U is upper-triangular, and
         ///	the decomposition has the form:
         ///	
@@ -7966,18 +7429,16 @@ namespace Torch
         ///	of each of the individual matrices.<br></br>
         ///	 Similarly, when upper is False, the returned
         ///	tensor will be composed of lower-triangular Cholesky factors of each of the individual
-        ///	matrices.<br></br>
-        ///	
+        ///	matrices.
         /// </summary>
         /// <param name="a">
         ///	the input tensor of size (*, n, n) where * is zero or more
-        ///	batch dimensions consisting of symmetric positive-definite matrices.<br></br>
-        ///	
+        ///	batch dimensions consisting of symmetric positive-definite matrices.
         /// </param>
         /// <param name="upper">
         ///	flag that indicates whether to return a
         ///	upper or lower triangular matrix.<br></br>
-        ///	 Default: False
+        ///	Default: False
         /// </param>
         /// <param name="out">
         ///	the output matrix
@@ -8002,7 +7463,6 @@ namespace Torch
         ///	Cholesky factor u: returns matrix inv.<br></br>
         ///	 The inverse is computed using
         ///	LAPACK routines dpotri and spotri (and the corresponding MAGMA routines).<br></br>
-        ///	
         ///	
         ///	If upper is False, u is lower triangular
         ///	such that the returned tensor is
@@ -8047,7 +7507,6 @@ namespace Torch
         ///	Solves a linear system of equations with a positive semidefinite
         ///	matrix to be inverted given its Cholesky factor matrix u.<br></br>
         ///	
-        ///	
         ///	If upper is False, u is and lower triangular and c is
         ///	returned such that:
         ///	
@@ -8069,8 +7528,7 @@ namespace Torch
         ///	
         ///	Note
         ///	The out keyword only supports 2D matrix inputs, that is,
-        ///	b, u must be 2D matrices.<br></br>
-        ///	
+        ///	b, u must be 2D matrices.
         /// </summary>
         /// <param name="b">
         ///	input matrix of size \((*, m, k)\),
@@ -8084,8 +7542,7 @@ namespace Torch
         /// <param name="upper">
         ///	whether to consider the Cholesky factor as a
         ///	lower or upper triangular matrix.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         /// <param name="out">
         ///	the output tensor for c
@@ -8109,10 +7566,8 @@ namespace Torch
         /// <summary>
         ///	Computes the dot product (inner product) of two tensors.<br></br>
         ///	
-        ///	
         ///	Note
-        ///	This function does not broadcast.<br></br>
-        ///	
+        ///	This function does not broadcast.
         /// </summary>
         public Tensor dot(Tensor tensor1, Tensor tensor2)
         {
@@ -8130,7 +7585,6 @@ namespace Torch
         
         /// <summary>
         ///	Computes the eigenvalues and eigenvectors of a real square matrix.<br></br>
-        ///	
         ///	
         ///	Note
         ///	Since eigenvalues and eigenvectors might be complex, backward pass is supported only
@@ -8169,7 +7623,6 @@ namespace Torch
         ///	rank matrix \(A\) of size \((m \times n)\) and a matrix \(B\) of
         ///	size \((m \times k)\).<br></br>
         ///	
-        ///	
         ///	If \(m \geq n\), gels() solves the least-squares problem:
         ///	
         ///	\[\begin{array}{ll}
@@ -8188,8 +7641,7 @@ namespace Torch
         ///	rows of \(X\) contains the solution.<br></br>
         ///	 If \(m \geq n\), the residual sum of squares
         ///	for the solution in each column is given by the sum of squares of elements in the
-        ///	remaining \(m - n\) rows of that column.<br></br>
-        ///	
+        ///	remaining \(m - n\) rows of that column.
         /// </summary>
         /// <param name="B">
         ///	the matrix \(B\)
@@ -8223,16 +7675,13 @@ namespace Torch
         ///	
         ///	You’ll generally want to use torch.qr() instead.<br></br>
         ///	
-        ///	
         ///	Computes a QR decomposition of input, but without constructing
         ///	\(Q\) and \(R\) as explicit separate matrices.<br></br>
-        ///	
         ///	
         ///	Rather, this directly calls the underlying LAPACK function ?geqrf
         ///	which produces a sequence of ‘elementary reflectors’.
         ///	
-        ///	See LAPACK documentation for geqrf for further details.<br></br>
-        ///	
+        ///	See LAPACK documentation for geqrf for further details.
         /// </summary>
         /// <param name="input">
         ///	the input matrix
@@ -8260,10 +7709,8 @@ namespace Torch
         ///	If vec1 is a vector of size \(n\) and vec2 is a vector of
         ///	size \(m\), then out must be a matrix of size \((n \times m)\).<br></br>
         ///	
-        ///	
         ///	Note
-        ///	This function does not broadcast.<br></br>
-        ///	
+        ///	This function does not broadcast.
         /// </summary>
         /// <param name="vec1">
         ///	1-D input vector
@@ -8295,7 +7742,6 @@ namespace Torch
         ///	of 2D square tensors, in which case this function would return a tensor composed of
         ///	individual inverses.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Irrespective of the original strides, the returned tensors will be
         ///	transposed, i.e.<br></br>
@@ -8325,15 +7771,13 @@ namespace Torch
         /// <summary>
         ///	Calculates determinant of a 2D square tensor.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Backward through det() internally uses SVD results when A is
         ///	not invertible.<br></br>
         ///	 In this case, double backward through det() will be
         ///	unstable in when A doesn’t have distinct singular values.<br></br>
         ///	 See
-        ///	svd() for details.<br></br>
-        ///	
+        ///	svd() for details.
         /// </summary>
         public Tensor det(Tensor A)
         {
@@ -8351,11 +7795,9 @@ namespace Torch
         /// <summary>
         ///	Calculates log determinant of a 2D square tensor.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Result is -inf if A has zero log determinant, and is nan if
         ///	A has negative determinant.<br></br>
-        ///	
         ///	
         ///	Note
         ///	Backward through logdet() internally uses SVD results when A
@@ -8363,8 +7805,7 @@ namespace Torch
         ///	 In this case, double backward through logdet() will
         ///	be unstable in when A doesn’t have distinct singular values.<br></br>
         ///	 See
-        ///	svd() for details.<br></br>
-        ///	
+        ///	svd() for details.
         /// </summary>
         public Tensor logdet(Tensor A)
         {
@@ -8382,10 +7823,8 @@ namespace Torch
         /// <summary>
         ///	Calculates the sign and log value of a 2D square tensor’s determinant.<br></br>
         ///	
-        ///	
         ///	Note
         ///	If A has zero determinant, this returns (0, -inf).<br></br>
-        ///	
         ///	
         ///	Note
         ///	Backward through slogdet() internally uses SVD results when A
@@ -8393,8 +7832,7 @@ namespace Torch
         ///	 In this case, double backward through slogdet()
         ///	will be unstable in when A doesn’t have distinct singular values.<br></br>
         ///	
-        ///	See svd() for details.<br></br>
-        ///	
+        ///	See svd() for details.
         /// </summary>
         public (Tensor, Tensor) slogdet(Tensor A)
         {
@@ -8417,12 +7855,10 @@ namespace Torch
         ///	
         ///	Pivoting is done if pivot is set to True.<br></br>
         ///	
-        ///	
         ///	Note
         ///	The pivots returned by the function are 1-indexed.<br></br>
         ///	 If pivot is False,
         ///	then the returned pivots is a tensor filled with zeros of the appropriate size.<br></br>
-        ///	
         ///	
         ///	Note
         ///	LU factorization with pivot = False is not available for CPU, and attempting
@@ -8430,19 +7866,17 @@ namespace Torch
         ///	 However, LU factorization with pivot = False is
         ///	available for CUDA.<br></br>
         ///	
-        ///	
         ///	Note
         ///	This function does not check if the factorization was successful or not if
         ///	get_infos is True since the status of the factorization is present in the
-        ///	third element of the return tuple.<br></br>
-        ///	
+        ///	third element of the return tuple.
         /// </summary>
         /// <param name="A">
         ///	the tensor to factor of size \((*, m, m)\)
         /// </param>
         /// <param name="pivot">
         ///	controls whether pivoting is done.<br></br>
-        ///	 Default: True
+        ///	Default: True
         /// </param>
         /// <param name="get_infos">
         ///	if set to True, returns an info IntTensor.<br></br>
@@ -8451,12 +7885,12 @@ namespace Torch
         /// </param>
         /// <param name="out">
         ///	optional output tuple.<br></br>
-        ///	 If get_infos is True,
+        ///	If get_infos is True,
         ///	then the elements in the tuple are Tensor, IntTensor,
         ///	and IntTensor.<br></br>
-        ///	 If get_infos is False, then the
+        ///	If get_infos is False, then the
         ///	elements in the tuple are Tensor, IntTensor.<br></br>
-        ///	 Default: None
+        ///	Default: None
         /// </param>
         public (Tensor, Tensor<int>, Tensor<int>) lu(Tensor A, bool? pivot = true, bool? get_infos = false, Tensor[] @out = null)
         {
@@ -8478,17 +7912,14 @@ namespace Torch
         /// <summary>
         ///	Batch LU solve.<br></br>
         ///	
-        ///	
         ///	Returns the LU solve of the linear system \(Ax = b\) using the partially pivoted
-        ///	LU factorization of A from torch.lu().<br></br>
-        ///	
+        ///	LU factorization of A from torch.lu().
         /// </summary>
         /// <param name="b">
         ///	the RHS tensor
         /// </param>
         /// <param name="LU_data">
-        ///	the pivoted LU factorization of A from torch.lu().<br></br>
-        ///	
+        ///	the pivoted LU factorization of A from torch.lu().
         /// </param>
         /// <param name="LU_pivots">
         ///	the pivots of the LU factorization
@@ -8515,9 +7946,7 @@ namespace Torch
         /// <summary>
         ///	Unpacks the data and pivots from a LU factorization of a tensor.<br></br>
         ///	
-        ///	
-        ///	Returns a tuple of tensors as (the pivots, the L tensor, the U tensor).<br></br>
-        ///	
+        ///	Returns a tuple of tensors as (the pivots, the L tensor, the U tensor).
         /// </summary>
         /// <param name="LU_data">
         ///	the packed LU factorization data
@@ -8549,7 +7978,6 @@ namespace Torch
         /// <summary>
         ///	Matrix product of two tensors.<br></br>
         ///	
-        ///	
         ///	The behavior depends on the dimensionality of the tensors as follows:
         ///	
         ///	If both tensors are 1-dimensional, the dot product (scalar) is returned.<br></br>
@@ -8579,10 +8007,8 @@ namespace Torch
         ///	\((j \times 1 \times n \times m)\) tensor and tensor2 is a \((k \times m \times p)\)
         ///	tensor, out will be an \((j \times k \times n \times p)\) tensor.<br></br>
         ///	
-        ///	
         ///	Note
-        ///	The 1-dimensional dot product version of this function does not support an out parameter.<br></br>
-        ///	
+        ///	The 1-dimensional dot product version of this function does not support an out parameter.
         /// </summary>
         /// <param name="tensor1">
         ///	the first tensor to be multiplied
@@ -8613,14 +8039,12 @@ namespace Torch
         ///	
         ///	For batch of matrices, each individual matrix is raised to the power n.<br></br>
         ///	
-        ///	
         ///	If n is negative, then the inverse of the matrix (if invertible) is
         ///	raised to the power n.<br></br>
         ///	  For a batch of matrices, the batched inverse
         ///	(if invertible) is raised to the power n.<br></br>
         ///	 If n is 0, then an identity matrix
-        ///	is returned.<br></br>
-        ///	
+        ///	is returned.
         /// </summary>
         /// <param name="input">
         ///	the input tensor
@@ -8650,21 +8074,19 @@ namespace Torch
         ///	then input is assumed to be symmetric, and the computation of the
         ///	rank is done by obtaining the eigenvalues.<br></br>
         ///	
-        ///	
         ///	tol is the threshold below which the singular values (or the eigenvalues
         ///	when symmetric is True) are considered to be 0.<br></br>
         ///	 If tol is not
         ///	specified, tol is set to S.max() * max(S.size()) * eps where S is the
         ///	singular values (or the eigenvalues when symmetric is True), and eps
-        ///	is the epsilon value for the datatype of input.<br></br>
-        ///	
+        ///	is the epsilon value for the datatype of input.
         /// </summary>
         /// <param name="input">
         ///	the input 2-D tensor
         /// </param>
         /// <param name="tol">
         ///	the tolerance value.<br></br>
-        ///	 Default: None
+        ///	Default: None
         /// </param>
         /// <param name="symmetric">
         ///	indicates whether input is symmetric.<br></br>
@@ -8692,12 +8114,10 @@ namespace Torch
         ///	If mat1 is a \((n \times m)\) tensor, mat2 is a
         ///	\((m \times p)\) tensor, out will be a \((n \times p)\) tensor.<br></br>
         ///	
-        ///	
         ///	Note
         ///	This function does not broadcast.<br></br>
         ///	
-        ///	For broadcasting matrix products, see torch.matmul().<br></br>
-        ///	
+        ///	For broadcasting matrix products, see torch.matmul().
         /// </summary>
         /// <param name="mat1">
         ///	the first matrix to be multiplied
@@ -8727,14 +8147,11 @@ namespace Torch
         ///	Performs a matrix-vector product of the matrix mat and the vector
         ///	vec.<br></br>
         ///	
-        ///	
         ///	If mat is a \((n \times m)\) tensor, vec is a 1-D tensor of
         ///	size \(m\), out will be 1-D of size \(n\).<br></br>
         ///	
-        ///	
         ///	Note
-        ///	This function does not broadcast.<br></br>
-        ///	
+        ///	This function does not broadcast.
         /// </summary>
         /// <param name="mat">
         ///	matrix to be multiplied
@@ -8764,19 +8181,15 @@ namespace Torch
         ///	Computes the orthogonal matrix Q of a QR factorization, from the (a, tau)
         ///	tuple returned by torch.geqrf().<br></br>
         ///	
-        ///	
         ///	This directly calls the underlying LAPACK function ?orgqr.<br></br>
         ///	
-        ///	See LAPACK documentation for orgqr for further details.<br></br>
-        ///	
+        ///	See LAPACK documentation for orgqr for further details.
         /// </summary>
         /// <param name="a">
-        ///	the a from torch.geqrf().<br></br>
-        ///	
+        ///	the a from torch.geqrf().
         /// </param>
         /// <param name="tau">
-        ///	the tau from torch.geqrf().<br></br>
-        ///	
+        ///	the tau from torch.geqrf().
         /// </param>
         public Tensor orgqr(Tensor a, Tensor tau)
         {
@@ -8796,23 +8209,18 @@ namespace Torch
         ///	Multiplies mat by the orthogonal Q matrix of the QR factorization
         ///	formed by torch.geqrf() that is represented by (a, tau).<br></br>
         ///	
-        ///	
         ///	This directly calls the underlying LAPACK function ?ormqr.<br></br>
         ///	
-        ///	See LAPACK documentation for ormqr for further details.<br></br>
-        ///	
+        ///	See LAPACK documentation for ormqr for further details.
         /// </summary>
         /// <param name="a">
-        ///	the a from torch.geqrf().<br></br>
-        ///	
+        ///	the a from torch.geqrf().
         /// </param>
         /// <param name="tau">
-        ///	the tau from torch.geqrf().<br></br>
-        ///	
+        ///	the tau from torch.geqrf().
         /// </param>
         /// <param name="mat">
-        ///	the matrix to be multiplied.<br></br>
-        ///	
+        ///	the matrix to be multiplied.
         /// </param>
         public Tensor ormqr(Tensor a, Tensor tau, Tensor mat, bool left = true, bool transpose = false)
         {
@@ -8839,7 +8247,6 @@ namespace Torch
         ///	Note
         ///	This method is implemented using the Singular Value Decomposition.<br></br>
         ///	
-        ///	
         ///	Note
         ///	The pseudo-inverse is not necessarily a continuous function in the elements of the matrix [1].<br></br>
         ///	
@@ -8849,8 +8256,7 @@ namespace Torch
         ///	could be unstable.<br></br>
         ///	 Double-backward will also be unstable due to the usage of SVD internally.<br></br>
         ///	
-        ///	See svd() for more details.<br></br>
-        ///	
+        ///	See svd() for more details.
         /// </summary>
         /// <param name="input">
         ///	The input 2D tensor of dimensions \(m \times n\)
@@ -8879,9 +8285,7 @@ namespace Torch
         ///	(Q, R) of matrices such that \(\text{input} = Q R\), with \(Q\) being an
         ///	orthogonal matrix and \(R\) being an upper triangular matrix.<br></br>
         ///	
-        ///	
         ///	This returns the thin (reduced) QR factorization.<br></br>
-        ///	
         ///	
         ///	Note
         ///	precision may be lost if the magnitudes of the elements of input
@@ -8892,12 +8296,10 @@ namespace Torch
         ///	give you the same one across platforms - it will depend on your
         ///	LAPACK implementation.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Irrespective of the original strides, the returned matrix \(Q\) will be
         ///	transposed, i.e.<br></br>
-        ///	 with strides (1, m) instead of (m, 1).<br></br>
-        ///	
+        ///	 with strides (1, m) instead of (m, 1).
         /// </summary>
         /// <param name="input">
         ///	the input 2-D tensor
@@ -8925,37 +8327,30 @@ namespace Torch
         ///	equations represented by \(AX = B\) and the LU factorization of
         ///	A, in order as a namedtuple solution, LU.<br></br>
         ///	
-        ///	
         ///	LU contains L and U factors for LU factorization of A.<br></br>
-        ///	
         ///	
         ///	torch.solve(B, A) can take in 2D inputs B, A or inputs that are
         ///	batches of 2D matrices.<br></br>
         ///	 If the inputs are batches, then returns
         ///	batched outputs solution, LU.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Irrespective of the original strides, the returned matrices
         ///	solution and LU will be transposed, i.e.<br></br>
         ///	 with strides like
         ///	B.contiguous().transpose(-1, -2).strides() and
-        ///	A.contiguous().transpose(-1, -2).strides() respectively.<br></br>
-        ///	
+        ///	A.contiguous().transpose(-1, -2).strides() respectively.
         /// </summary>
         /// <param name="B">
         ///	input matrix of size \((*, m, k)\) , where \(*\)
-        ///	is zero or more batch dimensions.<br></br>
-        ///	
+        ///	is zero or more batch dimensions.
         /// </param>
         /// <param name="A">
         ///	input square matrix of size \((*, m, m)\), where
-        ///	\(*\) is zero or more batch dimensions.<br></br>
-        ///	
+        ///	\(*\) is zero or more batch dimensions.
         /// </param>
         /// <param name="out">
-        ///	optional output tuple.<br></br>
-        ///	
+        ///	optional output tuple.
         /// </param>
         public (Tensor, Tensor) solve(Tensor B, Tensor A, Tensor @out = null)
         {
@@ -8978,25 +8373,19 @@ namespace Torch
         ///	decomposition of a input real matrix A of size (n x m) such that
         ///	\(A = USV^T\).<br></br>
         ///	
-        ///	
         ///	U is of shape \((n \times n)\).<br></br>
-        ///	
         ///	
         ///	S is a diagonal matrix of shape \((n \times m)\), represented as a vector
         ///	of size \(\min(n, m)\) containing the non-negative diagonal entries.<br></br>
         ///	
-        ///	
         ///	V is of shape \((m \times m)\).<br></br>
-        ///	
         ///	
         ///	If some is True (default), the returned U and V matrices will
         ///	contain only \(min(n, m)\) orthonormal columns.<br></br>
         ///	
-        ///	
         ///	If compute_uv is False, the returned U and V matrices will be zero matrices
         ///	of shape \((n \times n)\) and \((m \times m)\) respectively.<br></br>
         ///	 some will be ignored here.<br></br>
-        ///	
         ///	
         ///	Note
         ///	The implementation of SVD on CPU uses the LAPACK routine ?gesdd (a divide-and-conquer
@@ -9004,12 +8393,10 @@ namespace Torch
         ///	 Analogously, the SVD on GPU uses the MAGMA routine
         ///	gesdd as well.<br></br>
         ///	
-        ///	
         ///	Note
         ///	Irrespective of the original strides, the returned matrix U
         ///	will be transposed, i.e.<br></br>
         ///	 with strides (1, n) instead of (n, 1).<br></br>
-        ///	
         ///	
         ///	Note
         ///	Extra care needs to be taken when backward through U and V
@@ -9022,17 +8409,14 @@ namespace Torch
         ///	double backward will usually do an additional backward through U and
         ///	V even if the original backward is only on S.<br></br>
         ///	
-        ///	
         ///	Note
         ///	When some = False, the gradients on U[:, min(n, m):]
         ///	and V[:, min(n, m):] will be ignored in backward as those vectors
         ///	can be arbitrary bases of the subspaces.<br></br>
         ///	
-        ///	
         ///	Note
         ///	When compute_uv = False, backward cannot be performed since U and V
-        ///	from the forward pass is required for the backward operation.<br></br>
-        ///	
+        ///	from the forward pass is required for the backward operation.
         /// </summary>
         /// <param name="input">
         ///	the input 2-D tensor
@@ -9065,44 +8449,35 @@ namespace Torch
         ///	of a real symmetric matrix input, represented by a namedtuple
         ///	(eigenvalues, eigenvectors).<br></br>
         ///	
-        ///	
         ///	input and \(V\) are \((m \times m)\) matrices and \(e\) is a
         ///	\(m\) dimensional vector.<br></br>
-        ///	
         ///	
         ///	This function calculates all eigenvalues (and vectors) of input
         ///	such that \(\text{input} = V \text{diag}(e) V^T\).<br></br>
         ///	
-        ///	
         ///	The boolean argument eigenvectors defines computation of
         ///	eigenvectors or eigenvalues only.<br></br>
-        ///	
         ///	
         ///	If it is False, only eigenvalues are computed.<br></br>
         ///	 If it is True,
         ///	both eigenvalues and eigenvectors are computed.<br></br>
         ///	
-        ///	
         ///	Since the input matrix input is supposed to be symmetric,
         ///	only the upper triangular portion is used by default.<br></br>
         ///	
-        ///	
         ///	If upper is False, then lower triangular portion is used.<br></br>
-        ///	
         ///	
         ///	Note
         ///	Irrespective of the original strides, the returned matrix V will
         ///	be transposed, i.e.<br></br>
         ///	 with strides (1, m) instead of (m, 1).<br></br>
         ///	
-        ///	
         ///	Note
         ///	Extra care needs to be taken when backward through outputs.<br></br>
         ///	 Such
         ///	operation is really only stable when all eigenvalues are distinct.<br></br>
         ///	
-        ///	Otherwise, NaN can appear as the gradients are not properly defined.<br></br>
-        ///	
+        ///	Otherwise, NaN can appear as the gradients are not properly defined.
         /// </summary>
         /// <param name="input">
         ///	the input symmetric matrix
@@ -9137,10 +8512,8 @@ namespace Torch
         ///	Solves a system of equations with a triangular coefficient matrix \(A\)
         ///	and multiple right-hand sides b.<br></br>
         ///	
-        ///	
         ///	In particular, solves \(AX = b\) and assumes \(A\) is upper-triangular
         ///	with the default keyword arguments.<br></br>
-        ///	
         ///	
         ///	torch.triangular_solve(b, A) can take in 2D inputs b, A or inputs that are
         ///	batches of 2D matrices.<br></br>
@@ -9149,8 +8522,7 @@ namespace Torch
         ///	
         ///	Note
         ///	The out keyword only supports 2D matrix inputs, that is,
-        ///	b, A must be 2D matrices.<br></br>
-        ///	
+        ///	b, A must be 2D matrices.
         /// </summary>
         /// <param name="A">
         ///	the input triangular coefficient matrix of size \((*, m, m)\)
@@ -9163,22 +8535,19 @@ namespace Torch
         /// <param name="upper">
         ///	whether to solve the upper-triangular system
         ///	of equations (default) or the lower-triangular system of equations.<br></br>
-        ///	 Default: True.<br></br>
-        ///	
+        ///	Default: True.
         /// </param>
         /// <param name="transpose">
         ///	whether \(A\) should be transposed before
         ///	being sent into the solver.<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         /// <param name="unitriangular">
         ///	whether \(A\) is unit triangular.<br></br>
         ///	
         ///	If True, the diagonal elements of \(A\) are assumed to be
         ///	1 and not referenced from \(A\).<br></br>
-        ///	 Default: False.<br></br>
-        ///	
+        ///	Default: False.
         /// </param>
         public (Tensor, Tensor) triangular_solve(Tensor A, Tensor b, bool? upper = true, bool? transpose = false, bool? unitriangular = false)
         {
