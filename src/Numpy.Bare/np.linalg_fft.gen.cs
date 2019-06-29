@@ -20,7 +20,6 @@ namespace Numpy
             /// <summary>
             ///	Cholesky decomposition.<br></br>
             ///	
-            ///	
             ///	Return the Cholesky decomposition, L * L.H, of the square matrix a,
             ///	where L is lower-triangular and .H is the conjugate transpose operator
             ///	(which is the ordinary transpose if a is real-valued).<br></br>
@@ -29,17 +28,14 @@ namespace Numpy
             ///	  Only L is
             ///	actually returned.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
             ///	
-            ///	
             ///	The Cholesky decomposition is often used as a fast way of solving
             ///	
             ///	(when A is both Hermitian/symmetric and positive-definite).<br></br>
-            ///	
             ///	
             ///	First, we solve for  in
             ///	
@@ -62,12 +58,10 @@ namespace Numpy
             /// <summary>
             ///	Compute the determinant of an array.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
-            ///	
             ///	
             ///	The determinant is computed via LU factorization using the LAPACK
             ///	routine z/dgetrf.
@@ -86,16 +80,13 @@ namespace Numpy
             /// <summary>
             ///	Compute the eigenvalues and right eigenvectors of a square array.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
             ///	
-            ///	
             ///	This is implemented using the _geev LAPACK routines which compute
             ///	the eigenvalues and eigenvectors of general square arrays.<br></br>
-            ///	
             ///	
             ///	The number w is an eigenvalue of a if there exists a vector
             ///	v such that dot(a,v) = w * v.<br></br>
@@ -113,7 +104,6 @@ namespace Numpy
             ///	if dot(a, a.H) = dot(a.H, a), where a.H denotes the conjugate
             ///	transpose of a.<br></br>
             ///	
-            ///	
             ///	Finally, it is emphasized that v consists of the right (as in
             ///	right-hand side) eigenvectors of a.<br></br>
             ///	  A vector y satisfying
@@ -121,7 +111,6 @@ namespace Numpy
             ///	eigenvector of a, and, in general, the left and right eigenvectors
             ///	of a matrix are not necessarily the (perhaps conjugate) transposes
             ///	of each other.<br></br>
-            ///	
             ///	
             ///	References
             ///	
@@ -156,17 +145,14 @@ namespace Numpy
             ///	Return the eigenvalues and eigenvectors of a complex Hermitian
             ///	(conjugate symmetric) or a real symmetric matrix.<br></br>
             ///	
-            ///	
             ///	Returns two objects, a 1-D array containing the eigenvalues of a, and
             ///	a 2-D square array or matrix (depending on the input type) of the
             ///	corresponding eigenvectors (in columns).<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
-            ///	
             ///	
             ///	The eigenvalues/eigenvectors are computed using LAPACK routines _syevd,
             ///	_heevd
@@ -177,7 +163,6 @@ namespace Numpy
             ///	and a, w, and v satisfy the equations
             ///	dot(a, v[:, i]) = w[i] * v[:, i].<br></br>
             ///	
-            ///	
             ///	References
             /// </summary>
             /// <param name="a">
@@ -187,6 +172,7 @@ namespace Numpy
             /// <param name="UPLO">
             ///	Specifies whether the calculation is done with the lower triangular
             ///	part of a (‘L’, default) or the upper triangular part (‘U’).<br></br>
+            ///	
             ///	Irrespective of this value only the real parts of the diagonal will
             ///	be considered in the computation to preserve the notion of a Hermitian
             ///	matrix.<br></br>
@@ -211,16 +197,13 @@ namespace Numpy
             /// <summary>
             ///	Compute the eigenvalues of a general matrix.<br></br>
             ///	
-            ///	
             ///	Main difference between eigvals and eig: the eigenvectors aren’t
             ///	returned.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
-            ///	
             ///	
             ///	This is implemented using the _geev LAPACK routines which compute
             ///	the eigenvalues and eigenvectors of general square arrays.
@@ -230,6 +213,7 @@ namespace Numpy
             /// </param>
             /// <returns>
             ///	The eigenvalues, each repeated according to its multiplicity.<br></br>
+            ///	
             ///	They are not necessarily ordered, nor are they necessarily
             ///	real for real matrices.
             /// </returns>
@@ -241,15 +225,12 @@ namespace Numpy
             /// <summary>
             ///	Compute the eigenvalues of a complex Hermitian or real symmetric matrix.<br></br>
             ///	
-            ///	
             ///	Main difference from eigh: the eigenvectors are not computed.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
-            ///	
             ///	
             ///	The eigenvalues are computed using LAPACK routines _syevd, _heevd
             /// </summary>
@@ -260,6 +241,7 @@ namespace Numpy
             /// <param name="UPLO">
             ///	Specifies whether the calculation is done with the lower triangular
             ///	part of a (‘L’, default) or the upper triangular part (‘U’).<br></br>
+            ///	
             ///	Irrespective of this value only the real parts of the diagonal will
             ///	be considered in the computation to preserve the notion of a Hermitian
             ///	matrix.<br></br>
@@ -278,10 +260,8 @@ namespace Numpy
             /// <summary>
             ///	Compute the (multiplicative) inverse of a matrix.<br></br>
             ///	
-            ///	
             ///	Given a square matrix a, return the matrix ainv satisfying
             ///	dot(a, ainv) = dot(ainv, a) = eye(a.shape[0]).<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -302,7 +282,6 @@ namespace Numpy
             /// <summary>
             ///	Return the least-squares solution to a linear matrix equation.<br></br>
             ///	
-            ///	
             ///	Solves the equation a x = b by computing a vector x that
             ///	minimizes the Euclidean 2-norm || b - a x ||^2.  The equation may
             ///	be under-, well-, or over- determined (i.e., the number of
@@ -311,7 +290,6 @@ namespace Numpy
             ///	  If a
             ///	is square and of full rank, then x (but for round-off error) is
             ///	the “exact” solution of the equation.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -328,6 +306,7 @@ namespace Numpy
             /// </param>
             /// <param name="rcond">
             ///	Cut-off ratio for small singular values of a.<br></br>
+            ///	
             ///	For the purposes of rank determination, singular values are treated
             ///	as zero if they are smaller than rcond times the largest singular
             ///	value of a.
@@ -356,11 +335,9 @@ namespace Numpy
             /// <summary>
             ///	Compute the (Moore-Penrose) pseudo-inverse of a matrix.<br></br>
             ///	
-            ///	
             ///	Calculate the generalized inverse of a matrix using its
             ///	singular-value decomposition (SVD) and including all
             ///	large singular values.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -386,6 +363,7 @@ namespace Numpy
             /// </param>
             /// <param name="rcond">
             ///	Cutoff for small singular values.<br></br>
+            ///	
             ///	Singular values smaller (in modulus) than
             ///	rcond * largest_singular_value (again, in modulus)
             ///	are set to zero.<br></br>
@@ -404,16 +382,13 @@ namespace Numpy
             /// <summary>
             ///	Solve a linear matrix equation, or system of linear scalar equations.<br></br>
             ///	
-            ///	
             ///	Computes the “exact” solution, x, of the well-determined, i.e., full
             ///	rank, linear matrix equation ax = b.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
             ///	Broadcasting rules apply, see the numpy.linalg documentation for
             ///	details.<br></br>
-            ///	
             ///	
             ///	The solutions are computed using LAPACK routine _gesv
             ///	
@@ -421,7 +396,6 @@ namespace Numpy
             ///	columns) must be linearly independent; if either is not true, use
             ///	lstsq for the least-squares best “solution” of the
             ///	system/equation.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -443,18 +417,15 @@ namespace Numpy
             /// <summary>
             ///	Singular Value Decomposition.<br></br>
             ///	
-            ///	
             ///	When a is a 2D array, it is factorized as u &#64; np.diag(s) &#64; vh
             ///	= (u * s) &#64; vh, where u and vh are 2D unitary arrays and s is a 1D
             ///	array of a’s singular values.<br></br>
             ///	 When a is higher-dimensional, SVD is
             ///	applied in stacked mode as explained below.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	The decomposition is performed using LAPACK routine _gesdd.<br></br>
-            ///	
             ///	
             ///	SVD is usually described for the factorization of a 2D matrix .
             ///	The higher-dimensional case will be discussed below.<br></br>
@@ -522,11 +493,9 @@ namespace Numpy
             /// <summary>
             ///	Compute the one-dimensional discrete Fourier Transform.<br></br>
             ///	
-            ///	
             ///	This function computes the one-dimensional n-point discrete Fourier
             ///	Transform (DFT) with the efficient Fast Fourier Transform (FFT)
             ///	algorithm [CT].<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -536,10 +505,8 @@ namespace Numpy
             ///	  The symmetry is highest when n is a power of 2, and
             ///	the transform is therefore most efficient for these sizes.<br></br>
             ///	
-            ///	
             ///	The DFT is defined, with the conventions used in this implementation, in
             ///	the documentation for the numpy.fft module.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -548,7 +515,9 @@ namespace Numpy
             /// </param>
             /// <param name="n">
             ///	Length of the transformed axis of the output.<br></br>
+            ///	
             ///	If n is smaller than the length of the input, the input is cropped.<br></br>
+            ///	
             ///	If it is larger, the input is padded with zeros.<br></br>
             ///	If n is not given,
             ///	the length of the input along the axis specified by axis is used.
@@ -580,18 +549,15 @@ namespace Numpy
             ///	  By default, the transform is computed over
             ///	the last two axes of the input array, i.e., a 2-dimensional FFT.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	fft2 is just fftn with a different default for axes.<br></br>
-            ///	
             ///	
             ///	The output, analogously to fft, contains the term for zero frequency in
             ///	the low-order corner of the transformed axes, the positive frequency terms
             ///	in the first half of these axes, the term for the Nyquist frequency in the
             ///	middle of the axes and the negative frequency terms in the second half of
             ///	the axes, in order of decreasingly negative frequency.<br></br>
-            ///	
             ///	
             ///	See fftn for details and a plotting example, and numpy.fft for
             ///	definitions and conventions used.
@@ -602,10 +568,13 @@ namespace Numpy
             /// <param name="s">
             ///	Shape (length of each transformed axis) of the output
             ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
+            ///	
             ///	This corresponds to n for fft(x, n).<br></br>
+            ///	
             ///	Along each axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
             ///	If it is larger, the input is padded with zeros.<br></br>
+            ///	
             ///	if s is not given, the shape of the input along the axes specified
             ///	by axes is used.
             /// </param>
@@ -634,11 +603,9 @@ namespace Numpy
             /// <summary>
             ///	Compute the N-dimensional discrete Fourier Transform.<br></br>
             ///	
-            ///	
             ///	This function computes the N-dimensional discrete Fourier Transform over
             ///	any number of axes in an M-dimensional array by means of the Fast Fourier
             ///	Transform (FFT).<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -648,7 +615,6 @@ namespace Numpy
             ///	of all axes and the negative frequency terms in the second half of all
             ///	axes, in order of decreasingly negative frequency.<br></br>
             ///	
-            ///	
             ///	See numpy.fft for details, definitions and conventions used.
             /// </summary>
             /// <param name="a">
@@ -657,10 +623,13 @@ namespace Numpy
             /// <param name="s">
             ///	Shape (length of each transformed axis) of the output
             ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
+            ///	
             ///	This corresponds to n for fft(x, n).<br></br>
+            ///	
             ///	Along any axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
             ///	If it is larger, the input is padded with zeros.<br></br>
+            ///	
             ///	if s is not given, the shape of the input along the axes specified
             ///	by axes is used.
             /// </param>
@@ -668,6 +637,7 @@ namespace Numpy
             ///	Axes over which to compute the FFT.<br></br>
             ///	If not given, the last len(s)
             ///	axes are used, or all axes if s is also not specified.<br></br>
+            ///	
             ///	Repeated indices in axes means that the transform over that axis is
             ///	performed multiple times.
             /// </param>
@@ -688,14 +658,13 @@ namespace Numpy
             /// <summary>
             ///	Compute the one-dimensional inverse discrete Fourier Transform.<br></br>
             ///	
-            ///	
             ///	This function computes the inverse of the one-dimensional n-point
             ///	discrete Fourier transform computed by fft.<br></br>
             ///	  In other words,
             ///	ifft(fft(a)) == a to within numerical accuracy.<br></br>
+            ///	
             ///	For a general description of the algorithm and definitions,
             ///	see numpy.fft.<br></br>
-            ///	
             ///	
             ///	The input should be ordered in the same way as is returned by fft,
             ///	i.e.,
@@ -704,7 +673,6 @@ namespace Numpy
             ///	the values at the positive and negative Nyquist frequencies, as the two
             ///	are aliased together.<br></br>
             ///	 See numpy.fft for details.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -720,10 +688,13 @@ namespace Numpy
             /// </param>
             /// <param name="n">
             ///	Length of the transformed axis of the output.<br></br>
+            ///	
             ///	If n is smaller than the length of the input, the input is cropped.<br></br>
+            ///	
             ///	If it is larger, the input is padded with zeros.<br></br>
             ///	If n is not given,
             ///	the length of the input along the axis specified by axis is used.<br></br>
+            ///	
             ///	See notes about padding issues.
             /// </param>
             /// <param name="axis">
@@ -747,7 +718,6 @@ namespace Numpy
             /// <summary>
             ///	Compute the 2-dimensional inverse discrete Fourier Transform.<br></br>
             ///	
-            ///	
             ///	This function computes the inverse of the 2-dimensional discrete Fourier
             ///	Transform over any number of axes in an M-dimensional array by means of
             ///	the Fast Fourier Transform (FFT).<br></br>
@@ -755,7 +725,6 @@ namespace Numpy
             ///	to within numerical accuracy.<br></br>
             ///	  By default, the inverse transform is
             ///	computed over the last two axes of the input array.<br></br>
-            ///	
             ///	
             ///	The input, analogously to ifft, should be ordered in the same way as is
             ///	returned by fft2, i.e.<br></br>
@@ -765,15 +734,12 @@ namespace Numpy
             ///	middle of the axes and the negative frequency terms in the second half of
             ///	both axes, in order of decreasingly negative frequency.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	ifft2 is just ifftn with a different default for axes.<br></br>
             ///	
-            ///	
             ///	See ifftn for details and a plotting example, and numpy.fft for
             ///	definition and conventions used.<br></br>
-            ///	
             ///	
             ///	Zero-padding, analogously with ifft, is performed by appending zeros to
             ///	the input along the specified dimension.<br></br>
@@ -789,9 +755,11 @@ namespace Numpy
             ///	Shape (length of each axis) of the output (s[0] refers to axis 0,
             ///	s[1] to axis 1, etc.).<br></br>
             ///	This corresponds to n for ifft(x, n).<br></br>
+            ///	
             ///	Along each axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
             ///	If it is larger, the input is padded with zeros.<br></br>
+            ///	
             ///	if s is not given, the shape of the input along the axes specified
             ///	by axes is used.<br></br>
             ///	See notes for issue on ifft zero padding.
@@ -821,14 +789,13 @@ namespace Numpy
             /// <summary>
             ///	Compute the N-dimensional inverse discrete Fourier Transform.<br></br>
             ///	
-            ///	
             ///	This function computes the inverse of the N-dimensional discrete
             ///	Fourier Transform over any number of axes in an M-dimensional array by
             ///	means of the Fast Fourier Transform (FFT).<br></br>
             ///	  In other words,
             ///	ifftn(fftn(a)) == a to within numerical accuracy.<br></br>
-            ///	For a description of the definitions and conventions used, see numpy.fft.<br></br>
             ///	
+            ///	For a description of the definitions and conventions used, see numpy.fft.<br></br>
             ///	
             ///	The input, analogously to ifft, should be ordered in the same way as is
             ///	returned by fftn, i.e.<br></br>
@@ -838,11 +805,9 @@ namespace Numpy
             ///	of all axes and the negative frequency terms in the second half of all
             ///	axes, in order of decreasingly negative frequency.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	See numpy.fft for definitions and conventions used.<br></br>
-            ///	
             ///	
             ///	Zero-padding, analogously with ifft, is performed by appending zeros to
             ///	the input along the specified dimension.<br></br>
@@ -857,10 +822,13 @@ namespace Numpy
             /// <param name="s">
             ///	Shape (length of each transformed axis) of the output
             ///	(s[0] refers to axis 0, s[1] to axis 1, etc.).<br></br>
+            ///	
             ///	This corresponds to n for ifft(x, n).<br></br>
+            ///	
             ///	Along any axis, if the given shape is smaller than that of the input,
             ///	the input is cropped.<br></br>
             ///	If it is larger, the input is padded with zeros.<br></br>
+            ///	
             ///	if s is not given, the shape of the input along the axes specified
             ///	by axes is used.<br></br>
             ///	See notes for issue on ifft zero padding.
@@ -869,6 +837,7 @@ namespace Numpy
             ///	Axes over which to compute the IFFT.<br></br>
             ///	If not given, the last len(s)
             ///	axes are used, or all axes if s is also not specified.<br></br>
+            ///	
             ///	Repeated indices in axes means that the inverse transform over that
             ///	axis is performed multiple times.
             /// </param>
@@ -888,11 +857,9 @@ namespace Numpy
         /// <summary>
         ///	Modified Bessel function of the first kind, order 0.<br></br>
         ///	
-        ///	
         ///	Usually denoted .  This function does broadcast, but will not
         ///	“up-cast” int dtype arguments unless accompanied by at least one float or
         ///	complex dtype argument (see Raises below).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -903,7 +870,6 @@ namespace Numpy
         ///	 Relative error on
         ///	the domain [0,30] using IEEE arithmetic is documented [3] as having a
         ///	peak of 5.8e-16 with an rms of 1.4e-16 (n = 30000).<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>

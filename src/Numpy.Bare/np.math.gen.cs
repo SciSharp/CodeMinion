@@ -19,7 +19,6 @@ namespace Numpy
         /// <summary>
         ///	Trigonometric sine, element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The sine is one of the fundamental functions of trigonometry (the
@@ -35,6 +34,7 @@ namespace Numpy
         ///	ranges from -1 for  to +1 for   The
         ///	function has zeroes where the angle is a multiple of .
         ///	Sines of angles between  and  are negative.<br></br>
+        ///	
         ///	The numerous properties of the sine and related functions are included
         ///	in any standard trigonometry text.
         /// </summary>
@@ -56,6 +56,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The sine of each element of x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray sin(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -63,7 +64,6 @@ namespace Numpy
         
         /// <summary>
         ///	Cosine element-wise.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -77,6 +77,7 @@ namespace Numpy
         ///	 Abramowitz and I.<br></br>
         ///	 A.<br></br>
         ///	 Stegun, Handbook of Mathematical Functions.<br></br>
+        ///	
         ///	New York, NY: Dover, 1972.
         /// </summary>
         /// <param name="x">
@@ -97,6 +98,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding cosine values.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray cos(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -105,9 +107,7 @@ namespace Numpy
         /// <summary>
         ///	Compute tangent element-wise.<br></br>
         ///	
-        ///	
         ///	Equivalent to np.sin(x)/np.cos(x) element-wise.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -121,6 +121,7 @@ namespace Numpy
         ///	 Abramowitz and I.<br></br>
         ///	 A.<br></br>
         ///	 Stegun, Handbook of Mathematical Functions.<br></br>
+        ///	
         ///	New York, NY: Dover, 1972.
         /// </summary>
         /// <param name="x">
@@ -141,6 +142,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding tangent values.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray tan(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -149,23 +151,20 @@ namespace Numpy
         /// <summary>
         ///	Inverse sine, element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	arcsin is a multivalued function: for each x there are infinitely
         ///	many numbers z such that .  The convention is to
         ///	return the angle z whose real part lies in [-pi/2, pi/2].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, arcsin always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, arcsin is a complex analytic function that
         ///	has, by convention, the branch cuts [-inf, -1] and [1, inf]  and is
         ///	continuous from above on the former and from below on the latter.<br></br>
-        ///	
         ///	
         ///	The inverse sine is also known as asin or sin^{-1}.
         ///	
@@ -176,6 +175,7 @@ namespace Numpy
         ///	 A., Handbook of Mathematical Functions,
         ///	10th printing, New York: Dover, 1964, pp.<br></br>
         ///	 79ff.<br></br>
+        ///	
         ///	http://www.math.sfu.ca/~cbm/aands/
         /// </summary>
         /// <param name="x">
@@ -197,6 +197,7 @@ namespace Numpy
         /// <returns>
         ///	The inverse sine of each element in x, in radians and in the
         ///	closed interval [-pi/2, pi/2].<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray arcsin(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -205,9 +206,7 @@ namespace Numpy
         /// <summary>
         ///	Trigonometric inverse cosine, element-wise.<br></br>
         ///	
-        ///	
         ///	The inverse of cos so that, if y = cos(x), then x = arccos(y).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -216,16 +215,14 @@ namespace Numpy
         ///	 The convention is to return
         ///	the angle z whose real part lies in [0, pi].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, arccos always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, arccos is a complex analytic function that
         ///	has branch cuts [-inf, -1] and [1, inf] and is continuous from
         ///	above on the former and from below on the latter.<br></br>
-        ///	
         ///	
         ///	The inverse cos is also known as acos or cos^-1.
         ///	
@@ -239,6 +236,7 @@ namespace Numpy
         /// </summary>
         /// <param name="x">
         ///	x-coordinate on the unit circle.<br></br>
+        ///	
         ///	For real arguments, the domain is [-1, 1].
         /// </param>
         /// <param name="out">
@@ -257,6 +255,7 @@ namespace Numpy
         /// <returns>
         ///	The angle of the ray intersecting the unit circle at the given
         ///	x-coordinate in radians [0, pi].<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray arccos(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -265,9 +264,7 @@ namespace Numpy
         /// <summary>
         ///	Trigonometric inverse tangent, element-wise.<br></br>
         ///	
-        ///	
         ///	The inverse of tan, so that if y = tan(x) then x = arctan(y).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -276,16 +273,14 @@ namespace Numpy
         ///	  The convention is to return
         ///	the angle z whose real part lies in [-pi/2, pi/2].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, arctan always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, arctan is a complex analytic function that
         ///	has [1j, infj] and [-1j, -infj] as branch cuts, and is continuous
         ///	from the left on the former and from the right on the latter.<br></br>
-        ///	
         ///	
         ///	The inverse tangent is also known as atan or tan^{-1}.
         ///	
@@ -315,6 +310,7 @@ namespace Numpy
         ///	Out has the same shape as x.<br></br>
         ///	  Its real part is in
         ///	[-pi/2, pi/2] (arctan(+/-inf) returns +/-pi/2).<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray arctan(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -323,11 +319,11 @@ namespace Numpy
         /// <summary>
         ///	Given the “legs” of a right triangle, return its hypotenuse.<br></br>
         ///	
-        ///	
         ///	Equivalent to sqrt(x1**2 + x2**2), element-wise.<br></br>
         ///	  If x1 or
         ///	x2 is scalar_like (i.e., unambiguously cast-able to a scalar type),
         ///	it is broadcast for use with each element of the other argument.<br></br>
+        ///	
         ///	(See Examples)
         /// </summary>
         /// <param name="x2">
@@ -351,6 +347,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The hypotenuse of the triangle(s).<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray hypot(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -358,7 +355,6 @@ namespace Numpy
         
         /// <summary>
         ///	Element-wise arc tangent of x1/x2 choosing the quadrant correctly.<br></br>
-        ///	
         ///	
         ///	The quadrant (i.e., branch) is chosen so that arctan2(x1, x2) is
         ///	the signed angle in radians between the ray ending at the origin and
@@ -370,10 +366,8 @@ namespace Numpy
         ///	x2 = +/-0 and for either or both of x1 and x2 = +/-inf (see
         ///	Notes for specific values).<br></br>
         ///	
-        ///	
         ///	This function is not defined for complex-valued arguments; for the
         ///	so-called argument of complex values, use angle.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -384,7 +378,6 @@ namespace Numpy
         ///	
         ///	Note that +0 and -0 are distinct floating point numbers, as are +inf
         ///	and -inf.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -411,6 +404,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of angles in radians, in the range [-pi, pi].<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray arctan2(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
@@ -438,6 +432,7 @@ namespace Numpy
         /// <returns>
         ///	The corresponding degree values; if out was supplied this is a
         ///	reference to it.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray degrees(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -464,6 +459,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding radian values.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray radians(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -472,10 +468,8 @@ namespace Numpy
         /// <summary>
         ///	Unwrap by changing deltas between values to 2*pi complement.<br></br>
         ///	
-        ///	
         ///	Unwrap radian phase p by changing absolute jumps greater than
         ///	discont to their 2*pi complement along the given axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -501,7 +495,6 @@ namespace Numpy
         /// <summary>
         ///	Convert angles from degrees to radians.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	deg2rad(x) is x * pi / 180.
@@ -524,6 +517,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding angle in radians.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray deg2rad(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -531,7 +525,6 @@ namespace Numpy
         
         /// <summary>
         ///	Convert angles from radians to degrees.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -555,6 +548,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding angle in degrees.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray rad2deg(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -563,10 +557,8 @@ namespace Numpy
         /// <summary>
         ///	Hyperbolic sine, element-wise.<br></br>
         ///	
-        ///	
         ///	Equivalent to 1/2 * (np.exp(x) - np.exp(-x)) or
         ///	-1j * np.sin(1j*x).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -580,6 +572,7 @@ namespace Numpy
         ///	 Abramowitz and I.<br></br>
         ///	 A.<br></br>
         ///	 Stegun, Handbook of Mathematical Functions.<br></br>
+        ///	
         ///	New York, NY: Dover, 1972, pg.<br></br>
         ///	 83.
         /// </summary>
@@ -601,6 +594,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding hyperbolic sine values.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray sinh(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -608,7 +602,6 @@ namespace Numpy
         
         /// <summary>
         ///	Hyperbolic cosine, element-wise.<br></br>
-        ///	
         ///	
         ///	Equivalent to 1/2 * (np.exp(x) + np.exp(-x)) and np.cos(1j*x).
         /// </summary>
@@ -630,6 +623,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Output array of same shape as x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray cosh(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -638,9 +632,7 @@ namespace Numpy
         /// <summary>
         ///	Compute hyperbolic tangent element-wise.<br></br>
         ///	
-        ///	
         ///	Equivalent to np.sinh(x)/np.cosh(x) or -1j * np.tan(1j*x).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -668,6 +660,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The corresponding hyperbolic tangent values.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray tanh(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -676,7 +669,6 @@ namespace Numpy
         /// <summary>
         ///	Inverse hyperbolic sine element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	arcsinh is a multivalued function: for each x there are infinitely
@@ -684,16 +676,14 @@ namespace Numpy
         ///	 The convention is to return the
         ///	z whose imaginary part lies in [-pi/2, pi/2].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, arcsinh always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity, it
         ///	returns nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, arccos is a complex analytical function that
         ///	has branch cuts [1j, infj] and [-1j, -infj] and is continuous from
         ///	the right on the former and from the left on the latter.<br></br>
-        ///	
         ///	
         ///	The inverse hyperbolic sine is also known as asinh or sinh^-1.
         ///	
@@ -717,6 +707,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of the same shape as x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray arcsinh(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -724,7 +715,6 @@ namespace Numpy
         
         /// <summary>
         ///	Inverse hyperbolic cosine, element-wise.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -734,15 +724,13 @@ namespace Numpy
         ///	z whose imaginary part lies in [-pi, pi] and the real part in
         ///	[0, inf].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, arccosh always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity, it
         ///	yields nan and sets the invalid floating point error flag.<br></br>
         ///	
-        ///	
         ///	For complex-valued input, arccosh is a complex analytical function that
         ///	has a branch cut [-inf, 1] and is continuous from above on it.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -764,6 +752,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of the same shape as x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray arccosh(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -772,7 +761,6 @@ namespace Numpy
         /// <summary>
         ///	Inverse hyperbolic tangent element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	arctanh is a multivalued function: for each x there are infinitely
@@ -780,16 +768,14 @@ namespace Numpy
         ///	 The convention is to return
         ///	the z whose imaginary part lies in [-pi/2, pi/2].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, arctanh always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, arctanh is a complex analytical function
         ///	that has branch cuts [-1, -inf] and [1, inf] and is continuous from
         ///	above on the former and from below on the latter.<br></br>
-        ///	
         ///	
         ///	The inverse hyperbolic tangent is also known as atanh or tanh^-1.
         ///	
@@ -813,6 +799,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of the same shape as x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray arctanh(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -820,7 +807,6 @@ namespace Numpy
         
         /// <summary>
         ///	Evenly round to the given number of decimals.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -832,7 +818,6 @@ namespace Numpy
         ///	to the inexact representation of decimal fractions in the IEEE
         ///	floating point standard [1] and errors introduced when scaling
         ///	by powers of ten.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -855,10 +840,10 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	An array of the same type as a, containing the rounded values.<br></br>
+        ///	
         ///	Unless out was specified, a new array is created.<br></br>
         ///	  A reference to
         ///	the result is returned.<br></br>
-        ///	
         ///	
         ///	The real and imaginary parts of complex numbers are rounded
         ///	separately.<br></br>
@@ -888,6 +873,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Output array is same shape and type as x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray rint(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -896,8 +882,8 @@ namespace Numpy
         /// <summary>
         ///	Round to nearest integer towards zero.<br></br>
         ///	
-        ///	
         ///	Round an array of floats element-wise to nearest integer towards zero.<br></br>
+        ///	
         ///	The rounded values are returned as floats.
         /// </summary>
         /// <param name="x">
@@ -914,7 +900,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the floor of the input, element-wise.<br></br>
-        ///	
         ///	
         ///	The floor of the scalar x is the largest integer i, such that
         ///	i &lt;= x.<br></br>
@@ -944,6 +929,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The floor of each element in x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray floor(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -951,7 +937,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the ceiling of the input, element-wise.<br></br>
-        ///	
         ///	
         ///	The ceil of the scalar x is the smallest integer i, such that
         ///	i &gt;= x.<br></br>
@@ -975,6 +960,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The ceiling of each element in x, with float dtype.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray ceil(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -983,12 +969,10 @@ namespace Numpy
         /// <summary>
         ///	Return the truncated value of the input, element-wise.<br></br>
         ///	
-        ///	
         ///	The truncated value of the scalar x is the nearest integer i which
         ///	is closer to zero than x is.<br></br>
         ///	 In short, the fractional part of the
         ///	signed number x is discarded.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -1010,6 +994,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The truncated value of each element in x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray trunc(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1017,7 +1002,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the product of array elements over a given axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1037,7 +1021,6 @@ namespace Numpy
         ///	input array.<br></br>
         ///	If axis is negative it counts from the last to the
         ///	first axis.<br></br>
-        ///	
         ///	
         ///	If axis is a tuple of ints, a product is performed on all of the
         ///	axes specified in the tuple instead of a single axis or all the
@@ -1065,7 +1048,6 @@ namespace Numpy
         ///	With this option, the result
         ///	will broadcast correctly against the input array.<br></br>
         ///	
-        ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the prod method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
@@ -1079,6 +1061,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	An array shaped as a but with the specified axis removed.<br></br>
+        ///	
         ///	Returns a reference to out if specified.
         /// </returns>
         public static NDarray prod(NDarray a, int[] axis = null, Dtype dtype = null, NDarray @out = null, bool? keepdims = null, ValueType initial = null)
@@ -1087,12 +1070,10 @@ namespace Numpy
         /// <summary>
         ///	Sum of array elements over a given axis.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Arithmetic is modular when using integer types, and no error is
         ///	raised on overflow.<br></br>
-        ///	
         ///	
         ///	The sum of an empty array is the neutral element 0:
         /// </summary>
@@ -1105,7 +1086,6 @@ namespace Numpy
         ///	axis=None, will sum all of the elements of the input array.<br></br>
         ///	If
         ///	axis is negative it counts from the last to the first axis.<br></br>
-        ///	
         ///	
         ///	If axis is a tuple of ints, a sum is performed on all of the axes
         ///	specified in the tuple instead of a single axis or all the axes as
@@ -1133,7 +1113,6 @@ namespace Numpy
         ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
         ///	
-        ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the sum method of sub-classes of
         ///	ndarray, however any non-default value will be.<br></br>
@@ -1159,7 +1138,6 @@ namespace Numpy
         /// <summary>
         ///	Return the product of array elements over a given axis treating Not a
         ///	Numbers (NaNs) as ones.<br></br>
-        ///	
         ///	
         ///	One is returned for slices that are all-NaN or empty.
         /// </summary>
@@ -1213,11 +1191,9 @@ namespace Numpy
         ///	Return the sum of array elements over a given axis treating Not a
         ///	Numbers (NaNs) as zero.<br></br>
         ///	
-        ///	
         ///	In NumPy versions &lt;= 1.9.0 Nan is returned for slices that are all-NaN or
         ///	empty.<br></br>
         ///	 In later versions zero is returned.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1263,7 +1239,6 @@ namespace Numpy
         ///	With this option,
         ///	the result will broadcast correctly against the original a.<br></br>
         ///	
-        ///	
         ///	If the value is anything but the default, then
         ///	keepdims will be passed through to the mean or sum methods
         ///	of sub-classes of ndarray.<br></br>
@@ -1282,7 +1257,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the cumulative product of elements along a given axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1321,7 +1295,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the cumulative sum of the elements along a given axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1369,7 +1342,6 @@ namespace Numpy
         ///	  The cumulative product does not change when NaNs are
         ///	encountered and leading NaNs are replaced by ones.<br></br>
         ///	
-        ///	
         ///	Ones are returned for slices that are all-NaN or empty.
         /// </summary>
         /// <param name="a">
@@ -1407,7 +1379,6 @@ namespace Numpy
         ///	Numbers (NaNs) as zero.<br></br>
         ///	  The cumulative sum does not change when NaNs are
         ///	encountered and leading NaNs are replaced by zeros.<br></br>
-        ///	
         ///	
         ///	Zeros are returned for slices that are all-NaN or empty.
         /// </summary>
@@ -1449,18 +1420,15 @@ namespace Numpy
         /// <summary>
         ///	Calculate the n-th discrete difference along the given axis.<br></br>
         ///	
-        ///	
         ///	The first difference is given by out[n] = a[n+1] - a[n] along
         ///	the given axis, higher differences are calculated by using diff
         ///	recursively.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	Type is preserved for boolean arrays, so the result will contain
         ///	False when consecutive elements are the same and True when they
         ///	differ.<br></br>
-        ///	
         ///	
         ///	For unsigned integer arrays, the results will also be unsigned.<br></br>
         ///	 This
@@ -1518,7 +1486,6 @@ namespace Numpy
         /// <summary>
         ///	The differences between consecutive elements of an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	When applied to masked arrays, this function drops the mask information
@@ -1543,12 +1510,11 @@ namespace Numpy
         /// <summary>
         ///	Return the gradient of an N-dimensional array.<br></br>
         ///	
-        ///	
         ///	The gradient is computed using second order accurate central differences
         ///	in the interior points and either first or second order accurate one-sides
         ///	(forward or backwards) differences at the boundaries.<br></br>
-        ///	The returned gradient hence has the same shape as the input array.<br></br>
         ///	
+        ///	The returned gradient hence has the same shape as the input array.<br></br>
         ///	
         ///	Notes
         ///	
@@ -1570,7 +1536,6 @@ namespace Numpy
         ///	With a similar procedure the forward/backward approximations used for
         ///	boundaries can be derived.<br></br>
         ///	
-        ///	
         ///	References
         /// </summary>
         /// <param name="f">
@@ -1579,9 +1544,11 @@ namespace Numpy
         /// <param name="varargs">
         ///	Spacing between f values.<br></br>
         ///	Default unitary spacing for all dimensions.<br></br>
+        ///	
         ///	Spacing can be specified using:
         ///	
         ///	If axis is given, the number of varargs must equal the number of axes.<br></br>
+        ///	
         ///	Default: 1.
         /// </param>
         /// <param name="edge_order">
@@ -1599,6 +1566,7 @@ namespace Numpy
         /// <returns>
         ///	A set of ndarrays (or a single ndarray if there is only one dimension)
         ///	corresponding to the derivatives of f with respect to each dimension.<br></br>
+        ///	
         ///	Each derivative has the same shape as f.
         /// </returns>
         public static NDarray gradient(NDarray f, NDarray varargs = null, int? edge_order = null, int[] axis = null)
@@ -1606,7 +1574,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the cross product of two (arrays of) vectors.<br></br>
-        ///	
         ///	
         ///	The cross product of a and b in  is a vector perpendicular
         ///	to both a and b.<br></br>
@@ -1618,7 +1585,6 @@ namespace Numpy
         ///	cross product calculated accordingly.<br></br>
         ///	  In cases where both input vectors
         ///	have dimension 2, the z-component of the cross product is returned.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1642,6 +1608,7 @@ namespace Numpy
         ///	Axis of c containing the cross product vector(s).<br></br>
         ///	Ignored if
         ///	both input vectors have dimension 2, as the return is scalar.<br></br>
+        ///	
         ///	By default, the last axis.
         /// </param>
         /// <param name="axis">
@@ -1658,9 +1625,7 @@ namespace Numpy
         /// <summary>
         ///	Integrate along the given axis using the composite trapezoidal rule.<br></br>
         ///	
-        ///	
         ///	Integrate y (x) along given axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1670,7 +1635,6 @@ namespace Numpy
         ///	or with dx scalar.<br></br>
         ///	  Return value will be equal to combined area under
         ///	the red lines.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -1700,7 +1664,6 @@ namespace Numpy
         /// <summary>
         ///	Calculate the exponential of all elements in the input array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The irrational number e is also known as Euler’s number.<br></br>
@@ -1709,14 +1672,12 @@ namespace Numpy
         ///	ln (this means that, if ,
         ///	then . For real input, exp(x) is always positive.<br></br>
         ///	
-        ///	
         ///	For complex arguments, x = a + ib, we can write
         ///	.  The first term, , is already
         ///	known (it is the real argument, described above).<br></br>
         ///	  The second term,
         ///	, is , a function with
         ///	magnitude 1 and a periodic phase.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -1738,6 +1699,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Output array, element-wise exponential of x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray exp(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1745,7 +1707,6 @@ namespace Numpy
         
         /// <summary>
         ///	Calculate exp(x) - 1 for all elements in the array.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1770,6 +1731,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Element-wise exponential minus one: out = exp(x) - 1.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray expm1(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1777,7 +1739,6 @@ namespace Numpy
         
         /// <summary>
         ///	Calculate 2**p for all p in the input array.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -1799,6 +1760,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Element-wise 2 to the power x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray exp2(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1807,12 +1769,10 @@ namespace Numpy
         /// <summary>
         ///	Natural logarithm, element-wise.<br></br>
         ///	
-        ///	
         ///	The natural logarithm log is the inverse of the exponential function,
         ///	so that log(exp(x)) = x.<br></br>
         ///	 The natural logarithm is logarithm in base
         ///	e.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1821,19 +1781,16 @@ namespace Numpy
         ///	 The convention is to return the
         ///	z whose imaginary part lies in [-pi, pi].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, log always returns real output.<br></br>
         ///	 For
         ///	each value that cannot be expressed as a real number or infinity, it
         ///	yields nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, log is a complex analytical function that
         ///	has a branch cut [-inf, 0] and is continuous from above on it.<br></br>
         ///	 log
         ///	handles the floating-point negative zero as an infinitesimal negative
         ///	number, conforming to the C99 standard.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -1855,6 +1812,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The natural logarithm of x, element-wise.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray log(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1863,7 +1821,6 @@ namespace Numpy
         /// <summary>
         ///	Return the base 10 logarithm of the input array, element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Logarithm is a multivalued function: for each x there is an infinite
@@ -1871,17 +1828,16 @@ namespace Numpy
         ///	 The convention is to return the
         ///	z whose imaginary part lies in [-pi, pi].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, log10 always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
-        ///	
         ///	For complex-valued input, log10 is a complex analytical function that
         ///	has a branch cut [-inf, 0] and is continuous from above on it.<br></br>
+        ///	
         ///	log10 handles the floating-point negative zero as an infinitesimal
         ///	negative number, conforming to the C99 standard.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -1905,6 +1861,7 @@ namespace Numpy
         ///	The logarithm to the base 10 of x, element-wise.<br></br>
         ///	 NaNs are
         ///	returned where x is negative.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray log10(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1913,7 +1870,6 @@ namespace Numpy
         /// <summary>
         ///	Base-2 logarithm of x.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Logarithm is a multivalued function: for each x there is an infinite
@@ -1921,11 +1877,10 @@ namespace Numpy
         ///	 The convention is to return the z
         ///	whose imaginary part lies in [-pi, pi].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, log2 always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
-        ///	
         ///	
         ///	For complex-valued input, log2 is a complex analytical function that
         ///	has a branch cut [-inf, 0] and is continuous from above on it.<br></br>
@@ -1951,6 +1906,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Base-2 logarithm of x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray log2(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -1959,32 +1915,28 @@ namespace Numpy
         /// <summary>
         ///	Return the natural logarithm of one plus the input array, element-wise.<br></br>
         ///	
-        ///	
         ///	Calculates log(1 + x).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	For real-valued input, log1p is accurate also for x so small
         ///	that 1 + x == 1 in floating-point accuracy.<br></br>
         ///	
-        ///	
         ///	Logarithm is a multivalued function: for each x there is an infinite
         ///	number of z such that exp(z) = 1 + x.<br></br>
         ///	 The convention is to return
         ///	the z whose imaginary part lies in [-pi, pi].<br></br>
         ///	
-        ///	
         ///	For real-valued input data types, log1p always returns real output.<br></br>
+        ///	
         ///	For each value that cannot be expressed as a real number or infinity,
         ///	it yields nan and sets the invalid floating point error flag.<br></br>
         ///	
-        ///	
         ///	For complex-valued input, log1p is a complex analytical function that
         ///	has a branch cut [-inf, -1] and is continuous from above on it.<br></br>
+        ///	
         ///	log1p handles the floating-point negative zero as an infinitesimal
         ///	negative number, conforming to the C99 standard.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -2006,6 +1958,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Natural logarithm of 1 + x, element-wise.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray log1p(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -2013,7 +1966,6 @@ namespace Numpy
         
         /// <summary>
         ///	Logarithm of the sum of exponentiations of the inputs.<br></br>
-        ///	
         ///	
         ///	Calculates log(exp(x1) + exp(x2)).<br></br>
         ///	 This function is useful in
@@ -2023,7 +1975,6 @@ namespace Numpy
         ///	the logarithm of the calculated probability is stored.<br></br>
         ///	 This function
         ///	allows adding probabilities stored in such a fashion.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -2048,6 +1999,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Logarithm of exp(x1) + exp(x2).<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray logaddexp(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -2062,8 +2014,8 @@ namespace Numpy
         ///	to exceed the range of normal floating point numbers.<br></br>
         ///	  In such cases
         ///	the base-2 logarithm of the calculated probability can be used instead.<br></br>
-        ///	This function allows adding probabilities stored in such a fashion.<br></br>
         ///	
+        ///	This function allows adding probabilities stored in such a fashion.<br></br>
         ///	
         ///	Notes
         /// </summary>
@@ -2096,13 +2048,11 @@ namespace Numpy
         /// <summary>
         ///	Return the sinc function.<br></br>
         ///	
-        ///	
         ///	The sinc function is .
         ///	
         ///	Notes
         ///	
         ///	sinc(0) is the limit value 1.<br></br>
-        ///	
         ///	
         ///	The name sinc is short for “sine cardinal” or “sinus cardinalis”.
         ///	
@@ -2110,10 +2060,8 @@ namespace Numpy
         ///	including in anti-aliasing, in the construction of a Lanczos resampling
         ///	filter, and in interpolation.<br></br>
         ///	
-        ///	
         ///	For bandlimited interpolation of discrete-time signals, the ideal
         ///	interpolation kernel is proportional to the sinc function.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -2148,6 +2096,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Output array, or reference to out if that was supplied.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray signbit(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -2155,7 +2104,6 @@ namespace Numpy
         
         /// <summary>
         ///	Change the sign of x1 to that of x2, element-wise.<br></br>
-        ///	
         ///	
         ///	If both arguments are arrays or sequences, they have to be of the same
         ///	length.<br></br>
@@ -2191,11 +2139,9 @@ namespace Numpy
         /// <summary>
         ///	Decompose the elements of x into mantissa and twos exponent.<br></br>
         ///	
-        ///	
         ///	Returns (mantissa, exponent), where x = mantissa * 2**exponent`.
         ///	The mantissa is lies in the open interval(-1, 1), while the twos
         ///	exponent is a signed integer.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2240,14 +2186,12 @@ namespace Numpy
         /// <summary>
         ///	Returns x1 * 2**x2, element-wise.<br></br>
         ///	
-        ///	
         ///	The mantissas x1 and twos exponents x2 are used to construct
         ///	floating point numbers x1 * 2**x2.
         ///	
         ///	Notes
         ///	
         ///	Complex dtypes are not supported, they will raise a TypeError.<br></br>
-        ///	
         ///	
         ///	ldexp is useful as the inverse of frexp, if used by itself it is
         ///	more clear to simply use the expression x1 * 2**x2.
@@ -2310,14 +2254,12 @@ namespace Numpy
         /// <summary>
         ///	Return the distance between x and the nearest adjacent number.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	It can be considered as a generalization of EPS:
         ///	spacing(np.float64(1)) == np.finfo(np.float64).eps, and there
         ///	should not be any representable number between x + spacing(x) and
         ///	x for any finite x.<br></br>
-        ///	
         ///	
         ///	Spacing of +- inf and NaN is NaN.
         /// </summary>
@@ -2339,6 +2281,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The spacing of values of x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray spacing(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -2379,7 +2322,6 @@ namespace Numpy
         /// <summary>
         ///	Add arguments element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Equivalent to x1 + x2 in terms of array broadcasting.
@@ -2411,6 +2353,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The sum of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray @add(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -2419,9 +2362,7 @@ namespace Numpy
         /// <summary>
         ///	Return the reciprocal of the argument, element-wise.<br></br>
         ///	
-        ///	
         ///	Calculates 1/x.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2448,6 +2389,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Return array.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray reciprocal(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -2455,7 +2397,6 @@ namespace Numpy
         
         /// <summary>
         ///	Numerical positive, element-wise.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2467,6 +2408,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Returned array or scalar: y = +x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray positive(NDarray x)
@@ -2493,6 +2435,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Returned array or scalar: y = -x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray negative(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -2500,7 +2443,6 @@ namespace Numpy
         
         /// <summary>
         ///	Multiply arguments element-wise.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2527,6 +2469,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The product of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray multiply(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -2535,12 +2478,10 @@ namespace Numpy
         /// <summary>
         ///	Returns a true division of the inputs, element-wise.<br></br>
         ///	
-        ///	
         ///	Instead of the Python traditional ‘floor division’, this returns a true
         ///	division.<br></br>
         ///	  True division adjusts the output type to present the best
         ///	answer, regardless of input types.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2549,7 +2490,6 @@ namespace Numpy
         ///	  The default floor division
         ///	operation of / can be replaced by true division with from
         ///	__future__ import division.<br></br>
-        ///	
         ///	
         ///	In Python 3.0, // is the floor division operator and / the
         ///	true division operator.<br></br>
@@ -2583,7 +2523,6 @@ namespace Numpy
         
         /// <summary>
         ///	First array elements raised to powers from second array, element-wise.<br></br>
-        ///	
         ///	
         ///	Raise each base in x1 to the positionally-corresponding power in
         ///	x2.  x1 and x2 must be broadcastable to the same shape.<br></br>
@@ -2619,7 +2558,6 @@ namespace Numpy
         /// <summary>
         ///	Subtract arguments, element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Equivalent to x1 - x2 in terms of array broadcasting.
@@ -2645,6 +2583,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The difference of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray subtract(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -2653,12 +2592,10 @@ namespace Numpy
         /// <summary>
         ///	Returns a true division of the inputs, element-wise.<br></br>
         ///	
-        ///	
         ///	Instead of the Python traditional ‘floor division’, this returns a true
         ///	division.<br></br>
         ///	  True division adjusts the output type to present the best
         ///	answer, regardless of input types.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2667,7 +2604,6 @@ namespace Numpy
         ///	  The default floor division
         ///	operation of / can be replaced by true division with from
         ///	__future__ import division.<br></br>
-        ///	
         ///	
         ///	In Python 3.0, // is the floor division operator and / the
         ///	true division operator.<br></br>
@@ -2701,6 +2637,7 @@ namespace Numpy
         
         /// <summary>
         ///	Return the largest integer smaller or equal to the division of the inputs.<br></br>
+        ///	
         ///	It is equivalent to the Python // operator and pairs with the
         ///	Python % (remainder), function so that b = a % b + b * (a // b)
         ///	up to roundoff.
@@ -2733,7 +2670,6 @@ namespace Numpy
         
         /// <summary>
         ///	First array elements raised to powers from second array, element-wise.<br></br>
-        ///	
         ///	
         ///	Raise each base in x1 to the positionally-corresponding power in x2.
         ///	x1 and x2 must be broadcastable to the same shape.<br></br>
@@ -2772,7 +2708,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the element-wise remainder of division.<br></br>
-        ///	
         ///	
         ///	This is the NumPy implementation of the C library function fmod, the
         ///	remainder has the same sign as the dividend x1. It is equivalent to
@@ -2818,13 +2753,11 @@ namespace Numpy
         /// <summary>
         ///	Return element-wise remainder of division.<br></br>
         ///	
-        ///	
         ///	Computes the remainder complementary to the floor_divide function.<br></br>
         ///	  It is
         ///	equivalent to the Python modulus operator``x1 % x2`` and has the same sign
         ///	as the divisor x2. The MATLAB function equivalent to np.remainder
         ///	is mod.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2852,6 +2785,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The element-wise remainder of the quotient floor_divide(x1, x2).<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray mod(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
@@ -2860,10 +2794,8 @@ namespace Numpy
         /// <summary>
         ///	Return the fractional and integral parts of an array, element-wise.<br></br>
         ///	
-        ///	
         ///	The fractional and integral parts are negative if the given number is
         ///	negative.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2900,13 +2832,11 @@ namespace Numpy
         /// <summary>
         ///	Return element-wise remainder of division.<br></br>
         ///	
-        ///	
         ///	Computes the remainder complementary to the floor_divide function.<br></br>
         ///	  It is
         ///	equivalent to the Python modulus operator``x1 % x2`` and has the same sign
         ///	as the divisor x2. The MATLAB function equivalent to np.remainder
         ///	is mod.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2934,6 +2864,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The element-wise remainder of the quotient floor_divide(x1, x2).<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray remainder(NDarray x1, NDarray x2, NDarray @out = null, NDarray @where = null)
@@ -2941,7 +2872,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return element-wise quotient and remainder simultaneously.<br></br>
-        ///	
         ///	
         ///	np.divmod(x, y) is equivalent to (x // y, x % y), but faster
         ///	because it avoids redundant work.<br></br>
@@ -3030,7 +2960,6 @@ namespace Numpy
         /// <summary>
         ///	Return the complex conjugate, element-wise.<br></br>
         ///	
-        ///	
         ///	The complex conjugate of a complex number is obtained by changing the
         ///	sign of its imaginary part.
         /// </summary>
@@ -3052,6 +2981,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The complex conjugate of x, with same dtype as y.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray conj(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -3060,7 +2990,6 @@ namespace Numpy
         /// <summary>
         ///	Returns the discrete, linear convolution of two one-dimensional sequences.<br></br>
         ///	
-        ///	
         ///	The convolution operator is often seen in signal processing, where it
         ///	models the effect of a linear time-invariant system on a signal [1].<br></br>
         ///	  In
@@ -3068,9 +2997,7 @@ namespace Numpy
         ///	distributed according to the convolution of their individual
         ///	distributions.<br></br>
         ///	
-        ///	
         ///	If v is longer than a, the arrays are swapped before computation.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3083,7 +3010,6 @@ namespace Numpy
         ///	  Since multiplication is more efficient (faster)
         ///	than convolution, the function scipy.signal.fftconvolve exploits the
         ///	FFT to calculate the convolution of large data-sets.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -3101,7 +3027,6 @@ namespace Numpy
         
         /// <summary>
         ///	Clip (limit) the values in an array.<br></br>
-        ///	
         ///	
         ///	Given an interval, values outside the interval are clipped to
         ///	the interval edges.<br></br>
@@ -3147,11 +3072,11 @@ namespace Numpy
         /// <summary>
         ///	Return the non-negative square-root of an array, element-wise.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	sqrt has–consistent with common convention–as its branch cut the
         ///	real “interval” [-inf, 0), and is continuous from above on it.<br></br>
+        ///	
         ///	A branch cut is a curve in the complex plane across which a given
         ///	complex function fails to be continuous.
         /// </summary>
@@ -3179,7 +3104,9 @@ namespace Numpy
         ///	negative reals are calculated).<br></br>
         ///	  If all of the elements in x
         ///	are real, so is y, with negative elements returning nan.<br></br>
+        ///	
         ///	If out was provided, y is a reference to it.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray sqrt(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -3207,7 +3134,9 @@ namespace Numpy
         /// <returns>
         ///	An array of the same shape as x, containing the cube
         ///	cube-root of each element in x.<br></br>
+        ///	
         ///	If out was provided, y is a reference to it.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray cbrt(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -3234,6 +3163,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Element-wise x*x, of the same shape and dtype as x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray square(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -3241,7 +3171,6 @@ namespace Numpy
         
         /// <summary>
         ///	Calculate the absolute value element-wise.<br></br>
-        ///	
         ///	
         ///	np.abs is a shorthand for this function.
         /// </summary>
@@ -3274,7 +3203,6 @@ namespace Numpy
         /// <summary>
         ///	Compute the absolute values element-wise.<br></br>
         ///	
-        ///	
         ///	This function returns the absolute values (positive magnitude) of the
         ///	data in x.<br></br>
         ///	 Complex values are not handled, use absolute to find the
@@ -3300,6 +3228,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The absolute values of x, the returned values are always floats.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray fabs(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -3308,18 +3237,14 @@ namespace Numpy
         /// <summary>
         ///	Returns an element-wise indication of the sign of a number.<br></br>
         ///	
-        ///	
         ///	The sign function returns -1 if x &lt; 0, 0 if x==0, 1 if x &gt; 0.<br></br>
         ///	  nan
         ///	is returned for nan inputs.<br></br>
         ///	
-        ///	
         ///	For complex inputs, the sign function returns
         ///	sign(x.real) + 0j if x.real != 0 else sign(x.imag) + 0j.<br></br>
         ///	
-        ///	
         ///	complex(nan, 0) is returned for complex nan inputs.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3346,6 +3271,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The sign of x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray sign(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -3354,11 +3280,9 @@ namespace Numpy
         /// <summary>
         ///	Compute the Heaviside step function.<br></br>
         ///	
-        ///	
         ///	The Heaviside step function is defined as:
         ///	
         ///	where x2 is often taken to be 0.5, but 0 and 1 are also sometimes used.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3393,7 +3317,6 @@ namespace Numpy
         /// <summary>
         ///	Element-wise maximum of array elements.<br></br>
         ///	
-        ///	
         ///	Compare two arrays and returns a new array containing the element-wise
         ///	maxima.<br></br>
         ///	 If one of the elements being compared is a NaN, then that
@@ -3402,8 +3325,8 @@ namespace Numpy
         ///	returned.<br></br>
         ///	 The latter distinction is important for complex NaNs, which
         ///	are defined as at least one of the real or imaginary parts being a NaN.<br></br>
-        ///	The net effect is that NaNs are propagated.<br></br>
         ///	
+        ///	The net effect is that NaNs are propagated.<br></br>
         ///	
         ///	Notes
         ///	
@@ -3436,6 +3359,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The maximum of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray maximum(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -3443,7 +3367,6 @@ namespace Numpy
         
         /// <summary>
         ///	Element-wise minimum of array elements.<br></br>
-        ///	
         ///	
         ///	Compare two arrays and returns a new array containing the element-wise
         ///	minima.<br></br>
@@ -3453,8 +3376,8 @@ namespace Numpy
         ///	returned.<br></br>
         ///	 The latter distinction is important for complex NaNs, which
         ///	are defined as at least one of the real or imaginary parts being a NaN.<br></br>
-        ///	The net effect is that NaNs are propagated.<br></br>
         ///	
+        ///	The net effect is that NaNs are propagated.<br></br>
         ///	
         ///	Notes
         ///	
@@ -3487,6 +3410,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The minimum of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray minimum(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -3494,7 +3418,6 @@ namespace Numpy
         
         /// <summary>
         ///	Element-wise maximum of array elements.<br></br>
-        ///	
         ///	
         ///	Compare two arrays and returns a new array containing the element-wise
         ///	maxima.<br></br>
@@ -3506,7 +3429,6 @@ namespace Numpy
         ///	which are defined as at least one of the real or imaginary parts being
         ///	a NaN.<br></br>
         ///	 The net effect is that NaNs are ignored when possible.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3538,6 +3460,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The maximum of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray fmax(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -3545,7 +3468,6 @@ namespace Numpy
         
         /// <summary>
         ///	Element-wise minimum of array elements.<br></br>
-        ///	
         ///	
         ///	Compare two arrays and returns a new array containing the element-wise
         ///	minima.<br></br>
@@ -3557,7 +3479,6 @@ namespace Numpy
         ///	which are defined as at least one of the real or imaginary parts being
         ///	a NaN.<br></br>
         ///	 The net effect is that NaNs are ignored when possible.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3589,6 +3510,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The minimum of x1 and x2, element-wise.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray fmin(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -3597,18 +3519,14 @@ namespace Numpy
         /// <summary>
         ///	Replace NaN with zero and infinity with large finite numbers.<br></br>
         ///	
-        ///	
         ///	If x is inexact, NaN is replaced by zero, and infinity and -infinity
         ///	replaced by the respectively largest and most negative finite floating
         ///	point values representable by x.dtype.<br></br>
         ///	
-        ///	
         ///	For complex dtypes, the above is applied to each of the real and
         ///	imaginary components of x separately.<br></br>
         ///	
-        ///	
         ///	If x is not inexact, then no replacements are made.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3624,6 +3542,7 @@ namespace Numpy
         ///	in-place (False).<br></br>
         ///	The in-place operation only occurs if
         ///	casting to an array does not require a copy.<br></br>
+        ///	
         ///	Default is True.
         /// </param>
         /// <returns>
@@ -3637,10 +3556,8 @@ namespace Numpy
         /// <summary>
         ///	If complex input returns a real array if complex parts are close to zero.<br></br>
         ///	
-        ///	
         ///	“Close to zero” is defined as tol * (machine epsilon of the type for
         ///	a).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -3668,15 +3585,15 @@ namespace Numpy
         /// <summary>
         ///	One-dimensional linear interpolation.<br></br>
         ///	
-        ///	
         ///	Returns the one-dimensional piecewise linear interpolant to a function
         ///	with given discrete data points (xp, fp), evaluated at x.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	Does not check that the x-coordinate sequence xp is increasing.<br></br>
+        ///	
         ///	If xp is not increasing, the results are nonsense.<br></br>
+        ///	
         ///	A simple check for increasing is:
         /// </summary>
         /// <param name="x">

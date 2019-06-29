@@ -20,7 +20,6 @@ namespace Numpy
         /// <summary>
         ///	Return a new array of given shape and type, without initializing entries.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	empty, unlike zeros, does not set the array values to zero,
@@ -51,7 +50,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return a new array with the same shape and type as a given array.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -91,7 +89,6 @@ namespace Numpy
         /// <summary>
         ///	Return a new array with the same shape and type as a given array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	This function does not initialize the returned array; to do that use
@@ -129,7 +126,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return a new array with the same shape and type as a given array.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -197,7 +193,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the identity array.<br></br>
-        ///	
         ///	
         ///	The identity array is a square array with ones on
         ///	the main diagonal.
@@ -559,7 +554,6 @@ namespace Numpy
         /// <summary>
         ///	Create an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	When order is ‘A’ and object is an array in neither ‘C’ nor ‘F’ order,
@@ -592,8 +586,8 @@ namespace Numpy
         ///	If object is not an array, the
         ///	newly created array will be in C order (row major) unless ‘F’ is
         ///	specified, in which case it will be in Fortran order (column major).<br></br>
-        ///	If object is an array the following holds.<br></br>
         ///	
+        ///	If object is an array the following holds.<br></br>
         ///	
         ///	When copy=False and a copy is made for other reasons, the result is
         ///	the same as if copy=True, with some exceptions for A, see the
@@ -619,7 +613,6 @@ namespace Numpy
         /// <summary>
         ///	Create an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	When order is ‘A’ and object is an array in neither ‘C’ nor ‘F’ order,
@@ -652,8 +645,8 @@ namespace Numpy
         ///	If object is not an array, the
         ///	newly created array will be in C order (row major) unless ‘F’ is
         ///	specified, in which case it will be in Fortran order (column major).<br></br>
-        ///	If object is an array the following holds.<br></br>
         ///	
+        ///	If object is an array the following holds.<br></br>
         ///	
         ///	When copy=False and a copy is made for other reasons, the result is
         ///	the same as if copy=True, with some exceptions for A, see the
@@ -679,7 +672,6 @@ namespace Numpy
         /// <summary>
         ///	Create an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	When order is ‘A’ and object is an array in neither ‘C’ nor ‘F’ order,
@@ -712,8 +704,8 @@ namespace Numpy
         ///	If object is not an array, the
         ///	newly created array will be in C order (row major) unless ‘F’ is
         ///	specified, in which case it will be in Fortran order (column major).<br></br>
-        ///	If object is an array the following holds.<br></br>
         ///	
+        ///	If object is an array the following holds.<br></br>
         ///	
         ///	When copy=False and a copy is made for other reasons, the result is
         ///	the same as if copy=True, with some exceptions for A, see the
@@ -751,6 +743,7 @@ namespace Numpy
         /// <param name="order">
         ///	Whether to use row-major (C-style) or
         ///	column-major (Fortran-style) memory representation.<br></br>
+        ///	
         ///	Defaults to ‘C’.
         /// </param>
         /// <returns>
@@ -778,6 +771,7 @@ namespace Numpy
         /// <param name="order">
         ///	Whether to use row-major (C-style) or
         ///	column-major (Fortran-style) memory representation.<br></br>
+        ///	
         ///	Defaults to ‘C’.
         /// </param>
         /// <returns>
@@ -805,6 +799,7 @@ namespace Numpy
         /// <param name="order">
         ///	Whether to use row-major (C-style) or
         ///	column-major (Fortran-style) memory representation.<br></br>
+        ///	
         ///	Defaults to ‘C’.
         /// </param>
         /// <returns>
@@ -943,7 +938,6 @@ namespace Numpy
         /// <summary>
         ///	Interpret the input as a matrix.<br></br>
         ///	
-        ///	
         ///	Unlike matrix, asmatrix does not make a copy if the input is already
         ///	a matrix or an ndarray.<br></br>
         ///	  Equivalent to matrix(data, copy=False).
@@ -962,7 +956,6 @@ namespace Numpy
         
         /// <summary>
         ///	Interpret the input as a matrix.<br></br>
-        ///	
         ///	
         ///	Unlike matrix, asmatrix does not make a copy if the input is already
         ///	a matrix or an ndarray.<br></br>
@@ -983,7 +976,6 @@ namespace Numpy
         /// <summary>
         ///	Interpret the input as a matrix.<br></br>
         ///	
-        ///	
         ///	Unlike matrix, asmatrix does not make a copy if the input is already
         ///	a matrix or an ndarray.<br></br>
         ///	  Equivalent to matrix(data, copy=False).
@@ -1002,7 +994,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return an array copy of the given object.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1031,7 +1022,6 @@ namespace Numpy
         /// <summary>
         ///	Return an array copy of the given object.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	This is equivalent to:
@@ -1058,7 +1048,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return an array copy of the given object.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1088,7 +1077,6 @@ namespace Numpy
         /// <summary>
         ///	Interpret a buffer as a 1-dimensional array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	If the buffer has data that is not in machine byte-order, this should
@@ -1117,12 +1105,10 @@ namespace Numpy
         /// <summary>
         ///	Construct an array from data in a text or binary file.<br></br>
         ///	
-        ///	
         ///	A highly efficient way of reading binary data with a known data-type,
         ///	as well as parsing simply formatted text files.<br></br>
         ///	  Data written using the
         ///	tofile method can be read using this function.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1139,6 +1125,7 @@ namespace Numpy
         /// </param>
         /// <param name="dtype">
         ///	Data type of the returned array.<br></br>
+        ///	
         ///	For binary files, it is used to determine the size and byte-order
         ///	of the items in the file.
         /// </param>
@@ -1149,8 +1136,11 @@ namespace Numpy
         /// </param>
         /// <param name="sep">
         ///	Separator between items if file is a text file.<br></br>
+        ///	
         ///	Empty (“”) separator means the file should be treated as binary.<br></br>
+        ///	
         ///	Spaces (” “) in the separator match zero or more whitespace characters.<br></br>
+        ///	
         ///	A separator consisting only of spaces must match at least one
         ///	whitespace.
         /// </param>
@@ -1160,10 +1150,8 @@ namespace Numpy
         /// <summary>
         ///	Construct an array by executing a function over each coordinate.<br></br>
         ///	
-        ///	
         ///	The resulting array therefore has a value fn(x, y, z) at
         ///	coordinate (x, y, z).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1184,10 +1172,12 @@ namespace Numpy
         /// </param>
         /// <param name="dtype">
         ///	Data-type of the coordinate arrays passed to function.<br></br>
+        ///	
         ///	By default, dtype is float.
         /// </param>
         /// <returns>
         ///	The result of the call to function is passed back directly.<br></br>
+        ///	
         ///	Therefore the shape of fromfunction is completely determined by
         ///	function.<br></br>
         ///	  If function returns a scalar value, the shape of
@@ -1198,7 +1188,6 @@ namespace Numpy
         
         /// <summary>
         ///	Create a new 1-dimensional array from an iterable object.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1253,9 +1242,7 @@ namespace Numpy
         /// <summary>
         ///	Load data from a text file.<br></br>
         ///	
-        ///	
         ///	Each row in the text file must have the same number of values.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1263,7 +1250,6 @@ namespace Numpy
         ///	  The
         ///	genfromtxt function provides more sophisticated handling of, e.g.,
         ///	lines with missing values.<br></br>
-        ///	
         ///	
         ///	The strings produced by the Python float.hex method can be used as
         ///	input for floats.
@@ -1312,6 +1298,7 @@ namespace Numpy
         ///	Which columns to read, with 0 being the first.<br></br>
         ///	For example,
         ///	usecols = (1,4,5) will extract the 2nd, 5th and 6th columns.<br></br>
+        ///	
         ///	The default, None, results in all columns being read.
         /// </param>
         /// <param name="unpack">
@@ -1323,12 +1310,15 @@ namespace Numpy
         /// </param>
         /// <param name="ndmin">
         ///	The returned array will have at least ndmin dimensions.<br></br>
+        ///	
         ///	Otherwise mono-dimensional axes will be squeezed.<br></br>
+        ///	
         ///	Legal values: 0 (default), 1 or 2.
         /// </param>
         /// <param name="encoding">
         ///	Encoding used to decode the inputfile.<br></br>
         ///	Does not apply to input streams.<br></br>
+        ///	
         ///	The special value ‘bytes’ enables backward compatibility workarounds
         ///	that ensures you receive byte arrays as results if possible and passes
         ///	‘latin1’ encoded strings to converters.<br></br>
@@ -1353,7 +1343,6 @@ namespace Numpy
             public static partial class defchararray {
                 /// <summary>
                 ///	Create a chararray.<br></br>
-                ///	
                 ///	
                 ///	Versus a regular NumPy array of type str or unicode, this
                 ///	class adds the following functionality:
@@ -1404,13 +1393,11 @@ namespace Numpy
         /// <summary>
         ///	Provides a convenient view on arrays of string and unicode values.<br></br>
         ///	
-        ///	
         ///	Versus a regular NumPy array of type str or unicode, this
         ///	class adds the following functionality:
         ///	
         ///	chararrays should be created using numpy.char.array or
         ///	numpy.char.asarray, rather than this constructor directly.<br></br>
-        ///	
         ///	
         ///	This constructor creates the array, using buffer (with offset
         ///	and strides) if it is not None.<br></br>
@@ -1428,6 +1415,7 @@ namespace Numpy
         /// </param>
         /// <param name="unicode">
         ///	Are the array elements of type unicode (True) or string (False).<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="buffer">
@@ -1442,6 +1430,7 @@ namespace Numpy
         /// </param>
         /// <param name="strides">
         ///	Strides for the array (see ndarray.strides for full description).<br></br>
+        ///	
         ///	Default is None.
         /// </param>
         /// <param name="order">
@@ -1457,7 +1446,6 @@ namespace Numpy
                 /// <summary>
                 ///	Convert the input to a chararray, copying the data only if
                 ///	necessary.<br></br>
-                ///	
                 ///	
                 ///	Versus a regular NumPy array of type str or unicode, this
                 ///	class adds the following functionality:
@@ -1498,12 +1486,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1537,7 +1524,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1551,12 +1537,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1584,7 +1569,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1598,12 +1582,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1637,7 +1620,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1651,12 +1633,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1684,7 +1665,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1698,12 +1678,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1737,7 +1716,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1751,12 +1729,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1784,7 +1761,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1798,12 +1774,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1837,7 +1812,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1851,12 +1825,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1884,7 +1857,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1898,12 +1870,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1937,7 +1908,6 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
-        ///	
         ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
@@ -1951,12 +1921,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -1985,7 +1954,6 @@ namespace Numpy
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
         ///	
-        ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
         ///	  Because of floating point overflow,
@@ -1998,12 +1966,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -2038,7 +2005,6 @@ namespace Numpy
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
         ///	
-        ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
         ///	  Because of floating point overflow,
@@ -2051,12 +2017,11 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced values within a given interval.<br></br>
         ///	
-        ///	
         ///	Values are generated within the half-open interval [start, stop)
         ///	(in other words, the interval including start but excluding stop).<br></br>
+        ///	
         ///	For integer arguments the function is equivalent to the Python built-in
         ///	range function, but returns an ndarray rather than a list.<br></br>
-        ///	
         ///	
         ///	When using a non-integer step, such as 0.1, the results will often not
         ///	be consistent.<br></br>
@@ -2085,7 +2050,6 @@ namespace Numpy
         /// <returns>
         ///	Array of evenly spaced values.<br></br>
         ///	
-        ///	
         ///	For floating point arguments, the length of the result is
         ///	ceil((stop - start)/step).<br></br>
         ///	  Because of floating point overflow,
@@ -2098,10 +2062,8 @@ namespace Numpy
         /// <summary>
         ///	Return evenly spaced numbers over a specified interval.<br></br>
         ///	
-        ///	
         ///	Returns num evenly spaced samples, calculated over the
         ///	interval [start, stop].<br></br>
-        ///	
         ///	
         ///	The endpoint of the interval can optionally be excluded.
         /// </summary>
@@ -2110,6 +2072,7 @@ namespace Numpy
         /// </param>
         /// <param name="stop">
         ///	The end value of the sequence, unless endpoint is set to False.<br></br>
+        ///	
         ///	In that case, the sequence consists of all but the last of num + 1
         ///	evenly spaced samples, so that stop is excluded.<br></br>
         ///	Note that the step
@@ -2122,6 +2085,7 @@ namespace Numpy
         /// <param name="endpoint">
         ///	If True, stop is the last sample.<br></br>
         ///	Otherwise, it is not included.<br></br>
+        ///	
         ///	Default is True.
         /// </param>
         /// <param name="retstep">
@@ -2158,11 +2122,9 @@ namespace Numpy
         /// <summary>
         ///	Return numbers spaced evenly on a log scale.<br></br>
         ///	
-        ///	
         ///	In linear space, the sequence starts at base ** start
         ///	(base to the power of start) and ends with base ** stop
         ///	(see endpoint below).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2185,12 +2147,14 @@ namespace Numpy
         /// <param name="endpoint">
         ///	If true, stop is the last sample.<br></br>
         ///	Otherwise, it is not included.<br></br>
+        ///	
         ///	Default is True.
         /// </param>
         /// <param name="base">
         ///	The base of the log space.<br></br>
         ///	The step size between the elements in
         ///	ln(samples) / ln(base) (or log_base(samples)) is uniform.<br></br>
+        ///	
         ///	Default is 10.0.
         /// </param>
         /// <param name="dtype">
@@ -2215,10 +2179,9 @@ namespace Numpy
         /// <summary>
         ///	Return numbers spaced evenly on a log scale (a geometric progression).<br></br>
         ///	
-        ///	
         ///	This is similar to logspace, but with endpoints specified directly.<br></br>
-        ///	Each output sample is a constant multiple of the previous.<br></br>
         ///	
+        ///	Each output sample is a constant multiple of the previous.<br></br>
         ///	
         ///	Notes
         ///	
@@ -2232,6 +2195,7 @@ namespace Numpy
         /// </param>
         /// <param name="stop">
         ///	The final value of the sequence, unless endpoint is False.<br></br>
+        ///	
         ///	In that case, num + 1 values are spaced over the
         ///	interval in log-space, of which all but the last (a sequence of
         ///	length num) are returned.
@@ -2243,6 +2207,7 @@ namespace Numpy
         /// <param name="endpoint">
         ///	If true, stop is the last sample.<br></br>
         ///	Otherwise, it is not included.<br></br>
+        ///	
         ///	Default is True.
         /// </param>
         /// <param name="dtype">
@@ -2268,11 +2233,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2280,6 +2243,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2298,10 +2262,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2331,11 +2297,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2343,6 +2307,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2361,10 +2326,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2394,11 +2361,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2406,6 +2371,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2424,10 +2390,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2457,11 +2425,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2469,6 +2435,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2487,10 +2454,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2520,11 +2489,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2532,6 +2499,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2550,10 +2518,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2583,11 +2553,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2595,6 +2563,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2613,10 +2582,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2646,11 +2617,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2658,6 +2627,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2676,10 +2646,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2709,11 +2681,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2721,6 +2691,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2739,10 +2710,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2772,11 +2745,9 @@ namespace Numpy
         /// <summary>
         ///	Return coordinate matrices from coordinate vectors.<br></br>
         ///	
-        ///	
         ///	Make N-D coordinate arrays for vectorized evaluations of
         ///	N-D scalar/vector fields over N-D grids, given
         ///	one-dimensional coordinate arrays x1, x2,…, xn.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -2784,6 +2755,7 @@ namespace Numpy
         ///	keyword argument.<br></br>
         ///	  Giving the string ‘ij’ returns a meshgrid with
         ///	matrix indexing, while ‘xy’ returns a meshgrid with Cartesian indexing.<br></br>
+        ///	
         ///	In the 2-D case with inputs of length M and N, the outputs are of shape
         ///	(N, M) for ‘xy’ indexing and (M, N) for ‘ij’ indexing.<br></br>
         ///	  In the 3-D case
@@ -2802,10 +2774,12 @@ namespace Numpy
         /// </param>
         /// <param name="indexing">
         ///	Cartesian (‘xy’, default) or matrix (‘ij’) indexing of output.<br></br>
+        ///	
         ///	See Notes for more details.
         /// </param>
         /// <param name="sparse">
         ///	If True a sparse grid is returned in order to conserve memory.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="copy">
@@ -2842,7 +2816,6 @@ namespace Numpy
         ///	  If the step length is not a
         ///	complex number, then the stop is not inclusive.<br></br>
         ///	
-        ///	
         ///	However, if the step length is a complex number (e.g.<br></br>
         ///	 5j), then
         ///	the integer part of its magnitude is interpreted as specifying the
@@ -2865,7 +2838,6 @@ namespace Numpy
         ///	  If the step
         ///	length is not a complex number, then the stop is not inclusive.<br></br>
         ///	
-        ///	
         ///	However, if the step length is a complex number (e.g.<br></br>
         ///	 5j), then
         ///	the integer part of its magnitude is interpreted as specifying the
@@ -2879,7 +2851,6 @@ namespace Numpy
         /// <summary>
         ///	Extract a diagonal or construct a diagonal array.<br></br>
         ///	
-        ///	
         ///	See the more detailed documentation for numpy.diagonal if you use this
         ///	function to extract a diagonal and wish to write to the resulting array;
         ///	whether it returns a copy or a view depends on what version of numpy you
@@ -2887,6 +2858,7 @@ namespace Numpy
         /// </summary>
         /// <param name="v">
         ///	If v is a 2-D array, return a copy of its k-th diagonal.<br></br>
+        ///	
         ///	If v is a 1-D array, return a 2-D array with v on the k-th
         ///	diagonal.
         /// </param>
@@ -2906,7 +2878,6 @@ namespace Numpy
         /// <summary>
         ///	Extract a diagonal or construct a diagonal array.<br></br>
         ///	
-        ///	
         ///	See the more detailed documentation for numpy.diagonal if you use this
         ///	function to extract a diagonal and wish to write to the resulting array;
         ///	whether it returns a copy or a view depends on what version of numpy you
@@ -2914,6 +2885,7 @@ namespace Numpy
         /// </summary>
         /// <param name="v">
         ///	If v is a 2-D array, return a copy of its k-th diagonal.<br></br>
+        ///	
         ///	If v is a 1-D array, return a 2-D array with v on the k-th
         ///	diagonal.
         /// </param>
@@ -2933,7 +2905,6 @@ namespace Numpy
         /// <summary>
         ///	Extract a diagonal or construct a diagonal array.<br></br>
         ///	
-        ///	
         ///	See the more detailed documentation for numpy.diagonal if you use this
         ///	function to extract a diagonal and wish to write to the resulting array;
         ///	whether it returns a copy or a view depends on what version of numpy you
@@ -2941,6 +2912,7 @@ namespace Numpy
         /// </summary>
         /// <param name="v">
         ///	If v is a 2-D array, return a copy of its k-th diagonal.<br></br>
+        ///	
         ///	If v is a 1-D array, return a 2-D array with v on the k-th
         ///	diagonal.
         /// </param>
@@ -3019,10 +2991,12 @@ namespace Numpy
         /// </param>
         /// <param name="M">
         ///	Number of columns in the array.<br></br>
+        ///	
         ///	By default, M is taken equal to N.
         /// </param>
         /// <param name="k">
         ///	The sub-diagonal at and below which the array is filled.<br></br>
+        ///	
         ///	k = 0 is the main diagonal, while k &lt; 0 is below it,
         ///	and k &gt; 0 is above.<br></br>
         ///	The default is 0.
@@ -3040,7 +3014,6 @@ namespace Numpy
         
         /// <summary>
         ///	Lower triangle of an array.<br></br>
-        ///	
         ///	
         ///	Return a copy of an array with elements above the k-th diagonal zeroed.
         /// </summary>
@@ -3061,7 +3034,6 @@ namespace Numpy
         /// <summary>
         ///	Lower triangle of an array.<br></br>
         ///	
-        ///	
         ///	Return a copy of an array with elements above the k-th diagonal zeroed.
         /// </summary>
         /// <param name="m">
@@ -3080,7 +3052,6 @@ namespace Numpy
         
         /// <summary>
         ///	Lower triangle of an array.<br></br>
-        ///	
         ///	
         ///	Return a copy of an array with elements above the k-th diagonal zeroed.
         /// </summary>
@@ -3101,10 +3072,10 @@ namespace Numpy
         /// <summary>
         ///	Generate a Vandermonde matrix.<br></br>
         ///	
-        ///	
         ///	The columns of the output matrix are powers of the input vector.<br></br>
         ///	 The
         ///	order of the powers is determined by the increasing boolean argument.<br></br>
+        ///	
         ///	Specifically, when increasing is False, the i-th output column is
         ///	the input vector raised element-wise to the power of N - i - 1.<br></br>
         ///	 Such
@@ -3137,10 +3108,10 @@ namespace Numpy
         /// <summary>
         ///	Generate a Vandermonde matrix.<br></br>
         ///	
-        ///	
         ///	The columns of the output matrix are powers of the input vector.<br></br>
         ///	 The
         ///	order of the powers is determined by the increasing boolean argument.<br></br>
+        ///	
         ///	Specifically, when increasing is False, the i-th output column is
         ///	the input vector raised element-wise to the power of N - i - 1.<br></br>
         ///	 Such
@@ -3173,10 +3144,10 @@ namespace Numpy
         /// <summary>
         ///	Generate a Vandermonde matrix.<br></br>
         ///	
-        ///	
         ///	The columns of the output matrix are powers of the input vector.<br></br>
         ///	 The
         ///	order of the powers is determined by the increasing boolean argument.<br></br>
+        ///	
         ///	Specifically, when increasing is False, the i-th output column is
         ///	the input vector raised element-wise to the power of N - i - 1.<br></br>
         ///	 Such
@@ -3210,7 +3181,6 @@ namespace Numpy
         /// <summary>
         ///	Interpret the input as a matrix.<br></br>
         ///	
-        ///	
         ///	Unlike matrix, asmatrix does not make a copy if the input is already
         ///	a matrix or an ndarray.<br></br>
         ///	  Equivalent to matrix(data, copy=False).
@@ -3232,7 +3202,6 @@ namespace Numpy
         /// <summary>
         ///	Interpret the input as a matrix.<br></br>
         ///	
-        ///	
         ///	Unlike matrix, asmatrix does not make a copy if the input is already
         ///	a matrix or an ndarray.<br></br>
         ///	  Equivalent to matrix(data, copy=False).
@@ -3253,7 +3222,6 @@ namespace Numpy
         /*
         /// <summary>
         ///	Interpret the input as a matrix.<br></br>
-        ///	
         ///	
         ///	Unlike matrix, asmatrix does not make a copy if the input is already
         ///	a matrix or an ndarray.<br></br>
@@ -3283,10 +3251,12 @@ namespace Numpy
         /// </param>
         /// <param name="ldict">
         ///	A dictionary that replaces local operands in current frame.<br></br>
+        ///	
         ///	Ignored if obj is not a string or gdict is None.
         /// </param>
         /// <param name="gdict">
         ///	A dictionary that replaces global operands in current frame.<br></br>
+        ///	
         ///	Ignored if obj is not a string.
         /// </param>
         /// <returns>
@@ -3307,10 +3277,12 @@ namespace Numpy
         /// </param>
         /// <param name="ldict">
         ///	A dictionary that replaces local operands in current frame.<br></br>
+        ///	
         ///	Ignored if obj is not a string or gdict is None.
         /// </param>
         /// <param name="gdict">
         ///	A dictionary that replaces global operands in current frame.<br></br>
+        ///	
         ///	Ignored if obj is not a string.
         /// </param>
         /// <returns>

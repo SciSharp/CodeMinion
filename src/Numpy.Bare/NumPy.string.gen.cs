@@ -19,7 +19,6 @@ namespace Numpy
         /// <summary>
         ///	Return element-wise string concatenation for two arrays of str or unicode.<br></br>
         ///	
-        ///	
         ///	Arrays x1 and x2 must have the same shape.
         /// </summary>
         /// <param name="x1">
@@ -49,7 +48,6 @@ namespace Numpy
         /// <summary>
         ///	Return (a * i), that is string multiple concatenation,
         ///	element-wise.<br></br>
-        ///	
         ///	
         ///	Values in i of less than 0 are treated as 0 (which yields an
         ///	empty string).
@@ -100,9 +98,7 @@ namespace Numpy
         ///	Return a copy of a with only the first character of each element
         ///	capitalized.<br></br>
         ///	
-        ///	
         ///	Calls str.capitalize element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -129,7 +125,6 @@ namespace Numpy
         /// <summary>
         ///	Return a copy of a with its elements centered in a string of
         ///	length width.<br></br>
-        ///	
         ///	
         ///	Calls str.center element-wise.
         /// </summary>
@@ -161,12 +156,10 @@ namespace Numpy
         /// <summary>
         ///	Calls str.decode element-wise.<br></br>
         ///	
-        ///	
         ///	The set of available codecs comes from the Python standard library,
         ///	and may be extended at runtime.<br></br>
         ///	  For more information, see the
         ///	codecs module.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -196,12 +189,10 @@ namespace Numpy
         /// <summary>
         ///	Calls str.encode element-wise.<br></br>
         ///	
-        ///	
         ///	The set of available codecs comes from the Python standard library,
         ///	and may be extended at runtime.<br></br>
         ///	 For more information, see the codecs
         ///	module.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -232,7 +223,6 @@ namespace Numpy
         ///	Return a string which is the concatenation of the strings in the
         ///	sequence seq.<br></br>
         ///	
-        ///	
         ///	Calls str.join element-wise.
         /// </summary>
         /// <returns>
@@ -255,7 +245,6 @@ namespace Numpy
         /// <summary>
         ///	Return an array with the elements of a left-justified in a
         ///	string of length width.<br></br>
-        ///	
         ///	
         ///	Calls str.ljust element-wise.
         /// </summary>
@@ -286,9 +275,7 @@ namespace Numpy
         /// <summary>
         ///	Return an array with the elements converted to lowercase.<br></br>
         ///	
-        ///	
         ///	Call str.lower element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -314,7 +301,6 @@ namespace Numpy
         /// <summary>
         ///	For each element in a, return a copy with the leading characters
         ///	removed.<br></br>
-        ///	
         ///	
         ///	Calls str.lstrip element-wise.
         /// </summary>
@@ -350,9 +336,7 @@ namespace Numpy
         /// <summary>
         ///	Partition each element in a around sep.<br></br>
         ///	
-        ///	
         ///	Calls str.partition element-wise.<br></br>
-        ///	
         ///	
         ///	For each element in a, split the element as the first
         ///	occurrence of sep, and return 3 strings containing the part
@@ -369,6 +353,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Output array of str or unicode, depending on input type.<br></br>
+        ///	
         ///	The output array will have an extra dimension with 3
         ///	elements per input element.
         /// </returns>
@@ -389,7 +374,6 @@ namespace Numpy
         /// <summary>
         ///	For each element in a, return a copy of the string with all
         ///	occurrences of substring old replaced by new.<br></br>
-        ///	
         ///	
         ///	Calls str.replace element-wise.
         /// </summary>
@@ -420,7 +404,6 @@ namespace Numpy
         ///	Return an array with the elements of a right-justified in a
         ///	string of length width.<br></br>
         ///	
-        ///	
         ///	Calls str.rjust element-wise.
         /// </summary>
         /// <param name="width">
@@ -450,9 +433,7 @@ namespace Numpy
         /// <summary>
         ///	Partition (split) each element around the right-most separator.<br></br>
         ///	
-        ///	
         ///	Calls str.rpartition element-wise.<br></br>
-        ///	
         ///	
         ///	For each element in a, split the element as the last
         ///	occurrence of sep, and return 3 strings containing the part
@@ -491,9 +472,7 @@ namespace Numpy
         ///	For each element in a, return a list of the words in the
         ///	string, using sep as the delimiter string.<br></br>
         ///	
-        ///	
         ///	Calls str.rsplit element-wise.<br></br>
-        ///	
         ///	
         ///	Except for splitting from the right, rsplit
         ///	behaves like split.
@@ -528,7 +507,6 @@ namespace Numpy
         ///	For each element in a, return a copy with the trailing
         ///	characters removed.<br></br>
         ///	
-        ///	
         ///	Calls str.rstrip element-wise.
         /// </summary>
         /// <param name="chars">
@@ -561,7 +539,6 @@ namespace Numpy
         ///	For each element in a, return a list of the words in the
         ///	string, using sep as the delimiter string.<br></br>
         ///	
-        ///	
         ///	Calls str.split element-wise.
         /// </summary>
         /// <param name="sep">
@@ -593,7 +570,6 @@ namespace Numpy
         ///	For each element in a, return a list of the lines in the
         ///	element, breaking at line boundaries.<br></br>
         ///	
-        ///	
         ///	Calls str.splitlines element-wise.
         /// </summary>
         /// <param name="keepends">
@@ -620,7 +596,6 @@ namespace Numpy
         /// <summary>
         ///	For each element in a, return a copy with the leading and
         ///	trailing characters removed.<br></br>
-        ///	
         ///	
         ///	Calls str.strip element-wise.
         /// </summary>
@@ -654,9 +629,7 @@ namespace Numpy
         ///	Return element-wise a copy of the string with
         ///	uppercase characters converted to lowercase and vice versa.<br></br>
         ///	
-        ///	
         ///	Calls str.swapcase element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -682,13 +655,10 @@ namespace Numpy
         /// <summary>
         ///	Return element-wise title cased version of string or unicode.<br></br>
         ///	
-        ///	
         ///	Title case words start with uppercase characters, all remaining cased
         ///	characters are lowercase.<br></br>
         ///	
-        ///	
         ///	Calls str.title element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -717,7 +687,6 @@ namespace Numpy
         ///	removed, and the remaining characters have been mapped through the
         ///	given translation table.<br></br>
         ///	
-        ///	
         ///	Calls str.translate element-wise.
         /// </summary>
         /// <returns>
@@ -741,9 +710,7 @@ namespace Numpy
         /// <summary>
         ///	Return an array with the elements converted to uppercase.<br></br>
         ///	
-        ///	
         ///	Calls str.upper element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -797,7 +764,6 @@ namespace Numpy
         /// <summary>
         ///	Return (x1 == x2) element-wise.<br></br>
         ///	
-        ///	
         ///	Unlike numpy.equal, this comparison is performed by first
         ///	stripping whitespace characters from the end of the string.<br></br>
         ///	  This
@@ -828,7 +794,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return (x1 != x2) element-wise.<br></br>
-        ///	
         ///	
         ///	Unlike numpy.not_equal, this comparison is performed by first
         ///	stripping whitespace characters from the end of the string.<br></br>
@@ -861,9 +826,9 @@ namespace Numpy
         /// <summary>
         ///	Return (x1 &gt;= x2) element-wise.<br></br>
         ///	
-        ///	
         ///	Unlike numpy.greater_equal, this comparison is performed by
         ///	first stripping whitespace characters from the end of the string.<br></br>
+        ///	
         ///	This behavior is provided for backward-compatibility with
         ///	numarray.
         /// </summary>
@@ -892,7 +857,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return (x1 &lt;= x2) element-wise.<br></br>
-        ///	
         ///	
         ///	Unlike numpy.less_equal, this comparison is performed by first
         ///	stripping whitespace characters from the end of the string.<br></br>
@@ -925,7 +889,6 @@ namespace Numpy
         /// <summary>
         ///	Return (x1 &gt; x2) element-wise.<br></br>
         ///	
-        ///	
         ///	Unlike numpy.greater, this comparison is performed by first
         ///	stripping whitespace characters from the end of the string.<br></br>
         ///	  This
@@ -956,7 +919,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return (x1 &lt; x2) element-wise.<br></br>
-        ///	
         ///	
         ///	Unlike numpy.greater, this comparison is performed by first
         ///	stripping whitespace characters from the end of the string.<br></br>
@@ -989,7 +951,6 @@ namespace Numpy
         /// <summary>
         ///	Returns an array with the number of non-overlapping occurrences of
         ///	substring sub in the range [start, end].<br></br>
-        ///	
         ///	
         ///	Calls str.count element-wise.
         /// </summary>
@@ -1027,9 +988,7 @@ namespace Numpy
         ///	For each element, return the lowest index in the string where
         ///	substring sub is found.<br></br>
         ///	
-        ///	
         ///	Calls str.find element-wise.<br></br>
-        ///	
         ///	
         ///	For each element, return the lowest index in the string where
         ///	substring sub is found, such that sub is contained in the
@@ -1066,7 +1025,6 @@ namespace Numpy
         /// <summary>
         ///	Like find, but raises ValueError when the substring is not found.<br></br>
         ///	
-        ///	
         ///	Calls str.index element-wise.
         /// </summary>
         /// <returns>
@@ -1093,9 +1051,7 @@ namespace Numpy
         ///	Returns true for each element if all characters in the string are
         ///	alphabetic and there is at least one character, false otherwise.<br></br>
         ///	
-        ///	
         ///	Calls str.isalpha element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -1119,9 +1075,7 @@ namespace Numpy
         ///	For each element, return True if there are only decimal
         ///	characters in the element.<br></br>
         ///	
-        ///	
         ///	Calls unicode.isdecimal element-wise.<br></br>
-        ///	
         ///	
         ///	Decimal characters include digit characters, and all characters
         ///	that that can be used to form decimal-radix numbers,
@@ -1151,9 +1105,7 @@ namespace Numpy
         ///	Returns true for each element if all characters in the string are
         ///	digits and there is at least one character, false otherwise.<br></br>
         ///	
-        ///	
         ///	Calls str.isdigit element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -1178,9 +1130,7 @@ namespace Numpy
         ///	string are lowercase and there is at least one cased character,
         ///	false otherwise.<br></br>
         ///	
-        ///	
         ///	Calls str.islower element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -1204,9 +1154,7 @@ namespace Numpy
         ///	For each element, return True if there are only numeric
         ///	characters in the element.<br></br>
         ///	
-        ///	
         ///	Calls unicode.isnumeric element-wise.<br></br>
-        ///	
         ///	
         ///	Numeric characters include digit characters, and all characters
         ///	that have the Unicode numeric value property, e.g.<br></br>
@@ -1237,9 +1185,7 @@ namespace Numpy
         ///	characters in the string and there is at least one character,
         ///	false otherwise.<br></br>
         ///	
-        ///	
         ///	Calls str.isspace element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -1263,9 +1209,7 @@ namespace Numpy
         ///	Returns true for each element if the element is a titlecased
         ///	string and there is at least one character, false otherwise.<br></br>
         ///	
-        ///	
         ///	Call str.istitle element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -1290,9 +1234,7 @@ namespace Numpy
         ///	string are uppercase and there is at least one character, false
         ///	otherwise.<br></br>
         ///	
-        ///	
         ///	Call str.isupper element-wise.<br></br>
-        ///	
         ///	
         ///	For 8-bit strings, this method is locale-dependent.
         /// </summary>
@@ -1316,7 +1258,6 @@ namespace Numpy
         ///	For each element in a, return the highest index in the string
         ///	where substring sub is found, such that sub is contained
         ///	within [start, end].<br></br>
-        ///	
         ///	
         ///	Calls str.rfind element-wise.
         /// </summary>
@@ -1352,7 +1293,6 @@ namespace Numpy
         ///	Like rfind, but raises ValueError when the substring sub is
         ///	not found.<br></br>
         ///	
-        ///	
         ///	Calls str.rindex element-wise.
         /// </summary>
         /// <returns>
@@ -1377,7 +1317,6 @@ namespace Numpy
         /// <summary>
         ///	Returns a boolean array which is True where the string element
         ///	in a starts with prefix, otherwise False.<br></br>
-        ///	
         ///	
         ///	Calls str.startswith element-wise.
         /// </summary>
@@ -1413,13 +1352,11 @@ namespace Numpy
         /// <summary>
         ///	Provides a convenient view on arrays of string and unicode values.<br></br>
         ///	
-        ///	
         ///	Versus a regular NumPy array of type str or unicode, this
         ///	class adds the following functionality:
         ///	
         ///	chararrays should be created using numpy.char.array or
         ///	numpy.char.asarray, rather than this constructor directly.<br></br>
-        ///	
         ///	
         ///	This constructor creates the array, using buffer (with offset
         ///	and strides) if it is not None.<br></br>
@@ -1437,6 +1374,7 @@ namespace Numpy
         /// </param>
         /// <param name="unicode">
         ///	Are the array elements of type unicode (True) or string (False).<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="buffer">
@@ -1451,6 +1389,7 @@ namespace Numpy
         /// </param>
         /// <param name="strides">
         ///	Strides for the array (see ndarray.strides for full description).<br></br>
+        ///	
         ///	Default is None.
         /// </param>
         /// <param name="order">

@@ -20,7 +20,6 @@ namespace Numpy
         /// <summary>
         ///	Compute the future value.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The future value is computed by solving the equation:
@@ -43,6 +42,7 @@ namespace Numpy
         /// </param>
         /// <param name="when">
         ///	When payments are due (‘begin’ (1) or ‘end’ (0)).<br></br>
+        ///	
         ///	Defaults to {‘end’, 0}.
         /// </param>
         /// <returns>
@@ -50,6 +50,7 @@ namespace Numpy
         ///	  If all input is scalar, returns a scalar float.<br></br>
         ///	  If
         ///	any input is array_like, returns future values for each input element.<br></br>
+        ///	
         ///	If multiple inputs are array_like, they all must have the same shape.
         /// </returns>
         public NDarray fv(NDarray rate, NDarray nper, NDarray pmt, NDarray pv, string @when = "end")
@@ -72,7 +73,6 @@ namespace Numpy
         /// <summary>
         ///	Compute the present value.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The present value is computed by solving the equation:
@@ -80,7 +80,6 @@ namespace Numpy
         ///	or, when rate = 0:
         ///	
         ///	for pv, which is then returned.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -121,7 +120,6 @@ namespace Numpy
         
         /// <summary>
         ///	Returns the NPV (Net Present Value) of a cash flow series.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -164,7 +162,6 @@ namespace Numpy
         /// <summary>
         ///	Compute the payment against loan principal plus interest.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The payment is computed by solving the equation:
@@ -173,7 +170,6 @@ namespace Numpy
         ///	
         ///	for pmt.<br></br>
         ///	
-        ///	
         ///	Note that computing a monthly mortgage payment is only
         ///	one use for this function.<br></br>
         ///	  For example, pmt returns the
@@ -181,7 +177,6 @@ namespace Numpy
         ///	future balance given an initial deposit, a fixed,
         ///	periodically compounded interest rate, and the total
         ///	number of periods.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -269,11 +264,9 @@ namespace Numpy
         /// <summary>
         ///	Compute the interest portion of a payment.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The total payment is made up of payment against principal plus interest.<br></br>
-        ///	
         ///	
         ///	pmt = ppmt + ipmt
         /// </summary>
@@ -282,6 +275,7 @@ namespace Numpy
         /// </param>
         /// <param name="per">
         ///	Interest paid against the loan changes during the life or the loan.<br></br>
+        ///	
         ///	The per is the payment period to calculate the interest amount.
         /// </param>
         /// <param name="nper">
@@ -295,6 +289,7 @@ namespace Numpy
         /// </param>
         /// <param name="when">
         ///	When payments are due (‘begin’ (1) or ‘end’ (0)).<br></br>
+        ///	
         ///	Defaults to {‘end’, 0}.
         /// </param>
         /// <returns>
@@ -327,14 +322,11 @@ namespace Numpy
         /// <summary>
         ///	Return the Internal Rate of Return (IRR).<br></br>
         ///	
-        ///	
         ///	This is the “average” periodically compounded rate of return
         ///	that gives a net present value of 0.0; for a more complete explanation,
         ///	see Notes below.<br></br>
         ///	
-        ///	
         ///	decimal.Decimal type is not supported.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -413,9 +405,7 @@ namespace Numpy
         /// <summary>
         ///	Compute the number of periodic payments.<br></br>
         ///	
-        ///	
         ///	decimal.Decimal type is not supported.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -457,14 +447,12 @@ namespace Numpy
         /// <summary>
         ///	Compute the rate of interest per period.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The rate of interest is computed by iteratively solving the
         ///	(non-linear) equation:
         ///	
         ///	for rate.<br></br>
-        ///	
         ///	
         ///	References
         ///	

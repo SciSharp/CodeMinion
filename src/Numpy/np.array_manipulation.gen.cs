@@ -20,7 +20,6 @@ namespace Numpy
         /// <summary>
         ///	Copies values from one array to another, broadcasting as necessary.<br></br>
         ///	
-        ///	
         ///	Raises a TypeError if the casting rule is violated, and if
         ///	where is provided, it selects which elements to copy.
         /// </summary>
@@ -43,7 +42,6 @@ namespace Numpy
         
         /// <summary>
         ///	Copies values from one array to another, broadcasting as necessary.<br></br>
-        ///	
         ///	
         ///	Raises a TypeError if the casting rule is violated, and if
         ///	where is provided, it selects which elements to copy.
@@ -68,7 +66,6 @@ namespace Numpy
         /// <summary>
         ///	Gives a new shape to an array without changing its data.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	It is not always possible to change the shape of an array without
@@ -78,6 +75,7 @@ namespace Numpy
         ///	
         ///	The order keyword gives the index ordering both for fetching the values
         ///	from a, and then placing the values into the output array.<br></br>
+        ///	
         ///	For example, let’s say you have an array:
         ///	
         ///	You can think of reshaping as first raveling the array (using the given
@@ -92,6 +90,7 @@ namespace Numpy
         ///	The new shape should be compatible with the original shape.<br></br>
         ///	If
         ///	an integer, then the result will be a 1-D array of that length.<br></br>
+        ///	
         ///	One shape dimension can be -1. In this case, the value is
         ///	inferred from the length of the array and remaining dimensions.
         /// </param>
@@ -108,6 +107,7 @@ namespace Numpy
         ///	Note that
         ///	the ‘C’ and ‘F’ options take no account of the memory layout of
         ///	the underlying array, and only refer to the order of indexing.<br></br>
+        ///	
         ///	‘A’ means to read / write the elements in Fortran-like index
         ///	order if a is Fortran contiguous in memory, C-like order
         ///	otherwise.
@@ -124,11 +124,9 @@ namespace Numpy
         /// <summary>
         ///	Return a contiguous flattened array.<br></br>
         ///	
-        ///	
         ///	A 1-D array, containing the elements of the input, is returned.<br></br>
         ///	  A copy is
         ///	made only if needed.<br></br>
-        ///	
         ///	
         ///	As of NumPy 1.10, the returned array will have the same type as the input
         ///	array.<br></br>
@@ -145,7 +143,6 @@ namespace Numpy
         ///	the index along the last quickest.<br></br>
         ///	  The opposite holds for
         ///	column-major, Fortran-style index ordering.<br></br>
-        ///	
         ///	
         ///	When a view is desired in as many cases as possible, arr.reshape(-1)
         ///	may be preferable.
@@ -179,6 +176,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	y is an array of the same subtype as a, with shape (a.size,).<br></br>
+        ///	
         ///	Note that matrices are special cased for backward compatibility, if a
         ///	is a matrix, then y is a 1-D ndarray.
         /// </returns>
@@ -190,6 +188,7 @@ namespace Numpy
         /// </summary>
         /// <param name="order">
         ///	‘C’ means to flatten in row-major (C-style) order.<br></br>
+        ///	
         ///	‘F’ means to flatten in column-major (Fortran-
         ///	style) order.<br></br>
         ///	‘A’ means to flatten in column-major
@@ -197,6 +196,7 @@ namespace Numpy
         ///	row-major order otherwise.<br></br>
         ///	‘K’ means to flatten
         ///	a in the order the elements occur in memory.<br></br>
+        ///	
         ///	The default is ‘C’.
         /// </param>
         /// <returns>
@@ -207,7 +207,6 @@ namespace Numpy
         
         /// <summary>
         ///	Move axes of an array to new positions.<br></br>
-        ///	
         ///	
         ///	Other axes remain in their original order.
         /// </summary>
@@ -232,7 +231,6 @@ namespace Numpy
         
         /// <summary>
         ///	Roll the specified axis backwards, until it lies in a given position.<br></br>
-        ///	
         ///	
         ///	This function continues to be supported for backward compatibility, but you
         ///	should prefer moveaxis.<br></br>
@@ -286,12 +284,10 @@ namespace Numpy
         /// <summary>
         ///	Permute the dimensions of an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Use transpose(a, argsort(axes)) to invert the transposition of tensors
         ///	when using the axes keyword argument.<br></br>
-        ///	
         ///	
         ///	Transposing a 1-D array returns an unchanged view of the original array.
         /// </summary>
@@ -313,7 +309,6 @@ namespace Numpy
         /// <summary>
         ///	Convert inputs to arrays with at least one dimension.<br></br>
         ///	
-        ///	
         ///	Scalar inputs are converted to 1-dimensional arrays, whilst
         ///	higher-dimensional inputs are preserved.
         /// </summary>
@@ -322,6 +317,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	An array, or list of arrays, each with a.ndim &gt;= 1.<br></br>
+        ///	
         ///	Copies are made only if necessary.
         /// </returns>
         public static NDarray atleast_1d(params NDarray[] arys)
@@ -339,6 +335,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	An array, or list of arrays, each with a.ndim &gt;= 2.<br></br>
+        ///	
         ///	Copies are avoided where possible, and views with two or more
         ///	dimensions are returned.
         /// </returns>
@@ -379,6 +376,7 @@ namespace Numpy
         /// <returns>
         ///	Broadcast the input parameters against one another, and
         ///	return an object that encapsulates the result.<br></br>
+        ///	
         ///	Amongst others, it has shape and nd properties, and
         ///	may be used as an iterator.
         /// </returns>
@@ -387,7 +385,6 @@ namespace Numpy
         
         /// <summary>
         ///	Broadcast an array to a new shape.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -435,7 +432,6 @@ namespace Numpy
         
         /// <summary>
         ///	Expand the shape of an array.<br></br>
-        ///	
         ///	
         ///	Insert a new axis that will appear at the axis position in the expanded
         ///	array shape.
@@ -523,6 +519,7 @@ namespace Numpy
         /// <param name="order">
         ///	Whether to use row-major (C-style) or
         ///	column-major (Fortran-style) memory representation.<br></br>
+        ///	
         ///	Defaults to ‘C’.
         /// </param>
         /// <returns>
@@ -538,10 +535,8 @@ namespace Numpy
         /// <summary>
         ///	Return an ndarray of the provided type that satisfies requirements.<br></br>
         ///	
-        ///	
         ///	This function is useful to be sure that an array with the correct flags
         ///	is returned for passing to compiled code (perhaps through ctypes).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -566,7 +561,6 @@ namespace Numpy
         
         /// <summary>
         ///	Join a sequence of arrays along an existing axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -602,7 +596,6 @@ namespace Numpy
         /// <summary>
         ///	Join a sequence of arrays along a new axis.<br></br>
         ///	
-        ///	
         ///	The axis parameter specifies the index of the new axis in the dimensions
         ///	of the result.<br></br>
         ///	 For example, if axis=0 it will be the first dimension
@@ -629,7 +622,6 @@ namespace Numpy
         /// <summary>
         ///	Stack 1-D arrays as columns into a 2-D array.<br></br>
         ///	
-        ///	
         ///	Take a sequence of 1-D arrays and stack them as columns
         ///	to make a single 2-D array.<br></br>
         ///	 2-D arrays are stacked as-is,
@@ -650,13 +642,11 @@ namespace Numpy
         /// <summary>
         ///	Stack arrays in sequence depth wise (along third axis).<br></br>
         ///	
-        ///	
         ///	This is equivalent to concatenation along the third axis after 2-D arrays
         ///	of shape (M,N) have been reshaped to (M,N,1) and 1-D arrays of shape
         ///	(N,) have been reshaped to (1,N,1).<br></br>
         ///	 Rebuilds arrays divided by
         ///	dsplit.<br></br>
-        ///	
         ///	
         ///	This function makes most sense for arrays with up to 3 dimensions.<br></br>
         ///	 For
@@ -667,6 +657,7 @@ namespace Numpy
         /// </summary>
         /// <param name="tup">
         ///	The arrays must have the same shape along all but the third axis.<br></br>
+        ///	
         ///	1-D or 2-D arrays must have the same shape.
         /// </param>
         /// <returns>
@@ -678,12 +669,10 @@ namespace Numpy
         /// <summary>
         ///	Stack arrays in sequence horizontally (column wise).<br></br>
         ///	
-        ///	
         ///	This is equivalent to concatenation along the second axis, except for 1-D
         ///	arrays where it concatenates along the first axis.<br></br>
         ///	 Rebuilds arrays divided
         ///	by hsplit.<br></br>
-        ///	
         ///	
         ///	This function makes most sense for arrays with up to 3 dimensions.<br></br>
         ///	 For
@@ -705,12 +694,10 @@ namespace Numpy
         /// <summary>
         ///	Stack arrays in sequence vertically (row wise).<br></br>
         ///	
-        ///	
         ///	This is equivalent to concatenation along the first axis after 1-D arrays
         ///	of shape (N,) have been reshaped to (1,N).<br></br>
         ///	 Rebuilds arrays divided by
         ///	vsplit.<br></br>
-        ///	
         ///	
         ///	This function makes most sense for arrays with up to 3 dimensions.<br></br>
         ///	 For
@@ -721,6 +708,7 @@ namespace Numpy
         /// </summary>
         /// <param name="tup">
         ///	The arrays must have the same shape along all but the first axis.<br></br>
+        ///	
         ///	1-D arrays must have the same length.
         /// </param>
         /// <returns>
@@ -733,11 +721,9 @@ namespace Numpy
         /// <summary>
         ///	Assemble an nd-array from nested lists of blocks.<br></br>
         ///	
-        ///	
         ///	Blocks in the innermost lists are concatenated (see concatenate) along
         ///	the last dimension (-1), then these are concatenated along the
         ///	second-last dimension (-2), and so on until the outermost list is reached.<br></br>
-        ///	
         ///	
         ///	Blocks can be of any dimension, but will not be broadcasted using the normal
         ///	rules.<br></br>
@@ -747,10 +733,8 @@ namespace Numpy
         ///	and means that code like np.block([v, 1]) is valid, where
         ///	v.ndim == 1.<br></br>
         ///	
-        ///	
         ///	When the nested list is two levels deep, this allows block matrices to be
         ///	constructed from their components.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -759,8 +743,8 @@ namespace Numpy
         ///	 So np.block([[1, 2], [3, 4]]) is equivalent to
         ///	np.array([[1, 2], [3, 4]]).<br></br>
         ///	
-        ///	
         ///	This function does not enforce that the blocks lie on a fixed grid.<br></br>
+        ///	
         ///	np.block([[a, b], [c, d]]) is not restricted to arrays of the form:
         ///	
         ///	But is also allowed to produce, for some a, b, c, d:
@@ -775,14 +759,12 @@ namespace Numpy
         ///	If passed a single ndarray or scalar (a nested list of depth 0), this
         ///	is returned unmodified (and not copied).<br></br>
         ///	
-        ///	
         ///	Elements shapes must match along the appropriate axes (without
         ///	broadcasting), but leading 1s will be prepended to the shape as
         ///	necessary to make the dimensions match.
         /// </param>
         /// <returns>
         ///	The array assembled from the given blocks.<br></br>
-        ///	
         ///	
         ///	The dimensionality of the output is equal to the greatest of:
         ///	* the dimensionality of all the inputs
@@ -804,7 +786,6 @@ namespace Numpy
         ///	If such a split is not possible,
         ///	an error is raised.<br></br>
         ///	
-        ///	
         ///	If indices_or_sections is a 1-D array of sorted integers, the entries
         ///	indicate where along axis the array is split.<br></br>
         ///	For example,
@@ -825,10 +806,8 @@ namespace Numpy
         /// <summary>
         ///	Construct an array by repeating A the number of times given by reps.<br></br>
         ///	
-        ///	
         ///	If reps has length d, the result will have dimension of
         ///	max(d, A.ndim).<br></br>
-        ///	
         ///	
         ///	If A.ndim &lt; d, A is promoted to be d-dimensional by prepending new
         ///	axes.<br></br>
@@ -838,11 +817,10 @@ namespace Numpy
         ///	behavior, promote A to d-dimensions manually before calling this
         ///	function.<br></br>
         ///	
-        ///	
         ///	If A.ndim &gt; d, reps is promoted to A.ndim by pre-pending 1’s to it.<br></br>
+        ///	
         ///	Thus for an A of shape (2, 3, 4, 5), a reps of (2, 2) is treated as
         ///	(1, 1, 2, 2).<br></br>
-        ///	
         ///	
         ///	Note : Although tile may be used for broadcasting, it is strongly
         ///	recommended to use numpy’s broadcasting operations and functions.
@@ -888,7 +866,6 @@ namespace Numpy
         ///	dimensional array, this returns those entries not returned by
         ///	arr[obj].<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Often it is preferable to use a boolean mask.<br></br>
@@ -905,6 +882,7 @@ namespace Numpy
         /// </param>
         /// <param name="axis">
         ///	The axis along which to delete the subarray defined by obj.<br></br>
+        ///	
         ///	If axis is None, obj is applied to the flattened array.
         /// </param>
         /// <returns>
@@ -920,7 +898,6 @@ namespace Numpy
         /// <summary>
         ///	Insert values along the given axis before the given indices.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Note that for higher dimensional inserts obj=0 behaves very different
@@ -934,7 +911,6 @@ namespace Numpy
         ///	Object that defines the index or indices before which values is
         ///	inserted.<br></br>
         ///	
-        ///	
         ///	Support for multiple insertions when obj is a single scalar or a
         ///	sequence with one element (similar to calling insert multiple
         ///	times).
@@ -943,6 +919,7 @@ namespace Numpy
         ///	Values to insert into arr.<br></br>
         ///	If the type of values is different
         ///	from that of arr, values is converted to the type of arr.<br></br>
+        ///	
         ///	values should be shaped so that arr[...,obj,...] = values
         ///	is legal.
         /// </param>
@@ -993,21 +970,21 @@ namespace Numpy
         /// <summary>
         ///	Return a new array with the specified shape.<br></br>
         ///	
-        ///	
         ///	If the new array is larger than the original array, then the new
         ///	array is filled with repeated copies of a.<br></br>
         ///	  Note that this behavior
         ///	is different from a.resize(new_shape) which fills with zeros instead
         ///	of repeated copies of a.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Warning: This functionality does not consider axes separately,
         ///	i.e.<br></br>
         ///	 it does not apply interpolation/extrapolation.<br></br>
+        ///	
         ///	It fills the return array with the required number of elements, taken
         ///	from a as they are laid out in memory, disregarding strides and axes.<br></br>
+        ///	
         ///	(This is in case the new shape is smaller.<br></br>
         ///	 For larger, see above.)
         ///	This functionality is therefore not suitable to resize images,
@@ -1050,7 +1027,6 @@ namespace Numpy
         /// <summary>
         ///	Find the unique elements of an array.<br></br>
         ///	
-        ///	
         ///	Returns the sorted unique elements of an array.<br></br>
         ///	 There are three optional
         ///	outputs in addition to the unique elements:
@@ -1058,6 +1034,7 @@ namespace Numpy
         ///	Notes
         ///	
         ///	When an axis is specified the subarrays indexed by the axis are sorted.<br></br>
+        ///	
         ///	This is done by making the specified axis the first dimension of the array
         ///	and then flattening the subarrays in C order.<br></br>
         ///	 The flattened subarrays are
@@ -1094,7 +1071,6 @@ namespace Numpy
         /// <summary>
         ///	Find the unique elements of an array.<br></br>
         ///	
-        ///	
         ///	Returns the sorted unique elements of an array.<br></br>
         ///	 There are three optional
         ///	outputs in addition to the unique elements:
@@ -1102,6 +1078,7 @@ namespace Numpy
         ///	Notes
         ///	
         ///	When an axis is specified the subarrays indexed by the axis are sorted.<br></br>
+        ///	
         ///	This is done by making the specified axis the first dimension of the array
         ///	and then flattening the subarrays in C order.<br></br>
         ///	 The flattened subarrays are
@@ -1150,24 +1127,18 @@ namespace Numpy
         /// <summary>
         ///	Reverse the order of elements in an array along the given axis.<br></br>
         ///	
-        ///	
         ///	The shape of the array is preserved, but the elements are reordered.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	flip(m, 0) is equivalent to flipud(m).<br></br>
         ///	
-        ///	
         ///	flip(m, 1) is equivalent to fliplr(m).<br></br>
-        ///	
         ///	
         ///	flip(m, n) corresponds to m[...,::-1,...] with ::-1 at position n.<br></br>
         ///	
-        ///	
         ///	flip(m) corresponds to m[::-1,::-1,...,::-1] with ::-1 at all
         ///	positions.<br></br>
-        ///	
         ///	
         ///	flip(m, (0, 1)) corresponds to m[::-1,::-1,...] with ::-1 at
         ///	position 0 and position 1.
@@ -1179,8 +1150,8 @@ namespace Numpy
         ///	Axis or axes along which to flip over.<br></br>
         ///	The default,
         ///	axis=None, will flip over all of the axes of the input array.<br></br>
-        ///	If axis is negative it counts from the last to the first axis.<br></br>
         ///	
+        ///	If axis is negative it counts from the last to the first axis.<br></br>
         ///	
         ///	If axis is a tuple of ints, flipping is performed on all of the axes
         ///	specified in the tuple.
@@ -1196,10 +1167,9 @@ namespace Numpy
         /// <summary>
         ///	Flip array in the left/right direction.<br></br>
         ///	
-        ///	
         ///	Flip the entries in each row in the left/right direction.<br></br>
-        ///	Columns are preserved, but appear in a different order than before.<br></br>
         ///	
+        ///	Columns are preserved, but appear in a different order than before.<br></br>
         ///	
         ///	Notes
         ///	
@@ -1220,14 +1190,14 @@ namespace Numpy
         /// <summary>
         ///	Flip array in the up/down direction.<br></br>
         ///	
-        ///	
         ///	Flip the entries in each column in the up/down direction.<br></br>
-        ///	Rows are preserved, but appear in a different order than before.<br></br>
         ///	
+        ///	Rows are preserved, but appear in a different order than before.<br></br>
         ///	
         ///	Notes
         ///	
         ///	Equivalent to m[::-1,...].<br></br>
+        ///	
         ///	Does not require the array to be two-dimensional.
         /// </summary>
         /// <param name="m">
@@ -1244,10 +1214,8 @@ namespace Numpy
         /// <summary>
         ///	Roll array elements along a given axis.<br></br>
         ///	
-        ///	
         ///	Elements that roll beyond the last position are re-introduced at
         ///	the first.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1280,9 +1248,7 @@ namespace Numpy
         /// <summary>
         ///	Rotate an array by 90 degrees in the plane specified by axes.<br></br>
         ///	
-        ///	
         ///	Rotation direction is from the first towards the second axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1297,6 +1263,7 @@ namespace Numpy
         /// </param>
         /// <param name="axes">
         ///	The array is rotated in the plane defined by the axes.<br></br>
+        ///	
         ///	Axes must be different.
         /// </param>
         /// <returns>

@@ -60,7 +60,6 @@ namespace Numpy
         /// <summary>
         ///	Get information about the step size of a date or time type.<br></br>
         ///	
-        ///	
         ///	The returned tuple can be passed as the second argument of numpy.datetime64 and
         ///	numpy.timedelta64.
         /// </summary>
@@ -94,11 +93,10 @@ namespace Numpy
         ///	A business day calendar object that efficiently stores information
         ///	defining valid days for the busday family of functions.<br></br>
         ///	
-        ///	
         ///	The default valid days are Monday through Friday (“business days”).<br></br>
+        ///	
         ///	A busdaycalendar object can be specified with any set of weekly
         ///	valid days, plus an optional “holiday” dates that always will be invalid.<br></br>
-        ///	
         ///	
         ///	Once a busdaycalendar object is created, the weekmask and holidays
         ///	cannot be modified.
@@ -162,6 +160,7 @@ namespace Numpy
         ///	An array of dates to consider as invalid dates.<br></br>
         ///	They may be
         ///	specified in any order, and NaT (not-a-time) dates are ignored.<br></br>
+        ///	
         ///	This list is saved in a normalized form that is suited for
         ///	fast calculations of valid days.
         /// </param>
@@ -227,6 +226,7 @@ namespace Numpy
         ///	An array of dates to consider as invalid dates.<br></br>
         ///	They may be
         ///	specified in any order, and NaT (not-a-time) dates are ignored.<br></br>
+        ///	
         ///	This list is saved in a normalized form that is suited for
         ///	fast calculations of valid days.
         /// </param>
@@ -268,7 +268,6 @@ namespace Numpy
         ///	Counts the number of valid days between begindates and
         ///	enddates, not including the day of enddates.<br></br>
         ///	
-        ///	
         ///	If enddates specifies a date value that is earlier than the
         ///	corresponding begindates date value, the count will be negative.
         /// </summary>
@@ -293,6 +292,7 @@ namespace Numpy
         ///	An array of dates to consider as invalid dates.<br></br>
         ///	They may be
         ///	specified in any order, and NaT (not-a-time) dates are ignored.<br></br>
+        ///	
         ///	This list is saved in a normalized form that is suited for
         ///	fast calculations of valid days.
         /// </param>

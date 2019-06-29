@@ -21,11 +21,9 @@ namespace Numpy
             /// <summary>
             ///	Random values in a given shape.<br></br>
             ///	
-            ///	
             ///	Create an array of the given shape and populate it with
             ///	random samples from a uniform distribution
             ///	over [0, 1).<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -36,10 +34,12 @@ namespace Numpy
             /// </summary>
             /// <param name="d1">
             ///	The dimensions of the returned array, should all be positive.<br></br>
+            ///	
             ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <param name="d0">
             ///	The dimensions of the returned array, should all be positive.<br></br>
+            ///	
             ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <returns>
@@ -53,7 +53,6 @@ namespace Numpy
             /// <summary>
             ///	Return a sample (or samples) from the “standard normal” distribution.<br></br>
             ///	
-            ///	
             ///	If positive, int_like or int-convertible arguments are provided,
             ///	randn generates an array of shape (d0, d1, ..., dn), filled
             ///	with random floats sampled from a univariate “normal” (Gaussian)
@@ -63,11 +62,9 @@ namespace Numpy
             ///	float randomly sampled from the distribution is returned if no
             ///	argument is provided.<br></br>
             ///	
-            ///	
             ///	This is a convenience function.<br></br>
             ///	  If you want an interface that takes a
             ///	tuple as the first argument, use numpy.random.standard_normal instead.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -77,10 +74,12 @@ namespace Numpy
             /// </summary>
             /// <param name="d1">
             ///	The dimensions of the returned array, should be all positive.<br></br>
+            ///	
             ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <param name="d0">
             ///	The dimensions of the returned array, should be all positive.<br></br>
+            ///	
             ///	If no argument is given a single Python float is returned.
             /// </param>
             /// <returns>
@@ -95,7 +94,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Return random integers from low (inclusive) to high (exclusive).<br></br>
-            ///	
             ///	
             ///	Return random integers from the “discrete uniform” distribution of
             ///	the specified dtype in the “half-open” interval [low, high).<br></br>
@@ -138,7 +136,6 @@ namespace Numpy
             /// <summary>
             ///	Random integers of type np.int between low and high, inclusive.<br></br>
             ///	
-            ///	
             ///	Return random integers of type np.int from the “discrete uniform”
             ///	distribution in the closed interval [low, high].<br></br>
             ///	  If high is
@@ -147,10 +144,8 @@ namespace Numpy
             ///	type translates to the C long type used by Python 2 for “short”
             ///	integers and its precision is platform dependent.<br></br>
             ///	
-            ///	
             ///	This function has been deprecated.<br></br>
             ///	 Use randint instead.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -185,7 +180,6 @@ namespace Numpy
             /// <summary>
             ///	Return random floats in the half-open interval [0.0, 1.0).<br></br>
             ///	
-            ///	
             ///	Results are from the “continuous uniform” distribution over the
             ///	stated interval.<br></br>
             ///	  To sample  multiply
@@ -209,7 +203,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Return random floats in the half-open interval [0.0, 1.0).<br></br>
-            ///	
             ///	
             ///	Results are from the “continuous uniform” distribution over the
             ///	stated interval.<br></br>
@@ -235,7 +228,6 @@ namespace Numpy
             /// <summary>
             ///	Return random floats in the half-open interval [0.0, 1.0).<br></br>
             ///	
-            ///	
             ///	Results are from the “continuous uniform” distribution over the
             ///	stated interval.<br></br>
             ///	  To sample  multiply
@@ -259,7 +251,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Return random floats in the half-open interval [0.0, 1.0).<br></br>
-            ///	
             ///	
             ///	Results are from the “continuous uniform” distribution over the
             ///	stated interval.<br></br>
@@ -287,6 +278,7 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	If an ndarray, a random sample is generated from its elements.<br></br>
+            ///	
             ///	If an int, the random sample is generated as if a were np.arange(a)
             /// </param>
             /// <param name="size">
@@ -301,6 +293,7 @@ namespace Numpy
             /// </param>
             /// <param name="p">
             ///	The probabilities associated with each entry in a.<br></br>
+            ///	
             ///	If not given the sample assumes a uniform distribution over all
             ///	entries in a.
             /// </param>
@@ -317,6 +310,7 @@ namespace Numpy
             /// </summary>
             /// <param name="a">
             ///	If an ndarray, a random sample is generated from its elements.<br></br>
+            ///	
             ///	If an int, the random sample is generated as if a were np.arange(a)
             /// </param>
             /// <param name="size">
@@ -331,6 +325,7 @@ namespace Numpy
             /// </param>
             /// <param name="p">
             ///	The probabilities associated with each entry in a.<br></br>
+            ///	
             ///	If not given the sample assumes a uniform distribution over all
             ///	entries in a.
             /// </param>
@@ -359,7 +354,6 @@ namespace Numpy
             /// <summary>
             ///	Modify a sequence in-place by shuffling its contents.<br></br>
             ///	
-            ///	
             ///	This function only shuffles the array along the first axis of a
             ///	multi-dimensional array.<br></br>
             ///	 The order of sub-arrays is changed but
@@ -376,12 +370,12 @@ namespace Numpy
             /// <summary>
             ///	Randomly permute a sequence, or return a permuted range.<br></br>
             ///	
-            ///	
             ///	If x is a multi-dimensional array, it is only shuffled along its
             ///	first index.
             /// </summary>
             /// <param name="x">
             ///	If x is an integer, randomly permute np.arange(x).<br></br>
+            ///	
             ///	If x is an array, make a copy and shuffle the elements
             ///	randomly.
             /// </param>
@@ -396,12 +390,12 @@ namespace Numpy
             /// <summary>
             ///	Randomly permute a sequence, or return a permuted range.<br></br>
             ///	
-            ///	
             ///	If x is a multi-dimensional array, it is only shuffled along its
             ///	first index.
             /// </summary>
             /// <param name="x">
             ///	If x is an integer, randomly permute np.arange(x).<br></br>
+            ///	
             ///	If x is an array, make a copy and shuffle the elements
             ///	randomly.
             /// </param>
@@ -415,7 +409,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Draw samples from a Beta distribution.<br></br>
-            ///	
             ///	
             ///	The Beta distribution is a special case of the Dirichlet distribution,
             ///	and is related to the Gamma distribution.<br></br>
@@ -438,6 +431,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if a and b are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(a, b).size samples are drawn.
             /// </param>
             /// <returns>
@@ -450,7 +444,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Draw samples from a binomial distribution.<br></br>
-            ///	
             ///	
             ///	Samples are drawn from a binomial distribution with specified
             ///	parameters, n trials and p probability of success where
@@ -465,7 +458,6 @@ namespace Numpy
             ///	where  is the number of trials,  is the probability
             ///	of success, and  is the number of successes.<br></br>
             ///	
-            ///	
             ///	When estimating the standard error of a proportion in a population by
             ///	using a random sample, the normal distribution works well unless the
             ///	product p*n &lt;=5, where p = population proportion estimate, and n =
@@ -475,7 +467,6 @@ namespace Numpy
             ///	handed, and 11 who are right handed.<br></br>
             ///	 Then p = 4/15 = 27%. 0.27*15 = 4,
             ///	so the binomial distribution should be used in this case.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -493,6 +484,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if n and p are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(n, p).size samples are drawn.
             /// </param>
             /// <returns>
@@ -507,7 +499,6 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a binomial distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a binomial distribution with specified
             ///	parameters, n trials and p probability of success where
             ///	n an integer &gt;= 0 and p is in the interval [0,1].<br></br>
@@ -521,7 +512,6 @@ namespace Numpy
             ///	where  is the number of trials,  is the probability
             ///	of success, and  is the number of successes.<br></br>
             ///	
-            ///	
             ///	When estimating the standard error of a proportion in a population by
             ///	using a random sample, the normal distribution works well unless the
             ///	product p*n &lt;=5, where p = population proportion estimate, and n =
@@ -531,7 +521,6 @@ namespace Numpy
             ///	handed, and 11 who are right handed.<br></br>
             ///	 Then p = 4/15 = 27%. 0.27*15 = 4,
             ///	so the binomial distribution should be used in this case.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -549,6 +538,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if n and p are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(n, p).size samples are drawn.
             /// </param>
             /// <returns>
@@ -563,13 +553,11 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a chi-square distribution.<br></br>
             ///	
-            ///	
             ///	When df independent random variables, each with standard normal
             ///	distributions (mean 0, variance 1), are squared and summed, the
             ///	resulting distribution is chi-square (see Notes).<br></br>
             ///	  This distribution
             ///	is often used in hypothesis testing.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -607,14 +595,12 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from the Dirichlet distribution.<br></br>
             ///	
-            ///	
             ///	Draw size samples of dimension k from a Dirichlet distribution.<br></br>
             ///	 A
             ///	Dirichlet-distributed random variable can be seen as a multivariate
             ///	generalization of a Beta distribution.<br></br>
             ///	 Dirichlet pdf is the conjugate
             ///	prior of a multinomial in Bayesian inference.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -623,7 +609,6 @@ namespace Numpy
             ///	alpha_i, then
             ///	 is
             ///	Dirichlet distributed.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -649,7 +634,6 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from an exponential distribution.<br></br>
             ///	
-            ///	
             ///	Its probability density function is
             ///	
             ///	for x &gt; 0 and 0 elsewhere.<br></br>
@@ -658,13 +642,11 @@ namespace Numpy
             ///	The rate parameter is an alternative, widely used parameterization
             ///	of the exponential distribution [3].<br></br>
             ///	
-            ///	
             ///	The exponential distribution is a continuous analogue of the
             ///	geometric distribution.<br></br>
             ///	  It describes many common situations, such as
             ///	the size of raindrops measured over many rainstorms [1], or the time
             ///	between page requests to Wikipedia [2].<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -691,18 +673,15 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from an F distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from an F distribution with specified parameters,
             ///	dfnum (degrees of freedom in numerator) and dfden (degrees of
             ///	freedom in denominator), where both parameters should be greater than
             ///	zero.<br></br>
             ///	
-            ///	
             ///	The random variate of the F distribution (also known as the
             ///	Fisher distribution) is a continuous probability distribution
             ///	that arises in ANOVA tests, and is the ratio of two chi-square
             ///	variates.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -715,7 +694,6 @@ namespace Numpy
             ///	between-groups degrees of freedom, while dfden is the within-groups
             ///	degrees of freedom, the sum of the number of samples in each group
             ///	minus the number of groups.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -731,6 +709,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if dfnum and dfden are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(dfnum, dfden).size samples are drawn.
             /// </param>
             /// <returns>
@@ -744,11 +723,9 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Gamma distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a Gamma distribution with specified parameters,
             ///	shape (sometimes designated “k”) and scale (sometimes designated
             ///	“theta”), where both parameters are &gt; 0.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -757,11 +734,9 @@ namespace Numpy
             ///	where  is the shape and  the scale,
             ///	and  is the Gamma function.<br></br>
             ///	
-            ///	
             ///	The Gamma distribution is often used to model the times to failure of
             ///	electronic components, and arises naturally in processes for which the
             ///	waiting times between Poisson distributed events are relevant.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -772,6 +747,7 @@ namespace Numpy
             /// <param name="scale">
             ///	The scale of the gamma distribution.<br></br>
             ///	Should be greater than zero.<br></br>
+            ///	
             ///	Default is equal to 1.
             /// </param>
             /// <param name="size">
@@ -780,6 +756,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if shape and scale are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(shape, scale).size samples are drawn.
             /// </param>
             /// <returns>
@@ -792,7 +769,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Draw samples from the geometric distribution.<br></br>
-            ///	
             ///	
             ///	Bernoulli trials are experiments with one of two outcomes:
             ///	success or failure (an example of such an experiment is flipping
@@ -829,27 +805,24 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Gumbel distribution.<br></br>
             ///	
-            ///	
             ///	Draw samples from a Gumbel distribution with specified location and
             ///	scale.<br></br>
             ///	  For more information on the Gumbel distribution, see
             ///	Notes and References below.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
             ///	The Gumbel (or Smallest Extreme Value (SEV) or the Smallest Extreme
             ///	Value Type I) distribution is one of a class of Generalized Extreme
             ///	Value (GEV) distributions used in modeling extreme value problems.<br></br>
+            ///	
             ///	The Gumbel is a special case of the Extreme Value Type I distribution
             ///	for maximums from distributions with “exponential-like” tails.<br></br>
-            ///	
             ///	
             ///	The probability density for the Gumbel distribution is
             ///	
             ///	where  is the mode, a location parameter, and
             ///	 is the scale parameter.<br></br>
-            ///	
             ///	
             ///	The Gumbel (named for German mathematician Emil Julius Gumbel) was used
             ///	very early in the hydrology literature, for modeling the occurrence of
@@ -863,11 +836,9 @@ namespace Numpy
             ///	 Floods were initially modeled as a Gaussian process, which
             ///	underestimated the frequency of extreme events.<br></br>
             ///	
-            ///	
             ///	It is one of a class of extreme value distributions, the Generalized
             ///	Extreme Value (GEV) distributions, which also includes the Weibull and
             ///	Frechet.<br></br>
-            ///	
             ///	
             ///	The function has a mean of  and a variance
             ///	of .
@@ -888,6 +859,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
@@ -901,12 +873,10 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Hypergeometric distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a hypergeometric distribution with specified
             ///	parameters, ngood (ways to make a good selection), nbad (ways to make
             ///	a bad selection), and nsample = number of items sampled, which is less
             ///	than or equal to the sum ngood + nbad.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -917,13 +887,11 @@ namespace Numpy
             ///	for P(x) the probability of x successes, g = ngood, b = nbad, and
             ///	n = number of samples.<br></br>
             ///	
-            ///	
             ///	Consider an urn with black and white marbles in it, ngood of them
             ///	black and nbad are white.<br></br>
             ///	 If you draw nsample balls without
             ///	replacement, then the hypergeometric distribution describes the
             ///	distribution of black balls in the drawn sample.<br></br>
-            ///	
             ///	
             ///	Note that this distribution is very similar to the binomial
             ///	distribution, except that in this case, samples are drawn without
@@ -931,7 +899,6 @@ namespace Numpy
             ///	replacement (or the sample space is infinite).<br></br>
             ///	 As the sample space
             ///	becomes large, this distribution approaches the binomial.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -970,13 +937,11 @@ namespace Numpy
             ///	Draw samples from the Laplace or double exponential distribution with
             ///	specified location (or mean) and scale (decay).<br></br>
             ///	
-            ///	
             ///	The Laplace distribution is similar to the Gaussian/normal distribution,
             ///	but is sharper at the peak and has fatter tails.<br></br>
             ///	 It represents the
             ///	difference between two independent, identically distributed exponential
             ///	random variables.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -989,7 +954,6 @@ namespace Numpy
             ///	 For many problems in economics and health
             ///	sciences, this distribution seems to model the data better
             ///	than the standard Gaussian distribution.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1007,6 +971,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1020,10 +985,8 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a logistic distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a logistic distribution with specified
             ///	parameters, loc (location or mean, also median), and scale (&gt;0).<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1031,13 +994,11 @@ namespace Numpy
             ///	
             ///	where  = location and  = scale.<br></br>
             ///	
-            ///	
             ///	The Logistic distribution is used in Extreme Value problems where it
             ///	can act as a mixture of Gumbel distributions, in Epidemiology, and by
             ///	the World Chess Federation (FIDE) where it is used in the Elo ranking
             ///	system, assuming the performance of each player is a logistically
             ///	distributed random variable.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1048,6 +1009,7 @@ namespace Numpy
             /// <param name="scale">
             ///	Parameter of the distribution.<br></br>
             ///	Should be greater than zero.<br></br>
+            ///	
             ///	Default is 1.
             /// </param>
             /// <param name="size">
@@ -1056,6 +1018,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1069,13 +1032,11 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a log-normal distribution.<br></br>
             ///	
-            ///	
             ///	Draw samples from a log-normal distribution with specified mean,
             ///	standard deviation, and array shape.<br></br>
             ///	  Note that the mean and standard
             ///	deviation are not the values for the distribution itself, but of the
             ///	underlying normal distribution it is derived from.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1086,12 +1047,12 @@ namespace Numpy
             ///	
             ///	where  is the mean and  is the standard
             ///	deviation of the normally distributed logarithm of the variable.<br></br>
+            ///	
             ///	A log-normal distribution results if a random variable is the product
             ///	of a large number of independent, identically-distributed variables in
             ///	the same way that a normal distribution results if the variable is the
             ///	sum of a large number of independent, identically-distributed
             ///	variables.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1111,6 +1072,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if mean and sigma are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(mean, sigma).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1124,10 +1086,8 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a logarithmic series distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a log series distribution with specified
             ///	shape parameter, 0 &lt; p &lt; 1.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1135,13 +1095,11 @@ namespace Numpy
             ///	
             ///	where p = probability.<br></br>
             ///	
-            ///	
             ///	The log series distribution is frequently used to represent species
             ///	richness and occurrence, first proposed by Fisher, Corbet, and
             ///	Williams in 1943 [2].<br></br>
             ///	  It may also be used to model the numbers of
             ///	occupants seen in cars [3].<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1168,7 +1126,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Draw samples from a multinomial distribution.<br></br>
-            ///	
             ///	
             ///	The multinomial distribution is a multivariate generalisation of the
             ///	binomial distribution.<br></br>
@@ -1204,7 +1161,6 @@ namespace Numpy
             ///	  If not,
             ///	the shape is (N,).<br></br>
             ///	
-            ///	
             ///	In other words, each entry out[i,j,...,:] is an N-dimensional
             ///	value drawn from the distribution.
             /// </returns>
@@ -1216,7 +1172,6 @@ namespace Numpy
             /// <summary>
             ///	Draw random samples from a multivariate normal distribution.<br></br>
             ///	
-            ///	
             ///	The multivariate normal, multinormal or Gaussian distribution is a
             ///	generalization of the one-dimensional normal distribution to higher
             ///	dimensions.<br></br>
@@ -1226,7 +1181,6 @@ namespace Numpy
             ///	(average or “center”) and variance (standard deviation, or “width,”
             ///	squared) of the one-dimensional normal distribution.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	The mean is a coordinate in N-dimensional space, which represents the
@@ -1235,15 +1189,14 @@ namespace Numpy
             ///	analogous to the peak of the bell curve for the one-dimensional or
             ///	univariate normal distribution.<br></br>
             ///	
-            ///	
             ///	Covariance indicates the level to which two variables vary together.<br></br>
+            ///	
             ///	From the multivariate normal distribution, we draw N-dimensional
             ///	samples, .  The covariance matrix
             ///	element  is the covariance of  and .
             ///	The element  is the variance of  (i.e.<br></br>
             ///	 its
             ///	“spread”).<br></br>
-            ///	
             ///	
             ///	Instead of specifying the full covariance matrix, popular
             ///	approximations include:
@@ -1254,10 +1207,10 @@ namespace Numpy
             ///	Diagonal covariance means that points are oriented along x or y-axis:
             ///	
             ///	Note that the covariance matrix must be positive semidefinite (a.k.a.<br></br>
+            ///	
             ///	nonnegative-definite).<br></br>
             ///	 Otherwise, the behavior of this method is
             ///	undefined and backwards compatibility is not guaranteed.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1274,6 +1227,7 @@ namespace Numpy
             ///	generated, and packed in an m-by-n-by-k arrangement.<br></br>
             ///	Because
             ///	each sample is N-dimensional, the output shape is (m,n,k,N).<br></br>
+            ///	
             ///	If no shape is specified, a single (N-D) sample is returned.
             /// </param>
             /// <param name="check_valid">
@@ -1287,7 +1241,6 @@ namespace Numpy
             ///	  If not,
             ///	the shape is (N,).<br></br>
             ///	
-            ///	
             ///	In other words, each entry out[i,j,...,:] is an N-dimensional
             ///	value drawn from the distribution.
             /// </returns>
@@ -1299,11 +1252,9 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a negative binomial distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a negative binomial distribution with specified
             ///	parameters, n successes and p probability of success where n is an
             ///	integer &gt; 0 and p is in the interval [0, 1].<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1311,14 +1262,13 @@ namespace Numpy
             ///	
             ///	where  is the number of successes,  is the
             ///	probability of success, and  is the number of trials.<br></br>
+            ///	
             ///	The negative binomial distribution gives the probability of N
             ///	failures given n successes, with a success on the last trial.<br></br>
-            ///	
             ///	
             ///	If one throws a die repeatedly until the third time a “1” appears,
             ///	then the probability distribution of the number of non-“1”s that
             ///	appear before the third “1” is a negative binomial distribution.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1336,6 +1286,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if n and p are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(n, p).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1351,10 +1302,8 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a noncentral chi-square distribution.<br></br>
             ///	
-            ///	
             ///	The noncentral  distribution is a generalisation of
             ///	the  distribution.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1363,12 +1312,10 @@ namespace Numpy
             ///	
             ///	where  is the Chi-square with q degrees of freedom.<br></br>
             ///	
-            ///	
             ///	In Delhi (2007), it is noted that the noncentral chi-square is
             ///	useful in bombing and coverage problems, the probability of
             ///	killing the point target given by the noncentral chi-squared
             ///	distribution.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1384,6 +1331,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if df and nonc are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(df, nonc).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1397,12 +1345,11 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from the noncentral F distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from an F distribution with specified parameters,
             ///	dfnum (degrees of freedom in numerator) and dfden (degrees of
             ///	freedom in denominator), where both parameters &gt; 1.<br></br>
-            ///	nonc is the non-centrality parameter.<br></br>
             ///	
+            ///	nonc is the non-centrality parameter.<br></br>
             ///	
             ///	Notes
             ///	
@@ -1413,7 +1360,6 @@ namespace Numpy
             ///	true, the F statistic follows a central F distribution.<br></br>
             ///	 When the null
             ///	hypothesis is not true, then it follows a non-central F statistic.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1448,19 +1394,16 @@ namespace Numpy
             /// <summary>
             ///	Draw random samples from a normal (Gaussian) distribution.<br></br>
             ///	
-            ///	
             ///	The probability density function of the normal distribution, first
             ///	derived by De Moivre and 200 years later by both Gauss and Laplace
             ///	independently [2], is often called the bell curve because of
             ///	its characteristic shape (see the example below).<br></br>
-            ///	
             ///	
             ///	The normal distributions occurs often in nature.<br></br>
             ///	  For example, it
             ///	describes the commonly occurring distribution of samples influenced
             ///	by a large number of tiny, random disturbances, each with its own
             ///	unique distribution [2].<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1471,14 +1414,12 @@ namespace Numpy
             ///	 The square of the standard deviation, ,
             ///	is called the variance.<br></br>
             ///	
-            ///	
             ///	The function has its peak at the mean, and its “spread” increases with
             ///	the standard deviation (the function reaches 0.607 times its maximum at
             ///	 and  [2]).<br></br>
             ///	  This implies that
             ///	numpy.random.normal is more likely to return samples lying close to
             ///	the mean, rather than those far away.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1494,6 +1435,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if loc and scale are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(loc, scale).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1507,7 +1449,6 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Pareto II or Lomax distribution with
             ///	specified shape.<br></br>
-            ///	
             ///	
             ///	The Lomax or Pareto II distribution is a shifted Pareto
             ///	distribution.<br></br>
@@ -1523,7 +1464,6 @@ namespace Numpy
             ///	Pareto distribution (available in SciPy), with the scale set
             ///	to one and the location set to zero.<br></br>
             ///	
-            ///	
             ///	The Pareto distribution must be greater than zero, and is
             ///	unbounded above.<br></br>
             ///	  It is also known as the “80-20 rule”.  In
@@ -1531,13 +1471,11 @@ namespace Numpy
             ///	20 percent of the range, while the other 20 percent fill the
             ///	remaining 80 percent of the range.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	The probability density for the Pareto distribution is
             ///	
             ///	where  is the shape and  the scale.<br></br>
-            ///	
             ///	
             ///	The Pareto distribution, named after the Italian economist
             ///	Vilfredo Pareto, is a power law probability distribution
@@ -1553,7 +1491,6 @@ namespace Numpy
             ///	projects in Sourceforge [1].<br></br>
             ///	  It is one of the so-called
             ///	“fat-tailed” distributions.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1581,10 +1518,8 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Poisson distribution.<br></br>
             ///	
-            ///	
             ///	The Poisson distribution is the limit of the binomial distribution
             ///	for large N.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1598,7 +1533,6 @@ namespace Numpy
             ///	Because the output is limited to the range of the C long type, a
             ///	ValueError is raised when lam is within 10 sigma of the maximum
             ///	representable value.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1628,9 +1562,7 @@ namespace Numpy
             ///	Draws samples in [0, 1] from a power distribution with positive
             ///	exponent a - 1.<br></br>
             ///	
-            ///	
             ///	Also known as the power function distribution.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1641,10 +1573,8 @@ namespace Numpy
             ///	 It may also be seen as a special case of the Beta
             ///	distribution.<br></br>
             ///	
-            ///	
             ///	It is used, for example, in modeling the over-reporting of insurance
             ///	claims.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1672,10 +1602,8 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Rayleigh distribution.<br></br>
             ///	
-            ///	
             ///	The  and Weibull distributions are generalizations of the
             ///	Rayleigh.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1686,7 +1614,6 @@ namespace Numpy
             ///	Gaussian distributions.<br></br>
             ///	  Then the wind speed would have a Rayleigh
             ///	distribution.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1715,9 +1642,7 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a standard Cauchy distribution with mode = 0.<br></br>
             ///	
-            ///	
             ///	Also known as the Lorentz distribution.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1725,19 +1650,16 @@ namespace Numpy
             ///	
             ///	and the Standard Cauchy distribution just sets  and
             ///	
-            ///	
             ///	The Cauchy distribution arises in the solution to the driven harmonic
             ///	oscillator problem, and also describes spectral line broadening.<br></br>
             ///	 It
             ///	also describes the distribution of values at which a line tilted at
             ///	a random angle will cut the x axis.<br></br>
             ///	
-            ///	
             ///	When studying hypothesis tests that assume normality, seeing how the
             ///	tests perform on data from a Cauchy distribution is a good indicator of
             ///	their sensitivity to a heavy-tailed distribution, since the Cauchy looks
             ///	very much like a Gaussian distribution, but with heavier tails.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1758,7 +1680,6 @@ namespace Numpy
         public static partial class random {
             /// <summary>
             ///	Draw samples from the standard exponential distribution.<br></br>
-            ///	
             ///	
             ///	standard_exponential is identical to the exponential distribution
             ///	with a scale parameter of 1.
@@ -1781,7 +1702,6 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a standard Gamma distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a Gamma distribution with specified parameters,
             ///	shape (sometimes designated “k”) and scale=1.
             ///	
@@ -1792,11 +1712,9 @@ namespace Numpy
             ///	where  is the shape and  the scale,
             ///	and  is the Gamma function.<br></br>
             ///	
-            ///	
             ///	The Gamma distribution is often used to model the times to failure of
             ///	electronic components, and arises naturally in processes for which the
             ///	waiting times between Poisson distributed events are relevant.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1842,12 +1760,10 @@ namespace Numpy
             ///	Draw samples from a standard Student’s t distribution with df degrees
             ///	of freedom.<br></br>
             ///	
-            ///	
             ///	A special case of the hyperbolic distribution.<br></br>
             ///	  As df gets
             ///	large, the result resembles that of the standard normal
             ///	distribution (standard_normal).<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1859,13 +1775,11 @@ namespace Numpy
             ///	the sample mean (that is the mean calculated from the data) is
             ///	a good estimate of the true mean.<br></br>
             ///	
-            ///	
             ///	The derivation of the t-distribution was first published in
             ///	1908 by William Gosset while working for the Guinness Brewery
             ///	in Dublin.<br></br>
             ///	 Due to proprietary issues, he had to publish under
             ///	a pseudonym, and so he used the name Student.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -1893,13 +1807,11 @@ namespace Numpy
             ///	Draw samples from the triangular distribution over the
             ///	interval [left, right].<br></br>
             ///	
-            ///	
             ///	The triangular distribution is a continuous probability
             ///	distribution with lower limit left, peak at mode, and upper
             ///	limit right.<br></br>
             ///	 Unlike the other distributions, these parameters
             ///	directly define the shape of the pdf.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1911,7 +1823,6 @@ namespace Numpy
             ///	 Often it is used
             ///	in simulations.<br></br>
             ///	
-            ///	
             ///	References
             /// </summary>
             /// <param name="left">
@@ -1919,6 +1830,7 @@ namespace Numpy
             /// </param>
             /// <param name="mode">
             ///	The value where the peak of the distribution occurs.<br></br>
+            ///	
             ///	The value should fulfill the condition left &lt;= mode &lt;= right.
             /// </param>
             /// <param name="right">
@@ -1945,13 +1857,11 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a uniform distribution.<br></br>
             ///	
-            ///	
             ///	Samples are uniformly distributed over the half-open interval
             ///	[low, high) (includes low, but excludes high).<br></br>
             ///	  In other words,
             ///	any value within the given interval is equally likely to be drawn
             ///	by uniform.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -1959,8 +1869,8 @@ namespace Numpy
             ///	
             ///	anywhere within the interval [a, b), and zero elsewhere.<br></br>
             ///	
-            ///	
             ///	When high == low, values of low will be returned.<br></br>
+            ///	
             ///	If high &lt; low, the results are officially undefined
             ///	and may eventually raise an error, i.e.<br></br>
             ///	 do not rely on this
@@ -1985,6 +1895,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if low and high are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(low, high).size samples are drawn.
             /// </param>
             /// <returns>
@@ -1998,17 +1909,14 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a von Mises distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a von Mises distribution with specified mode
             ///	(mu) and dispersion (kappa), on the interval [-pi, pi].<br></br>
-            ///	
             ///	
             ///	The von Mises distribution (also known as the circular normal
             ///	distribution) is a continuous probability distribution on the unit
             ///	circle.<br></br>
             ///	  It may be thought of as the circular analogue of the normal
             ///	distribution.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -2017,7 +1925,6 @@ namespace Numpy
             ///	where  is the mode and  the dispersion,
             ///	and  is the modified Bessel function of order 0.<br></br>
             ///	
-            ///	
             ///	The von Mises is named for Richard Edler von Mises, who was born in
             ///	Austria-Hungary, in what is now the Ukraine.<br></br>
             ///	  He fled to the United
@@ -2025,7 +1932,6 @@ namespace Numpy
             ///	  He worked in
             ///	probability theory, aerodynamics, fluid mechanics, and philosophy of
             ///	science.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -2041,6 +1947,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if mu and kappa are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(mu, kappa).size samples are drawn.
             /// </param>
             /// <returns>
@@ -2054,12 +1961,10 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Wald, or inverse Gaussian, distribution.<br></br>
             ///	
-            ///	
             ///	As the scale approaches infinity, the distribution becomes more like a
             ///	Gaussian.<br></br>
             ///	 Some references claim that the Wald is an inverse Gaussian
             ///	with mean equal to 1, but this is by no means universal.<br></br>
-            ///	
             ///	
             ///	The inverse Gaussian distribution was first studied in relationship to
             ///	Brownian motion.<br></br>
@@ -2067,7 +1972,6 @@ namespace Numpy
             ///	 Tweedie used the name inverse Gaussian
             ///	because there is an inverse relationship between the time to cover a
             ///	unit distance and distance covered in unit time.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -2078,7 +1982,6 @@ namespace Numpy
             ///	 It is also a
             ///	competitor to the Weibull for use in reliability modeling and
             ///	modeling stock returns and interest rate processes.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -2094,6 +1997,7 @@ namespace Numpy
             ///	m * n * k samples are drawn.<br></br>
             ///	If size is None (default),
             ///	a single value is returned if mean and scale are both scalars.<br></br>
+            ///	
             ///	Otherwise, np.broadcast(mean, scale).size samples are drawn.
             /// </param>
             /// <returns>
@@ -2107,13 +2011,10 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Weibull distribution.<br></br>
             ///	
-            ///	
             ///	Draw samples from a 1-parameter Weibull distribution with the given
             ///	shape parameter a.<br></br>
             ///	
-            ///	
             ///	Here, U is drawn from the uniform distribution over (0,1].<br></br>
-            ///	
             ///	
             ///	The more common 2-parameter Weibull, including a scale parameter
             ///	 is just .
@@ -2124,20 +2025,18 @@ namespace Numpy
             ///	for smallest values, SEV Type III, or Rosin-Rammler
             ///	distribution) is one of a class of Generalized Extreme Value
             ///	(GEV) distributions used in modeling extreme value problems.<br></br>
-            ///	This class includes the Gumbel and Frechet distributions.<br></br>
             ///	
+            ///	This class includes the Gumbel and Frechet distributions.<br></br>
             ///	
             ///	The probability density for the Weibull distribution is
             ///	
             ///	where  is the shape and  the scale.<br></br>
-            ///	
             ///	
             ///	The function has its peak (the mode) at
             ///	.
             ///	
             ///	When a = 1, the Weibull distribution reduces to the exponential
             ///	distribution.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -2165,16 +2064,13 @@ namespace Numpy
             /// <summary>
             ///	Draw samples from a Zipf distribution.<br></br>
             ///	
-            ///	
             ///	Samples are drawn from a Zipf distribution with specified parameter
             ///	a &gt; 1.<br></br>
-            ///	
             ///	
             ///	The Zipf distribution (also known as the zeta distribution) is a
             ///	continuous probability distribution that satisfies Zipf’s law: the
             ///	frequency of an item is inversely proportional to its rank in a
             ///	frequency table.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -2182,11 +2078,9 @@ namespace Numpy
             ///	
             ///	where  is the Riemann Zeta function.<br></br>
             ///	
-            ///	
             ///	It is named for the American linguist George Kingsley Zipf, who noted
             ///	that the frequency of any word in a sample of a language is inversely
             ///	proportional to its rank in the frequency table.<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>
@@ -2214,7 +2108,6 @@ namespace Numpy
             /// <summary>
             ///	Container for the Mersenne Twister pseudo-random number generator.<br></br>
             ///	
-            ///	
             ///	RandomState exposes a number of methods for generating random numbers
             ///	drawn from a variety of probability distributions.<br></br>
             ///	 In addition to the
@@ -2227,7 +2120,6 @@ namespace Numpy
             ///	 If size is a tuple,
             ///	then an array with that shape is filled and returned.<br></br>
             ///	
-            ///	
             ///	Compatibility Guarantee
             ///	A fixed seed and a fixed series of calls to ‘RandomState’ methods using
             ///	the same parameters will always produce the same results up to roundoff
@@ -2239,7 +2131,6 @@ namespace Numpy
             ///	addition of new parameters is allowed as long the previous behavior
             ///	remains unchanged.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	The Python stdlib module “random” also contains a Mersenne Twister
@@ -2248,7 +2139,6 @@ namespace Numpy
             ///	 RandomState, besides being
             ///	NumPy-aware, has the advantage that it provides a much larger number
             ///	of probability distributions to choose from.<br></br>
-            ///	
             ///	
             ///	Methods
             /// </summary>
@@ -2270,7 +2160,6 @@ namespace Numpy
             /// <summary>
             ///	Container for the Mersenne Twister pseudo-random number generator.<br></br>
             ///	
-            ///	
             ///	RandomState exposes a number of methods for generating random numbers
             ///	drawn from a variety of probability distributions.<br></br>
             ///	 In addition to the
@@ -2283,7 +2172,6 @@ namespace Numpy
             ///	 If size is a tuple,
             ///	then an array with that shape is filled and returned.<br></br>
             ///	
-            ///	
             ///	Compatibility Guarantee
             ///	A fixed seed and a fixed series of calls to ‘RandomState’ methods using
             ///	the same parameters will always produce the same results up to roundoff
@@ -2295,7 +2183,6 @@ namespace Numpy
             ///	addition of new parameters is allowed as long the previous behavior
             ///	remains unchanged.<br></br>
             ///	
-            ///	
             ///	Notes
             ///	
             ///	The Python stdlib module “random” also contains a Mersenne Twister
@@ -2304,7 +2191,6 @@ namespace Numpy
             ///	 RandomState, besides being
             ///	NumPy-aware, has the advantage that it provides a much larger number
             ///	of probability distributions to choose from.<br></br>
-            ///	
             ///	
             ///	Methods
             /// </summary>
@@ -2326,7 +2212,6 @@ namespace Numpy
             /// <summary>
             ///	Seed the generator.<br></br>
             ///	
-            ///	
             ///	This method is called when RandomState is initialized.<br></br>
             ///	 It can be
             ///	called again to re-seed the generator.<br></br>
@@ -2334,6 +2219,7 @@ namespace Numpy
             /// </summary>
             /// <param name="seed">
             ///	Seed for RandomState.<br></br>
+            ///	
             ///	Must be convertible to 32 bit unsigned integers.
             /// </param>
             public static void seed(int? seed = null)
@@ -2344,7 +2230,6 @@ namespace Numpy
             /// <summary>
             ///	Seed the generator.<br></br>
             ///	
-            ///	
             ///	This method is called when RandomState is initialized.<br></br>
             ///	 It can be
             ///	called again to re-seed the generator.<br></br>
@@ -2352,6 +2237,7 @@ namespace Numpy
             /// </summary>
             /// <param name="seed">
             ///	Seed for RandomState.<br></br>
+            ///	
             ///	Must be convertible to 32 bit unsigned integers.
             /// </param>
             public static void seed(NDarray seed = null)
@@ -2363,9 +2249,7 @@ namespace Numpy
             /// <summary>
             ///	Return a tuple representing the internal state of the generator.<br></br>
             ///	
-            ///	
             ///	For more details, see set_state.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -2390,10 +2274,8 @@ namespace Numpy
             /// <summary>
             ///	Set the internal state of the generator from a tuple.<br></br>
             ///	
-            ///	
             ///	For use if one has reason to manually (re-)set the internal state of the
             ///	“Mersenne Twister”[1] pseudo-random number generating algorithm.<br></br>
-            ///	
             ///	
             ///	Notes
             ///	
@@ -2402,11 +2284,9 @@ namespace Numpy
             ///	 If the internal state is manually altered,
             ///	the user should know exactly what he/she is doing.<br></br>
             ///	
-            ///	
             ///	For backwards compatibility, the form (str, array of 624 uints, int) is
             ///	also accepted although it is missing some information about the cached
             ///	Gaussian value: state = ('MT19937', keys, pos).<br></br>
-            ///	
             ///	
             ///	References
             /// </summary>

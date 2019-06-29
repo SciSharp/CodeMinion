@@ -20,13 +20,11 @@ namespace Numpy
         /// <summary>
         ///	Return the Bartlett window.<br></br>
         ///	
-        ///	
         ///	The Bartlett window is very similar to a triangular window, except
         ///	that the end points are at zero.<br></br>
         ///	  It is often used in signal
         ///	processing for tapering a signal, without generating too much
         ///	ripple in the frequency domain.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -44,8 +42,8 @@ namespace Numpy
         ///	tapering function.<br></br>
         ///	 The fourier transform of the Bartlett is the product
         ///	of two sinc functions.<br></br>
-        ///	Note the excellent discussion in Kanasewich.<br></br>
         ///	
+        ///	Note the excellent discussion in Kanasewich.<br></br>
         ///	
         ///	References
         /// </summary>
@@ -75,14 +73,12 @@ namespace Numpy
         /// <summary>
         ///	Return the Blackman window.<br></br>
         ///	
-        ///	
         ///	The Blackman window is a taper formed by using the first three
         ///	terms of a summation of cosines.<br></br>
         ///	 It was designed to have close to the
         ///	minimal leakage possible.<br></br>
         ///	  It is close to optimal, only slightly worse
         ///	than a Kaiser window.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -99,17 +95,16 @@ namespace Numpy
         ///	“near optimal” tapering function, almost as good (by some measures)
         ///	as the kaiser window.<br></br>
         ///	
-        ///	
         ///	References
         ///	
         ///	Blackman, R.B.<br></br>
         ///	 and Tukey, J.W., (1958) The measurement of power spectra,
         ///	Dover Publications, New York.<br></br>
         ///	
-        ///	
         ///	Oppenheim, A.V., and R.W.<br></br>
         ///	 Schafer.<br></br>
         ///	 Discrete-Time Signal Processing.<br></br>
+        ///	
         ///	Upper Saddle River, NJ: Prentice-Hall, 1999, pp.<br></br>
         ///	 468-471.
         /// </summary>
@@ -138,9 +133,7 @@ namespace Numpy
         /// <summary>
         ///	Return the Hamming window.<br></br>
         ///	
-        ///	
         ///	The Hamming window is a taper formed by using a weighted cosine.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -154,6 +147,7 @@ namespace Numpy
         ///	and is described in Blackman and Tukey.<br></br>
         ///	 It was recommended for
         ///	smoothing the truncated autocovariance function in the time domain.<br></br>
+        ///	
         ///	Most references to the Hamming window come from the signal processing
         ///	literature, where it is used as one of many windowing functions for
         ///	smoothing values.<br></br>
@@ -161,7 +155,6 @@ namespace Numpy
         ///	“removing the foot”, i.e.<br></br>
         ///	 smoothing discontinuities at the beginning
         ///	and end of the sampled signal) or tapering function.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -190,20 +183,18 @@ namespace Numpy
         /// <summary>
         ///	Return the Hanning window.<br></br>
         ///	
-        ///	
         ///	The Hanning window is a taper formed by using a weighted cosine.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	The Hanning window is defined as
         ///	
         ///	The Hanning was named for Julius von Hann, an Austrian meteorologist.<br></br>
+        ///	
         ///	It is also known as the Cosine Bell.<br></br>
         ///	 Some authors prefer that it be
         ///	called a Hann window, to help avoid confusion with the very similar
         ///	Hamming window.<br></br>
-        ///	
         ///	
         ///	Most references to the Hanning window come from the signal processing
         ///	literature, where it is used as one of many windowing functions for
@@ -212,7 +203,6 @@ namespace Numpy
         ///	“removing the foot”, i.e.<br></br>
         ///	 smoothing discontinuities at the beginning
         ///	and end of the sampled signal) or tapering function.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -241,9 +231,7 @@ namespace Numpy
         /// <summary>
         ///	Return the Kaiser window.<br></br>
         ///	
-        ///	
         ///	The Kaiser window is a taper formed by using a Bessel function.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -253,7 +241,6 @@ namespace Numpy
         ///	
         ///	where  is the modified zeroth-order Bessel function.<br></br>
         ///	
-        ///	
         ///	The Kaiser was named for Jim Kaiser, who discovered a simple
         ///	approximation to the DPSS window based on Bessel functions.<br></br>
         ///	  The Kaiser
@@ -261,17 +248,14 @@ namespace Numpy
         ///	Sequence, or Slepian window, which is the transform which maximizes the
         ///	energy in the main lobe of the window relative to total energy.<br></br>
         ///	
-        ///	
         ///	The Kaiser can approximate many other windows by varying the beta
         ///	parameter.<br></br>
-        ///	
         ///	
         ///	A beta value of 14 is probably a good starting point.<br></br>
         ///	 Note that as beta
         ///	gets large, the window narrows, and so the number of samples needs to be
         ///	large enough to sample the increasingly narrow spike, otherwise NaNs will
         ///	get returned.<br></br>
-        ///	
         ///	
         ///	Most references to the Kaiser window come from the signal processing
         ///	literature, where it is used as one of many windowing functions for
@@ -280,7 +264,6 @@ namespace Numpy
         ///	“removing the foot”, i.e.<br></br>
         ///	 smoothing discontinuities at the beginning
         ///	and end of the sampled signal) or tapering function.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>

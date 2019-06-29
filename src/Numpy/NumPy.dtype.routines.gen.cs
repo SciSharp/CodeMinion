@@ -24,7 +24,6 @@ namespace Numpy
         ///	True if the scalar value can be cast without overflow or truncation
         ///	to an integer.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Starting in NumPy 1.9, can_cast function now returns False in ‘safe’
@@ -64,11 +63,10 @@ namespace Numpy
         /// <summary>
         ///	Returns the data type with the smallest size and smallest scalar
         ///	kind to which both type1 and type2 may be safely cast.<br></br>
+        ///	
         ///	The returned data type is always in native byte order.<br></br>
         ///	
-        ///	
         ///	This function is symmetric, but rarely associative.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -108,10 +106,8 @@ namespace Numpy
         ///	  For non-scalar
         ///	array a, returns the vector’s dtype unmodified.<br></br>
         ///	
-        ///	
         ///	Floating point values are not demoted to integers,
         ///	and complex values are not demoted to floats.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -139,43 +135,37 @@ namespace Numpy
         ///	Returns the type that results from applying the NumPy
         ///	type promotion rules to the arguments.<br></br>
         ///	
-        ///	
         ///	Type promotion in NumPy works similarly to the rules in languages
         ///	like C++, with some slight differences.<br></br>
         ///	  When both scalars and
         ///	arrays are used, the array’s type takes precedence and the actual value
         ///	of the scalar is taken into account.<br></br>
         ///	
-        ///	
         ///	For example, calculating 3*a, where a is an array of 32-bit floats,
         ///	intuitively should result in a 32-bit float output.<br></br>
         ///	  If the 3 is a
         ///	32-bit integer, the NumPy rules indicate it can’t convert losslessly
         ///	into a 32-bit float, so a 64-bit float should be the result type.<br></br>
+        ///	
         ///	By examining the value of the constant, ‘3’, we see that it fits in
         ///	an 8-bit integer, which can be cast losslessly into the 32-bit float.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	The specific algorithm used is as follows.<br></br>
         ///	
-        ///	
         ///	Categories are determined by first checking which of boolean,
         ///	integer (int/uint), or floating point (float/complex) the maximum
         ///	kind of all the arrays and the scalars are.<br></br>
-        ///	
         ///	
         ///	If there are only scalars or the maximum category of the scalars
         ///	is higher than the maximum category of the arrays,
         ///	the data types are combined with promote_types
         ///	to produce the return value.<br></br>
         ///	
-        ///	
         ///	Otherwise, min_scalar_type is called on each array, and
         ///	the resulting data types are all combined with promote_types
         ///	to produce the return value.<br></br>
-        ///	
         ///	
         ///	The set of int values is not a subset of the uint values for types
         ///	with the same number of bits, something not reflected in
@@ -204,14 +194,12 @@ namespace Numpy
         /// <summary>
         ///	Return a scalar type which is common to the input arrays.<br></br>
         ///	
-        ///	
         ///	The return type will always be an inexact (i.e.<br></br>
         ///	 floating point) scalar
         ///	type, even if all the arrays are integer arrays.<br></br>
         ///	 If one of the inputs is
         ///	an integer array, the minimum precision type that is returned is a
         ///	64-bit floating point dtype.<br></br>
-        ///	
         ///	
         ///	All input arrays except int64 and uint64 can be safely cast to the
         ///	returned dtype without loss of information.
@@ -270,7 +258,6 @@ namespace Numpy
         /// <summary>
         ///	Create a data type object.<br></br>
         ///	
-        ///	
         ///	A numpy array is homogeneous, and contains elements described by a
         ///	dtype object.<br></br>
         ///	 A dtype object can be constructed from different
@@ -305,7 +292,6 @@ namespace Numpy
         /// <summary>
         ///	Class to convert formats, names, titles description to a dtype.<br></br>
         ///	
-        ///	
         ///	After constructing the format_parser object, the dtype attribute is
         ///	the converted data-type:
         ///	dtype = format_parser(formats, names, titles).dtype
@@ -320,6 +306,7 @@ namespace Numpy
         ///	The field names, either specified as a comma-separated string in the
         ///	form 'col1, col2, col3', or as a list or tuple of strings in the
         ///	form ['col1', 'col2', 'col3'].<br></br>
+        ///	
         ///	An empty list can be used, in that case default field names
         ///	(‘f0’, ‘f1’, …) are used.
         /// </param>
@@ -330,6 +317,7 @@ namespace Numpy
         /// </param>
         /// <param name="aligned">
         ///	If True, align the fields by padding as the C-compiler would.<br></br>
+        ///	
         ///	Default is False.
         /// </param>
         /// <param name="byteorder">
@@ -358,10 +346,10 @@ namespace Numpy
         /// <summary>
         ///	Machine limits for floating point types.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	For developers of NumPy: do not instantiate this at the module level.<br></br>
+        ///	
         ///	The initial calculation of these parameters is expensive and negatively
         ///	impacts import times.<br></br>
         ///	  These objects are cached, so calling finfo()
@@ -403,7 +391,6 @@ namespace Numpy
         /// <summary>
         ///	Diagnosing machine parameters.<br></br>
         ///	
-        ///	
         ///	References
         /// </summary>
         /// <param name="float_conv">
@@ -419,6 +406,7 @@ namespace Numpy
         /// <param name="float_to_float">
         ///	Function that converts a float array to float.<br></br>
         ///	Default is float.<br></br>
+        ///	
         ///	Note that this does not seem to do anything useful in the current
         ///	implementation.
         /// </param>
@@ -522,7 +510,6 @@ namespace Numpy
         /*
         /// <summary>
         ///	Determine if a class is a subclass of a second class.<br></br>
-        ///	
         ///	
         ///	issubclass_ is equivalent to the Python built-in issubclass,
         ///	except that it returns False instead of raising a TypeError if one
@@ -638,7 +625,6 @@ namespace Numpy
         ///	Return the character for the minimum-size type to which given types can
         ///	be safely cast.<br></br>
         ///	
-        ///	
         ///	The returned type character must represent the smallest size dtype such
         ///	that an array of the returned type can handle the data from an array of
         ///	all types in typechars (or if typechars is an array, then its
@@ -646,10 +632,12 @@ namespace Numpy
         /// </summary>
         /// <param name="typechars">
         ///	If a list of strings, each string should represent a dtype.<br></br>
+        ///	
         ///	If array_like, the character representation of the array dtype is used.
         /// </param>
         /// <param name="typeset">
         ///	The set of characters that the returned character is chosen from.<br></br>
+        ///	
         ///	The default set is ‘GDFgdf’.
         /// </param>
         /// <param name="default">

@@ -19,7 +19,6 @@ namespace Numpy
         /// <summary>
         ///	Load arrays or pickled objects from .npy, .npz or pickled files.<br></br>
         ///	
-        ///	
         ///	Notes
         /// </summary>
         /// <param name="file">
@@ -47,6 +46,7 @@ namespace Numpy
         ///	execute arbitrary code.<br></br>
         ///	If pickles are disallowed, loading object
         ///	arrays will fail.<br></br>
+        ///	
         ///	Default: True
         /// </param>
         /// <param name="fix_imports">
@@ -91,7 +91,6 @@ namespace Numpy
         /// <summary>
         ///	Save an array to a binary file in NumPy .npy format.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	For a description of the .npy format, see numpy.lib.format.
@@ -115,6 +114,7 @@ namespace Numpy
         ///	Python installations, for example if the stored objects require libraries
         ///	that are not available, and not all pickled data is compatible between
         ///	Python 2 and Python 3).<br></br>
+        ///	
         ///	Default: True
         /// </param>
         /// <param name="fix_imports">
@@ -142,13 +142,11 @@ namespace Numpy
         /// <summary>
         ///	Save several arrays into a single file in uncompressed .npz format.<br></br>
         ///	
-        ///	
         ///	If arguments are passed in with no keywords, the corresponding variable
         ///	names, in the .npz file, are ‘arr_0’, ‘arr_1’, etc.<br></br>
         ///	 If keyword
         ///	arguments are given, the corresponding variable names, in the .npz
         ///	file will match the keyword names.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -158,7 +156,6 @@ namespace Numpy
         ///	in the archive contains one variable in .npy format.<br></br>
         ///	 For a
         ///	description of the .npy format, see numpy.lib.format.<br></br>
-        ///	
         ///	
         ///	When opening the saved .npz file with load a NpzFile object is
         ///	returned.<br></br>
@@ -203,11 +200,10 @@ namespace Numpy
         /// <summary>
         ///	Save several arrays into a single file in compressed .npz format.<br></br>
         ///	
-        ///	
         ///	If keyword arguments are given, then filenames are taken from the keywords.<br></br>
+        ///	
         ///	If arguments are passed in with no keywords, then stored file names are
         ///	arr_0, arr_1, etc.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -218,7 +214,6 @@ namespace Numpy
         ///	in .npy format.<br></br>
         ///	 For a description of the .npy format, see 
         ///	numpy.lib.format.<br></br>
-        ///	
         ///	
         ///	When opening the saved .npz file with load a NpzFile object is
         ///	returned.<br></br>
@@ -263,7 +258,6 @@ namespace Numpy
         /// <summary>
         ///	Save an array to a text file.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Further explanation of the fmt parameter
@@ -271,7 +265,6 @@ namespace Numpy
         ///	
         ///	This explanation of fmt is not complete, for an exhaustive
         ///	specification see [1].<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -308,6 +301,7 @@ namespace Numpy
         ///	String that will be prepended to the header and footer strings,
         ///	to mark them as comments.<br></br>
         ///	Default: ‘# ‘,  as expected by e.g.<br></br>
+        ///	
         ///	numpy.loadtxt.
         /// </param>
         /// <param name="encoding">
@@ -342,10 +336,8 @@ namespace Numpy
         /// <summary>
         ///	Load data from a text file, with missing values handled as specified.<br></br>
         ///	
-        ///	
         ///	Each line past the first skip_header lines is split at the delimiter
         ///	character, and characters following the comments character are discarded.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -362,11 +354,13 @@ namespace Numpy
         /// </param>
         /// <param name="dtype">
         ///	Data type of the resulting array.<br></br>
+        ///	
         ///	If None, the dtypes will be determined by the contents of each
         ///	column, individually.
         /// </param>
         /// <param name="comments">
         ///	The character used to indicate the start of a comment.<br></br>
+        ///	
         ///	All the characters occurring on a line after a comment are discarded
         /// </param>
         /// <param name="delimiter">
@@ -387,6 +381,7 @@ namespace Numpy
         /// </param>
         /// <param name="converters">
         ///	The set of functions that convert the data of a column to a value.<br></br>
+        ///	
         ///	The converters can also be used to provide a default value
         ///	for missing data: converters = {3: lambda s: float(s or 0)}.
         /// </param>
@@ -440,7 +435,9 @@ namespace Numpy
         /// </param>
         /// <param name="case_sensitive">
         ///	If True, field names are case sensitive.<br></br>
+        ///	
         ///	If False or ‘upper’, field names are converted to upper case.<br></br>
+        ///	
         ///	If ‘lower’, field names are converted to lower case.
         /// </param>
         /// <param name="unpack">
@@ -449,6 +446,7 @@ namespace Numpy
         /// </param>
         /// <param name="usemask">
         ///	If True, return a masked array.<br></br>
+        ///	
         ///	If False, return a regular array.
         /// </param>
         /// <param name="loose">
@@ -457,6 +455,7 @@ namespace Numpy
         /// <param name="invalid_raise">
         ///	If True, an exception is raised if an inconsistency is detected in the
         ///	number of columns.<br></br>
+        ///	
         ///	If False, a warning is emitted and the offending lines are skipped.
         /// </param>
         /// <param name="max_rows">
@@ -526,12 +525,10 @@ namespace Numpy
         /// <summary>
         ///	Construct an array from a text file, using regular expression parsing.<br></br>
         ///	
-        ///	
         ///	The returned array is always a structured array, and is constructed from
         ///	all matches of the regular expression in the file.<br></br>
         ///	 Groups in the regular
         ///	expression are converted to fields of the structured array.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -545,6 +542,7 @@ namespace Numpy
         /// </param>
         /// <param name="regexp">
         ///	Regular expression used to parse the file.<br></br>
+        ///	
         ///	Groups in the regular expression correspond to fields in the dtype.
         /// </param>
         /// <param name="dtype">
@@ -578,22 +576,21 @@ namespace Numpy
         /// <summary>
         ///	Write array to a file as text or binary (default).<br></br>
         ///	
-        ///	
         ///	Data is always written in ‘C’ order, independent of the order of a.<br></br>
+        ///	
         ///	The data produced by this method can be recovered using the function
         ///	fromfile().<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	This is a convenience function for quick storage of array data.<br></br>
+        ///	
         ///	Information on endianness and precision is lost, so this method is not a
         ///	good choice for files intended to archive data or transport data between
         ///	machines with different endianness.<br></br>
         ///	 Some of these problems can be overcome
         ///	by outputting the data as text files, at the expense of speed and file
         ///	size.<br></br>
-        ///	
         ///	
         ///	When fid is a file object, array contents are directly written to the
         ///	file, bypassing the file object’s write method.<br></br>
@@ -606,11 +603,13 @@ namespace Numpy
         /// </param>
         /// <param name="sep">
         ///	Separator between array items for text output.<br></br>
+        ///	
         ///	If “” (empty), a binary file is written, equivalent to
         ///	file.write(a.tobytes()).
         /// </param>
         /// <param name="format">
         ///	Format string for text file output.<br></br>
+        ///	
         ///	Each entry in the array is formatted to text by first converting
         ///	it to the closest Python type, and then using “format” % item.
         /// </param>
@@ -632,10 +631,9 @@ namespace Numpy
         /// <summary>
         ///	Return the array as a (possibly nested) list.<br></br>
         ///	
-        ///	
         ///	Return a copy of the array data as a (nested) Python list.<br></br>
-        ///	Data items are converted to the nearest compatible Python type.<br></br>
         ///	
+        ///	Data items are converted to the nearest compatible Python type.<br></br>
         ///	
         ///	Notes
         ///	
@@ -657,12 +655,10 @@ namespace Numpy
         /// <summary>
         ///	Return a string representation of an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	If a formatter is specified for a certain type, the precision keyword is
         ///	ignored for that type.<br></br>
-        ///	
         ///	
         ///	This is a very flexible function; array_repr and array_str are using
         ///	array2string internally so keywords with the same name should work
@@ -696,6 +692,7 @@ namespace Numpy
         ///	
         ///	The output is left-padded by the length of the prefix string, and
         ///	wrapping is forced at the column max_line_width - len(suffix).<br></br>
+        ///	
         ///	It should be noted that the content of prefix and suffix strings are
         ///	not included in the output.
         /// </param>
@@ -703,6 +700,7 @@ namespace Numpy
         ///	If not None, the keys should indicate the type(s) that the respective
         ///	formatting function applies to.<br></br>
         ///	Callables should return a string.<br></br>
+        ///	
         ///	Types that are not specified (by their corresponding keys) are handled
         ///	by the default formatters.<br></br>
         ///	Individual types for which a formatter
@@ -815,7 +813,6 @@ namespace Numpy
         /// <summary>
         ///	Return a string representation of the data in an array.<br></br>
         ///	
-        ///	
         ///	The data in the array is returned as a single string.<br></br>
         ///	  This function is
         ///	similar to array_repr, the difference being that array_repr also
@@ -836,6 +833,7 @@ namespace Numpy
         /// </param>
         /// <param name="suppress_small">
         ///	Represent numbers “very close” to zero as zero; default is False.<br></br>
+        ///	
         ///	Very close is defined by precision: if the precision is 8, e.g.,
         ///	numbers smaller (in absolute value) than 5e-9 are represented as
         ///	zero.
@@ -859,7 +857,6 @@ namespace Numpy
         /// <summary>
         ///	Format a floating-point scalar as a decimal string in positional notation.<br></br>
         ///	
-        ///	
         ///	Provides control over rounding, trimming and padding.<br></br>
         ///	 Uses and assumes
         ///	IEEE unbiased rounding.<br></br>
@@ -880,6 +877,7 @@ namespace Numpy
         ///	If precision
         ///	was omitted, print out all necessary digits, otherwise digit generation
         ///	is cut off after precision digits and the remaining value is rounded.<br></br>
+        ///	
         ///	If False, digits are generated as if printing an infinite-precision
         ///	value and stopping after precision digits, rounding the remaining
         ///	value.
@@ -887,6 +885,7 @@ namespace Numpy
         /// <param name="fractional">
         ///	If True, the cutoff of precision digits refers to the total number
         ///	of digits after the decimal point, including leading zeros.<br></br>
+        ///	
         ///	If False, precision refers to the total number of significant
         ///	digits, before or after the decimal point, ignoring leading zeros.
         /// </param>
@@ -932,7 +931,6 @@ namespace Numpy
         /// <summary>
         ///	Format a floating-point scalar as a decimal string in scientific notation.<br></br>
         ///	
-        ///	
         ///	Provides control over rounding, trimming and padding.<br></br>
         ///	 Uses and assumes
         ///	IEEE unbiased rounding.<br></br>
@@ -953,6 +951,7 @@ namespace Numpy
         ///	If precision
         ///	was omitted, print all necessary digits, otherwise digit generation is
         ///	cut off after precision digits and the remaining value is rounded.<br></br>
+        ///	
         ///	If False, digits are generated as if printing an infinite-precision
         ///	value and stopping after precision digits, rounding the remaining
         ///	value.
@@ -969,6 +968,7 @@ namespace Numpy
         /// </param>
         /// <param name="exp_digits">
         ///	Pad the exponent with zeros until it contains at least this many digits.<br></br>
+        ///	
         ///	If omitted, the exponent will be at least 2 digits.
         /// </param>
         /// <returns>
@@ -997,7 +997,6 @@ namespace Numpy
         /// <summary>
         ///	Create a memory-map to an array stored in a binary file on disk.<br></br>
         ///	
-        ///	
         ///	Memory-mapped files are used for accessing small segments of large files
         ///	on disk, without reading the entire file into memory.<br></br>
         ///	  NumPy’s
@@ -1005,30 +1004,26 @@ namespace Numpy
         ///	  This differs from Python’s mmap
         ///	module, which uses file-like objects.<br></br>
         ///	
-        ///	
         ///	This subclass of ndarray has some unpleasant interactions with
         ///	some operations, because it doesn’t quite fit properly as a subclass.<br></br>
+        ///	
         ///	An alternative to using this subclass is to create the mmap
         ///	object yourself, then create an ndarray with ndarray.__new__ directly,
         ///	passing the object created in its ‘buffer=’ parameter.<br></br>
         ///	
-        ///	
         ///	This class may at some point be turned into a factory function
         ///	which returns a view into an mmap buffer.<br></br>
         ///	
-        ///	
         ///	Delete the memmap instance to close the memmap file.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	The memmap object can be used anywhere an ndarray is accepted.<br></br>
+        ///	
         ///	Given a memmap fp, isinstance(fp, numpy.ndarray) returns
         ///	True.<br></br>
         ///	
-        ///	
         ///	Memory-mapped files cannot be larger than 2GB on 32-bit systems.<br></br>
-        ///	
         ///	
         ///	When a memmap causes a file to be created or extended beyond its
         ///	current size in the filesystem, the contents of the new part are
@@ -1041,6 +1036,7 @@ namespace Numpy
         /// </param>
         /// <param name="dtype">
         ///	The data-type used to interpret the file contents.<br></br>
+        ///	
         ///	Default is uint8.
         /// </param>
         /// <param name="mode">
@@ -1098,10 +1094,8 @@ namespace Numpy
         /// <summary>
         ///	Set printing options.<br></br>
         ///	
-        ///	
         ///	These options determine the way floating point numbers, arrays and
         ///	other NumPy objects are displayed.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1109,6 +1103,7 @@ namespace Numpy
         /// </summary>
         /// <param name="precision">
         ///	Number of digits of precision for floating point output (default 8).<br></br>
+        ///	
         ///	May be None if floatmode is not fixed, to print as many digits as
         ///	necessary to uniquely specify the value.
         /// </param>
@@ -1152,6 +1147,7 @@ namespace Numpy
         ///	If not None, the keys should indicate the type(s) that the respective
         ///	formatting function applies to.<br></br>
         ///	Callables should return a string.<br></br>
+        ///	
         ///	Types that are not specified (by their corresponding keys) are handled
         ///	by the default formatters.<br></br>
         ///	Individual types for which a formatter
@@ -1291,14 +1287,12 @@ namespace Numpy
         /// <summary>
         ///	A generic data source file (file, http, ftp, …).<br></br>
         ///	
-        ///	
         ///	DataSources can be local files or remote files/URLs.<br></br>
         ///	  The files may
         ///	also be compressed or uncompressed.<br></br>
         ///	 DataSource hides some of the
         ///	low-level details of downloading the file, allowing you to simply pass
         ///	in a valid file path (or URL) and obtain a file object.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1311,6 +1305,7 @@ namespace Numpy
         ///	Path to the directory where the source file gets downloaded to for
         ///	use.<br></br>
         ///	If destpath is None, a temporary directory will be created.<br></br>
+        ///	
         ///	The default path is the current directory.
         /// </param>
         public void DataSource(string destpath = null)

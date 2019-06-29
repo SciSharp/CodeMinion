@@ -20,7 +20,6 @@ namespace Numpy
         /// <summary>
         ///	Return a sorted copy of an array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The various sorting algorithms are characterized by their average speed,
@@ -37,13 +36,11 @@ namespace Numpy
         ///	the last axis is faster and uses less space than sorting along
         ///	any other axis.<br></br>
         ///	
-        ///	
         ///	The sort order for complex numbers is lexicographic.<br></br>
         ///	 If both the real
         ///	and imaginary parts are non-nan then the order is determined by the
         ///	real parts except when they are equal, in which case the order is
         ///	determined by the imaginary parts.<br></br>
-        ///	
         ///	
         ///	Previous to numpy 1.4.0 sorting real and complex arrays containing nan
         ///	values led to undefined behaviour.<br></br>
@@ -54,14 +51,13 @@ namespace Numpy
         ///	where R is a non-nan real value.<br></br>
         ///	 Complex values with the same nan
         ///	placements are sorted according to the non-nan part if it exists.<br></br>
-        ///	Non-nan values are sorted as before.<br></br>
         ///	
+        ///	Non-nan values are sorted as before.<br></br>
         ///	
         ///	quicksort has been changed to an introsort which will switch
         ///	heapsort when it does not make enough progress.<br></br>
         ///	 This makes its
         ///	worst case O(n*log(n)).<br></br>
-        ///	
         ///	
         ///	‘stable’ automatically choses the best stable sorting algorithm
         ///	for the data type being sorted.<br></br>
@@ -98,7 +94,6 @@ namespace Numpy
         /// <summary>
         ///	Perform an indirect stable sort using a sequence of keys.<br></br>
         ///	
-        ///	
         ///	Given multiple sorting keys, which can be interpreted as columns in a
         ///	spreadsheet, lexsort returns an array of integer indices that describes
         ///	the sort order by multiple columns.<br></br>
@@ -129,17 +124,14 @@ namespace Numpy
         /// <summary>
         ///	Returns the indices that would sort an array.<br></br>
         ///	
-        ///	
         ///	Perform an indirect sort along the given axis using the algorithm specified
         ///	by the kind keyword.<br></br>
         ///	 It returns an array of indices of the same shape as
         ///	a that index data along the given axis in sorted order.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	See sort for notes on the different sorting algorithms.<br></br>
-        ///	
         ///	
         ///	As of NumPy 1.4.0 argsort works with real/complex arrays containing
         ///	nan values.<br></br>
@@ -167,7 +159,9 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of indices that sort a along the specified axis.<br></br>
+        ///	
         ///	If a is one-dimensional, a[index_array] yields a sorted a.<br></br>
+        ///	
         ///	More generally, np.take_along_axis(a, index_array, axis=a) always
         ///	yields the sorted a, irrespective of dimensionality.
         /// </returns>
@@ -176,7 +170,6 @@ namespace Numpy
         
         /// <summary>
         ///	Sort an array, in-place.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -204,7 +197,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return a copy of an array sorted along the first axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -234,7 +226,6 @@ namespace Numpy
         /// <summary>
         ///	Return a partitioned copy of an array.<br></br>
         ///	
-        ///	
         ///	Creates a copy of the array with its elements rearranged in such a
         ///	way that the value of the element in k-th position is in the
         ///	position it would be in a sorted array.<br></br>
@@ -243,7 +234,6 @@ namespace Numpy
         ///	greater are moved behind it.<br></br>
         ///	 The ordering of the elements in the two
         ///	partitions is undefined.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -260,7 +250,6 @@ namespace Numpy
         ///	  Consequently,
         ///	partitioning along the last axis is faster and uses less space than
         ///	partitioning along any other axis.<br></br>
-        ///	
         ///	
         ///	The sort order for complex numbers is lexicographic.<br></br>
         ///	 If both the
@@ -314,7 +303,6 @@ namespace Numpy
         ///	indices of the same shape as a that index data along the given
         ///	axis in partitioned order.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	See partition for notes on the different selection algorithms.
@@ -353,7 +341,9 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Array of indices that partition a along the specified axis.<br></br>
+        ///	
         ///	If a is one-dimensional, a[index_array] yields a partitioned a.<br></br>
+        ///	
         ///	More generally, np.take_along_axis(a, index_array, axis=a) always
         ///	yields the partitioned a, irrespective of dimensionality.
         /// </returns>
@@ -362,7 +352,6 @@ namespace Numpy
         
         /// <summary>
         ///	Returns the indices of the maximum values along an axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -412,7 +401,6 @@ namespace Numpy
         /// <summary>
         ///	Returns the indices of the minimum values along an axis.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	In case of multiple occurrences of the minimum values, the indices
@@ -461,13 +449,12 @@ namespace Numpy
         /// <summary>
         ///	Find the indices of array elements that are non-zero, grouped by element.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	np.argwhere(a) is the same as np.transpose(np.nonzero(a)).<br></br>
         ///	
-        ///	
         ///	The output of argwhere is not suitable for indexing arrays.<br></br>
+        ///	
         ///	For this purpose use nonzero(a) instead.
         /// </summary>
         /// <param name="a">
@@ -482,7 +469,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return indices that are non-zero in the flattened version of a.<br></br>
-        ///	
         ///	
         ///	This is equivalent to np.nonzero(np.ravel(a))[0].
         /// </summary>
@@ -499,11 +485,9 @@ namespace Numpy
         /// <summary>
         ///	Find indices where elements should be inserted to maintain order.<br></br>
         ///	
-        ///	
         ///	Find the indices into a sorted array a such that, if the
         ///	corresponding elements in v were inserted before the indices, the
         ///	order of a would be preserved.<br></br>
-        ///	
         ///	
         ///	Assuming that a is sorted:
         ///	
@@ -511,11 +495,9 @@ namespace Numpy
         ///	
         ///	Binary search is used to find the required insertion points.<br></br>
         ///	
-        ///	
         ///	As of NumPy 1.4.0 searchsorted works with real/complex arrays containing
         ///	nan values.<br></br>
         ///	 The enhanced sort order is documented in sort.<br></br>
-        ///	
         ///	
         ///	This function is a faster version of the builtin python bisect.bisect_left
         ///	(side='left') and bisect.bisect_right (side='right') functions,
@@ -532,6 +514,7 @@ namespace Numpy
         /// </param>
         /// <param name="side">
         ///	If ‘left’, the index of the first suitable location found is given.<br></br>
+        ///	
         ///	If ‘right’, return the last such index.<br></br>
         ///	If there is no suitable
         ///	index, return either 0 or N (where N is the length of a).
@@ -550,11 +533,9 @@ namespace Numpy
         /// <summary>
         ///	Return the elements of an array that satisfy some condition.<br></br>
         ///	
-        ///	
         ///	This is equivalent to np.compress(ravel(condition), ravel(arr)).<br></br>
         ///	  If
         ///	condition is boolean np.extract is equivalent to arr[condition].<br></br>
-        ///	
         ///	
         ///	Note that place does the exact opposite of extract.
         /// </summary>
@@ -574,7 +555,6 @@ namespace Numpy
         /// <summary>
         ///	Counts the number of non-zero values in the array a.<br></br>
         ///	
-        ///	
         ///	The word “non-zero” is in reference to the Python 2.x
         ///	built-in method __nonzero__() (renamed __bool__()
         ///	in Python 3.x) of Python objects that tests an object’s
@@ -591,11 +571,13 @@ namespace Numpy
         /// </param>
         /// <param name="axis">
         ///	Axis or tuple of axes along which to count non-zeros.<br></br>
+        ///	
         ///	Default is None, meaning that non-zeros will be counted
         ///	along a flattened version of a.
         /// </param>
         /// <returns>
         ///	Number of non-zero values in the array along a given axis.<br></br>
+        ///	
         ///	Otherwise, the total number of non-zero values in the array
         ///	is returned.
         /// </returns>
@@ -604,7 +586,6 @@ namespace Numpy
         
         /// <summary>
         ///	Counts the number of non-zero values in the array a.<br></br>
-        ///	
         ///	
         ///	The word “non-zero” is in reference to the Python 2.x
         ///	built-in method __nonzero__() (renamed __bool__()
@@ -622,6 +603,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	Number of non-zero values in the array along a given axis.<br></br>
+        ///	
         ///	Otherwise, the total number of non-zero values in the array
         ///	is returned.
         /// </returns>

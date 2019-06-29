@@ -44,6 +44,7 @@ namespace Numpy
         ///	  If a and b are both
         ///	scalars or both 1-D arrays then a scalar is returned; otherwise
         ///	an array is returned.<br></br>
+        ///	
         ///	If out is given, then it is returned.
         /// </returns>
         public NDarray dot(NDarray a, NDarray b, NDarray @out = null)
@@ -65,17 +66,16 @@ namespace Numpy
         ///	Compute the dot product of two or more arrays in a single function call,
         ///	while automatically selecting the fastest evaluation order.<br></br>
         ///	
-        ///	
         ///	multi_dot chains numpy.dot and uses optimal parenthesization
         ///	of the matrices [1] [2].<br></br>
         ///	 Depending on the shapes of the matrices,
         ///	this can speed up the multiplication a lot.<br></br>
         ///	
-        ///	
         ///	If the first argument is 1-D it is treated as a row vector.<br></br>
-        ///	If the last argument is 1-D it is treated as a column vector.<br></br>
-        ///	The other arguments must be 2-D.<br></br>
         ///	
+        ///	If the last argument is 1-D it is treated as a column vector.<br></br>
+        ///	
+        ///	The other arguments must be 2-D.<br></br>
         ///	
         ///	Think of multi_dot as:
         ///	
@@ -93,7 +93,9 @@ namespace Numpy
         /// </summary>
         /// <param name="arrays">
         ///	If the first argument is 1-D it is treated as row vector.<br></br>
+        ///	
         ///	If the last argument is 1-D it is treated as column vector.<br></br>
+        ///	
         ///	The other arguments must be 2-D.
         /// </param>
         /// <returns>
@@ -116,12 +118,10 @@ namespace Numpy
         /// <summary>
         ///	Return the dot product of two vectors.<br></br>
         ///	
-        ///	
         ///	The vdot(a, b) function handles complex numbers differently than
         ///	dot(a, b).<br></br>
         ///	  If the first argument is complex the complex conjugate
         ///	of the first argument is used for the calculation of the dot product.<br></br>
-        ///	
         ///	
         ///	Note that vdot handles multidimensional arrays differently than dot:
         ///	it does not perform a matrix product, but flattens input arguments
@@ -157,10 +157,8 @@ namespace Numpy
         /// <summary>
         ///	Inner product of two arrays.<br></br>
         ///	
-        ///	
         ///	Ordinary inner product of vectors for 1-D arrays (without complex
         ///	conjugation), in higher dimensions a sum product over the last axes.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -197,7 +195,6 @@ namespace Numpy
         
         /// <summary>
         ///	Compute the outer product of two vectors.<br></br>
-        ///	
         ///	
         ///	Given two vectors, a = [a0, a1, ..., aM] and
         ///	b = [b0, b1, ..., bN],
@@ -239,11 +236,9 @@ namespace Numpy
         /// <summary>
         ///	Matrix product of two arrays.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The behavior depends on the arguments in the following way.<br></br>
-        ///	
         ///	
         ///	matmul differs from dot in two important ways:
         ///	
@@ -265,6 +260,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	The matrix product of the inputs.<br></br>
+        ///	
         ///	This is a scalar only when both x1, x2 are 1-d vectors.
         /// </returns>
         public NDarray matmul(NDarray x2, NDarray x1, NDarray @out = null)
@@ -285,7 +281,6 @@ namespace Numpy
         /// <summary>
         ///	Compute tensor dot product along specified axes for arrays &gt;= 1-D.<br></br>
         ///	
-        ///	
         ///	Given two tensors (arrays of dimension greater than or equal to one),
         ///	a and b, and an array_like object containing two array_like
         ///	objects, (a_axes, b_axes), sum the products of a’s and b’s
@@ -296,13 +291,11 @@ namespace Numpy
         ///	dimensions of a and the first N dimensions of b are summed
         ///	over.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	When axes is integer_like, the sequence for evaluation will be: first
         ///	the -Nth axis in a and 0th axis in b, and the -1th axis in a and
         ///	Nth axis in b last.<br></br>
-        ///	
         ///	
         ///	When there is more than one axis to sum over - and they are not the last
         ///	(first) axes of a (b) - the argument axes should consist of
@@ -333,20 +326,17 @@ namespace Numpy
         /// <summary>
         ///	Evaluates the Einstein summation convention on the operands.<br></br>
         ///	
-        ///	
         ///	Using the Einstein summation convention, many common multi-dimensional,
         ///	linear algebraic array operations can be represented in a simple fashion.<br></br>
-        ///	In implicit mode einsum computes these values.<br></br>
         ///	
+        ///	In implicit mode einsum computes these values.<br></br>
         ///	
         ///	In explicit mode, einsum provides further flexibility to compute
         ///	other array operations that might not be considered classical Einstein
         ///	summation operations, by disabling, or forcing summation over specified
         ///	subscript labels.<br></br>
         ///	
-        ///	
         ///	See the notes and examples for clarification.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -355,12 +345,12 @@ namespace Numpy
         ///	 einsum
         ///	provides a succinct way of representing these.<br></br>
         ///	
-        ///	
         ///	A non-exhaustive list of these operations,
         ///	which can be computed by einsum, is shown below along with examples:
         ///	
         ///	The subscripts string is a comma-separated list of subscript labels,
         ///	where each label refers to a dimension of the corresponding operand.<br></br>
+        ///	
         ///	Whenever a label is repeated it is summed, so np.einsum('i,i', a, b)
         ///	is equivalent to np.inner(a,b).<br></br>
         ///	 If a label
@@ -373,7 +363,6 @@ namespace Numpy
         ///	operand take the diagonal.<br></br>
         ///	 For example, np.einsum('ii', a) is equivalent
         ///	to np.trace(a).<br></br>
-        ///	
         ///	
         ///	In implicit mode, the chosen subscripts are important
         ///	since the axes of the output are reordered alphabetically.<br></br>
@@ -389,26 +378,28 @@ namespace Numpy
         ///	specifying output subscript labels.<br></br>
         ///	  This requires the
         ///	identifier ‘-&gt;’ as well as the list of output subscript labels.<br></br>
+        ///	
         ///	This feature increases the flexibility of the function since
         ///	summing can be disabled or forced when required.<br></br>
         ///	 The call
         ///	np.einsum('i-&gt;', a) is like np.sum(a, axis=-1),
         ///	and np.einsum('ii-&gt;i', a) is like np.diag(a).<br></br>
+        ///	
         ///	The difference is that einsum does not allow broadcasting by default.<br></br>
+        ///	
         ///	Additionally np.einsum('ij,jh-&gt;ih', a, b) directly specifies the
         ///	order of the output subscript labels and therefore returns matrix
         ///	multiplication, unlike the example above in implicit mode.<br></br>
-        ///	
         ///	
         ///	To enable and control broadcasting, use an ellipsis.<br></br>
         ///	  Default
         ///	NumPy-style broadcasting is done by adding an ellipsis
         ///	to the left of each term, like np.einsum('...ii-&gt;...i', a).<br></br>
+        ///	
         ///	To take the trace along the first and last axes,
         ///	you can do np.einsum('i...i', a), or to do a matrix-matrix
         ///	product with the left-most indices instead of rightmost, one can do
         ///	np.einsum('ij...,jk...-&gt;ik...', a, b).<br></br>
-        ///	
         ///	
         ///	When there is only one operand, no axes are summed, and no output
         ///	parameter is provided, a view into the operand is returned instead
@@ -416,14 +407,14 @@ namespace Numpy
         ///	  Thus, taking the diagonal as np.einsum('ii-&gt;i', a)
         ///	produces a view (changed in version 1.10.0).<br></br>
         ///	
-        ///	
         ///	einsum also provides an alternative way to provide the subscripts
         ///	and operands as einsum(op0, sublist0, op1, sublist1, ..., [sublistout]).<br></br>
+        ///	
         ///	If the output shape is not provided in this format einsum will be
         ///	calculated in implicit mode, otherwise it will be performed explicitly.<br></br>
+        ///	
         ///	The examples below have corresponding einsum calls with the two
         ///	parameter methods.<br></br>
-        ///	
         ///	
         ///	Views returned from einsum are now writeable whenever the input array
         ///	is writeable.<br></br>
@@ -432,23 +423,21 @@ namespace Numpy
         ///	and np.einsum('ii-&gt;i', a) will return a writeable view of the diagonal
         ///	of a 2D array.<br></br>
         ///	
-        ///	
         ///	Added the optimize argument which will optimize the contraction order
         ///	of an einsum expression.<br></br>
         ///	 For a contraction with three or more operands this
         ///	can greatly increase the computational efficiency at the cost of a larger
         ///	memory footprint during computation.<br></br>
         ///	
-        ///	
         ///	Typically a ‘greedy’ algorithm is applied which empirical tests have shown
         ///	returns the optimal path in the majority of cases.<br></br>
         ///	 In some cases ‘optimal’
         ///	will return the superlative path through a more expensive, exhaustive search.<br></br>
+        ///	
         ///	For iterative calculations it may be advisable to calculate the optimal path
         ///	once and reuse that path by supplying it as an argument.<br></br>
         ///	 An example is given
         ///	below.<br></br>
-        ///	
         ///	
         ///	See numpy.einsum_path for more details.
         /// </summary>
@@ -467,6 +456,7 @@ namespace Numpy
         /// </param>
         /// <param name="dtype">
         ///	If provided, forces the calculation to use the data type specified.<br></br>
+        ///	
         ///	Note that you may have to also give a more liberal casting
         ///	parameter to allow the conversions.<br></br>
         ///	Default is None.
@@ -477,8 +467,10 @@ namespace Numpy
         ///	be C contiguous.<br></br>
         ///	‘F’ means it should be Fortran contiguous,
         ///	‘A’ means it should be ‘F’ if the inputs are all ‘F’, ‘C’ otherwise.<br></br>
+        ///	
         ///	‘K’ means it should be as close to the layout as the inputs as
         ///	is possible, including arbitrarily permuted axes.<br></br>
+        ///	
         ///	Default is ‘K’.
         /// </param>
         /// <param name="casting">
@@ -486,13 +478,13 @@ namespace Numpy
         ///	Setting this to
         ///	‘unsafe’ is not recommended, as it can adversely affect accumulations.<br></br>
         ///	
-        ///	
         ///	Default is ‘safe’.
         /// </param>
         /// <param name="optimize">
         ///	Controls if intermediate optimization should occur.<br></br>
         ///	No optimization
         ///	will occur if False and True will default to the ‘greedy’ algorithm.<br></br>
+        ///	
         ///	Also accepts an explicit contraction list from the np.einsum_path
         ///	function.<br></br>
         ///	See np.einsum_path for more details.<br></br>
@@ -525,7 +517,6 @@ namespace Numpy
         ///	Evaluates the lowest cost contraction order for an einsum expression by
         ///	considering the creation of intermediate arrays.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The resulting path indicates which terms of the input contraction should be
@@ -547,7 +538,6 @@ namespace Numpy
         ///	If only a single
         ///	argument is provided the largest input or output array size is used
         ///	as a maximum intermediate size.<br></br>
-        ///	
         ///	
         ///	Default is ‘greedy’.
         /// </param>
@@ -577,7 +567,6 @@ namespace Numpy
         
         /// <summary>
         ///	Raise a square matrix to the (integer) power n.<br></br>
-        ///	
         ///	
         ///	For positive integers n, the power is computed by repeated matrix
         ///	squarings and matrix multiplications.<br></br>
@@ -618,17 +607,17 @@ namespace Numpy
         /// <summary>
         ///	Kronecker product of two arrays.<br></br>
         ///	
-        ///	
         ///	Computes the Kronecker product, a composite array made of blocks of the
         ///	second array scaled by the first.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	The function assumes that the number of dimensions of a and b
         ///	are the same, if necessary prepending the smallest with ones.<br></br>
+        ///	
         ///	If a.shape = (r0,r1,..,rN) and b.shape = (s0,s1,…,sN),
         ///	the Kronecker product has shape (r0*s0, r1*s1, …, rN*SN).<br></br>
+        ///	
         ///	The elements are products of elements from a and b, organized
         ///	explicitly by:
         ///	
@@ -653,16 +642,13 @@ namespace Numpy
         /// <summary>
         ///	Compute the qr factorization of a matrix.<br></br>
         ///	
-        ///	
         ///	Factor the matrix a as qr, where q is orthonormal and r is
         ///	upper-triangular.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	This is an interface to the LAPACK routines dgeqrf, zgeqrf,
         ///	dorgqr, and zungqr.<br></br>
-        ///	
         ///	
         ///	For more information on the qr factorization, see for example:
         ///	https://en.wikipedia.org/wiki/QR_factorization
@@ -671,13 +657,13 @@ namespace Numpy
         ///	 So if
         ///	a is of type matrix, all the return values will be matrices too.<br></br>
         ///	
-        ///	
         ///	New ‘reduced’, ‘complete’, and ‘raw’ options for mode were added in
         ///	NumPy 1.8.0 and the old option ‘full’ was made an alias of ‘reduced’.  In
         ///	addition the options ‘full’ and ‘economic’ were deprecated.<br></br>
         ///	  Because
         ///	‘full’ was the previous default and ‘reduced’ is the new default,
         ///	backward compatibility can be maintained by letting mode default.<br></br>
+        ///	
         ///	The ‘raw’ option was added so that LAPACK routines that can multiply
         ///	arrays by q using the Householder reflectors can be used.<br></br>
         ///	 Note that in
@@ -742,18 +728,15 @@ namespace Numpy
         /// <summary>
         ///	Compute the condition number of a matrix.<br></br>
         ///	
-        ///	
         ///	This function is capable of returning the condition number using
         ///	one of seven different norms, depending on the value of p (see
         ///	Parameters below).<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	The condition number of x is defined as the norm of x times the
         ///	norm of the inverse of x [1]; the norm can be the usual L2-norm
         ///	(root-of-sum-of-squares) or one of a number of other matrix norms.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -792,7 +775,6 @@ namespace Numpy
         ///	Rank of the array is the number of singular values of the array that are
         ///	greater than tol.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	The default threshold to detect rank deficiency is a test on the magnitude
@@ -805,7 +787,6 @@ namespace Numpy
         ///	appears in Numerical recipes in the discussion of SVD solutions for linear
         ///	least squares [2].<br></br>
         ///	
-        ///	
         ///	This default threshold is designed to detect rank deficiency accounting for
         ///	the numerical errors of the SVD computation.<br></br>
         ///	  Imagine that there is a column
@@ -814,6 +795,7 @@ namespace Numpy
         ///	 Computing the SVD on M will not produce a singular value
         ///	exactly equal to 0 in general: any difference of the smallest SVD value from
         ///	0 will be caused by numerical imprecision in the calculation of the SVD.<br></br>
+        ///	
         ///	Our threshold for small SVD values takes this numerical imprecision into
         ///	account, and the default threshold will detect such numerical rank
         ///	deficiency.<br></br>
@@ -821,7 +803,6 @@ namespace Numpy
         ///	the linear combination of some columns of M is not exactly equal to
         ///	another column of M but only numerically very close to another column of
         ///	M.<br></br>
-        ///	
         ///	
         ///	We chose our default threshold because it is in wide use.<br></br>
         ///	  Other thresholds
@@ -832,7 +813,6 @@ namespace Numpy
         ///	 * np.sqrt(m + n + 1.).<br></br>
         ///	 The authors describe
         ///	this threshold as being based on “expected roundoff error” (p 71).<br></br>
-        ///	
         ///	
         ///	The thresholds above deal with floating point roundoff error in the
         ///	calculation of the SVD.<br></br>
@@ -847,7 +827,6 @@ namespace Numpy
         ///	uncertainty may be preferable.<br></br>
         ///	  The tolerance may be absolute if the
         ///	uncertainties are absolute rather than relative.<br></br>
-        ///	
         ///	
         ///	References
         /// </summary>
@@ -864,6 +843,7 @@ namespace Numpy
         /// <param name="hermitian">
         ///	If True, M is assumed to be Hermitian (symmetric if real-valued),
         ///	enabling a more efficient method for finding singular values.<br></br>
+        ///	
         ///	Defaults to False.
         /// </param>
         public int linalg_matrix_rank(NDarray M, NDarray tol = null, bool? hermitian = false)
@@ -885,19 +865,16 @@ namespace Numpy
         /// <summary>
         ///	Compute the sign and (natural) logarithm of the determinant of an array.<br></br>
         ///	
-        ///	
         ///	If an array has a very small or very large determinant, then a call to
         ///	det may overflow or underflow.<br></br>
         ///	 This routine is more robust against such
         ///	issues, because it computes the logarithm of the determinant rather than
         ///	the determinant itself.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Broadcasting rules apply, see the numpy.linalg documentation for
         ///	details.<br></br>
-        ///	
         ///	
         ///	The determinant is computed via LU factorization using the LAPACK
         ///	routine z/dgetrf.
@@ -932,13 +909,12 @@ namespace Numpy
         /// <summary>
         ///	Return the sum along diagonals of the array.<br></br>
         ///	
-        ///	
         ///	If a is 2-D, the sum along its diagonal with the given offset
         ///	is returned, i.e., the sum of elements a[i,i+offset] for all i.<br></br>
         ///	
-        ///	
         ///	If a has more than two dimensions, then the axes specified by axis1 and
         ///	axis2 are used to determine the 2-D sub-arrays whose traces are returned.<br></br>
+        ///	
         ///	The shape of the resulting array is the same as that of a with axis1
         ///	and axis2 removed.
         /// </summary>
@@ -1003,7 +979,6 @@ namespace Numpy
         /// <summary>
         ///	Solve the tensor equation a x = b for x.<br></br>
         ///	
-        ///	
         ///	It is assumed that all indices of x are summed over in the product,
         ///	together with the rightmost indices of a, as is done in, for example,
         ///	tensordot(a, x, axes=b.ndim).
@@ -1021,6 +996,7 @@ namespace Numpy
         /// </param>
         /// <param name="axes">
         ///	Axes in a to reorder to the right, before inversion.<br></br>
+        ///	
         ///	If None (default), no reordering is done.
         /// </param>
         public NDarray linalg_tensorsolve(NDarray a, NDarray b, int[] axes = null)
@@ -1042,7 +1018,6 @@ namespace Numpy
         /// <summary>
         ///	Compute the ‘inverse’ of an N-dimensional array.<br></br>
         ///	
-        ///	
         ///	The result is an inverse for a relative to the tensordot operation
         ///	tensordot(a, b, ind), i.<br></br>
         ///	 e., up to floating-point accuracy,
@@ -1056,6 +1031,7 @@ namespace Numpy
         /// </param>
         /// <param name="ind">
         ///	Number of first indices that are involved in the inverse sum.<br></br>
+        ///	
         ///	Must be a positive integer, default is 2.
         /// </param>
         /// <returns>
@@ -1078,7 +1054,6 @@ namespace Numpy
         
         /// <summary>
         ///	Generic Python-exception-derived object raised by linalg functions.<br></br>
-        ///	
         ///	
         ///	General purpose exception class, derived from Python’s exception.Exception
         ///	class, programmatically raised in linalg functions when a Linear

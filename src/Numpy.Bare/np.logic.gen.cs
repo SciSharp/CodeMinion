@@ -19,7 +19,6 @@ namespace Numpy
         /// <summary>
         ///	Test whether all array elements along a given axis evaluate to True.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	Not a Number (NaN), positive infinity and negative infinity
@@ -30,17 +29,18 @@ namespace Numpy
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which a logical AND reduction is performed.<br></br>
+        ///	
         ///	The default (axis = None) is to perform a logical AND over all
         ///	the dimensions of the input array.<br></br>
         ///	axis may be negative, in
         ///	which case it counts from the last to the first axis.<br></br>
-        ///	
         ///	
         ///	If this is a tuple of ints, a reduction is performed on multiple
         ///	axes, instead of a single axis or all the axes as before.
         /// </param>
         /// <param name="out">
         ///	Alternate output array in which to place the result.<br></br>
+        ///	
         ///	It must have the same shape as the expected output and its
         ///	type is preserved (e.g., if dtype(out) is float, the result
         ///	will consist of 0.0’s and 1.0’s).<br></br>
@@ -52,7 +52,6 @@ namespace Numpy
         ///	in the result as dimensions with size one.<br></br>
         ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
-        ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the all method of sub-classes of
@@ -70,7 +69,6 @@ namespace Numpy
         
         /// <summary>
         ///	Test whether all array elements along a given axis evaluate to True.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -90,7 +88,6 @@ namespace Numpy
         /// <summary>
         ///	Test whether any array element along a given axis evaluates to True.<br></br>
         ///	
-        ///	
         ///	Returns single boolean unless axis is not None
         ///	
         ///	Notes
@@ -103,11 +100,11 @@ namespace Numpy
         /// </param>
         /// <param name="axis">
         ///	Axis or axes along which a logical OR reduction is performed.<br></br>
+        ///	
         ///	The default (axis = None) is to perform a logical OR over all
         ///	the dimensions of the input array.<br></br>
         ///	axis may be negative, in
         ///	which case it counts from the last to the first axis.<br></br>
-        ///	
         ///	
         ///	If this is a tuple of ints, a reduction is performed on multiple
         ///	axes, instead of a single axis or all the axes as before.
@@ -118,6 +115,7 @@ namespace Numpy
         ///	the same shape as the expected output and its type is preserved
         ///	(e.g., if it is of type float, then it will remain so, returning
         ///	1.0 for True and 0.0 for False, regardless of the type of a).<br></br>
+        ///	
         ///	See doc.ufuncs (Section “Output arguments”) for details.
         /// </param>
         /// <param name="keepdims">
@@ -125,7 +123,6 @@ namespace Numpy
         ///	in the result as dimensions with size one.<br></br>
         ///	With this option,
         ///	the result will broadcast correctly against the input array.<br></br>
-        ///	
         ///	
         ///	If the default value is passed, then keepdims will not be
         ///	passed through to the any method of sub-classes of
@@ -143,7 +140,6 @@ namespace Numpy
         
         /// <summary>
         ///	Test whether any array element along a given axis evaluates to True.<br></br>
-        ///	
         ///	
         ///	Returns single boolean unless axis is not None
         ///	
@@ -165,19 +161,17 @@ namespace Numpy
         /// <summary>
         ///	Test element-wise for finiteness (not infinity or not Not a Number).<br></br>
         ///	
-        ///	
         ///	The result is returned as a boolean array.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	Not a Number, positive infinity and negative infinity are considered
         ///	to be non-finite.<br></br>
         ///	
-        ///	
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
         ///	 This means that Not a Number is not equivalent to infinity.<br></br>
+        ///	
         ///	Also that positive infinity is not equivalent to negative infinity.<br></br>
         ///	 But
         ///	infinity is equivalent to positive infinity.<br></br>
@@ -204,6 +198,7 @@ namespace Numpy
         /// <returns>
         ///	True where x is not positive infinity, negative infinity,
         ///	or NaN; false otherwise.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray isfinite(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -212,16 +207,13 @@ namespace Numpy
         /// <summary>
         ///	Test element-wise for positive or negative infinity.<br></br>
         ///	
-        ///	
         ///	Returns a boolean array of the same shape as x, True where x ==
         ///	+/-inf, otherwise False.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
-        ///	
         ///	
         ///	Errors result if the second argument is supplied when the first
         ///	argument is a scalar, or if the first and second arguments have
@@ -245,6 +237,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	True where x is positive or negative infinity, false otherwise.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray<bool> isinf(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -252,7 +245,6 @@ namespace Numpy
         
         /// <summary>
         ///	Test element-wise for NaN and return result as a boolean array.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -278,6 +270,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	True where x is NaN, false otherwise.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray isnan(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -304,6 +297,7 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	True where x is NaT, false otherwise.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray isnat(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -312,12 +306,10 @@ namespace Numpy
         /// <summary>
         ///	Test element-wise for negative infinity, return result as bool array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
-        ///	
         ///	
         ///	Errors result if the second argument is also supplied when x is a scalar
         ///	input, if first and second arguments have different shapes, or if the
@@ -332,11 +324,11 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	A boolean array with the same dimensions as the input.<br></br>
+        ///	
         ///	If second argument is not supplied then a numpy boolean array is
         ///	returned with values True where the corresponding element of the
         ///	input is negative infinity and values False where the element of
         ///	the input is not negative infinity.<br></br>
-        ///	
         ///	
         ///	If a second argument is supplied the result is stored there.<br></br>
         ///	 If the
@@ -351,12 +343,10 @@ namespace Numpy
         /// <summary>
         ///	Test element-wise for positive infinity, return result as bool array.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	NumPy uses the IEEE Standard for Binary Floating-Point for Arithmetic
         ///	(IEEE 754).<br></br>
-        ///	
         ///	
         ///	Errors result if the second argument is also supplied when x is a scalar
         ///	input, if first and second arguments have different shapes, or if the
@@ -370,16 +360,17 @@ namespace Numpy
         /// </param>
         /// <returns>
         ///	A boolean array with the same dimensions as the input.<br></br>
+        ///	
         ///	If second argument is not supplied then a boolean array is returned
         ///	with values True where the corresponding element of the input is
         ///	positive infinity and values False where the element of the input is
         ///	not positive infinity.<br></br>
         ///	
-        ///	
         ///	If a second argument is supplied the result is stored there.<br></br>
         ///	 If the
         ///	type of that array is a numeric type the result is represented as zeros
         ///	and ones, if the type is boolean then as False and True.<br></br>
+        ///	
         ///	The return value out is then a reference to that array.
         /// </returns>
         public static NDarray isposinf(NDarray x, NDarray y = null)
@@ -387,7 +378,6 @@ namespace Numpy
         
         /// <summary>
         ///	Returns a bool array, where True if input element is complex.<br></br>
-        ///	
         ///	
         ///	What is tested is whether the input has a non-zero imaginary part, not if
         ///	the input type is complex.
@@ -403,7 +393,6 @@ namespace Numpy
         
         /// <summary>
         ///	Check for a complex type or an array of complex numbers.<br></br>
-        ///	
         ///	
         ///	The type of the input is checked, not the value.<br></br>
         ///	 Even if the input
@@ -422,7 +411,6 @@ namespace Numpy
         /// <summary>
         ///	Returns True if the array is Fortran contiguous but not C contiguous.<br></br>
         ///	
-        ///	
         ///	This function is obsolete and, because of changes due to relaxed stride
         ///	checking, its return value for the same array may differ for versions
         ///	of NumPy &gt;= 1.10.0 and previous versions.<br></br>
@@ -438,7 +426,6 @@ namespace Numpy
         /// <summary>
         ///	Returns a bool array, where True if input element is real.<br></br>
         ///	
-        ///	
         ///	If element has complex type with zero complex part, the return value
         ///	for that element is True.
         /// </summary>
@@ -453,7 +440,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return True if x is a not complex type or an array of complex numbers.<br></br>
-        ///	
         ///	
         ///	The type of the input is checked, not the value.<br></br>
         ///	 So even if the input
@@ -471,7 +457,6 @@ namespace Numpy
         
         /// <summary>
         ///	Returns True if the type of num is a scalar type.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -577,6 +562,7 @@ namespace Numpy
         /// <returns>
         ///	Boolean result with the same shape as x of the NOT operation
         ///	on elements of x.<br></br>
+        ///	
         ///	This is a scalar if x is a scalar.
         /// </returns>
         public static NDarray<bool> logical_not(NDarray x, NDarray @out = null, NDarray @where = null)
@@ -610,6 +596,7 @@ namespace Numpy
         ///	Boolean result of the logical XOR operation applied to the elements
         ///	of x1 and x2; the shape is determined by whether or not
         ///	broadcasting of one or both arrays was required.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray<bool> logical_xor(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -618,29 +605,25 @@ namespace Numpy
         /// <summary>
         ///	Returns True if two arrays are element-wise equal within a tolerance.<br></br>
         ///	
-        ///	
         ///	The tolerance values are positive, typically very small numbers.<br></br>
         ///	  The
         ///	relative difference (rtol * abs(b)) and the absolute difference
         ///	atol are added together to compare against the absolute difference
         ///	between a and b.<br></br>
         ///	
-        ///	
         ///	If either array contains one or more NaNs, False is returned.<br></br>
+        ///	
         ///	Infs are treated as equal if they are in the same place and of the same
         ///	sign in both arrays.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	If the following equation is element-wise True, then allclose returns
         ///	True.<br></br>
         ///	
-        ///	
         ///	The above equation is not symmetric in a and b, so that
         ///	allclose(a, b) might be different from allclose(b, a) in
         ///	some rare cases.<br></br>
-        ///	
         ///	
         ///	The comparison of a and b uses standard broadcasting, which
         ///	means that a and b need not have the same shape in order for
@@ -676,19 +659,16 @@ namespace Numpy
         ///	Returns a boolean array where two arrays are element-wise equal within a
         ///	tolerance.<br></br>
         ///	
-        ///	
         ///	The tolerance values are positive, typically very small numbers.<br></br>
         ///	  The
         ///	relative difference (rtol * abs(b)) and the absolute difference
         ///	atol are added together to compare against the absolute difference
         ///	between a and b.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	For finite values, isclose uses the following equation to test whether
         ///	two floating point values are equivalent.<br></br>
-        ///	
         ///	
         ///	Unlike the built-in math.isclose, the above equation is not symmetric
         ///	in a and b – it assumes b is the reference value – so that
@@ -699,6 +679,7 @@ namespace Numpy
         ///	 The default value is
         ///	appropriate for expected values of order unity: if the expected values
         ///	are significantly smaller than one, it can result in false positives.<br></br>
+        ///	
         ///	atol should be carefully selected for the use case at hand.<br></br>
         ///	 A zero value
         ///	for atol will result in False if either a or b is zero.
@@ -747,7 +728,6 @@ namespace Numpy
         /// <summary>
         ///	Returns True if input arrays are shape consistent and all elements equal.<br></br>
         ///	
-        ///	
         ///	Shape consistent means they are either the same shape, or one input array
         ///	can be broadcasted to create the same shape as the other one.
         /// </summary>
@@ -794,6 +774,7 @@ namespace Numpy
         /// <returns>
         ///	Output array, element-wise comparison of x1 and x2.
         ///	Typically of type bool, unless dtype=object is passed.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray greater(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -830,6 +811,7 @@ namespace Numpy
         /// <returns>
         ///	Output array, element-wise comparison of x1 and x2.
         ///	Typically of type bool, unless dtype=object is passed.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray<bool> greater_equal(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -866,6 +848,7 @@ namespace Numpy
         /// <returns>
         ///	Output array, element-wise comparison of x1 and x2.
         ///	Typically of type bool, unless dtype=object is passed.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray less(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -902,6 +885,7 @@ namespace Numpy
         /// <returns>
         ///	Output array, element-wise comparison of x1 and x2.
         ///	Typically of type bool, unless dtype=object is passed.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray less_equal(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -932,6 +916,7 @@ namespace Numpy
         /// <returns>
         ///	Output array, element-wise comparison of x1 and x2.
         ///	Typically of type bool, unless dtype=object is passed.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray equal(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)
@@ -962,6 +947,7 @@ namespace Numpy
         /// <returns>
         ///	Output array, element-wise comparison of x1 and x2.
         ///	Typically of type bool, unless dtype=object is passed.<br></br>
+        ///	
         ///	This is a scalar if both x1 and x2 are scalars.
         /// </returns>
         public static NDarray not_equal(NDarray x2, NDarray x1, NDarray @out = null, NDarray @where = null)

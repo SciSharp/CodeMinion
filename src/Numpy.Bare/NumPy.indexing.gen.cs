@@ -19,10 +19,8 @@ namespace Numpy
         /// <summary>
         ///	Translates slice objects to concatenation along the first axis.<br></br>
         ///	
-        ///	
         ///	This is a simple way to build up arrays quickly.<br></br>
         ///	 There are two use cases.<br></br>
-        ///	
         ///	
         ///	If slice notation is used, the syntax start:stop:step is equivalent
         ///	to np.arange(start, stop, step) inside of the brackets.<br></br>
@@ -33,9 +31,9 @@ namespace Numpy
         ///	inclusive.<br></br>
         ///	 In other words start:stop:stepj is interpreted as
         ///	np.linspace(start, stop, step, endpoint=1) inside of the brackets.<br></br>
+        ///	
         ///	After expansion of slice notation, all comma separated sequences are
         ///	concatenated together.<br></br>
-        ///	
         ///	
         ///	Optional character strings placed as the first element of the index
         ///	expression can be used to change the output.<br></br>
@@ -48,13 +46,11 @@ namespace Numpy
         ///	 If the result is 2-D then both provide the
         ///	same matrix result.<br></br>
         ///	
-        ///	
         ///	A string integer specifies which axis to stack multiple comma separated
         ///	arrays along.<br></br>
         ///	 A string of two comma-separated integers allows indication
         ///	of the minimum number of dimensions to force each entry into as the
         ///	second integer (the axis to concatenate along is still the first integer).<br></br>
-        ///	
         ///	
         ///	A string with three comma-separated integers allows specification of the
         ///	axis to concatenate along, the minimum number of dimensions to force the
@@ -83,14 +79,12 @@ namespace Numpy
         /// <summary>
         ///	A nicer way to build up index tuples for arrays.<br></br>
         ///	
-        ///	
         ///	For any index combination, including slicing and axis insertion,
         ///	a[indices] is the same as a[np.index_exp[indices]] for any
         ///	array a.<br></br>
         ///	 However, np.index_exp[indices] can be used anywhere
         ///	in Python code and returns a tuple of slice objects that can be
         ///	used in the construction of complex index expressions.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -115,7 +109,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return the indices of the elements that are non-zero.<br></br>
-        ///	
         ///	
         ///	Returns a tuple of arrays, one for each dimension of a,
         ///	containing the indices of the non-zero elements in that
@@ -151,7 +144,6 @@ namespace Numpy
         
         /// <summary>
         ///	Return elements chosen from x or y depending on condition.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -192,10 +184,8 @@ namespace Numpy
         /// <summary>
         ///	Return an array representing the indices of a grid.<br></br>
         ///	
-        ///	
         ///	Compute an array where the subarrays contain index values 0,1,…
         ///	varying only along the corresponding axis.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -204,7 +194,6 @@ namespace Numpy
         ///	 if dimensions is a tuple
         ///	(r0, ..., rN-1) of length N, the output shape is
         ///	(N,r0,...,rN-1).<br></br>
-        ///	
         ///	
         ///	The subarrays grid[k] contains the N-D array of indices along the
         ///	k-th axis.<br></br>
@@ -237,12 +226,10 @@ namespace Numpy
         /// <summary>
         ///	Construct an open mesh from multiple sequences.<br></br>
         ///	
-        ///	
         ///	This function takes N 1-D sequences and returns N outputs with N
         ///	dimensions each, such that the shape is 1 in all but one dimension
         ///	and the dimension with the non-unit shape value cycles through all
         ///	N dimensions.<br></br>
-        ///	
         ///	
         ///	Using ix_ one can quickly construct index arrays that will index
         ///	the cross product.<br></br>
@@ -251,6 +238,7 @@ namespace Numpy
         /// </summary>
         /// <param name="args">
         ///	Each sequence should be of integer or boolean type.<br></br>
+        ///	
         ///	Boolean sequences will be interpreted as boolean masks for the
         ///	corresponding dimension (equivalent to passing in
         ///	np.nonzero(boolean_sequence)).
@@ -278,7 +266,6 @@ namespace Numpy
         ///	Converts a tuple of index arrays into an array of flat
         ///	indices, applying boundary modes to the multi-index.<br></br>
         ///	
-        ///	
         ///	Notes
         /// </summary>
         /// <param name="multi_index">
@@ -291,7 +278,6 @@ namespace Numpy
         ///	Specifies how out-of-bounds indices are handled.<br></br>
         ///	Can specify
         ///	either one mode or a tuple of modes, one mode per index.<br></br>
-        ///	
         ///	
         ///	In ‘clip’ mode, a negative index which would normally
         ///	wrap will clip to 0 instead.
@@ -361,14 +347,12 @@ namespace Numpy
         /// <summary>
         ///	Return the indices to access the main diagonal of an array.<br></br>
         ///	
-        ///	
         ///	This returns a tuple of indices that can be used to access the main
         ///	diagonal of an array a with a.ndim &gt;= 2 dimensions and shape
         ///	(n, n, …, n).<br></br>
         ///	 For a.ndim = 2 this is the usual diagonal, for
         ///	a.ndim &gt; 2 this is the set of indices to access a[i, i, ..., i]
         ///	for i = [0..n-1].<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -395,9 +379,7 @@ namespace Numpy
         /// <summary>
         ///	Return the indices to access the main diagonal of an n-dimensional array.<br></br>
         ///	
-        ///	
         ///	See diag_indices for full details.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -416,14 +398,12 @@ namespace Numpy
         /// <summary>
         ///	Return the indices to access (n, n) arrays, given a masking function.<br></br>
         ///	
-        ///	
         ///	Assume mask_func is a function that, for a square array a of size
         ///	(n, n) with a possible offset argument k, when called as
         ///	mask_func(a, k) returns a new array with zeros in certain locations
         ///	(functions like triu or tril do precisely this).<br></br>
         ///	 Then this function
         ///	returns the indices where the non-zero values would be located.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -432,7 +412,9 @@ namespace Numpy
         /// </param>
         /// <param name="mask_func">
         ///	A function whose call signature is similar to that of triu, tril.<br></br>
+        ///	
         ///	That is, mask_func(x, k) returns a boolean array, shaped like x.<br></br>
+        ///	
         ///	k is an optional argument to the function.
         /// </param>
         /// <param name="k">
@@ -463,7 +445,6 @@ namespace Numpy
         /// <summary>
         ///	Return the indices for the lower-triangle of an (n, m) array.<br></br>
         ///	
-        ///	
         ///	Notes
         /// </summary>
         /// <param name="n">
@@ -476,6 +457,7 @@ namespace Numpy
         /// <param name="m">
         ///	The column dimension of the arrays for which the returned
         ///	arrays will be valid.<br></br>
+        ///	
         ///	By default m is taken equal to n.
         /// </param>
         /// <returns>
@@ -501,9 +483,7 @@ namespace Numpy
         /// <summary>
         ///	Return the indices for the lower-triangle of arr.<br></br>
         ///	
-        ///	
         ///	See tril_indices for full details.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -530,7 +510,6 @@ namespace Numpy
         /// <summary>
         ///	Return the indices for the upper-triangle of an (n, m) array.<br></br>
         ///	
-        ///	
         ///	Notes
         /// </summary>
         /// <param name="n">
@@ -543,6 +522,7 @@ namespace Numpy
         /// <param name="m">
         ///	The column dimension of the arrays for which the returned
         ///	arrays will be valid.<br></br>
+        ///	
         ///	By default m is taken equal to n.
         /// </param>
         /// <returns>
@@ -570,9 +550,7 @@ namespace Numpy
         /// <summary>
         ///	Return the indices for the upper-triangle of arr.<br></br>
         ///	
-        ///	
         ///	See triu_indices for full details.<br></br>
-        ///	
         ///	
         ///	Notes
         /// </summary>
@@ -602,14 +580,12 @@ namespace Numpy
         /// <summary>
         ///	Take elements from an array along an axis.<br></br>
         ///	
-        ///	
         ///	When axis is not None, this function does the same thing as “fancy”
         ///	indexing (indexing arrays using arrays); however, it can be easier to use
         ///	if you need elements along a given axis.<br></br>
         ///	 A call such as
         ///	np.take(arr, indices, axis=3) is equivalent to
         ///	arr[:,:,:,indices,...].<br></br>
-        ///	
         ///	
         ///	Explained without fancy indexing, this is equivalent to the following use
         ///	of ndindex, which sets each of ii, jj, and kk to a tuple of
@@ -630,7 +606,6 @@ namespace Numpy
         /// <param name="indices">
         ///	The indices of the values to extract.<br></br>
         ///	
-        ///	
         ///	Also allow scalars for indices.
         /// </param>
         /// <param name="axis">
@@ -645,7 +620,6 @@ namespace Numpy
         /// </param>
         /// <param name="mode">
         ///	Specifies how out-of-bounds indices will behave.<br></br>
-        ///	
         ///	
         ///	‘clip’ mode means that all indices that are too large are replaced
         ///	by the index that addresses the last element along that axis.<br></br>
@@ -675,16 +649,13 @@ namespace Numpy
         /// <summary>
         ///	Take values from the input array by matching 1d index and data slices.<br></br>
         ///	
-        ///	
         ///	This iterates over matching 1d slices oriented along the specified axis in
         ///	the index and data arrays, and uses the former to look up values in the
         ///	latter.<br></br>
         ///	 These slices can be different lengths.<br></br>
         ///	
-        ///	
         ///	Functions returning an index along an axis, like argsort and
         ///	argpartition, produce suitable indices for this function.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -725,14 +696,12 @@ namespace Numpy
         /// <summary>
         ///	Construct an array from an index array and a set of arrays to choose from.<br></br>
         ///	
-        ///	
         ///	First of all, if confused or uncertain, definitely look at the Examples -
         ///	in its full generality, this function is less simple than it might
         ///	seem from the following code description (below ndi =
         ///	numpy.lib.index_tricks):
         ///	
         ///	np.choose(a,c) == np.array([c[a[I]][I] for I in ndi.ndindex(a.shape)]).<br></br>
-        ///	
         ///	
         ///	But this omits some subtleties.<br></br>
         ///	  Here is a fully general summary:
@@ -795,7 +764,6 @@ namespace Numpy
         /// <summary>
         ///	Return selected slices of an array along given axis.<br></br>
         ///	
-        ///	
         ///	When working along a given axis, a slice along that axis is returned in
         ///	output for each index where condition evaluates to True.<br></br>
         ///	 When
@@ -843,7 +811,6 @@ namespace Numpy
         /// <summary>
         ///	Return specified diagonals.<br></br>
         ///	
-        ///	
         ///	If a is 2-D, returns the diagonal of a with the given offset,
         ///	i.e., the collection of elements of the form a[i, i+offset].<br></br>
         ///	  If
@@ -854,30 +821,25 @@ namespace Numpy
         ///	removing axis1 and axis2 and appending an index to the right equal
         ///	to the size of the resulting diagonals.<br></br>
         ///	
-        ///	
         ///	In versions of NumPy prior to 1.7, this function always returned a new,
         ///	independent array containing a copy of the values in the diagonal.<br></br>
-        ///	
         ///	
         ///	In NumPy 1.7 and 1.8, it continues to return a copy of the diagonal,
         ///	but depending on this fact is deprecated.<br></br>
         ///	 Writing to the resulting
         ///	array continues to work as it used to, but a FutureWarning is issued.<br></br>
         ///	
-        ///	
         ///	Starting in NumPy 1.9 it returns a read-only view on the original array.<br></br>
-        ///	Attempting to write to the resulting array will produce an error.<br></br>
         ///	
+        ///	Attempting to write to the resulting array will produce an error.<br></br>
         ///	
         ///	In some future release, it will return a read/write view and writing to
         ///	the returned array will alter your original array.<br></br>
         ///	  The returned array
         ///	will have the same type as the input array.<br></br>
         ///	
-        ///	
         ///	If you don’t write to the array returned by this function, then you can
         ///	just ignore all of the above.<br></br>
-        ///	
         ///	
         ///	If you depend on the current behavior, then we suggest copying the
         ///	returned array explicitly, i.e., use np.diagonal(a).copy() instead
@@ -909,7 +871,6 @@ namespace Numpy
         ///	same type as a is returned unless a is a matrix, in which case
         ///	a 1-D array rather than a (2-D) matrix is returned in order to
         ///	maintain backward compatibility.<br></br>
-        ///	
         ///	
         ///	If a.ndim &gt; 2, then the dimensions specified by axis1 and axis2
         ///	are removed, and a new axis inserted at the end corresponding to the
@@ -971,7 +932,6 @@ namespace Numpy
         /// <summary>
         ///	Create a view into the array with the given shape and strides.<br></br>
         ///	
-        ///	
         ///	Notes
         ///	
         ///	as_strided creates a view into the array given the exact strides
@@ -979,21 +939,22 @@ namespace Numpy
         ///	 This means it manipulates the internal data structure of
         ///	ndarray and, if done incorrectly, the array elements can point to
         ///	invalid memory and can corrupt results or crash your program.<br></br>
+        ///	
         ///	It is advisable to always use the original x.strides when
         ///	calculating new strides to avoid reliance on a contiguous memory
         ///	layout.<br></br>
         ///	
-        ///	
         ///	Furthermore, arrays created with this function often contain self
         ///	overlapping memory, so that two elements are identical.<br></br>
+        ///	
         ///	Vectorized write operations on such arrays will typically be
         ///	unpredictable.<br></br>
         ///	 They may even give different results for small, large,
         ///	or transposed arrays.<br></br>
+        ///	
         ///	Since writing to these arrays has to be tested and done with great
         ///	care, you may want to use writeable=False to avoid accidental write
         ///	operations.<br></br>
-        ///	
         ///	
         ///	For these reasons it is advisable to avoid as_strided when
         ///	possible.
@@ -1014,6 +975,7 @@ namespace Numpy
         /// </param>
         /// <param name="writeable">
         ///	If set to False, the returned array will always be readonly.<br></br>
+        ///	
         ///	Otherwise it will be writable if the original array was.<br></br>
         ///	It
         ///	is advisable to set this to False if possible (see Notes).
@@ -1038,12 +1000,10 @@ namespace Numpy
         /// <summary>
         ///	Change elements of an array based on conditional and input values.<br></br>
         ///	
-        ///	
         ///	Similar to np.copyto(arr, vals, where=mask), the difference is that
         ///	place uses the first N elements of vals, where N is the number of
         ///	True values in mask, while copyto uses the elements where mask
         ///	is True.<br></br>
-        ///	
         ///	
         ///	Note that extract does the exact opposite of place.
         /// </summary>
@@ -1079,7 +1039,6 @@ namespace Numpy
         /// <summary>
         ///	Replaces specified elements of an array with given values.<br></br>
         ///	
-        ///	
         ///	The indexing works on the flattened target array.<br></br>
         ///	 put is roughly
         ///	equivalent to:
@@ -1097,7 +1056,6 @@ namespace Numpy
         /// </param>
         /// <param name="mode">
         ///	Specifies how out-of-bounds indices will behave.<br></br>
-        ///	
         ///	
         ///	‘clip’ mode means that all indices that are too large are replaced
         ///	by the index that addresses the last element along that axis.<br></br>
@@ -1122,16 +1080,13 @@ namespace Numpy
         /// <summary>
         ///	Put values into the destination array by matching 1d index and data slices.<br></br>
         ///	
-        ///	
         ///	This iterates over matching 1d slices oriented along the specified axis in
         ///	the index and data arrays, and uses the former to place values into the
         ///	latter.<br></br>
         ///	 These slices can be different lengths.<br></br>
         ///	
-        ///	
         ///	Functions returning an index along an axis, like argsort and
         ///	argpartition, produce suitable indices for this function.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1177,11 +1132,10 @@ namespace Numpy
         /// <summary>
         ///	Changes elements of an array based on conditional and input values.<br></br>
         ///	
-        ///	
         ///	Sets a.flat[n] = values[n] for each n where mask.flat[n]==True.<br></br>
         ///	
-        ///	
         ///	If values is not the same size as a and mask then it will repeat.<br></br>
+        ///	
         ///	This gives behavior different from a[mask] = values.
         /// </summary>
         /// <param name="a">
@@ -1213,12 +1167,10 @@ namespace Numpy
         /// <summary>
         ///	Fill the main diagonal of the given array of any dimensionality.<br></br>
         ///	
-        ///	
         ///	For an array a with a.ndim &gt;= 2, the diagonal is the list of
         ///	locations with indices a[i, ..., i] all identical.<br></br>
         ///	 This function
         ///	modifies the input array in-place, it does not return a value.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1257,16 +1209,15 @@ namespace Numpy
         /*
         /// <summary>
         ///	Efficient multi-dimensional iterator object to iterate over arrays.<br></br>
+        ///	
         ///	To get started using this object, see the
         ///	introductory guide to array iteration.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
         ///	nditer supersedes flatiter.<br></br>
         ///	  The iterator implementation behind
         ///	nditer is also exposed by the NumPy C API.<br></br>
-        ///	
         ///	
         ///	The Python exposure supplies two iteration interfaces, one which follows
         ///	the Python iterator protocol, and another which mirrors the C-style
@@ -1299,6 +1250,7 @@ namespace Numpy
         ///	This also
         ///	affects the element memory order of “allocate” operands, as they
         ///	are allocated to be compatible with iteration order.<br></br>
+        ///	
         ///	Default is ‘K’.
         /// </param>
         /// <param name="casting">
@@ -1309,6 +1261,7 @@ namespace Numpy
         /// </param>
         /// <param name="op_axes">
         ///	If provided, is a list of ints or None for each operands.<br></br>
+        ///	
         ///	The list of axes for an operand is a mapping from the dimensions
         ///	of the iterator to the dimensions of the operand.<br></br>
         ///	A value of
@@ -1351,7 +1304,6 @@ namespace Numpy
         /// <summary>
         ///	Multidimensional index iterator.<br></br>
         ///	
-        ///	
         ///	Return an iterator yielding pairs of array coordinates and values.
         /// </summary>
         /// <param name="arr">
@@ -1371,7 +1323,6 @@ namespace Numpy
         
         /// <summary>
         ///	An N-dimensional iterator object to index arrays.<br></br>
-        ///	
         ///	
         ///	Given the shape of an array, an ndindex instance iterates over
         ///	the N-dimensional index of the array.<br></br>
@@ -1431,17 +1382,15 @@ namespace Numpy
         /// <summary>
         ///	Flat iterator object to iterate over arrays.<br></br>
         ///	
-        ///	
         ///	A flatiter iterator is returned by x.flat for any array x.<br></br>
+        ///	
         ///	It allows iterating over the array as if it were a 1-D array,
         ///	either in a for-loop or by calling its next method.<br></br>
-        ///	
         ///	
         ///	Iteration is done in row-major, C-style order (the last
         ///	index varying the fastest).<br></br>
         ///	 The iterator can also be indexed using
         ///	basic slicing or advanced indexing.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1458,7 +1407,6 @@ namespace Numpy
         /// <summary>
         ///	Buffered iterator for big arrays.<br></br>
         ///	
-        ///	
         ///	Arrayterator creates a buffered iterator for reading big arrays in small
         ///	contiguous blocks.<br></br>
         ///	 The class is useful for objects stored in the
@@ -1466,12 +1414,10 @@ namespace Numpy
         ///	 It allows iteration over the object without reading
         ///	everything in memory; instead, small blocks are read and iterated over.<br></br>
         ///	
-        ///	
         ///	Arrayterator can be used with any object that supports multidimensional
         ///	slices.<br></br>
         ///	 This includes NumPy arrays, but also variables from
         ///	Scientific.IO.NetCDF or pynetcdf for example.<br></br>
-        ///	
         ///	
         ///	Notes
         ///	
@@ -1483,6 +1429,7 @@ namespace Numpy
         ///	first dimension will be used.<br></br>
         ///	 If, on the other hand,
         ///	d1 &lt; buf_size &lt; d1*d2 the second dimension will be used, and so on.<br></br>
+        ///	
         ///	Blocks are extracted along this dimension, and when the last block is
         ///	returned the process continues from the next dimension, until all
         ///	elements have been read.
@@ -1494,6 +1441,7 @@ namespace Numpy
         ///	The buffer size.<br></br>
         ///	If buf_size is supplied, the maximum amount of
         ///	data that will be read into memory is buf_size elements.<br></br>
+        ///	
         ///	Default is None, which will read as many element as possible
         ///	into memory.
         /// </param>
