@@ -30,32 +30,16 @@ namespace Numpy
         ///	takes a shape-tuple as the first argument, refer to
         ///	np.random.random_sample .
         /// </summary>
-        /// <param name="d1">
-        ///	The dimensions of the returned array, should all be positive.<br></br>
-        ///	
-        ///	If no argument is given a single Python float is returned.
-        /// </param>
-        /// <param name="d0">
-        ///	The dimensions of the returned array, should all be positive.<br></br>
-        ///	
-        ///	If no argument is given a single Python float is returned.
-        /// </param>
         /// <returns>
         ///	Random values.
         /// </returns>
-        public NDarray random_rand(int? d1 = null, int? d0 = null)
+        public float random_rand()
         {
             //auto-generated code, do not change
             var random = self.GetAttr("random");
             var __self__=random;
-            var pyargs=ToTuple(new object[]
-            {
-            });
-            var kwargs=new PyDict();
-            if (d1!=null) kwargs["d1"]=ToPython(d1);
-            if (d0!=null) kwargs["d0"]=ToPython(d0);
-            dynamic py = __self__.InvokeMethod("rand", pyargs, kwargs);
-            return ToCsharp<NDarray>(py);
+            dynamic py = __self__.InvokeMethod("rand");
+            return ToCsharp<float>(py);
         }
         
         /// <summary>
@@ -80,34 +64,18 @@ namespace Numpy
         ///	
         ///	sigma * np.random.randn(...) + mu
         /// </summary>
-        /// <param name="d1">
-        ///	The dimensions of the returned array, should be all positive.<br></br>
-        ///	
-        ///	If no argument is given a single Python float is returned.
-        /// </param>
-        /// <param name="d0">
-        ///	The dimensions of the returned array, should be all positive.<br></br>
-        ///	
-        ///	If no argument is given a single Python float is returned.
-        /// </param>
         /// <returns>
         ///	A (d0, d1, ..., dn)-shaped array of floating-point samples from
         ///	the standard normal distribution, or a single such float if
         ///	no parameters were supplied.
         /// </returns>
-        public NDarray random_randn(int? d1 = null, int? d0 = null)
+        public float random_randn()
         {
             //auto-generated code, do not change
             var random = self.GetAttr("random");
             var __self__=random;
-            var pyargs=ToTuple(new object[]
-            {
-            });
-            var kwargs=new PyDict();
-            if (d1!=null) kwargs["d1"]=ToPython(d1);
-            if (d0!=null) kwargs["d0"]=ToPython(d0);
-            dynamic py = __self__.InvokeMethod("randn", pyargs, kwargs);
-            return ToCsharp<NDarray>(py);
+            dynamic py = __self__.InvokeMethod("randn");
+            return ToCsharp<float>(py);
         }
         
         /// <summary>

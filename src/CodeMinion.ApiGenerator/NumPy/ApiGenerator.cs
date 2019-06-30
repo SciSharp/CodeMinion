@@ -810,6 +810,12 @@ namespace CodeMinion.ApiGenerator.NumPy
                 case "mintypecode":
                     decl.Arguments.First(x => x.Name == "typeset").DefaultValue = "null";
                     break;
+                case "rand":
+                case "randn":
+                    decl.Arguments.Clear();
+                    decl.Arguments.Add(new Argument(){ Name = "shape", Type = "int[]"});
+                    decl.ManualOverride = true;
+                    break;
             }
         }
 
@@ -991,7 +997,7 @@ namespace CodeMinion.ApiGenerator.NumPy
                 case "unique":
                     {
                         decl["ar"].Type = "NDarray";
-                        decl.Arguments.ForEach(a=>
+                        decl.Arguments.ForEach(a =>
                         {
                             if (a.Name != "axis")
                             {
@@ -1013,6 +1019,33 @@ namespace CodeMinion.ApiGenerator.NumPy
                         decl.Returns[0].Type = "NDarray[]";
                         yield return decl;
                     }
+                    yield break;
+                case "linspace":
+                    {
+                        decl["retstep"].Ignore = true;
+                        decl["start"].Type = "NDarray";
+                        decl["stop"].Type = "NDarray";
+                        decl["num"].DefaultValue="50";
+                        decl["endpoint"].DefaultValue="true";
+                        //decl["retstep"].MakeMandatory();
+                        yield return decl;
+                        yield return decl.Clone(f =>
+                        {
+                            f.Returns.RemoveAt(1);
+                            f["start"].Type = "double";
+                            f["stop"].Type = "double";
+                        });
+                    }
+                    yield break;
+                case "rand":
+                case "randn":
+                    yield return decl;
+                    yield return decl.Clone(f =>
+                    {
+                        f.Arguments.Clear();
+                        f.ManualOverride = false;
+                        f.Returns[0].Type = "float";
+                    });
                     yield break;
             }
             // without args we don't need to consider possible overloads

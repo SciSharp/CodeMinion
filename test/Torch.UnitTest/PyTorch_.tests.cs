@@ -390,17 +390,17 @@ namespace Torch.UnitTest
             // tensor([ 1.0000,  1.5000,  2.0000])
             // 
 
-            var given=  torch.arange(5);
-            var expected=
+            var given = torch.arange(5);
+            var expected =
                 "tensor([0, 1, 2, 3, 4])";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.arange(1, 4);
-             expected=
-                "tensor([1, 2, 3])";
+            given = torch.arange(1, 4);
+            expected =
+               "tensor([1, 2, 3])";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.arange(1, 2.5, 0.5);
-             expected=
-                "tensor([1.0000, 1.5000, 2.0000])";
+            given = torch.arange(1, 2.5, 0.5);
+            expected =
+               "tensor([1.0000, 1.5000, 2.0000])";
             Assert.AreEqual(expected, given.repr);
         }
 
@@ -414,13 +414,13 @@ namespace Torch.UnitTest
             // tensor([ 1.0000,  1.5000,  2.0000,  2.5000,  3.0000,  3.5000,  4.0000])
             // 
 
-            var given=  torch.range(1, 4);
-            var expected=
+            var given = torch.range(1, 4);
+            var expected =
                 "tensor([1., 2., 3., 4.])";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.range(1f, 4f, 0.5f);
-             expected=
-                "tensor([1.0000, 1.5000, 2.0000, 2.5000, 3.0000, 3.5000, 4.0000])";
+            given = torch.range(1f, 4f, 0.5f);
+            expected =
+               "tensor([1.0000, 1.5000, 2.0000, 2.5000, 3.0000, 3.5000, 4.0000])";
             Assert.AreEqual(expected, given.repr);
         }
 
@@ -438,24 +438,22 @@ namespace Torch.UnitTest
             // tensor([-10.])
             // 
 
-#if TODO
-            var given=  torch.linspace(3, 10, steps=5);
-            var expected=
-                "tensor([  3.0000,   4.7500,   6.5000,   8.2500,  10.0000])";
+            var given = torch.linspace(3, 10, steps: 5);
+            var expected =
+                "tensor([ 3.0000,  4.7500,  6.5000,  8.2500, 10.0000])";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.linspace(-10, 10, steps=5);
-             expected=
-                "tensor([-10.,  -5.,   0.,   5.,  10.])";
+            given = torch.linspace(-10, 10, steps: 5);
+            expected =
+               "tensor([-10.,  -5.,   0.,   5.,  10.])";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.linspace(start=-10, end=10, steps=5);
-             expected=
-                "tensor([-10.,  -5.,   0.,   5.,  10.])";
+            given = torch.linspace(start: -10, end: 10, steps: 5);
+            expected =
+               "tensor([-10.,  -5.,   0.,   5.,  10.])";
             Assert.AreEqual(expected, given.repr);
-             given=  torch.linspace(start=-10, end=10, steps=1);
-             expected=
-                "tensor([-10.])";
+            given = torch.linspace(start: -10, end: 10, steps: 1);
+            expected =
+               "tensor([-10.])";
             Assert.AreEqual(expected, given.repr);
-#endif
         }
 
 

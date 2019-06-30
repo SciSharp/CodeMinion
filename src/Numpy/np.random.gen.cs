@@ -32,21 +32,33 @@ namespace Numpy
             ///	takes a shape-tuple as the first argument, refer to
             ///	np.random.random_sample .
             /// </summary>
-            /// <param name="d1">
-            ///	The dimensions of the returned array, should all be positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.
-            /// </param>
-            /// <param name="d0">
-            ///	The dimensions of the returned array, should all be positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.
-            /// </param>
             /// <returns>
             ///	Random values.
             /// </returns>
-            public static NDarray rand(int? d1 = null, int? d0 = null)
-                => NumPy.Instance.random_rand(d1:d1, d0:d0);
+            public static NDarray rand(params int[] shape)
+                => NumPy.Instance.random_rand(shape);
+        }
+        
+        public static partial class random {
+            /// <summary>
+            ///	Random values in a given shape.<br></br>
+            ///	
+            ///	Create an array of the given shape and populate it with
+            ///	random samples from a uniform distribution
+            ///	over [0, 1).<br></br>
+            ///	
+            ///	Notes
+            ///	
+            ///	This is a convenience function.<br></br>
+            ///	 If you want an interface that
+            ///	takes a shape-tuple as the first argument, refer to
+            ///	np.random.random_sample .
+            /// </summary>
+            /// <returns>
+            ///	Random values.
+            /// </returns>
+            public static float rand()
+                => NumPy.Instance.random_rand();
         }
         
         public static partial class random {
@@ -72,23 +84,45 @@ namespace Numpy
             ///	
             ///	sigma * np.random.randn(...) + mu
             /// </summary>
-            /// <param name="d1">
-            ///	The dimensions of the returned array, should be all positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.
-            /// </param>
-            /// <param name="d0">
-            ///	The dimensions of the returned array, should be all positive.<br></br>
-            ///	
-            ///	If no argument is given a single Python float is returned.
-            /// </param>
             /// <returns>
             ///	A (d0, d1, ..., dn)-shaped array of floating-point samples from
             ///	the standard normal distribution, or a single such float if
             ///	no parameters were supplied.
             /// </returns>
-            public static NDarray randn(int? d1 = null, int? d0 = null)
-                => NumPy.Instance.random_randn(d1:d1, d0:d0);
+            public static NDarray randn(params int[] shape)
+                => NumPy.Instance.random_randn(shape);
+        }
+        
+        public static partial class random {
+            /// <summary>
+            ///	Return a sample (or samples) from the “standard normal” distribution.<br></br>
+            ///	
+            ///	If positive, int_like or int-convertible arguments are provided,
+            ///	randn generates an array of shape (d0, d1, ..., dn), filled
+            ///	with random floats sampled from a univariate “normal” (Gaussian)
+            ///	distribution of mean 0 and variance 1 (if any of the  are
+            ///	floats, they are first converted to integers by truncation).<br></br>
+            ///	 A single
+            ///	float randomly sampled from the distribution is returned if no
+            ///	argument is provided.<br></br>
+            ///	
+            ///	This is a convenience function.<br></br>
+            ///	  If you want an interface that takes a
+            ///	tuple as the first argument, use numpy.random.standard_normal instead.<br></br>
+            ///	
+            ///	Notes
+            ///	
+            ///	For random samples from , use:
+            ///	
+            ///	sigma * np.random.randn(...) + mu
+            /// </summary>
+            /// <returns>
+            ///	A (d0, d1, ..., dn)-shaped array of floating-point samples from
+            ///	the standard normal distribution, or a single such float if
+            ///	no parameters were supplied.
+            /// </returns>
+            public static float randn()
+                => NumPy.Instance.random_randn();
         }
         
         public static partial class random {

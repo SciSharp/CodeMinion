@@ -48,5 +48,11 @@ namespace CodeMinion.Core.Models
             Type = type;
             DefaultValue = @default;
         }
+
+        public void MakeMandatory()
+        {
+            DefaultValue = null;
+            IsNullable = false;
+        }
     }
 }

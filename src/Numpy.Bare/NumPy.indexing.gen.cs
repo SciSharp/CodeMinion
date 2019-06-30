@@ -983,7 +983,9 @@ namespace Numpy
         public NDarray lib_stride_tricks_as_strided(NDarray x, Shape shape = null, int[] strides = null, bool? subok = false, bool? writeable = true)
         {
             //auto-generated code, do not change
-            var __self__=self;
+            var lib = self.GetAttr("lib");
+            var stride_tricks = lib.GetAttr("stride_tricks");
+            var __self__=stride_tricks;
             var pyargs=ToTuple(new object[]
             {
                 x,
