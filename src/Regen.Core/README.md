@@ -2,7 +2,7 @@
 Regen at its core is a templating engine that uses C#-Python like syntax (`regen-lang`) and is entirely written in C#.<br>
 Its purpose is to replace T4 Templating with intuitive and fast in-code (not in a seperate file) scripting/templating.<br>
 
-Current version: 0.21a<br>
+Current version: 0.23a<br>
 
 ### Getting Started
 Make sure to read our [getting started](TUTORIAL.md) page!

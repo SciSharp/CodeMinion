@@ -93,7 +93,6 @@ namespace Regen {
                 return;
             }
 
-            var fileCode = txt.GetText().Replace("\r", "");
             TextSelection textSelection = doc.ActiveWindow.Document.Selection as TextSelection;
 
             var cursor = textSelection.ActivePoint as VirtualPoint;
@@ -106,6 +105,7 @@ namespace Regen {
                 ed.Insert(text);
                 textSelection.MoveToAbsoluteOffset(index);
             } catch (Exception e) {
+                Logger.Log(e);
 #if DEBUG
                 Message($"Failed parsing file...\n" + e);
 #else

@@ -69,6 +69,8 @@ namespace Regen {
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
+            Logger.Initialize(this, "RegenPackage");
+
             var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var files = Directory.GetFiles(dir, "*.exe").Concat(Directory.GetFiles(dir, "*.dll")).ToArray();
             Debug.Print($"Loading assembilies for Regen:\n{dir}\n{string.Join("\n", files)}");
@@ -95,6 +97,8 @@ namespace Regen {
             await ClearCompilationsCommand.InitializeAsync(this);
 
             await ClearCompilationsSelectionCommand.InitializeAsync(this);
+
+            await ReloadGlobalsCommand.InitializeAsync(this);
         }
 
         #endregion

@@ -22,6 +22,14 @@ namespace Regen.Compiler {
             //handle global blocks
             var parsed = ExpressionParser.Parse(code);
             Compile(parsed); //and we just ignore outputs, leaving all variables inside the context.
+        }        
+        
+        /// <summary>
+        ///     Compiles the given code and stores the variables in current <see cref="Context"/>.
+        /// </summary>
+        public void CompileGlobal(ParsedCode parsed) {
+            //handle global blocks
+            Compile(parsed); //and we just ignore outputs, leaving all variables inside the context.
         }
 
         public string Compile(ParsedCode code) {

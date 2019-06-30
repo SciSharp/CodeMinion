@@ -105,6 +105,7 @@ namespace Regen {
                 var newLength = txt.EndPoint.AbsoluteCharOffset;
                 textSelection.MoveToAbsoluteOffset(Math.Min(newLength - 1, index));
             } catch (Exception e) {
+                Logger.Log(e);
 #if DEBUG
                 Message($"Failed parsing file...\n" + e);
 #else
