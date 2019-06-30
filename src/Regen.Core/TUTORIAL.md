@@ -1,5 +1,5 @@
 ﻿# Getting Started
-Regen at its core is a templating engine that uses C#-Python like syntax and is entirely written in C#.<br>
+Regen at its core is a templating engine that uses C#-like syntax and is entirely written in C#.<br>
 Its purpose is to replace T4 Templating with intuitive and fast in-code (not in a seperate file) scripting/templating.<br>
 Having your template alongside the generated code makes it much more readable and easy to modify leading to a major increase in productivity and maintainability.
 
@@ -90,7 +90,7 @@ Note: The template is compiled from top to bottom therefore you must first decla
 
 #### Foreach Loops
 Foreach loops in `regen-lang` allows to iterate a single list/array or multiple lists/arrays at the same time. <br>
-An important difference is the use of the hashtag (`#`) to signify a loop variable.<br>
+An important difference is that inside the body of a `foreach` expression you must use of the hashtag (`#`) instead of the percentage (`%`) to signify expressions.<br>
 
 The synax specification: <br>
     
@@ -103,31 +103,32 @@ The synax specification: <br>
     %foreach expr1, expr2 ..., exprn
         template
 
-    expr - an expression that returns an object that must implement IList
+    expr     - an expression that returns an object that must implement IList
+    template - a regen template (using # instead of % for expressions)
 
 As you can see, unlike traditional foreach/for - we can pass multiple expressions.<br>
 Every expression that returns an IList will be iterated together to the smallest length of them all.
 We access the list values inside the foreach template in `regen-lang` using the loop variables `#1`, `#2` where `#1` accesses the first expression's current value and `#2` accesses second expression's current value and so forth.
 
-Heres an example of how a multiple-expressions foreach loop can be translated to plain `C#` code:
+The following example shows how a foreach loop iterating over multiple lists plain `C#` code and how it can be rewritten in `regen`:
 ```C#
 //assume expr1 and expr2 are an IList
 foreach (var tuple in System.Linq.Enumerable.Zip(expr1, expr2, (val1, val2) => (val1, val2))) {
     Console.WriteLine($"! expr1: {tuple.val1}, expr2: {tuple.val2}");
 }
 ```
-Heres how we would implement the same in `regen-lang`:
+Heres how we would implement the same in `regen-lang` with a multi-variable foreach-expression:
 ```C#
 %foreach expr1, expr2% 
-    ! expr1: #1, expr2: #2
+    Console.WriteLine($"! expr1: #1, expr2: #2");
 % 
 ```
-Note: The engine knows how to copy indentions and keeps them during output.
+Note: The engine respects indentation so the template's indentation will be kept in the generated code.
 
 Let's try something less basic, lets iterate an array we defined.
 ```C#
 #if _REGEN 
-    %numbers = [1,2,3,4] //or range(1,4)
+    %numbers = [1,2,3] //or range(1,3)
     %foreach numbers% 
     Console.WriteLine("#1");
     % 
@@ -137,26 +138,36 @@ Let's try something less basic, lets iterate an array we defined.
     Console.WriteLine("1");
     Console.WriteLine("2");
     Console.WriteLine("3");
-    Console.WriteLine("4");
 
     some text that has nothing to do with the foreach
 #endif
 ```
-Note: Incase you want to actually write `#` in your template (or `%`), add a reversed slash `\` before the # and it will not be compiled! (//TODO STILL WIP)
+Note: In case you want to actually write `#` in your template (or `%`), use the backslash `\` to escape them: (//TODO STILL WIP)
+
+```C#
+#if _REGEN 
+    %foreach range(1,3)
+        Console.Writeline("\#1 = #1");
+#else   
+        Console.Writeline("#1 = 1");
+        Console.Writeline("#1 = 2");
+        Console.Writeline("#1 = 3");
+#endif
+```
 
 What if we want to know our current index (usually `i`) like in a for-loop?<br>
 For this we have a reserved variable named `i`. When-ever you use it, it'll hold the value of the current iteration index (0 based).<br>
 The usage of `i` must be inside an expression-block like this: `#(i)`<br>
 Note: If you'll try to declare a variable named `i`, it'll throw a compilation error.
+
 ```C#
 #if _REGEN 
-    %foreach [1,2,3,4]
-        #(i) <> #1
+    %foreach range(1,3)
+        Console.Writeline("\#(i) = #(i), \#1 = #1");
 #else   
-        0 <> 1
-        1 <> 2
-        2 <> 3
-        3 <> 4
+        Console.Writeline("#(i) = 0, #1 = 1");
+        Console.Writeline("#(i) = 1, #1 = 2");
+        Console.Writeline("#(i) = 2, #1 = 3");
 #endif
 ```
 
@@ -200,7 +211,7 @@ Importing allows the user to use external functions available in expression eval
 __Syntax 1:__ &nbsp;&nbsp;&nbsp;&nbsp; %import _namespace.type_<br>
 __Syntax 2:__ &nbsp;&nbsp;&nbsp;&nbsp; %import _namespace.type_ as _aliasname_<br>
 __Syntax 3 (WIP):__ &nbsp;&nbsp;&nbsp;&nbsp; %import global "./directory/file.cs"<br>
-Importing static functions is faily easy,<br>
+Importing static functions is fairly easy.<br>
 Any static function that is imported becomes available in expressions as a lowercase.
 Therefore `Math.Sin(double)` turns usable `%(sin(double))`.<br>
 If the developer uses syntax 2, aliasname is used as a prefix and should look like the following:
@@ -231,7 +242,7 @@ One of them is `System.Math` so using `Math.Cos(...)` will be in `regen-lang`: `
   * `asarray(params obj)` - Wraps all parameters passed to an Array.
   * `isnull(obj)` - Checks if `obj` is C# `null` or `regen-lang` null.
   * `isarray(obj)` - Checks if `obj` implements `IList`
-  * `isnumber(obj)` - Checks if 
+  * `isnumber(obj)` - Checks if `obj`is a numeric type.
 ---
 
 #### Internal Variables
