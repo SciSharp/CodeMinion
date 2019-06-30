@@ -1,16 +1,15 @@
 ﻿# Getting Started
 Regen at its core is a templating engine that uses C#-Python like syntax and is entirely written in C#.<br>
 Its purpose is to replace T4 Templating with intuitive and fast in-code (not in a seperate file) scripting/templating.<br>
-Having your template along the generated code makes it much more readable and easy to modify leading to a major increase in productivity and maintainability.
+Having your template alongside the generated code makes it much more readable and easy to modify leading to a major increase in productivity and maintainability.
 
 ---
 
-If you wish to use Regen via code, feel free to explore the unit-tests at `Regen.Core.UnitTests`.<br>
-This tutorial will be about how to use Regen's templating language (aka `regen-lang`) along visual studio but will also teach the `regen-lang` in-depth.<br>
+This tutorial is about how to use Regen's templating language (aka `regen-lang`) in Visual Studio but will also teach the `regen-lang` in-depth.<br>
 
-It's also worth mentioning that there are no differences between using `Regen.Core` and  the `VS extension` but for the `#if #else #endif` that helps with incapsulating the code inside VS editor.
+It's also worth mentioning that there are no differences between using `Regen.Core` and  the `VS extension` but for the `#if #else #endif` that allows to place regen templates in-line in C# source code.
 
-If you rather learn from examples, please refer to UnitTests/Examples/ (STILL WIP).<br>
+If you rather learn from examples, please refer to UnitTests/Examples/ (STILL WIP) or feel free to explore the unit-tests at `Regen.Core.UnitTests`.<br>
 
 #### Installation
 //todo nuget package for Regen.Core<br>
@@ -25,11 +24,10 @@ A code frame / template block inside a C# code looks like this:
 	//this is where the template's output will be placed after compilation
 #endif
 ```
-The `_REGEN` conditional compliation symbol is not defined at any moment - making the template itself to be ignored by the compiler but on
-the other hand the `#else` block does compile and is where the compiled template is pasted by the plugin/extension.
+The `_REGEN` conditional compliation symbol must not be defined at any moment - making the template itself to be ignored by the C#-compiler. The `#else` block is where the generated code of the compiled template is pasted by the plugin/extension.
 
 <strong>Hello World</strong> <br>
-The precentage character (`%`) is used to tell the compiler that the following expression parentheses belongs to `regen-lang` and contain an expression.<br>
+The percentage character (`%`) signifies that the content of the following parentheses is a `regen-lang` expression.<br>
 Inside foreach-loops we use hashtags (`#`) (we will get to that later).
 
 ```C#
@@ -47,7 +45,7 @@ Expressions are evaluated using [Flee](https://github.com/mparlak/Flee) and are 
 Syntax: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`%(expr)`<br>
 Syntax in-foreach: `#(expr)`<br>
 
-What can I write inside an expression? Anything that works with Flee which is covers mostly what works in C#.<br>
+What can I write inside an expression? Anything that works with Flee which covers mostly what works in C#.<br>
 ```C#
 %(1 + 1) //returns 2 (int)
 %(1 + 1.1f) //returns 2.1 (upcasted float)
@@ -65,10 +63,10 @@ What can I write inside an expression? Anything that works with Flee which is co
 %("hi" + " " + str) //returns "hi there"
 %("hi" + " " + str + str[2]) //returns "hi theree"
 ```
-<u>Not supported features</u>: new, throw, explicit casting, as, is, ??, :? (diamond operator), sizeof, await
+<u>Not supported features</u>: `new`, `throw`, explicit casting, `as`, `is`, `??`, ternery expressions, generics, `sizeof`, `await`
 
 #### Variables and Type System
-Regen has it's own Type system ([See More](./DataTypes)) with an abstract base class [Data](./DataTypes/Data.cs).<br>
+Regen has it's own type system ([See More](./DataTypes)) with an abstract base class [Data](./DataTypes/Data.cs).<br>
 To the user it is mostly transparent.<br>
 
 
@@ -87,12 +85,12 @@ Note: The template is compiled from top to bottom therefore you must first decla
 %a_char = "c" 
 
 %array = [1,2,3,4, "woah, a string"] //arrays are non-generic.
-%dictionary = [key: 1, a_key2: 2, "kk": 3] //is an array but the values are a KeyValue
+%dictionary = [key: 1, a_key2: 2, "kk": 3] //dictionariy is declared as an array of key-value pairs
 ```
 
 #### Foreach Loops
 Foreach loops in `regen-lang` allows to iterate a single list/array or multiple lists/arrays at the same time. <br>
-An important difference is the mark character is a hashtag (`#`) instead of precentage (%).<br>
+An important difference is the use of the hashtag (`#`) to signify a loop variable.<br>
 
 The synax specification: <br>
     
@@ -109,9 +107,7 @@ The synax specification: <br>
 
 As you can see, unlike traditional foreach/for - we can pass multiple expressions.<br>
 Every expression that returns an IList will be iterated together to the smallest length of them all.
-We access the list values inside the foreach template similarly to Regex's sytanx.<br>
-Regex uses `$1, $2 .. $n` for their match.<br>
-`regen-lang` uses `#1`, `#2` where `#1` accesses the first expression's current value and `#2` accesses second expression's current value.
+We access the list values inside the foreach template in `regen-lang` using the loop variables `#1`, `#2` where `#1` accesses the first expression's current value and `#2` accesses second expression's current value and so forth.
 
 Heres an example of how a multiple-expressions foreach loop can be translated to plain `C#` code:
 ```C#
