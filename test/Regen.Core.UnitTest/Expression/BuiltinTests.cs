@@ -117,16 +117,16 @@ namespace Regen.Core.Tests.Expression {
                     #1=#2
                 %
                 ";
-            Compile(@input).Output.Should().Contain(
-                @"1=4
-                    1=5
-                    1=6
-                    2=4
-                    2=5
-                    2=6
-                    3=4
-                    3=5
-                    3=6");
+            Compile(@input).Output.Trim(' ', '\t', '\n', '\r').Should()
+                .Contain("1=4").And
+                .Contain("1=5").And
+                .Contain("1=6").And
+                .Contain("2=4").And
+                .Contain("2=5").And
+                .Contain("2=6").And
+                .Contain("3=4").And
+                .Contain("3=5").And
+                .Contain("3=6");
         }
 
         [TestMethod]
@@ -136,15 +136,15 @@ namespace Regen.Core.Tests.Expression {
                     #1=#2
                 %
                 ";
-            Compile(@input).Output.Should().Contain(
-                @"1=3
-                    1=4
-                    1=5
-                    2=3
-                    2=4
-                    2=5
-                    3=4
-                    3=5");
+            Compile(@input).Output.Should()
+                .Contain("1=3").And
+                .Contain("1=4").And
+                .Contain("1=5").And
+                .Contain("2=3").And
+                .Contain("2=4").And
+                .Contain("2=5").And
+                .Contain("3=4").And
+                .Contain("3=5");
         }
 
         [TestMethod]
@@ -154,15 +154,15 @@ namespace Regen.Core.Tests.Expression {
                     #1=#2
                 %
                 ";
-            Compile(@input).Output.Should().Contain(
-                @"1=3
-                    1=4
-                    1=5
-                    2=3
-                    2=4
-                    2=5
-                    3=4
-                    3=5");
+            Compile(@input).Output.Should()
+                .Contain("1=3").And
+                .Contain("1=4").And
+                .Contain("1=5").And
+                .Contain("2=3").And
+                .Contain("2=4").And
+                .Contain("2=5").And
+                .Contain("3=4").And
+                .Contain("3=5");
         }
     }
 }
