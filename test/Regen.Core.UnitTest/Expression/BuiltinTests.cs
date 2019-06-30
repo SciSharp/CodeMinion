@@ -146,5 +146,23 @@ namespace Regen.Core.Tests.Expression {
                     3=4
                     3=5");
         }
+
+        [TestMethod]
+        public void forevery_with_exclusion_ofstring() {
+            var @input = $@"
+                %foreach forevery([1,2,3],[3,4,5],true)%
+                    #1=#2
+                %
+                ";
+            Compile(@input).Output.Should().Contain(
+                @"1=3
+                    1=4
+                    1=5
+                    2=3
+                    2=4
+                    2=5
+                    3=4
+                    3=5");
+        }
     }
 }

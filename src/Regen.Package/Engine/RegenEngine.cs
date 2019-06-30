@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Regen.Compiler;
@@ -10,6 +11,11 @@ namespace Regen.Engine {
     ///     Central class to different types of methods that use <see cref="Regen"/>.
     /// </summary>
     public static class RegenEngine {
+        /// <summary>
+        ///     All global files contents that were found.
+        /// </summary>
+        public static List<string> Globals { get; } = new List<string>();
+
         public static CodeFrame[] Parse(string code) {
             return CodeFrame.Create(code)
                 .Select(frame => Parse(frame, code))
@@ -24,7 +30,7 @@ namespace Regen.Engine {
         public static CodeFrame Parse(CodeFrame frame, string code) {
             var compiler = new RegenCompiler(); //todo modules here?
             var parsedCode = ExpressionParser.Parse(frame.Input);
-
+            LoadGlobals(compiler);
             //handle globals
             var globals = CodeFrame.CreateGlobal(code);
             foreach (var globalFrame in globals) {
@@ -33,7 +39,13 @@ namespace Regen.Engine {
 
             frame.Output = compiler.Compile(parsedCode);
             return frame;
-        }        
+        }
+
+        static void LoadGlobals(RegenCompiler compiler) {
+            foreach (var content in Globals) {
+                compiler.CompileGlobal(content);
+            }
+        }
     }
 
     /// <summary>

@@ -49,6 +49,13 @@
           <ButtonText>Clear At Cursor</ButtonText>
         </Strings>
       </Button>
+
+      <Button guid="guidRegenPackageCmdSet" id="ReloadGlobals" priority="0x0100" type="Button">
+        <Parent guid="guidRegenPackageCmdSet" id="MyMenuGroup" />
+        <Strings>
+          <ButtonText>Reload Globals</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -71,6 +78,7 @@
       <IDSymbol name="CompileSelection" value="0x0102" />
       <IDSymbol name="ClearCompilations" value="0x0103" />
       <IDSymbol name="ClearCompilationsSelection" value="0x0104" />
+      <IDSymbol name="ReloadGlobals" value="0x0105" />
       <IDSymbol name="TopLevelMenu" value="0x1021" />
     </GuidSymbol>
 
