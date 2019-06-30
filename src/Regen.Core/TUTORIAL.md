@@ -144,7 +144,7 @@ Let's try something less basic, lets iterate an array we defined.
 ```
 Note: In case you want to actually write `#` in your template (or `%`), use the backslash `\` to escape them: (//TODO STILL WIP)
 
-```C#
+```
 #if _REGEN 
     %foreach range(1,3)
         Console.Writeline("\#1 = #1");
