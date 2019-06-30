@@ -92,12 +92,12 @@ Note: The template is compiled from top to bottom therefore you must first decla
 
 #### Foreach Loops
 Foreach loops in `regen-lang` allows to iterate a single list/array or multiple lists/arrays at the same time. <br>
-An important difference is the mark character is a hashtag (`#`) instead of precentage.<br>
+An important difference is the mark character is a hashtag (`#`) instead of precentage (%).<br>
 
 The synax specification: <br>
     
     multiline:
-    %foreach expr, expr% ..., exprn
+    %foreach expr, expr ..., exprn%
         template
     %    
 
@@ -108,7 +108,8 @@ The synax specification: <br>
     expr - an expression that returns an object that must implement IList
 
 As you can see, unlike traditional foreach/for - we can pass multiple expressions.<br>
-We access them during the loop similarly to Regex's sytanx.<br>
+Every expression that returns an IList will be iterated together to the smallest length of them all.
+We access the list values inside the foreach template similarly to Regex's sytanx.<br>
 Regex uses `$1, $2 .. $n` for their match.<br>
 `regen-lang` uses `#1`, `#2` where `#1` accesses the first expression's current value and `#2` accesses second expression's current value.
 
@@ -121,11 +122,11 @@ foreach (var tuple in System.Linq.Enumerable.Zip(expr1, expr2, (val1, val2) => (
 ```
 Heres how we would implement the same in `regen-lang`:
 ```C#
-    %foreach expr1, expr2% 
-        ! expr1: #1, expr2: #2
-    % 
+%foreach expr1, expr2% 
+    ! expr1: #1, expr2: #2
+% 
 ```
-Note: The engine knows how to handle indentions and does not care how many are there.
+Note: The engine knows how to copy indentions and keeps them during output.
 
 Let's try something less basic, lets iterate an array we defined.
 ```C#
@@ -145,7 +146,7 @@ Let's try something less basic, lets iterate an array we defined.
     some text that has nothing to do with the foreach
 #endif
 ```
-Note: Incase you want to actually write `#` in your template (or `%`), add a reversed slash `\` before the # and it will not be parsed! (//TODO STILL WIP)
+Note: Incase you want to actually write `#` in your template (or `%`), add a reversed slash `\` before the # and it will not be compiled! (//TODO STILL WIP)
 
 What if we want to know our current index (usually `i`) like in a for-loop?<br>
 For this we have a reserved variable named `i`. When-ever you use it, it'll hold the value of the current iteration index (0 based).<br>
@@ -154,19 +155,19 @@ Note: If you'll try to declare a variable named `i`, it'll throw a compilation e
 ```C#
 #if _REGEN 
     %foreach [1,2,3,4]
-        #(i)
+        #(i) <> #1
 #else   
-        1
-        2
-        3
-        4
+        0 <> 1
+        1 <> 2
+        2 <> 3
+        3 <> 4
 #endif
 ```
 
 #### Advanced Examples
 ```C#
 #if _REGEN 
-    %foreach [1,2,3,4]
+    %foreach [1,2,3,4]%
         var name#1 = #(i * #1);
     %
 #else   
@@ -181,19 +182,19 @@ Note: If you'll try to declare a variable named `i`, it'll throw a compilation e
     using System;
     %types = ["short","int","long"]
     %foreach types%
-    public #1 Multiply#1(#1 left, #1 right) {
+    public #1 Multiply#(#1.ToUpper())(#1 left, #1 right) {
         return (#1) Convert.ChangeType(left * right, typeof(#1));
     }
     %
 #else   
     using System;
-    public short Multiplyshort(short left, short right) {
+    public short MultiplySHORT(short left, short right) {
         return (short) Convert.ChangeType(left * right, typeof(short));
     }
-    public int Multiplyint(int left, int right) {
+    public int MultiplyINT(int left, int right) {
         return (int) Convert.ChangeType(left * right, typeof(int));
     }
-    public long Multiplylong(long left, long right) {
+    public long MultiplyLONG(long left, long right) {
         return (long) Convert.ChangeType(left * right, typeof(long));
     }
 #endif
