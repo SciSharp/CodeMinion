@@ -115,6 +115,8 @@ namespace Regen.Compiler {
                                     changed = false;
                                     var cleanedCopy = new string(' ', last_access_index) + copy.Substring(last_access_index);
                                     ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy));
+                                    if (ew.Count == 0)
+                                        break;
                                 }
 
                                 var current = ew.Current;

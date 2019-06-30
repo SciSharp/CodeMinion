@@ -43,7 +43,7 @@ namespace Regen.Parser.Expressions {
             var ret = new ImportExpression();
             if (ew.IsCurrent(ExpressionToken.StringLiteral)) {
                 ret._matchType = new RegexResult[] {ew.Current.Match.AsResult()};
-                ret.Type = ew.Current.Match.Value;
+                ret.Type = ew.Current.Match.Value.Trim('\"');
             } else {
                 ret._matchType = ew.TakeForwardWhile(t => t.Token == ExpressionToken.Period || t.Token == ExpressionToken.Literal)
                     .Select(t => t.Match.AsResult()).ToArray();
