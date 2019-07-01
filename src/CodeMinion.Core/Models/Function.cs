@@ -15,11 +15,6 @@ namespace CodeMinion.Core.Models
         /// </summary>
         public string[] Generics { get; set; } = null;
 
-        /// <summary>
-        /// If this is set the member will be forwarded to the given static api object with self as first parameter
-        /// </summary>
-        public string ForwardToStaticImpl { get; set; }
-
         public virtual Function Clone(Action<Function> a)
         {
             var clone= Clone<Function>();

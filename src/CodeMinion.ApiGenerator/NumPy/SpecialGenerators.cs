@@ -19,7 +19,7 @@ namespace CodeMinion.ApiGenerator.NumPy
 
         public static void ConvertArrayToNDarray(CodeWriter s)
         {
-            s.Out("protected NDarray ConvertArrayToNDarray(Array a)", () =>
+            s.Out("private static NDarray ConvertArrayToNDarray(Array a)", () =>
             {
                 s.Out("switch(a)", () =>
                 {

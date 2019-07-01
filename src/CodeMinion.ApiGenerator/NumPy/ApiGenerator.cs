@@ -57,6 +57,8 @@ namespace CodeMinion.ApiGenerator.NumPy
             {
                 CopyrightNotice = "Copyright (c) 2019 by the SciSharp Team",
                 NameSpace = "Numpy",
+                StaticModuleName = "np",
+                PythonModuleName="numpy",
                 TestFilesPath = Path.Combine(test_dir, "Numpy.UnitTest"),
                 Usings = { "using Numpy.Models;" },
                 ToPythonConversions = {
@@ -398,7 +400,7 @@ namespace CodeMinion.ApiGenerator.NumPy
                         }
                         var dc = d.Clone<Function>();
                         dc.Arguments.RemoveAt(0);
-                        dc.ForwardToStaticImpl = "NumPy.Instance";
+                        //dc.ForwardToStaticImpl = "NumPy.Instance";
                         ndarray_api.Declarations.Add(dc);
                     }
                 }

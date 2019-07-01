@@ -29,6 +29,10 @@ namespace CodeMinion.Core
         public List<ApiClass> ApiClasses { get; set; } = new List<ApiClass>();
         public bool PrintModelJson { get; set; } = false;
         public string NameSpace { get; set; } = "Numpy";
+        public string StaticModuleName { get; set; } = "np";
+        public string PythonModuleName { get; set; } = "numpy";
+        public List<Action<CodeWriter>> InitializationGenerators { get; set; } = new List<Action<CodeWriter>>();
+
         public bool UsePythonIncluded { get; set; } = true;
         public HashSet<string> Usings { get; set; } = new HashSet<string>()
         {
@@ -56,63 +60,12 @@ namespace CodeMinion.Core
         }
 
         // generate an entire API function declaration
-        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s, bool prefix = false)
+        protected virtual void GenerateApiFunction(Declaration decl, CodeWriter s, bool prefix = false, bool @static=false)
         {
-            if (decl.DebuggerBreak)
-                Debugger.Break();
-            decl.Sanitize();
-            if (decl.CommentOut)
-                s.Out("/*");
-            GenerateDocString(decl, s);
-            var class_names = (decl.GeneratedClassName ?? decl.ClassName ?? "no_name").Split('.');
-            int levels = class_names.Length - 1;
-            var retval = GenerateReturnType(decl);
-            switch (decl)
-            {
-                case Function func:
-                    var arguments = GenerateArguments(func);
-                    var passed_args = GeneratePassedArgs(func);
-                    var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
-                    var prefix_str = "";
-                    if (prefix && levels > 0)
-                        prefix_str = string.Join("_", class_names.Skip(1)) + "_";
-                    s.Out($"public {retval} {EscapeName(prefix_str + decl.Name)}{generics}({arguments})");
-                    s.Block(() =>
-                    {
-                        GenerateFunctionBody(func, s, prefix_str);
-                    });
-                    break;
-                case Property prop:                    
-                    s.Out($"public {prop.Type} {EscapeName(prop.Name)}");
-                    s.Block(() =>
-                    {
-                        s.Out("get", () =>
-                        {
-                            GeneratePropertyGetter(prop, s);
-                        });
-                        s.Out("set", () =>
-                        {
-                            GeneratePropertySetter(prop, s);
-                        });
-                    });
-                    break;
-            }
-            if (decl.CommentOut)
-                s.Out("*/");
-            if (PrintModelJson)
-            {
-                s.Out("// the declaration model:");
-                s.Out("/*");
-                s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
-                s.Out("*/");
-            }
-            s.Break();
-        }
-
-        protected virtual void GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s)
-        {
-            if (decl.DebuggerBreak)
-                Debugger.Break();
+            if (decl.ManualOverride)
+                return;
+            //if (decl.Name=="cholesky")
+            //    Debugger.Break();
             decl.Sanitize();
             if (decl.CommentOut)
                 s.Out("/*");
@@ -132,19 +85,30 @@ namespace CodeMinion.Core
             {
                 case Function func:
                     var arguments = GenerateArguments(func);
-                    var passed_args = GeneratePassedArgs(func);
+                    //var passed_args = GeneratePassedArgs(func);
                     var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
-                    s.Out($"public static {retval} {EscapeName(decl.Name)}{func.SharpOnlyPostfix}{generics}({arguments})");
-                    var prefix = "";
-                    if (levels > 0)
-                        prefix = string.Join("_", class_names.Skip(1)) + "_";
-                    s.Indent(() => s.Out(
-                        $"=> {api.ImplName}.Instance.{EscapeName(prefix + decl.Name)}({passed_args});"));
+                    var prefix_str = "";
+                    if (prefix && levels > 0)
+                        prefix_str = string.Join("_", class_names.Skip(1)) + "_";
+                    s.Out($"public {(@static ? "static ":"")}{retval} {EscapeName(prefix_str + decl.Name)}{func.SharpOnlyPostfix}{generics}({arguments})");
+                    s.Block(() =>
+                    {
+                        GenerateFunctionBody(func, s, prefix_str);
+                    });
                     break;
-                case Property prop:
-                    s.Out($"public static {retval} {EscapeName(decl.Name)}");
-                    s.Indent(() => s.Out(
-                        $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)};"));
+                case Property prop:                    
+                    s.Out($"public  {(@static ? "static " : "")}{prop.Type} {EscapeName(prop.Name)}");
+                    s.Block(() =>
+                    {
+                        s.Out("get", () =>
+                        {
+                            GeneratePropertyGetter(prop, s);
+                        });
+                        s.Out("set", () =>
+                        {
+                            GeneratePropertySetter(prop, s);
+                        });
+                    });
                     break;
             }
             if (levels > 0)
@@ -157,8 +121,66 @@ namespace CodeMinion.Core
             }
             if (decl.CommentOut)
                 s.Out("*/");
+            if (PrintModelJson)
+            {
+                s.Out("// the declaration model:");
+                s.Out("/*");
+                s.Out(JObject.FromObject(decl).ToString(Formatting.Indented));
+                s.Out("*/");
+            }
             s.Break();
         }
+
+        //protected virtual void GenerateStaticApiRedirection(StaticApi api, Declaration decl, CodeWriter s)
+        //{
+        //    if (decl.DebuggerBreak)
+        //        Debugger.Break();
+        //    decl.Sanitize();
+        //    if (decl.CommentOut)
+        //        s.Out("/*");
+        //    var class_names = (decl.GeneratedClassName ?? decl.ClassName ?? "no_name").Split('.');
+        //    int levels = class_names.Length - 1;
+        //    if (levels > 0)
+        //    {
+        //        foreach (var name in class_names.Skip(1))
+        //        {
+        //            s.Out($"public static partial class {EscapeName(name)} {{");
+        //            s.Indent();
+        //        }
+        //    }
+        //    GenerateDocString(decl, s);
+        //    var retval = GenerateReturnType(decl);
+        //    switch (decl)
+        //    {
+        //        case Function func:
+        //            var arguments = GenerateArguments(func);
+        //            var passed_args = GeneratePassedArgs(func);
+        //            var generics = func.Generics == null ? "" : $"<{string.Join(",", func.Generics)}>";
+        //            s.Out($"public static {retval} {EscapeName(decl.Name)}{func.SharpOnlyPostfix}{generics}({arguments})");
+        //            var prefix = "";
+        //            if (levels > 0)
+        //                prefix = string.Join("_", class_names.Skip(1)) + "_";
+        //            s.Indent(() => s.Out(
+        //                $"=> {api.ImplName}.Instance.{EscapeName(prefix + decl.Name)}({passed_args});"));
+        //            break;
+        //        case Property prop:
+        //            s.Out($"public static {retval} {EscapeName(decl.Name)}");
+        //            s.Indent(() => s.Out(
+        //                $"=> {api.ImplName}.Instance.{EscapeName(decl.Name)};"));
+        //            break;
+        //    }
+        //    if (levels > 0)
+        //    {
+        //        foreach (var name in class_names.Skip(1))
+        //        {
+        //            s.Outdent();
+        //            s.Out("}");
+        //        }
+        //    }
+        //    if (decl.CommentOut)
+        //        s.Out("*/");
+        //    s.Break();
+        //}
 
         // generate the argument list between the parentheses of a generated API function
         protected virtual string GenerateArguments(Function decl)
@@ -364,11 +386,6 @@ namespace CodeMinion.Core
         protected virtual void GenerateFunctionBody(Function func, CodeWriter s, string prefix = "")
         {
             s.Out("//auto-generated code, do not change");
-            if (!string.IsNullOrWhiteSpace(func.ForwardToStaticImpl))
-            {
-                GenerateForwardingBody(func, s, prefix);
-                return;
-            }
             if (_templates.ContainsKey(func.Name))
             {
                 // use generator template instead
@@ -376,7 +393,7 @@ namespace CodeMinion.Core
                 return;
             }
 
-            //if (func.Name=="DistributedDataParallel")
+            //if (func.Name=="norm")
             //    Debugger.Break();
             var class_names = (func.ClassName ?? "no_name").Split('.');
             int levels = class_names.Length - 1;
@@ -454,16 +471,16 @@ namespace CodeMinion.Core
             }
         }
 
-        private void GenerateForwardingBody(Function member_func, CodeWriter s, string prefix = "")
-        {
-            var func = member_func.Clone<Function>();
-            // inserting this at position 0 since this is a forwarding of a member function to a static implementation
-            func.Arguments.Insert(0, new Argument() { Name = "this", Type = "irrelevant" });
-            var passed_args = GeneratePassedArgs(func);
-            s.Out("var @this=this;");
-            var return_keyword = member_func.Returns.Count > 0 ? "return " : "";
-            s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(prefix + func.Name)}({passed_args});");
-        }
+        //private void GenerateForwardingBody(Function member_func, CodeWriter s, string prefix = "")
+        //{
+        //    var func = member_func.Clone<Function>();
+        //    // inserting this at position 0 since this is a forwarding of a member function to a static implementation
+        //    func.Arguments.Insert(0, new Argument() { Name = "this", Type = "irrelevant" });
+        //    var passed_args = GeneratePassedArgs(func);
+        //    s.Out("var @this=this;");
+        //    var return_keyword = member_func.Returns.Count > 0 ? "return " : "";
+        //    s.Out($"{return_keyword}{func.ForwardToStaticImpl}.{EscapeName(prefix + func.Name)}({passed_args});");
+        //}
 
         private void GeneratePropertyGetter(Property prop, CodeWriter s)
         {
@@ -497,7 +514,7 @@ namespace CodeMinion.Core
                         {
                             if (decl.Ignore)
                                 continue;
-                            GenerateStaticApiRedirection(api, decl, s);
+                            GenerateApiFunction(decl, s, @static:true);
                         }
                         catch (Exception e)
                         {
@@ -723,24 +740,25 @@ namespace CodeMinion.Core
         {
             // generate all static apis that have been configured
             var generated_implementations = new HashSet<string>();
+            var conv_file = Path.Combine(StaticApiFilesPath, $"{StaticModuleName}.module.gen.cs");
+            WriteFile(conv_file, s => { GenerateStaticModuleHead( s); });
+
             foreach (var api in StaticApis)
             {
                 var outpath = api.OutputPath ?? StaticApiFilesPath;
                 if (string.IsNullOrWhiteSpace(outpath))
                     throw new InvalidDataException("either set generators StaticApiFilesPath or static_api's OutputPath");
                 // generate static apis
-                if (!generated_implementations.Contains(api.ImplName))
-                {
-                    var conv_file = Path.Combine(outpath, $"{api.ImplName}.conv.gen.cs");
-                    WriteFile(conv_file, s => { GenerateApiImplConversions(api, s); });
-                }
+                //if (!generated_implementations.Contains(api.ImplName))
+                //{
+                //}
 
                 generated_implementations.Add(api.ImplName);
                 var partial = (api.PartialName == null ? "" : "." + api.PartialName);
                 var api_file = Path.Combine(outpath, $"{api.StaticName + partial}.gen.cs");
-                var impl_file = Path.Combine(outpath, $"{api.ImplName + partial}.gen.cs");
+                //var impl_file = Path.Combine(outpath, $"{api.ImplName + partial}.gen.cs");
                 WriteFile(api_file, s => { GenerateStaticApi(api, s); });
-                WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
+                //WriteFile(impl_file, s => { GenerateApiImpl(api, s); });
             }
             // PythonObject functions:
             var pyobj_file = Path.Combine(ModelsPath ?? DynamicApiFilesPath, $"PythonObject.gen.cs");
@@ -874,31 +892,29 @@ namespace CodeMinion.Core
             s.Break();
         }
 
-        private void GenerateApiImplConversions(StaticApi api, CodeWriter s)
+        private void GenerateStaticModuleHead(CodeWriter s)
         {
             GenerateUsings(s);
             s.AppendLine($"namespace {NameSpace}");
             s.Block(() =>
             {
-                s.Out($"public partial class {api.ImplName} : IDisposable", () =>
+                s.Out($"public partial class {StaticModuleName}", () =>
                 {
                     s.Break();
-                    s.Out("private PyObject _pyobj = null;");
-                    s.Out($"public static {api.ImplName} Instance => _instance.Value;");
+                    s.Out("public static PyObject self => _lazy_self.Value;");
                     s.Break();
-                    s.Out($"private static Lazy<{api.ImplName}> _instance = new Lazy<{api.ImplName}>(() => ", () =>
+                    s.Out($"private static Lazy<PyObject> _lazy_self = new Lazy<PyObject>(() => ", () =>
                     {
-                        s.Out($"var instance=new {api.ImplName}();");
                         s.Out("try", () =>
                             {
-                                s.Out("instance._pyobj = InstallAndImport();");
+                                s.Out("return InstallAndImport();");
                             });
                         s.Out("catch (Exception)", () =>
                         {
-                            s.Out("// retry to fix the installation by forcing a repair.");
-                            s.Out("instance._pyobj = InstallAndImport(force: true);");
+                            s.Out("// retry to fix the installation by forcing a repair, if Python.Included is used.");
+                            s.Out("return InstallAndImport(force: true);");
                         });
-                        s.Out("return instance;");
+                        //s.Out("return instance;");
                     });
                     s.Out(");");
                     s.Break();
@@ -909,28 +925,28 @@ namespace CodeMinion.Core
                             s.Out("var installer = new Installer();");
                             s.Out("installer.SetupPython(force).Wait();");
                         }
-                        foreach (var generator in api.InitializationGenerators)
+                        foreach (var generator in InitializationGenerators)
                             generator(s);
                         s.Out("PythonEngine.Initialize();");
-                        s.Out($"var mod = Py.Import(\"{api.PythonModule}\");");
+                        s.Out($"var mod = Py.Import(\"{PythonModuleName}\");");
                         s.Out("return mod;");
                     });
                     s.Break();
-                    s.Out("public dynamic self => _pyobj;");
-                    s.Out("private bool IsInitialized => _pyobj != null;");
+                    s.Out("public static dynamic dynamic_self => self;");
+                    s.Out("private static bool IsInitialized => self != null;");
                     s.Break();
-                    s.Out($"private {api.ImplName}() {{ }}");
+                    //s.Out($"private {api.ImplName}() {{ }}");
                     s.Break();
-                    s.Out("public void Dispose()", () =>
+                    s.Out("public static void Dispose()", () =>
                     {
                         s.Out("self?.Dispose();");
                     });
                     s.Break();
-                    GenToTuple(s);
-                    GenToPython(s);
-                    GenToCsharp(s);
-                    GenSharpToSharp(s);
-                    GenSpecialConversions(s);
+                    GenToTuple(s, @static:true);
+                    GenToPython(s, @static: true);
+                    GenToCsharp(s, @static: true);
+                    GenSharpToSharp(s, @static: true);
+                    GenSpecialConversions(s, @static: true);
                 });
             });
         }
@@ -952,11 +968,11 @@ namespace CodeMinion.Core
             });
         }
 
-        private void GenToTuple(CodeWriter s)
+        private void GenToTuple(CodeWriter s, bool @static=false)
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("public PyTuple ToTuple(Array input)", () =>
+            s.Out($"{(@static?"private static":"public")} PyTuple ToTuple(Array input)", () =>
             {
                 s.Out("var array = new PyObject[input.Length];");
                 s.Out("for (int i = 0; i < input.Length; i++)", () =>
@@ -969,11 +985,11 @@ namespace CodeMinion.Core
 
         public HashSet<string> ToCsharpConversions { get; set; } = new HashSet<string>();
 
-        private void GenToCsharp(CodeWriter s)
+        private void GenToCsharp(CodeWriter s, bool @static = false)
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("public T ToCsharp<T>(dynamic pyobj)", () =>
+            s.Out($"{(@static?"private static":"public")} T ToCsharp<T>(dynamic pyobj)", () =>
             {
                 s.Out("switch (typeof(T).Name)", () =>
                 {
@@ -996,11 +1012,11 @@ namespace CodeMinion.Core
 
         public HashSet<string> ToPythonConversions { get; set; } = new HashSet<string>();
 
-        private void GenToPython(CodeWriter s)
+        private void GenToPython(CodeWriter s, bool @static=false)
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("public PyObject ToPython(object obj)", () =>
+            s.Out($"{(@static?"private static":"public")} PyObject ToPython(object obj)", () =>
             {
                 s.Out("if (obj == null) return Runtime.GetPyNone();");
                 s.Out("switch (obj)", () =>
@@ -1027,11 +1043,11 @@ namespace CodeMinion.Core
 
         public List<Action<CodeWriter>> SharpToSharpConversions { get; set; } = new List<Action<CodeWriter>>();
 
-        private void GenSharpToSharp(CodeWriter s)
+        private void GenSharpToSharp(CodeWriter s, bool @static=false)
         {
             s.Break();
             s.Out("//auto-generated");
-            s.Out("public T SharpToSharp<T>(object obj)", () =>
+            s.Out($"{(@static ? "private static" : "public")} T SharpToSharp<T>(object obj)", () =>
             {
                 s.Out("if (obj == null) return default(T);");
                 s.Out("switch (obj)", () =>
@@ -1049,7 +1065,7 @@ namespace CodeMinion.Core
 
         public List<Action<CodeWriter>> SpecialConversionGenerators { get; set; } = new List<Action<CodeWriter>>();
 
-        private void GenSpecialConversions(CodeWriter s)
+        private void GenSpecialConversions(CodeWriter s, bool @static=false)
         {
             foreach (var generator in SpecialConversionGenerators)
             {
