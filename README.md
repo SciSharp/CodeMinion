@@ -23,6 +23,8 @@ Regen is a template compiler allowing to expand in-line templates to be compiled
 
 Regen comes with a Visual Studio plugin which immediately compiles `regen-lang` templates into C# while you type. 
 
+Jump to [Regen's readme](https://github.com/SciSharp/CodeMinion/tree/master/src/Regen.Core).
+
 ### Powered by Regen
 These libraries heavily rely on Regen:
 * [NumSharp](https://github.com/SciSharp/NumSharp)
