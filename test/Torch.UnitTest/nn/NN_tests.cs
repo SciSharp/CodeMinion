@@ -14,13 +14,13 @@ namespace Torch.nn
     public class NN_tests : BaseTestCase
     {
         [Test]
-        public void Parameter()
+        public void ParameterTest()
         {
-            var Parameter = PyTorch.Instance.self.GetAttr("nn").GetAttr("Parameter");
+            var Parameter = torch.dynamic_self.GetAttr("nn").GetAttr("Parameter");
             Console.WriteLine(Parameter.ToString());
             var x = torch.tensor(new double[] { 1, 2, 3 });
             var p = Parameter(x.PyObject, requires_grad: false);
-            var p1 = (PyTorch.Instance.self.GetAttr("nn") as PyObject).InvokeMethod("Parameter", new PyTuple(new PyObject[] { x.PyObject }), Py.kw("requires_grad", new PyObject(Runtime.PyTrue)));
+            var p1 = (torch.self.GetAttr("nn") as PyObject).InvokeMethod("Parameter", new PyTuple(new PyObject[] { x.PyObject }), Py.kw("requires_grad", new PyObject(Runtime.PyTrue)));
             Console.WriteLine(p.ToString());
             Console.WriteLine(p1.ToString());
             // 

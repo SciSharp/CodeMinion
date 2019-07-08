@@ -27,6 +27,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
             {
                 //PrintModelJson=true,  // <-- if enabled prints the declaration model as JSON for debugging reasons
                 NameSpace = "Torch",
+                PythonModuleName = "torch",
+                StaticModuleName = "torch",
                 UsePythonIncluded = false,
                 TestFilesPath = Path.Combine(test_dir, "Torch.UnitTest"),
                 Usings =
@@ -89,6 +91,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
             _generator.StaticApiFilesPath = Path.Combine(src_dir, "Torch");
             _generator.DynamicApiFilesPath = Path.Combine(src_dir, "Torch\\Models");
+            _generator.ModelsPath = Path.Combine(src_dir, "Torch\\Models");
             //_generator.GenerateIntermediateJson();
             _generator.Generate();
             Thread.Sleep(2000);
