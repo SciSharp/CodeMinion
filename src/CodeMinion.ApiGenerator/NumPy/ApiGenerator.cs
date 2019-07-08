@@ -397,6 +397,9 @@ namespace CodeMinion.ApiGenerator.NumPy
                             case "copyto":
                             case "transpose":
                                 continue;
+                            case "amax":
+                            case "amin":
+                                continue;
                         }
                         var dc = d.Clone<Function>();
                         dc.Arguments.RemoveAt(0);
