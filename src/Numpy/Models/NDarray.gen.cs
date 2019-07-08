@@ -265,7 +265,7 @@ namespace Numpy
         ///	similar, but have different default values for their order=
         ///	arguments.)
         /// </param>
-        public void copy(string order = null)
+        public NDarray copy(string order = null)
         {
             //auto-generated code, do not change
             var __self__=self;
@@ -275,6 +275,7 @@ namespace Numpy
             var kwargs=new PyDict();
             if (order!=null) kwargs["order"]=ToPython(order);
             dynamic py = __self__.InvokeMethod("copy", pyargs, kwargs);
+            return ToCsharp<NDarray>(py);
         }
         
         /// <summary>

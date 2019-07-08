@@ -661,6 +661,10 @@ namespace CodeMinion.ApiGenerator.NumPy
                     decl.Arguments.First(a => a.Type == "Dtype").DefaultValue = "null";
                     decl.Arguments.First(a => a.Type == "Dtype").IsNamedArg = true;
                     break;
+                case "copy":
+                    if (decl.Returns.Count==0)
+                        decl.Returns.Add(new Argument(){Type = "NDarray"});
+                    break;
                 case "meshgrid":
                 case "mat":
                 case "bmat":
