@@ -118,8 +118,9 @@ namespace Torch
         public Device device
             => new Device(self.GetAttr("device"));
 
-        public virtual Tensor t() => new Tensor(self.InvokeMethod("t"));
-
+        /// <summary>
+        /// Transpose (see t())
+        /// </summary>
         public Tensor T => t();
 
     }

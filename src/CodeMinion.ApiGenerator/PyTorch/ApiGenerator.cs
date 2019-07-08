@@ -98,6 +98,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
             return "DONE";
         }
 
+        private StaticApi torch_api = null;
+
         private void ParseStaticApi(string uri, string partial_name = null, string stop_at = null)
         {
             Console.WriteLine("Parsing: " + uri);
@@ -109,6 +111,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 PythonModule = "torch", // name of the Python module that the static api wraps 
                 PartialName = partial_name,
             };
+            torch_api = api;
             _generator.StaticApis.Add(api);
             var testfile = new TestFile() { Name = $"{api.ImplName}_{api.PartialName}" };
             _generator.TestFiles.Add(testfile);
@@ -175,10 +178,22 @@ namespace CodeMinion.ApiGenerator.PyTorch
             foreach (var node in nodes)
             {
                 var dd = node.Descendants("dd").FirstOrDefault();
-                if (dd.InnerText.Contains("See torch.") || dd.InnerText.Contains("In-place version"))
-                    continue;
                 var decl = new Function() { ClassName = classname };
                 ParseFunctionName(decl, node);
+                if (dd.InnerText.Contains("See torch."))
+                {
+                    // todo: allow to search in all static apis, not only "torch."!
+                    var static_version=torch_api.Declarations.FirstOrDefault(x => x.Name == decl.Name) as Function;
+                    if (static_version==null)
+                        continue;
+                    api.Declarations.Add(static_version.Clone(f =>
+                    {
+                        f.Arguments.RemoveAt(0);
+                    }));
+                    continue;
+                };
+                if (dd.InnerText.Contains("In-place version"))
+                    continue;
                 ParseDocString(decl, node);
                 if (ManualOverride.Contains(decl.Name)) continue;
                 //if (!InMigrationApiList(decl.Name)) continue;
