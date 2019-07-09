@@ -20,13 +20,11 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "torch.nn.Sequential":
                 case "torch.nn.ModuleDict":
                 case "torch.nn.ModuleList":
+                case "torch.nn.Parameter":
                 case "torch.nn.ParameterList":
                 case "torch.nn.ParameterDict":
                 case "torch.nn.parallel.DistributedDataParallelCPU":
                     api.Ignore = true;
-                    break;
-                case "torch.nn.Parameter":
-                    api.BaseClass = "PythonObject";
                     break;
                 case "torch.nn.CTCLoss":
                     api.Constructors.Add(new Function()
