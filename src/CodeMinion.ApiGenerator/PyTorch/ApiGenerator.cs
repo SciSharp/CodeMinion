@@ -693,21 +693,21 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         }
 
-        private void PostProcess(Function func)
+        private void PostProcess(Function f)
         {
-            foreach (var arg in func.Arguments.ToArray())
+            foreach (var arg in f.Arguments.ToArray())
             {
                 if (string.IsNullOrWhiteSpace(arg.Name))
-                    func.Arguments.Remove(arg);
+                    f.Arguments.Remove(arg);
                 PostProcess(arg);
             }
-            switch (func.Name)
+            switch (f.Name)
             {
                 // ignore
                 case "normal":
                 case "add":
                 case "apply_":
-                    func.Ignore = true;
+                    f.Ignore = true;
                     break;
                 // ignore Tensor methods
                 case "argsort":
@@ -715,134 +715,134 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "flatten":
                 case "item":
                 case "requires_grad":
-                    func.Ignore = (func.ClassName == "Tensor");
+                    f.Ignore = (f.ClassName == "Tensor");
                     break;
                 // ------------------
                 case "empty":
                 case "tensor":
-                    func["requires_grad"].IsNullable = false;
-                    func["pin_memory"].IsNullable = false;
+                    f["requires_grad"].IsNullable = false;
+                    f["pin_memory"].IsNullable = false;
                     break;
                 case "is_tensor":
                 case "is_storage":
                 case "is_floating_point":
-                    func.Returns.Add(new Argument() { Name = "retval", Type = "bool" });
+                    f.Returns.Add(new Argument() { Name = "retval", Type = "bool" });
                     break;
                 case "set_printoptions":
-                    func.ChangeArg("profile", Type: "string", DefaultValue: "\"default\"");
-                    func.ChangeArg("sci_mode", IsNullable: true);
-                    func.ChangeArg("precision", Type: "int", IsNullable: true);
-                    func.ChangeArg("threshold", Type: "int", IsNullable: true);
-                    func.ChangeArg("edgeitems", Type: "int", IsNullable: true);
-                    func.ChangeArg("linewidth", Type: "int", IsNullable: true);
+                    f.ChangeArg("profile", Type: "string", DefaultValue: "\"default\"");
+                    f.ChangeArg("sci_mode", IsNullable: true);
+                    f.ChangeArg("precision", Type: "int", IsNullable: true);
+                    f.ChangeArg("threshold", Type: "int", IsNullable: true);
+                    f.ChangeArg("edgeitems", Type: "int", IsNullable: true);
+                    f.ChangeArg("linewidth", Type: "int", IsNullable: true);
                     break;
                 case "sparse_coo_tensor":
-                    func["indices"].Type = "NDarray<int>";
-                    func["values"].Type = "NDarray";
-                    func.ChangeArg("size", Type: "int", IsNullable: true);
+                    f["indices"].Type = "NDarray<int>";
+                    f["values"].Type = "NDarray";
+                    f.ChangeArg("size", Type: "int", IsNullable: true);
                     break;
                 case "stack":
-                    func["seq"].Type = "Tensor[]";
+                    f["seq"].Type = "Tensor[]";
                     break;
                 case "save":
-                    func["obj"].Type = "PythonObject";
-                    func["f"].Type = "string";
-                    func["pickle_module"].Type = "PyObject";
-                    func["pickle_module"].DefaultValue = "null";
-                    func["pickle_protocol"].Type = "int";
+                    f["obj"].Type = "PythonObject";
+                    f["f"].Type = "string";
+                    f["pickle_module"].Type = "PyObject";
+                    f["pickle_module"].DefaultValue = "null";
+                    f["pickle_protocol"].Type = "int";
                     break;
                 case "load":
-                    func["f"].Type = "string";
-                    func["map_location"].Type = "PyObject";
-                    func["map_location"].DefaultValue = "null";
-                    func["pickle_module"].Type = "PyObject";
-                    func["pickle_module"].DefaultValue = "null";
-                    func["pickle_load_args"].Type = "params PyObject[]";
+                    f["f"].Type = "string";
+                    f["map_location"].Type = "PyObject";
+                    f["map_location"].DefaultValue = "null";
+                    f["pickle_module"].Type = "PyObject";
+                    f["pickle_module"].DefaultValue = "null";
+                    f["pickle_load_args"].Type = "params PyObject[]";
                     break;
                 case "unbind":
-                    func.Returns[0].Type = "Tensor[]";
+                    f.Returns[0].Type = "Tensor[]";
                     break;
                 case "set_num_threads":
-                    func.Arguments[0].Name = "num";
-                    func.Arguments[0].Type = "int";
+                    f.Arguments[0].Name = "num";
+                    f.Arguments[0].Type = "int";
                     break;
                 case "new_full":
-                    func.Arguments.RemoveAt(func.Arguments.Count - 1);
-                    func.Arguments.Insert(0, new Argument() { Type = "Shape", Name = "size" });
-                    func["fill_value"].Type = "T";
-                    func.Generics = new[] { "T" };
+                    f.Arguments.RemoveAt(f.Arguments.Count - 1);
+                    f.Arguments.Insert(0, new Argument() { Type = "Shape", Name = "size" });
+                    f["fill_value"].Type = "T";
+                    f.Generics = new[] { "T" };
                     break;
                 case "new_empty":
-                    func.Arguments.RemoveAt(func.Arguments.Count - 1);
-                    func.Arguments.Insert(0, new Argument() { Type = "Shape", Name = "size" });
+                    f.Arguments.RemoveAt(f.Arguments.Count - 1);
+                    f.Arguments.Insert(0, new Argument() { Type = "Shape", Name = "size" });
                     break;
                 case "cauchy_":
-                    func["median"].Type = "double";
-                    func["sigma"].Type = "double";
-                    func.Arguments.RemoveAt(2);
+                    f["median"].Type = "double";
+                    f["sigma"].Type = "double";
+                    f.Arguments.RemoveAt(2);
                     //func["generator"].Type = "object";
                     break;
                 case "expand":
-                    func.Arguments.Clear();
-                    func.Arguments.Add(new Argument() { Name = "sizes", Type = "params int[]" });
+                    f.Arguments.Clear();
+                    f.Arguments.Add(new Argument() { Name = "sizes", Type = "params int[]" });
                     break;
                 case "exponential_":
-                    func["lambd"].Type = "double";
-                    func.Arguments.RemoveAt(1);
+                    f["lambd"].Type = "double";
+                    f.Arguments.RemoveAt(1);
                     break;
                 case "fill_":
-                    func["value"].Type = "T";
-                    func.Generics = new[] { "T" };
+                    f["value"].Type = "T";
+                    f.Generics = new[] { "T" };
                     break;
                 case "geometric_":
-                    func["p"].Type = "double";
-                    func.Arguments.RemoveAt(1);
+                    f["p"].Type = "double";
+                    f.Arguments.RemoveAt(1);
                     break;
                 case "get_device":
-                    func.Name = "get_device_nr";
-                    func.Returns[0].Type = "int";
-                    func.Arguments.Clear();
+                    f.Name = "get_device_nr";
+                    f.Returns[0].Type = "int";
+                    f.Arguments.Clear();
                     break;
                 case "index_add":
                 case "index_copy":
-                    func["dim"].Type = "int";
-                    func["index"].Type = "Tensor<long>";
-                    func["tensor"].Type = "Tensor";
+                    f["dim"].Type = "int";
+                    f["index"].Type = "Tensor<long>";
+                    f["tensor"].Type = "Tensor";
                     break;
                 case "index_fill":
-                    func["dim"].Type = "int";
-                    func["index"].Type = "Tensor<long>";
-                    func["value"].Type = "float";
+                    f["dim"].Type = "int";
+                    f["index"].Type = "Tensor<long>";
+                    f["value"].Type = "float";
                     break;
                 case "index_put_":
                 case "index_put":
-                    func["indices"].Type = "Tensor<long>[]";
-                    func["value"].Type = "Tensor";
-                    func["accumulate"].Type = "bool";
+                    f["indices"].Type = "Tensor<long>[]";
+                    f["value"].Type = "Tensor";
+                    f["accumulate"].Type = "bool";
                     break;
                 case "normal_":
                 case "log_normal_":
-                    if (func.ClassName == "torch" || func.ClassName == "Tensor")
+                    if (f.ClassName == "torch" || f.ClassName == "Tensor")
                     {
-                        func["mean"].Type = "double";
-                        func["std"].Type = "double";
-                        func.Arguments.RemoveAt(2);
+                        f["mean"].Type = "double";
+                        f["std"].Type = "double";
+                        f.Arguments.RemoveAt(2);
                     }
                     break;
                 case "random_":
                 case "uniform_":
-                    if (func.ClassName == "torch" || func.ClassName == "Tensor")
+                    if (f.ClassName == "torch" || f.ClassName == "Tensor")
                     {
-                        func["from"].Type = "T";
-                        func["from"].DefaultValue = null;
-                        func["to"].Type = "T";
-                        func["to"].DefaultValue = null;
-                        if (func.Arguments.Count > 2)
-                            func.Arguments.RemoveAt(2);
-                        func.Generics = new string[] {"T"};
-                        func.Returns[0].Type = "Tensor<T>";
+                        f["from"].Type = "T";
+                        f["from"].DefaultValue = null;
+                        f["to"].Type = "T";
+                        f["to"].DefaultValue = null;
+                        if (f.Arguments.Count > 2)
+                            f.Arguments.RemoveAt(2);
+                        f.Generics = new string[] {"T"};
+                        f.Returns[0].Type = "Tensor<T>";
                     }
-                    else if (func.ClassName == "torch.nn.init")
+                    else if (f.ClassName == "torch.nn.init")
                     {
                         // todo:
                     }
@@ -852,182 +852,182 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     }
                     break;
                 case "register_hook":
-                    func["hook"].Type = "Func<Tensor, Tensor>";
+                    f["hook"].Type = "Func<Tensor, Tensor>";
                     break;
                 case "narrow_copy":
-                    func["start"].Type = "int";
-                    func["length"].Type = "int";
+                    f["start"].Type = "int";
+                    f["length"].Type = "int";
                     break;
                 case "masked_fill":
                 case "masked_fill_":
-                    func["value"].Type = "double";
+                    f["value"].Type = "double";
                     break;
                 case "quantize_linear":
-                    func["scale"].Type = "double";
-                    func["zero_point"].Type = "double";
+                    f["scale"].Type = "double";
+                    f["zero_point"].Type = "double";
                     break;
                 case "scatter":
                 case "scatter_add":
-                    func["index"].Type = "Tensor<long>";
-                    func["source"].Type = "Tensor";
+                    f["index"].Type = "Tensor<long>";
+                    f["source"].Type = "Tensor";
                     break;
                 case "set_":
-                    func["source"].Type = "Tensor";
-                    func["stride"].Type = "int[]";
+                    f["source"].Type = "Tensor";
+                    f["stride"].Type = "int[]";
                     break;
                 case "sub":
-                    func["value"].Type = "T";
-                    func.Generics = new string[] { "T" };
-                    func["other"].Type = "Tensor";
-                    func["other"].DefaultValue = "null";
+                    f["value"].Type = "T";
+                    f.Generics = new string[] { "T" };
+                    f["other"].Type = "Tensor";
+                    f["other"].DefaultValue = "null";
                     break;
                 case "sum_to_size":
-                    func["size"].Type = "Shape";
-                    func.Arguments.Add(new Argument() { Name = "other", Type = "Tensor", DefaultValue = "null" });
+                    f["size"].Type = "Shape";
+                    f.Arguments.Add(new Argument() { Name = "other", Type = "Tensor", DefaultValue = "null" });
                     break;
                 case "type":
-                    func.Arguments.Remove(func["kwargs"]);
+                    f.Arguments.Remove(f["kwargs"]);
                     break;
                 case "clamp":
-                    func["input"].Type = "Tensor";
-                    if (func.Arguments.Count < 4)
+                    f["input"].Type = "Tensor";
+                    if (f.Arguments.Count < 4)
                     {
-                        func.Ignore = true;
+                        f.Ignore = true;
                         break;
                     }
-                    func["min"].Type = "double";
-                    func["min"].IsNullable = true;
-                    func["min"].DefaultValue = "null";
-                    func["max"].Type = "double";
-                    func["max"].IsNullable = true;
-                    func["max"].DefaultValue = "null";
+                    f["min"].Type = "double";
+                    f["min"].IsNullable = true;
+                    f["min"].DefaultValue = "null";
+                    f["max"].Type = "double";
+                    f["max"].IsNullable = true;
+                    f["max"].DefaultValue = "null";
                     break;
                 case "div":
                 case "mul":
-                    if (func.Arguments.Count == 0)
+                    if (f.Arguments.Count == 0)
                     {
-                        func.Ignore = true;
+                        f.Ignore = true;
                         break;
                     }
-                    if (func.Arguments.Any(x => x.Name == "value"))
+                    if (f.Arguments.Any(x => x.Name == "value"))
                     {
-                        func["input"].Type = "Tensor";
-                        func["value"].Type = "T";
-                        func.MakeGeneric("T");
+                        f["input"].Type = "Tensor";
+                        f["value"].Type = "T";
+                        f.MakeGeneric("T");
                         break;
                     }
-                    func["input"].Type = "Tensor";
-                    func["other"].Type = "Tensor";
+                    f["input"].Type = "Tensor";
+                    f["other"].Type = "Tensor";
                     break;
                 case "erfc":
-                    func["input"].Ignore = true;
+                    f["input"].Ignore = true;
                     break;
                 case "pow":
-                    if (func.Arguments.Count == 0)
+                    if (f.Arguments.Count == 0)
                     {
-                        func.Ignore = true;
+                        f.Ignore = true;
                         break;
                     }
-                    if (func.Arguments.Any(x => x.Name == "exponent"))
-                        func["exponent"].Type = "double";
-                    if (func.Arguments.Any(x => x.Name == "base"))
-                        func["base"].Type = "double";
+                    if (f.Arguments.Any(x => x.Name == "exponent"))
+                        f["exponent"].Type = "double";
+                    if (f.Arguments.Any(x => x.Name == "base"))
+                        f["base"].Type = "double";
                     break;
                 case "mean":
                 case "median":
-                    if (func.Arguments.Count == 0)
+                    if (f.Arguments.Count == 0)
                     {
-                        func.Ignore = true;
+                        f.Ignore = true;
                         break;
                     }
-                    if (func.Arguments.Any(x => x.Name == "indices"))
+                    if (f.Arguments.Any(x => x.Name == "indices"))
                     {
-                        func.Returns.Add(new Argument() { Type = "Tensor" });
-                        func.Returns.Add(new Argument() { Type = "Tensor<long>" });
-                        func["values"].Type = "Tensor";
-                        func["indices"].Type = "Tensor";
-                        func["indices"].DefaultValue = "null";
+                        f.Returns.Add(new Argument() { Type = "Tensor" });
+                        f.Returns.Add(new Argument() { Type = "Tensor<long>" });
+                        f["values"].Type = "Tensor";
+                        f["indices"].Type = "Tensor";
+                        f["indices"].DefaultValue = "null";
                     }
                     break;
                 case "prod":
-                    if (func.Arguments.Count == 0)
-                        func.Ignore = true;
+                    if (f.Arguments.Count == 0)
+                        f.Ignore = true;
                     break;
                 case "std":
-                    if (func.Arguments.Count == 0)
-                        func.Ignore = true;
+                    if (f.Arguments.Count == 0)
+                        f.Ignore = true;
                     break;
                 case "norm":
-                    func["p"].Type = "object";
-                    func["p"].IsNullable = true;
-                    func["p"].DefaultValue = "null";
-                    func["dim"].Type = "int[]";
-                    func["dim"].IsNullable = true;
+                    f["p"].Type = "object";
+                    f["p"].IsNullable = true;
+                    f["p"].DefaultValue = "null";
+                    f["dim"].Type = "int[]";
+                    f["dim"].IsNullable = true;
                     break;
                 case "unique":
                 case "unique_consecutive":
-                    func["dim"].IsNullable = true;
+                    f["dim"].IsNullable = true;
                     break;
                 case "allclose":
-                    func["equal_nan"].Type = "bool";
+                    f["equal_nan"].Type = "bool";
                     break;
                 case "kthvalue":
                 case "sort":
                 case "topk":
-                    func["out"].Type = "Tensor[]";
+                    f["out"].Type = "Tensor[]";
                     break;
                 case "irfft":
-                    func["signal_sizes"].Type = "Shape";
+                    f["signal_sizes"].Type = "Shape";
                     break;
                 case "hamming_window":
-                    func["alpha"].Type = "double";
-                    func["beta"].Type = "double";
+                    f["alpha"].Type = "double";
+                    f["beta"].Type = "double";
                     break;
                 case "bincount":
-                    func.Returns[0].Type = "Tensor";
-                    func["self"].Ignore = true;
+                    f.Returns[0].Type = "Tensor";
+                    f["self"].Ignore = true;
                     break;
                 case "diagflat":
-                    func["diagonal"].Ignore = true;
-                    func["offset"].DefaultValue = "0";
+                    f["diagonal"].Ignore = true;
+                    f["offset"].DefaultValue = "0";
                     break;
                 case "einsum":
-                    func["operands"].Type = "params Tensor[]";
+                    f["operands"].Type = "params Tensor[]";
                     break;
                 case "meshgrid":
-                    func["tensors"].Type = "params Tensor[]";
-                    func["kwargs"].Ignore = true;
+                    f["tensors"].Type = "params Tensor[]";
+                    f["kwargs"].Ignore = true;
                     break;
                 case "repeat_interleave":
-                    if (func.Arguments.Count == 0)
+                    if (f.Arguments.Count == 0)
                     {
-                        func.Ignore = true;
+                        f.Ignore = true;
                         break;
                     }
-                    if (func.Arguments.Count == 3)
+                    if (f.Arguments.Count == 3)
                     {
-                        func["repeats"].Type = "int";
-                        func["dim"].IsNullable = true;
+                        f["repeats"].Type = "int";
+                        f["dim"].IsNullable = true;
                         break;
                     }
-                    if (func.Arguments.Count == 1)
+                    if (f.Arguments.Count == 1)
                     {
-                        func.Arguments.Insert(0, new Argument() { Type = "Tensor", Name = "input" });
-                        func.Arguments.Add(new Argument() { Type = "int", Name = "dim", IsNullable = true, IsNamedArg = true, DefaultValue = "null" });
-                        func["repeats"].Type = "Tensor";
+                        f.Arguments.Insert(0, new Argument() { Type = "Tensor", Name = "input" });
+                        f.Arguments.Add(new Argument() { Type = "int", Name = "dim", IsNullable = true, IsNamedArg = true, DefaultValue = "null" });
+                        f["repeats"].Type = "Tensor";
                     }
                     break;
                 case "roll":
-                    func["shifts"].Type = "int[]";
+                    f["shifts"].Type = "int[]";
                     break;
                 case "tensordot":
-                    func["dims"].DefaultValue = null;
+                    f["dims"].DefaultValue = null;
                     break;
                 case "cholesky":
-                    func["A"].Ignore = true;
+                    f["A"].Ignore = true;
                     break;
                 case "eig":
-                    func["out"].Type = "Tensor[]";
+                    f["out"].Type = "Tensor[]";
                     break;
                 case "btrifact":
                 case "btrisolve":
@@ -1040,27 +1040,47 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "pstrf":
                 case "trtrs":
                     // deprecated!!
-                    func.Ignore = true;
+                    f.Ignore = true;
                     break;
                 case "matrix_rank":
-                    func["bool symmetric"].Ignore = true;
-                    func["symmetric"].DefaultValue = "false";
+                    f["bool symmetric"].Ignore = true;
+                    f["symmetric"].DefaultValue = "false";
                     break;
                 case "compiled_with_cxx11_abi":
-                    func.Returns.Add(new Argument() { Type = "bool" });
+                    f.Returns.Add(new Argument() { Type = "bool" });
                     break;
                 // from torch.nn.util
                 case "clip_grad_norm_":
                 case "clip_grad_value_":
                 case "parameters_to_vector":
                 case "vector_to_parameters":
-                    func["parameters"].Type = "IEnumerable<Tensor>";
+                    f["parameters"].Type = "IEnumerable<Tensor>";
                     break;
                 case "PackedSequence":
-                    func.Ignore = true; // it is really a class
+                    f.Ignore = true; // it is really a class
                     break;
                 case "pack_padded_sequence":
-                    func.ReturnType = "PackedSequence";
+                    f.ReturnType = "PackedSequence";
+                    break;
+                // from torch.nn.init
+                case "calculate_gain":
+                    f["nonlinearity"].Type = "string";
+                    f["param"].SetNullableOptional( "double");
+                    break;
+                case "constant_":
+                    f["val"].Type = "T";
+                    f.MakeGeneric("T");
+                    break;
+                case "kaiming_uniform_":
+                case "kaiming_normal_":
+                    f["mode"].Type = "string";
+                    f["nonlinearity"].SetType( "string", "\"leaky_relu\"");
+                    break;
+                case "orthogonal_":
+                    f["tensor"].Type = "Tensor";
+                    break;
+                case "sparse_":
+                    f["sparsity"].Type = "double";
                     break;
             }
         }
