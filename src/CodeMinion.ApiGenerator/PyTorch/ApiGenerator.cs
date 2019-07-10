@@ -86,6 +86,9 @@ namespace CodeMinion.ApiGenerator.PyTorch
             ParseStaticApi("torch.html", stop_at: null);
             ParseDynamicApi("tensors.html", "Tensor", stop_at: null);
             ParseClasses("nn.html", subdir: "nn", stop_at: null);
+            ParseStaticApi("nn.html", partial_name:"nn.util", start_at: "clip_grad_norm_", stop_at: "conv1d");
+            ParseStaticApi("nn.html", partial_name: "nn.functional", start_at: "conv1d", stop_at: "calculate_gain");
+            ParseStaticApi("nn.html", partial_name: "nn.init", start_at: "calculate_gain", stop_at: null);
 
             var dir = Directory.GetCurrentDirectory();
             var src_dir = dir.Substring(0, dir.LastIndexOf("\\src\\")) + "\\src\\";
@@ -100,7 +103,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private StaticApi torch_api = null;
 
-        private void ParseStaticApi(string uri, string partial_name = null, string stop_at = null)
+        private void ParseStaticApi(string uri, string partial_name = null, string start_at = null, string stop_at = null)
         {
             Console.WriteLine("Parsing: " + uri);
             var doc = LoadDoc(uri);
@@ -119,13 +122,20 @@ namespace CodeMinion.ApiGenerator.PyTorch
             var nodes = doc.DocumentNode.Descendants("dl")
                 .Where(x => x.Attributes["class"]?.Value == "function")
                 .ToList();
-
+            var started = false;
             foreach (var node in nodes)
             {
                 if (node.Descendants("dl").Any(x => x.Attributes["class"]?.Value == "function")) // skip over the overview funcs that group overloads
                     continue;
                 var decl = new Function() { ClassName = api.StaticName };
                 ParseFunctionName(decl, node);
+                if (start_at != null && started == false)
+                {
+                    if (decl.Name == start_at)
+                        started = true;
+                    else 
+                        continue;
+                }
                 if (stop_at != null && decl.Name == stop_at)
                     break;
                 ParseDocString(decl, node);
@@ -186,6 +196,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     var static_version=torch_api.Declarations.FirstOrDefault(x => x.Name == decl.Name) as Function;
                     if (static_version==null)
                         continue;
+                    //if (decl.Name=="abs")
+                    //    Debugger.Break();
                     api.Declarations.Add(static_version.Clone(f =>
                     {
                         f.Arguments.RemoveAt(0);
@@ -408,7 +420,11 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void ParseFunctionName(Declaration decl, HtmlNode node)
         {
-            decl.Name = node.Element("dt").Descendants().First(x => x.Attributes["class"]?.Value == "descname").InnerText.Replace(".", string.Empty);
+            decl.Name = node.Element("dt").Descendants().First(x => x.Attributes["class"]?.Value == "descname").InnerText.Replace(".", "");
+            var descclassname = node.Element("dt").Descendants()
+                .FirstOrDefault(x => x.Attributes["class"]?.Value == "descclassname");
+            if (descclassname!=null)
+                decl.ClassName = descclassname.InnerText.TrimEnd('.');
         }
 
         private void ParseReturnValue(Function decl, HtmlNode node)
@@ -806,20 +822,34 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     break;
                 case "normal_":
                 case "log_normal_":
-                    func["mean"].Type = "double";
-                    func["std"].Type = "double";
-                    func.Arguments.RemoveAt(2);
+                    if (func.ClassName == "torch" || func.ClassName == "Tensor")
+                    {
+                        func["mean"].Type = "double";
+                        func["std"].Type = "double";
+                        func.Arguments.RemoveAt(2);
+                    }
                     break;
                 case "random_":
                 case "uniform_":
-                    func["from"].Type = "T";
-                    func["from"].DefaultValue = null;
-                    func["to"].Type = "T";
-                    func["to"].DefaultValue = null;
-                    if (func.Arguments.Count > 2)
-                        func.Arguments.RemoveAt(2);
-                    func.Generics = new string[] { "T" };
-                    func.Returns[0].Type = "Tensor<T>";
+                    if (func.ClassName == "torch" || func.ClassName == "Tensor")
+                    {
+                        func["from"].Type = "T";
+                        func["from"].DefaultValue = null;
+                        func["to"].Type = "T";
+                        func["to"].DefaultValue = null;
+                        if (func.Arguments.Count > 2)
+                            func.Arguments.RemoveAt(2);
+                        func.Generics = new string[] {"T"};
+                        func.Returns[0].Type = "Tensor<T>";
+                    }
+                    else if (func.ClassName == "torch.nn.init")
+                    {
+                        // todo:
+                    }
+                    else
+                    {
+                        Debugger.Break();
+                    }
                     break;
                 case "register_hook":
                     func["hook"].Type = "Func<Tensor, Tensor>";
@@ -1019,6 +1049,19 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "compiled_with_cxx11_abi":
                     func.Returns.Add(new Argument() { Type = "bool" });
                     break;
+                // from torch.nn.util
+                case "clip_grad_norm_":
+                case "clip_grad_value_":
+                case "parameters_to_vector":
+                case "vector_to_parameters":
+                    func["parameters"].Type = "IEnumerable<Tensor>";
+                    break;
+                case "PackedSequence":
+                    func.Ignore = true; // it is really a class
+                    break;
+                case "pack_padded_sequence":
+                    func.ReturnType = "PackedSequence";
+                    break;
             }
         }
 
@@ -1035,11 +1078,13 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "int":
                     return "int";
                 case "float":
+                case "float or int":
                     return "float";
                 case "list of Tensor":
                 case "Tensors...":
                 case "Tensors":
                 case "sequence of Tensors":
+                case "list[Tensor]":
                     return "Tensor[]";
                 case "int or tuple":
                     return "int[]";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace CodeMinion.Core.Models
 {
@@ -67,6 +68,19 @@ namespace CodeMinion.Core.Models
         public void MakeGeneric(string type_param)
         {
             Generics = new[] {type_param};
+        }
+
+        [JsonIgnore]
+        public string ReturnType
+        {
+            get { return Returns.FirstOrDefault()?.Type; }
+            set
+            {
+                if (Returns.Count > 0)
+                    Returns[0].Type = value;
+                else 
+                    Returns.Add(new Argument() { Type = value });
+            }
         }
     }
 }
