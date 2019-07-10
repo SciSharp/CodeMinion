@@ -142,8 +142,16 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 if (ManualOverride.Contains(decl.Name)) continue;
                 //if (!InMigrationApiList(decl.Name)) continue;
                 ParseReturnValue(decl, node);
-                ParseArguments(decl, node);
-                ParseDefaultValues(decl, node);
+                if (partial_name == "nn.functional")
+                {
+                    ParseDefaultValues(decl, node);
+                    ParseArguments(decl, node);
+                }
+                else
+                {
+                    ParseArguments(decl, node);
+                    ParseDefaultValues(decl, node);
+                }
 
                 foreach (var d in InferOverloads(decl))
                     api.Declarations.Add(d);
@@ -326,7 +334,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
             var dt = dl.Descendants("dt").FirstOrDefault();
             if (dt == null)
                 return;
-            //if (decl.Name=="lu")
+            //if (decl.Name=="conv1d")
             //    Debugger.Break();
             var ems = dt.Descendants("em").ToArray();
             foreach (var em in ems)
@@ -501,16 +509,31 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void ParseArguments(Function decl, HtmlNode node)
         {
-            //var p_nodes = node.Descendants("dd").First().Descendants("dl").FirstOrDefault();
-            //if (p_nodes == null) return;
-
-            //var p_node = p_nodes.Descendants("dd").FirstOrDefault();
-            //if (p_node == null || p_node.InnerHtml == "")
-            //    return;
+            //if (decl.Name == "max_pool1d") Debugger.Break();
 
             var dt = node.Descendants("dt").FirstOrDefault(x => x.InnerText == "Parameters");
             if (dt == null)
+            {
+                if (decl.ClassName == "torch.nn.functional")
+                {
+                    var m=Regex.Match(node.InnerText, @"See\s(\w+)");
+                    if (m.Success)
+                    {
+                        var module_name = m.FirstGroupOrNull();
+                        var module = _generator.ApiClasses.FirstOrDefault(x => x.ClassName.EndsWith(module_name));
+                        if (module != null)
+                        {
+                            var constr = module.Constructors.FirstOrDefault();
+                            if (constr == null)
+                                return;
+                           var clone=constr.Clone(f => f.Arguments.Insert(0, new Argument(){Name = "input", Type = "Tensor"}));
+                           decl.Arguments = clone.Arguments;
+                        }
+                    }
+                }
                 return; // no params
+            }
+
             var dd = dt.NextSibling.NextSibling;
 
 
@@ -568,8 +591,20 @@ namespace CodeMinion.ApiGenerator.PyTorch
                         var hint = p_desc.Split('–', ':')[1];
                         arg.Type = InferType(Regex.Match(p_desc, @"\(\S+\)")?.Value, hint, arg);
                     }
-
-                    args.Add(arg);
+                    //if (decl.Name=="conv1d")
+                    //    Debugger.Break();
+                    var existing_arg = decl.Arguments.FirstOrDefault(x => x.Name == arg.Name);
+                    if (existing_arg==null)
+                        args.Add(arg);
+                    else
+                    {
+                        // update existing arg
+                        arg.Type = string.IsNullOrWhiteSpace(arg.Type) ? existing_arg.Type : arg.Type;
+                        arg.DefaultValue = string.IsNullOrWhiteSpace(arg.DefaultValue) ? existing_arg.DefaultValue : arg.DefaultValue;
+                        arg.IsNullable = existing_arg.IsNullable ? true : arg.IsNullable;
+                        arg.IsNamedArg = existing_arg.IsNamedArg ? true : arg.IsNamedArg;
+                        args.Add(arg);
+                    }
                 }
             }
             else
@@ -604,6 +639,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
 
         private void PostProcess(Argument arg)
         {
+            if (arg.Type != null && arg.Type.Contains('\\'))
+                arg.Type = null;
             switch (arg.Name)
             {
                 case "pin_memory":
@@ -617,9 +654,15 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     break;
                 case "tensor":
                 case "input":
+                case "input1":
+                case "input2":
                 case "other":
                 case "tensor1":
                 case "tensor2":
+                case "bias":
+                case "x1":
+                case "x2":
+                case "target":
                     if (string.IsNullOrWhiteSpace(arg.Type))
                         arg.Type = "Tensor";
                     break;
@@ -628,6 +671,8 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     break;
                 case "shape":
                 case "sizes":
+                case "kernel_size":
+                case "output_size":
                     arg.Type = "Shape";
                     break;
                 case "mask":
@@ -656,6 +701,11 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     break;
                 case "modules":
                     arg.Type = "Module[]";
+                    break;
+                case "args":
+                case "kwargs":
+                    if (arg.Type == null)
+                        arg.Ignore = true;
                     break;
             }
             switch (arg.Type)
@@ -1082,6 +1132,56 @@ namespace CodeMinion.ApiGenerator.PyTorch
                 case "sparse_":
                     f["sparsity"].Type = "double";
                     break;
+                // from torch.nn.functional
+                case "avg_pool1d":
+                    f["stride"].SetNullableOptional("int");
+                    break;
+                case "avg_pool2d":
+                case "avg_pool3d":
+                    f["stride"].Type = "Shape";
+                    break;
+                case "threshold":
+                case "threshold_":
+                    f["threshold"].Type = "double";
+                    f["value"].Type = "double";
+                    break;
+                case "rrelu":
+                case "rrelu_":
+                    f["lower"].SetType( "double", "1.0/80");
+                    f["upper"].SetType("double", "1.0/30");
+                    break;
+                case "gumbel_softmax":
+                    f["logits"].Type="Tensor";
+                    break;
+                case "pdist":
+                    f["p"].Type = "double";
+                    break;
+                case "ctc_loss":
+                    f["targets"].Type = "Tensor";
+                    f["input_lengths"].Type = "Tensor";
+                    f["target_lengths"].Type = "Tensor";
+                    break;
+                case "nll_loss":
+                    f["target"].Type = "Tensor";
+                    break;
+                case "pad":
+                    f["pad"].Type = "int[]";
+                    break;
+                case "interpolate":
+                case "upsample":
+                case "upsample_nearest":
+                case "upsample_bilinear":
+                    f["size"].Type = "int[]";
+                    f["scale_factor"].Type = "float[]";
+                    break;
+                case "grid_sample":
+                case "affine_grid":
+                    f.ReturnType = "Tensor";
+                    break;
+                case "data_parallel":
+                    f["device_ids"].Type = "int[]";
+                    f["output_device"].Type = "int[]";
+                    break;
             }
         }
 
@@ -1166,7 +1266,7 @@ namespace CodeMinion.ApiGenerator.PyTorch
                     arg.DefaultValue = InferDefaultValue(Regex.Match(hint, @"Default: (True|False)", RegexOptions.IgnoreCase).FirstGroupOrNull(), arg);
                     return "bool";
                 }
-                var match = Regex.Match(hint, @"Default: ([+-]?(\d+.\d+|\d+e[+-]\d+))", RegexOptions.IgnoreCase);
+                var match = Regex.Match(hint, @"Default: ([+-]?(\d+\.\d+|\d+e[+-]\d+|\d+\.))", RegexOptions.IgnoreCase);
                 if (match.Success)
                 {
                     arg.DefaultValue = InferDefaultValue(match.FirstGroupOrNull(), arg);
@@ -1222,8 +1322,18 @@ namespace CodeMinion.ApiGenerator.PyTorch
             }
             if (string.IsNullOrWhiteSpace(arg.Type))
             {
-                if (Regex.IsMatch(defaultValue, @"([+-]?(\d+.\d+|\d+e[+-]\d+))", RegexOptions.IgnoreCase))
+                if (Regex.IsMatch(defaultValue, @"([+-]?(\d+\.(\d+e[+-])?\d+))", RegexOptions.IgnoreCase))
                     arg.Type = "double";
+                else if (Regex.IsMatch(defaultValue, @"([+-]?(\d+e[+-]\d+))", RegexOptions.IgnoreCase))
+                {
+                    arg.Type = "double";
+                    return defaultValue.Replace("e", ".0e");
+                }
+                else if (Regex.IsMatch(defaultValue, @"([+-]?(\d+\.))", RegexOptions.IgnoreCase))
+                {
+                    arg.Type = "double";
+                    return defaultValue + "0";
+                }
                 else if (Regex.IsMatch(defaultValue, @"^([+-]?(\d+))$"))
                     arg.Type = "int";
             }
