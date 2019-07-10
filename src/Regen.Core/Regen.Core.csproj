@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>0.0.1.%2a</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>0.2.3.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -58,9 +58,6 @@
     <AssemblyOriginatorKeyFile>key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Flee.Net45, Version=1.0.0.0, Culture=neutral, PublicKeyToken=951a102ce2413032, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Flee.1.2.2\lib\net45\Flee.Net45.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -75,17 +72,88 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builtins\CommonExpressionFunctions.cs" />
+    <Compile Include="Builtins\CommonLinq.cs" />
     <Compile Include="Builtins\CommonRandom.cs" />
+    <Compile Include="Builtins\CommonRegex.cs" />
     <Compile Include="Builtins\CommonVariables.cs" />
-    <Compile Include="Compiler\ForeachInstance.cs" />
-    <Compile Include="Compiler\Interpreter.cs" />
-    <Compile Include="Compiler\InterpredCode.cs" />
+    <Compile Include="Compiler\Helpers\StringExpander.cs" />
+    <Compile Include="Compiler\RegenCompiler.Compilation.cs" />
+    <Compile Include="Parser\Expressions\Identities\ReferenceIdentity.cs" />
+    <Compile Include="Helpers\Collections\Dict.cs" />
+    <Compile Include="Helpers\Collections\DictInlineInitializationException.cs" />
+    <Compile Include="Helpers\Collections\DictMergingException.cs" />
+    <Compile Include="Helpers\Collections\ExpandableList.cs" />
+    <Compile Include="Helpers\Collections\OList.cs" />
+    <Compile Include="Helpers\Collections\TokenWalker.cs" />
+    <Compile Include="Helpers\Collections\Merging\IMergable.cs" />
+    <Compile Include="Helpers\Collections\Merging\MergePrefer.cs" />
+    <Compile Include="Helpers\Collections\Merging\Merger.cs" />
+    <Compile Include="Parser\Expressions\HashtagReferenceExpression.cs" />
+    <Compile Include="Parser\Expressions\InteractableExpression.cs" />
+    <Compile Include="Parser\RegexResult.cs" />
+    <Compile Include="Compiler\RegenCompiler.Evaluation.cs" />
+    <Compile Include="Compiler\Expressions\TemporaryVariable.cs" />
+    <Compile Include="DataTypes\ReferenceData.cs" />
+    <Compile Include="Exceptions\ExpressionException.cs" />
+    <Compile Include="Compiler\RegenModule.cs" />
+    <Compile Include="Parser\Tokens\TokenMatch.cs" />
+    <Compile Include="Parser\Tokens\ExpressionLexer.cs" />
+    <Compile Include="Parser\Tokens\Attributes\ExpressionTokenAttribute.cs" />
+    <Compile Include="Parser\Tokens\Attributes\SwallowsAttribute.cs" />
+    <Compile Include="Parser\ExpressionWalker.Common.cs" />
+    <Compile Include="Parser\ExpressionWalker.cs" />
+    <Compile Include="Parser\Expressions\ArgumentsExpression.cs" />
+    <Compile Include="Parser\Expressions\ArrayExpression.cs" />
+    <Compile Include="Parser\Expressions\DataTypes\BooleanLiteral.cs" />
+    <Compile Include="Parser\Expressions\CallExpression.cs" />
+    <Compile Include="Parser\Expressions\DataTypes\CharLiteral.cs" />
+    <Compile Include="Parser\Expressions\High-Level\ForeachExpression.cs" />
+    <Compile Include="Parser\Expressions\GroupExpression.cs" />
+    <Compile Include="Parser\Expressions\ImportExpression.cs" />
+    <Compile Include="Parser\Expressions\Base\Expression.cs" />
+    <Compile Include="Parser\Expressions\Base\Identity.cs" />
+    <Compile Include="Parser\Expressions\IdentityExpression.cs" />
+    <Compile Include="Parser\Expressions\IndexerCallExpression.cs" />
+    <Compile Include="Parser\Expressions\Operators\IOperatorExpression.cs" />
+    <Compile Include="Parser\Expressions\KeyValueExpression.cs" />
+    <Compile Include="Parser\Expressions\Operators\LeftOperatorExpression.cs" />
+    <Compile Include="Parser\Expressions\NewExpression.cs" />
+    <Compile Include="Parser\Expressions\Identities\NullIdentity.cs" />
+    <Compile Include="Parser\Expressions\DataTypes\NumberLiteral.cs" />
+    <Compile Include="Parser\Expressions\Operators\OperatorExpression.cs" />
+    <Compile Include="Parser\Expressions\Identities\PropertyIdentity.cs" />
+    <Compile Include="Parser\Expressions\Operators\RightOperatorExpression.cs" />
+    <Compile Include="Parser\Expressions\Identities\StringIdentity.cs" />
+    <Compile Include="Parser\Expressions\DataTypes\StringLiteral.cs" />
+    <Compile Include="Parser\Expressions\ThrowExpression.cs" />
+    <Compile Include="Parser\ParserToken.cs" />
+    <Compile Include="Compiler\RegenCompiler.cs" />
+    <Compile Include="Compiler\Helpers\Line.cs" />
+    <Compile Include="Compiler\Helpers\Range.cs" />
+    <Compile Include="Compiler\Helpers\StringSlice.cs" />
+    <Compile Include="Compiler\Helpers\StringSource.cs" />
+    <Compile Include="Compiler\Helpers\StringSpan.cs" />
+    <Compile Include="Compiler\Interfaces\IEvaluator.cs" />
+    <Compile Include="Parser\Tokens\ExpressionToken.cs" />
+    <Compile Include="Compiler\ParsedCode.cs" />
     <Compile Include="Compiler\InterpreterOptions.cs" />
-    <Compile Include="Compiler\Lexer.cs" />
-    <Compile Include="Compiler\PackedArguments.cs" />
-    <Compile Include="Compiler\LineBuilder.cs" />
-    <Compile Include="Compiler\Regexes.cs" />
-    <Compile Include="Wrappers\VariableCollectionWrapper.cs" />
+    <Compile Include="Compiler\Interfaces\IRegenModule.cs" />
+    <Compile Include="Compiler\Helpers\PackedArguments.cs" />
+    <Compile Include="Compiler\Helpers\LineBuilder.cs" />
+    <Compile Include="Parser\ExpressionParser.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Parser\Regexes.cs" />
+    <Compile Include="DataTypes\BoolScalar.cs" />
+    <Compile Include="DataTypes\DictScalar.cs" />
+    <Compile Include="DataTypes\NetObject.cs" />
+    <Compile Include="Helpers\Dynamic\Expando.cs" />
+    <Compile Include="Helpers\DefaultConstructor.cs" />
+    <Compile Include="Helpers\ReflectionHelper.cs" />
+    <None Include="testSmall.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Compile Include="DataTypes\Wrappers\VariableCollectionWrapper.cs" />
     <Compile Include="DataTypes\Array.Equality.cs" />
     <Compile Include="DataTypes\Array.Parsing.cs" />
     <Compile Include="Exceptions\ExpressionCompileException.cs" />
@@ -93,28 +161,25 @@
     <Compile Include="Exceptions\UndefinedReferenceException.cs" />
     <Compile Include="Helpers\DictionaryExtensions.cs" />
     <Compile Include="Helpers\FleeExtensions.cs" />
+    <Compile Include="Parser\Expressions\High-Level\VariableDeclarationExpression.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Compiler\StackDictionary.cs" />
     <Compile Include="DataTypes\Array.cs" />
-    <Compile Include="Attributes\AttributeExtensions.cs" />
-    <Compile Include="Attributes\ManuallySearchedAttribute.cs">
+    <Compile Include="Helpers\AttributeExtensions.cs" />
+    <Compile Include="Parser\Tokens\Attributes\ManuallySearchedAttribute.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Collections\IListWalker.cs" />
-    <Compile Include="Collections\ListWalker.cs" />
+    <Compile Include="Helpers\Collections\IListWalker.cs" />
+    <Compile Include="Helpers\Collections\ListWalker.cs" />
     <Compile Include="DataTypes\Data.cs" />
     <Compile Include="DataTypes\NullScalar.cs" />
     <Compile Include="Exceptions\UnexpectedEndOfScriptException.cs" />
     <Compile Include="DataTypes\NumberScalar.cs" />
-    <Compile Include="Compiler\Parser.cs" />
     <Compile Include="Helpers\LinqExtensions.cs" />
     <Compile Include="Helpers\RegexExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataTypes\Scalar.cs" />
     <Compile Include="DataTypes\StringScalar.cs" />
-    <Compile Include="Compiler\Token.cs" />
-    <Compile Include="Compiler\TokenID.cs" />
     <Compile Include="Exceptions\UnexpectedTokenException.cs" />
     <None Include="packages.config" />
     <None Include="TUTORIAL.md" />
@@ -138,6 +203,15 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TODO.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Regen.Flee\Regen.Flee.csproj">
+      <Project>{658c0ed4-404a-48ec-96ff-d22c3c12ac39}</Project>
+      <Name>Regen.Flee</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

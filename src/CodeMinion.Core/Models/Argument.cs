@@ -34,5 +34,25 @@ namespace CodeMinion.Core.Models
         {
             return JObject.FromObject(this).ToObject<Argument>();
         }
+
+        public void SetNullableOptional(string type, string @default = null)
+        {
+            Type = type;
+            IsNullable = true;
+            IsNamedArg = true;
+            DefaultValue = @default;
+        }
+
+        public void SetType(string type, string @default=null)
+        {
+            Type = type;
+            DefaultValue = @default;
+        }
+
+        public void MakeMandatory()
+        {
+            DefaultValue = null;
+            IsNullable = false;
+        }
     }
 }

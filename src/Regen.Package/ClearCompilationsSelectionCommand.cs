@@ -8,6 +8,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Regen.Compiler;
 using Regen.Helpers;
+using Regen.Parser;
 using Task = System.Threading.Tasks.Task;
 
 namespace Regen {
@@ -95,7 +96,7 @@ namespace Regen {
             var index = cursor.AbsoluteCharOffset;
 
             var code = txt.GetText().Replace("\r", "");
-            var matches = Regex.Matches(code, $@"(\#if\s{Parser.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)", Regexes.DefaultRegexOptions);
+            var matches = Regex.Matches(code, $@"(\#if\s{Regexes.DefineMarker}[\n\r]{{1,2}}    [\s|\S]*?    \#else[\n\r]{{1,2}} )  ([\s|\S]*?)   (?=\#endif)", Regexes.DefaultRegexOptions);
             var match = matches.Cast<Match>().FirstOrDefault(m => m.DoesMatchNests(index));
             if (match == null) {
                 SystemSounds.Beep.Play();
@@ -112,7 +113,12 @@ namespace Regen {
 
                 textSelection.MoveToAbsoluteOffset(Math.Min(newLength - 1, match.Groups[2].Index));
             } catch (Exception e) {
+                Logger.Log(e);
+#if DEBUG
                 Message($"Failed parsing file...\n" + e);
+#else
+                Message($"Failed parsing file...\n" + e.Message + "\n" + e.InnerException?.Message);
+#endif
             }
 
             // now set the cursor to the beginning of the function

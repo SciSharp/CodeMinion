@@ -4,9 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text.RegularExpressions;
-using Flee.PublicTypes;
 using Regen.Compiler;
+using Regen.Flee.PublicTypes;
 using Regen.Helpers;
+using Regen.Parser;
 
 namespace Regen.DataTypes {
     public partial class Array {
@@ -30,7 +31,7 @@ namespace Regen.DataTypes {
             public int Length { get; set; }
         }
 
-        public static Array Parse(string @string, Interpreter interpreter) {
+        public static Array Parse(string @string, VariableCollection variables, IEvaluator evaluator) {
             const string arrayElementsSeperationRegex = @"(?<!\\)\|";
 
             const string BracketDepthPattern2 = @"\[([^\[\]]*)\]";
@@ -65,15 +66,15 @@ namespace Regen.DataTypes {
 
                     var arr = _last = ParseArray(expression); // parsed[expressionTrack.Id] =
                     var key = $"__{uniqueid}{i++}";
-                    interpreter.Context.Variables.Add(key, arr);
+                    variables.Add(key, arr);
                     expressionTrack.AssignedVariable = key; //parsedMap[expressionTrack.Match.Value] = 
                     @in = @in.Replace(expressionMatch.Value, expressionTrack.AssignedVariable);
                 }
             }
 
             //remove used variables
-            foreach (var k in interpreter.Context.Variables.Keys.ToArray().Where(k => k.StartsWith($"__{uniqueid}"))) {
-                interpreter.Context.Variables.Remove(k);
+            foreach (var k in variables.Keys.ToArray().Where(k => k.StartsWith($"__{uniqueid}"))) {
+                variables.Remove(k);
             }
 
             return _last;
@@ -90,7 +91,7 @@ namespace Regen.DataTypes {
                 var _parsed = Regex.Split(input, arrayElementsSeperationRegex, Regexes.DefaultRegexOptions)
                     .Select(v => v.Replace("\\|", "|")) //unescape
                     .Select(v => v == string.Empty ? "\"\"" : v) //filter empty values to empty string
-                    .Select(v => interpreter.EvaluateObject(v))
+                    .Select(v => evaluator.EvaluateObject(v))
                     .Select(Data.Create)
                     .ToList();
 

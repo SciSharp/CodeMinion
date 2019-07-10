@@ -37,7 +37,7 @@ namespace CodeMinion.ApiGenerator
             var result = generator.Generate();
 
             Console.WriteLine(result);
-            Console.ReadKey();
+            //Console.ReadKey();
         }
     }
 }

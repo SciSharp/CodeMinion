@@ -4,8 +4,7 @@ using System.Linq;
 
 namespace Regen.DataTypes {
     [DebuggerDisplay("Number: {" + nameof(Value) + "}")]
-    public class NumberScalar : Scalar, IEquatable<NumberScalar> {
-        //todo add MaxValue and MinValue
+    public class NumberScalar : Scalar, IEquatable<NumberScalar>, IComparable {
 
         public override string Emit() {
             return Value.ToString();
@@ -45,6 +44,22 @@ namespace Regen.DataTypes {
             }
 
             return emission;
+        }
+
+        //todo add MaxValue and MinValue
+        //todo unit test those three
+        public NumberScalar MaxValue() {
+            dynamic val = Value;
+            return new NumberScalar(val.MaxValue);
+        }
+
+        public NumberScalar MinValue() {
+            dynamic val = Value;
+            return new NumberScalar(val.MinValue);
+        }
+
+        public NumberScalar Zero() {
+            return new NumberScalar(Activator.CreateInstance(Value.GetType()));
         }
 
         public T As<T>(T @default) where T : IComparable {
@@ -391,6 +406,15 @@ namespace Regen.DataTypes {
             unchecked {
                 return (base.GetHashCode() * 397) ^ (Value != null ? Value.GetHashCode() : 0);
             }
+        }
+
+        /// <summary>Compares the current instance with another object of the same type and returns an integer that indicates whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.</summary>
+        /// <param name="obj">An object to compare with this instance. </param>
+        /// <returns>A value that indicates the relative order of the objects being compared. The return value has these meanings: Value Meaning Less than zero This instance precedes <paramref name="obj" /> in the sort order. Zero This instance occurs in the same position in the sort order as <paramref name="obj" />. Greater than zero This instance follows <paramref name="obj" /> in the sort order. </returns>
+        /// <exception cref="T:System.ArgumentException">
+        /// <paramref name="obj" /> is not the same type as this instance. </exception>
+        public int CompareTo(object obj) {
+            return (Value as IComparable)?.CompareTo(obj) ?? -2;
         }
 
         /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.DataTypes.NumberScalar" /> objects are equal.</summary>

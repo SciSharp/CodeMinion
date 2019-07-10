@@ -10,24 +10,6 @@ namespace Regen.DataTypes {
             Value = value;
         }
 
-        public static Scalar Create(object value) {
-            switch (value) {
-                case null:
-                    return new NullScalar();
-                case Scalar sc:
-                    return sc;
-                case string str:
-                    return new StringScalar(str);
-                case IComparable _num:
-                    var type = _num.GetType();
-                    if (type.IsPrimitive || type == typeof(decimal))
-                        return new NumberScalar(_num);
-                    throw new TypeLoadException();
-                default:
-                    throw new TypeLoadException();
-            }
-        }
-
         //#region Operators
 
         //public static object operator +(Scalar sc) {

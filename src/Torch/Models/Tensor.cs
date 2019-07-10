@@ -22,8 +22,6 @@ namespace Torch
         /// </summary>
         public T[] GetData<T>()
         {
-            // note: this implementation works only for device CPU
-            // todo: implement for GPU
             var storage = PyObject.storage();
             int size = storage.size();
             if (size==0)
@@ -68,6 +66,12 @@ namespace Torch
         {
             get { return new Tensor(self.GetItem(ToTuple(index))); }
             set { self.SetItem(ToTuple(index), value.PyObject); }
+        }
+
+        public Tensor this[Tensor selection_indices]
+        {
+            get { return new Tensor(self.GetItem(selection_indices.PyObject)); }
+            set { self.SetItem(selection_indices.PyObject, value.PyObject); }
         }
 
         private T as_scalar<T>() => self.InvokeMethod("item").As<T>();
@@ -118,9 +122,43 @@ namespace Torch
         public Device device
             => new Device(self.GetAttr("device"));
 
-        public virtual Tensor t() => new Tensor(self.InvokeMethod("t"));
-
+        /// <summary>
+        /// Transpose (see t())
+        /// </summary>
         public Tensor T => t();
+
+        /// <summary>
+        /// Clamp all elements into the range [ min, max ] and return
+        /// a resulting tensor:
+        /// 
+        /// \[y_i = \begin{cases}
+        ///     \text{min} & \text{if } x_i < \text{min} \\
+        ///     x_i & \text{if } \text{min} \leq x_i \leq \text{max} \\
+        ///     \text{max} & \text{if } x_i > \text{max}
+        /// \end{cases}
+        /// 
+        /// \]
+        /// 
+        /// <param name="min">
+        /// lower-bound of the range to be clamped to
+        /// </param>
+        /// <param name="max">
+        /// upper-bound of the range to be clamped to
+        /// </param>
+        /// <param name="out">
+        /// the output tensor
+        /// </param>
+        public Tensor clamp(double? min = null, double? max = null, Tensor @out = null)
+        {
+            //auto-generated code, do not change
+            var __self__ = self;
+            var kwargs = new PyDict();
+            if (min != null) kwargs["min"] = ToPython(min);
+            if (max != null) kwargs["max"] = ToPython(max);
+            if (@out != null) kwargs["out"] = ToPython(@out);
+            dynamic py = __self__.InvokeMethod("clamp", new PyTuple(), kwargs);
+            return ToCsharp<Tensor>(py);
+        }
 
     }
 

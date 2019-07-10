@@ -7,7 +7,7 @@ namespace Torch
 {
     public partial class PythonObject : IDisposable
     {
-        protected readonly PyObject self;
+        protected PyObject self; // must not be readonly for derived constructors will need to overwrite it.
         public dynamic PyObject => self;
 
         public IntPtr Handle => self.Handle;
@@ -20,6 +20,12 @@ namespace Torch
         public PythonObject(Tensor t)
         {
             this.self = t.PyObject;
+        }
+
+        protected PythonObject()
+        {
+            // setting intermediate self to module instance for derived constructors to be able to call the python constructor on it
+            self = torch.self;
         }
 
         public static bool operator ==(PythonObject a, object b)
@@ -86,13 +92,13 @@ namespace Torch
         /// Returns True if obj is a PyTorch tensor.
         /// </summary>
         public bool is_tensor
-            => PyTorch.Instance.is_tensor(this);
+            => torch.is_tensor(this);
 
         /// <summary>
         /// Returns True if obj is a PyTorch storage object.
         /// </summary>
         public bool is_storage
-            => PyTorch.Instance.is_storage(this);
+            => torch.is_storage(this);
 
         public void Dispose()
         {

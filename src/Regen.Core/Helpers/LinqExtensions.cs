@@ -1,9 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Regen.Helpers {
     public static class LinqExtensions {
+
+        public static IEnumerable<T> Yield<T>(this T obj) {
+            yield return obj;
+        }
+
         /// <summary>
         ///     Does exactly what <see cref="System.Linq.TakeWhile()"/> does but also takes the last unmatching item.
         /// </summary>
@@ -51,6 +57,12 @@ namespace Regen.Helpers {
                     pos = (pos + 1) % count;
                 }
             }
+        }
+        [DebuggerStepThrough]
+        public static string StringJoin(this IEnumerable<string> strs, string seperator = "") {
+            if (strs == null)
+                return "";
+            return string.Join(seperator, strs);
         }
     }
 }

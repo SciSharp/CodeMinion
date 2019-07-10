@@ -8,4 +8,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="SliceAndDice">
+      <HintPath>C:\Users\henon\.nuget\packages\sliceanddice\1.0.0\lib\netstandard2.0\SliceAndDice.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
