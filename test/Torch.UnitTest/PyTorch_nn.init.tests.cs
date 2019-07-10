@@ -17,7 +17,7 @@ using Assert = NUnit.Framework.Assert;
 namespace Torch.UnitTest
 {
     [TestClass]
-    public class PyTorch_nn.initTest : BaseTestCase
+    public class PyTorch_nn_initTest : BaseTestCase
     {
         
         [TestMethod]

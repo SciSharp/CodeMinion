@@ -424,7 +424,7 @@ namespace Torch
                 /// input that will be used in place of grad_input in subsequent
                 /// computations.
                 /// </summary>
-                public utils.hooks.RemovableHandle register_backward_hook(Func<Module, Tensor[], Tensor[], Tensor> hook)
+                public torch.utils.hooks.RemovableHandle register_backward_hook(Func<Module, Tensor[], Tensor[], Tensor> hook)
                 {
                     //auto-generated code, do not change
                     var __self__ = self;
@@ -434,7 +434,7 @@ namespace Torch
                     });
                     var kwargs = new PyDict();
                     dynamic py = __self__.InvokeMethod("register_backward_hook", pyargs, kwargs);
-                    return ToCsharp<utils.hooks.RemovableHandle>(py);
+                    return ToCsharp<torch.utils.hooks.RemovableHandle>(py);
                 }
 
                 /// <summary>
@@ -476,7 +476,7 @@ namespace Torch
                 /// 
                 /// The hook should not modify the input or output.
                 /// </summary>
-                public utils.hooks.RemovableHandle register_forward_hook(Action<Module, Tensor[], Tensor[]> hook)
+                public torch.utils.hooks.RemovableHandle register_forward_hook(Action<Module, Tensor[], Tensor[]> hook)
                 {
                     //auto-generated code, do not change
                     var __self__ = self;
@@ -486,7 +486,7 @@ namespace Torch
                     });
                     var kwargs = new PyDict();
                     dynamic py = __self__.InvokeMethod("register_forward_hook", pyargs, kwargs);
-                    return ToCsharp<utils.hooks.RemovableHandle>(py);
+                    return ToCsharp<torch.utils.hooks.RemovableHandle>(py);
                 }
 
                 /// <summary>
@@ -499,7 +499,7 @@ namespace Torch
                 /// 
                 /// The hook should not modify the input.
                 /// </summary>
-                public utils.hooks.RemovableHandle register_forward_pre_hook(Action<Module, Tensor[]> hook)
+                public torch.utils.hooks.RemovableHandle register_forward_pre_hook(Action<Module, Tensor[]> hook)
                 {
                     //auto-generated code, do not change
                     var __self__ = self;
@@ -509,7 +509,7 @@ namespace Torch
                     });
                     var kwargs = new PyDict();
                     dynamic py = __self__.InvokeMethod("register_forward_pre_hook", pyargs, kwargs);
-                    return ToCsharp<utils.hooks.RemovableHandle>(py);
+                    return ToCsharp<torch.utils.hooks.RemovableHandle>(py);
                 }
 
                 /// <summary>
