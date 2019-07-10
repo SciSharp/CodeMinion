@@ -47,7 +47,7 @@ namespace CodeMinion.Core.Models
         /// <value>
         /// The type of the return.
         /// </value>
-        public Type ReturnType { get; set; }
+        public string ReturnType { get; set; }
 
         /// <summary>
         /// Gets or sets the return argument.
@@ -64,6 +64,8 @@ namespace CodeMinion.Core.Models
         /// The document string.
         /// </value>
         public string DocStr { get; set; }
+
+        public bool Deprecated { get; set; }
 
         /// <summary>
         /// Gets or sets the parameters.

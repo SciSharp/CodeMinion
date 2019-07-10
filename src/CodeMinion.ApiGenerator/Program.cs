@@ -27,6 +27,9 @@ namespace CodeMinion.ApiGenerator
                 case "keras":
                     generator = new Keras.ApiGenerator();
                     break;
+                case "mxnet":
+                    generator = new MxNet.ApiGenerator();
+                    break;
                 default:
                     throw new Exception("Please assign what project you're working on.");
             }

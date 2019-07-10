@@ -26,7 +26,7 @@ namespace CodeMinion.Core.Models
         {
             PyLibrary lib = new PyLibrary();
             lib.Modules = Newtonsoft.Json.JsonConvert.DeserializeObject<List<PyModule>>(json);
-            lib.Modules.ForEach(x => { x.InferArg(); });
+            //lib.Modules.ForEach(x => { x.InferArg(); });
             return lib;
         }
     }

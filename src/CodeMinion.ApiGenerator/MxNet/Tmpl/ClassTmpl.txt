@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
+namespace Keras.[MODULE]
+{
+    /// <summary>
+    /// [COMMENTS]
+    /// </summary>
+	public class [CLSNAME] : Base
+	{
+		private static dynamic caller = Instance.mxnet.[MODULE].[CLSNAME];
+		public [CLSNAME]([ARGS])
+		{
+			[PARAMETERS]
+			__self__ = caller;
+		}
+
+		[METHODS]
+	}
+}

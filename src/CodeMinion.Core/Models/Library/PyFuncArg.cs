@@ -23,7 +23,15 @@ namespace CodeMinion.Core.Models
         /// <value>
         /// The type of the data.
         /// </value>
-        public Type DataType { get; set; }
+        public string DataType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the enums.
+        /// </summary>
+        /// <value>
+        /// The enums.
+        /// </value>
+        public string[] Enums { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether [have default].

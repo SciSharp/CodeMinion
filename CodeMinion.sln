@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.ApiGenerator", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Python.Runtime", "..\pythonnet\src\runtime\Python.Runtime.csproj", "{470644AA-5EB2-4BC4-8312-0701C6F30D9C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MxNet", "src\MxNet\MxNet.csproj", "{17DEC444-4E86-482A-9F0C-936F30661D89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -259,6 +261,26 @@ Global
 		{470644AA-5EB2-4BC4-8312-0701C6F30D9C}.ReleaseWin|Any CPU.Build.0 = Release|Any CPU
 		{470644AA-5EB2-4BC4-8312-0701C6F30D9C}.ReleaseWinPY3|Any CPU.ActiveCfg = Release|Any CPU
 		{470644AA-5EB2-4BC4-8312-0701C6F30D9C}.ReleaseWinPY3|Any CPU.Build.0 = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMono|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMono|Any CPU.Build.0 = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMonoPY3|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMonoPY3|Any CPU.Build.0 = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugWin|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugWin|Any CPU.Build.0 = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugWinPY3|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugWinPY3|Any CPU.Build.0 = Debug|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseMono|Any CPU.ActiveCfg = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseMono|Any CPU.Build.0 = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseMonoPY3|Any CPU.ActiveCfg = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseMonoPY3|Any CPU.Build.0 = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseWin|Any CPU.ActiveCfg = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseWin|Any CPU.Build.0 = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseWinPY3|Any CPU.ActiveCfg = Release|Any CPU
+		{17DEC444-4E86-482A-9F0C-936F30661D89}.ReleaseWinPY3|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
