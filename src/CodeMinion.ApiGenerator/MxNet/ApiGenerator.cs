@@ -15,82 +15,117 @@ namespace CodeMinion.ApiGenerator.MxNet
     {
         private CodeGenerator _generator;
 
-        private string codeDir = Directory.GetCurrentDirectory() + "../MxNet/";
+        private string codeDir = AppDomain.CurrentDomain.BaseDirectory + "../../../../MxNet/";
         private string testDir = Directory.GetCurrentDirectory() + "../MxNet/UnitTest/";
         private string templateClass = File.ReadAllText("./mxnet/Tmpl/ClassTmpl.txt");
         private string templateMethod = File.ReadAllText("./mxnet/Tmpl/MethodTmpl.txt");
+        private string templateModule = File.ReadAllText("./mxnet/Tmpl/ModuleTmpl.txt");
 
         public string Generate()
         {
             string result = "";
             string json = "";
-            using(var gil = Py.GIL())
+            string moduleName = "gluon.nn";
+            using (var gil = Py.GIL())
             {
-                dynamic exporter = PythonEngine.ModuleFromString("exporter", File.ReadAllText("./mxnet/ExportSignatureToJson.py"));
+                dynamic exporter = PythonEngine.ModuleFromString("exporter", File.ReadAllText("./mxnet/ExportSignatureToJson.py").Replace("[MODULE]", "mxnet." + moduleName));
                 json = exporter.generate().ToString();
             }
 
             var library = PyLibrary.LoadJson(json);
 
-            GenerateCode("gluon.nn", library);
+            foreach (var item in library.Modules)
+            {
+                GenerateCode(item);
+            }
+            
 
             return result;
         }
 
-        private void GenerateCode(string moduleName, PyLibrary library)
+        private void GenerateCode(PyModule module)
         {
-            string ns = "mxnet." + moduleName;
-            string srcFolder = codeDir + moduleName;
-            var applicationModule = library.Modules.FirstOrDefault(x => (x.Name == ns));
-            ModuleExt.InferArg(applicationModule);
-            if(!Directory.Exists(codeDir + moduleName))
+            string srcFolder = codeDir + module.Name.Replace("mxnet.", "").Split(".")[0] + "/";
+            ModuleExt.InferArg(module);
+            if(!Directory.Exists(srcFolder))
             {
                 Directory.CreateDirectory(srcFolder);
             }
 
-            foreach (var item in applicationModule.Classes)
+            string result = templateModule;
+            result = result.Replace("[MODULE]", module.Name.Split(".").Last());
+
+            foreach (var item in module.Classes)
             {
-                string classString = BuildClassFile(item, moduleName);
+                string[] splitStr = item.Name.Split(".");
+                string clsName = splitStr.Last();
+
+                string classString = BuildClassFile(item, module.Name);
+
+                StringBuilder classFunctions = new StringBuilder();
+                foreach (var func in item.Functions)
+                {
+                    string funcStr = BuildFunction(func);
+                    if (funcStr != "")
+                        classFunctions.AppendLine(funcStr);
+                }
+
+                classString = classString.Replace("[METHODS]", classFunctions.ToString());
+                File.WriteAllText(srcFolder + item.Name.Replace("mxnet.", "") + ".cs", classString);
             }
 
             StringBuilder functions = new StringBuilder();
-            foreach (var item in applicationModule.Functions)
+            foreach (var item in module.Functions)
             {
                 string func = BuildFunction(item);
-                functions.AppendLine(func);
+                if (func != "")
+                    functions.AppendLine(func);
             }
+
+            result = result.Replace("[METHODS]", functions.ToString());
+            File.WriteAllText(srcFolder + module.Name.Replace("mxnet.", "") + ".cs", result);
         }
 
         private string BuildClassFile(PyClass cls, string moduleName)
         {
+            if (cls.Name.StartsWith("_"))
+                return "";
+
             string result = templateClass;
-            result = result.Replace("[MODULE]", moduleName);
+            result = result.Replace("[MODULE]", string.Join(".", moduleName.Replace("mxnet.", "").Split(".").SkipLast(1).ToArray()));
             result = result.Replace("[CLSNAME]", cls.Name);
 
             StringBuilder args = new StringBuilder();
             StringBuilder parameters = new StringBuilder();
             foreach (var item in cls.Parameters)
             {
-                string type = item.DataType != null ? item.DataType : "object";
+                string type = item.DataType != null ? item.DataType : "Unknown";
                 string defaulValue = item.HaveDefault ? " = " + item.DefaultValue : "";
                 args.AppendFormat("{0} {1}{2},", type, item.Name, defaulValue);
 
-                parameters.AppendLine(string.Format("parameters[\"{0}\"] = {0};", item.Name));
+                parameters.AppendLine(string.Format("\t\tParameters[\"{0}\"] = {0};", item.Name));
             }
 
             if(args.ToString().LastIndexOf(',') > 0)
             {
                 result = result.Replace("[ARGS]", args.ToString().Remove(args.ToString().LastIndexOf(',')));
             }
+            else
+            {
+                result = result.Replace("[ARGS]", "");
+            }
 
             result = result.Replace("[PARAMETERS]", parameters.ToString());
-            result = result.Replace("[COMMENTS]", cls.DocStr);
+            //result = result.Replace("[COMMENTS]", cls.DocStr);
 
             return result;
         }
 
         private string BuildFunction(PyFunction func)
         {
+            if (func.Name.StartsWith("_"))
+                return "";
+
             string result = templateMethod;
             func.Parameters.Reverse();
             result = result.Replace("[METHODNAME]", func.Name);
@@ -109,6 +144,10 @@ namespace CodeMinion.ApiGenerator.MxNet
             if (args.ToString().LastIndexOf(',') > 0)
             {
                 result = result.Replace("[ARGS]", args.ToString().Remove(args.ToString().LastIndexOf(',')));
+            }
+            else
+            {
+                result = result.Replace("[ARGS]", "");
             }
 
             result = result.Replace("[PARAMETERS]", parameters.ToString());

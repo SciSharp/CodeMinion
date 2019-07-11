@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.Core", "src\CodeMinion.Core\CodeMinion.Core.csproj", "{574D0EF6-E79F-448E-BFB3-B323DD1E30C7}"
 EndProject
@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeMinion.ApiGenerator", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Python.Runtime", "..\pythonnet\src\runtime\Python.Runtime.csproj", "{470644AA-5EB2-4BC4-8312-0701C6F30D9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MxNet", "src\MxNet\MxNet.csproj", "{17DEC444-4E86-482A-9F0C-936F30661D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MxNet", "src\MxNet\MxNet.csproj", "{17DEC444-4E86-482A-9F0C-936F30661D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -262,7 +262,6 @@ Global
 		{470644AA-5EB2-4BC4-8312-0701C6F30D9C}.ReleaseWinPY3|Any CPU.ActiveCfg = Release|Any CPU
 		{470644AA-5EB2-4BC4-8312-0701C6F30D9C}.ReleaseWinPY3|Any CPU.Build.0 = Release|Any CPU
 		{17DEC444-4E86-482A-9F0C-936F30661D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17DEC444-4E86-482A-9F0C-936F30661D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMono|Any CPU.ActiveCfg = Debug|Any CPU
 		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMono|Any CPU.Build.0 = Debug|Any CPU
 		{17DEC444-4E86-482A-9F0C-936F30661D89}.DebugMonoPY3|Any CPU.ActiveCfg = Debug|Any CPU

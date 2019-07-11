@@ -98,8 +98,6 @@ namespace CodeMinion.Core.Models
 
                 func.Parameters.Add(parameter);
             }
-
-            ProcessComments(func);
         }
 
         private static void GetArgs(PyClass cls)
@@ -127,60 +125,6 @@ namespace CodeMinion.Core.Models
                 cls.Parameters.Add(parameter);
             }
 
-            ProcessComments(cls);
-        }
-
-        private static void ProcessComments(PyClass cls)
-        {
-            if (cls.DocStr == null)
-                return;
-
-            string[] splitStr = cls.DocStr.Split(new string[] { "# " }, StringSplitOptions.RemoveEmptyEntries);
-            cls.DocStr = splitStr.Length > 0 ? splitStr[0].Replace("\n", "") : "";
-
-            foreach (var item in splitStr)
-            {
-                if(item.StartsWith("Arguments"))
-                {
-                    string[] args = cls.Args.Select(x => (x + ": ")).ToArray().Where(x => (!x.Contains("kwargs"))).ToArray();
-                    string arg = item.Replace("Arguments", "").Trim().Replace("\n", "").Replace("        ", "");
-                    string[] pargs = arg.Split(args, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int i = 0; i < cls.Parameters.Count; i++)
-                    {
-                        cls.Parameters[i].ArgComment = pargs[i];
-                    }
-                }
-            }
-        }
-
-        private static void ProcessComments(PyFunction func)
-        {
-            if (func.DocStr == null)
-                return;
-
-            string[] splitStr = func.DocStr.Split(new string[] { "# " }, StringSplitOptions.RemoveEmptyEntries);
-            func.DocStr = splitStr.Length > 0 ? splitStr[0].Replace("\n", "") : "";
-
-            foreach (var item in splitStr)
-            {
-                if (item.StartsWith("Arguments"))
-                {
-                    string[] args = func.Args.Select(x => (x + ": ")).ToArray();
-                    string arg = item.Replace("Arguments", "").Trim().Replace("\n", "").Replace("        ", "");
-                    string[] pargs = arg.Split(args, StringSplitOptions.RemoveEmptyEntries);
-
-                    for (int i = 0; i < func.Parameters.Count; i++)
-                    {
-                        func.Parameters[i].ArgComment = pargs[i];
-                    }
-                }
-
-                if(item.StartsWith("Returns"))
-                {
-                    func.ReturnArg = item.Replace("Returns", "").Trim().Replace("\n", "");
-                }
-            }
         }
     }
 }

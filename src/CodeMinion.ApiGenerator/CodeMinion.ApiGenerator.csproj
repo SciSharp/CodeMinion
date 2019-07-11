@@ -31,6 +31,9 @@
     <None Update="MxNet\ExportSignatureToJson.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="MxNet\Tmpl\ModuleTmpl.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="MxNet\Tmpl\ClassTmpl.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

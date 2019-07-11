@@ -69,7 +69,7 @@ def expand_module(name, obj):
     library.append(module)
 
 def generate():
-    modules = inspect.getmembers(mxnet.gluon, predicate=inspect.ismodule)
+    modules = inspect.getmembers([MODULE], predicate=inspect.ismodule)
     for name, m in modules:
         expand_module(m.__name__, m)
 	
