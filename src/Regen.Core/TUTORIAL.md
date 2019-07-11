@@ -1,5 +1,5 @@
 ﻿# Getting Started
-Regen at its core is a templating engine that uses C#-like syntax and is entirely written in C#.<br>
+Regen at its core is a templating engine that uses a mix of C# and Python-like syntax and is entirely written in C#.<br>
 Its purpose is to replace T4 Templating with intuitive and fast in-code (not in a seperate file) scripting/templating.<br>
 Having your template alongside the generated code makes it much more readable and easy to modify leading to a major increase in productivity and maintainability.
 
