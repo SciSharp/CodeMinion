@@ -25,7 +25,7 @@ namespace CodeMinion.ApiGenerator.MxNet
         {
             string result = "";
             string json = "";
-            string moduleName = "gluon.nn";
+            string moduleName = "image";
             using (var gil = Py.GIL())
             {
                 dynamic exporter = PythonEngine.ModuleFromString("exporter", File.ReadAllText("./mxnet/ExportSignatureToJson.py").Replace("[MODULE]", "mxnet." + moduleName));
@@ -36,16 +36,18 @@ namespace CodeMinion.ApiGenerator.MxNet
 
             foreach (var item in library.Modules)
             {
-                GenerateCode(item);
+                if (item.Name.Contains("._") || item.Name.Contains(".gen_"))
+                    continue;
+
+                GenerateCode(item, "/image/", "image");
             }
-            
 
             return result;
         }
 
-        private void GenerateCode(PyModule module)
+        private void GenerateCode(PyModule module, string path, string ns)
         {
-            string srcFolder = codeDir + module.Name.Replace("mxnet.", "").Split(".")[0] + "/";
+            string srcFolder = codeDir + path;
             ModuleExt.InferArg(module);
             if(!Directory.Exists(srcFolder))
             {
@@ -54,13 +56,17 @@ namespace CodeMinion.ApiGenerator.MxNet
 
             string result = templateModule;
             result = result.Replace("[MODULE]", module.Name.Split(".").Last());
+            result = result.Replace("[NAMESPACE]", ns);
 
             foreach (var item in module.Classes)
             {
+                if (item.Name.StartsWith("_"))
+                    continue;
+
                 string[] splitStr = item.Name.Split(".");
                 string clsName = splitStr.Last();
 
-                string classString = BuildClassFile(item, module.Name);
+                string classString = BuildClassFile(item, module.Name, ns);
 
                 StringBuilder classFunctions = new StringBuilder();
                 foreach (var func in item.Functions)
@@ -71,22 +77,30 @@ namespace CodeMinion.ApiGenerator.MxNet
                 }
 
                 classString = classString.Replace("[METHODS]", classFunctions.ToString());
-                File.WriteAllText(srcFolder + item.Name.Replace("mxnet.", "") + ".cs", classString);
+
+                File.WriteAllText(srcFolder + item.Name.Replace("mxnet.", "").Split(".").Last() + ".cs", classString);
             }
 
             StringBuilder functions = new StringBuilder();
+            bool haveFuns = false;
             foreach (var item in module.Functions)
             {
                 string func = BuildFunction(item);
                 if (func != "")
+                {
                     functions.AppendLine(func);
+                    haveFuns = true;
+                }
             }
 
-            result = result.Replace("[METHODS]", functions.ToString());
-            File.WriteAllText(srcFolder + module.Name.Replace("mxnet.", "") + ".cs", result);
+            if (haveFuns)
+            {
+                result = result.Replace("[METHODS]", functions.ToString());
+                File.WriteAllText(srcFolder + module.Name.Replace("mxnet.", "").Split(".").Last() + ".cs", result);
+            }
         }
 
-        private string BuildClassFile(PyClass cls, string moduleName)
+        private string BuildClassFile(PyClass cls, string moduleName, string ns)
         {
             if (cls.Name.StartsWith("_"))
                 return "";
@@ -94,6 +108,7 @@ namespace CodeMinion.ApiGenerator.MxNet
             string result = templateClass;
             result = result.Replace("[MODULE]", string.Join(".", moduleName.Replace("mxnet.", "").Split(".").SkipLast(1).ToArray()));
             result = result.Replace("[CLSNAME]", cls.Name);
+            result = result.Replace("[NAMESPACE]", ns);
 
             StringBuilder args = new StringBuilder();
             StringBuilder parameters = new StringBuilder();

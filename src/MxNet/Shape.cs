@@ -1,12 +1,18 @@
-﻿using System;
+﻿using Python.Runtime;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace MxNet
 {
-    public class Shape
+    public class Shape : Base
     {
+        public Shape(PyObject py)
+        {
+            __self__ = py;
+        }
+
         public int[] Dimensions { get; }
 
         public Shape(params int[] shape)

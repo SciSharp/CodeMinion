@@ -14,6 +14,9 @@ namespace MxNet
         {
             var instance = new MxNetLib();
             instance.mxnet = InstallAndImport("mxnet");
+            instance.logging = InstallAndImport("logging");
+            instance.collections = InstallAndImport("collections");
+
             return instance;
         }
         );
@@ -27,6 +30,8 @@ namespace MxNet
         }
 
         public dynamic mxnet = null;
+        public dynamic logging = null;
+        public dynamic collections = null;
 
         private bool IsInitialized => mxnet != null;
 
@@ -59,6 +64,7 @@ namespace MxNet
                 // special types from 'ToPythonConversions'
                 case Shape o: return ToTuple(o.Dimensions);
                 case PyObject o: return o;
+                case PythonObject o: return o.PyObject;
                 case Base o: return o.ToPython();
                 default: throw new NotImplementedException($"Type is not yet supported: { obj.GetType().Name}. Add it to 'ToPythonConversions'");
             }

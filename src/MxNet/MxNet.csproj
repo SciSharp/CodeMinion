@@ -5,15 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\pythonnet\src\runtime\Python.Runtime.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Enums\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+    <PackageReference Include="Numpy.Bare" Version="3.7.1.6" />
   </ItemGroup>
 
 </Project>

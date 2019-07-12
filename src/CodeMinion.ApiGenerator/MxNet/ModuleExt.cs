@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CodeMinion.ApiGenerator.MxNet
 {
@@ -29,7 +30,7 @@ namespace CodeMinion.ApiGenerator.MxNet
 
                 for (int i = 0; i < item.Functions.Length; i++)
                 {
-                    var func = module.Functions[i];
+                    var func = item.Functions[i];
                     ProcessComments(func);
                     //if (func.Args == null)
                     //    continue;
@@ -108,15 +109,13 @@ namespace CodeMinion.ApiGenerator.MxNet
             if (cls.DocStr == null)
                 return;
 
-           
-
             cls.Parameters.Clear();
             if (cls.DocStr.Contains("deprecated"))
             {
                 return;
             }
 
-            if (cls.Name == "AvgPool1D")
+            if (cls.Name == "ROIAlign")
             {
                 string str = "";
             }
@@ -128,6 +127,18 @@ namespace CodeMinion.ApiGenerator.MxNet
                 return;
 
             cls.Parameters = ProcessArgs(cls.Name, splitStr[1]);
+            for(int i=0;i<cls.Parameters.Count;i++)
+            {
+                if (cls.Defaults == null)
+                    continue;
+
+                if (cls.Defaults.Length == 0)
+                    continue;
+
+                int index = cls.Args.ToList().IndexOf(cls.Parameters[i].Name);
+                string defaultVal = cls.Defaults.Length < index ? cls.Defaults[index] : "";
+                ProcessDefaults(cls.Parameters[i], defaultVal);
+            }
         }
 
         private static void ProcessComments(PyFunction func)
@@ -139,6 +150,27 @@ namespace CodeMinion.ApiGenerator.MxNet
                 return;
 
             func.Parameters.Clear();
+            if (func.Name == "foreach")
+            {
+                string str = "";
+            }
+
+            Regex regex = new Regex(@"(\(.*?,.*?\))");
+
+            if (func.Defaults !=null && func.Defaults.Length == 1)
+            {
+                string defaultRaw = func.Defaults[0].Remove(func.Defaults[0].LastIndexOf(')')).Remove(0, 1);
+                var matches = regex.Matches(defaultRaw);
+                foreach (Match item in matches)
+                {
+                    defaultRaw = defaultRaw.Replace(item.Value, item.Value.Replace("(", "").Replace(")", "").Replace(", ", "~"));
+                }
+
+                func.Defaults = defaultRaw.Split(",");
+
+                func.Defaults.Reverse();
+            }
+
             if (func.DocStr.Contains("deprecated"))
             {
                 func.Deprecated = true;
@@ -146,18 +178,38 @@ namespace CodeMinion.ApiGenerator.MxNet
             }
 
             string argSeperator = " : ";
-            if (func.Name.Contains("AvgPool"))
+            if (func.Name.Contains("AvgPool") || func.Name.Contains("MaxPool") || func.Name.Contains("ReflectionPad") 
+                    || func.Name == "cond" || func.Name == "foreach" || func.Name == "isfinite" || func.Name == "isinf" || func.Name == "isnan"
+                    || func.Name == "rand_zipfian")
             {
                 argSeperator = ": ";
             }
 
-            string[] splitStr = func.DocStr.Split(new string[] { "----------", "-------", "Inputs:" }, StringSplitOptions.RemoveEmptyEntries);
+            string docString = func.DocStr.Replace("References\n----------", "");
+            string[] splitStr = docString.Split(new string[] { "----------", "-------", "Inputs:" }, StringSplitOptions.RemoveEmptyEntries);
             func.DocStr = splitStr.Length > 0 ? splitStr[0].Replace("\n", "").Replace("Parameters", "") : "";
 
             if (splitStr.Length == 1)
                 return;
 
-            func.Parameters = ProcessArgs(func.Name, splitStr[1]);
+            if (docString.Contains("Parameters\n----------"))
+                func.Parameters = ProcessArgs(func.Name, splitStr[1]);
+            else
+                func.Parameters = new List<PyFuncArg>();
+
+            for (int i = 0; i < func.Parameters.Count; i++)
+            {
+                if (func.Defaults == null)
+                    continue;
+
+                if (func.Defaults.Length == 0)
+                    continue;
+
+                int index = func.Defaults.Length - i;
+                
+                string defaultVal = func.Defaults.Length > i ? func.Defaults[index] : "";
+                ProcessDefaults(func.Parameters[i], defaultVal);
+            }
 
             if (splitStr.Length > 2)
             {
@@ -177,7 +229,13 @@ namespace CodeMinion.ApiGenerator.MxNet
                     case "int":
                         func.ReturnType = "int";
                         break;
+                    case "Context":
+                        func.ReturnType = "Context";
+                        break;
+                    case "NDArray":
                     case "NDArray or list of NDArrays":
+                    case "an NDArray or nested lists of NDArrays, representing the result of computation.":
+                    case "an NDArray or nested lists of NDArrays.":
                         func.ReturnType = "NDArray";
                         break;
                     default:
@@ -202,7 +260,8 @@ namespace CodeMinion.ApiGenerator.MxNet
             }
 
             string argSeperator = " : ";
-            if(objname.Contains("AvgPool") || objname.Contains("MaxPool") || objname.Contains("ReflectionPad"))
+            if(objname.Contains("AvgPool") || objname.Contains("MaxPool") || objname.Contains("ReflectionPad") || objname == "cond" 
+                || objname == "foreach" || objname == "isfinite" || objname == "isinf" || objname == "isnan" || objname == "rand_zipfian")
             {
                 argSeperator = ": ";
             }
@@ -302,15 +361,19 @@ namespace CodeMinion.ApiGenerator.MxNet
                                 parameter.DataType = "float?";
                                 parameter.HaveDefault = true;
                                 break;
+                            case "tuple of floats":
+                                parameter.DataType = "float[]";
+                                break;
                             case "NDArray":
+                            case "a MXNet NDArray representing a scalar.":
+                            case "an NDArray or a list of NDArrays.":
+                            case "an NDArray or nested lists of NDArrays.":
                                 parameter.DataType = "NDArray";
                                 break;
                             case "NDArray[]":
                                 parameter.DataType = "NDArray[]";
                                 break;
                             case "Symbol":
-                                parameter.DataType = "Symbol";
-                                break;
                             case "Symbol or list of Symbol":
                                 parameter.DataType = "Symbol";
                                 break;
@@ -357,80 +420,51 @@ namespace CodeMinion.ApiGenerator.MxNet
                                 parameter.HaveDefault = true;
                                 parameter.DefaultValue = "null";
                                 break;
+                            case "callable":
+                            case "a Python function.":
+                                parameter.DataType = "object";
+                                parameter.HaveDefault = true;
+                                parameter.DefaultValue = "null";
+                                break;
                             case "str or Initializer":
                                 parameter.DataType = "StringOrInitializer";
+                                parameter.HaveDefault = true;
+                                parameter.DefaultValue = "null";
+                                break;
+                            case "np.ndarray or None":
+                                parameter.DataType = "Numpy.NDarray";
                                 parameter.HaveDefault = true;
                                 parameter.DefaultValue = "null";
                                 break;
                             case "str or function":
                                 parameter.DataType = "object";
                                 break;
+                            case "Context":
+                                parameter.DataType = "Context";
+                                break;
+                            case "np":
+                                parameter.DataType = "Context";
+                                break;
+                            case "optional":
+                                if(parameter.Name == "variances")
+                                {
+                                    parameter.DataType = "float[]";
+                                }
+                                else if (parameter.Name == "sizes" || parameter.Name == "steps" || parameter.Name == "offsets")
+                                {
+                                    parameter.DataType = "int";
+                                }
+                                else if (parameter.Name == "ratios" || parameter.Name == "scales" || parameter.Name == "low" || parameter.Name == "high")
+                                {
+                                    parameter.DataType = "float";
+                                }
+                                else
+                                {
+                                    throw new Exception("Not implemented: " + argInfo[0].Trim());
+                                }
+                                break;
                             default:
                                 throw new Exception("Not implemented: " + argInfo[0].Trim());
-                        }
-                    }
-
-                    if (argTypeInfo.Contains("optional"))
-                    {
-                        parameter.HaveDefault = true;
-
-                        if (argTypeInfo.Contains("default="))
-                        {
-                            string val = argTypeInfo.Split("default=")[1].Trim().Replace("'", "");
-                            if (parameter.DataType == "float")
-                                parameter.DefaultValue = Convert.ToSingle(val);
-                            else if (parameter.DataType == "double")
-                                parameter.DefaultValue = Convert.ToDouble(val);
-                            else if (parameter.DataType == "int")
-                                parameter.DefaultValue = Convert.ToInt32(val);
-                            else if (parameter.DataType == "uint")
-                                parameter.DefaultValue = Convert.ToUInt32(val);
-                            else if (parameter.DataType == "long")
-                                parameter.DefaultValue = Convert.ToInt64(val);
-                            else if (parameter.DataType == "ulong")
-                                parameter.DefaultValue = Convert.ToUInt64(val);
-                            else if (parameter.DataType == "bool")
-                                parameter.DefaultValue = val == "1" ? true : false;
-                            else if (parameter.DataType == "string")
-                                parameter.DefaultValue = val == "" ? "" : val;
-                            else if (parameter.DataType == "Dictionary<string, object>")
-                                parameter.DefaultValue = "null";
-                            else if (parameter.DataType == "DType")
-                                parameter.DefaultValue = "null";
-                            else if (parameter.DataType == "Initializer")
-                                parameter.DefaultValue = "null";
-                            else if (parameter.DataType == "StringOrInitializer")
-                                parameter.DefaultValue = "null";
-                            else if (parameter.DataType == "bool?")
-                            {
-                                if (!argTypeInfo.Split("default=")[1].Trim().Contains("None"))
-                                    parameter.DefaultValue = (val == "1" ? true : false);
-                            }
-                            else if (parameter.DataType == "int?")
-                            {
-                                if (!argTypeInfo.Split("default=")[1].Trim().Contains("None"))
-                                    parameter.DefaultValue = val != "" ? Convert.ToInt32(val) : 0;
-                            }
-                            else if (parameter.DataType == "int[]")
-                            {
-                                parameter.DefaultValue = "null";
-                            }
-                            else if (parameter.DataType == "float?")
-                            {
-                                if (!val.Contains("None"))
-                                    parameter.DefaultValue = Convert.ToSingle(val);
-                            }
-                            else if (parameter.DataType == "double?")
-                            {
-                                if (!val.Contains("None"))
-                                    parameter.DefaultValue = Convert.ToDouble(val);
-                            }
-                            else if (parameter.DataType == "Shape")
-                                parameter.DefaultValue = "null";
-                            else if (parameter.DataType.StartsWith("enum$"))
-                                parameter.DefaultValue = val;
-                            else
-                                throw new Exception("Not implemented");
                         }
                     }
 
@@ -443,6 +477,141 @@ namespace CodeMinion.ApiGenerator.MxNet
             }
 
             return result;
+        }
+
+        private static void ProcessDefaults(PyFuncArg parameter, string defaultVal)
+        {
+            defaultVal = defaultVal.Replace("'", "").Replace("`", "").Trim();
+            if (defaultVal == "")
+                return;
+
+            if (defaultVal == "_Null")
+                defaultVal = "None";
+
+            if (parameter.DataType == "float")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "float?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = Convert.ToSingle(defaultVal);
+            }
+            else if (parameter.DataType == "double")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "double?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = Convert.ToDouble(defaultVal);
+            }
+            else if (parameter.DataType == "int")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "int?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = Convert.ToInt32(defaultVal);
+            }
+            else if (parameter.DataType == "uint")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "uint?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = Convert.ToUInt32(defaultVal);
+            }
+            else if (parameter.DataType == "long")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "long?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = Convert.ToInt64(defaultVal);
+            }
+            else if (parameter.DataType == "ulong")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "ulong?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = Convert.ToUInt64(defaultVal);
+            }
+            else if (parameter.DataType == "bool")
+            {
+                if (defaultVal == "None")
+                {
+                    parameter.DataType = "bool?";
+                    parameter.DefaultValue = "null";
+                }
+                else
+                    parameter.DefaultValue = defaultVal == "True" ? true : false;
+            }
+            else if (parameter.DataType == "string")
+                parameter.DefaultValue = defaultVal == "" ? "\"\"" : "\"" + defaultVal + "\"";
+            else if (parameter.DataType == "Dictionary<string, object>")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "DType")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "Initializer")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "StringOrInitializer")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "NDArray")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "Symbol")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "Context")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType == "bool?")
+            {
+                if (defaultVal != "None")
+                    parameter.DefaultValue = (defaultVal == "True" ? true : false);
+            }
+            else if (parameter.DataType == "int?")
+            {
+                if (defaultVal != "None")
+                    parameter.DefaultValue = defaultVal != "" ? Convert.ToInt32(defaultVal) : 0;
+            }
+            else if (parameter.DataType == "int[]")
+            {
+                parameter.DefaultValue = "null";
+                if (defaultVal != "None")
+                    parameter.DefaultValue = defaultVal.Split("~").Select(x => (Convert.ToInt32(x))).ToArray();
+            }
+            else if (parameter.DataType == "float[]")
+            {
+                parameter.DefaultValue = "null";
+                if (defaultVal != "None")
+                    parameter.DefaultValue = defaultVal.Split("~").Select(x => (Convert.ToSingle(x))).ToArray();
+            }
+            else if (parameter.DataType == "float?")
+            {
+                if (defaultVal != "None")
+                    parameter.DefaultValue = Convert.ToSingle(defaultVal);
+            }
+            else if (parameter.DataType == "double?")
+            {
+                if (!defaultVal.Contains("None"))
+                    parameter.DefaultValue = Convert.ToDouble(defaultVal);
+            }
+            else if (parameter.DataType == "Shape")
+                parameter.DefaultValue = "null";
+            else if (parameter.DataType.StartsWith("enum$"))
+                parameter.DefaultValue = defaultVal;
+            else
+                throw new Exception("Not implemented");
         }
     }
 }
