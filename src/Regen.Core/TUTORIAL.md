@@ -324,7 +324,7 @@ expr          - an expression that returns an object that must implement IList
 public class Convert__1__ { }
 ```
 First file (out of 2) will output as `"./int/filename.INT.cs"` relative to the template file path.<br>
-`__n__` are similar to `#n` inside a foreach loop resulting in the first file:<br>
+`__n__` are similar to `#n` inside a foreach loop resulting the first file as:<br>
 `public class ConvertINT { }`<br><br>
 Example file: [test/Regen.Core.UnitTest/Package/tempfilename.template.cs](../../test/Regen.Core.UnitTest/Package/tempfilename.template.cs)
 
