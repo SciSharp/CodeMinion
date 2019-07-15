@@ -318,5 +318,14 @@ namespace Regen.Core.Tests.Expression {
                 ";
             var ret = Compile(input).Output.Should().Contain("123").And.NotContain("%(");
         }
+
+        [TestMethod]
+        public void expression_boolean() {
+            var input = @"
+                %a = false
+                %(a)
+                ";
+            var ret = Compile(input).Output.Should().Contain("false");
+        }
     }
 }

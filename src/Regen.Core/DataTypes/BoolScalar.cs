@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Regen.DataTypes {
     [DebuggerDisplay("Boolean: {" + nameof(Value) + "}")]
@@ -16,7 +17,7 @@ namespace Regen.DataTypes {
         /// </summary>
         /// <returns></returns>
         public override string Emit() {
-            return _value.ToString();
+            return _value.ToString().ToLower(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
