@@ -255,3 +255,80 @@ One of them is `System.Math` so using `Math.Cos(...)` will be in `regen-lang`: `
   Returns the interpreter that the expression is currently running in.
 
 
+### Global Regen
+In some cases there is a need for a shared varaible across an entire solution, project or single file.<br>
+`_REGEN_GLOBAL` and `*.regen` filetype were created.
+
+#### _REGEN_GLOBAL
+Is precompiled before any `_REGEN` block in that specific file, making `%arr` available <br>in the other `_REGEN` blocks/frames.
+```C#
+#if _REGEN_GLOBAL
+    %arr = [1,2,3]
+#endif
+
+#if _REGEN
+    %(arr[2])
+#else
+    3
+#endif
+
+#if _REGEN
+    %(arr[1])
+#else
+    2
+#endif
+```
+
+#### *.regen filetype
+`*.regen` files are used to provide variables solution-wide and has to be reloaded from the Regen menu (by `Reload Globals` button) after changes.<br>
+The contents of the entire `.regen` file are considered `regen-lang` therefore there is no need for #if blocks.
+
+Example file: `/sharedtypes.regen`
+```c#
+%numericalTypes = ["int", "short"]
+%complexTypes = ["object", "string"]
+%allTypes = concat(numericalTypes,complexTypes)
+```
+
+In a different file:
+```C#
+#if _REGEN
+    %(allTypes[0])
+#else
+    int
+#endif
+```
+Once you'll reload globals, these variables will be available accross and `_REGEN` and `_REGEN_TEMPLATE` blocks in this solution.
+
+### Regen File Template
+Regen file templating gives the ability to generate multiple files.<br>
+##### Syntax: 
+```C#
+#if _REGEN_TEMPLATE
+%template "relative path" for every expr1, expr2 ... , expr-n
+#endif
+
+... file contents ...
+
+relative path - may contain #n to access current data relative to the template file.
+file contents - regular C# code, any `__n__` will be handled like `#n` inside a foreach.
+expr          - an expression that returns an object that must implement IList
+
+```
+##### Example:
+```C#
+#if _REGEN_TEMPLATE
+%template "./#2/filename.#1.cs" for every ["INT", "FLOAT"], ["int", "float"]
+#endif
+
+public class Convert__1__ { }
+```
+First file (out of 2) will output as `"./int/filename.INT.cs"` relative to the template file path.<br>
+`__n__` are similar to `#n` inside a foreach loop resulting in the first file:<br>
+`public class ConvertINT { }`<br><br>
+Example file: [tempfilename.template.cs](..\..\test\Regen.Core.UnitTest\Package\tempfilename.template.cs)
+
+The logic-flow is as follows:
+1. The template file is compiled and all `__n__` literals are replaced with their corresponding value.
+2. Every template file outputted goes through `Compile File` command triggering compilation at all `_REGEN` blocks
+3. The files are saved path mentioned in the `%template` expression relatively to the template file itself.

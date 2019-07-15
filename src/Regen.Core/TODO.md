@@ -1,5 +1,4 @@
-﻿- _REGEN_GLOBAL documentation in TUTORIAL.md
-- Indexer inside foreach loops: `#[i-1]`
+﻿- Indexer inside foreach loops: `#[i-1]`
 - Support for `%import global namespace.type` which parses _REGEN_GLOBAL blocks.
 - Support for %foreach longest expr% which iterates to the longest index, filling rest with default value.
 - GUI version for usage without vsix installed. (also to serve as playground)
@@ -13,7 +12,6 @@
 - Support nested foreach.
     - [X] Create a temporary workaround, add a function `forevery(array, array, bool)` which returns a single array
     that is populated as if they were nested foreaches.
-- BUG: When emitting `false` from an expression that was handled by `Flee` - it returns `False` instead of `false`
 - Add a solution-wide Clear and Compile with promt asking if you are sure - please review first.
 
 ##### Beta
