@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
 using Regen.Builtins;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
@@ -25,6 +26,14 @@ namespace Regen.Compiler {
         public Dictionary<string, object> GlobalVariables { get; } = new Dictionary<string, object>();
 
         public ExpressionContext Context { get; set; }
+
+        private static readonly ThreadLocal<ExpressionContext> _threadLocalContext = new ThreadLocal<ExpressionContext>();
+
+        /// <summary>
+        ///     Gets the current context that is executing the expression.
+        /// </summary>
+        /// <remarks>Can be null if not used properly.</remarks>
+        public static ExpressionContext CurrentContext => _threadLocalContext.Value;
 
         public RegenCompiler(params RegenModule[] modules) {
             Context = CreateContext(null, modules);
@@ -168,10 +177,13 @@ namespace Regen.Compiler {
 
         public object EvaluateObject(Expression expression, ExpressionWalker ew, Line line = null) {
             //Core evaluation method.
+            _threadLocalContext.Value = Context;
             try {
                 return EvaluateExpression(expression);
             } catch (Flee.PublicTypes.ExpressionCompileException e) {
                 throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
+            } finally {
+                _threadLocalContext.Value = null;
             }
         }
 

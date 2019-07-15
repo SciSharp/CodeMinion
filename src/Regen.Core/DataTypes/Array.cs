@@ -89,6 +89,10 @@ namespace Regen.DataTypes {
         public new static Array Create(object obj) {
             if (obj == null)
                 return Array.Create(new NullScalar());
+
+            if (obj is Array r)
+                return r;
+
             return new Array(new List<Data>() {Data.Create(obj)});
         }
 
@@ -99,6 +103,10 @@ namespace Regen.DataTypes {
         public static Array Create(IEnumerable<object> objs) {
             if (objs == null)
                 return new Array();
+
+            if (objs is Array r)
+                return r;
+
             var objs_ = objs.ToList();
             if (objs_.Count == 0)
                 return new Array();

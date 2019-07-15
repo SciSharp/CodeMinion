@@ -10,6 +10,10 @@ namespace Regen.Helpers {
             yield return obj;
         }
 
+        public static IEnumerable<T> YieldAs<T>(this object obj) {
+            yield return (T) obj;
+        }
+
         /// <summary>
         ///     Does exactly what <see cref="System.Linq.TakeWhile()"/> does but also takes the last unmatching item.
         /// </summary>

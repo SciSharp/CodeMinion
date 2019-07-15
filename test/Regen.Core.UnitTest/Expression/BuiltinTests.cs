@@ -164,5 +164,71 @@ namespace Regen.Core.Tests.Expression {
                 .Contain("3=4").And
                 .Contain("3=5");
         }
+
+        [TestMethod]
+        public void except() {
+            var @input = $@"
+                %foreach except([1,2,3], 1)%
+                    #1
+                %
+                ";
+            var ret = Compile(@input).Output
+                .Should().ContainAll("2", "3").And.NotContain("1");
+        }
+
+        [TestMethod]
+        public void except_string() {
+            var @input = $@"
+                %foreach except([""1"",""2"",""3""], ""2"")%
+                    #1
+                %
+                ";
+            var ret = Compile(@input).Output
+                .Should().ContainAll("1", "3").And.NotContain("2");
+        }
+
+        [TestMethod]
+        public void except_string_multiple_occurences() {
+            var @input = $@"
+                %foreach except([""2"",""2"",""3""], ""2"")%
+                    #1
+                %
+                ";
+            var ret = Compile(@input).Output
+                .Should().ContainAll("3").And.NotContain("2");
+        }
+
+        [TestMethod]
+        public void concat() {
+            var @input = $@"
+                %foreach concat([1],[2])%
+                    #1
+                %
+                ";
+            var ret = Compile(@input).Output
+                .Should().ContainAll("1", "2");
+        }
+
+        [TestMethod]
+        public void concat_3() {
+            var @input = $@"
+                %foreach concat([1],[2],[3,4])%
+                    #1
+                %
+                ";
+            var ret = Compile(@input).Output
+                .Should().ContainAll("1", "2", "3", "4");
+        }
+
+        [TestMethod]
+        public void flatten() {
+            var @input = $@"
+                %foreach flatten([1],[2,[3,4]],[[5],6])%
+                    #1
+                %
+                ";
+            var ret = Compile(@input).Output
+                .Should().ContainAll("1", "2", "3", "4","5","6");
+        }
     }
 }
