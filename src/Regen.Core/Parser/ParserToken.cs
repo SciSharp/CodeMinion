@@ -8,10 +8,12 @@
         ///     %(expr)
         /// </summary>
         Expression,
+
         /// <summary>
         ///     %a = 123
         /// </summary>
         Declaration,
+
         /// <summary>
         ///     %foreach expr%       <br></br>
         ///     output#1text         <br></br>
@@ -22,13 +24,18 @@
         ///     output#1text
         /// </summary>
         ForeachLoop,
+
         /// <summary>
         ///     %import namespace.type as aliasname
         /// </summary>
         Import,
+
         /// <summary>
-        ///     Represents blocks of code that do not have any instructions in them, therefore they are copied as is.
+        ///     Represents a file template atwhich this current file should be copied<br></br>
+        ///     %template "path.$1.cs" for every (expr)
         /// </summary>
-        CopyPaste,
+        Template,
+
+
     }
 }

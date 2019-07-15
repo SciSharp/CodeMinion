@@ -612,5 +612,31 @@ of nothing
             act.Related.First()
                 .Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
         }
+
+        [TestMethod]
+        public void expression_template() {
+            var input = @"
+                %template "".\file.cs"" for every ([1,2,3])
+                ";
+            var ret = Parse(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Template);
+            act.Related.First()
+                .Should().BeOfType<TemplateExpression>().Which.Path.Should().Contain(".\\file");
+        }
+
+        [TestMethod]
+        public void expression_template_twoarguments() {
+            var input = @"
+                %template "".\file.cs"" for every [1,2,3],[1,2,3]
+                ";
+            var ret = Parse(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Template);
+            act.Related.First()
+                .Should().BeOfType<TemplateExpression>().Which.Path.Should().Contain(".\\file");
+            act.Related.First()
+                .Should().BeOfType<TemplateExpression>().Which.Arguments.Arguments.Length.Should().Be(2);
+        }
     }
 }

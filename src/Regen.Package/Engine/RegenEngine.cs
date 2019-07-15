@@ -8,7 +8,8 @@ using Regen.Parser;
 
 namespace Regen.Engine {
     /// <summary>
-    ///     Central class to different types of methods that use <see cref="Regen"/>.
+    ///     Central class to different types of methods that use <see cref="Regen"/>.<br></br>
+    ///     Knows to handle _REGEN and _REGEN_GLOBAL
     /// </summary>
     public static class RegenEngine {
         /// <summary>
@@ -16,23 +17,35 @@ namespace Regen.Engine {
         /// </summary>
         public static List<string> Globals { get; } = new List<string>();
 
-        public static CodeFrame[] Parse(string code) {
+        /// <summary>
+        ///     Compiles the entire file _REGEN frames and returns the result after the parsed code was inserted to the #ELSE block.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static string Compile(string code) {
+            foreach (var frame in RegenEngine.CompileFrame(code).Reverse())
+                frame.ApplyChanges(ref code);
+
+            return code;
+        }
+
+        public static CodeFrame[] CompileFrame(string code) {
             return CodeFrame.Create(code)
-                .Select(frame => Parse(frame, code))
+                .Select(frame => CompileFrame(frame, code))
                 .OrderBy(f => f.Match.Index)
                 .ToArray();
         }
 
         public static CodeFrame ParseAt(string code, int index) {
-            return Parse(CodeFrame.Create(code, index), code);
+            return CompileFrame(CodeFrame.Create(code, index), code);
         }
 
-        public static CodeFrame Parse(CodeFrame frame, string code) {
+        public static CodeFrame CompileFrame(CodeFrame frame, string code) {
             var compiler = new RegenCompiler(); //todo modules here?
             var parsedCode = ExpressionParser.Parse(frame.Input);
             LoadGlobals(compiler);
             //handle globals
-            var globals = CodeFrame.CreateGlobal(code);
+            var globals = CodeFrame.CreateGlobals(code);
             foreach (var globalFrame in globals) {
                 compiler.CompileGlobal(globalFrame.Input);
             }
@@ -101,11 +114,24 @@ namespace Regen.Engine {
             return matches.Select(m => new CodeFrame(m)).ToArray();
         }
 
-        public static CodeFrame[] CreateGlobal(string fileContents) {
+        public static CodeFrame[] CreateGlobals(string fileContents) {
             var matches = Regex.Matches(fileContents, LoneFrameRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
             if (matches.Length == 0) {
                 //fallback to lone
                 matches = Regex.Matches(fileContents, LoneFrameRegex, Regexes.DefaultRegexOptions).Cast<Match>().Where(m => !m.Groups[1].Value.Contains("#else")).ToArray();
+                if (matches.Length == 0) {
+                    return Array.Empty<CodeFrame>();
+                }
+            }
+
+            return matches.Select(m => new CodeFrame(m)).ToArray();
+        }
+
+        public static CodeFrame[] Create(string fileContents, string keyword) {
+            var matches = Regex.Matches(fileContents, LoneFrameRegex.Replace("_REGEN_GLOBAL", Regex.Escape(keyword)), Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
+            if (matches.Length == 0) {
+                //fallback to lone
+                matches = Regex.Matches(fileContents, LoneFrameRegex.Replace("_REGEN_GLOBAL", Regex.Escape(keyword)), Regexes.DefaultRegexOptions).Cast<Match>().Where(m => !m.Groups[1].Value.Contains("#else")).ToArray();
                 if (matches.Length == 0) {
                     return Array.Empty<CodeFrame>();
                 }

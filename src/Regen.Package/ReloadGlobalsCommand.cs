@@ -20,7 +20,7 @@ namespace Regen {
         /// <summary>
         /// Command ID.
         /// </summary>
-        public const int CommandId = 0x0105;
+        public const int CommandId = 0x0106;
 
         /// <summary>
         /// Command menu group (command set GUID).

@@ -148,7 +148,7 @@ namespace Regen.Compiler {
         public object EvaluateObject(string expression, Line line = null) {
             //core between string to expr methods
             var eew = Expression.GetExpressionWithWalker(expression);
-            return EvaluateObject(eew.Expression, eew.ExpressionWalker, line);
+            return EvaluateObject(eew.Expression,  line);
         }
 
         public string EvaluateString(Expression expression, ExpressionWalker ew, Line line = null) {
@@ -169,13 +169,13 @@ namespace Regen.Compiler {
         }
 
         public object EvaluateUnpackedObject(Expression expression, ExpressionWalker ew, Line line = null) {
-            var evaluated = EvaluateObject(expression, ew, line);
+            var evaluated = EvaluateObject(expression, line);
             if (evaluated is Data data)
                 return data.Value;
             return evaluated;
         }
 
-        public object EvaluateObject(Expression expression, ExpressionWalker ew, Line line = null) {
+        public object EvaluateObject(Expression expression, Line line = null) {
             //Core evaluation method.
             _threadLocalContext.Value = Context;
             try {

@@ -103,7 +103,7 @@ namespace Regen {
                 return;
             }
 
-            code = code.RemoveStringBetween("#else", "#endif", Math.Max(match.Index - 1, 0)).Replace("#else#endif", "#else" +Environment.NewLine+ Environment.NewLine + "#endif");
+            code = code.RemoveStringBetween("#else", "#endif", Math.Max(match.Index - 1, 0)).Replace("#else#endif", "#else" + Environment.NewLine + Environment.NewLine + "#endif");
             try {
                 var ed = txt.CreateEditPoint(txt.StartPoint);
                 ed.Delete(txt.EndPoint);

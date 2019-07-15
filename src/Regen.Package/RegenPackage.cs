@@ -99,6 +99,8 @@ namespace Regen {
             await ClearCompilationsSelectionCommand.InitializeAsync(this);
 
             await ReloadGlobalsCommand.InitializeAsync(this);
+
+            await CompileTemplateCommand.InitializeAsync(this);
         }
 
         #endregion

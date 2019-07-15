@@ -3,7 +3,9 @@
         None = 0,
         [ExpressionToken(@"\//", -1, "//")] [Swallows(Div)] CommentRow, //swallow will 
         [ExpressionToken(@"(?<=^|\s|[^\w\d])import(?=(\s|$))", 0, "import")] [Swallows(StringLiteral)] Import,
+        [ExpressionToken(@"(?<=^|\s|[^\w\d])template(?=(\s|$))", 0, "template")] [Swallows(StringLiteral)] Template,
         [ExpressionToken(@"(?<=^|\s|[^\w\d])as(?=(\s|$))", 1, "as")] [Swallows(StringLiteral)] As,
+        [ExpressionToken(@"(?<=^|\s|[^\w\d])for\severy(?=(\s|$))", 1, "for every")] [Swallows(StringLiteral)] ForEvery,
         [ExpressionToken(@"(?<=^|\s|[^\w\d])function(?=(\s|$|\(|\[|\{))", 5, "function")] [Swallows(StringLiteral)] Function,
         [ExpressionToken(@"(?<=^|\s|[^\w\d])new(?=(\s|$|\(|\[|\{))", 8, "new")] [Swallows(StringLiteral)] New,
         [ExpressionToken(@"(?<=^|\s|[^\w\d])throw(?=(\s|$|\(|\[|\{))", 9, "throw")] [Swallows(StringLiteral)] Throw,

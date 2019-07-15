@@ -72,7 +72,6 @@ namespace Regen {
         /// <param name="e">Event args.</param>
         private void Execute(object sender, EventArgs _) {
             ThreadHelper.ThrowIfNotOnUIThread();
-
         }
     }
 }

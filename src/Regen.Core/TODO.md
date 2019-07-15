@@ -13,6 +13,8 @@
 - Support nested foreach.
     - [X] Create a temporary workaround, add a function `forevery(array, array, bool)` which returns a single array
     that is populated as if they were nested foreaches.
+- BUG: When emitting `false` from an expression that was handled by `Flee` - it returns `False` instead of `false`
+- Add a solution-wide Clear and Compile with promt asking if you are sure - please review first.
 
 ##### Beta
 - [ ] Intellisense for _REGEN blocks.

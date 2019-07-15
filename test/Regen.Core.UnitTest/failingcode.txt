@@ -1,0 +1,58 @@
+﻿        %supportedTypes_Primitives = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String"]
+        %supportedTypes = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String", "Complex"]
+        %supportTypesLower_Primitives = ["bool","byte","short","ushort","int","uint","long","ulong","char","double","float","decimal","string"]
+        %defaultvals = [1, 1.3d, 1.5f]
+
+        %supportedTypes_Primitives = ["Byte","Int16","UInt16"]
+        
+        %foreach range(1,4)%
+            ;#(cos(#1))
+        %
+
+//////////////////////////////
+
+        %supportedTypes_Primitives = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String"]
+        %supportedTypes = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String", "Complex"]
+        %supportTypesLower_Primitives = ["bool","byte","short","ushort","int","uint","long","ulong","char","double","float","decimal","string"]
+        %defaultvals = [1, 1.3d, 1.5f]
+
+        %supportedTypes_Primitives = ["Byte","Int16","UInt16"]
+        
+        %foreach forevery(supportedTypes_Primitives, supportedTypes_Primitives, true)%
+        public #2 #1To#(str(#1[1]).ToUpper())(#1 obj) {
+            return Convert.To#2(obj);
+        }
+        %
+
+
+///////////////////////////
+
+    public class Class1
+    {
+
+#if _REGEN
+
+#else
+
+        2.1
+#endif
+        public object Multiply(object left, object right) {
+            if (left.GetType() != right.GetType())
+                throw new Exception();
+
+            switch (left) {
+#if _REGEN
+	            %types = ["int", "double", "float"]
+                %foreach types%
+                case #1 _: {
+                    return (#1) left + (#1) right;
+                }
+                %
+#else
+#endif
+            }
+
+            return null;
+        }
+    }
+}

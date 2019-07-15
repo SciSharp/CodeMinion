@@ -21,7 +21,7 @@ namespace Regen.Parser.Expressions {
             ew.NextOrThrow();
             var exprs = new List<Expression>();
 
-            while (ew.Current.Token != right) {
+            while (ew.Current.Token != right && ew.HasNext) {
                 if (ew.Current.Token == ExpressionToken.Comma) {
                     if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Comma) {
                         exprs.Add(NullIdentity.Instance);
@@ -51,7 +51,7 @@ namespace Regen.Parser.Expressions {
             var args = new ArgumentsExpression();
             var exprs = new List<Expression>();
 
-            while (!parseTill(ew.Current)) {
+            while (!parseTill(ew.Current) && ew.HasNext) {
                 if (ew.Current.Token == ExpressionToken.Comma) {
                     if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Comma) {
                         exprs.Add(NullIdentity.Instance);

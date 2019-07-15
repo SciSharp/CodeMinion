@@ -70,14 +70,14 @@ namespace Regen {
             Instance = new CompileFileCommand(package, commandService);
         }
 
-    /// <summary>
-    /// This function is the callback used to execute the command when the menu item is clicked.
-    /// See the constructor to see how the menu item is associated with this function using
-    /// OleMenuCommandService service and MenuCommand class.
-    /// </summary>
-    /// <param name="sender">Event sender.</param>
-    /// <param name="e">Event args.</param>
-    private void Execute(object sender, EventArgs _) {
+        /// <summary>
+        /// This function is the callback used to execute the command when the menu item is clicked.
+        /// See the constructor to see how the menu item is associated with this function using
+        /// OleMenuCommandService service and MenuCommand class.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event args.</param>
+        private void Execute(object sender, EventArgs _) {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             // open the file in a VS code window and activate the pane
@@ -96,7 +96,7 @@ namespace Regen {
 
             try {
                 var text = txt.GetText().Replace("\r", "");
-                foreach (var frame in RegenEngine.Parse(text).Reverse()) 
+                foreach (var frame in RegenEngine.CompileFrame(text).Reverse())
                     frame.ApplyChanges(ref text);
 
                 var ed = txt.CreateEditPoint(txt.StartPoint);

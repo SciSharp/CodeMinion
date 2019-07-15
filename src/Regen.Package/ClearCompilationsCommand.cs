@@ -119,7 +119,7 @@ namespace Regen {
                 // Show a message box to prove we were here
                 VsShellUtilities.ShowMessageBox(
                     this.package,
-                    msg, 
+                    msg,
                     "Regen",
                     OLEMSGICON.OLEMSGICON_INFO,
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,

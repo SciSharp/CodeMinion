@@ -7,6 +7,7 @@ using Regen.Exceptions;
 using Regen.Helpers;
 
 namespace Regen.Parser.Expressions {
+
     public class Expression {
         protected static RegexResult _matchWhitespace = " ".AsResult();
 
@@ -52,7 +53,7 @@ namespace Regen.Parser.Expressions {
             return ParseExpression(new ExpressionWalker(ExpressionLexer.Tokenize(expr)));
         }
 
-        internal static (Expression Expression, ExpressionWalker ExpressionWalker) GetExpressionWithWalker(string expr) {
+        public static (Expression Expression, ExpressionWalker ExpressionWalker) GetExpressionWithWalker(string expr) {
             var walker = new ExpressionWalker(ExpressionLexer.Tokenize(expr));
             var pexpr = ParseExpression(walker);
             walker.Reset();

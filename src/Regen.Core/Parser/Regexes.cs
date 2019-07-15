@@ -25,5 +25,6 @@ namespace Regen.Parser {
 
         public static string GlobalFrameRegex = $@"\#if\s{DefineGlobalsMarker}[\n\r]{{1,2}}     ([\s|\S]*?)    \#endif";
 
+        public static string TemplateFrameRegex = @"\#if\s_REGEN_TEMPLATE[\s\S]+?\#endif[\n\r]{0,2}";
     }
 }

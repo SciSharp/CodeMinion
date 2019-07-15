@@ -56,6 +56,13 @@ namespace Regen.Parser {
                         if (current == null)
                             break;
                         switch (current.Token) {
+                            case ExpressionToken.Template: {
+                                //this is import %import namespace.type as aliasnmae
+                                var template = TemplateExpression.Parse(ew);
+                                parserTokens += new ParserAction(ParserToken.Template, output.MarkDeleteLinesRelated(template.Matches()), template);
+                                break;
+                            }
+
                             case ExpressionToken.Import: {
                                 //this is import %import namespace.type as aliasnmae
                                 var import = ImportExpression.Parse(ew);
@@ -126,17 +133,17 @@ namespace Regen.Parser {
                                     content = output_sb.Substring(leftMod.Index, nextMod == -1 ? (code.Length - leftMod.Index) : nextMod - leftMod.Index);
                                 }
 
-                                relatedLines = relatedLines.Distinct().OrderBy(l=>l.StartIndex).ToList();
-                                
+                                relatedLines = relatedLines.Distinct().OrderBy(l => l.StartIndex).ToList();
+
                                 //make sure to clean out % at the end
                                 if (relatedLines.Last().CleanContent() == "%")
-                                    relatedLines.RemoveAt(relatedLines.Count-1);
+                                    relatedLines.RemoveAt(relatedLines.Count - 1);
                                 //all lines of the foreach are destined to deletion
                                 foreach (var line in relatedLines) {
                                     line.MarkedForDeletion = true;
                                 }
 
-                                 Console.WriteLine(content.ToString());
+                                Console.WriteLine(content.ToString());
                                 ForeachExpression expr = new ForeachExpression() {Content = content, Arguments = args};
                                 parserTokens += new ParserAction(ParserToken.ForeachLoop, relatedLines, expr);
                                 break;

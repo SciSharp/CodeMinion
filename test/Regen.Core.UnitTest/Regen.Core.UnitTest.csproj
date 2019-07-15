@@ -41,6 +41,26 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions, Version=5.7.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FluentAssertions.5.7.0\lib\net47\FluentAssertions.dll</HintPath>
@@ -88,8 +108,12 @@
     <Compile Include="Expression\ForeachTests.cs" />
     <Compile Include="Expression\ParsingTests.cs" />
     <Compile Include="Expression\ImportTests.cs" />
+    <Content Include="failingcode.txt" />
+    <Compile Include="Package\RegenFileTemplateEngineTests.cs" />
+    <EmbeddedResource Include="Package\tempfilename.template.cs" />
     <Compile Include="RegenCompilerTests.cs" />
     <Compile Include="LineBuilderTests.cs" />
+    <Compile Include="ResourceLoader.cs" />
     <Compile Include="SharedUnitTestEvaluator.cs" />
     <Compile Include="ExpressionUnitTest.cs" />
     <Compile Include="StringExpanderTests.cs" />
@@ -109,6 +133,10 @@
     <ProjectReference Include="..\..\src\Regen.Flee\Regen.Flee.csproj">
       <Project>{658c0ed4-404a-48ec-96ff-d22c3c12ac39}</Project>
       <Name>Regen.Flee</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Regen.Package\Regen.Package.csproj">
+      <Project>{226fd7fc-99ac-498b-990f-8decf9f30733}</Project>
+      <Name>Regen.Package</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
