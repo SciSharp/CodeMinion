@@ -968,25 +968,29 @@ namespace Numpy.UnitTest
             // array([1, 2, 3, 4, 5, 6])
             // 
 
-#if TODO
-            var given=  a = np.array({{1, 2}, {3, 4}});
-             given=  b = np.array({{5, 6}});
-             given=  np.concatenate((a, b), axis=0);
-            var expected=
+
+            var a = np.array(new[,] {{1, 2}, {3, 4}});
+            var b = np.array(new[,] {{5, 6}});
+            var given = np.concatenate(new[] {a, b}, axis: 0);
+            var expected =
                 "array([[1, 2],\n" +
                 "       [3, 4],\n" +
                 "       [5, 6]])";
             Assert.AreEqual(expected, given.repr);
-             given=  np.concatenate((a, b.T), axis=1);
-             expected=
+            given = np.concatenate((a, b.T), axis: 1);
+            expected =
                 "array([[1, 2, 5],\n" +
                 "       [3, 4, 6]])";
             Assert.AreEqual(expected, given.repr);
-             given=  np.concatenate((a, b), axis=None);
-             expected=
+            given = np.concatenate((a, b), axis: null);
+            expected =
                 "array([1, 2, 3, 4, 5, 6])";
             Assert.AreEqual(expected, given.repr);
-#endif
+        }
+
+        [Ignore("np.ma not wrapped yet")]
+        public void ConcatenateMaskedArrayTest()
+        {
             // This function will not preserve masking of MaskedArray inputs.
 
             // >>> a = np.ma.arange(3)
