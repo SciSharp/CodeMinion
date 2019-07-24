@@ -243,8 +243,40 @@ One of them is `System.Math` so using `Math.Cos(...)` will be in `regen-lang`: `
   * `isnull(obj)` - Checks if `obj` is C# `null` or `regen-lang` null.
   * `isarray(obj)` - Checks if `obj` implements `IList`
   * `isnumber(obj)` - Checks if `obj`is a numeric type.
+  * `repeat("expr", int repeats, string seperator, ...)` - Repeat expr repeats times inlined.
 ---
+#### Useful Functions
+- __Inline Repeat__<br>
+`repeat(string expr, int repeats, string seperator, string beforeFirst, string afterFirst,`<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`string beforeLast, string afterLast)`<br>
+    Repeat is especially useful when you need to output the same repeating word in the same line.
+    `expr` and `seperator` can be an expression if the string starts with `^`. (Escaped version: `\^`)<br>
+    Internally occurs a for-loop. its index is available as a variable `n` (0 based).
 
+    __Example:__
+```C#
+   #if _REGEN
+        %pre = "dims.Item"
+        %foreach range(2,14)%
+        public static implicit operator Shape(#(repeat("int", #1 ,  ", "  ,  "("  ,  ""  ,  ""  ,  ")"  )) dims) => new Shape(#(repeat("^pre+(n+1)", i ,  ", " )));
+        %
+   #else
+        public static implicit operator Shape((int, int) dims) => new Shape();
+        public static implicit operator Shape((int, int, int) dims) => new Shape(dims.Item1);
+        public static implicit operator Shape((int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2);
+        public static implicit operator Shape((int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3);
+        public static implicit operator Shape((int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4);
+        public static implicit operator Shape((int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12, dims.Item13);
+   #endif
+```
 #### Internal Variables
 
 - `__context__`&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;`Flee.PublicTypes.ExpressionContext`<br>

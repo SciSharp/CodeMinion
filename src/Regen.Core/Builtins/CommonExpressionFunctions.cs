@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text;
 using Regen.Compiler;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
+using Regen.Parser.Expressions;
 using Array = Regen.DataTypes.Array;
 
 namespace Regen.Builtins {
@@ -127,6 +130,80 @@ namespace Regen.Builtins {
             }
 
             return new PackedArguments(Array.Create(retFirst), Array.Create(retSecond), Array.Create(retThird));
+        }
+
+        public static StringScalar Repeat(object exprObj, int repeats, object exprBetween, object exprBeforeFirst, object exprAfterFirst) {
+            return Repeat(exprObj, repeats, exprBetween, exprBeforeFirst, exprAfterFirst, Data.Null, Data.Null);
+        }
+
+        public static StringScalar Repeat(object exprObj, int repeats, object exprBetween) {
+            return Repeat(exprObj, repeats, exprBetween, Data.Null, Data.Null, Data.Null, Data.Null);
+        }
+
+        public static StringScalar Repeat(object exprObj, int repeats) {
+            return Repeat(exprObj, repeats, Data.Null, Data.Null, Data.Null, Data.Null, Data.Null);
+        }
+
+        public static StringScalar Repeat(object exprObj, object repeats_, object exprBetween, object exprBeforeFirst, object exprAfterFirst, object exprBeforeLast, object exprAfterLast) {
+            var repeats = int.Parse(repeats_ is Data d ? d.EmitExpressive() : repeats_.ToString());
+            if (repeats <= 0)
+                return new StringScalar("");
+
+            Console.WriteLine($"{exprObj.GetType()}");
+            var expr = exprObj.ToString();
+            var bf = exprBeforeFirst?.ToString() ?? "";
+            var af = exprAfterFirst?.ToString() ?? "";
+            var bl = exprBeforeLast?.ToString() ?? "";
+            var al = exprAfterLast?.ToString() ?? "";
+            var between = exprBetween?.ToString() ?? "";
+
+            var compiler = RegenCompiler.CurrentCompiler;
+            var original_n = compiler.Context.Variables.ContainsKey("n") ? compiler.Context.Variables["n"] : null;
+            try {
+                string word = expr;
+
+                //parse if ^ is found at start
+                bool compile = word.StartsWith("^");
+                if (compile)
+                    word = word.Substring(1);
+
+                //trim escaped
+                if (word.StartsWith("\\^"))
+                    word = word.TrimStart('\\');
+
+                bool compileBetween = between.StartsWith("^");
+                if (compileBetween)
+                    between = between.Substring(1);
+
+                //trim escaped
+                if (between.StartsWith("\\^"))
+                    between = between.TrimStart('\\');
+
+                if (repeats == 1) {
+                    compiler.Context.Variables["n"] = 0;
+                    return new StringScalar($"{bf}{(compile ? compiler.EvaluateString(word) ?? word : word)}{al}");
+                }
+
+                var sb = new StringBuilder();
+                compiler.Context.Variables["n"] = 0;
+                sb.Append($"{bf}{(compile ? compiler.EvaluateString(word) ?? word : word)}{af}");
+                sb.Append(compileBetween ? compiler.EvaluateString(between) ?? between : between);
+                for (int i = 1; i < repeats - 1; i++) {
+                    compiler.Context.Variables["n"] = i;
+                    sb.Append(compile ? compiler.EvaluateString(word) ?? word : word);
+                    sb.Append(compileBetween ? compiler.EvaluateString(between) ?? between : between);
+                }
+
+                compiler.Context.Variables["n"] = repeats - 1;
+                sb.Append($"{bl}{(compile ? compiler.EvaluateString(word) ?? word : word)}{al}");
+
+                return new StringScalar(sb.ToString());
+            } finally {
+                if (original_n != null)
+                    compiler.Context.Variables["n"] = original_n;
+                else
+                    compiler.Context.Variables.Remove("n");
+            }
         }
     }
 }
