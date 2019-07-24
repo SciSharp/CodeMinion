@@ -57,5 +57,11 @@ namespace Regen.DataTypes {
         public static bool operator !=(NullScalar left, NullScalar right) {
             return !Equals(left, right);
         }
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() {
+            return "";
+        }
     }
 }
