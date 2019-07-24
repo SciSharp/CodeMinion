@@ -13,6 +13,7 @@
     - [X] Create a temporary workaround, add a function `forevery(array, array, bool)` which returns a single array
     that is populated as if they were nested foreaches.
 - Add a solution-wide Clear and Compile with promt asking if you are sure - please review first.
+- Add support for macroing https://www.codeproject.com/KB/recipes/prepro/prepro_src.zip
 
 ##### Beta
 - [ ] Intellisense for _REGEN blocks.

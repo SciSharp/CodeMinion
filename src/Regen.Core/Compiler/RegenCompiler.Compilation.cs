@@ -209,42 +209,46 @@ namespace Regen.Compiler {
                                     if (changed) {
                                         changed = false;
                                         var cleanedCopy = new string(' ', last_access_index) + copy.Substring(last_access_index);
-                                        ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy));
+                                        ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy, ExpressionToken.StringLiteral));
                                     }
 
                                     var current = ew.Current;
                                     //iterate all tokens of that line
                                     if (current.Token != ExpressionToken.Hashtag || !ew.HasNext)
                                         continue;
-                                    var hashtag = ew.Current;
-                                    current = ew.NextToken();
+
+                                    var offset = current.Match.Index;
+                                    var expr_ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy.Substring(current.Match.Index)));
+                                    
+                                    var hashtag = expr_ew.Current;
+                                    current = expr_ew.NextToken();
                                     switch (current.Token) {
                                         case ExpressionToken.LeftParen: {
                                             //it is an expression.
 
-                                            ew.NextOrThrow();
-                                            var expression = Expression.ParseExpression(ew);
+                                            expr_ew.NextOrThrow();
+                                            var expression = Expression.ParseExpression(expr_ew);
                                             object val = EvaluateObject(expression, baseLine);
                                             if (val is ReferenceData rd) //make sure references are unpacked
                                                 val = rd.UnpackReference(Context);
-                                            ew.IsCurrentOrThrow(ExpressionToken.RightParen);
+                                            expr_ew.IsCurrentOrThrow(ExpressionToken.RightParen);
                                             var emit = val is Data d ? d.Emit() : val.ToString();
                                             copy = copy
-                                                .Remove(hashtag.Match.Index, ew.Current.Match.Index + 1 - hashtag.Match.Index)
-                                                .Insert(hashtag.Match.Index, emit);
+                                                .Remove(offset+hashtag.Match.Index, expr_ew.Current.Match.Index + 1 - hashtag.Match.Index)
+                                                .Insert(offset+hashtag.Match.Index, emit);
                                             last_access_index = hashtag.Match.Index + emit.Length;
                                             changed = true;
                                             goto _restart;
                                         }
 
                                         case ExpressionToken.NumberLiteral: {
-                                            if (ew.HasNext && ew.PeakNext.Token == ExpressionToken.LeftBracet) {
+                                            if (expr_ew.HasNext && expr_ew.PeakNext.Token == ExpressionToken.LeftBracet) {
                                                 //it is an indexer call.
                                                 //todo indexer
                                             } else {
                                                 //it is a simple emit
-                                                var key = $"#{ew.Current.Match.Value}";
-                                                object val = vars[$"__{ew.Current.Match.Value}__"];
+                                                var key = $"#{expr_ew.Current.Match.Value}";
+                                                object val = vars[$"__{expr_ew.Current.Match.Value}__"];
 
                                                 copy = Regex.Replace(copy, Regex.Escape(key), _emit(val));
                                                 changed = true;
