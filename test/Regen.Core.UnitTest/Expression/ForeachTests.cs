@@ -56,13 +56,13 @@ namespace Regen.Core.Tests.Expression {
         [TestMethod]
         public void foreach_using_builtin__vars__() {
             var @output = @"
-                %a = [1,2,3]
+                %a = 3
                 %b = ""hey""";
 
             var @input = $@"
                 {@output}
                 %foreach __vars__.keys(),__vars__.values()%
-                    #1 = #2
+                    %#1 = #2
                 ";
 
             //todo to make this work we need to find a way to shrink references (see how the output looks) / garbage collect 
