@@ -29,11 +29,19 @@ namespace Regen.Compiler {
 
         private static readonly ThreadLocal<ExpressionContext> _threadLocalContext = new ThreadLocal<ExpressionContext>();
 
+        private static readonly ThreadLocal<RegenCompiler> _threadLocalCompiler = new ThreadLocal<RegenCompiler>();
+
         /// <summary>
         ///     Gets the current context that is executing the expression.
         /// </summary>
         /// <remarks>Can be null if not used properly.</remarks>
         public static ExpressionContext CurrentContext => _threadLocalContext.Value;
+
+        /// <summary>
+        ///     Gets the current compiler that is executing the expression.
+        /// </summary>
+        /// <remarks>Can be null if not used properly.</remarks>
+        public static RegenCompiler CurrentCompiler => _threadLocalCompiler.Value;
 
         public RegenCompiler(params RegenModule[] modules) {
             Context = CreateContext(null, modules);
@@ -178,12 +186,14 @@ namespace Regen.Compiler {
         public object EvaluateObject(Expression expression, Line line = null) {
             //Core evaluation method.
             _threadLocalContext.Value = Context;
+            _threadLocalCompiler.Value = this;
             try {
                 return EvaluateExpression(expression);
             } catch (Flee.PublicTypes.ExpressionCompileException e) {
                 throw new Regen.Exceptions.ExpressionCompileException($"Was unable to evaluate expression: {expression}\t  At line ({line?.LineNumber}): {line?.Content}", e);
             } finally {
                 _threadLocalContext.Value = null;
+                _threadLocalCompiler.Value = null;
             }
         }
 
