@@ -144,6 +144,22 @@ namespace Regen.Builtins {
             return Repeat(exprObj, repeats, Data.Null, Data.Null, Data.Null, Data.Null, Data.Null);
         }
 
+        public static StringScalar Repeat(object exprObj, NumberScalar repeats, object exprBetween, object exprBeforeFirst, object exprAfterFirst, object exprBeforeLast, object exprAfterLast) {
+            return Repeat(exprObj, (object) repeats.Value, exprBetween, exprBeforeFirst, exprAfterFirst, exprBeforeLast, exprAfterLast);
+        }
+
+        public static StringScalar Repeat(object exprObj, NumberScalar repeats, object exprBetween, object exprBeforeFirst, object exprAfterFirst) {
+            return Repeat(exprObj, repeats, exprBetween, exprBeforeFirst, exprAfterFirst, Data.Null, Data.Null);
+        }
+
+        public static StringScalar Repeat(object exprObj, NumberScalar repeats, object exprBetween) {
+            return Repeat(exprObj, repeats, exprBetween, Data.Null, Data.Null, Data.Null, Data.Null);
+        }
+
+        public static StringScalar Repeat(object exprObj, NumberScalar repeats) {
+            return Repeat(exprObj, repeats, Data.Null, Data.Null, Data.Null, Data.Null, Data.Null);
+        }
+
         public static StringScalar Repeat(object exprObj, object repeats_, object exprBetween, object exprBeforeFirst, object exprAfterFirst, object exprBeforeLast, object exprAfterLast) {
             var repeats = int.Parse(repeats_ is Data d ? d.EmitExpressive() : repeats_.ToString());
             if (repeats <= 0)

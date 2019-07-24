@@ -258,23 +258,23 @@ One of them is `System.Math` so using `Math.Cos(...)` will be in `regen-lang`: `
    #if _REGEN
         %pre = "dims.Item"
         %foreach range(2,14)%
-        public static implicit operator Shape(#(repeat("int", #1 ,  ", "  ,  "("  ,  ""  ,  ""  ,  ")"  )) dims) => new Shape(#(repeat("^pre+(n+1)", i ,  ", " )));
+        public static implicit operator Shape(#(repeat("int", #1 ,  ", "  ,  "("  ,  ""  ,  ""  ,  ")"  )) dims) => new Shape(#(repeat("^pre+(n+1)", #1 ,  ", " )));
         %
    #else
-        public static implicit operator Shape((int, int) dims) => new Shape();
-        public static implicit operator Shape((int, int, int) dims) => new Shape(dims.Item1);
-        public static implicit operator Shape((int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2);
-        public static implicit operator Shape((int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3);
-        public static implicit operator Shape((int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4);
-        public static implicit operator Shape((int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12);
-        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12, dims.Item13);
+        public static implicit operator Shape((int, int) dims) => new Shape(dims.Item1, dims.Item2);
+        public static implicit operator Shape((int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3);
+        public static implicit operator Shape((int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4);
+        public static implicit operator Shape((int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5);
+        public static implicit operator Shape((int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6);
+        public static implicit operator Shape((int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12, dims.Item13);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12, dims.Item13, dims.Item14);
+        public static implicit operator Shape((int, int, int, int, int, int, int, int, int, int, int, int, int, int, int) dims) => new Shape(dims.Item1, dims.Item2, dims.Item3, dims.Item4, dims.Item5, dims.Item6, dims.Item7, dims.Item8, dims.Item9, dims.Item10, dims.Item11, dims.Item12, dims.Item13, dims.Item14, dims.Item15);
    #endif
 ```
 #### Internal Variables
