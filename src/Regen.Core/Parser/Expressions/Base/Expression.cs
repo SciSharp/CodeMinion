@@ -64,6 +64,7 @@ namespace Regen.Parser.Expressions {
 
         public static Expression ParseExpression(ExpressionWalker ew, Type caller = null) {
             Expression ret = null;
+            _retry:
             bool isOperatorCall = caller == typeof(OperatorExpression) || caller == typeof(RightOperatorExpression) || caller == typeof(ForeachExpression);
             var current = ew.Current.Token;
             if (current == ExpressionToken.Literal) {
@@ -110,6 +111,9 @@ namespace Regen.Parser.Expressions {
                 ret = HashtagReferenceExpression.Parse(ew, caller);
             } else if (current == ExpressionToken.Null) {
                 ret = NullIdentity.Parse(ew);
+            } else if (current == ExpressionToken.NewLine) {
+                ew.NextOrThrow();
+                goto _retry;
             } else {
                 throw new UnexpectedTokenException($"Token was not expected to be a {ew.Current.Token}");
             }
