@@ -12,7 +12,10 @@ namespace Regen.Parser {
         public ParserToken Token { get; set; }
 
         public List<Expression> Related { get; set; }
+
         public List<Line> RelatedLines { get; set; }
+
+        public bool Consumed { get; set; }
 
         public ParserAction(ParserToken token, IList<Expression> related, params Line[] lines) {
             Token = token;
@@ -95,57 +98,7 @@ namespace Regen.Parser {
                             }
 
                             case ExpressionToken.Foreach: {
-                                //  multiline:
-                                //      %foreach expr%
-                                //        code #1
-                                //      %
-                                //  singleline:
-                                //      %foreach expr
-                                //          code #1
-
-                                ew.IsCurrentOrThrow(ExpressionToken.Foreach);
-                                ew.NextOrThrow();
-                                //parse the arguments for the foreach
-                                var args = ArgumentsExpression.Parse(ew, token => token.Token == ExpressionToken.NewLine || token.Token == ExpressionToken.Mod, false, typeof(ForeachExpression));
-                                //ew.Back(); //agrumentsExpression skips the closer token and we need it to identify if this is a singleline or multiline
-
-
-                                StringSlice content;
-                                var relatedLines = new List<Line>();
-                                relatedLines.AddRange(output.GetLinesRelated(args.Matches()));
-                                if (ew.PeakBack.Token == ExpressionToken.Mod) {
-                                    //the content is % to % block
-                                    var leftBorder = ew.Current.Match;
-                                    var nextMod = code.IndexOf('%', leftBorder.Index);
-                                    //handle implicit end block (when % is not existing)
-                                    if (nextMod == -1) nextMod = code.Length - 1;
-                                    content = output_sb.Substring(leftBorder.Index, nextMod == -1 ? code.Length - leftBorder.Index : nextMod - leftBorder.Index);
-                                    ew.SkipForwardWhile(token => token.Token != ExpressionToken.Mod);
-                                    ew.Next(); //skip % itself
-
-                                    relatedLines.AddRange(new Range(output.GetLineAt(leftBorder.Index).LineNumber, output.GetLineAt(nextMod).LineNumber)
-                                        .EnumerateIndexes().Select(i => output.GetLineByLineNumber(i)));
-                                } else {
-                                    //the content is only next line
-                                    var leftMod = ew.Current.Match;
-                                    var nextMod = code.IndexOf('\n', leftMod.Index);
-                                    relatedLines.Add(output.GetLineByLineNumber(relatedLines.Last().LineNumber + 1)); //next line.
-                                    content = output_sb.Substring(leftMod.Index, nextMod == -1 ? (code.Length - leftMod.Index) : nextMod - leftMod.Index);
-                                }
-
-                                relatedLines = relatedLines.Distinct().OrderBy(l => l.StartIndex).ToList();
-
-                                //make sure to clean out % at the end
-                                if (relatedLines.Last().CleanContent() == "%")
-                                    relatedLines.RemoveAt(relatedLines.Count - 1);
-                                //all lines of the foreach are destined to deletion
-                                foreach (var line in relatedLines) {
-                                    line.MarkedForDeletion = true;
-                                }
-
-                                Console.WriteLine(content.ToString());
-                                ForeachExpression expr = new ForeachExpression() {Content = content, Arguments = args};
-                                parserTokens += new ParserAction(ParserToken.ForeachLoop, relatedLines, expr);
+                                parserTokens += ForeachExpression.Parse(ew, code, output);
                                 break;
                             }
 

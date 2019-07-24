@@ -79,7 +79,7 @@ namespace Regen.Core.Tests.Expression {
 
             Compile(input).Output
                 .Should()
-                .Contain("//the # should be gone");
+                .Contain("//the # should be gone").And.NotContain("\\#");
         }
     }
 }

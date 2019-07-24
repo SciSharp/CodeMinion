@@ -45,7 +45,7 @@ namespace Regen.Engine {
                         break;
                     case ParserToken.Declaration:
                     case ParserToken.Import:
-                        compiler.CompileAction(act);
+                        compiler.CompileAction(act, parsedCode.ParseActions);
                         break;
                     case ParserToken.ForeachLoop:
                     case ParserToken.Expression:

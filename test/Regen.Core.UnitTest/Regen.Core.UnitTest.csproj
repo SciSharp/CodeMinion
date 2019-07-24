@@ -109,6 +109,9 @@
     <Compile Include="Expression\ParsingTests.cs" />
     <Compile Include="Expression\ImportTests.cs" />
     <Content Include="failingcode.txt" />
+    <None Include="globals.regen" />
+    <Compile Include="Package\FLOAT\tempfilename.FLOAT.cs" />
+    <Compile Include="Package\INT\tempfilename.INT.cs" />
     <Compile Include="Package\RegenFileTemplateEngineTests.cs" />
     <EmbeddedResource Include="Package\tempfilename.template.cs" />
     <Compile Include="RegenCompilerTests.cs" />

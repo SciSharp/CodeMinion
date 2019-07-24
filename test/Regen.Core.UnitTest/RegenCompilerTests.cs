@@ -165,7 +165,7 @@ namespace Regen.Core.Tests {
             var @input = @"
                 %(__compiler__.removemodule(""random""))
                 ";
-            Compile(@input).Output.Should().Contain("True");
+            Compile(@input).Output.Should().Contain("true");
         }
 
         [TestMethod]

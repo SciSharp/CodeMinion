@@ -1,0 +1,12 @@
+﻿%supported_dtypes = ["NDArray","Complex","Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String"]
+%supported_dtypes_lowercase = ["NDArray","Complex","bool","byte","short","ushort","int","uint","long","ulong","char","double","float","decimal","string"]
+
+%supported_primitives = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal","String"]
+%supported_primitives_lowercase = ["bool","byte","short","ushort","int","uint","long","ulong","char","double","float","decimal","string"]
+
+%supported_numericals = ["Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal"]
+%supported_numericals_lowercase = ["byte","short","ushort","int","uint","long","ulong","char","double","float","decimal"]
+
+%supported_currently_supported = ["Boolean","Byte","Int16","UInt16","Int32","UInt32","Int64","UInt64","Char","Double","Single","Decimal"]
+%supported_currently_supported_lowercase = ["bool","byte","short","ushort","int","uint","long","ulong","char","double","float","decimal"]
+%supported_currently_supported_defaultvals = [false,"0","0","0","0","0u","0L","0UL","'\0'","0d","0f","0m"]

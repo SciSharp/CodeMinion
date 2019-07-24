@@ -1,7 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler;
 using Regen.Compiler.Expressions;
+using Regen.Parser.Expressions;
 
 namespace Regen.Core.Tests.Expression {
     [TestClass]
@@ -90,21 +92,18 @@ namespace Regen.Core.Tests.Expression {
             var @input = @"
                 %a = [1,2,3,4,5]
                 %foreach a%
+                    #g = 5
+                    \#g = 5
+                    #(g)
                     case ""#1"": 123123
                         return _array#1;
                 %
                 ";
+
             Compile(@input).Output.Should()
-                .Contain("_array1").And
-                .Contain("_array2").And
-                .Contain("_array3").And
-                .Contain("_array4").And
-                .Contain("_array5").And
-                .Contain(@"""1"": 123123").And
-                .Contain(@"""2"": 123123").And
-                .Contain(@"""3"": 123123").And
-                .Contain(@"""4"": 123123").And
-                .Contain(@"""5"": 123123");
+                .ContainAll("_array1", "_array2", "_array3", "_array4", "_array5",
+                    @"""1"": 123123", @"""2"": 123123", @"""3"": 123123", @"""4"": 123123", @"""5"": 123123", @"""5"": 123123",
+                    "#g = 5");
         }
 
 
@@ -133,6 +132,74 @@ namespace Regen.Core.Tests.Expression {
                 .Contain("\"0\"+\"Printed 0").And
                 .Contain("\"10\"+\"Printed 1").And
                 .Contain("\"20\"+\"Printed 2");
+        }
+
+        [TestMethod]
+        public void foreach_nested_foreaches() {
+            var @input = @"
+                %foreach range(3)%
+                    #a = 5
+                    %foreach range(3)%
+                        //#(#1+#101)
+                    %
+                    Console.WriteLine("""");
+                %
+                ";
+            Compile(@input).Output.Should().ContainAll("//4", "//1");
+        }
+
+        [TestMethod]
+        public void foreach_nested_foreaches_three() {
+            var @input = @"
+                %foreach [1,2,3]%
+                    %foreach [4,5,6]%
+                        %foreach [7,8,9]%
+                            //vals:  #1 + #101 + #201   |   i:  #(i + i1 + i2)
+                        %
+                    %
+                %
+                %a = 1
+                ";
+            Compile(@input).Output.Should().ContainAll("i:  6", "//vals:  3 + 6 + 9", "//vals:  1 + 4 + 7");
+        }
+
+        [TestMethod]
+        public void foreach_nested_foreaches_variables() {
+            var @input = @"
+                %foreach [1,2,3]%
+                    #a = [1,2,#1]
+                    %foreach a%
+                        %foreach [7,8,9]%
+                            //vals:  #1 + #101 + #201   |   i:  #(i + i1 + i2)
+                        %
+                    %
+                %
+                %a = 1
+                ";
+            Compile(@input); //.Output.Should().ContainAll("i:  6", "//vals:  3 + 6 + 9", "//vals:  1 + 4 + 7");
+        }
+
+        [TestMethod]
+        public void foreach_find_closer_nested() {
+            var @input = @"%
+                    #a = 5
+                    %foreach range(3)%
+                    //#(#1+#101)
+                    %
+                    Console.WriteLine("");
+                %
+                ";
+
+            ForeachExpression.FindCloser(1, input).Should().Be(187);
+        }
+
+        [TestMethod]
+        public void foreach_find_closer_nonnested() {
+            var @input = @"%
+                    Console.WriteLine("");
+                %
+                ";
+            ForeachExpression.FindCloser(1, input).Should().Be(62);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ using Regen.Compiler.Helpers;
 using Regen.DataTypes;
 using Regen.Exceptions;
 using Regen.Helpers;
+using Regen.Helpers.Collections;
 using Regen.Parser;
 using Regen.Parser.Expressions;
 
@@ -44,13 +46,16 @@ namespace Regen.Compiler {
                 Context.Variables[globalVariable.Key] = globalVariable.Value;
 
             foreach (var action in code.ParseActions) {
-                CompileAction(action);
+                CompileAction(action, code.ParseActions);
             }
 
             return output.Combine(code.Options);
         }
 
-        public void CompileAction(ParserAction action) {
+        public void CompileAction(ParserAction action, OList<ParserAction> actions) {
+            if (action.Consumed)
+                return;
+
             switch (action.Token) {
                 case ParserToken.Import: {
                     var expr = (ImportExpression) action.Related.Single();
@@ -162,145 +167,7 @@ namespace Regen.Compiler {
                 }
 
                 case ParserToken.ForeachLoop: {
-                    var expr = (ForeachExpression) action.Related.Single();
-
-                    var baseLine = action.RelatedLines.First();
-                    var contents = action.RelatedLines.Skip(1).Select(l => l.Content).ToArray();
-                    baseLine.MarkedForDeletion = false;
-                    var iterateThose = expr.Arguments.Arguments.Select(parseExpr).ToList();
-                    unpackPackedArguments();
-                    //get smallest index and iterate it.
-                    var min = iterateThose.Min(i => i.Count);
-                    var vars = Context.Variables;
-
-                    for (int i = 0; i < min; i++) {
-                        //set variables
-                        vars["i"] = i;
-                        for (int j = 0; j < iterateThose.Count; j++) {
-                            vars[$"__{j + 1}__"] = iterateThose[j][i];
-                        }
-
-                        //now here we iterate contents and set all variables in it.
-                        foreach (var content in contents) {
-                            //iterate lines, one at a time 
-                            var copy = content.ToString();
-                            bool changed = false;
-                            int last_access_index = 0;
-                            const string HashtagExpressionRegex = @"(?<!\\)\#\((?:[^()]|(?<open>\()|(?<-open>\)))+(?(open)(?!))\)";
-                            var hashtagExprs = Regex.Matches(copy, HashtagExpressionRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
-
-                            //replace all emit commands
-                            copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => {
-                                //todo here we need to somehow check if the bastard is between #()
-                                var key = $"__{match.Groups[1].Value}__";
-                                if (hashtagExprs.Any(m => m.IsMatchNestedTo(match))) {
-                                    //it is inside hashtagExpr #(...)
-                                    return key;
-                                }
-
-                                return _emit(vars[key]);
-                            });
-
-                            var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy, ExpressionToken.StringLiteral));
-
-                            if (ew.HasNext) {
-                                do {
-                                    _restart:
-                                    if (changed) {
-                                        changed = false;
-                                        var cleanedCopy = new string(' ', last_access_index) + copy.Substring(last_access_index);
-                                        ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy, ExpressionToken.StringLiteral));
-                                    }
-
-                                    var current = ew.Current;
-                                    //iterate all tokens of that line
-                                    if (current.Token != ExpressionToken.Hashtag || !ew.HasNext)
-                                        continue;
-
-                                    var offset = current.Match.Index;
-                                    var expr_ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy.Substring(current.Match.Index)));
-                                    
-                                    var hashtag = expr_ew.Current;
-                                    current = expr_ew.NextToken();
-                                    switch (current.Token) {
-                                        case ExpressionToken.LeftParen: {
-                                            //it is an expression.
-
-                                            expr_ew.NextOrThrow();
-                                            var expression = Expression.ParseExpression(expr_ew);
-                                            object val = EvaluateObject(expression, baseLine);
-                                            if (val is ReferenceData rd) //make sure references are unpacked
-                                                val = rd.UnpackReference(Context);
-                                            expr_ew.IsCurrentOrThrow(ExpressionToken.RightParen);
-                                            var emit = val is Data d ? d.Emit() : val.ToString();
-                                            copy = copy
-                                                .Remove(offset+hashtag.Match.Index, expr_ew.Current.Match.Index + 1 - hashtag.Match.Index)
-                                                .Insert(offset+hashtag.Match.Index, emit);
-                                            last_access_index = hashtag.Match.Index + emit.Length;
-                                            changed = true;
-                                            goto _restart;
-                                        }
-
-                                        case ExpressionToken.NumberLiteral: {
-                                            if (expr_ew.HasNext && expr_ew.PeakNext.Token == ExpressionToken.LeftBracet) {
-                                                //it is an indexer call.
-                                                //todo indexer
-                                            } else {
-                                                //it is a simple emit
-                                                var key = $"#{expr_ew.Current.Match.Value}";
-                                                object val = vars[$"__{expr_ew.Current.Match.Value}__"];
-
-                                                copy = Regex.Replace(copy, Regex.Escape(key), _emit(val));
-                                                changed = true;
-                                            }
-
-                                            goto _restart;
-                                        }
-
-                                        default:
-                                            continue;
-                                    }
-                                } while (ew.Next());
-                            }
-
-                            baseLine.ReplaceOrAppend(copy + (copy.EndsWith("\n") ? "" : "\n"));
-                        }
-                    }
-
-                    Context.Variables.Remove("i");
-                    for (var i = 0; i < iterateThose.Count; i++) {
-                        Context.Variables.Remove($"__{i + 1}__");
-                    }
-
-
-                    IList parseExpr(Expression arg) {
-                        var ev = EvaluateObject(arg, baseLine);
-                        if (ev is ReferenceData d) {
-                            ev = d.UnpackReference(Context);
-                        }
-
-                        if (ev is StringScalar ss) {
-                            return ss.ToCharArray();
-                        }
-
-                        if (ev is NetObject no) {
-                            ev = no.Value;
-                        }
-
-                        return (IList) ev;
-                    }
-
-                    void unpackPackedArguments() {
-                        //unpack PackedArguments
-                        for (var i = iterateThose.Count - 1; i >= 0; i--) {
-                            if (iterateThose[i] is PackedArguments pa) {
-                                iterateThose.InsertRange(i, pa.Objects.Select(o => (IList) o));
-                            }
-                        }
-
-                        iterateThose.RemoveAll(it => it is PackedArguments);
-                    }
-
+                    _compileForeach(action);
                     break;
                 }
 
@@ -309,9 +176,211 @@ namespace Regen.Compiler {
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
-            string _emit(object val) {
-                return val is Data d ? d.Emit() : val.ToString();
+        private static string _emit(object val) {
+            return val is Data d ? d.Emit() : val.ToString();
+        }
+
+        private void _compileForeach(ParserAction action) {
+            var expr = (ForeachExpression) action.Related.Single();
+            var baseline = action.RelatedLines.First();
+            baseline.MarkedForDeletion = false;
+
+            _executeForeach(expr, action.RelatedLines.Skip(1).ToList(), baseline);
+        }
+
+        private void _executeForeach(ForeachExpression expr, List<Line> relatedLines, Line baseLine) {
+            var contents = relatedLines.Select(l => l.Content).ToArray();
+            var iterateThose = expr.Arguments.Arguments.Select(parseExpr).ToList();
+            unpackPackedArguments();
+            //get smallest index and iterate it.
+            var min = iterateThose.Min(i => i.Count);
+            var vars = Context.Variables;
+
+            for (int i = 0; i < min; i++) {
+                //set variables
+                if (expr.Depth > 0)
+                    vars[$"i{expr.Depth}"] = i;
+                else
+                    vars["i"] = i;
+                for (int j = 0; j < iterateThose.Count; j++) {
+                    vars[$"__{j + 1 + expr.Depth * 100}__"] = iterateThose[j][i];
+                }
+
+                var variables = new List<string>(); //a list of all added variables that will be cleaned after this i iteration.
+
+                //now here we iterate contents and set all variables in it.
+                for (var contentIndex = 0; contentIndex < contents.Length; contentIndex++) {
+                    var content = contents[contentIndex];
+                    //iterate lines, one at a time 
+                    // ReSharper disable once RedundantToStringCall
+                    var copy = content.ToString().Replace("|#", "#");
+                    bool changed = false;
+                    int last_access_index = 0;
+                    const string HashtagExpressionRegex = @"(?<!\\)\#\((?:[^()]|(?<open>\()|(?<-open>\)))+(?(open)(?!))\)";
+                    var hashtagExprs = Regex.Matches(copy, HashtagExpressionRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
+
+                    //replace all emit commands
+                    copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => {
+                        var key = $"__{match.Groups[1].Value}__";
+                        if (hashtagExprs.Any(m => m.IsMatchNestedTo(match))) {
+                            //it is inside hashtagExpr #(...)
+                            return key;
+                        }
+
+                        return _emit(vars[key]);
+                    });
+
+                    var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy, ExpressionToken.StringLiteral));
+
+                    if (ew.HasNext) {
+                        do {
+                            _restart:
+                            if (changed) {
+                                changed = false;
+                                var cleanedCopy = new string(' ', last_access_index) + copy.Substring(last_access_index);
+                                ew = new ExpressionWalker(ExpressionLexer.Tokenize(cleanedCopy, ExpressionToken.StringLiteral));
+                            }
+
+                            var current = ew.Current;
+                            //iterate all tokens of that line
+
+                            if (current.Token == ExpressionToken.Mod && ew.HasNext) {
+                                if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Escape)
+                                    continue;
+
+                                var expr_ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy.Substring(current.Match.Index)));
+                                //var offset = current.Match.Index;
+                                //var hashtag = expr_ew.Current;
+                                current = expr_ew.NextToken();
+                                switch (current.Token) {
+                                    case ExpressionToken.Foreach:
+                                        var code = contents.SkipWhile(s => s != content).StringJoin();
+                                        var e = ForeachExpression.Parse(code);
+                                        var foreachExpr = (ForeachExpression) e.Related[0];
+                                        foreachExpr.Depth = expr.Depth + 1;
+                                        //no need to mark lines from e for deletion, they are already marked beforehand.
+                                        _executeForeach(foreachExpr, e.RelatedLines, baseLine);
+                                        contentIndex += e.RelatedLines.Count + 2 - 1; //first for the %foreach line, second for the closer %, -1 because we increment index by one on next iteration.
+                                        goto _skipline;
+                                    default:
+                                        continue;
+                                }
+                            }
+
+                            if (current.Token == ExpressionToken.Hashtag && ew.HasNext) {
+                                if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Escape)
+                                    continue;
+
+                                var offset = current.Match.Index;
+                                var expr_ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy.Substring(current.Match.Index)));
+
+                                var hashtag = expr_ew.Current;
+                                current = expr_ew.NextToken();
+                                switch (current.Token) {
+                                    case ExpressionToken.Literal:
+                                        //this is variable declaration %varname = expr
+                                        var peak = expr_ew.PeakNext.Token;
+                                        if (peak == ExpressionToken.Equal) {
+                                            var e = VariableDeclarationExpression.Parse(expr_ew);
+                                            variables.Add(e.Name.AsString());
+                                            CompileAction(new ParserAction(ParserToken.Declaration, new List<Expression>() {e}), new OList<ParserAction>(0));
+
+                                            goto _skipline;
+                                        }
+
+                                        break;
+                                    case ExpressionToken.LeftParen: {
+                                        //it is an expression.
+
+                                        expr_ew.NextOrThrow();
+                                        var expression = Expression.ParseExpression(expr_ew);
+                                        object val = EvaluateObject(expression, baseLine);
+                                        if (val is ReferenceData rd) //make sure references are unpacked
+                                            val = rd.UnpackReference(Context);
+                                        expr_ew.IsCurrentOrThrow(ExpressionToken.RightParen);
+                                        var emit = val is Data d ? d.Emit() : val.ToString();
+                                        copy = copy
+                                            .Remove(offset + hashtag.Match.Index, expr_ew.Current.Match.Index + 1 - hashtag.Match.Index)
+                                            .Insert(offset + hashtag.Match.Index, emit);
+                                        last_access_index = hashtag.Match.Index + emit.Length;
+                                        changed = true;
+                                        goto _restart;
+                                    }
+
+                                    case ExpressionToken.NumberLiteral: {
+                                        if (expr_ew.HasNext && expr_ew.PeakNext.Token == ExpressionToken.LeftBracet) {
+                                            //it is an indexer call.
+                                            //todo indexer
+                                        } else {
+                                            //it is a simple emit
+                                            var key = $"#{expr_ew.Current.Match.Value}";
+                                            object val = vars[$"__{expr_ew.Current.Match.Value}__"];
+
+                                            copy = Regex.Replace(copy, Regex.Escape(key), _emit(val));
+                                            changed = true;
+                                        }
+
+                                        goto _restart;
+                                    }
+
+                                    default:
+                                        continue;
+                                }
+                            }
+
+                            //incase it is escaped, continue.
+                        } while (ew.Next());
+                    }
+
+                    _nextline:
+                    //cleanup escapes
+                    copy = copy.Replace("\\#", "#");
+
+                    baseLine.ReplaceOrAppend(copy + (copy.EndsWith("\n") ? "" : "\n"));
+                    _skipline: ;
+                }
+
+                foreach (var variable in variables)
+                    Context.Variables.Remove(variable);
+            }
+
+            if (expr.Depth == 0)
+                Context.Variables.Remove("i");
+            else
+                Context.Variables.Remove($"i{expr.Depth}");
+            for (var i = 0; i < iterateThose.Count; i++) {
+                Context.Variables.Remove($"__{i + 1 + expr.Depth * 100}__");
+            }
+
+
+            IList parseExpr(Expression arg) {
+                var ev = EvaluateObject(arg, baseLine);
+                if (ev is ReferenceData d) {
+                    ev = d.UnpackReference(Context);
+                }
+
+                if (ev is StringScalar ss) {
+                    return ss.ToCharArray();
+                }
+
+                if (ev is NetObject no) {
+                    ev = no.Value;
+                }
+
+                return (IList) ev;
+            }
+
+            void unpackPackedArguments() {
+                //unpack PackedArguments
+                for (var i = iterateThose.Count - 1; i >= 0; i--) {
+                    if (iterateThose[i] is PackedArguments pa) {
+                        iterateThose.InsertRange(i, pa.Objects.Select(o => (IList) o));
+                    }
+                }
+
+                iterateThose.RemoveAll(it => it is PackedArguments);
             }
         }
     }
