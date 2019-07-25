@@ -201,9 +201,9 @@ namespace Regen.Compiler {
             for (int i = 0; i < min; i++) {
                 //set variables
                 if (expr.Depth > 0)
-                    vars[$"i{expr.Depth}"] = i;
+                    vars[$"i{expr.Depth}"] = new NumberScalar(i);
                 else
-                    vars["i"] = i;
+                    vars["i"] = new NumberScalar(i);
                 for (int j = 0; j < iterateThose.Count; j++) {
                     vars[$"__{j + 1 + expr.Depth * 100}__"] = iterateThose[j][i];
                 }
