@@ -284,7 +284,9 @@ namespace Regen.Compiler {
                                         var peak = expr_ew.PeakNext.Token;
                                         if (peak == ExpressionToken.Equal) {
                                             var e = VariableDeclarationExpression.Parse(expr_ew);
-                                            variables.Add(e.Name.AsString());
+                                            var varname = e.Name.AsString();
+                                            if (!Context.Variables.ContainsKey(varname))
+                                                variables.Add(varname);
                                             CompileAction(new ParserAction(ParserToken.Declaration, new List<Expression>() {e}), new OList<ParserAction>(0));
 
                                             goto _skipline;
