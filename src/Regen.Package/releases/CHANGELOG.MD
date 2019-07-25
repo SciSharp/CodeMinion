@@ -1,3 +1,15 @@
+#### 0.25a
+- Added support for nested foreach incl. expressions and assignment.
+- Added support for `#` expr at the beggining of a line (without breaking VS intellisense) by using `|#` which during compilation replaced with `#`
+- Added support for commented # expressions: `\#...`
+- Added number(obj) methdo that attempts to convert an unknown value to NumberScalar.
+- Fixed couple of unit tests
+- Fixed %foreach line is not marked for deletion when the loop did not emit anything.
+- Fixed math op between NumberScalar
+- Fixed NumberScalar unpacking when it is constructed with an other NumberScalar
+- Fixed variables were removed even if they were declared outside of the foreach loop.
+- Changed 'i', 'i1' .. 'in' are wrapped inside NumberScalar
+
 #### 0.23a-0.24a
 - added file templating support (see TUTORIAL.MD)
 - fixed boolean emitting as Camel case instead of camel case (False vs false)
