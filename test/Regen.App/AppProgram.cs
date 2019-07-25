@@ -74,6 +74,18 @@ namespace RegenApp {
 #endif
             a.Should().Be(6);
 
+            //test nested foreach
+#if _REGEN
+            %a = 0
+            %foreach range(1,3)%
+                %foreach range(1,3)%
+                    |#a = a+#1+#101;
+                %
+            %
+            a.Should().Be(%(a));
+#else
+            a.Should().Be(36);
+#endif
 
             Console.WriteLine("Test has passed successfully.");
         }

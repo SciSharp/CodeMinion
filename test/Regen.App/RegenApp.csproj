@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedExamples.cs" />
     <Compile Include="AppProgram.cs" />
     <Content Include="tempfilename.template.cs" />
     <None Include="globals.regen" />
