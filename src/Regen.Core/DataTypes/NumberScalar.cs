@@ -70,307 +70,307 @@ namespace Regen.DataTypes {
             return (T) Convert.ChangeType(Value, typeof(T));
         }
 
-        public NumberScalar(object value) : base(value) { }
+        public NumberScalar(object value) : base(value is NumberScalar s ? s.Value : value) { }
 
 
         #region Operators
 
-        public static object operator +(NumberScalar sc) {
+        public static NumberScalar operator +(NumberScalar sc) {
             dynamic lhs = sc.Value;
-            return +lhs;
+            return new NumberScalar(+lhs);
         }
 
-        public static object operator !(NumberScalar sc) {
+        public static NumberScalar operator !(NumberScalar sc) {
             dynamic lhs = sc.Value;
-            return !lhs;
+            return new NumberScalar(!lhs);
         }
 
-        public static object operator -(NumberScalar sc) {
+        public static NumberScalar operator -(NumberScalar sc) {
             dynamic rhs = sc.Value;
-            return -rhs;
+            return new NumberScalar(-rhs);
         }
 
-        public static object operator +(NumberScalar sc, object v) {
+        public static NumberScalar operator +(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs + rhs;
+            return new NumberScalar(lhs + rhs);
         }
 
-        public static object operator +(object v, NumberScalar sc) {
+        public static NumberScalar operator +(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs + rhs;
+            return new NumberScalar(lhs + rhs);
         }
 
-        public static object operator +(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator +(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs + rhs;
+            return new NumberScalar(lhs + rhs);
         }
 
-        public static object operator -(NumberScalar sc, object v) {
+        public static NumberScalar operator -(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs - rhs;
+            return new NumberScalar(lhs - rhs);
         }
 
-        public static object operator -(object v, NumberScalar sc) {
+        public static NumberScalar operator -(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs - rhs;
+            return new NumberScalar(lhs - rhs);
         }
 
-        public static object operator -(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator -(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs - rhs;
+            return new NumberScalar(lhs - rhs);
         }
 
-        public static object operator /(NumberScalar sc, object v) {
+        public static NumberScalar operator /(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs / rhs;
+            return new NumberScalar(lhs / rhs);
         }
 
-        public static object operator /(object v, NumberScalar sc) {
+        public static NumberScalar operator /(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs / rhs;
+            return new NumberScalar(lhs / rhs);
         }
 
-        public static object operator /(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator /(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs / rhs;
+            return new NumberScalar(lhs / rhs);
         }
 
-        public static object operator %(NumberScalar sc, object v) {
+        public static NumberScalar operator %(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs % rhs;
+            return new NumberScalar(lhs % rhs);
         }
 
-        public static object operator %(object v, NumberScalar sc) {
+        public static NumberScalar operator %(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs % rhs;
+            return new NumberScalar(lhs % rhs);
         }
 
-        public static object operator %(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator %(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs % rhs;
+            return new NumberScalar(lhs % rhs);
         }
 
-        public static object operator *(NumberScalar sc, object v) {
+        public static NumberScalar operator *(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs * rhs;
+            return new NumberScalar(lhs * rhs);
         }
 
-        public static object operator *(object v, NumberScalar sc) {
+        public static NumberScalar operator *(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs * rhs;
+            return new NumberScalar(lhs * rhs);
         }
 
-        public static object operator *(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator *(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs * rhs;
+            return new NumberScalar(lhs * rhs);
         }
 
-        public static object operator &(NumberScalar sc, object v) {
+        public static NumberScalar operator &(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs & rhs;
+            return new NumberScalar(lhs & rhs);
         }
 
-        public static object operator &(object v, NumberScalar sc) {
+        public static NumberScalar operator &(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs & rhs;
+            return new NumberScalar(lhs & rhs);
         }
 
-        public static object operator &(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator &(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs & rhs;
+            return new NumberScalar(lhs & rhs);
         }
 
-        public static object operator |(NumberScalar sc, object v) {
+        public static NumberScalar operator |(NumberScalar sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs | rhs;
+            return new NumberScalar(lhs | rhs);
         }
 
-        public static object operator |(object v, NumberScalar sc) {
+        public static NumberScalar operator |(object v, NumberScalar sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs | rhs;
+            return new NumberScalar(lhs | rhs);
         }
 
-        public static object operator |(NumberScalar sc, NumberScalar v) {
+        public static NumberScalar operator |(NumberScalar sc, NumberScalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs | rhs;
+            return new NumberScalar(lhs | rhs);
         }
 
         #region Scalar
 
-        public static object operator +(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator +(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs + rhs;
+            return new NumberScalar(lhs + rhs);
         }
 
-        public static object operator +(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator +(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs + rhs;
+            return new NumberScalar(lhs + rhs);
         }
 
 
-        public static object operator -(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator -(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs - rhs;
+            return new NumberScalar(lhs - rhs);
         }
 
-        public static object operator -(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator -(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs - rhs;
+            return new NumberScalar(lhs - rhs);
         }
 
 
-        public static object operator /(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator /(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs / rhs;
+            return new NumberScalar(lhs / rhs);
         }
 
-        public static object operator /(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator /(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs / rhs;
+            return new NumberScalar(lhs / rhs);
         }
 
 
-        public static object operator %(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator %(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs % rhs;
+            return new NumberScalar(lhs % rhs);
         }
 
-        public static object operator %(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator %(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs % rhs;
+            return new NumberScalar(lhs % rhs);
         }
 
-        public static object operator *(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator *(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs * rhs;
+            return new NumberScalar(lhs * rhs);
         }
 
-        public static object operator *(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator *(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs * rhs;
+            return new NumberScalar(lhs * rhs);
         }
 
-        public static object operator &(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator &(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs & rhs;
+            return new NumberScalar(lhs & rhs);
         }
 
-        public static object operator &(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator &(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs & rhs;
+            return new NumberScalar(lhs & rhs);
         }
 
-        public static object operator |(NumberScalar sc, Scalar v) {
+        public static NumberScalar operator |(NumberScalar sc, Scalar v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs | rhs;
+            return new NumberScalar(lhs | rhs);
         }
 
-        public static object operator |(Scalar v, NumberScalar sc) {
+        public static NumberScalar operator |(Scalar v, NumberScalar sc) {
             dynamic lhs = v.Value;
             dynamic rhs = sc.Value;
-            return lhs | rhs;
+            return new NumberScalar(lhs | rhs);
         }
 
         #endregion
 
         #region Null
 
-        public static object operator +(NumberScalar sc, NullScalar v) {
-            return sc.Value;
+        public static NumberScalar operator +(NumberScalar sc, NullScalar v) {
+            return new NumberScalar(sc);
         }
 
-        public static object operator +(NullScalar v, NumberScalar sc) {
-            return sc.Value;
+        public static NumberScalar operator +(NullScalar v, NumberScalar sc) {
+            return new NumberScalar(sc);
         }
 
-        public static object operator -(NumberScalar sc, NullScalar v) {
-            return sc.Value;
+        public static NumberScalar operator -(NumberScalar sc, NullScalar v) {
+            return new NumberScalar(sc);
         }
 
-        public static object operator -(NullScalar v, NumberScalar sc) {
-            return -sc;
+        public static NumberScalar operator -(NullScalar v, NumberScalar sc) {
+            return new NumberScalar(-sc);
         }
 
 
-        public static object operator /(NumberScalar sc, NullScalar v) {
-            return 0;
+        public static NumberScalar operator /(NumberScalar sc, NullScalar v) {
+            return new NumberScalar(0);
         }
 
-        public static object operator /(NullScalar v, NumberScalar sc) {
-            return 0;
+        public static NumberScalar operator /(NullScalar v, NumberScalar sc) {
+            return new NumberScalar(0);
         }
 
 
         public static object operator %(NumberScalar sc, NullScalar v) {
-            return 0;
+            return new NumberScalar(0);
         }
 
-        public static object operator %(NullScalar v, NumberScalar sc) {
-            return 0;
-        }
-
-
-        public static object operator *(NumberScalar sc, NullScalar v) {
-            return 0;
-        }
-
-        public static object operator *(NullScalar v, NumberScalar sc) {
-            return 0;
+        public static NumberScalar operator %(NullScalar v, NumberScalar sc) {
+            return new NumberScalar(0);
         }
 
 
-        public static object operator &(NumberScalar sc, NullScalar v) {
+        public static NumberScalar operator *(NumberScalar sc, NullScalar v) {
+            return new NumberScalar(0);
+        }
+
+        public static NumberScalar operator *(NullScalar v, NumberScalar sc) {
+            return new NumberScalar(0);
+        }
+
+
+        public static NumberScalar operator &(NumberScalar sc, NullScalar v) {
             dynamic lhs = sc.Value;
-            return lhs & 0;
+            return new NumberScalar(lhs & 0);
         }
 
-        public static object operator &(NullScalar v, NumberScalar sc) {
+        public static NumberScalar operator &(NullScalar v, NumberScalar sc) {
             dynamic rhs = sc.Value;
-            return 0 & rhs;
+            return new NumberScalar(0 & rhs);
         }
 
-        public static object operator |(NumberScalar sc, NullScalar v) {
+        public static NumberScalar operator |(NumberScalar sc, NullScalar v) {
             dynamic lhs = sc.Value;
-            return lhs | 0;
+            return new NumberScalar(lhs | 0);
         }
 
-        public static object operator |(NullScalar v, NumberScalar sc) {
+        public static NumberScalar operator |(NullScalar v, NumberScalar sc) {
             dynamic rhs = sc.Value;
-            return 0 | rhs;
+            return new NumberScalar(0 | rhs);
         }
 
         #endregion
