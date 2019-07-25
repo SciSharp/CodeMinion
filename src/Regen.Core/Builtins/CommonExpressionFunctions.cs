@@ -49,6 +49,27 @@ namespace Regen.Builtins {
             return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));
         }
 
+        public static NumberScalar number(object obj) {
+            if (obj is NumberScalar s)
+                return s;
+            if (obj is Data d) {
+                var v = d.EmitExpressive().Trim('\"');
+                if (v.Contains("."))
+                    return new NumberScalar(int.Parse(v));
+                return new NumberScalar(double.Parse(v));
+            }
+
+            {
+                var v = obj?.ToString().Trim('\"');
+                if (v==null)
+                    return new NumberScalar(0);
+
+                if (v.Contains("."))
+                    return new NumberScalar(int.Parse(v));
+                return new NumberScalar(double.Parse(v));
+            }
+        }
+
         public static bool isarray(object obj) {
             return obj is IList; //Array implements IList.
         }
