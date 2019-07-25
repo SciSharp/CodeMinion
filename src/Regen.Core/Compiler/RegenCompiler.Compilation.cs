@@ -354,6 +354,8 @@ namespace Regen.Compiler {
                 Context.Variables.Remove($"__{i + 1 + expr.Depth * 100}__");
             }
 
+            if (!baseLine.ContentWasModified)
+                baseLine.MarkedForDeletion = true;
 
             IList parseExpr(Expression arg) {
                 var ev = EvaluateObject(arg, baseLine);

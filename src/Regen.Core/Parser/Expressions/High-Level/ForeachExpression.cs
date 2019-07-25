@@ -62,8 +62,10 @@ namespace Regen.Parser.Expressions {
 
             relatedLines = relatedLines.Distinct().OrderBy(l => l.StartIndex).ToList();
 
-            if (relatedLines.Count(l=>l.Content.Contains("%foreach")) <= relatedLines.Count(l => l.CleanContent() == "%") && relatedLines.Last().CleanContent() == "%")
+            if (relatedLines.Count(l=>l.Content.Contains("%foreach")) <= relatedLines.Count(l => l.CleanContent() == "%") && relatedLines.Last().CleanContent() == "%") {
+                relatedLines[relatedLines.Count - 1].MarkedForDeletion = true;
                 relatedLines.RemoveAt(relatedLines.Count - 1);
+            }
            
             //make sure to clean out % at the end
             if (content == null)
