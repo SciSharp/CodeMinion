@@ -9,11 +9,17 @@ using Regen.Helpers;
 namespace Regen.Builtins {
     public static class CommonLinq {
         public static Array Except(IList @this, params object[] objs) {
+            if (objs == null || objs.Length == 0)
+                return Array.Create(@this);
+
             var vals = @this.Cast<Data>().Where(left => objs.Any(right => !Equals(left.Value, right is Data d ? d.Value : right)));
             return Array.Create(vals);
         }
 
         public static Array Concat(IList @this, params object[] objs) {
+            if (objs == null || objs.Length == 0)
+                return Array.Create(@this);
+
             var flattened = objs.Cast<Data>().SelectMany(CollectionSelector);
 
             return Array.Create(@this.Cast<Data>().Concat(flattened));
@@ -27,6 +33,9 @@ namespace Regen.Builtins {
         }
 
         public static Array Flatten(params object[] objs) {
+            if (objs == null || objs.Length == 0)
+                return Array.Create(new object[0]);
+
             var flattened = objs.Cast<Data>().SelectMany(data => {
 
                 IEnumerable<Data> flat(object obj) {
