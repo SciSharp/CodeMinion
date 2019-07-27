@@ -91,7 +91,13 @@ namespace Regen.Parser.Expressions {
             int at = offset;
             int parens = 1;
             do {
+                _retry:
                 var found = str.IndexOf('%', at) + 1;
+                if (str[Math.Max(found - 2, 0)] == '\\') {
+                    at = found;
+                    goto _retry;
+                }
+
                 if (found == 0) //note the + 1 above
                     throw new UnexpectedTokenException("Was unable to find % for a foreach loop. Nested foreach loops does not support single-line foreach loops.");
                 if (found + denier.Length <= str.Length && str.Substring(found, denier.Length) == denier)
