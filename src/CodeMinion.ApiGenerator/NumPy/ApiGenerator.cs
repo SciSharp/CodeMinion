@@ -96,7 +96,8 @@ namespace CodeMinion.ApiGenerator.NumPy
                 SharpToSharpConversions =
                 {
                     SpecialGenerators.ArrayToNDarrayConversion,
-                }
+                },
+                InitializationGenerators = { SpecialGenerators.InitNumpyGenerator },
             };
         }
 
@@ -117,7 +118,6 @@ namespace CodeMinion.ApiGenerator.NumPy
                 StaticName = "np", // name of the static API class
                 ImplName = "NumPy", // name of the singleton that implements the static API behind the scenes
                 PythonModule = "numpy", // name of the Python module that the static api wraps 
-                InitializationGenerators = { SpecialGenerators.InitNumpyGenerator },
             };
             _generator.StaticApis.Add(array_creation_api);
             ParseNumpyApi(array_creation_api, "routines.array-creation.html");
@@ -267,7 +267,7 @@ namespace CodeMinion.ApiGenerator.NumPy
             // generate Numpy.Bare
             // it is based on Python.Runtime only and doesn't pack anything. Python 3.7 installation including numpy pip module are required for this to run
             // ----------------------------------------------------
-            array_creation_api.InitializationGenerators = new List<Action<CodeWriter>>(); // <--- do not install wheel in numpy bare
+            _generator.InitializationGenerators = new List<Action<CodeWriter>>(); // <--- do not install wheel in numpy bare
             ndarray_api.OutputPath = Path.Combine(src_dir, "Numpy.Bare/Models");
             _generator.ModelsPath = Path.Combine(src_dir, "Numpy.Bare/Models");
             _generator.StaticApiFilesPath = Path.Combine(src_dir, "Numpy.Bare");
