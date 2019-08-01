@@ -898,7 +898,7 @@ namespace CodeMinion.Core
             s.AppendLine($"namespace {NameSpace}");
             s.Block(() =>
             {
-                s.Out($"public partial class {StaticModuleName}", () =>
+                s.Out($"public static partial class {StaticModuleName}", () =>
                 {
                     s.Break();
                     s.Out("public static PyObject self => _lazy_self.Value;");
