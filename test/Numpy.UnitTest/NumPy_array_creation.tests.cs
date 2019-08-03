@@ -361,24 +361,22 @@ namespace Numpy.UnitTest
             // array([1, 2, 3])
             // 
 
-#if TODO
-            var given=  np.array({1, 2, 3});
+            NDarray given=  np.array(new int[]{1, 2, 3});
             var expected=
                 "array([1, 2, 3])";
             Assert.AreEqual(expected, given.repr);
-#endif
+
             // Upcasting:
 
             // >>> np.array([1, 2, 3.0])
             // array([ 1.,  2.,  3.])
             // 
 
-#if TODO
-             given=  np.array({1, 2, 3.0});
+
+             given=  np.array(new double[]{1, 2, 3.0});
              expected=
-                "array([ 1.,  2.,  3.])";
+                "array([1., 2., 3.])";
             Assert.AreEqual(expected, given.repr);
-#endif
             // More than one dimension:
 
             // >>> np.array([[1, 2], [3, 4]])
@@ -386,37 +384,34 @@ namespace Numpy.UnitTest
             //        [3, 4]])
             // 
 
-#if TODO
-             given=  np.array({{1, 2}, {3, 4}});
+             given=  np.array(new int[,]{{1, 2}, {3, 4}});
              expected=
                 "array([[1, 2],\n" +
                 "       [3, 4]])";
             Assert.AreEqual(expected, given.repr);
-#endif
-            // Minimum dimensions 2:
 
+            // Minimum dimensions 2:
             // >>> np.array([1, 2, 3], ndmin=2)
             // array([[1, 2, 3]])
             // 
 
-#if TODO
-             given=  np.array({1, 2, 3}, ndmin=2);
+
+             given=  np.array(new int[]{1, 2, 3}, ndmin: 2);
              expected=
                 "array([[1, 2, 3]])";
             Assert.AreEqual(expected, given.repr);
-#endif
+
             // Type provided:
 
             // >>> np.array([1, 2, 3], dtype=complex)
             // array([ 1.+0.j,  2.+0.j,  3.+0.j])
             // 
 
-#if TODO
-             given=  np.array({1, 2, 3}, dtype=complex);
+             given=  np.array(new int[]{1, 2, 3}, dtype: np.complex_);
              expected=
-                "array([ 1.+0.j,  2.+0.j,  3.+0.j])";
+                "array([1.+0.j, 2.+0.j, 3.+0.j])";
             Assert.AreEqual(expected, given.repr);
-#endif
+
             // Data-type consisting of more than one element:
 
             // >>> x = np.array([(1,2),(3,4)],dtype=[('a','<i4'),('b','<i4')])
