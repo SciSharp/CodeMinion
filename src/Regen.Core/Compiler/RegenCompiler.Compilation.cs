@@ -197,7 +197,7 @@ namespace Regen.Compiler {
             //get smallest index and iterate it.
             var min = iterateThose.Min(i => i.Count);
             var vars = Context.Variables;
-
+            var readOnlyContent = new List<int>(Enumerable.Repeat(0, contents.Length));
             for (int i = 0; i < min; i++) {
                 //set variables
                 if (expr.Depth > 0)
@@ -211,17 +211,22 @@ namespace Regen.Compiler {
                 var variables = new List<string>(); //a list of all added variables that will be cleaned after this i iteration.
 
                 //now here we iterate contents and set all variables in it.
-                for (var contentIndex = 0; contentIndex < contents.Length; contentIndex++) {
+                for (var contentIndex = 0; contentIndex < contents.Length; contentIndex++)
+                {
                     var content = contents[contentIndex];
+                    var copy = content.Replace("|#", "#");
+
+                    if (readOnlyContent[contentIndex] == 1)
+                        goto _nextline;
+
                     //iterate lines, one at a time 
                     // ReSharper disable once RedundantToStringCall
-                    var copy = content.ToString().Replace("|#", "#");
+                    const string HashtagExpressionRegex = @"(?<!\\)\#\((?:[^()]|(?<open>\()|(?<-open>\)))+(?(open)(?!))\)";
                     bool changed = false;
                     int last_access_index = 0;
-                    const string HashtagExpressionRegex = @"(?<!\\)\#\((?:[^()]|(?<open>\()|(?<-open>\)))+(?(open)(?!))\)";
-                    var hashtagExprs = Regex.Matches(copy, HashtagExpressionRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
-
+                    bool modified = false;
                     //replace all emit commands
+                    var hashtagExprs = Regex.Matches(copy, HashtagExpressionRegex, Regexes.DefaultRegexOptions).Cast<Match>().ToArray();
                     copy = ExpressionLexer.ReplaceRegex(copy, @"(?<!\\)\#([0-9]+)", match => {
                         var key = $"__{match.Groups[1].Value}__";
                         if (hashtagExprs.Any(m => m.IsMatchNestedTo(match))) {
@@ -229,6 +234,7 @@ namespace Regen.Compiler {
                             return key;
                         }
 
+                        modified = true;
                         return _emit(vars[key]);
                     });
 
@@ -247,6 +253,7 @@ namespace Regen.Compiler {
                             //iterate all tokens of that line
 
                             if (current.Token == ExpressionToken.Mod && ew.HasNext) {
+                                modified = true;
                                 if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Escape)
                                     continue;
 
@@ -270,6 +277,7 @@ namespace Regen.Compiler {
                             }
 
                             if (current.Token == ExpressionToken.Hashtag && ew.HasNext) {
+                                modified = true;
                                 if (ew.HasBack && ew.PeakBack.Token == ExpressionToken.Escape)
                                     continue;
 
@@ -336,6 +344,9 @@ namespace Regen.Compiler {
                         } while (ew.Next());
                     }
 
+                    if (!modified)
+                        readOnlyContent[contentIndex] = 1;
+                    
                     _nextline:
                     //cleanup escapes
                     copy = copy.Replace("\\#", "#");
