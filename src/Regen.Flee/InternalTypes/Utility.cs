@@ -200,12 +200,19 @@ namespace Regen.Flee.InternalTypes {
 
             const BindingFlags flags = BindingFlags.Public | BindingFlags.Static;
 
-            // Look on the source type
-            MemberInfo[] members = sourceType.FindMembers(MemberTypes.Method, flags, SimpleOverloadedOperatorFilter, data);
+            // Look on the source type and its ancestors
+            MemberInfo[] members = new MemberInfo[0];
+            do
+            {
+                members = sourceType.FindMembers(MemberTypes.Method, flags, SimpleOverloadedOperatorFilter, data);
+            } while (members.Length == 0 && (sourceType = sourceType.BaseType) != null);
 
-            if (members.Length == 0) {
-                // Look on the dest type
-                members = destType.FindMembers(MemberTypes.Method, flags, SimpleOverloadedOperatorFilter, data);
+            if (members.Length == 0 && destType != null) {
+                // Look on the dest type and its ancestors
+                do
+                {
+                    members = destType.FindMembers(MemberTypes.Method, flags, SimpleOverloadedOperatorFilter, data);
+                } while (members.Length == 0 && (destType = destType.BaseType) != null);
             }
 
             Debug.Assert(members.Length < 2, "Multiple overloaded operators found");
@@ -235,27 +242,35 @@ namespace Regen.Flee.InternalTypes {
                 return false;
             }
 
-            bool returnTypeMatch = object.ReferenceEquals(method.ReturnType, (Type) data["destType"]);
+            // destination type might not be known
+            Type destType = (Type)data["destType"];
 
-            if (returnTypeMatch == false) {
-                return false;
+            if (destType != null) {
+                bool returnTypeMatch = object.ReferenceEquals(destType, method.ReturnType);
+
+                if (returnTypeMatch == false)
+                {
+                    return false;
+                }
             }
 
             ParameterInfo[] parameters = method.GetParameters();
-            bool argumentMatch = parameters.Length > 0 && object.ReferenceEquals(parameters[0].ParameterType, (Type) data["sourceType"]);
+            bool argumentMatch = parameters.Length > 0 && parameters[0].ParameterType.IsAssignableFrom((Type)data["sourceType"]);
 
             return argumentMatch;
         }
 
         public static MethodInfo GetOverloadedOperator(string name, Type sourceType, Binder binder, params Type[] argumentTypes) {
             name = string.Concat("op_", name);
-            MethodInfo mi = sourceType.GetMethod(name, BindingFlags.Public | BindingFlags.Static, binder, CallingConventions.Any, argumentTypes, null);
+            MethodInfo mi = null;
+            do {
+                mi = sourceType.GetMethod(name, BindingFlags.Public | BindingFlags.Static, binder, CallingConventions.Any, argumentTypes, null);
+                if (mi != null && mi.IsSpecialName == true) {
+                    return mi;
+                }
+            } while ((sourceType = sourceType.BaseType) != null);
 
-            if (mi == null || mi.IsSpecialName == false) {
-                return null;
-            } else {
-                return mi;
-            }
+            return null;
         }
 
         public static int GetILGeneratorLength(ILGenerator ilg) {

@@ -58,145 +58,156 @@ namespace Regen.DataTypes {
 
         public static object operator +(Data sc) {
             dynamic lhs = sc.Value;
-            return +lhs;
+            return tryParseNumber(+lhs);
         }
 
         public static object operator !(Data sc) {
             dynamic lhs = sc.Value;
-            return !lhs;
+            return tryParseNumber(!lhs);
         }
 
         public static object operator -(Data sc) {
             dynamic rhs = sc.Value;
-            return -rhs;
+            return tryParseNumber(-rhs);
         }
 
         public static object operator +(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs + rhs;
+            return tryParseNumber(lhs + rhs);
         }
 
         public static object operator +(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs + rhs;
+            return tryParseNumber(lhs + rhs);
         }
 
         public static object operator +(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs + rhs;
+            var ret = lhs + rhs;
+            return tryParseNumber(ret);
         }
 
         public static object operator -(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs - rhs;
+            return tryParseNumber(lhs - rhs);
         }
 
         public static object operator -(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs - rhs;
+            return tryParseNumber(lhs - rhs);
         }
 
         public static object operator -(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs - rhs;
+            return tryParseNumber(lhs - rhs);
         }
 
         public static object operator /(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs / rhs;
+            return tryParseNumber(lhs / rhs);
         }
 
         public static object operator /(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs / rhs;
+            return tryParseNumber(lhs / rhs);
         }
 
         public static object operator /(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs / rhs;
+            return tryParseNumber(lhs / rhs);
         }
 
         public static object operator %(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs % rhs;
+            return tryParseNumber(lhs % rhs);
         }
 
         public static object operator %(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs % rhs;
+            return tryParseNumber(lhs % rhs);
         }
 
         public static object operator %(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs % rhs;
+            return tryParseNumber(lhs % rhs);
         }
 
         public static object operator *(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs * rhs;
+            return tryParseNumber(lhs * rhs);
         }
 
         public static object operator *(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs * rhs;
+            return tryParseNumber(lhs * rhs);
         }
 
         public static object operator *(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs * rhs;
+            return tryParseNumber(lhs * rhs);
         }
 
         public static object operator &(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs & rhs;
+            return tryParseNumber(lhs & rhs);
         }
 
         public static object operator &(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs & rhs;
+            return tryParseNumber(lhs & rhs);
         }
 
         public static object operator &(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs & rhs;
+            return tryParseNumber(lhs & rhs);
         }
 
         public static object operator |(Data sc, object v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v;
-            return lhs | rhs;
+            return tryParseNumber(lhs | rhs);
         }
 
         public static object operator |(object v, Data sc) {
             dynamic lhs = v;
             dynamic rhs = sc.Value;
-            return lhs | rhs;
+            return tryParseNumber(lhs | rhs);
         }
 
         public static object operator |(Data sc, Data v) {
             dynamic lhs = sc.Value;
             dynamic rhs = v.Value;
-            return lhs | rhs;
+            return tryParseNumber(lhs | rhs);
         }
 
+        
+        private static object tryParseNumber(object obj) {
+            Type type = obj.GetType();
+            if (obj is bool b)
+                return new BoolScalar(b);
+            if (type.IsPrimitive || type == typeof(decimal))
+                return new NumberScalar(obj);
+
+            return obj;
+        }
         #endregion
 
         #region Equality

@@ -256,14 +256,14 @@ of nothing
         [TestMethod]
         public void expression_variable_bool_op() {
             var input = @"
-                %a = true | true";
+                %a = true || true";
             var ret = Parse(input);
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Declaration);
             var varexpr = act.Related.First().Should().BeOfType<VariableDeclarationExpression>().Which;
             varexpr.Name.Should().BeOfType<StringIdentity>().Which.Name.Should().Be("a");
             var op = varexpr.Right.Should().BeOfType<OperatorExpression>().Which;
-            op.Op.Should().Be(ExpressionToken.Or);
+            op.Op.Should().Be(ExpressionToken.DoubleOr);
             op.Left.Should().BeOfType<BooleanLiteral>().Which.Value.Should().Be(true);
             op.Right.Should().BeOfType<BooleanLiteral>().Which.Value.Should().Be(true);
         }
@@ -649,7 +649,7 @@ of nothing
             var act = ret.ParseActions.First();
             act.Token.Should().Be(ParserToken.Expression);
             act.Related.First()
-                .Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
+                .Should().BeOfType<TernaryExpression>();
         }
     }
 }

@@ -73,6 +73,9 @@ namespace Regen.Flee.ExpressionElements.Base {
                 return rightMethod;
             } else if (rightMethod == null) {
                 return leftMethod;
+            } else if (object.ReferenceEquals(leftMethod, rightMethod)) {
+                // same operator for both (most likely defined in a common base class)
+                return leftMethod;
             } else {
                 // Ambiguous call
                 base.ThrowAmbiguousCallException(leftType, rightType, operation);
