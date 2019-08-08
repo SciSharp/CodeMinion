@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="Regen.Package.c7e6e38d-0855-40ae-9d99-35f9fd2e5c25" Version="0.26" Language="en-US" Publisher="Eli Belash" />
+        <Identity Id="Regen.Package.c7e6e38d-0855-40ae-9d99-35f9fd2e5c25" Version="0.27" Language="en-US" Publisher="Eli Belash" />
         <DisplayName>Regen.Package</DisplayName>
         <Description xml:space="preserve">Regen is a tool that aims to replace messy and unmaintainable T4 generators with in-code generating.</Description>
         <Icon>https://avatars3.githubusercontent.com/u/44989469?s=200&amp;v=4</Icon>
