@@ -126,7 +126,7 @@ namespace Regen.Core.Tests.Expression {
         [TestMethod]
         public void equals_case10() {
             var @input = @"
-                %a = False | True
+                %a = False || True
                 %(a)
                 ";
 
@@ -137,7 +137,7 @@ namespace Regen.Core.Tests.Expression {
         [TestMethod]
         public void equals_case11() {
             var @input = @"
-                %a = False & True
+                %a = False && True
                 %(a)
                 ";
 
@@ -225,15 +225,126 @@ namespace Regen.Core.Tests.Expression {
         }
 
         [TestMethod]
-        public void devvv() {
+        public void ternary_case1() {
             var @input = @"
-                %bo = false
-                %a = !bo
+                %(1==1|3|2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("3");
+        }
+
+        [TestMethod]
+        public void ternary_case2() {
+            var @input = @"
+                %a = (1==1|1|2)
                 %(a)
                 ";
 
             Compile(@input).Output.Should()
-                .Contain("true");
+                .Contain("1");
+        }
+
+        [TestMethod]
+        public void ternary_case2_approx() {
+            var @input = @"
+                %a = (1~=1.00001|1|2)
+                %(a)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("1");
+        }
+
+        [TestMethod]
+        public void ternary_case2_approx_nofalse() {
+            var @input = @"
+                %a = (1~=1.1|1)
+                %(a)
+                ";
+
+            Compile(@input).Output.Should()
+                .NotContain("1");
+        }
+
+        [TestMethod]
+        public void ternary_case3() {
+            var @input = @"
+                %l = false
+                %r = true
+                %a = (l&&r|1|2)
+                %(a)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("2");
+        }
+
+        [TestMethod]
+        public void terary_case4() {
+            var @input = @"
+                %a = 3
+                %(1==1|(a==3|1|2)|2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("1");
+        }
+
+        [TestMethod]
+        public void terary_case5() {
+            var @input = @"
+                %a = 3
+                %(1==1|(a==3|(a==4|""howdy""|0)|2)|2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("0");
+        }
+
+        [TestMethod]
+        public void terary_case6() {
+            var @input = @"
+                %a = 3
+                %(1==1|(a==3|(a==3|""howdy""|0)|2)|2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("howdy");
+        }
+
+        [TestMethod]
+        public void terary_case7() {
+            var @input = @"
+                %a = 3
+                %(1==1|(a==4|2|(a==3|""howdy""|0))|2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("howdy");
+        }
+
+        [TestMethod]
+        public void terary_case8() {
+            var @input = @"
+                %a = [""yo""]
+                %(a[0]==""yo""|1|2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("1");
+        }
+
+        [TestMethod]
+        public void terary_case9() {
+            var @input = @"
+                %a = [""yo""]
+                %b = [""yo"", ""yo""]
+                %(len(a.Contains(""yo"")|a|b))
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("1");
         }
     }
 }

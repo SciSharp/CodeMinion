@@ -638,5 +638,18 @@ of nothing
             act.Related.First()
                 .Should().BeOfType<TemplateExpression>().Which.Arguments.Arguments.Length.Should().Be(2);
         }
+
+        
+        [TestMethod]
+        public void expression_booleanic() {
+            var input = @"
+                %(1 == 1|1|2)
+                ";
+            var ret = Parse(input);
+            var act = ret.ParseActions.First();
+            act.Token.Should().Be(ParserToken.Expression);
+            act.Related.First()
+                .Should().BeOfType<NumberLiteral>().Which.Value.Should().Be("123");
+        }
     }
 }

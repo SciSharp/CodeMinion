@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Regen.Helpers;
@@ -45,9 +46,7 @@ namespace Regen.Parser.Expressions {
                 case ExpressionToken.Equal:
                 case ExpressionToken.ApproxEqual:
                 case ExpressionToken.DoubleAnd:
-                case ExpressionToken.And:
                 case ExpressionToken.DoubleOr:
-                case ExpressionToken.Or:
                 case ExpressionToken.NotBoolean:
                 case ExpressionToken.Not:
                 case ExpressionToken.Xor:
@@ -76,9 +75,7 @@ namespace Regen.Parser.Expressions {
                 case ExpressionToken.DoubleEqual:
                 case ExpressionToken.NotEqual:
                 case ExpressionToken.DoubleAnd:
-                case ExpressionToken.And:
                 case ExpressionToken.DoubleOr:
-                case ExpressionToken.Or:
                 case ExpressionToken.Not:
                 case ExpressionToken.NotBoolean:
                 case ExpressionToken.BiggerOrEqualThat:

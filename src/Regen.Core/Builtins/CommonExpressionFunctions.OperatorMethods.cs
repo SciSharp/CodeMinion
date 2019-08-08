@@ -106,8 +106,8 @@ namespace Regen.Builtins {
 
             dynamic lhs = left;
             dynamic rhs = right;
-
-            return (lhs < 0 ? -lhs : lhs) - (rhs < 0 ? -rhs : rhs) < 0.0001;
+            var sub = (lhs - rhs);
+            return (sub < 0 ? -sub : sub) < 0.0001;
         }
 
         private static object unpack(object operand) {

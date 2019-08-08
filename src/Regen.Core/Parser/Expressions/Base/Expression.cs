@@ -7,7 +7,6 @@ using Regen.Exceptions;
 using Regen.Helpers;
 
 namespace Regen.Parser.Expressions {
-
     public class Expression {
         protected static RegexResult _matchWhitespace = " ".AsResult();
 
@@ -117,7 +116,7 @@ namespace Regen.Parser.Expressions {
             } else {
                 throw new UnexpectedTokenException($"Token was not expected to be a {ew.Current.Token}");
             }
-
+            _rereview:
             //here we parse chained math operations
             while (OperatorExpression.IsCurrentAnOperation(ew) && !isOperatorCall) {
                 if (RightOperatorExpression.IsCurrentAnRightUniOperation(ew) && caller != typeof(OperatorExpression)) {
@@ -125,6 +124,20 @@ namespace Regen.Parser.Expressions {
                 } else if (OperatorExpression.IsCurrentAnOperation(ew)) {
                     ret = OperatorExpression.Parse(ew, ret);
                 }
+            }
+
+            if (ew.IsCurrent(ExpressionToken.Or) && caller != typeof(TernaryExpression) && caller != typeof(OperatorExpression)) {
+                ret = TernaryExpression.Parse(ew, ret);
+            }
+
+            if (ew.IsCurrent(ExpressionToken.LeftBracet)) {
+                ret = IndexerCallExpression.Parse(ew, ret);
+                goto _rereview;
+            }
+
+            if (ew.IsCurrent(ExpressionToken.LeftParen)) {
+                ret = CallExpression.Parse(ew, ret);
+                goto _rereview;
             }
 
             return ret;

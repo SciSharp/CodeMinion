@@ -10,14 +10,18 @@ namespace Regen.Parser.Expressions {
         public Expression InnerExpression { get; set; }
 
         public static GroupExpression Parse(ExpressionWalker ew, ExpressionToken left, ExpressionToken right) {
-            var grp = new GroupExpression() {_matchLeft = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(left).Emit.AsResult(), _matchRight = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(right).Emit.AsResult()};
             ew.IsCurrentOrThrow(left);
 
             ew.NextOrThrow();
             if (ew.Current.Token == right)
                 throw new UnexpectedTokenException($"Expected an expression, found end of group of type {right}");
+            var expr = ParseExpression(ew, typeof(GroupExpression));
+            var grp = new GroupExpression() {_matchLeft = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(left).Emit.AsResult(), _matchRight = AttributeExtensions.GetAttribute<ExpressionTokenAttribute>(right).Emit.AsResult()};
+            if (ew.IsCurrent(ExpressionToken.Or)) {
+                grp.InnerExpression = TernaryExpression.Parse(ew, expr);
+            } else
+                grp.InnerExpression = expr;
 
-            grp.InnerExpression = ParseExpression(ew);
             ew.IsCurrentOrThrow(right);
             ew.Next();
             return grp;

@@ -177,7 +177,7 @@ namespace Regen.Compiler {
                     throw new ArgumentOutOfRangeException();
             }
         }
-
+        
         private static string _emit(object val) {
             return val is Data d ? d.Emit() : val.ToString();
         }
@@ -215,10 +215,9 @@ namespace Regen.Compiler {
                 var variables = new List<string>(); //a list of all added variables that will be cleaned after this i iteration.
 
                 //now here we iterate contents and set all variables in it.
-                for (var contentIndex = 0; contentIndex < contents.Length; contentIndex++)
-                {
+                for (var contentIndex = 0; contentIndex < contents.Length; contentIndex++) {
                     var content = contents[contentIndex];
-                    var copy = content; 
+                    var copy = content;
 
                     if (readOnlyContent[contentIndex] == 1)
                         goto _nextline;
@@ -241,7 +240,7 @@ namespace Regen.Compiler {
                         return _emit(vars[key]);
                     });
 
-                    
+
                     var ew = new ExpressionWalker(ExpressionLexer.Tokenize(copy, ExpressionToken.StringLiteral));
 
                     if (ew.HasNext) {

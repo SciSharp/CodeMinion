@@ -4,6 +4,7 @@ using System.Linq;
 using Regen.Compiler;
 using Regen.Compiler.Helpers;
 using Regen.Exceptions;
+using Regen.Helpers;
 using Regen.Helpers.Collections;
 using Regen.Parser.Expressions;
 
@@ -27,6 +28,12 @@ namespace Regen.Parser {
             RelatedLines = lines.ToList();
             Token = token;
             Related = related.ToList();
+        }
+
+        /// <summary>Returns a string that represents the current object.</summary>
+        /// <returns>A string that represents the current object.</returns>
+        public override string ToString() {
+            return $"{nameof(Token)}: {Token}, {nameof(Related)}: {Related.FirstOrDefault()}";
         }
     }
 
@@ -90,7 +97,7 @@ namespace Regen.Parser {
                                 //it is an expression block %(expr)
                                 ew.NextOrThrow();
 
-                                var expr = Expression.ParseExpression(ew);
+                                var expr = Expression.ParseExpression(ew, typeof(ExpressionParser));
                                 parserTokens += new ParserAction(ParserToken.Expression, output.MarkDeleteLinesRelated(expr.Matches()), expr);
                                 ew.IsCurrentOrThrow(ExpressionToken.RightParen);
                                 ew.Next();

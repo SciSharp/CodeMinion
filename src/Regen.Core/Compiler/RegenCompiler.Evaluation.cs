@@ -4,6 +4,7 @@ using System.Linq;
 using Regen.Compiler.Expressions;
 using Regen.Compiler.Helpers;
 using Regen.DataTypes;
+using Regen.Exceptions;
 using Regen.Helpers;
 using Regen.Parser;
 using Regen.Parser.Expressions;
@@ -26,7 +27,8 @@ namespace Regen.Compiler {
                 expression = HandleUnsupported(expression, temps, typeof(RegenCompiler));
                 return Compute(expression, temps, _caller);
             } finally {
-                temps.ForEach(t => t.Dispose());
+                if (temps.Count > 0)
+                    temps.ForEach(t => t.Dispose());
             }
         }
 
@@ -129,15 +131,12 @@ namespace Regen.Compiler {
                 case NewExpression newExpression:
                     newExpression.Constructor = HandleUnsupported(newExpression.Constructor, temps, typeof(NewExpression));
                     return newExpression;
-                case LeftOperatorExpression leftOperatorExpression:
-                {
+                case LeftOperatorExpression leftOperatorExpression: {
                     var right = HandleUnsupported(leftOperatorExpression.Right, temps, typeof(LeftOperatorExpression));
-                    if (OperatorExpression.IsLogicalOperator(leftOperatorExpression.Op))
-                    {
-                        switch (leftOperatorExpression.Op)
-                        {
+                    if (OperatorExpression.IsLogicalOperator(leftOperatorExpression.Op)) {
+                        switch (leftOperatorExpression.Op) {
                             case ExpressionToken.NotBoolean:
-                                return new CallExpression("op_not",  right);
+                                return new CallExpression("op_not", right);
                             case ExpressionToken.Not:
                                 return new CallExpression("op_inverse", right);
 
@@ -150,6 +149,7 @@ namespace Regen.Compiler {
                     leftOperatorExpression.Right = right;
                     return leftOperatorExpression;
                 }
+
                 case OperatorExpression operatorExpression: {
                     var left = HandleUnsupported(operatorExpression.Left, temps, typeof(OperatorExpression));
                     var right = HandleUnsupported(operatorExpression.Right, temps, typeof(OperatorExpression));
@@ -184,12 +184,21 @@ namespace Regen.Compiler {
                     operatorExpression.Right = right;
                     return operatorExpression;
                 }
+
                 case RightOperatorExpression rightOperatorExpression:
                     rightOperatorExpression.Left = HandleUnsupported(rightOperatorExpression.Left, temps, typeof(RightOperatorExpression));
                     return rightOperatorExpression;
                 case ThrowExpression throwExpression:
                     throwExpression.Right = HandleUnsupported(throwExpression.Right, temps, typeof(ThrowExpression));
                     return throwExpression;
+                case TernaryExpression ternary: {
+                    ternary.Condition = HandleUnsupported(ternary.Condition, temps, typeof(TernaryExpression));
+                    ternary.IfTrue = HandleUnsupported(ternary.IfTrue, temps, typeof(TernaryExpression));
+                    if (ternary.IfFalse != null)
+                        ternary.IfFalse = HandleUnsupported(ternary.IfFalse, temps, typeof(TernaryExpression));
+                    return ternary;
+                }
+
                 case ForeachExpression foreachExpression:
                 case ImportExpression importExpression:
                 case InteractableExpression interactableExpression:
@@ -201,6 +210,7 @@ namespace Regen.Compiler {
                     throw new NotImplementedException();
             }
         }
+
         /// <summary>
         ///     Perform the evaluation or translate <see cref="Expression"/> into a variable for later use in computation.
         /// </summary>
@@ -388,6 +398,32 @@ namespace Regen.Compiler {
 
                         //todo BuiltinTests.len fails here because we do not expand left or right. we should.
                         return Data.Create(_evaluate(rightOperatorExpression.AsString()));
+                    }
+
+                    case TernaryExpression ternary: {
+                        var cond = _eval(ternary.Condition, typeof(TernaryExpression));
+                        bool value = false;
+                        switch (cond) {
+                            case BoolScalar bs:
+                                value = bs._value;
+                                break;
+                            case Data d:
+                                value = Convert.ToBoolean(d.Value);
+                                break;
+                            default: {
+                                // ReSharper disable once ConstantNullCoalescingCondition
+                                throw new RegenException($"Unable to interpret \"{ternary.Condition.AsString()}\"'s result which its type is {cond?.GetType().Name ?? "null"}");
+                            }
+                        }
+
+                        if (value)
+                            return Data.Create(_eval(ternary.IfTrue));
+
+                        // ReSharper disable once ConvertIfStatementToReturnStatement
+                        if (ternary.IfFalse != null)
+                            return Data.Create(_eval(ternary.IfFalse));
+
+                        return Data.Null;
                     }
 
                     case ThrowExpression throwExpression: {

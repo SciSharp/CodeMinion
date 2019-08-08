@@ -61,9 +61,7 @@ namespace Regen.DataTypes {
         /// <summary>Serves as the default hash function. </summary>
         /// <returns>A hash code for the current object.</returns>
         public override int GetHashCode() {
-            unchecked {
-                return (base.GetHashCode() * 397) ^ (Value != null ? Value.GetHashCode() : 0);
-            }
+            return base.GetHashCode();
         }
 
         /// <summary>Returns a value that indicates whether the values of two <see cref="T:Regen.DataTypes.NetObject" /> objects are equal.</summary>

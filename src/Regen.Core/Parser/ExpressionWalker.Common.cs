@@ -73,6 +73,15 @@ namespace Regen.Parser {
         }
 
         /// <summary>
+        ///     Checks if current is <see cref="tkn"/>, if so moves forward. otherwise returns false.
+        /// </summary>
+        /// <param name="tkn"></param>
+        /// <returns></returns>
+        public bool OptionalCurrent(ExpressionToken tkn) {
+            return HasNext && Current.Token == tkn && Next();
+        }
+
+        /// <summary>
         ///     Checks if next is <see cref="tkn"/>, if so moves forward and returns value. otherwise returns null or throws.
         /// </summary>
         /// <param name="tkn"></param>
