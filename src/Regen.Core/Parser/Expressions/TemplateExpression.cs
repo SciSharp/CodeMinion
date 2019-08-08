@@ -48,6 +48,10 @@ namespace Regen.Parser.Expressions {
             ret._matchForEvery = ew.Next(ExpressionToken.ForEvery, true).Match.AsResult();
             ew.NextOrThrow();
             ret.Arguments = ArgumentsExpression.Parse(ew, token => token.Token == ExpressionToken.NewLine || token.Token == ExpressionToken.Mod, false, typeof(ForeachExpression));
+            //we have to fall back because ArgumentsExpression.Parse swallows mod.
+            ew.IsBack(ExpressionToken.Mod, true);
+            if (ew.IsCurrent(ExpressionToken.Mod))
+                ew.Back(1);
 
             return ret;
         }
