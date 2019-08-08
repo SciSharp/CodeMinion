@@ -12,7 +12,7 @@ using Array = Regen.DataTypes.Array;
 
 namespace Regen.Builtins {
     [SuppressMessage("ReSharper", "UnusedMember.Global")]
-    public class CommonExpressionFunctions {
+    public partial class CommonExpressionFunctions {
         public static int len(ICollection arr) {
             return arr.Count;
         }

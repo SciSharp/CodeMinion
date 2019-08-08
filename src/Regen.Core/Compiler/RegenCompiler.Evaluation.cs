@@ -130,12 +130,60 @@ namespace Regen.Compiler {
                     newExpression.Constructor = HandleUnsupported(newExpression.Constructor, temps, typeof(NewExpression));
                     return newExpression;
                 case LeftOperatorExpression leftOperatorExpression:
-                    leftOperatorExpression.Right = HandleUnsupported(leftOperatorExpression.Right, temps, typeof(LeftOperatorExpression));
+                {
+                    var right = HandleUnsupported(leftOperatorExpression.Right, temps, typeof(LeftOperatorExpression));
+                    if (OperatorExpression.IsLogicalOperator(leftOperatorExpression.Op))
+                    {
+                        switch (leftOperatorExpression.Op)
+                        {
+                            case ExpressionToken.NotBoolean:
+                                return new CallExpression("op_not",  right);
+                            case ExpressionToken.Not:
+                                return new CallExpression("op_inverse", right);
+
+                            default:
+                                break;
+                        }
+                    }
+
+
+                    leftOperatorExpression.Right = right;
                     return leftOperatorExpression;
-                case OperatorExpression operatorExpression:
-                    operatorExpression.Left = HandleUnsupported(operatorExpression.Left, temps, typeof(OperatorExpression));
-                    operatorExpression.Right = HandleUnsupported(operatorExpression.Right, temps, typeof(OperatorExpression));
+                }
+                case OperatorExpression operatorExpression: {
+                    var left = HandleUnsupported(operatorExpression.Left, temps, typeof(OperatorExpression));
+                    var right = HandleUnsupported(operatorExpression.Right, temps, typeof(OperatorExpression));
+                    if (OperatorExpression.IsLogicalOperator(operatorExpression.Op)) {
+                        switch (operatorExpression.Op) {
+                            case ExpressionToken.DoubleEqual:
+                                return new CallExpression("op_equals", left, right);
+                            case ExpressionToken.NotEqual:
+                                return new CallExpression("op_notequals", left, right);
+                            case ExpressionToken.DoubleAnd:
+                            case ExpressionToken.And:
+                                return new CallExpression("op_and", left, right);
+                            case ExpressionToken.DoubleOr:
+                            case ExpressionToken.Or:
+                                return new CallExpression("op_or", left, right);
+                            case ExpressionToken.BiggerOrEqualThat:
+                                return new CallExpression("op_biggerequals", left, right);
+                            case ExpressionToken.BiggerThan:
+                                return new CallExpression("op_bigger", left, right);
+                            case ExpressionToken.SmallerOrEqualThat:
+                                return new CallExpression("op_smallerequals", left, right);
+                            case ExpressionToken.SmallerThan:
+                                return new CallExpression("op_smaller", left, right);
+                            case ExpressionToken.ApproxEqual:
+                                return new CallExpression("op_equalsapprox", left, right);
+                            default:
+                                break;
+                        }
+                    }
+
+                    operatorExpression.Left = left;
+                    operatorExpression.Right = right;
                     return operatorExpression;
+                }
                 case RightOperatorExpression rightOperatorExpression:
                     rightOperatorExpression.Left = HandleUnsupported(rightOperatorExpression.Left, temps, typeof(RightOperatorExpression));
                     return rightOperatorExpression;

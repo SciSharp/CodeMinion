@@ -105,6 +105,7 @@
     <Compile Include="Expression\CommentTests.cs" />
     <Compile Include="Expression\ExpressionTests.cs" />
     <Compile Include="Expression\BuiltinTests.cs" />
+    <Compile Include="Expression\BooleanTests.cs" />
     <Compile Include="Expression\ForeachTests.cs" />
     <Compile Include="Expression\ParsingTests.cs" />
     <Compile Include="Expression\ImportTests.cs" />

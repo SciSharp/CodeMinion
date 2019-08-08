@@ -94,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builtins\CommonExpressionFunctions.cs" />
+    <Compile Include="Builtins\CommonExpressionFunctions.OperatorMethods.cs" />
     <Compile Include="Builtins\CommonLinq.cs" />
     <Compile Include="Builtins\CommonRandom.cs" />
     <Compile Include="Builtins\CommonRegex.cs" />

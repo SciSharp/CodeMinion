@@ -43,10 +43,12 @@ namespace Regen.Parser.Expressions {
                 case ExpressionToken.DoubleEqual:
                 case ExpressionToken.NotEqual:
                 case ExpressionToken.Equal:
+                case ExpressionToken.ApproxEqual:
                 case ExpressionToken.DoubleAnd:
                 case ExpressionToken.And:
                 case ExpressionToken.DoubleOr:
                 case ExpressionToken.Or:
+                case ExpressionToken.NotBoolean:
                 case ExpressionToken.Not:
                 case ExpressionToken.Xor:
                 case ExpressionToken.ShiftRight:
@@ -59,6 +61,32 @@ namespace Regen.Parser.Expressions {
                     return true;
                 case ExpressionToken.NullCoalescing:
                     return true; //todo make a specific custom op expression for null coalescing.
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        ///     Is this token a logical which returns a boolean
+        /// </summary>
+        /// <param name="tkn"></param>
+        /// <returns></returns>
+        public static bool IsLogicalOperator(ExpressionToken tkn) {
+            switch (tkn) {
+                case ExpressionToken.DoubleEqual:
+                case ExpressionToken.NotEqual:
+                case ExpressionToken.DoubleAnd:
+                case ExpressionToken.And:
+                case ExpressionToken.DoubleOr:
+                case ExpressionToken.Or:
+                case ExpressionToken.Not:
+                case ExpressionToken.NotBoolean:
+                case ExpressionToken.BiggerOrEqualThat:
+                case ExpressionToken.BiggerThan:
+                case ExpressionToken.SmallerOrEqualThat:
+                case ExpressionToken.SmallerThan:
+                case ExpressionToken.ApproxEqual:
+                    return true;
                 default:
                     return false;
             }

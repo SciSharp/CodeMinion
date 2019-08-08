@@ -17,6 +17,11 @@ namespace Regen.Parser.Expressions {
             Arguments = args;
         }
 
+        public CallExpression(string functionName, params Expression[] args) {
+            FunctionName = IdentityExpression.WrapVariable(functionName);
+            Arguments = new ArgumentsExpression(args);
+        }
+
         private CallExpression() { }
 
         public static Expression Parse(ExpressionWalker ew, Expression left = null) {
