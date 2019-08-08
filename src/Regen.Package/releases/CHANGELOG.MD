@@ -1,3 +1,7 @@
+#### 0.26a
+- Performance optimization to reduce %foreach computation
+- Fixed multiple templates (%tempalte) in the same file
+- Added repeatelement(obj object, int count)
 #### 0.25a
 - Added support for nested foreach incl. expressions and assignment.
 - Added support for `#` expr at the beggining of a line (without breaking VS intellisense) by using `|#` which during compilation replaced with `#`
