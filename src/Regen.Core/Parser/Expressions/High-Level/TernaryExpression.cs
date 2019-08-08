@@ -25,13 +25,18 @@ namespace Regen.Parser.Expressions {
                 condition = Expression.ParseExpression(ew, typeof(ExpressionParser));
             }
 
-            ew.OptionalCurrent(ExpressionToken.Or);
-
-            var trueResult = Expression.ParseExpression(ew, typeof(TernaryExpression));
+            ew.IsCurrentOrThrow(ExpressionToken.Or);
+            ew.NextOrThrow();
+            Expression trueResult;
             Expression falseResult = null;
-
             if (ew.OptionalCurrent(ExpressionToken.Or)) {
+                trueResult = Expression.None;
                 falseResult = Expression.ParseExpression(ew, typeof(TernaryExpression));
+            } else {
+                trueResult = Expression.ParseExpression(ew, typeof(TernaryExpression));
+                if (ew.OptionalCurrent(ExpressionToken.Or)) {
+                    falseResult = Expression.ParseExpression(ew, typeof(TernaryExpression));
+                }
             }
 
             return new TernaryExpression(condition, trueResult, falseResult);

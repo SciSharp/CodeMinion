@@ -99,9 +99,11 @@ namespace Regen.Parser {
             return Current.Token == tkn;
         }
 
-        public bool IsCurrentOrThrow(ExpressionToken tkn) {
-            return Current.Token == tkn ? true : throw new UnexpectedTokenException(tkn, Current.Token);
+        public void IsCurrentOrThrow(ExpressionToken tkn) {
+            if (Current.Token != tkn)
+                throw new UnexpectedTokenException(tkn, Current.Token);
         }
+
         public bool IsCurrentAnyOf(params ExpressionToken[] tkns) {
             return tkns.Contains(Current.Token);
         }

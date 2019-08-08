@@ -346,5 +346,38 @@ namespace Regen.Core.Tests.Expression {
             Compile(@input).Output.Should()
                 .Contain("1");
         }
+
+        
+        [TestMethod]
+        public void terary_case10() {
+            var @input = @"
+                %a = 3
+                %(1==1 && 2 == 1| |2)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("2");
+        }        
+
+        [TestMethod]
+        public void terary_case10_workaround() {
+            var @input = @"
+                %a = 3
+                %(1==1|(2 == 2|2|0)|0)
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("2");
+        }
+        
+        [TestMethod]
+        public void terary_case11() {
+            var @input = @"
+                %(1==1| |2)
+                ";
+
+            Compile(@input).Output.Should()
+                .NotContain("2");
+        }
     }
 }
