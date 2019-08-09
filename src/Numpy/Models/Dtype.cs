@@ -17,6 +17,10 @@ namespace Numpy
         {
         }
 
+        public static implicit operator Dtype(Type type)
+        {
+            return DtypeExtensions.ToDtype(type);
+        }
     }
 
 
