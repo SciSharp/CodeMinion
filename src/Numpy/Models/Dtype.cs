@@ -70,15 +70,10 @@ namespace Numpy
             }
         }
 
-        //public static dtype ToDtype(this Type t)
-        //{
-        //    if (t == typeof(byte)) return dtype.UInt8;
-        //    if (t == typeof(short)) return dtype.Int16;
-        //    if (t == typeof(int)) return dtype.Int32;
-        //    if (t == typeof(long)) return dtype.Int64;
-        //    if (t == typeof(float)) return dtype.Float32;
-        //    if (t == typeof(double)) return dtype.Float64;
-        //    throw new ArgumentException("Can not convert given type to dtype: " + t);
-        //}
+        public static Dtype ToDtype(this Type t)
+        {
+            object instance = Activator.CreateInstance(t);
+            return GetDtype(instance);
+        }
     }
 }
