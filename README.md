@@ -1,4 +1,4 @@
-![CodeMinion](art/code_minion-128x128-trans.png)
+![CodeMinion](art/code_minion-128x128-trans.png)<a href="http://scisharpstack.org"><img src="https://github.com/SciSharp/SciSharp/blob/master/art/scisharp_badge.png" width="200" height="200" align="right" /></a>
 
 # CodeMinion
 A code generator framework written by the SciSharp team to generate the APIs of several SciSharp libraries. You code the intersting parts, the minion writes the rest for you.
