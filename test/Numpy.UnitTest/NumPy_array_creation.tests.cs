@@ -11,6 +11,7 @@ using System.Text;
 using Numpy.Models;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Python.Runtime;
 using Assert = NUnit.Framework.Assert;
 
 namespace Numpy.UnitTest
@@ -361,8 +362,8 @@ namespace Numpy.UnitTest
             // array([1, 2, 3])
             // 
 
-            NDarray given=  np.array(new int[]{1, 2, 3});
-            var expected=
+            NDarray given = np.array(new int[] { 1, 2, 3 });
+            var expected =
                 "array([1, 2, 3])";
             Assert.AreEqual(expected, given.repr);
 
@@ -373,9 +374,9 @@ namespace Numpy.UnitTest
             // 
 
 
-             given=  np.array(new double[]{1, 2, 3.0});
-             expected=
-                "array([1., 2., 3.])";
+            given = np.array(new double[] { 1, 2, 3.0 });
+            expected =
+               "array([1., 2., 3.])";
             Assert.AreEqual(expected, given.repr);
             // More than one dimension:
 
@@ -384,10 +385,10 @@ namespace Numpy.UnitTest
             //        [3, 4]])
             // 
 
-             given=  np.array(new int[,]{{1, 2}, {3, 4}});
-             expected=
-                "array([[1, 2],\n" +
-                "       [3, 4]])";
+            given = np.array(new int[,] { { 1, 2 }, { 3, 4 } });
+            expected =
+               "array([[1, 2],\n" +
+               "       [3, 4]])";
             Assert.AreEqual(expected, given.repr);
 
             // Minimum dimensions 2:
@@ -396,9 +397,9 @@ namespace Numpy.UnitTest
             // 
 
 
-             given=  np.array(new int[]{1, 2, 3}, ndmin: 2);
-             expected=
-                "array([[1, 2, 3]])";
+            given = np.array(new int[] { 1, 2, 3 }, ndmin: 2);
+            expected =
+               "array([[1, 2, 3]])";
             Assert.AreEqual(expected, given.repr);
 
             // Type provided:
@@ -407,9 +408,9 @@ namespace Numpy.UnitTest
             // array([ 1.+0.j,  2.+0.j,  3.+0.j])
             // 
 
-             given=  np.array(new int[]{1, 2, 3}, dtype: np.complex_);
-             expected=
-                "array([1.+0.j, 2.+0.j, 3.+0.j])";
+            given = np.array(new int[] { 1, 2, 3 }, dtype: np.complex_);
+            expected =
+               "array([1.+0.j, 2.+0.j, 3.+0.j])";
             Assert.AreEqual(expected, given.repr);
 
             // Data-type consisting of more than one element:
@@ -883,15 +884,39 @@ namespace Numpy.UnitTest
             //        [ 2.,  3.]])
             // 
 
-#if TODO
-            var given=  from io import StringIO   # StringIO behaves like a file object;
-             given=  c = StringIO(u"0 1\n2 3");
-             given=  np.loadtxt(c);
-            var expected=
-                "array([[ 0.,  1.],\n" +
-                "       [ 2.,  3.]])";
+            string tempFile = Path.GetTempFileName();
+            File.WriteAllText(tempFile, "0 1\n2 3");
+            var given = np.loadtxt(tempFile);
+            var expected =
+                "array([[0., 1.],\n" +
+                "       [2., 3.]])";
             Assert.AreEqual(expected, given.repr);
-#endif
+
+
+            // >>> c = StringIO(u"1,0,2\n3,0,4")
+            // >>> x, y = np.loadtxt(c, delimiter=',', usecols=(0, 2), unpack=True)
+            // >>> x
+            // array([ 1.,  3.])
+            // >>> y
+            // array([ 2.,  4.])
+            // 
+
+            File.WriteAllText(tempFile, "1,0,2\n3,0,4");
+            var a = np.loadtxt(tempFile, delimiter: ",", usecols: new[] { 0, 2 }, unpack: true);
+            given = a[0];
+            expected =
+               "array([1., 3.])";
+            Assert.AreEqual(expected, given.repr);
+            given = a[1];
+            expected =
+               "array([2., 4.])";
+            Assert.AreEqual(expected, given.repr);
+        }
+
+
+        [TestMethod]
+        public void loadtxt_custom_dtype()
+        {
             // >>> d = StringIO(u"M 21 72\nF 35 58")
             // >>> np.loadtxt(d, dtype={'names': ('gender', 'age', 'weight'),
             // ...                      'formats': ('S1', 'i4', 'f4')})
@@ -908,28 +933,7 @@ namespace Numpy.UnitTest
                 "      dtype=[('gender', '|S1'), ('age', '<i4'), ('weight', '<f4')])";
             Assert.AreEqual(expected, given.repr);
 #endif
-            // >>> c = StringIO(u"1,0,2\n3,0,4")
-            // >>> x, y = np.loadtxt(c, delimiter=',', usecols=(0, 2), unpack=True)
-            // >>> x
-            // array([ 1.,  3.])
-            // >>> y
-            // array([ 2.,  4.])
-            // 
-
-#if TODO
-             given=  c = StringIO(u"1,0,2\n3,0,4");
-             given=  x, y = np.loadtxt(c, delimiter=',', usecols=(0, 2), unpack=True);
-             given=  x;
-             expected=
-                "array([ 1.,  3.])";
-            Assert.AreEqual(expected, given.repr);
-             given=  y;
-             expected=
-                "array([ 2.,  4.])";
-            Assert.AreEqual(expected, given.repr);
-#endif
         }
-
 
         [TestMethod]
         public void chararrayTest()
