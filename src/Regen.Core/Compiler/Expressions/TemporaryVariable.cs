@@ -4,6 +4,7 @@ using Regen.Flee.PublicTypes;
 
 namespace Regen.Compiler.Expressions {
     public class TemporaryVariable : IDisposable {
+        public static string NewUniqueName => _uniqueName;
         private static string _uniqueName => "__" + new string(Guid.NewGuid().ToString("N").SkipWhile(char.IsDigit).ToArray());
         private readonly ExpressionContext _ctx;
         private bool _isPerma;
@@ -32,8 +33,9 @@ namespace Regen.Compiler.Expressions {
             _ctx.Variables[name] = val;
         }
 
-        public void MarkPermanent() {
+        public TemporaryVariable MarkPermanent() {
             _isPerma = true;
+            return this;
         }
 
         /// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>

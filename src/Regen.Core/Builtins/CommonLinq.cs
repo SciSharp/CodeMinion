@@ -9,29 +9,12 @@ using Regen.DataTypes;
 using Regen.Helpers;
 using Array = Regen.DataTypes.Array;
 
-namespace Regen.Builtins
-{
-    public static class CommonLinq
-    {
-        public static Array RepeatElement(object obj, object times)
-        {
-            int repeats;
-            switch (times)
-            {
-                case NumberScalar ns:
-                    repeats = (int) ns.Value;
-                    break;
-                case IConvertible c:
-                    repeats = c.ToInt32(CultureInfo.InvariantCulture);
-                    break;
-                case ICollection col:
-                    repeats = col.Count;
-                    break;
-                default:
-                    throw new NotSupportedException($"Unable to interpret {times.GetType().Name} as int"); //todo explain
-            }
+namespace Regen.Builtins {
+    public static class CommonLinq {
+        public static Array RepeatElement(object obj, object times) {
+            int repeats = Common.ParseInt(times);
 
-            if (obj is ReferenceData r) 
+            if (obj is ReferenceData r)
                 obj = r.Value;
 
             if (obj is IList l)
@@ -40,20 +23,16 @@ namespace Regen.Builtins
             return Array.Create(Enumerable.Repeat(obj is Data d ? d : Data.Create(obj), repeats));
         }
 
-        private static IEnumerable<T> Repeat<T>(IEnumerable<T> @in, int times)
-        {
+        private static IEnumerable<T> Repeat<T>(IEnumerable<T> @in, int times) {
             var data = @in.ToArray();
-            for (var i = 0; i < times; i++)
-            {
-                foreach (var val in data)
-                {
+            for (var i = 0; i < times; i++) {
+                foreach (var val in data) {
                     yield return val;
                 }
             }
         }
 
-        public static Array Except(IList @this, params object[] objs)
-        {
+        public static Array Except(IList @this, params object[] objs) {
             if (objs == null || objs.Length == 0)
                 return Array.Create(@this);
 
@@ -61,8 +40,38 @@ namespace Regen.Builtins
             return Array.Create(vals);
         }
 
-        public static Array Concat(IList @this, params object[] objs)
-        {
+        public static Array Take(IList @this, object count) {
+            int intTake = Common.ParseInt(count);
+
+            if (@this == null || @this.Count == 0)
+                return Array.Create(@this);
+
+            var vals = @this.Cast<Data>().Take(intTake);
+            return Array.Create(vals);
+        }
+
+        public static Array Skip(IList @this, object count) {
+            int intSkip = Common.ParseInt(count);
+
+            if (@this == null || @this.Count == 0)
+                return Array.Create(@this);
+
+            var vals = @this.Cast<Data>().Skip(intSkip);
+            return Array.Create(vals);
+        }
+
+        public static Array SkipTake(IList @this, object skip, object take) {
+            int intSkip = Common.ParseInt(skip);
+            int intTake = Common.ParseInt(take);
+
+            if (@this == null || @this.Count == 0)
+                return Array.Create(@this);
+
+            var vals = @this.Cast<Data>().Skip(intSkip).Take(intTake);
+            return Array.Create(vals);
+        }
+
+        public static Array Concat(IList @this, params object[] objs) {
             if (objs == null || objs.Length == 0)
                 return Array.Create(@this);
 
@@ -70,23 +79,19 @@ namespace Regen.Builtins
 
             return Array.Create(@this.Cast<Data>().Concat(flattened));
 
-            IEnumerable<Data> CollectionSelector(Data data)
-            {
+            IEnumerable<Data> CollectionSelector(Data data) {
                 if (data is Array r) return (IList<Data>) r.Values;
                 if (data is IList l) return (IList<Data>) l.Cast<Data>().ToList();
                 return (IList<Data>) new[] {data};
             }
         }
 
-        public static Array Flatten(params object[] objs)
-        {
+        public static Array Flatten(params object[] objs) {
             if (objs == null || objs.Length == 0)
                 return Array.Create(new object[0]);
 
-            var flattened = objs.Cast<Data>().SelectMany(data =>
-            {
-                IEnumerable<Data> flat(object obj)
-                {
+            var flattened = objs.Cast<Data>().SelectMany(data => {
+                IEnumerable<Data> flat(object obj) {
                     if (obj is ReferenceData reference)
                         return flat(reference.UnpackReference(Compiler.RegenCompiler.CurrentContext));
                     if (obj is Array r)
@@ -101,5 +106,6 @@ namespace Regen.Builtins
 
             return Array.Create(flattened);
         }
+
     }
 }

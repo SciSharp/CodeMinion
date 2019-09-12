@@ -21,12 +21,12 @@ namespace Regen.Builtins {
             return arr.Count;
         }
 
-        public static Array range(int length) {
-            return new Array(Enumerable.Range(0, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
+        public static Array range(object length) {
+            return new Array(Enumerable.Range(0, toindex(length)).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
-        public static Array range(int startFrom, int length) {
-            return new Array(Enumerable.Range(startFrom, length).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
+        public static Array range(object startFrom, object length) {
+            return new Array(Enumerable.Range(toindex(startFrom), toindex(length)).Select(r => new NumberScalar(r)).Cast<Data>().ToList());
         }
 
         /// <summary>
@@ -49,6 +49,18 @@ namespace Regen.Builtins {
             return new StringScalar(string.Join("", objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));
         }
 
+        public static StringScalar join(object seperator, params object[] objects) {
+            if (objects != null && objects.Length == 1 && objects[0] is IList l) {
+                return @join(seperator, l);
+            }
+
+            return new StringScalar(string.Join((string) str(seperator).Value, objects?.Select(o => o?.ToString() ?? "") ?? new string[] {""}));
+        }
+
+        public static StringScalar join(object seperator, IList objects) {
+            return new StringScalar(string.Join((string) str(seperator).Value, objects?.Cast<object>().Select(o => o?.ToString() ?? "") ?? new string[] {""}));
+        }
+
         public static NumberScalar number(object obj) {
             if (obj is NumberScalar s)
                 return s;
@@ -61,13 +73,21 @@ namespace Regen.Builtins {
 
             {
                 var v = obj?.ToString().Trim('\"');
-                if (v==null)
+                if (v == null)
                     return new NumberScalar(0);
 
                 if (v.Contains("."))
                     return new NumberScalar(int.Parse(v));
                 return new NumberScalar(double.Parse(v));
             }
+        }
+
+        public static int toindex(object obj) {
+            return toint(obj);
+        }
+
+        public static int toint(object obj) {
+            return number(obj).Cast<int>();
         }
 
         public static bool isarray(object obj) {

@@ -266,7 +266,7 @@ namespace Regen.Compiler {
                                 current = expr_ew.NextToken();
                                 switch (current.Token) {
                                     case ExpressionToken.Foreach:
-                                        var code = contents.SkipWhile(s => s != content).StringJoin();
+                                        var code = contents.Skip(contentIndex).StringJoin();
                                         var e = ForeachExpression.Parse(code);
                                         var foreachExpr = (ForeachExpression) e.Related[0];
                                         foreachExpr.Depth = expr.Depth + 1;

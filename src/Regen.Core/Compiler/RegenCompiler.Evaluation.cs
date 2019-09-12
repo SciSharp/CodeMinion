@@ -76,14 +76,19 @@ namespace Regen.Compiler {
                         arrayExpression.Values[i] = HandleUnsupported(arrayExpression.Values[i], temps, typeof(ArrayExpression));
                     }
 
-                    var parsedArray = Compute(arrayExpression, temps, typeof(ArrayExpression));
-                    var temp = new TemporaryVariable(Context, parsedArray);
+                    Data parsedArray = Compute(arrayExpression, temps, typeof(ArrayExpression));
+                    if (parsedArray is ReferenceData rd) {
+                        return IdentityExpression.WrapVariable((string) rd.Value);
+                    } else {
+                        var temp = new TemporaryVariable(Context, parsedArray).MarkPermanent();
+                        return IdentityExpression.WrapVariable(temp.Name);
+                    }
+
                     //todo this might lead to memory leaks!
                     //temps.Add(temp);
                     //if (caller == typeof(RegenCompiler)) { //if this is the first expression that is being parsed
                     //    temp.MarkPermanent(); 
                     //}
-                    return IdentityExpression.WrapVariable(temp.Name);
                 }
 
                 case IndexerCallExpression indexerCallExpression: {
@@ -219,227 +224,240 @@ namespace Regen.Compiler {
             return _eval(expression, _caller);
 
             Data _eval(Expression express, Type caller = null) {
-                switch (express) {
-                    case null:
-                        throw new NullReferenceException();
-                    case ArgumentsExpression argumentsExpression: {
-                        var arr = new Array();
-                        foreach (var expr in argumentsExpression.Arguments) {
-                            arr.Add(_eval(expr));
+                var ret = innerEval();
+                if (ret is Array retArray && _caller != typeof(IndexerCallExpression) && caller != typeof(CallExpression)) {
+                    var name = TemporaryVariable.NewUniqueName;
+                    Context.Variables[name] = retArray;
+                    ret = new ReferenceData(name);
+                }
+
+                return ret;
+
+                Data innerEval() {
+                    switch (express) {
+                        case null:
+                            throw new NullReferenceException();
+                        case ArgumentsExpression argumentsExpression: {
+                            var arr = new Array();
+
+                            foreach (var expr in argumentsExpression.Arguments) {
+                                arr.Add(_eval(expr));
+                            }
+
+                            return arr;
                         }
 
-                        return arr;
-                    }
+                        case ArrayExpression arrayExpression: {
+                            var arr = new Array();
+                            foreach (var expr in arrayExpression.Values) {
+                                arr.Add(_eval(expr));
+                            }
 
-                    case ArrayExpression arrayExpression: {
-                        var arr = new Array();
-                        foreach (var expr in arrayExpression.Values) {
-                            arr.Add(_eval(expr));
+                            return arr;
                         }
 
-                        return arr;
-                    }
-
-                    case NumberLiteral numberLiteral: {
-                        return new NumberScalar(_evaluate(numberLiteral.Value));
-                    }
-
-                    case BooleanLiteral booleanLiteral: {
-                        return new BoolScalar(booleanLiteral.Value);
-                    }
-
-                    case CharLiteral charLiteral: {
-                        return new StringScalar(charLiteral.Value.ToString());
-                    }
-
-                    case NullIdentity nullIdentity: {
-                        return Data.Null;
-                    }
-
-                    case StringLiteral stringLiteral: {
-                        return new StringScalar(stringLiteral.Value);
-                    }
-
-                    case KeyValueExpression keyValueExpression: {
-                        //todo create a KeyValue regen data type.
-                        return new NetObject(new KeyValuePair<object, object>(_eval(keyValueExpression.Key), _eval(keyValueExpression.Value)));
-                    }
-
-                    case EmptyExpression emptyExpression: {
-                        return Data.Null;
-                    }
-
-                    case ForeachExpression foreachExpression: {
-                        break;
-                    }
-
-                    case GroupExpression groupExpression: {
-                        return _eval(groupExpression.InnerExpression);
-                    }
-
-                    case ReferenceIdentity referenceIdentity: {
-                        if (!Context.Variables.ContainsKey(referenceIdentity.Name))
-                            return new ReferenceData(referenceIdentity.Name);
-
-                        if (!Context.Variables.TryGetValue(referenceIdentity.Name, out var value, true))
-                            throw new Exception("This should never occur.");
-
-                        //if it is not a reference, make one.
-                        if (!(value is ReferenceData)) {
-                            return new ReferenceData(referenceIdentity.Name);
+                        case NumberLiteral numberLiteral: {
+                            return new NumberScalar(_evaluate(numberLiteral.Value));
                         }
 
-                        return (ReferenceData) value;
-                    }
-
-                    case PropertyIdentity propertyIdentity: {
-                        TemporaryVariable tmp = null;
-                        var left = _eval(propertyIdentity.Left);
-
-                        if (left is ReferenceData rf) {
-                            var right = new PropertyIdentity(IdentityExpression.WrapVariable(rf.EmitExpressive()), propertyIdentity.Right).AsString();
-
-                            return Data.Create(_evaluate(right));
+                        case BooleanLiteral booleanLiteral: {
+                            return new BoolScalar(booleanLiteral.Value);
                         }
 
-
-                        //not reference
-                        using (tmp = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
-                            return Data.Create(_evaluate($"{tmp.Name}.{propertyIdentity.Right.AsString()}"));
+                        case CharLiteral charLiteral: {
+                            return new StringScalar(charLiteral.Value.ToString());
                         }
 
-                        using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
-                            var right = new PropertyIdentity(IdentityExpression.WrapVariable(var.Name), propertyIdentity.Right).AsString();
-
-                            return Data.Create(_evaluate(right));
-                        }
-                    }
-
-                    case StringIdentity stringIdentity: {
-                        return new ReferenceData(stringIdentity.Name);
-                    }
-
-                    case IdentityExpression identityExpression: {
-                        return _eval(identityExpression.Identity, caller); //todo test
-                    }
-
-                    case Identity identity: {
-                        throw new NotSupportedException();
-                    }
-
-                    case CallExpression callExpression: {
-                        var left = _eval(callExpression.FunctionName, typeof(CallExpression));
-                        var args = (Array) _eval(callExpression.Arguments);
-
-
-                        if (left is NetObject || left is Array || left is Dictionary) goto _storing;
-                        //try regular parsing:
-
-                        try {
-                            var parsed = $"{left.Emit()}({args.Select(arg => arg.EmitExpressive()).StringJoin(", ")})";
-                            return Data.Create(_evaluate(parsed));
-                        } catch (ExpressionCompileException e) when (e.InnerException?.Message.Contains("FunctionCallElement: Could find not function") ?? false) {
-                            throw;
-                        } catch (ExpressionCompileException) { }
-
-                        _storing: //try storing left as variable
-                        using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
-                            var parsed = $"{var.Name}({args.Select(arg => arg.EmitExpressive()).StringJoin(", ")})";
-                            return Data.Create(_evaluate(parsed));
-                        }
-                    }
-
-                    case IndexerCallExpression indexerCallExpression: {
-                        var left = Data.Create(_eval(indexerCallExpression.Left, typeof(IndexerCallExpression)));
-                        var args = (Array) _eval(indexerCallExpression.Arguments);
-
-                        if (left is NetObject || left is Array || left is Dictionary) goto _storing;
-                        //try regular parsing:
-                        try {
-                            var parsed = $"{left.Emit()}[{args.Select(arg => arg.EmitExpressive()).StringJoin(", ")}]";
-                            return Data.Create(_evaluate(parsed));
-                        } catch (ExpressionCompileException) { }
-
-                        _storing: //try storing left as variable
-                        using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
-                            var parsed = $"{var.Name}[{args.Select(arg => arg.EmitExpressive()).StringJoin(", ")}]";
-                            return Data.Create(_evaluate(parsed));
-                        }
-                    }
-
-                    case NewExpression newExpression: {
-                        //todo new
-                        break;
-                    }
-
-                    case LeftOperatorExpression leftOperatorExpression: {
-                        foreach (var e in leftOperatorExpression.Iterate()) {
-                            if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
+                        case NullIdentity nullIdentity: {
+                            return Data.Null;
                         }
 
-                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
-                        return Data.Create(_evaluate(leftOperatorExpression.AsString()));
-                    }
-
-                    case OperatorExpression operatorExpression: {
-                        foreach (var e in operatorExpression.Iterate()) {
-                            if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
+                        case StringLiteral stringLiteral: {
+                            return new StringScalar(stringLiteral.Value);
                         }
 
-                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
-
-                        return Data.Create(_evaluate(operatorExpression.AsString()));
-                    }
-
-                    case RightOperatorExpression rightOperatorExpression: {
-                        foreach (var e in rightOperatorExpression.Iterate()) {
-                            if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
+                        case KeyValueExpression keyValueExpression: {
+                            //todo create a KeyValue regen data type.
+                            return new NetObject(new KeyValuePair<object, object>(_eval(keyValueExpression.Key), _eval(keyValueExpression.Value)));
                         }
 
-                        //todo BuiltinTests.len fails here because we do not expand left or right. we should.
-                        return Data.Create(_evaluate(rightOperatorExpression.AsString()));
-                    }
+                        case EmptyExpression emptyExpression: {
+                            return Data.Null;
+                        }
 
-                    case TernaryExpression ternary: {
-                        var cond = _eval(ternary.Condition, typeof(TernaryExpression));
-                        bool value = false;
-                        switch (cond) {
-                            case BoolScalar bs:
-                                value = bs._value;
-                                break;
-                            case Data d:
-                                value = Convert.ToBoolean(d.Value);
-                                break;
-                            default: {
-                                // ReSharper disable once ConstantNullCoalescingCondition
-                                throw new RegenException($"Unable to interpret \"{ternary.Condition.AsString()}\"'s result which its type is {cond?.GetType().Name ?? "null"}");
+                        case ForeachExpression foreachExpression: {
+                            break;
+                        }
+
+                        case GroupExpression groupExpression: {
+                            return _eval(groupExpression.InnerExpression);
+                        }
+
+                        case ReferenceIdentity referenceIdentity: {
+                            if (!Context.Variables.ContainsKey(referenceIdentity.Name))
+                                return new ReferenceData(referenceIdentity.Name);
+
+                            if (!Context.Variables.TryGetValue(referenceIdentity.Name, out var value, true))
+                                throw new Exception("This should never occur.");
+
+                            //if it is not a reference, make one.
+                            if (!(value is ReferenceData)) {
+                                return new ReferenceData(referenceIdentity.Name);
+                            }
+
+                            return (ReferenceData) value;
+                        }
+
+                        case PropertyIdentity propertyIdentity: {
+                            TemporaryVariable tmp = null;
+                            var left = _eval(propertyIdentity.Left);
+
+                            if (left is ReferenceData rf) {
+                                var right = new PropertyIdentity(IdentityExpression.WrapVariable(rf.EmitExpressive()), propertyIdentity.Right).AsString();
+
+                                return Data.Create(_evaluate(right));
+                            }
+
+
+                            //not reference
+                            using (tmp = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
+                                return Data.Create(_evaluate($"{tmp.Name}.{propertyIdentity.Right.AsString()}"));
+                            }
+
+                            using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
+                                var right = new PropertyIdentity(IdentityExpression.WrapVariable(var.Name), propertyIdentity.Right).AsString();
+
+                                return Data.Create(_evaluate(right));
                             }
                         }
 
-                        if (value)
-                            return Data.Create(_eval(ternary.IfTrue));
+                        case StringIdentity stringIdentity: {
+                            return new ReferenceData(stringIdentity.Name);
+                        }
 
-                        // ReSharper disable once ConvertIfStatementToReturnStatement
-                        if (ternary.IfFalse != null)
-                            return Data.Create(_eval(ternary.IfFalse));
+                        case IdentityExpression identityExpression: {
+                            return _eval(identityExpression.Identity, caller); //todo test
+                        }
 
-                        return Data.Null;
+                        case Identity identity: {
+                            throw new NotSupportedException();
+                        }
+
+                        case CallExpression callExpression: {
+                            var left = _eval(callExpression.FunctionName, typeof(CallExpression));
+                            var _args = _eval(callExpression.Arguments, typeof(CallExpression));
+                            Array args = _args is ReferenceData rd ? (Array) rd.UnpackReference(Context) : (Array) _args;
+
+                            if (left is NetObject || left is Array || left is Dictionary) goto _storing;
+                            //try regular parsing:
+
+                            try {
+                                var parsed = $"{left.Emit()}({args.Select(arg => arg.EmitExpressive()).StringJoin(", ")})";
+                                return Data.Create(_evaluate(parsed));
+                            } catch (ExpressionCompileException e) when (e.InnerException?.Message.Contains("FunctionCallElement: Could find not function") ?? false) {
+                                throw;
+                            } catch (ExpressionCompileException) { }
+
+                            _storing: //try storing left as variable
+                            using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
+                                var parsed = $"{var.Name}({args.Select(arg => arg.EmitExpressive()).StringJoin(", ")})";
+                                return Data.Create(_evaluate(parsed));
+                            }
+                        }
+
+                        case IndexerCallExpression indexerCallExpression: {
+                            var left = Data.Create(_eval(indexerCallExpression.Left, typeof(IndexerCallExpression)));
+                            var _args = _eval(indexerCallExpression.Arguments, typeof(IndexerCallExpression));
+                            Array args = _args is ReferenceData rd ? (Array) rd.UnpackReference(Context) : (Array) _args;
+
+                            if (left is NetObject || left is Array || left is Dictionary) goto _storing;
+                            //try regular parsing:
+                            try {
+                                var parsed = $"{left.Emit()}[{args.Select(arg => arg.EmitExpressive()).StringJoin(", ")}]";
+                                return Data.Create(_evaluate(parsed));
+                            } catch (ExpressionCompileException) { }
+
+                            _storing: //try storing left as variable
+                            using (var var = new TemporaryVariable(Context, left is NetObject no ? no.Value : left)) {
+                                var parsed = $"{var.Name}[{args.Select(arg => arg.EmitExpressive()).StringJoin(", ")}]";
+                                return Data.Create(_evaluate(parsed));
+                            }
+                        }
+
+                        case NewExpression newExpression: {
+                            //todo new
+                            break;
+                        }
+
+                        case LeftOperatorExpression leftOperatorExpression: {
+                            foreach (var e in leftOperatorExpression.Iterate()) {
+                                if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
+                            }
+
+                            //todo BuiltinTests.len fails here because we do not expand left or right. we should.
+                            return Data.Create(_evaluate(leftOperatorExpression.AsString()));
+                        }
+
+                        case OperatorExpression operatorExpression: {
+                            foreach (var e in operatorExpression.Iterate()) {
+                                if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
+                            }
+
+                            //todo BuiltinTests.len fails here because we do not expand left or right. we should.
+
+                            return Data.Create(_evaluate(operatorExpression.AsString()));
+                        }
+
+                        case RightOperatorExpression rightOperatorExpression: {
+                            foreach (var e in rightOperatorExpression.Iterate()) {
+                                if (e is ArrayExpression) throw new NotSupportedException("Unable to compile a nested array, please define it in a variable first.");
+                            }
+
+                            //todo BuiltinTests.len fails here because we do not expand left or right. we should.
+                            return Data.Create(_evaluate(rightOperatorExpression.AsString()));
+                        }
+
+                        case TernaryExpression ternary: {
+                            var cond = _eval(ternary.Condition, typeof(TernaryExpression));
+                            bool value = false;
+                            switch (cond) {
+                                case BoolScalar bs:
+                                    value = bs._value;
+                                    break;
+                                case Data d:
+                                    value = Convert.ToBoolean(d.Value);
+                                    break;
+                                default: {
+                                    // ReSharper disable once ConstantNullCoalescingCondition
+                                    throw new RegenException($"Unable to interpret \"{ternary.Condition.AsString()}\"'s result which its type is {cond?.GetType().Name ?? "null"}");
+                                }
+                            }
+
+                            if (value)
+                                return Data.Create(_eval(ternary.IfTrue));
+
+                            // ReSharper disable once ConvertIfStatementToReturnStatement
+                            if (ternary.IfFalse != null)
+                                return Data.Create(_eval(ternary.IfFalse));
+
+                            return Data.Null;
+                        }
+
+                        case ThrowExpression throwExpression: {
+                            break;
+                        }
+
+                        case VariableDeclarationExpression variableExpression: {
+                            var name = Data.Create(_eval(variableExpression.Name));
+                            if (name.GetType() != typeof(StringScalar)) throw new NotSupportedException("Variable names can contain only _azAZ0-9");
+                            var value = Data.Create(_eval(variableExpression.Right));
+                            Context.Variables[name.ToString()] = value;
+                            return value;
+                        }
                     }
 
-                    case ThrowExpression throwExpression: {
-                        break;
-                    }
-
-                    case VariableDeclarationExpression variableExpression: {
-                        var name = Data.Create(_eval(variableExpression.Name));
-                        if (name.GetType() != typeof(StringScalar)) throw new NotSupportedException("Variable names can contain only _azAZ0-9");
-                        var value = Data.Create(_eval(variableExpression.Right));
-                        Context.Variables[name.ToString()] = value;
-                        return value;
-                    }
+                    return Data.Null;
                 }
-
-                return Data.Null;
             }
         }
 

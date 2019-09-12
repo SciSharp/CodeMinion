@@ -378,6 +378,15 @@ namespace Regen.Core.Tests.Expression {
 
             Compile(@input).Output.Should()
                 .NotContain("2");
+        }        
+        [TestMethod]
+        public void terary_case12() {
+            var @input = @"
+                %(True|(True|""YO""))
+                ";
+
+            Compile(@input).Output.Should()
+                .Contain("YO");
         }
     }
 }

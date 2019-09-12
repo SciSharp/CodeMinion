@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Regen.Compiler.Helpers;
 
 namespace Regen.Core.Tests {
-    [TestClass]
+    [TestClass, Ignore("StringSpan is not used")]
     public class StringSpanTests {
         [TestMethod]
         public void Range_Sub() {

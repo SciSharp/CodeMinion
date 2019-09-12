@@ -19,7 +19,6 @@ namespace Regen.Builtins {
             return false;
         }
 
-
         public static BoolScalar op_notequals(object left, object right) {
             return !op_equals(left, right);
         }

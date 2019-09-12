@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builtins\Common.cs" />
     <Compile Include="Builtins\CommonExpressionFunctions.cs" />
     <Compile Include="Builtins\CommonExpressionFunctions.OperatorMethods.cs" />
     <Compile Include="Builtins\CommonLinq.cs" />

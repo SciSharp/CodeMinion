@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Regen.Compiler;
 using Regen.Flee.PublicTypes;
 using Regen.Helpers;
 
@@ -19,8 +20,8 @@ namespace Regen.DataTypes {
         /// <summary>Initializes a new instance of the <see cref="T:System.Object" /> class.</summary>
         public Array(List<Data> values) {
             Values = values;
-            
-            if (values.Any(v=>Equals(null, v)))
+
+            if (values.Any(v => Equals(null, v)))
                 throw new InvalidOperationException("Array can't contain null, make sure NullScalar is passed instead");
         }
 
@@ -30,18 +31,67 @@ namespace Regen.DataTypes {
         }
 
         public Data this[int index] {
-            get => Values[index];
-            set => Values[index] = Data.Create(value);
+            get {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                return Values[index];
+            }
+            set {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                Values[index] = Data.Create(value);
+            }
+        }
+
+        public Data this[NumberScalar index] {
+            get => this[Convert.ToInt32(index.Value)];
+            set => this[Convert.ToInt32(index.Value)] = value;
         }
 
         public object this[VariableCollection vars, int index] {
-            get => Values[index].UnpackReference(vars);
-            set => Values[index] = Data.Create(value);
+            get {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                return Values[index].UnpackReference(vars);
+            }
+            set {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                Values[index] = Data.Create(value);
+            }
+        }
+        public object this[VariableCollection vars, NumberScalar index] {
+            get {
+                if (index.Cast<int>() < 0)
+                    index = new NumberScalar(Values.Count + index.Cast<int>());
+
+                return Values[index.Cast<int>()].UnpackReference(vars);
+            }
+            set {
+                if (index.Cast<int>() < 0)
+                    index = new NumberScalar(Values.Count + index.Cast<int>());
+
+                Values[index.Cast<int>()] = Data.Create(value);
+            }
         }
 
         object IList.this[int index] {
-            get => Values[index];
-            set => Values[index] = Data.Create(value);
+            get {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                return Values[index];
+            }
+            set {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                Values[index] = Data.Create(value);
+            }
         }
 
         /// <summary>Gets a value indicating whether the <see cref="T:System.Collections.IList" /> is read-only.</summary>
@@ -63,10 +113,13 @@ namespace Regen.DataTypes {
         /// </summary>
         /// <returns></returns>
         public override string EmitExpressive() {
-            return $"(new object[]{{{string.Join(",", Values.Select(v => v.EmitExpressive()))}}})";
+            return $"([{string.Join(",", Values.Select(v => v.EmitExpressive()))}])";
         }
 
         public string Emit(int index) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values[index].Emit();
         }
 
@@ -76,7 +129,7 @@ namespace Regen.DataTypes {
         /// <param name="objs">Objects that are supported by <see cref="Scalar.Create"/>.</param>
         public static Array CreateParams(params object[] objs) {
             if (objs == null)
-                return new Array(new List<Data>(){new NullScalar()});
+                return new Array(new List<Data>() {new NullScalar()});
             if (objs.Length == 0)
                 return new Array();
             return new Array(objs.Select(Data.Create).ToList());
@@ -136,24 +189,34 @@ namespace Regen.DataTypes {
 
         /// <summary>Adds an object to the end of the <see cref="T:System.Collections.Generic.List`1" />.</summary>
         /// <param name="item">The object to be added to the end of the <see cref="T:System.Collections.Generic.List`1" />. The value can be <see langword="null" /> for reference types.</param>
-        public void Add(Data item) {
+        public Array Add(Data item) {
             Values.Add(item);
+            return this;
+        }
+
+        /// <summary>Adds an object to the end of the <see cref="T:System.Collections.Generic.List`1" />.</summary>
+        /// <param name="item">The object to be added to the end of the <see cref="T:System.Collections.Generic.List`1" />. The value can be <see langword="null" /> for reference types.</param>
+        public Array Add(object item) {
+            Values.Add(Data.Create(item));
+            return this;
         }
 
         /// <summary>Adds the elements of the specified collection to the end of the <see cref="T:System.Collections.Generic.List`1" />.</summary>
         /// <param name="collection">The collection whose elements should be added to the end of the <see cref="T:System.Collections.Generic.List`1" />. The collection itself cannot be <see langword="null" />, but it can contain elements that are <see langword="null" />, if type <paramref name="T" /> is a reference type.</param>
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="collection" /> is <see langword="null" />.</exception>
-        public void AddRange(IEnumerable<Data> collection) {
+        public Array AddRange(IEnumerable<Data> collection) {
             Values.AddRange(collection);
+            return this;
         }
 
         /// <summary>Adds the elements of the specified collection to the end of the <see cref="T:System.Collections.Generic.List`1" />.</summary>
         /// <param name="collection">The collection whose elements should be added to the end of the <see cref="T:System.Collections.Generic.List`1" />. The collection itself cannot be <see langword="null" />, but it can contain elements that are <see langword="null" />, if type <paramref name="T" /> is a reference type.</param>
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="collection" /> is <see langword="null" />.</exception>
-        public void AddRange(IEnumerable<object> collection) {
+        public Array AddRange(IEnumerable<object> collection) {
             Values.AddRange(collection.Select(Scalar.Create));
+            return this;
         }
 
         /// <summary>Searches the entire sorted <see cref="T:System.Collections.Generic.List`1" /> for an element using the specified comparer and returns the zero-based index of the element.</summary>
@@ -229,7 +292,13 @@ namespace Regen.DataTypes {
         }
 
         /// <summary>Removes all elements from the <see cref="T:System.Collections.Generic.List`1" />.</summary>
-        public void Clear() {
+        public Array Clear() {
+            Values.Clear();
+            return this;
+        }
+
+        /// <summary>Removes all elements from the <see cref="T:System.Collections.Generic.List`1" />.</summary>
+        void IList.Clear() {
             Values.Clear();
         }
 
@@ -248,8 +317,70 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size. </exception>
         /// <exception cref="T:System.NullReferenceException">
         /// <paramref name="value" /> is null reference in the <see cref="T:System.Collections.IList" />.</exception>
+        public Array Insert(int index, object value) {
+            Insert(index, Data.Create(value));
+            return this;
+        }
+
+        /// <summary>Inserts an item to the <see cref="T:System.Collections.IList" /> at the specified index.</summary>
+        /// <param name="index">The zero-based index at which <paramref name="value" /> should be inserted. </param>
+        /// <param name="value">The object to insert into the <see cref="T:System.Collections.IList" />. </param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.IList" />. </exception>
+        /// <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size. </exception>
+        /// <exception cref="T:System.NullReferenceException">
+        /// <paramref name="value" /> is null reference in the <see cref="T:System.Collections.IList" />.</exception>
+        public Array Insert(Data index, object value) {
+            int idx = 0;
+            if (index is ReferenceData rf)
+                idx = Convert.ToInt32(rf.UnpackReference(RegenCompiler.CurrentContext));
+            else if (index is Data d)
+                idx = Convert.ToInt32(d.Value);
+            else
+                idx = Convert.ToInt32(value);
+            if (idx < 0)
+                idx = Values.Count + idx;
+
+            Insert(idx, Data.Create(value));
+            return this;
+        }
+
+
+        /// <summary>Inserts an item to the <see cref="T:System.Collections.IList" /> at the specified index.</summary>
+        /// <param name="index">The zero-based index at which <paramref name="value" /> should be inserted. </param>
+        /// <param name="value">The object to insert into the <see cref="T:System.Collections.IList" />. </param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.IList" />. </exception>
+        /// <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size. </exception>
+        /// <exception cref="T:System.NullReferenceException">
+        /// <paramref name="value" /> is null reference in the <see cref="T:System.Collections.IList" />.</exception>
+        public Array Insert(object index, object value) {
+            int idx = 0;
+            if (index is ReferenceData rf)
+                idx = Convert.ToInt32(rf.UnpackReference(RegenCompiler.CurrentContext));
+            else if (index is Data d)
+                idx = Convert.ToInt32(d.Value);
+            else
+                idx = Convert.ToInt32(value);
+            if (idx < 0)
+                idx = Values.Count + idx;
+
+            Insert(idx, Data.Create(value));
+            return this;
+        }
+
+        /// <summary>Inserts an item to the <see cref="T:System.Collections.IList" /> at the specified index.</summary>
+        /// <param name="index">The zero-based index at which <paramref name="value" /> should be inserted. </param>
+        /// <param name="value">The object to insert into the <see cref="T:System.Collections.IList" />. </param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.IList" />. </exception>
+        /// <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size. </exception>
+        /// <exception cref="T:System.NullReferenceException">
+        /// <paramref name="value" /> is null reference in the <see cref="T:System.Collections.IList" />.</exception>
         void IList.Insert(int index, object value) {
-            ((IList) Values).Insert(index, value);
+            if (index < 0)
+                index = Values.Count + index;
+            Insert(index, Data.Create(value));
         }
 
         /// <summary>Removes the first occurrence of a specific object from the <see cref="T:System.Collections.IList" />.</summary>
@@ -298,8 +429,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="array" /> is <see langword="null" />.</exception>
         /// <exception cref="T:System.ArgumentException">The number of elements in the source <see cref="T:System.Collections.Generic.List`1" /> is greater than the number of elements that the destination <paramref name="array" /> can contain.</exception>
-        public void CopyTo(Data[] array) {
+        public Array CopyTo(Data[] array) {
             Values.CopyTo(array);
+            return this;
         }
 
         /// <summary>Copies the elements of the <see cref="T:System.Collections.ICollection" /> to an <see cref="T:System.Array" />, starting at a particular <see cref="T:System.Array" /> index.</summary>
@@ -311,7 +443,23 @@ namespace Regen.DataTypes {
         /// <paramref name="index" /> is less than zero. </exception>
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="array" /> is multidimensional.-or- The number of elements in the source <see cref="T:System.Collections.ICollection" /> is greater than the available space from <paramref name="index" /> to the end of the destination <paramref name="array" />.-or-The type of the source <see cref="T:System.Collections.ICollection" /> cannot be cast automatically to the type of the destination <paramref name="array" />.</exception>
-        public void CopyTo(System.Array array, int index) {
+        public Array CopyTo(System.Array array, int index) {
+            ((ICollection) Values).CopyTo(array, index);
+            return this;
+        }
+
+        /// <summary>Copies the elements of the <see cref="T:System.Collections.ICollection" /> to an <see cref="T:System.Array" />, starting at a particular <see cref="T:System.Array" /> index.</summary>
+        /// <param name="array">The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from <see cref="T:System.Collections.ICollection" />. The <see cref="T:System.Array" /> must have zero-based indexing. </param>
+        /// <param name="index">The zero-based index in <paramref name="array" /> at which copying begins. </param>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="array" /> is <see langword="null" />. </exception>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is less than zero. </exception>
+        /// <exception cref="T:System.ArgumentException">
+        /// <paramref name="array" /> is multidimensional.-or- The number of elements in the source <see cref="T:System.Collections.ICollection" /> is greater than the available space from <paramref name="index" /> to the end of the destination <paramref name="array" />.-or-The type of the source <see cref="T:System.Collections.ICollection" /> cannot be cast automatically to the type of the destination <paramref name="array" />.</exception>
+        void ICollection.CopyTo(System.Array array, int index) {
+            if (index < 0)
+                index = Values.Count + index;
             ((ICollection) Values).CopyTo(array, index);
         }
 
@@ -328,8 +476,11 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0. </exception>
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="index" /> is equal to or greater than the <see cref="P:System.Collections.Generic.List`1.Count" /> of the source <see cref="T:System.Collections.Generic.List`1" />.-or-The number of elements from <paramref name="index" /> to the end of the source <see cref="T:System.Collections.Generic.List`1" /> is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />. </exception>
-        public void CopyTo(int index, Data[] array, int arrayIndex, int count) {
+        public Array CopyTo(int index, Data[] array, int arrayIndex, int count) {
+            if (arrayIndex < 0)
+                arrayIndex = Values.Count + arrayIndex;
             Values.CopyTo(index, array, arrayIndex, count);
+            return this;
         }
 
         /// <summary>Copies the entire <see cref="T:System.Collections.Generic.List`1" /> to a compatible one-dimensional array, starting at the specified index of the target array.</summary>
@@ -340,8 +491,11 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="arrayIndex" /> is less than 0.</exception>
         /// <exception cref="T:System.ArgumentException">The number of elements in the source <see cref="T:System.Collections.Generic.List`1" /> is greater than the available space from <paramref name="arrayIndex" /> to the end of the destination <paramref name="array" />.</exception>
-        public void CopyTo(Data[] array, int arrayIndex) {
+        public Array CopyTo(Data[] array, int arrayIndex) {
+            if (arrayIndex < 0)
+                arrayIndex = Values.Count + arrayIndex;
             Values.CopyTo(array, arrayIndex);
+            return this;
         }
 
         /// <summary>Gets the number of elements contained in the <see cref="T:System.Collections.Generic.List`1" />.</summary>
@@ -476,8 +630,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="action" /> is <see langword="null" />.</exception>
         /// <exception cref="T:System.InvalidOperationException">An element in the collection has been modified. This exception is thrown starting with the .NET Framework 4.5. </exception>
-        public void ForEach(Action<Data> action) {
+        public Array ForEach(Action<Data> action) {
             Values.ForEach(action);
+            return this;
         }
 
         /// <summary>Creates a shallow copy of a range of elements in the source <see cref="T:System.Collections.Generic.List`1" />.</summary>
@@ -526,6 +681,9 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0.-or-
         /// <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.List`1" />.</exception>
         public int IndexOf(Data item, int index, int count) {
+            if (index < 0)
+                index = Values.Count + index;
+
             if (item == null)
                 item = new NullScalar();
 
@@ -546,6 +704,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.List`1" />.</exception>
         public int IndexOf(object item, int index) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values.IndexOf(Scalar.Create(item), index);
         }
 
@@ -559,6 +720,9 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0.-or-
         /// <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.List`1" />.</exception>
         public int IndexOf(object item, int index, int count) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values.IndexOf(Scalar.Create(item), index, count);
         }
 
@@ -568,8 +732,12 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="index" /> is less than 0.-or-
         /// <paramref name="index" /> is greater than <see cref="P:System.Collections.Generic.List`1.Count" />.</exception>
-        public void Insert(int index, Data item) {
+        public Array Insert(int index, Data item) {
+            if (index < 0)
+                index = Values.Count + index;
+
             Values.Insert(index, item);
+            return this;
         }
 
         /// <summary>Inserts the elements of a collection into the <see cref="T:System.Collections.Generic.List`1" /> at the specified index.</summary>
@@ -580,8 +748,12 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="index" /> is less than 0.-or-
         /// <paramref name="index" /> is greater than <see cref="P:System.Collections.Generic.List`1.Count" />.</exception>
-        public void InsertRange(int index, IEnumerable<Data> collection) {
+        public Array InsertRange(int index, IEnumerable<Data> collection) {
+            if (index < 0)
+                index = Values.Count + index;
+
             Values.InsertRange(index, collection);
+            return this;
         }
 
         /// <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="T:System.Collections.Generic.List`1" />.</summary>
@@ -598,6 +770,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.List`1" />. </exception>
         public int LastIndexOf(Data item, int index) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values.LastIndexOf(item, index);
         }
 
@@ -611,8 +786,12 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0.-or-
         /// <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.List`1" />. </exception>
         public int LastIndexOf(Data item, int index, int count) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values.LastIndexOf(item, index, count);
         }
+
         /// <summary>Searches for the specified object and returns the zero-based index of the last occurrence within the entire <see cref="T:System.Collections.Generic.List`1" />.</summary>
         /// <param name="item">The object to locate in the <see cref="T:System.Collections.Generic.List`1" />. The value can be <see langword="null" /> for reference types.</param>
         /// <returns>The zero-based index of the last occurrence of <paramref name="item" /> within the entire the <see cref="T:System.Collections.Generic.List`1" />, if found; otherwise, –1.</returns>
@@ -627,6 +806,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="index" /> is outside the range of valid indexes for the <see cref="T:System.Collections.Generic.List`1" />. </exception>
         public int LastIndexOf(object item, int index) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values.LastIndexOf(Scalar.Create(item), index);
         }
 
@@ -640,6 +822,9 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0.-or-
         /// <paramref name="index" /> and <paramref name="count" /> do not specify a valid section in the <see cref="T:System.Collections.Generic.List`1" />. </exception>
         public int LastIndexOf(object item, int index, int count) {
+            if (index < 0)
+                index = Values.Count + index;
+
             return Values.LastIndexOf(Scalar.Create(item), index, count);
         }
 
@@ -675,7 +860,44 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentOutOfRangeException">
         /// <paramref name="index" /> is less than 0.-or-
         /// <paramref name="index" /> is equal to or greater than <see cref="P:System.Collections.Generic.List`1.Count" />.</exception>
-        public void RemoveAt(int index) {
+        public Array RemoveAt(int index) {
+            if (index < 0)
+                index = Values.Count + index;
+
+            Values.RemoveAt(index);
+            return this;
+        }
+
+        /// <summary>Removes the element at the specified index of the <see cref="T:System.Collections.Generic.List`1" />.</summary>
+        /// <param name="index">The zero-based index of the element to remove.</param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is less than 0.-or-
+        /// <paramref name="index" /> is equal to or greater than <see cref="P:System.Collections.Generic.List`1.Count" />.</exception>
+        public Array RemoveAt(object index) {
+            int idx = 0;
+            if (index is ReferenceData rf)
+                idx = Convert.ToInt32(rf.UnpackReference(RegenCompiler.CurrentContext));
+            else if (index is Data d)
+                idx = Convert.ToInt32(d.Value);
+            else
+                idx = Convert.ToInt32(index);
+
+            if (idx < 0)
+                idx = Values.Count + idx;
+
+            Values.RemoveAt(idx);
+            return this;
+        }
+
+        /// <summary>Removes the element at the specified index of the <see cref="T:System.Collections.Generic.List`1" />.</summary>
+        /// <param name="index">The zero-based index of the element to remove.</param>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">
+        /// <paramref name="index" /> is less than 0.-or-
+        /// <paramref name="index" /> is equal to or greater than <see cref="P:System.Collections.Generic.List`1.Count" />.</exception>
+        void IList.RemoveAt(int index) {
+            if (index < 0)
+                index = Values.Count + index;
+
             Values.RemoveAt(index);
         }
 
@@ -686,8 +908,18 @@ namespace Regen.DataTypes {
         /// <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1" />.</exception>
         /// <exception cref="T:System.NotSupportedException">The property is set and the <see cref="T:System.Collections.Generic.IList`1" /> is read-only.</exception>
         Data IList<Data>.this[int index] {
-            get => Values[index];
-            set => Values[index] = value;
+            get {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                return Values[index];
+            }
+            set {
+                if (index < 0)
+                    index = Values.Count + index;
+
+                Values[index] = value;
+            }
         }
 
         /// <summary>Removes a range of elements from the <see cref="T:System.Collections.Generic.List`1" />.</summary>
@@ -698,13 +930,18 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0.</exception>
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="index" /> and <paramref name="count" /> do not denote a valid range of elements in the <see cref="T:System.Collections.Generic.List`1" />.</exception>
-        public void RemoveRange(int index, int count) {
+        public Array RemoveRange(int index, int count) {
+            if (index < 0)
+                index = Values.Count + index;
+
             Values.RemoveRange(index, count);
+            return this;
         }
 
         /// <summary>Reverses the order of the elements in the entire <see cref="T:System.Collections.Generic.List`1" />.</summary>
-        public void Reverse() {
+        public Array Reverse() {
             Values.Reverse();
+            return this;
         }
 
         /// <summary>Reverses the order of the elements in the specified range.</summary>
@@ -715,14 +952,19 @@ namespace Regen.DataTypes {
         /// <paramref name="count" /> is less than 0. </exception>
         /// <exception cref="T:System.ArgumentException">
         /// <paramref name="index" /> and <paramref name="count" /> do not denote a valid range of elements in the <see cref="T:System.Collections.Generic.List`1" />. </exception>
-        public void Reverse(int index, int count) {
+        public Array Reverse(int index, int count) {
+            if (index < 0)
+                index = Values.Count + index;
+
             Values.Reverse(index, count);
+            return this;
         }
 
         /// <summary>Sorts the elements in the entire <see cref="T:System.Collections.Generic.List`1" /> using the default comparer.</summary>
         /// <exception cref="T:System.InvalidOperationException">The default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" /> cannot find an implementation of the <see cref="T:System.IComparable`1" /> generic interface or the <see cref="T:System.IComparable" /> interface for type <paramref name="T" />.</exception>
-        public void Sort() {
+        public Array Sort() {
             Values.Sort();
+            return this;
         }
 
         /// <summary>Sorts the elements in a range of elements in <see cref="T:System.Collections.Generic.List`1" /> using the specified comparer.</summary>
@@ -736,8 +978,12 @@ namespace Regen.DataTypes {
         /// <paramref name="index" /> and <paramref name="count" /> do not specify a valid range in the <see cref="T:System.Collections.Generic.List`1" />.-or-The implementation of <paramref name="comparer" /> caused an error during the sort. For example, <paramref name="comparer" /> might not return 0 when comparing an item with itself.</exception>
         /// <exception cref="T:System.InvalidOperationException">
         /// <paramref name="comparer" /> is <see langword="null" />, and the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" /> cannot find implementation of the <see cref="T:System.IComparable`1" /> generic interface or the <see cref="T:System.IComparable" /> interface for type <paramref name="T" />.</exception>
-        public void Sort(int index, int count, IComparer<Data> comparer) {
+        public Array Sort(int index, int count, IComparer<Data> comparer) {
+            if (index < 0)
+                index = Values.Count + index;
+
             Values.Sort(index, count, comparer);
+            return this;
         }
 
         /// <summary>Sorts the elements in the entire <see cref="T:System.Collections.Generic.List`1" /> using the specified <see cref="T:System.Comparison`1" />.</summary>
@@ -745,8 +991,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.ArgumentNullException">
         /// <paramref name="comparison" /> is <see langword="null" />.</exception>
         /// <exception cref="T:System.ArgumentException">The implementation of <paramref name="comparison" /> caused an error during the sort. For example, <paramref name="comparison" /> might not return 0 when comparing an item with itself.</exception>
-        public void Sort(Comparison<Data> comparison) {
+        public Array Sort(Comparison<Data> comparison) {
             Values.Sort(comparison);
+            return this;
         }
 
         /// <summary>Sorts the elements in the entire <see cref="T:System.Collections.Generic.List`1" /> using the specified comparer.</summary>
@@ -754,8 +1001,9 @@ namespace Regen.DataTypes {
         /// <exception cref="T:System.InvalidOperationException">
         /// <paramref name="comparer" /> is <see langword="null" />, and the default comparer <see cref="P:System.Collections.Generic.Comparer`1.Default" /> cannot find implementation of the <see cref="T:System.IComparable`1" /> generic interface or the <see cref="T:System.IComparable" /> interface for type <paramref name="T" />.</exception>
         /// <exception cref="T:System.ArgumentException">The implementation of <paramref name="comparer" /> caused an error during the sort. For example, <paramref name="comparer" /> might not return 0 when comparing an item with itself.</exception>
-        public void Sort(IComparer<Data> comparer) {
+        public Array Sort(IComparer<Data> comparer) {
             Values.Sort(comparer);
+            return this;
         }
 
         /// <summary>Copies the elements of the <see cref="T:System.Collections.Generic.List`1" /> to a new array.</summary>
@@ -765,8 +1013,9 @@ namespace Regen.DataTypes {
         }
 
         /// <summary>Sets the capacity to the actual number of elements in the <see cref="T:System.Collections.Generic.List`1" />, if that number is less than a threshold value.</summary>
-        public void TrimExcess() {
+        public Array TrimExcess() {
             Values.TrimExcess();
+            return this;
         }
 
         /// <summary>Determines whether every element in the <see cref="T:System.Collections.Generic.List`1" /> matches the conditions defined by the specified predicate.</summary>
@@ -777,6 +1026,26 @@ namespace Regen.DataTypes {
         /// <paramref name="match" /> is <see langword="null" />.</exception>
         public bool TrueForAll(Predicate<Data> match) {
             return Values.TrueForAll(match);
+        }
+
+        void IList<Data>.Insert(int index, Data item) {
+            ((IList<Data>) Values).Insert(index, item);
+        }
+
+        void IList<Data>.RemoveAt(int index) {
+            ((IList<Data>) Values).RemoveAt(index);
+        }
+
+        void ICollection<Data>.Add(Data item) {
+            ((IList<Data>) Values).Add(item);
+        }
+
+        void ICollection<Data>.Clear() {
+            ((IList<Data>) Values).Clear();
+        }
+
+        void ICollection<Data>.CopyTo(Data[] array, int arrayIndex) {
+            ((IList<Data>) Values).CopyTo(array, arrayIndex);
         }
 
         #endregion

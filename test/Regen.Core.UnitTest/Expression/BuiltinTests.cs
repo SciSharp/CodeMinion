@@ -253,5 +253,17 @@ namespace Regen.Core.Tests.Expression {
               ";
             var ret = base.Compile(input).Output.Should().Contain("[kek0,0kek1,1kek2,2kek3,3kek4,4kek5,5kek6,6kek7,7kek8,8kek9,9kek10,10kek11,11kek12,12kek13,13kek14]");
         }
+
+        [TestMethod]
+        public void join_skiptake()
+        {
+            var @input = @"
+                %letters = [""a"",""b"",""c"",""d"",""e"",""f"",""g"",""h"",""i"",""j"",""k"",""l"",""m"",""n"",""o"",""p"",""q"",""r"",""s"",""t"",""u"",""v"",""w"",""x"",""y"",""z""]
+                %(join("" - "", skiptake(letters, 3, 2)))
+                ";
+
+            Compile(@input).Output.Should().Contain("d - e");
+        }
+
     }
 }
