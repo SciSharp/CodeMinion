@@ -3,9 +3,7 @@
 # CodeMinion
 A code generator framework written by the SciSharp team to generate the APIs of several SciSharp libraries. You code the intersting parts, the minion writes the rest for you.
 
-The framework consists of two different code generators:
-* **The Minion**
-* **Regen**
+The framework consists of code generator named **The Minion**.
 
 ## The Minion
 The Minion is capable of generating the source code of entire libraries from model definitions and is currently specialized on wrapping Python libraries using Pythonnet. The model definitions are usually harvested off of HTML documentation pages. 
@@ -23,15 +21,3 @@ Any help is appreciated. If you fix bugs or improve anything please send a PR.
 * Be sure not to make manual changes in generated files! Instead the generator has to be fixed
 * When changing the generator, generate the code for all generated projects (i.e. Numpy.NET and Torch.NET) and check the changes in the generated code (i.e. by looking over the git diff) to see that nothing broke. 
 * When you check in changes in the generator, please also check in the changes it has on the generated code.
-
-## Regen
-
-Regen is a template compiler allowing to expand in-line templates to be compiled into C# code and inserted into the same source file. It is mainly used to generate repetitive code - for instance the efficient handling of primitive types without boxing requires a branch for every type that executes the same operation. 
-
-Regen comes with a handy Visual Studio plugin which compiles embedded `regen-lang` templates in your C# source files. 
-
-Jump to [Regen's readme](https://github.com/SciSharp/CodeMinion/tree/master/src/Regen.Core).
-
-### Powered by Regen
-These libraries heavily rely on Regen:
-* [NumSharp](https://github.com/SciSharp/NumSharp)
