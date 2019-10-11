@@ -465,8 +465,7 @@ namespace CodeMinion.Core
                 s.Out($"return ToCsharp<{func.Returns[0].Type}>(py);");
             else
             {
-                s.Out($"var t = py as PyTuple;");
-                var returns = func.Returns.Select((x, i) => $"ToCsharp<{x.Type}>(t[{i}])").ToArray();
+                var returns = func.Returns.Select((x, i) => $"ToCsharp<{x.Type}>(py[{i}])").ToArray();
                 s.Out($"return ({string.Join(", ", returns)});");
             }
         }
