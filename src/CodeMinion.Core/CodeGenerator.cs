@@ -921,7 +921,6 @@ namespace CodeMinion.Core
                     {
                         if (UsePythonIncluded)
                         {
-                            s.Out("Installer = new Installer();");
                             s.Out("Installer.SetupPython(force).Wait();");
                         }
                         foreach (var generator in InitializationGenerators)

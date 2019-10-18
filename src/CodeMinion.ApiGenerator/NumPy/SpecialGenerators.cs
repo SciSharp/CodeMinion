@@ -7,7 +7,7 @@ namespace CodeMinion.ApiGenerator.NumPy
 
         public static void InitNumpyGenerator(CodeWriter s)
         {
-            s.Out("installer.InstallWheel(typeof(np).Assembly, \"numpy-1.16.3-cp37-cp37m-win_amd64.whl\").Wait();");
+            s.Out("Installer.InstallWheel(typeof(np).Assembly, \"numpy-1.16.3-cp37-cp37m-win_amd64.whl\").Wait();");
         }
 
         public static void ArrayToNDarrayConversion(CodeWriter s)
