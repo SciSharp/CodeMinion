@@ -825,6 +825,10 @@ namespace CodeMinion.ApiGenerator.NumPy
                     decl.Arguments.Add(new Argument(){ Name = "shape", Type = "int[]"});
                     decl.ManualOverride = true;
                     break;
+                case "take_along_axis":
+                    decl.Returns.Clear();
+                    decl.Returns.Add(new Argument() { Type = "NDarray", Name = "array", IsReturnValue = true });
+                    break;
             }
         }
 
