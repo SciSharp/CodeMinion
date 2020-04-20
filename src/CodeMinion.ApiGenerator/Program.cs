@@ -13,7 +13,8 @@ namespace CodeMinion.ApiGenerator
             switch (args[0].ToLower())
             {
                 case "numpy":
-                    generator = new NumPy.ApiGenerator();
+                    //generator = new NumPy.ApiGenerator();
+                    throw new NotSupportedException("The Numpy API generator has been moved to the Numpy.NET repository");
                     break;
                 case "torch":
                     generator = new PyTorch.ApiGenerator();

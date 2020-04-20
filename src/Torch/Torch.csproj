@@ -8,10 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Numpy.Bare\Numpy.Bare.csproj" />
+    <PackageReference Include="Numpy.Bare" Version="3.7.1.13" />
   </ItemGroup>
 
 </Project>

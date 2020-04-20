@@ -1,4 +1,1 @@
-﻿# NumPy
-### NumPy is the fundamental package for scientific computing with Python.
-
-https://www.numpy.org
+﻿Note: the Numpy generator has been moved to the Numpy.NET project.

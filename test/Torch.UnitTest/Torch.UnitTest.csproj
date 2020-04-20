@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Numpy.Bare\Numpy.Bare.csproj" />
     <ProjectReference Include="..\..\src\Torch\Torch.csproj" />
   </ItemGroup>
 
