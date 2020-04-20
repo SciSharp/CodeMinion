@@ -11,6 +11,9 @@ namespace Numpy
 {
     public partial class NDarray : PythonObject
     {
+        // this is needed for constructors in  NDarray<T>
+        protected NDarray() : base() { }
+
         // these are manual overrides of functions or properties that can not be automatically generated
 
         public NDarray(PyObject pyobj) : base(pyobj)
@@ -19,6 +22,20 @@ namespace Numpy
 
         public NDarray(NDarray t) : base((PyObject) t.PyObject)
         {
+        }
+
+        /// <summary>
+        /// Creates an array from an unmanaged (or fixed) memory pointer without copying.
+        /// </summary>
+        /// <param name="dataPtr">Pointer to a block of unmanaged memory or to a block of pinned managed memory</param>
+        /// <param name="dataLength">The length of the block of memory in bytes</param>
+        /// <param name="dtype">The data type of the resulting NDarray</param>
+        public NDarray(IntPtr dataPtr, long dataLength, Dtype dtype) : base()
+        {
+            // adapted from https://pastebin.com/4hANmBNy
+            // thanks to Eli Belash
+            var g = (Numpy.ctypes.dynamic_self.c_uint8 * dataLength).from_address(dataPtr.ToInt64());
+            self = np.dynamic_self.frombuffer(g, dtype.PyObject, -1);
         }
 
         /// <summary>
