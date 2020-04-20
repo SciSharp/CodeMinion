@@ -1060,6 +1060,19 @@ namespace CodeMinion.ApiGenerator.NumPy
                         f.Returns[0].Type = "float";
                     });
                     yield break;
+                case "where":
+                {
+                    decl["condition"].Type = "NDarray";
+                    decl["x"].Type = "NDarray";
+                    decl["y"].Type = "NDarray";
+                    yield return decl;
+                    yield return decl.Clone(f =>
+                    {
+                        f.Arguments.RemoveAt(2);
+                        f.Arguments.RemoveAt(1);
+                    });
+                }
+                    yield break;
             }
             // without args we don't need to consider possible overloads
             if (decl.Arguments.Count == 0)
