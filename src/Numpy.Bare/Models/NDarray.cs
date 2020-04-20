@@ -504,6 +504,12 @@ namespace Numpy
         {
         }
 
+        public NDarray(T[] array) : base()
+        {
+            var nd = np.array(array);
+            self = nd.self;
+        }
+
         /// <summary>
         /// Returns a copy of the array data
         /// </summary>
