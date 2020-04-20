@@ -433,7 +433,7 @@ namespace Numpy.UnitTest
             //>>> b
             //(array([4, 5], dtype = int64),)
             var a = np.array(new[] { 1, 2, 3, 4, 0, 0, 1, 2 });
-            var b = np.@where(a.equals(0));
+            var b = np.where(a.equals(0));
             Assert.AreEqual("(array([4, 5], dtype=int64),)", b.repr);
         }
 
