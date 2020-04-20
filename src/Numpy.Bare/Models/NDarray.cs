@@ -482,6 +482,16 @@ namespace Numpy
         {
             return np.asscalar<T>(this);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            var array = obj as NDarray;
+            if (!object.ReferenceEquals(array, null))
+                return np.array_equal(this, array);
+            return base.Equals(obj);
+        }
     }
 
     public class NDarray<T> : NDarray
